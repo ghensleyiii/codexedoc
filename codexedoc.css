@@ -100,13 +100,16 @@ header a.logo-link:active .logo {
 }
 
 .game-button {
-  padding: 8px 12px;
+  padding: 8px 8px;
   margin-left: 5px;
   background-color: #96f755;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  text-decoration: none;
+  font-family: Tahoma, sans-serif;
+  font-weight: bold;
 }
 
 .game-button:hover {
