@@ -19,6 +19,311 @@
           <a href="game.html">PLAY CODEXEDOC GAME</a>
 	  </div>
     </header>
+    <style>
+    /* Set up the basic body styling with a black background and centered content */
+    body {
+        margin: 0;
+        overflow: hidden;
+        background: black;
+        font-family: 'Tahoma', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    
+    /* Define the main game container dimensions and positioning */
+    #gameContainer {
+        position: relative;
+        width: 800px;
+        height: 600px;
+        overflow: hidden;
+    }
+
+    /* Style the Matrix-like background effect */
+    #matrix-bg {
+        position: absolute;
+        width: 800px;
+        height: 600px;
+        color: gray;
+        font-size: 20px;
+        font-family: 'Tahoma', sans-serif;
+        pointer-events: none;
+        opacity: 0.5;
+        z-index: 1;
+    }
+
+    /* Position and style the score display */
+    #score {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 24px;
+        font-family: 'Tahoma', sans-serif;
+        z-index: 3;
+    }
+
+    /* Style and position the start button */
+    #startButton {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 15px;
+        font-size: 18px;
+        font-family: 'Tahoma', sans-serif;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    /* Style the instruction text */
+    #instructions {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 20px;
+        font-family: 'Tahoma', sans-serif;
+        text-align: center;
+        z-index: 3;
+    }
+
+    /* Base styling for all falling emojis */
+    .emoji {
+        position: absolute;
+        font-size: 32px;
+        transition: all 0.1s linear;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        z-index: 2;
+    }
+
+    /* Specific color classes for different game elements */
+    .blue-gear { color: blue; }
+    .green-gear { color: green; }
+    .paper { color: white; }
+    .warning { color: red; }
+    .player { color: white; }
+
+    /* Instruction-specific styling */
+    .instructions-blue-gear { color: blue; }
+    .instructions-green-gear { color: green; }
+    .instructions-paper { color: white; }
+    .instructions-warning { color: red; }
+</style>
+</head>
+<body>
+    <!-- Main game container -->
+    <div id="gameContainer">
+        <!-- Background matrix effect container -->
+        <div id="matrix-bg"></div>
+        <!-- Score display -->
+        <div id="score">SCORE: 0</div>
+        <!-- Start button -->
+        <button id="startButton">START CODING</button>
+        <!-- Game instructions -->
+        <div id="instructions">
+            INSTRUCTIONS<br>
+            Use Arrow Keys to Move 💻<br>
+            Collect <span class="instructions-blue-gear">⚙</span> (1pt), 
+            <span class="instructions-green-gear">⚙</span> (1pt) and 
+            <span class="instructions-paper">📄</span> (2pts)<br>
+            Avoid <span class="instructions-warning">⚠</span> or Game Over
+        </div>
+    </div>
+
+    <script>
+        // Get references to DOM elements
+        const gameContainer = document.getElementById('gameContainer');
+        const matrixBg = document.getElementById('matrix-bg');
+        const scoreDisplay = document.getElementById('score');
+        const startButton = document.getElementById('startButton');
+        const instructions = document.getElementById('instructions');
+
+        // Declare game variables
+        let player, score, gameSpeed, gameActive, fallingEmojis;
+        
+        // Initialize the game
+        function initGame() {
+            // Set up player object
+            player = {
+                x: 400,
+                y: 540,
+                speed: 30,
+                element: document.createElement('div')
+            };
+            player.element.className = 'emoji player';
+            player.element.textContent = '💻';
+            gameContainer.appendChild(player.element);
+            player.element.style.left = player.x + 'px';
+            player.element.style.top = player.y + 'px';
+
+            // Initialize game state
+            score = 0;
+            gameSpeed = 1;
+            gameActive = true;
+            fallingEmojis = [];
+            
+            // Reset display elements
+            scoreDisplay.textContent = 'SCORE: 0';
+            startButton.style.display = 'none';
+            instructions.style.display = 'none';
+            
+            // Start game processes
+            spawnEmoji();
+            gameLoop();
+            matrixRain();
+        }
+
+        // Create the Matrix rain effect
+        function matrixRain() {
+            let drops = [];
+            // Initialize drop positions
+            for(let i = 0; i < 50; i++) {
+                drops[i] = Math.random() * 600;
+            }
+            
+            // Update rain effect every 100ms
+            setInterval(() => {
+                matrixBg.innerHTML = '';
+                for(let i = 0; i < drops.length; i++) {
+                    let text = '';
+                    // Generate random binary string
+                    for(let j = 0; j < 20; j++) {
+                        text += Math.round(Math.random());
+                    }
+                    // Create and position each column
+                    let span = document.createElement('span');
+                    span.textContent = text;
+                    span.style.position = 'absolute';
+                    span.style.left = i * 16 + 'px';
+                    span.style.top = drops[i] + 'px';
+                    matrixBg.appendChild(span);
+                    // Update drop position
+                    drops[i] += 20;
+                    if(drops[i] > 600) drops[i] = -400;
+                }
+            }, 100);
+        }
+
+        // Handle player movement
+        document.addEventListener('keydown', (e) => {
+            if(!gameActive) return;
+            switch(e.key) {
+                case 'ArrowLeft': 
+                    player.x = Math.max(0, player.x - player.speed);
+                    break;
+                case 'ArrowRight': 
+                    player.x = Math.min(800, player.x + player.speed);
+                    break;
+                case 'ArrowUp': 
+                    player.y = Math.max(0, player.y - player.speed);
+                    break;
+                case 'ArrowDown': 
+                    player.y = Math.min(600, player.y + player.speed);
+                    break;
+            }
+            // Update player position
+            player.element.style.left = player.x + 'px';
+            player.element.style.top = player.y + 'px';
+        });
+
+        // Spawn new falling emojis
+        function spawnEmoji() {
+            if(!gameActive) return;
+            const emoji = {
+                x: Math.random() * 760,
+                y: -40,
+                type: null,
+                className: null,
+                element: document.createElement('div')
+            };
+
+            // Determine emoji type based on random chance
+            const rand = Math.random();
+            if (rand < 0.15) {  // 15% chance for blue gear
+                emoji.type = '⚙';
+                emoji.className = 'blue-gear';
+            } else if (rand < 0.3) {  // 15% chance for green gear
+                emoji.type = '⚙';
+                emoji.className = 'green-gear';
+            } else if (rand < 0.9) {  // 60% chance for warning
+                emoji.type = '⚠';
+                emoji.className = 'warning';
+            } else {  // 10% chance for paper
+                emoji.type = '📄';
+                emoji.className = 'paper';
+            }
+
+            // Create and add emoji to game
+            emoji.element.className = 'emoji ' + emoji.className;
+            emoji.element.textContent = emoji.type;
+            gameContainer.appendChild(emoji.element);
+            fallingEmojis.push(emoji);
+            
+            // Schedule next spawn
+            setTimeout(spawnEmoji, 1000 / gameSpeed);
+        }
+
+        // Update game state each frame
+        function updateGame() {
+            // Increase speed with score
+            gameSpeed = 1 + score/20;
+            
+            fallingEmojis.forEach((emoji, index) => {
+                // Update emoji position
+                emoji.y += gameSpeed;
+                emoji.element.style.left = emoji.x + 'px';
+                emoji.element.style.top = emoji.y + 'px';
+
+                // Check for collision with player
+                if(Math.abs(emoji.x - player.x) < 30 && Math.abs(emoji.y - player.y) < 30) {
+                    if(emoji.type === '⚠') {
+                        endGame();
+                    } else {
+                        // Update score based on collected item
+                        score += emoji.type === '📄' ? 2 : 1;
+                        scoreDisplay.textContent = 'SCORE: ' + score;
+                        gameContainer.removeChild(emoji.element);
+                        fallingEmojis.splice(index, 1);
+                    }
+                }
+
+                // Remove emojis that fall off screen
+                if(emoji.y > 600) {
+                    gameContainer.removeChild(emoji.element);
+                    fallingEmojis.splice(index, 1);
+                }
+            });
+        }
+
+        // End the game
+        function endGame() {
+            gameActive = false;
+            startButton.style.display = 'block';
+            
+            // Clean up falling emojis
+            fallingEmojis.forEach(emoji => gameContainer.removeChild(emoji.element));
+            fallingEmojis = [];
+            gameContainer.removeChild(player.element);
+        }
+
+        // Main game loop
+        function gameLoop() {
+            if(gameActive) {
+                updateGame();
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        // Start game on button click
+        startButton.addEventListener('click', initGame);
+    </script>
     <footer>
       <div class="footer-content">
         <div class="footer-name">CODEXEDOC</div>
