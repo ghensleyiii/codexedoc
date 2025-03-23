@@ -99,22 +99,7 @@ header a.logo-link:active .logo {
   margin-bottom: 30px;
 }
 
-.search {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0.625rem; 
-  flex-shrink: 1;
-  min-width: 0;
-}
-
-.search-bar {
-  padding: 0.5rem;
-  width: clamp(100px, 20vw, 200px);
-  border: 1.5px solid #00b3ff;
-  border-radius: 4px;
-}
-
-button {
+.game-button {
   padding: 8px 12px;
   margin-left: 5px;
   background-color: #96f755;
@@ -124,7 +109,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.game-button:hover {
   background-color: #00b3ff;
 }
 
