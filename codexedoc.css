@@ -50,7 +50,12 @@ header a.logo-link:active .logo {
   text-decoration: none;
 }
 
-.logoimg, .featureimg {
+.logoimg {
+  width: 100px;
+  height: 100px;
+}
+
+.featureimg {
   width: 100px;
   height: 100px;
 }
