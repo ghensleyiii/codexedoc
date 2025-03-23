@@ -6,7 +6,7 @@
     <title>CODEXEDOC</title>
     <link rel="stylesheet" href="codexedoc.css">
     <style>
-    /* Basic body styling */
+    /* Basic body styling with flex column layout */
     body {
         margin: 0;
         overflow: hidden;
@@ -15,48 +15,47 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
     }
     
-    /* Make game container responsive */
+    /* Game container remains responsive */
     #gameContainer {
         position: relative;
-        width: 80vw; /* 80% of viewport width */
-        height: 60vh; /* 60% of viewport height */
-        max-width: 800px; /* Maximum size */
-        max-height: 600px; /* Maximum size */
+        width: 80vw;
+        height: 60vh;
+        max-width: 800px;
+        max-height: 600px;
         overflow: hidden;
         margin: auto;
+        flex-grow: 1; /* Allows container to take available space */
     }
 
-    /* Adjust matrix background to container size */
+    /* Matrix background adjusts to container */
     #matrix-bg {
         position: absolute;
         width: 100%;
         height: 100%;
         color: gray;
-        font-size: clamp(12px, 2.5vw, 20px); /* Responsive font size */
+        font-size: clamp(12px, 2.5vw, 20px);
         font-family: 'Tahoma', sans-serif;
         pointer-events: none;
         opacity: 0.5;
         z-index: 1;
     }
 
-    /* Position and style the score display */
+    /* Score display positioning */
     #score {
         position: absolute;
-        bottom: 2vh; /* Relative to viewport height */
+        bottom: 2vh;
         left: 50%;
         transform: translateX(-50%);
         color: white;
-        font-size: clamp(16px, 3vw, 24px); /* Responsive font size */
+        font-size: clamp(16px, 3vw, 24px);
         font-family: 'Tahoma', sans-serif;
         z-index: 3;
-        display: block; /* Ensure visibility */
+        display: block;
     }
 
-    /* Responsive start button */
+    /* Start button styling */
     #startButton {
         position: absolute;
         top: 2vh;
@@ -69,7 +68,7 @@
         z-index: 3;
     }
 
-    /* Responsive leaderboard */
+    /* Leaderboard styling */
     #leaderboard {
         position: absolute;
         top: 50%;
@@ -103,7 +102,7 @@
         cursor: pointer;
     }
 
-    /* Responsive instructions */
+    /* Instructions styling */
     #instructions {
         position: absolute;
         top: 50%;
@@ -116,7 +115,7 @@
         z-index: 3;
     }
 
-    /* Responsive emoji sizing */
+    /* Emoji sizing */
     .emoji {
         position: absolute;
         font-size: clamp(20px, 4vw, 32px);
@@ -128,7 +127,7 @@
         z-index: 2;
     }
 
-    /* Color classes remain unchanged */
+    /* Color classes */
     .blue-gear { color: blue; }
     .green-gear { color: green; }
     .paper { color: white; }
@@ -138,6 +137,38 @@
     .instructions-green-gear { color: green; }
     .instructions-paper { color: white; }
     .instructions-warning { color: red; }
+
+    /* Full-width footer */
+    footer {
+        width: 100%;
+        background: black;
+        color: white;
+        padding: 1rem 0;
+        position: relative;
+        bottom: 0;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .footer-name, .footer-copyright, .footer-contact {
+        font-size: clamp(12px, 1.5vw, 16px);
+    }
+
+    .footer-contact a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .footer-contact a:hover {
+        text-decoration: underline;
+    }
     </style>
   </head>
   <body>
@@ -169,6 +200,16 @@
         </div>
     </div>
 
+    <footer>
+      <div class="footer-content">
+        <div class="footer-name">CODEXEDOC</div>
+        <div class="footer-copyright">Copyright © 2025 CODEXEDOC. All Rights Reserved.</div>
+        <div class="footer-contact">
+          <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a>
+        </div>
+      </div>
+    </footer>
+
     <script>
         const gameContainer = document.getElementById('gameContainer');
         const matrixBg = document.getElementById('matrix-bg');
@@ -180,14 +221,13 @@
         let player, score, gameSpeed, gameActive, fallingEmojis, highScores;
         
         function initGame() {
-            // Get current container dimensions
             const containerWidth = gameContainer.offsetWidth;
             const containerHeight = gameContainer.offsetHeight;
 
             player = {
                 x: containerWidth / 2,
                 y: containerHeight - 60,
-                speed: containerWidth / 26, // Relative to container size
+                speed: containerWidth / 26,
                 element: document.createElement('div')
             };
             player.element.className = 'emoji player';
@@ -202,7 +242,7 @@
             fallingEmojis = [];
             highScores = JSON.parse(localStorage.getItem('highScores')) || [];
             
-            scoreDisplay.style.display = 'block'; // Ensure score is visible
+            scoreDisplay.style.display = 'block';
             scoreDisplay.textContent = 'SCORE: 0';
             leaderboardDisplay.style.display = 'none';
             startButton.style.display = 'none';
@@ -377,7 +417,6 @@
 
         startButton.addEventListener('click', initGame);
 
-        // Update layout on window resize
         window.addEventListener('resize', () => {
             if (gameActive) {
                 const containerWidth = gameContainer.offsetWidth;
@@ -389,15 +428,5 @@
             }
         });
     </script>
-
-    <footer>
-      <div class="footer-content">
-        <div class="footer-name">CODEXEDOC</div>
-        <div class="footer-copyright">Copyright © 2025 CODEXEDOC. All Rights Reserved.</div>
-        <div class="footer-contact">
-          <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a>
-        </div>
-      </div>
-    </footer>
   </body>
 </html>
