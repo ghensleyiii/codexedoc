@@ -57,6 +57,11 @@ header a.logo-link:active .logo {
   text-decoration: none;
 }
 
+.imglogo {
+  Width: 100px;
+  height: 100px;
+}
+
 .main-nav {
   display: flex;
   justify-content: center;
