@@ -60,6 +60,8 @@ header a.logo-link:active .logo {
 .image-protect {
   position: relative;
   display: inline-block;
+  width: 100px;
+  height: 100px;
 }
 
 /* Transparent overlay to block direct interaction */
