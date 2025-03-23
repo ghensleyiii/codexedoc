@@ -86,13 +86,13 @@ header a.logo-link:active .logo {
 
 .hero h1 {
   font-size: 48px;
-  color: white;
+  color: #0f1e27;
   margin-bottom: 20px;
 }
 
 .hero p {
   font-size: 20px;
-  color: white;
+  color: #0f1e27;
   margin-bottom: 30px;
 }
 
@@ -133,7 +133,7 @@ button:hover {
 
 .features h2 {
   font-size: 36px;
-  color: white;
+  color: #0f1e27;
   margin-bottom: 40px;
 }
 
@@ -153,13 +153,13 @@ button:hover {
 
 .feature h3 {
   font-size: 24px;
-  color: white;
+  color: #0f1e27;
   margin-bottom: 10px;
 }
 
 .feature p {
   font-size: 16px;
-  color: white;
+  color: #0f1e27;
 }
 
 footer {
