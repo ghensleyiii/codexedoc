@@ -12,37 +12,34 @@ body {
 
 header {
   background-color: #0f1e27;
-  padding: 1rem; /* Changed from 20px */
+  padding: 1rem;
   display: flex;
-  flex-wrap: wrap; /* Added */
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  box-sizing: border-box; /* Added */
+  box-sizing: border-box;
 }
 
 .logo {
-  font-size: clamp(1.5rem, 4vw, 1.875rem); /* Responsive font size */
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
   color: #00b3ff;
   font-family: Tahoma, sans-serif;
   font-weight: bold;
-  padding-right: 1.5rem; /* Changed from 30px */
-  flex-shrink: 0; /* Added */
+  padding-right: 1.5rem;
+  flex-shrink: 0;
 }
 
-/* Style the anchor tag containing the logo and remove default link styles */
 header a.logo-link {
   text-decoration: none;
   color: #00b3ff;
 }
 
-/* Ensure the logo div inside the anchor stays consistent */
 header a.logo-link .logo {
   color: #00b3ff;
   text-decoration: none;
 }
 
-/* Remove hover, visited, and active effects from the logo link */
 header a.logo-link:hover,
 header a.logo-link:visited,
 header a.logo-link:active {
@@ -57,11 +54,7 @@ header a.logo-link:active .logo {
   text-decoration: none;
 }
 
-/* Transparent overlay to block direct interaction */
 .logoimg {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
 }
@@ -69,9 +62,9 @@ header a.logo-link:active .logo {
 .main-nav {
   display: flex;
   justify-content: center;
-  gap: 1.5rem; /* Changed from 30px */
-  flex-grow: 1; /* Added */
-  flex-wrap: wrap; /* Added */
+  gap: 1.5rem;
+  flex-grow: 1;
+  flex-wrap: wrap;
 }
 
 .main-nav a {
@@ -108,14 +101,14 @@ header a.logo-link:active .logo {
 .search {
   display: flex;
   justify-content: flex-end;
-  padding: 0.625rem; /* Changed from 10px */
-  flex-shrink: 1; /* Added */
-  min-width: 0; /* Added */
+  padding: 0.625rem; 
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .search-bar {
-  padding: 0.5rem; /* Changed from 8px */
-  width: clamp(100px, 20vw, 200px); /* Responsive width */
+  padding: 0.5rem;
+  width: clamp(100px, 20vw, 200px);
   border: 1.5px solid #00b3ff;
   border-radius: 4px;
 }
@@ -199,7 +192,6 @@ footer {
   color: #00b3ff;
 }
 
-/* Media queries for responsiveness */
 @media screen and (max-width: 768px) {
   header {
     flex-direction: column;
