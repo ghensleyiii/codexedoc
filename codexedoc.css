@@ -12,22 +12,24 @@ body {
 
 header {
   background-color: #0f1e27;
-  padding: 1rem; /* Changed from 20px */
+  padding: 1rem;
   display: flex;
-  flex-wrap: wrap; /* Added */
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  box-sizing: border-box; /* Added */
+  box-sizing: border-box;
+  gap: 1rem; /* Added for spacing between stacked items */
 }
 
 .logo {
-  font-size: clamp(1.5rem, 4vw, 1.875rem); /* Responsive font size */
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
   color: #00c6af;
   font-family: Tahoma, sans-serif;
   font-weight: bold;
-  padding-right: 1.5rem; /* Changed from 30px */
-  flex-shrink: 0; /* Added */
+  padding-right: 1.5rem;
+  flex-shrink: 0;
+  flex-basis: auto; /* Added */
 }
 
 /* Style the anchor tag containing the logo and remove default link styles */
@@ -60,9 +62,11 @@ header a.logo-link:active .logo {
 .main-nav {
   display: flex;
   justify-content: center;
-  gap: 1.5rem; /* Changed from 30px */
-  flex-grow: 1; /* Added */
-  flex-wrap: wrap; /* Added */
+  gap: 1.5rem;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  flex-basis: 100%; /* Added to force stacking */
+  max-width: 100%; /* Added to prevent overflow */
 }
 
 .main-nav a {
@@ -99,16 +103,19 @@ header a.logo-link:active .logo {
 .search {
   display: flex;
   justify-content: flex-end;
-  padding: 0.625rem; /* Changed from 10px */
-  flex-shrink: 1; /* Added */
-  min-width: 0; /* Added */
+  padding: 0.625rem;
+  flex-shrink: 1;
+  min-width: 0;
+  flex-basis: auto; /* Added */
+  max-width: 100%; /* Added to prevent overflow */
 }
 
 .search-bar {
-  padding: 0.5rem; /* Changed from 8px */
-  width: clamp(100px, 20vw, 200px); /* Responsive width */
+  padding: 0.5rem;
+  width: clamp(100px, 20vw, 200px);
   border: 1.5px solid #00c6af;
   border-radius: 4px;
+  max-width: 100%; /* Added */
 }
 
 button {
@@ -190,14 +197,17 @@ footer {
   color: #00c6af;
 }
 
-/* Media queries for responsiveness */
+/* Updated media queries */
 @media screen and (max-width: 768px) {
   header {
     flex-direction: column;
     padding: 0.5rem;
+    align-items: stretch; /* Added */
   }
 
   .main-nav {
+    flex-basis: 100%;
+    justify-content: center;
     margin: 0.5rem 0;
     gap: 1rem;
   }
@@ -209,7 +219,7 @@ footer {
   }
 
   .search-bar {
-    width: 80%;
+    width: 100%;
     max-width: 300px;
   }
 }
@@ -220,6 +230,7 @@ footer {
   }
   
   .logo {
-    padding-right: 0.5rem;
+    padding-right: 0;
+    text-align: center; /* Added */
   }
 }
