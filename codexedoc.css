@@ -57,9 +57,25 @@ header a.logo-link:active .logo {
   text-decoration: none;
 }
 
-.imglogo {
-  Width: 100px;
-  height: 100px;
+.image-protect {
+  position: relative;
+  display: inline-block;
+}
+
+/* Transparent overlay to block direct interaction */
+.image-protect div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Optional: Basic image styling */
+.image-protect img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 .main-nav {
