@@ -26,7 +26,7 @@
         max-height: 600px;
         overflow: hidden;
         margin: auto;
-        flex-grow: 1; /* Allows container to take available space */
+        flex-grow: 1;
     }
 
     /* Matrix background adjusts to container */
@@ -53,6 +53,27 @@
         font-family: 'Tahoma', sans-serif;
         z-index: 3;
         display: block;
+    }
+
+    /* Arrow buttons */
+    .arrow-button {
+        position: absolute;
+        bottom: 2vh;
+        color: white;
+        font-size: clamp(16px, 3vw, 24px);
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 3;
+        padding: 0 10px;
+    }
+
+    #leftArrow {
+        right: calc(50% + clamp(40px, 8vw, 60px));
+    }
+
+    #rightArrow {
+        left: calc(50% + clamp(40px, 8vw, 60px));
     }
 
     /* Start button styling */
@@ -187,12 +208,14 @@
 
     <div id="gameContainer">
         <div id="matrix-bg"></div>
+        <button id="leftArrow" class="arrow-button">◄</button>
         <div id="score">SCORE: 0</div>
+        <button id="rightArrow" class="arrow-button">►</button>
         <button id="startButton">START CODING</button>
         <div id="leaderboard"></div>
         <div id="instructions">
             INSTRUCTIONS<br>
-            Use Arrow Keys to Move 💻<br>
+            Use Arrow Keys or Buttons to Move 💻<br>
             Collect <span class="instructions-blue-gear">⚙</span> (1pt), 
             <span class="instructions-green-gear">⚙</span> (1pt) and 
             <span class="instructions-paper">📄</span> (2pts)<br>
@@ -217,6 +240,8 @@
         const startButton = document.getElementById('startButton');
         const leaderboardDisplay = document.getElementById('leaderboard');
         const instructions = document.getElementById('instructions');
+        const leftArrow = document.getElementById('leftArrow');
+        const rightArrow = document.getElementById('rightArrow');
 
         let player, score, gameSpeed, gameActive, fallingEmojis, highScores;
         
@@ -247,6 +272,8 @@
             leaderboardDisplay.style.display = 'none';
             startButton.style.display = 'none';
             instructions.style.display = 'none';
+            leftArrow.style.display = 'block';
+            rightArrow.style.display = 'block';
             
             spawnEmoji();
             gameLoop();
@@ -300,6 +327,45 @@
             player.element.style.left = player.x + 'px';
             player.element.style.top = player.y + 'px';
         });
+
+        leftArrow.addEventListener('click', () => {
+            if (!gameActive) return;
+            const containerWidth = gameContainer.offsetWidth;
+            player.x = Math.max(0, player.x - player.speed);
+            player.element.style.left = player.x + 'px';
+        });
+
+        rightArrow.addEventListener('click', () => {
+            if (!gameActive) return;
+            const containerWidth = gameContainer.offsetWidth;
+            player.x = Math.min(containerWidth - 32, player.x + player.speed);
+            player.element.style.left = player.x + 'px';
+        });
+
+        leftArrow.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (!gameActive) return;
+            const containerWidth = gameContainer.offsetWidth;
+            player.x = Math.max(0, player.x - player.speed);
+            player.element.style.left = player.x + 'px';
+        });
+
+        rightArrow.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (!gameActive) return;
+            const containerWidth = gameContainer.offsetWidth;
+            player.x = Math.min(containerWidth - 32, player.x + player.speed);
+            player.element.style.left = player.x + 'px';
+        });
+
+        function updateArrowVisibility() {
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            leftArrow.style.display = isMobile ? 'block' : 'none';
+            rightArrow.style.display = isMobile ? 'block' : 'none';
+        }
+
+        window.addEventListener('load', updateArrowVisibility);
+        window.addEventListener('resize', updateArrowVisibility);
 
         function spawnEmoji() {
             if(!gameActive) return;
@@ -406,6 +472,8 @@
             fallingEmojis.forEach(emoji => gameContainer.removeChild(emoji.element));
             fallingEmojis = [];
             gameContainer.removeChild(player.element);
+            leftArrow.style.display = 'none';
+            rightArrow.style.display = 'none';
         }
 
         function gameLoop() {
@@ -426,6 +494,7 @@
                 player.element.style.left = player.x + 'px';
                 player.element.style.top = player.y + 'px';
             }
+            updateArrowVisibility();
         });
     </script>
   </body>
