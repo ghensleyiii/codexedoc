@@ -177,6 +177,7 @@ footer {
 .footer-copyright {
   color: #96f755;
   font-family: Tahoma, sans-serif;
+  padding-right: 1.5rem;
 }
 
 .footer-contact a {
