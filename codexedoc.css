@@ -171,20 +171,24 @@ header a.logo-link:active .logo {
 .box {
   display: flex;        
   justify-content: center; 
+  flex: 1;
 } 
 
 .download-button {
-  width: 50px;
-  height: 25px;
+  width: 100px;
+  height: 30px;
   background-color: #96f755;
   border: 2px solid #0f1e27;
   padding: 5px;
   border-radius: 10px;
+  white-space: nowrap;
+  text-align: center;
 }
 
 h3 {
   margin: 0;              
-  text-align: center;      
+  text-align: center;
+  flex: 1;
 }
 
 /*Footer*/
