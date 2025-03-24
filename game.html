@@ -29,13 +29,14 @@
             align-items: center;
             min-height: 100vh;
             background: #000;
-            /* No overflow: hidden here, allowing page scrolling */
         }
 
-        /* Style the game container - removed semi-transparent background */
+        /* Style the game container - use relative units */
         #gameContainer {
-            width: 800px;
-            height: 600px;
+            width: 90vw; /* 90% of viewport width */
+            height: 70vh; /* 70% of viewport height */
+            max-width: 800px; /* Maximum size for larger screens */
+            max-height: 600px; /* Maximum size for larger screens */
             position: relative;
             overflow: hidden; /* Prevent scrolling within game area */
         }
@@ -45,9 +46,9 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            color: #0 Anglify0f0;
+            color: #0f0;
             font-family: monospace;
-            font-size: 20px;
+            font-size: calc(2vw + 10px); /* Scale font size with viewport */
             overflow: hidden;
         }
 
@@ -82,7 +83,7 @@
         /* Style buttons */
         button {
             padding: 10px 20px;
-            font-size: 18px;
+            font-size: calc(1vw + 12px); /* Scale button text */
             margin: 10px;
             cursor: pointer;
         }
@@ -96,12 +97,12 @@
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 20px;
+            font-size: calc(1.5vw + 10px); /* Scale score text */
         }
 
         #scoreLeftArrow, #scoreRightArrow {
             padding: 5px 10px;
-            font-size: 20px;
+            font-size: calc(1.5vw + 10px); /* Scale arrow size */
             background: rgba(0, 0, 0, 0.5);
             border: none;
             color: white;
@@ -115,13 +116,33 @@
         /* Style all game objects */
         .gameObject {
             position: absolute;
-            font-size: 30px;
+            font-size: calc(2vw + 15px); /* Scale game objects */
         }
 
         /* Style code symbols specifically with bold */
         .code {
             color: white;
-            font-weight: bold; /* Make code symbols bold */
+            font-weight: bold;
+        }
+
+        /* Adjustments for smaller screens */
+        @media (max-width: 600px) {
+            #gameContainer {
+                width: 95vw; /* Slightly wider on small screens */
+                height: 60vh; /* Slightly shorter on small screens */
+            }
+            .gameObject {
+                font-size: calc(3vw + 10px); /* Slightly larger relative size on mobile */
+            }
+            button {
+                padding: 8px 16px; /* Slightly smaller padding */
+            }
+            #scoreContainer {
+                bottom: 5px; /* Closer to bottom on small screens */
+            }
+            #scoreLeftArrow, #scoreRightArrow {
+                padding: 3px 8px; /* Smaller arrows on mobile */
+            }
         }
     </style>
 </head>
@@ -184,12 +205,14 @@
         function createMatrix() {
             matrixBg.innerHTML = ''; // Clear existing matrix
             updateBackgroundColors(); // Set initial colors
-            for (let i = 0; i < 50; i++) {
+            const containerWidth = container.offsetWidth;
+            const numSymbols = Math.floor(containerWidth / 20); // Adjust number of symbols based on width
+            for (let i = 0; i < numSymbols; i++) {
                 const span = document.createElement('span');
                 span.textContent = Math.random() > 0.5 ? '1' : '0'; // Random 1 or 0
                 span.style.position = 'absolute';
-                span.style.left = Math.random() * 800 + 'px'; // Random x position
-                span.style.top = Math.random() * 600 + 'px'; // Random starting y position
+                span.style.left = Math.random() * containerWidth + 'px'; // Random x position
+                span.style.top = Math.random() * container.offsetHeight + 'px'; // Random starting y position
                 span.style.animation = `fall ${Math.random() * 5 + 5}s linear infinite`; // Random fall speed
                 matrixBg.appendChild(span);
             }
@@ -207,14 +230,11 @@
                 document.body.style.background = '#96f755'; // Lime green for 125+
                 matrixBg.style.color = '#0f1e27'; // Dark blue-gray for 1s and 0s
             }
-            // Ensure container size remains fixed
-            container.style.width = '800px';
-            container.style.height = '600px';
         }
 
         // Define falling animation keyframes
         const styleSheet = document.createElement('style');
-        styleSheet.textContent = '@keyframes fall { 0% { transform: translateY(-600px); } 100% { transform: translateY(600px); } }';
+        styleSheet.textContent = '@keyframes fall { 0% { transform: translateY(-100vh); } 100% { transform: translateY(100vh); } }';
         document.head.appendChild(styleSheet);
 
         // Create the player (laptop) object
@@ -222,7 +242,8 @@
             laptop = document.createElement('div');
             laptop.className = 'gameObject';
             laptop.textContent = '💻';
-            laptop.style.left = '380px'; // Center horizontally
+            const containerWidth = container.offsetWidth;
+            laptop.style.left = (containerWidth / 2 - 15) + 'px'; // Center horizontally
             laptop.style.bottom = '50px'; // Near bottom of screen
             container.appendChild(laptop);
         }
@@ -256,7 +277,8 @@
             const obj = document.createElement('div');
             obj.className = `gameObject ${type}`;
             obj.textContent = emoji;
-            obj.style.left = Math.random() * 760 + 'px'; // Random x position
+            const containerWidth = container.offsetWidth;
+            obj.style.left = Math.random() * (containerWidth - 30) + 'px'; // Random x position within bounds
             obj.style.top = '-30px'; // Start above screen
             obj.points = points; // Store points value
             container.appendChild(obj);
@@ -267,13 +289,16 @@
         function gameLoop() {
             if (!gameActive) return;
 
+            const containerHeight = container.offsetHeight;
+            const containerWidth = container.offsetWidth;
+
             gameObjects.forEach((obj, index) => {
                 let top = parseFloat(obj.style.top) || 0;
                 top += speed; // Move object down based on current speed
                 obj.style.top = top + 'px';
 
                 // Check if object is off screen
-                if (top > 600) {
+                if (top > containerHeight) {
                     container.removeChild(obj);
                     gameObjects.splice(index, 1);
                 } 
@@ -308,20 +333,22 @@
         let moveRight = false;
         function moveLaptop() {
             if (!gameActive) return;
+            const containerWidth = container.offsetWidth;
             let left = parseFloat(laptop.style.left);
             if (moveLeft && left > 0) left -= 5; // Move left if within bounds
-            if (moveRight && left < 760) left += 5; // Move right if within bounds
+            if (moveRight && left < containerWidth - 30) left += 5; // Move right if within bounds
             laptop.style.left = left + 'px';
             requestAnimationFrame(moveLaptop); // Smooth movement
         }
 
         // Keyboard controls
         document.addEventListener('keydown', (e) => {
+            const containerHeight = container.offsetHeight;
             switch(e.key) {
                 case 'ArrowLeft': moveLeft = true; break;
                 case 'ArrowRight': moveRight = true; break;
                 case 'ArrowUp': 
-                    if (parseFloat(laptop.style.bottom) < 550) 
+                    if (parseFloat(laptop.style.bottom) < containerHeight - 50) 
                         laptop.style.bottom = (parseFloat(laptop.style.bottom) + 5) + 'px'; 
                     break;
                 case 'ArrowDown': 
@@ -413,6 +440,17 @@
         // Set up event listeners for game controls
         startButton.addEventListener('click', startGame);
         restartButton.addEventListener('click', startGame);
+
+        // Adjust game on window resize
+        window.addEventListener('resize', () => {
+            if (gameActive) {
+                gameObjects.forEach(obj => container.removeChild(obj));
+                gameObjects = [];
+                container.removeChild(laptop);
+                createLaptop();
+                createMatrix();
+            }
+        });
     </script>
     <footer>
       <div class="footer-content">
