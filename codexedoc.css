@@ -172,11 +172,12 @@ header a.logo-link:active .logo {
   display: flex;        
   justify-content: center; 
   flex: 1;
+  border: 3px soild white;
 } 
 
 .download-button {
-  width: 100px;
-  height: 30px;
+  width: 300px;
+  height: 50px;
   background-color: #96f755;
   border: 2px solid #0f1e27;
   padding: 5px;
