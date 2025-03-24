@@ -6,496 +6,399 @@
     <title>CODEXEDOC</title>
     <link rel="stylesheet" href="codexedoc.css">
     <style>
-    /* Basic body styling with flex column layout */
-    body {
-        margin: 0;
-        overflow: hidden;
-        background: black;
-        font-family: 'Tahoma', sans-serif;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    /* Game container remains responsive */
-    #gameContainer {
-        position: relative;
-        width: 80vw;
-        height: 60vh;
-        max-width: 800px;
-        max-height: 600px;
-        overflow: hidden;
-        margin: auto;
-        flex-grow: 1;
-    }
+        /* Center the game container on the screen */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000;
+            overflow: hidden; /* Prevent scrolling */
+        }
 
-    /* Matrix background adjusts to container */
-    #matrix-bg {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        color: gray;
-        font-size: clamp(12px, 2.5vw, 20px);
-        font-family: 'Tahoma', sans-serif;
-        pointer-events: none;
-        opacity: 0.5;
-        z-index: 1;
-    }
+        /* Style the game container - removed semi-transparent background */
+        #gameContainer {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+            /* Removed: background: rgba(50, 50, 50, 0.5); */
+        }
 
-    /* Score display positioning */
-    #score {
-        position: absolute;
-        bottom: 2vh;
-        left: 50%;
-        transform: translateX(-50%);
-        color: white;
-        font-size: clamp(16px, 3vw, 24px);
-        font-family: 'Tahoma', sans-serif;
-        z-index: 3;
-        display: block;
-    }
+        /* Style the matrix background */
+        #matrixBg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 20px;
+            overflow: hidden;
+        }
 
-    /* Arrow buttons */
-    .arrow-button {
-        position: absolute;
-        bottom: 2vh;
-        color: white;
-        font-size: clamp(16px, 3vw, 24px);
-        background: none;
-        border: none;
-        cursor: pointer;
-        z-index: 3;
-        padding: 0 10px;
-    }
+        /* Style the start screen */
+        #startScreen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            z-index: 10;
+        }
 
-    #leftArrow {
-        right: calc(50% + clamp(40px, 8vw, 60px));
-    }
+        /* Style the game over screen */
+        #gameOverScreen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            z-index: 10;
+        }
 
-    #rightArrow {
-        left: calc(50% + clamp(40px, 8vw, 60px));
-    }
+        /* Style buttons */
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+        }
 
-    /* Start button styling */
-    #startButton {
-        position: absolute;
-        top: 2vh;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: clamp(5px, 1.5vw, 10px) clamp(10px, 2vw, 15px);
-        font-size: clamp(12px, 2vw, 18px);
-        font-family: 'Tahoma', sans-serif;
-        cursor: pointer;
-        z-index: 3;
-    }
+        /* Style mobile controls */
+        #mobileControls {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            display: none;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
 
-    /* Leaderboard styling */
-    #leaderboard {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: clamp(12px, 2.5vw, 20px);
-        font-family: 'Tahoma', sans-serif;
-        text-align: center;
-        display: none;
-        z-index: 3;
-    }
+        /* Style score display */
+        #score {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 20px;
+        }
 
-    #nameInput {
-        margin-top: 1vh;
-        padding: 0.5vh;
-        font-size: clamp(10px, 2vw, 16px);
-        font-family: 'Tahoma', sans-serif;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: clamp(100px, 20vw, 150px);
-        text-align: center;
-    }
+        /* Style all game objects */
+        .gameObject {
+            position: absolute;
+            font-size: 30px;
+        }
 
-    #submitName {
-        margin-top: 1vh;
-        padding: clamp(3px, 0.8vw, 5px) clamp(10px, 1.5vw, 15px);
-        font-size: clamp(10px, 2vw, 16px);
-        font-family: 'Tahoma', sans-serif;
-        cursor: pointer;
-    }
+        /* Style code symbols specifically with bold */
+        .code {
+            color: white;
+            font-weight: bold; /* Make code symbols bold */
+        }
 
-    /* Instructions styling */
-    #instructions {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: clamp(12px, 2.5vw, 20px);
-        font-family: 'Tahoma', sans-serif;
-        text-align: center;
-        z-index: 3;
-    }
-
-    /* Emoji sizing */
-    .emoji {
-        position: absolute;
-        font-size: clamp(20px, 4vw, 32px);
-        transition: all 0.1s linear;
-        width: clamp(20px, 4vw, 32px);
-        height: clamp(20px, 4vw, 32px);
-        line-height: clamp(20px, 4vw, 32px);
-        text-align: center;
-        z-index: 2;
-    }
-
-    /* Color classes */
-    .blue-gear { color: blue; }
-    .green-gear { color: green; }
-    .paper { color: white; }
-    .warning { color: red; }
-    .player { color: white; }
-    .instructions-blue-gear { color: blue; }
-    .instructions-green-gear { color: green; }
-    .instructions-paper { color: white; }
-    .instructions-warning { color: red; }
-
-    /* Full-width footer */
-    footer {
-        width: 100%;
-        background: #0f1e27;
-        color: white;
-        padding: 1rem 0;
-        position: relative;
-        bottom: 0;
-    }
-
-    .footer-content {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .footer-name, .footer-copyright, .footer-contact {
-        font-size: clamp(12px, 1.5vw, 16px);
-    }
-
-    .footer-contact a {
-        color: white;
-        text-decoration: none;
-    }
-
-    .footer-contact a:hover {
-        text-decoration: underline;
-    }
+        /* Media query for mobile devices */
+        @media (max-width: 800px) {
+            #mobileControls {
+                display: flex;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <header>
-      <img class="logoimg" src="https://ghensleyiii.github.io/codexedoc/logo.png" alt="codexedoc code laptop logo">
-      <a href="index.html" class="logo-link"><div class="logo">CODEXEDOC</div></a>
-      <nav class="main-nav">
-        <a href="validator.html">VALIDATOR</a>
-        <a href="guides.html">GUIDES</a>
-        <a href="academy.html">ACADEMY</a>
-      </nav>
-      <div class="game-button">
-          <a href="game.html">PLAY CODEXEDOC GAME</a>
-      </div>
-    </header>
-
+</head>
+<body>
     <div id="gameContainer">
-        <div id="matrix-bg"></div>
-        <button id="leftArrow" class="arrow-button">◄</button>
-        <div id="score">SCORE: 0</div>
-        <button id="rightArrow" class="arrow-button">►</button>
-        <button id="startButton">START CODING</button>
-        <div id="leaderboard"></div>
-        <div id="instructions">
-            INSTRUCTIONS<br>
-            Use Arrow Keys or Buttons to Move 💻<br>
-            Collect <span class="instructions-blue-gear">⚙</span> (1pt), 
-            <span class="instructions-green-gear">⚙</span> (1pt) and 
-            <span class="instructions-paper">📄</span> (2pts)<br>
-            Avoid <span class="instructions-warning">⚠</span> or Game Over
+        <!-- Matrix background container -->
+        <div id="matrixBg"></div>
+        
+        <!-- Start screen with instructions -->
+        <div id="startScreen">
+            <button id="startButton">START CODING</button>
+            <div style="max-width: 600px; text-align: center; padding: 20px;">
+                INSTRUCTIONS: Use arrow keys (⬆️⬇️⬅️➡️) or mobile controls to move the laptop (💻). 
+                Collect documents (📄 = 2 points), execute (⚙️ = 1 point), and code (</> = 1 point) 
+                while avoiding broken (⚠️). Speed increases every 15 seconds!
+            </div>
         </div>
+
+        <!-- Game over screen with leaderboard -->
+        <div id="gameOverScreen">
+            <h1>GAME OVER</h1>
+            <button id="restartButton">START CODING</button>
+            <div id="leaderboard"></div>
+            <div id="highScoreInput" style="display: none; margin-top: 20px;">
+                <div>INPUT ALIAS:</div>
+                <input type="text" id="aliasInput" maxlength="10" style="margin: 10px;">
+                <button id="submitScore">ENTER</button>
+            </div>
+        </div>
+
+        <!-- Mobile control buttons -->
+        <div id="mobileControls">
+            <button id="leftButton">⬅️</button>
+            <button id="rightButton">➡️</button>
+        </div>
+
+        <!-- Score display -->
+        <div id="score">SCORE: 0</div>
     </div>
 
-    <footer>
-      <div class="footer-content">
-        <div class="footer-name">CODEXEDOC</div>
-        <div class="footer-copyright">Copyright © 2025 CODEXEDOC. All Rights Reserved.</div>
-        <div class="footer-contact">
-          <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a>
-        </div>
-      </div>
-    </footer>
-
     <script>
-        const gameContainer = document.getElementById('gameContainer');
-        const matrixBg = document.getElementById('matrix-bg');
-        const scoreDisplay = document.getElementById('score');
+        // Core game elements
+        const container = document.getElementById('gameContainer');
+        const startScreen = document.getElementById('startScreen');
+        const gameOverScreen = document.getElementById('gameOverScreen');
         const startButton = document.getElementById('startButton');
-        const leaderboardDisplay = document.getElementById('leaderboard');
-        const instructions = document.getElementById('instructions');
-        const leftArrow = document.getElementById('leftArrow');
-        const rightArrow = document.getElementById('rightArrow');
-
-        let player, score, gameSpeed, gameActive, fallingEmojis, highScores;
+        const restartButton = document.getElementById('restartButton');
+        const scoreDisplay = document.getElementById('score');
+        const leftButton = document.getElementById('leftButton');
+        const rightButton = document.getElementById('rightButton');
+        const matrixBg = document.getElementById('matrixBg');
         
-        function initGame() {
-            const containerWidth = gameContainer.offsetWidth;
-            const containerHeight = gameContainer.offsetHeight;
+        // Game state variables
+        let laptop; // Player object
+        let gameObjects = []; // Array of falling objects
+        let score = 0; // Player's current score
+        let gameActive = false; // Game running state
+        let speed = 1; // Starting speed (slower initial value)
+        let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || []; // Persistent leaderboard
 
-            player = {
-                x: containerWidth / 2,
-                y: containerHeight - 60,
-                speed: containerWidth / 26,
-                element: document.createElement('div')
-            };
-            player.element.className = 'emoji player';
-            player.element.textContent = '💻';
-            gameContainer.appendChild(player.element);
-            player.element.style.left = player.x + 'px';
-            player.element.style.top = player.y + 'px';
-
-            score = 0;
-            gameSpeed = 1;
-            gameActive = true;
-            fallingEmojis = [];
-            highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-            
-            scoreDisplay.style.display = 'block';
-            scoreDisplay.textContent = 'SCORE: 0';
-            leaderboardDisplay.style.display = 'none';
-            startButton.style.display = 'none';
-            instructions.style.display = 'none';
-            leftArrow.style.display = 'block';
-            rightArrow.style.display = 'block';
-            
-            spawnEmoji();
-            gameLoop();
-            matrixRain();
-        }
-
-        function matrixRain() {
-            const containerWidth = gameContainer.offsetWidth;
-            let drops = [];
-            for(let i = 0; i < Math.floor(containerWidth / 16); i++) {
-                drops[i] = Math.random() * gameContainer.offsetHeight;
+        // Create Matrix-style background animation with dynamic colors
+        function createMatrix() {
+            matrixBg.innerHTML = ''; // Clear existing matrix
+            updateBackgroundColors(); // Set initial colors
+            for (let i = 0; i < 50; i++) {
+                const span = document.createElement('span');
+                span.textContent = Math.random() > 0.5 ? '1' : '0'; // Random 1 or 0
+                span.style.position = 'absolute';
+                span.style.left = Math.random() * 800 + 'px'; // Random x position
+                span.style.top = Math.random() * 600 + 'px'; // Random starting y position
+                span.style.animation = `fall ${Math.random() * 5 + 5}s linear infinite`; // Random fall speed
+                matrixBg.appendChild(span);
             }
-            
-            setInterval(() => {
-                matrixBg.innerHTML = '';
-                for(let i = 0; i < drops.length; i++) {
-                    let text = '';
-                    for(let j = 0; j < 20; j++) {
-                        text += Math.round(Math.random());
-                    }
-                    let span = document.createElement('span');
-                    span.textContent = text;
-                    span.style.position = 'absolute';
-                    span.style.left = i * 16 + 'px';
-                    span.style.top = drops[i] + 'px';
-                    matrixBg.appendChild(span);
-                    drops[i] += 20;
-                    if(drops[i] > gameContainer.offsetHeight) drops[i] = -400;
-                }
-            }, 100);
         }
 
+        // Update background and matrix colors based on score
+        function updateBackgroundColors() {
+            if (score <= 50) {
+                document.body.style.background = '#0f1e27'; // Dark blue-gray for 0-50
+                matrixBg.style.color = '#00b3ff'; // Light blue for 1s and 0s
+            } else if (score <= 125) { // Changed from 150 to 125
+                document.body.style.background = '#00b3ff'; // Light blue for 50-125
+                matrixBg.style.color = '#96f755'; // Lime green for 1s and 0s
+            } else {
+                document.body.style.background = '#96f755'; // Lime green for 125+
+                matrixBg.style.color = '#0f1e27'; // Dark blue-gray for 1s and 0s
+            }
+            // Ensure container size remains fixed
+            container.style.width = '800px';
+            container.style.height = '600px';
+        }
+
+        // Define falling animation keyframes
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = '@keyframes fall { 0% { transform: translateY(-600px); } 100% { transform: translateY(600px); } }';
+        document.head.appendChild(styleSheet);
+
+        // Create the player (laptop) object
+        function createLaptop() {
+            laptop = document.createElement('div');
+            laptop.className = 'gameObject';
+            laptop.textContent = '💻';
+            laptop.style.left = '380px'; // Center horizontally
+            laptop.style.bottom = '50px'; // Near bottom of screen
+            container.appendChild(laptop);
+        }
+
+        // Spawn new falling objects
+        function spawnObject() {
+            if (!gameActive) return; // Don't spawn if game isn't active
+            const rand = Math.random();
+            let emoji, type, points;
+            
+            // Determine object type based on random probability
+            if (rand < 0.5) { // 50% chance for broken
+                emoji = '⚠️';
+                type = 'broken';
+                points = 0;
+            } else if (rand < 0.6) { // 10% chance for document
+                emoji = '📄';
+                type = 'document';
+                points = 2;
+            } else if (rand < 0.8) { // 20% chance for execute
+                emoji = '⚙️';
+                type = 'execute';
+                points = 1;
+            } else { // 20% chance for code
+                emoji = '</>';
+                type = 'code';
+                points = 1;
+            }
+
+            // Create and position new object
+            const obj = document.createElement('div');
+            obj.className = `gameObject ${type}`;
+            obj.textContent = emoji;
+            obj.style.left = Math.random() * 760 + 'px'; // Random x position
+            obj.style.top = '-30px'; // Start above screen
+            obj.points = points; // Store points value
+            container.appendChild(obj);
+            gameObjects.push(obj);
+        }
+
+        // Main game loop handling object movement and collisions
+        function gameLoop() {
+            if (!gameActive) return;
+
+            gameObjects.forEach((obj, index) => {
+                let top = parseFloat(obj.style.top) || 0;
+                top += speed; // Move object down based on current speed
+                obj.style.top = top + 'px';
+
+                // Check if object is off screen
+                if (top > 600) {
+                    container.removeChild(obj);
+                    gameObjects.splice(index, 1);
+                } 
+                // Check for collision with laptop
+                else {
+                    const laptopRect = laptop.getBoundingClientRect();
+                    const objRect = obj.getBoundingClientRect();
+                    if (
+                        laptopRect.left < objRect.right &&
+                        laptopRect.right > objRect.left &&
+                        laptopRect.top < objRect.bottom &&
+                        laptopRect.bottom > objRect.top
+                    ) {
+                        if (obj.className.includes('broken')) {
+                            endGame(); // Hit broken object - game over
+                        } else {
+                            score += obj.points; // Add points for good objects
+                            scoreDisplay.textContent = `SCORE: ${score}`;
+                            updateBackgroundColors(); // Update colors when score changes
+                            container.removeChild(obj);
+                            gameObjects.splice(index, 1);
+                        }
+                    }
+                }
+            });
+
+            requestAnimationFrame(gameLoop); // Continue game loop
+        }
+
+        // Handle laptop movement
+        let moveLeft = false;
+        let moveRight = false;
+        function moveLaptop() {
+            if (!gameActive) return;
+            let left = parseFloat(laptop.style.left);
+            if (moveLeft && left > 0) left -= 5; // Move left if within bounds
+            if (moveRight && left < 760) left += 5; // Move right if within bounds
+            laptop.style.left = left + 'px';
+            requestAnimationFrame(moveLaptop); // Smooth movement
+        }
+
+        // Keyboard controls
         document.addEventListener('keydown', (e) => {
-            if(!gameActive) return;
-            const containerWidth = gameContainer.offsetWidth;
-            const containerHeight = gameContainer.offsetHeight;
             switch(e.key) {
-                case 'ArrowLeft': 
-                    player.x = Math.max(0, player.x - player.speed);
-                    break;
-                case 'ArrowRight': 
-                    player.x = Math.min(containerWidth - 32, player.x + player.speed);
-                    break;
+                case 'ArrowLeft': moveLeft = true; break;
+                case 'ArrowRight': moveRight = true; break;
                 case 'ArrowUp': 
-                    player.y = Math.max(0, player.y - player.speed);
+                    if (parseFloat(laptop.style.bottom) < 550) 
+                        laptop.style.bottom = (parseFloat(laptop.style.bottom) + 5) + 'px'; 
                     break;
                 case 'ArrowDown': 
-                    player.y = Math.min(containerHeight - 32, player.y + player.speed);
+                    if (parseFloat(laptop.style.bottom) > 50) 
+                        laptop.style.bottom = (parseFloat(laptop.style.bottom) - 5) + 'px'; 
                     break;
             }
-            player.element.style.left = player.x + 'px';
-            player.element.style.top = player.y + 'px';
         });
 
-        leftArrow.addEventListener('click', () => {
-            if (!gameActive) return;
-            const containerWidth = gameContainer.offsetWidth;
-            player.x = Math.max(0, player.x - player.speed);
-            player.element.style.left = player.x + 'px';
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft') moveLeft = false;
+            if (e.key === 'ArrowRight') moveRight = false;
         });
 
-        rightArrow.addEventListener('click', () => {
-            if (!gameActive) return;
-            const containerWidth = gameContainer.offsetWidth;
-            player.x = Math.min(containerWidth - 32, player.x + player.speed);
-            player.element.style.left = player.x + 'px';
-        });
+        // Mobile touch controls
+        leftButton.addEventListener('touchstart', () => moveLeft = true);
+        leftButton.addEventListener('touchend', () => moveLeft = false);
+        rightButton.addEventListener('touchstart', () => moveRight = true);
+        rightButton.addEventListener('touchend', () => moveRight = false);
 
-        leftArrow.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            if (!gameActive) return;
-            const containerWidth = gameContainer.offsetWidth;
-            player.x = Math.max(0, player.x - player.speed);
-            player.element.style.left = player.x + 'px';
-        });
-
-        rightArrow.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            if (!gameActive) return;
-            const containerWidth = gameContainer.offsetWidth;
-            player.x = Math.min(containerWidth - 32, player.x + player.speed);
-            player.element.style.left = player.x + 'px';
-        });
-
-        function updateArrowVisibility() {
-            const isMobile = window.matchMedia("(max-width: 768px)").matches;
-            leftArrow.style.display = isMobile ? 'block' : 'none';
-            rightArrow.style.display = isMobile ? 'block' : 'none';
+        // Start a new game
+        function startGame() {
+            gameActive = true;
+            startScreen.style.display = 'none';
+            gameOverScreen.style.display = 'none';
+            score = 0; // Reset score
+            scoreDisplay.textContent = `SCORE: ${score}`;
+            speed = 1; // Reset to slow initial speed
+            gameObjects.forEach(obj => container.removeChild(obj)); // Clear existing objects
+            gameObjects = [];
+            createLaptop(); // Create new player
+            createMatrix(); // Reset background with initial colors
+            // Clear any existing intervals and start new ones
+            clearInterval(window.spawnInterval);
+            clearInterval(window.speedInterval);
+            window.spawnInterval = setInterval(spawnObject, 1000); // Spawn objects every second
+            window.speedInterval = setInterval(() => speed += 0.5, 15000); // Increase speed every 15s
+            gameLoop(); // Start main loop
+            moveLaptop(); // Start movement
         }
 
-        window.addEventListener('load', updateArrowVisibility);
-        window.addEventListener('resize', updateArrowVisibility);
-
-        function spawnEmoji() {
-            if(!gameActive) return;
-            const containerWidth = gameContainer.offsetWidth;
-            const emoji = {
-                x: Math.random() * (containerWidth - 40),
-                y: -40,
-                type: null,
-                className: null,
-                element: document.createElement('div')
-            };
-
-            const rand = Math.random();
-            if (rand < 0.15) {
-                emoji.type = '⚙';
-                emoji.className = 'blue-gear';
-            } else if (rand < 0.3) {
-                emoji.type = '⚙';
-                emoji.className = 'green-gear';
-            } else if (rand < 0.9) {
-                emoji.type = '⚠';
-                emoji.className = 'warning';
-            } else {
-                emoji.type = '📄';
-                emoji.className = 'paper';
-            }
-
-            emoji.element.className = 'emoji ' + emoji.className;
-            emoji.element.textContent = emoji.type;
-            gameContainer.appendChild(emoji.element);
-            fallingEmojis.push(emoji);
-            
-            setTimeout(spawnEmoji, 1000 / gameSpeed);
-        }
-
-        function updateGame() {
-            const containerHeight = gameContainer.offsetHeight;
-            gameSpeed = 1 + score/20;
-            
-            fallingEmojis.forEach((emoji, index) => {
-                emoji.y += gameSpeed;
-                emoji.element.style.left = emoji.x + 'px';
-                emoji.element.style.top = emoji.y + 'px';
-
-                if(Math.abs(emoji.x - player.x) < 30 && Math.abs(emoji.y - player.y) < 30) {
-                    if(emoji.type === '⚠') {
-                        endGame();
-                    } else {
-                        score += emoji.type === '📄' ? 2 : 1;
-                        scoreDisplay.textContent = 'SCORE: ' + score;
-                        gameContainer.removeChild(emoji.element);
-                        fallingEmojis.splice(index, 1);
-                    }
-                }
-
-                if(emoji.y > containerHeight) {
-                    gameContainer.removeChild(emoji.element);
-                    fallingEmojis.splice(index, 1);
-                }
-            });
-        }
-
-        function showLeaderboard() {
-            let leaderboardHTML = 'Leaderboard:<br>';
-            if (highScores.length === 0) {
-                leaderboardHTML += 'No scores yet!<br>';
-            } else {
-                highScores.slice(0, 10).forEach((entry, i) => {
-                    leaderboardHTML += `${i + 1}. ${entry.name} - ${entry.score}<br>`;
-                });
-            }
-            leaderboardHTML += '<br>YOUR SCORE: ' + score + '<br>ENTER ALIAS:';
-            leaderboardDisplay.innerHTML = leaderboardHTML;
-
-            const nameInput = document.createElement('input');
-            nameInput.id = 'nameInput';
-            nameInput.placeholder = 'Type Your Name';
-            nameInput.maxLength = 10;
-            leaderboardDisplay.appendChild(nameInput);
-
-            const submitButton = document.createElement('button');
-            submitButton.id = 'submitName';
-            submitButton.textContent = 'ENTER';
-            leaderboardDisplay.appendChild(submitButton);
-
-            nameInput.focus();
-
-            submitButton.addEventListener('click', () => {
-                const name = nameInput.value.trim();
-                if (name) {
-                    highScores.push({ score: score, name: name });
-                    highScores.sort((a, b) => b.score - a.score);
-                    localStorage.setItem('highScores', JSON.stringify(highScores));
-                    showLeaderboard();
-                }
-            });
-        }
-
+        // End the current game
         function endGame() {
             gameActive = false;
-            showLeaderboard();
-            leaderboardDisplay.style.display = 'block';
-            startButton.style.display = 'block';
-            fallingEmojis.forEach(emoji => gameContainer.removeChild(emoji.element));
-            fallingEmojis = [];
-            gameContainer.removeChild(player.element);
-            leftArrow.style.display = 'none';
-            rightArrow.style.display = 'none';
+            container.removeChild(laptop); // Remove player
+            gameOverScreen.style.display = 'flex'; // Show game over screen
+            // Clean up intervals
+            clearInterval(window.spawnInterval);
+            clearInterval(window.speedInterval);
+            updateLeaderboard(); // Update scores
         }
 
-        function gameLoop() {
-            if(gameActive) {
-                updateGame();
-                requestAnimationFrame(gameLoop);
+        // Update and manage leaderboard
+        function updateLeaderboard() {
+            const leaderboardDiv = document.getElementById('leaderboard');
+            leaderboard.push({ score: score, alias: '' }); // Add new score
+            leaderboard.sort((a, b) => b.score - a.score); // Sort descending
+            leaderboard = leaderboard.slice(0, 6); // Keep top 6
+
+            // Check if score qualifies for leaderboard
+            if (score >= (leaderboard[leaderboard.length-1]?.score || 0)) {
+                document.getElementById('highScoreInput').style.display = 'block';
+                document.getElementById('submitScore').onclick = () => {
+                    const alias = document.getElementById('aliasInput').value;
+                    leaderboard[leaderboard.findIndex(x => x.score === score)].alias = alias;
+                    localStorage.setItem('leaderboard', JSON.stringify(leaderboard)); // Save to storage
+                    displayLeaderboard();
+                    document.getElementById('highScoreInput').style.display = 'none';
+                };
+            } else {
+                displayLeaderboard();
             }
         }
 
-        startButton.addEventListener('click', initGame);
+        // Display leaderboard content
+        function displayLeaderboard() {
+            const leaderboardDiv = document.getElementById('leaderboard');
+            leaderboardDiv.innerHTML = '<h2>Leaderboard</h2>' + 
+                leaderboard.map((entry, i) => 
+                    `<div>${i + 1}. ${entry.alias || 'Anonymous'}: ${entry.score}</div>`
+                ).join('');
+        }
 
-        window.addEventListener('resize', () => {
-            if (gameActive) {
-                const containerWidth = gameContainer.offsetWidth;
-                const containerHeight = gameContainer.offsetHeight;
-                player.x = Math.min(player.x, containerWidth - 32);
-                player.y = Math.min(player.y, containerHeight - 32);
-                player.element.style.left = player.x + 'px';
-                player.element.style.top = player.y + 'px';
-            }
-            updateArrowVisibility();
-        });
+        // Set up event listeners for game controls
+        startButton.addEventListener('click', startGame);
+        restartButton.addEventListener('click', startGame);
     </script>
-  </body>
+</body>
 </html>
