@@ -166,6 +166,7 @@ article {
   padding: 20px;
   margin: 0 auto;
   border-radius: 10px;
+  content-align: center;
 }
 
 .download-button {
