@@ -157,8 +157,7 @@ header a.logo-link:active .logo {
 /*Guides Section*/
 
 article {
-  width: 200px;
-  height: 100px;
+  width: 50%;
   background-color: #00b3ff;
   display: flex;
   flex-direction: row;
