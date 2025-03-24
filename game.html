@@ -32,7 +32,7 @@
             /* No overflow: hidden here, allowing page scrolling */
         }
 
-        /* Style the game container - maintain fixed dimensions and no scrolling */
+        /* Style the game container - removed semi-transparent background */
         #gameContainer {
             width: 800px;
             height: 600px;
@@ -45,7 +45,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            color: #0f0;
+            color: #0 Anglify0f0;
             font-family: monospace;
             font-size: 20px;
             overflow: hidden;
@@ -87,17 +87,6 @@
             cursor: pointer;
         }
 
-        /* Style mobile controls */
-        #mobileControls {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            display: none;
-            justify-content: space-between;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-
         /* Style score container and arrow buttons */
         #scoreContainer {
             position: absolute;
@@ -134,13 +123,6 @@
             color: white;
             font-weight: bold; /* Make code symbols bold */
         }
-
-        /* Media query for mobile devices */
-        @media (max-width: 800px) {
-            #mobileControls {
-                display: flex;
-            }
-        }
     </style>
 </head>
 <body>
@@ -152,7 +134,7 @@
         <div id="startScreen">
             <button id="startButton">START CODING</button>
             <div style="max-width: 600px; text-align: center; padding: 20px;">
-                INSTRUCTIONS: Use arrow keys (⬆️⬇️⬅️➡️) or mobile controls to move the laptop (💻). 
+                INSTRUCTIONS: Use arrow keys (⬆️⬇️⬅️➡️) or score arrows to move the laptop (💻). 
                 Collect documents (📄 = 2 points), execute (⚙️ = 1 point), and code (</> = 1 point) 
                 while avoiding broken (⚠️). Speed increases every 15 seconds!
             </div>
@@ -168,12 +150,6 @@
                 <input type="text" id="aliasInput" maxlength="10" style="margin: 10px;">
                 <button id="submitScore">ENTER</button>
             </div>
-        </div>
-
-        <!-- Mobile control buttons -->
-        <div id="mobileControls">
-            <button id="leftButton">⬅️</button>
-            <button id="rightButton">➡️</button>
         </div>
 
         <!-- Score display with arrow buttons -->
@@ -192,11 +168,9 @@
         const startButton = document.getElementById('startButton');
         const restartButton = document.getElementById('restartButton');
         const scoreDisplay = document.getElementById('score');
-        const leftButton = document.getElementById('leftButton');
-        const rightButton = document.getElementById('rightButton');
-        const matrixBg = document.getElementById('matrixBg');
         const scoreLeftArrow = document.getElementById('scoreLeftArrow');
         const scoreRightArrow = document.getElementById('scoreRightArrow');
+        const matrixBg = document.getElementById('matrixBg');
         
         // Game state variables
         let laptop; // Player object
@@ -361,12 +335,6 @@
             if (e.key === 'ArrowLeft') moveLeft = false;
             if (e.key === 'ArrowRight') moveRight = false;
         });
-
-        // Mobile touch controls
-        leftButton.addEventListener('touchstart', () => moveLeft = true);
-        leftButton.addEventListener('touchend', () => moveLeft = false);
-        rightButton.addEventListener('touchstart', () => moveRight = true);
-        rightButton.addEventListener('touchend', () => moveRight = false);
 
         // Score arrow button controls
         scoreLeftArrow.addEventListener('mousedown', () => moveLeft = true);
