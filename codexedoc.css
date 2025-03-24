@@ -202,7 +202,8 @@ header a.logo-link:active .logo {
   text-align: center;
   text-size: 20px;
   display: flex;           
-  flex-direction: row;    
+  flex-direction: row;
+  font-weight: bold;
 }
 
 h3 {
