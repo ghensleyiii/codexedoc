@@ -156,30 +156,35 @@ header a.logo-link:active .logo {
 
 /*Guides Section*/
 
-article {
-  width: 50%;
-  background-color: #00b3ff;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 20px;
-  margin: 0 auto;
-  border-radius: 10px;
-  content-align: center;
+.html-guide {
+ width: 50%;              
+ background-color: #00b3ff;
+ padding: 20px;
+ margin: 0 auto;          
+ border-radius: 10px;
+ display: flex;           
+ flex-direction: row;     
+ justify-content: space-between; 
+ align-items: center;     
 }
+
+.box {
+  display: flex;        
+  justify-content: center; 
+} 
 
 .download-button {
   width: 50px;
   height: 25px;
-  text-align: right;
   background-color: #96f755;
   border: 2px solid #0f1e27;
   padding: 5px;
   border-radius: 10px;
 }
 
-.html-guide {
-  text-align: left;
+h3 {
+  margin: 0;              
+  text-align: center;      
 }
 
 /*Footer*/
