@@ -157,12 +157,15 @@ header a.logo-link:active .logo {
 footer {
   background-color: #0f1e27;
   padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
@@ -172,6 +175,7 @@ footer {
   color: #00b3ff;
   font-family: Tahoma, sans-serif;
   padding-right: 1.5rem;
+  flex-shrink: 0;
 }
 
 .footer-copyright {
@@ -201,6 +205,19 @@ footer {
     gap: 1rem;
   }
 
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  
+  .footer-name,
+  .footer-copyright,
+  .footer-contact a {
+    padding: 0.5rem 0;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .main-nav a {
     font-size: 1rem;
@@ -208,5 +225,17 @@ footer {
   
   .logo {
     padding-right: 0.5rem;
+  }
+
+  .footer-name {
+    font-size: 1rem;
+  }
+  
+  .footer-copyright {
+    font-size: 0.875rem;
+  }
+  
+  .footer-contact a {
+    font-size: 0.875rem;
   }
 }
