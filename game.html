@@ -29,16 +29,15 @@
             align-items: center;
             min-height: 100vh;
             background: #000;
-            overflow: hidden; /* Prevent scrolling */
+            /* No overflow: hidden here, allowing page scrolling */
         }
 
-        /* Style the game container - removed semi-transparent background */
+        /* Style the game container - maintain fixed dimensions and no scrolling */
         #gameContainer {
             width: 800px;
             height: 600px;
             position: relative;
-            overflow: hidden;
-            /* Removed: background: rgba(50, 50, 50, 0.5); */
+            overflow: hidden; /* Prevent scrolling within game area */
         }
 
         /* Style the matrix background */
