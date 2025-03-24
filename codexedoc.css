@@ -155,6 +155,23 @@ header a.logo-link:active .logo {
 }
 
 /*Guides Section*/
+.guides-head {
+  text-align: center;
+  padding: 50px;
+  background-color: #00b3ff;
+  flex-grow: 1;
+}
+
+.guides-head h1 {
+  font-size: 48px;
+  color: #0f1e27;
+  margin-bottom: 20px;
+}
+
+.guides-head p {
+  font-size: 20px;
+  color: #0f1e27;
+}
 
 .html-guide {
  width: 50%;              
