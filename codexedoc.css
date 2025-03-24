@@ -160,6 +160,7 @@ header a.logo-link:active .logo {
   background-color: #00b3ff;
   flex-grow: 1;
   margin: auto;
+  width: auto;
 }
 
 .guides-head h1 {
