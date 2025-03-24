@@ -157,10 +157,9 @@ header a.logo-link:active .logo {
 /*Guides Section*/
 .guides-head {
   text-align: center;
-  padding: 50px;
   background-color: #00b3ff;
   flex-grow: 1;
-  margin: 0 auto;
+  margin: auto;
 }
 
 .guides-head h1 {
