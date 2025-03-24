@@ -160,12 +160,12 @@ header a.logo-link:active .logo {
   padding: 50px;
   background-color: #00b3ff;
   flex-grow: 1;
+  margin: 0 auto;
 }
 
 .guides-head h1 {
   font-size: 48px;
   color: #0f1e27;
-  margin-bottom: 20px;
 }
 
 .guides-head p {
