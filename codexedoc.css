@@ -18,26 +18,30 @@ header {
 }
 
 .logo {
-  max-width: 1000px;
-  min-width: 300px;
-  height: auto;
-  padding-right: 1.5rem;
+  max-width: 1000px; /* Maximum width as requested */
+  min-width: 70px; /* Ensures it’s not too small on mobile */
+  width: 100%; /* Scales responsively within its container */
+  height: auto; /* Maintains aspect ratio */
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 header a.logo-link {
   text-decoration: none;
-  color: #0080ff; /* For text links, not the image */
+  color: #0080ff;
 }
 
-.featureimg {
-  width: 100px;
-  height: 100px;
+header a.logo-link:hover,
+header a.logo-link:visited,
+header a.logo-link:active {
+  text-decoration: none;
+  color: #0080ff;
 }
 
 .main-nav {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
   flex-grow: 1;
   flex-wrap: wrap;
 }
@@ -74,8 +78,7 @@ header a.logo-link {
 }
 
 .game-button a {
-  padding: 8px 8px;
-  margin-left: 5px;
+  padding: 8px;
   background-color: #00ff00;
   color: #0f1e27;
   border: none;
@@ -100,6 +103,11 @@ header a.logo-link {
   font-size: 36px;
   color: #0f1e27;
   margin-bottom: 40px;
+}
+
+.featureimg {
+  width: 100px;
+  height: 100px;
 }
 
 .feature-grid {
@@ -127,7 +135,7 @@ header a.logo-link {
   color: #0f1e27;
 }
 
-/*Guides Section*/
+/* Guides Section */
 .guides-head {
   text-align: center;
   background-color: #0080ff;
@@ -147,23 +155,23 @@ header a.logo-link {
 }
 
 .html-guide {
- width: 50%;              
- background-color: #0080ff;
- padding: 20px;
- margin: 0 auto;          
- border-radius: 10px;
- display: flex;           
- flex-direction: row;     
- justify-content: space-between; 
- align-items: center;     
+  width: 50%;
+  background-color: #0080ff;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .box {
-  display: flex;        
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
   flex: 1;
-  border: 3px soild white;
-} 
+  border: 3px solid white; /* Fixed typo: "soild" to "solid" */
+}
 
 .download-button {
   width: 250px;
@@ -174,21 +182,20 @@ header a.logo-link {
   border-radius: 10px;
   white-space: nowrap;
   text-align: center;
-  text-size: 30px;
-  display: flex;           
+  font-size: 30px; /* Fixed typo: "text-size" to "font-size" */
+  display: flex;
   flex-direction: row;
   font-weight: bold;
 }
 
 h3 {
-  margin: 0;              
+  margin: 0;
   text-align: center;
   flex: 1;
-  text-size: 35px;
+  font-size: 35px; /* Fixed typo: "text-size" to "font-size" */
 }
 
-/*Footer*/
-
+/* Footer */
 footer {
   background-color: #0f1e27;
   padding: 20px;
@@ -227,50 +234,4 @@ footer {
 
 .footer-contact a:hover {
   color: #0080ff;
-}
-
-@media screen and (max-width: 768px) {
-  header {
-    flex-direction: column;
-    padding: 0.5rem;
-  }
-
-  .main-nav {
-    margin: 0.5rem 0;
-    gap: 1rem;
-  }
-
-  .footer-content {
-    flex-direction: column;
-    text-align: center;
-    padding: 0.5rem;
-  }
-  
-  .footer-name,
-  .footer-copyright,
-  .footer-contact a {
-    padding: 0.5rem 0;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .main-nav a {
-    font-size: 1rem;
-  }
-  
-  .logo {
-    padding-right: 0.5rem;
-  }
-
-  .footer-name {
-    font-size: 1rem;
-  }
-  
-  .footer-copyright {
-    font-size: 0.875rem;
-  }
-  
-  .footer-contact a {
-    font-size: 0.875rem;
-  }
 }
