@@ -71,7 +71,7 @@ header a.logo-link:active .logo {
   text-decoration: none;
   font-family: Tahoma, sans-serif;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 .main-nav a:hover {
@@ -108,6 +108,7 @@ header a.logo-link:active .logo {
   text-decoration: none;
   font-family: Tahoma, sans-serif;
   font-weight: bold;
+  font-size: 30px;
 }
 
 .game-button a:hover {
