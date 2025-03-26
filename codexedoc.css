@@ -8,7 +8,7 @@ body {
 
 header {
   background-color: #0f1e27;
-  padding: 0.5rem;
+  padding: 1rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -18,15 +18,25 @@ header {
 }
 
 .logo {
-  width: 333px;
-  height: 100px;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
+  color: #0080ff;
+  font-family: Tahoma, sans-serif;
+  font-weight: bold;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  flex-shrink: 0;
+  width: 100px;
+  height: 40px;
 }
 
 header a.logo-link {
   text-decoration: none;
   color: #0080ff;
+}
+
+header a.logo-link .logo {
+  color: #0080ff;
+  text-decoration: none;
 }
 
 header a.logo-link:hover,
@@ -36,10 +46,22 @@ header a.logo-link:active {
   color: #0080ff;
 }
 
+header a.logo-link:hover .logo,
+header a.logo-link:visited .logo,
+header a.logo-link:active .logo {
+  color: #0080ff;
+  text-decoration: none;
+}
+
+.featureimg {
+  width: 100px;
+  height: 100px;
+}
+
 .main-nav {
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 1.5rem;
   flex-grow: 1;
   flex-wrap: wrap;
 }
@@ -49,7 +71,7 @@ header a.logo-link:active {
   text-decoration: none;
   font-family: Tahoma, sans-serif;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .main-nav a:hover {
@@ -76,7 +98,8 @@ header a.logo-link:active {
 }
 
 .game-button a {
-  padding: 6px;
+  padding: 8px 8px;
+  margin-left: 5px;
   background-color: #00ff00;
   color: #0f1e27;
   border: none;
@@ -101,11 +124,6 @@ header a.logo-link:active {
   font-size: 36px;
   color: #0f1e27;
   margin-bottom: 40px;
-}
-
-.featureimg {
-  width: 100px;
-  height: 100px;
 }
 
 .feature-grid {
@@ -133,7 +151,7 @@ header a.logo-link:active {
   color: #0f1e27;
 }
 
-/* Guides Section */
+/*Guides Section*/
 .guides-head {
   text-align: center;
   background-color: #0080ff;
@@ -153,23 +171,23 @@ header a.logo-link:active {
 }
 
 .html-guide {
-  width: 50%;
-  background-color: #0080ff;
-  padding: 20px;
-  margin: 0 auto;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+ width: 50%;              
+ background-color: #0080ff;
+ padding: 20px;
+ margin: 0 auto;          
+ border-radius: 10px;
+ display: flex;           
+ flex-direction: row;     
+ justify-content: space-between; 
+ align-items: center;     
 }
 
 .box {
-  display: flex;
-  justify-content: center;
+  display: flex;        
+  justify-content: center; 
   flex: 1;
-  border: 3px solid white;
-}
+  border: 3px soild white;
+} 
 
 .download-button {
   width: 250px;
@@ -180,20 +198,21 @@ header a.logo-link:active {
   border-radius: 10px;
   white-space: nowrap;
   text-align: center;
-  font-size: 30px;
-  display: flex;
+  text-size: 30px;
+  display: flex;           
   flex-direction: row;
   font-weight: bold;
 }
 
 h3 {
-  margin: 0;
+  margin: 0;              
   text-align: center;
   flex: 1;
-  font-size: 35px;
+  text-size: 35px;
 }
 
-/* Footer */
+/*Footer*/
+
 footer {
   background-color: #0f1e27;
   padding: 20px;
@@ -232,4 +251,50 @@ footer {
 
 .footer-contact a:hover {
   color: #0080ff;
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+
+  .main-nav {
+    margin: 0.5rem 0;
+    gap: 1rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  
+  .footer-name,
+  .footer-copyright,
+  .footer-contact a {
+    padding: 0.5rem 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .main-nav a {
+    font-size: 1rem;
+  }
+  
+  .logo {
+    padding-right: 0.5rem;
+  }
+
+  .footer-name {
+    font-size: 1rem;
+  }
+  
+  .footer-copyright {
+    font-size: 0.875rem;
+  }
+  
+  .footer-contact a {
+    font-size: 0.875rem;
+  }
 }
