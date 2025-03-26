@@ -20,7 +20,7 @@ header {
 .logo {
   max-width: 300px; /* Increased for larger size on laptop */
   min-width: 175px; /* Increased for better visibility on mobile */
-  width: 100%; /* Scales within its flex container */
+  width: 75%; /* Scales within its flex container */
   height: auto; /* Maintains aspect ratio */
   padding-left: 0.5rem;
   padding-right: 0.5rem;
