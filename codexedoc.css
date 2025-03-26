@@ -19,8 +19,8 @@ header {
 
 .logo {
   max-width: 1000px;
+  min-width: 300px;
   height: auto;
-  padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
 
