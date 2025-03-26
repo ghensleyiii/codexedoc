@@ -18,9 +18,9 @@ header {
 }
 
 .logo {
-  max-width: 300px; /* Increased for larger size on laptop */
-  min-width: 175px; /* Increased for better visibility on mobile */
-  width: 75%; /* Scales within its flex container */
+  max-width: 200px; /* Reduced from 500px to make it smaller on laptop */
+  min-width: 120px; /* Reduced from 250px for better fit on mobile */
+  width: 100%; /* Scales within its flex container */
   height: auto; /* Maintains aspect ratio */
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -41,7 +41,7 @@ header a.logo-link:active {
 .main-nav {
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 1rem; /* Increased from 0.75rem to give nav more space */
   flex-grow: 1;
   flex-wrap: wrap;
 }
