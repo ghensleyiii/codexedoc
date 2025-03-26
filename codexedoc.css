@@ -18,39 +18,15 @@ header {
 }
 
 .logo {
-  font-size: clamp(1.5rem, 4vw, 1.875rem);
-  color: #0080ff;
-  font-family: Tahoma, sans-serif;
-  font-weight: bold;
+  max-width: 100px;
+  height: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  flex-shrink: 0;
-  width: 100px;
-  height: 40px;
 }
 
 header a.logo-link {
   text-decoration: none;
-  color: #0080ff;
-}
-
-header a.logo-link .logo {
-  color: #0080ff;
-  text-decoration: none;
-}
-
-header a.logo-link:hover,
-header a.logo-link:visited,
-header a.logo-link:active {
-  text-decoration: none;
-  color: #0080ff;
-}
-
-header a.logo-link:hover .logo,
-header a.logo-link:visited .logo,
-header a.logo-link:active .logo {
-  color: #0080ff;
-  text-decoration: none;
+  color: #0080ff; /* For text links, not the image */
 }
 
 .featureimg {
