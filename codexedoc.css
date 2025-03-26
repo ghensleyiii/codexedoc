@@ -22,7 +22,7 @@ header {
   min-width: 250px; /* Minimum width for mobile */
   width: 100%; /* Scales within its flex container */
   height: auto; /* Maintains aspect ratio */
-  max-height: 60px; /* Added height limit to prevent it from being too tall */
+  max-height: 50px; /* Added height limit to prevent it from being too tall */
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
