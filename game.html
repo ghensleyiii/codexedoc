@@ -90,61 +90,55 @@
         }
 
         /* Style score container and arrow buttons */
-        #scoreContainer {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: calc(1.5vw + 10px); /* Scale score text */
-        }
+        /* Style score container and arrow buttons */
+#scoreContainer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: calc(1.5vw + 10px);
+}
 
-        #scoreLeftArrow, #scoreRightArrow {
-            padding: 5px 10px;
-            font-size: calc(1.5vw + 10px); /* Scale arrow size */
-            background: rgba(0, 0, 0, 0.5);
-            border: none;
-            color: white;
-            cursor: pointer;
-        }
+#scoreLeftArrow, #scoreRightArrow {
+    padding: 15px 25px; /* Larger padding */
+    font-size: calc(2vw + 15px); /* Larger text */
+    min-width: 60px; /* Minimum width */
+    min-height: 40px; /* Minimum height */
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    cursor: pointer;
+}
 
-        #score {
-            margin: 0 10px; /* Space between arrows and score text */
-        }
+#score {
+    margin: 0 10px;
+}
 
-        /* Style all game objects */
-        .gameObject {
-            position: absolute;
-            font-size: calc(2vw + 15px); /* Scale game objects */
-        }
-
-        /* Style code symbols specifically with bold */
-        .code {
-            color: white;
-            font-weight: bold;
-        }
-
-        /* Adjustments for smaller screens */
-        @media (max-width: 600px) {
-            #gameContainer {
-                width: 95vw; /* Slightly wider on small screens */
-                height: 60vh; /* Slightly shorter on small screens */
-            }
-            .gameObject {
-                font-size: calc(3vw + 10px); /* Slightly larger relative size on mobile */
-            }
-            button {
-                padding: 8px 16px; /* Slightly smaller padding */
-            }
-            #scoreContainer {
-                bottom: 5px; /* Closer to bottom on small screens */
-            }
-            #scoreLeftArrow, #scoreRightArrow {
-                padding: 3px 8px; /* Smaller arrows on mobile */
-            }
-        }
+/* Adjustments for smaller screens */
+@media (max-width: 600px) {
+    #gameContainer {
+        width: 95vw;
+        height: 60vh;
+    }
+    .gameObject {
+        font-size: calc(3vw + 10px);
+    }
+    button {
+        padding: 8px 16px;
+    }
+    #scoreContainer {
+        bottom: 5px;
+    }
+    #scoreLeftArrow, #scoreRightArrow {
+        padding: 10px 15px; /* Adjusted for mobile */
+        font-size: calc(2.5vw + 10px); /* Slightly larger relative size */
+        min-width: 50px;
+        min-height: 35px;
+    }
+}
     </style>
 </head>
 <body>
