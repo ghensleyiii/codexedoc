@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lessons - Codexedoc</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00b7eb;
+            display: inline-block;
+        }
+
+        .logo a {
+            color: #00b7eb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .logo a:hover {
+            color: #00ff00;
+        }
+
+        .logo span {
+            color: #00ff00;
+            font-size: 5rem;
+            position: relative;
+            top: 8px;
+        }
+
+        .lessons-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #000000;
+        }
+
+        .lesson {
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #1a1a1a;
+            overflow: hidden;
+        }
+
+        .lesson:nth-child(odd) {
+            background-color: #00b7eb;
+        }
+
+        .lesson:nth-child(even) {
+            background-color: #00ff00;
+        }
+
+        .lesson-header {
+            padding: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a1a1a;
+            transition: background-color 0.3s;
+        }
+
+        .lesson-header:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .lesson-content {
+            padding: 0 20px 20px;
+            display: none;
+        }
+
+        .lesson-content.active {
+            display: block;
+        }
+
+        /* Nested lesson styles */
+        .sub-lesson {
+            margin: 10px 0;
+            border-radius: 3px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sub-lesson-header {
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a1a1a;
+            transition: background-color 0.3s;
+        }
+
+        .sub-lesson-header:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .sub-lesson-content {
+            padding: 10px;
+            display: none;
+        }
+
+        .sub-lesson-content.active {
+            display: block;
+        }
+
+        .lesson pre, .sub-lesson pre {
+            background-color: #1a1a1a;
+            color: #ffffff !important;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            border: 1px solid #333;
+            line-height: 1.4;
+        }
+
+        .lesson code, .sub-lesson code {
+            color: #ffffff !important;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: #00ff00;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #00b7eb;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-logo {
+            font-size: 0.9rem;
+            color: #00b7eb;
+            font-weight: bold;
+        }
+
+        .footer-logo span {
+            color: #00ff00;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .logo span {
+                font-size: 4rem;
+                top: 6px;
+            }
+
+            .lessons-section {
+                padding: 15px;
+            }
+
+            .lesson-header {
+                font-size: 1.3rem;
+            }
+
+            .sub-lesson-header {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
+        </div>
+    </header>
+
+    <section class="lessons-section">
+        <!-- HTML Section -->
+        <div class="lesson">
+            <div class="lesson-header" onclick="toggleLesson(this)">HTML Lessons</div>
+            <div class="lesson-content">
+                <p>Expand to explore 30 lessons on HTML, from basics to advanced techniques.</p>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">1. Basic Structure</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;My Page&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">2. Headings</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;h1&gt;Heading 1&lt;/h1&gt;&lt;h2&gt;Heading 2&lt;/h2&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">3. Paragraphs</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;p&gt;This is text.&lt;/p&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">4. Links</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;a href="https://example.com"&gt;Click&lt;/a&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">5. Images</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;img src="image.jpg" alt="Image"&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">6. Comments</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;!-- This is a comment --&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">7. Unordered Lists</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;ul&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/ul&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">8. Ordered Lists</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;ol&gt;&lt;li&gt;Step&lt;/li&gt;&lt;/ol&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">9. Divs</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;div&gt;Content&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">10. Spans</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;span&gt;Inline text&lt;/span&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">11. Line Breaks</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;br&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">12. Horizontal Rules</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;hr&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">13. Text Formatting</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;b&gt;Bold&lt;/b&gt; &lt;i&gt;Italic&lt;/i&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">14. Superscript/Subscript</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;sup&gt;2&lt;/sup&gt; &lt;sub&gt;2&lt;/sub&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">15. Blockquotes</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;blockquote&gt;Quote&lt;/blockquote&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">16. Meta Tags</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;meta charset="UTF-8"&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">17. Tables</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Cell&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">18. Table Headers</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;th&gt;Header&lt;/th&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">19. Forms</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;form&gt;&lt;/form&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">20. Input Fields</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;input type="text"&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">21. Buttons</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;button&gt;Click&lt;/button&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">22. Select Dropdown</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;select&gt;&lt;option&gt;Choice&lt;/option&gt;&lt;/select&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">23. Textareas</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;textarea&gt;&lt;/textarea&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">24. Labels</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;label for="id"&gt;Label&lt;/label&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">25. Fieldsets</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;fieldset&gt;&lt;legend&gt;Title&lt;/legend&gt;&lt;/fieldset&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">26. Iframes</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;iframe src="page.html"&gt;&lt;/iframe&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">27. Audio</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;audio src="sound.mp3" controls&gt;&lt;/audio&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">28. Video</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;video src="video.mp4" controls&gt;&lt;/video&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">29. Semantic Tags</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;header&gt;&lt;nav&gt;&lt;section&gt;&lt;article&gt;&lt;footer&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">30. Data Attributes</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;div data-info="value"&gt;&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CSS Section -->
+        <div class="lesson">
+            <div class="lesson-header" onclick="toggleLesson(this)">CSS Lessons</div>
+            <div class="lesson-content">
+                <p>Expand to explore 30 lessons on CSS, from basics to advanced styling.</p>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">1. Inline CSS</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;p style="color: red;"&gt;Text&lt;/p&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">2. Internal CSS</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;style&gt;p { color: blue; }&lt;/style&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">3. External CSS</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">4. Colors</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>p { color: #ff0000; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">5. Backgrounds</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>body { background-color: #000; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">6. Element Selectors</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>h1 { font-size: 24px; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">7. Class Selectors</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>.class { color: green; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">8. ID Selectors</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>#id { font-weight: bold; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">9. Font Size</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>p { font-size: 16px; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">10. Font Family</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>body { font-family: Arial; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">11. Text Alignment</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>p { text-align: center; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">12. Margins</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>div { margin: 10px; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">13. Padding</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>div { padding: 20px; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">14. Borders</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>div { border: 1px solid black; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">15. Width/Height</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>img { width: 100px; height: 100px; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">16. Display</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>span { display: block; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">17. Position</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>div { position: absolute; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">18. Float</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>img { float: left; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">19. Overflow</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>div { overflow: scroll; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">20. Opacity</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>img { opacity: 0.5; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">21. Box Shadow</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>div { box-shadow: 2px 2px 5px #000; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">22. Transitions</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>a { transition: color 0.3s; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">23. Transforms</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>div { transform: rotate(45deg); }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">24. Flexbox</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>.container { display: flex; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">25. Flex Direction</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>.container { flex-direction: row; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">26. Grid</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>.grid { display: grid; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">27. Grid Template</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>.grid { grid-template-columns: 1fr 1fr; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">28. Media Queries</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>@media (max-width: 600px) { p { font-size: 14px; } }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">29. Pseudo-classes</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>a:hover { color: red; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">30. Animations</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>@keyframes fade { from { opacity: 0; } to { opacity: 1; } }</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript Section -->
+        <div class="lesson">
+            <div class="lesson-header" onclick="toggleLesson(this)">JavaScript Lessons</div>
+            <div class="lesson-content">
+                <p>Expand to explore 30 lessons on JavaScript, from basics to advanced programming.</p>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">1. Script Tag</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>&lt;script&gt;alert("Hi");&lt;/script&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">2. Variables (var)</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>var x = 5;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">3. Let</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>let y = 10;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">4. Const</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>const z = 15;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">5. Console Log</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>console.log("Hello");</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">6. Comments</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>// Single line</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">7. Multi-line Comments</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>/* Comment */</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">8. Numbers</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>let num = 42;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">9. Strings</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>let str = "Text";</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">10. Booleans</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>let bool = true;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">11. If Statements</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>if (x > 0) { console.log("Positive"); }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">12. Else</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>else { console.log("Negative"); }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">13. Else If</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>else if (x == 0) { console.log("Zero"); }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">14. For Loops</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>for (let i = 0; i < 5; i++) {}</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">15. While Loops</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>while (x > 0) { x--; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">16. Functions</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>function sayHi() { alert("Hi"); }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">17. Parameters</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>function add(a, b) { return a + b; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">18. Return</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>return x;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">19. Arrays</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>let arr = [1, 2, 3];</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">20. Array Push</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>arr.push(4);</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">21. Objects</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>let obj = { name: "Alex" };</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">22. Object Access</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>obj.name;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">23. Event Listeners</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>button.addEventListener("click", sayHi);</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">24. DOM Selection</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>document.querySelector("p");</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">25. Change Text</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>p.textContent = "New text";</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">26. Arrow Functions</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>const add = (a, b) => a + b;</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">27. Promises</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>new Promise((resolve) => resolve("Done"));</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">28. Async/Await</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>async function fetchData() { await data; }</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">29. Try/Catch</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>try { throw "Error"; } catch (e) {}</code></pre>
+                    </div>
+                </div>
+                <div class="sub-lesson">
+                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">30. Modules</div>
+                    <div class="sub-lesson-content">
+                        <pre><code>export function hi() {}; import { hi } from "./file.js";</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><span class="footer-logo">CODE<span>X</span>EDOC</span></p>
+        <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
+        <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+    </footer>
+
+    <script>
+        function toggleLesson(header) {
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        function toggleSubLesson(header) {
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
