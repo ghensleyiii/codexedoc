@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codexedoc - CSS Course</title>
     <style>
-        /* Full CSS from the original file */
         * {
             margin: 0;
             padding: 0;
@@ -323,14 +322,14 @@
 <body>
     <header>
         <div class="logo">
-            <a href="edoc.html">CODE</a><a href="edoc.html"><span>X</span></a><a href="edoc.html">EDOC</a>
+            <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
         </div>
     </header>
 
     <section class="main-section">
         <div id="css" class="tab-content active">
             <div class="button-container">
-                <button class="start-btn" onclick="startCourse('css')">Open Learning</button>
+                <button class="start-btn" onclick="startLearning('css')">Open Course</button>
                 <button class="test-btn" onclick="startTest('css')">Launch Test</button>
             </div>
             <div id="css-lesson-contents"></div>
@@ -339,7 +338,7 @@
 
         <div id="testModal" class="test-modal">
             <div class="test-modal-content">
-                <span class="close-btn" onclick="closetest()">×</span>
+                <span class="close-btn" onclick="closeTest()" aria-label="Close test modal">×</span>
                 <div id="testContents"></div>
                 <div id="testGrid" class="test-grid"></div>
             </div>
@@ -397,7 +396,7 @@ p {
             css: Array.from({ length: 30 }, (_, i) => {
                 if (i === 0) {
                     return {
-                        description: "CSS Basics test",
+                        description: "CSS Basics Test",
                         question: "What does the 'color' property in CSS do?",
                         options: [
                             "Sets the background color.",
@@ -408,7 +407,7 @@ p {
                     };
                 } else if (i === 1) {
                     return {
-                        description: "CSS Selectors test",
+                        description: "CSS Selectors Test",
                         question: "What does a class selector start with?",
                         options: [
                             "#",
@@ -434,9 +433,9 @@ p {
 
         // State management
         const currentLessons = { css: 0 };
-        const currenttestQuestions = { css: 0 };
+        const currentTestQuestions = { css: 0 };
         const completedLessons = { css: new Set() };
-        const completedtestQuestions = { css: new Set() };
+        const completedTestQuestions = { css: new Set() };
         const userAnswers = { css: Array(30).fill(null) };
 
         // Lesson Functions
@@ -448,7 +447,7 @@ p {
             lessonContents.innerHTML = '';
             lessonsGrid.style.display = 'grid';
 
-            for (let i = 1; i <= 30; i++) {
+            for (let i = 1; i <= lessonsData[language].length; i++) {
                 const lessonBox = document.createElement('div');
                 lessonBox.classList.add('lesson-box');
                 lessonBox.textContent = i;
@@ -528,7 +527,7 @@ p {
                 const prevBtn = selectedLesson.querySelector('.nav-btn:first-child');
                 const nextBtn = selectedLesson.querySelector('.nav-btn:last-child');
                 prevBtn.disabled = lessonNumber === 1;
-                nextBtn.disabled = lessonNumber === 30;
+                nextBtn.disabled = lessonNumber === lessonsData[language].length;
             }
 
             const lessonBox = document.querySelector(`#${language}-lessons .lesson-box:nth-child(${lessonNumber})`);
@@ -538,22 +537,23 @@ p {
         }
 
         function navigateLesson(language, lessonNumber) {
-            if (lessonNumber < 1 || lessonNumber > 30) return;
+            if (lessonNumber < 1 || lessonNumber > lessonsData[language].length) return;
             currentLessons[language] = lessonNumber;
             completedLessons[language].add(lessonNumber);
             toggleLesson(language, lessonNumber);
         }
 
-        // test Functions
-        function starttest(language) {
+        // Test Functions
+        function startTest(language) {
             const testModal = document.getElementById('testModal');
             const testContents = document.getElementById('testContents');
             const testGrid = document.getElementById('testGrid');
 
             testContents.innerHTML = '';
             testGrid.innerHTML = '';
+            testGrid.style.display = 'grid';
             userAnswers[language] = Array(30).fill(null);
-            completedtestQuestions[language].clear();
+            completedTestQuestions[language].clear();
 
             testModal.classList.add('active');
 
@@ -562,11 +562,11 @@ p {
                 testBox.classList.add('test-box');
                 testBox.textContent = i;
                 testBox.onclick = () => {
-                    currenttestQuestions[language] = i;
-                    completedtestQuestions[language].add(i);
-                    toggletestQuestion(language, i);
+                    currentTestQuestions[language] = i;
+                    completedTestQuestions[language].add(i);
+                    toggleTestQuestion(language, i);
                 };
-                if (completedtestQuestions[language].has(i)) {
+                if (completedTestQuestions[language].has(i)) {
                     testBox.classList.add('completed');
                 }
                 testGrid.appendChild(testBox);
@@ -600,19 +600,19 @@ p {
                 const prevBtn = document.createElement('button');
                 prevBtn.classList.add('nav-btn');
                 prevBtn.textContent = 'Previous';
-                prevBtn.onclick = () => navigatetestQuestion(language, i - 1);
+                prevBtn.onclick = () => navigateTestQuestion(language, i - 1);
                 
                 const nextBtn = document.createElement('button');
                 if (i === 30) {
                     nextBtn.classList.add('submit-btn');
                     nextBtn.textContent = 'Submit';
-                    nextBtn.onclick = () => submittest(language);
+                    nextBtn.onclick = () => submitTest(language);
                     nextBtn.style.display = 'none';
                     nextBtn.id = `${language}-submit-btn`;
                 } else {
                     nextBtn.classList.add('nav-btn');
                     nextBtn.textContent = 'Next';
-                    nextBtn.onclick = () => navigatetestQuestion(language, i + 1);
+                    nextBtn.onclick = () => navigateTestQuestion(language, i + 1);
                 }
                 
                 navigation.appendChild(prevBtn);
@@ -625,12 +625,12 @@ p {
                 testContents.appendChild(testContent);
             }
 
-            currenttestQuestions[language] = 1;
-            completedtestQuestions[language].add(1);
-            toggletestQuestion(language, 1);
+            currentTestQuestions[language] = 1;
+            completedTestQuestions[language].add(1);
+            toggleTestQuestion(language, 1);
         }
 
-        function toggletestQuestion(language, questionNumber) {
+        function toggleTestQuestion(language, questionNumber) {
             document.querySelectorAll(`#testContents .test-content`).forEach(content => {
                 content.classList.remove('active');
             });
@@ -640,9 +640,9 @@ p {
                 selectedQuestion.classList.add('active');
                 const prevBtn = selectedQuestion.querySelector('.nav-btn:first-child');
                 const nextBtn = selectedQuestion.querySelector('.nav-btn:last-child') || selectedQuestion.querySelector('.submit-btn');
-                prevBtn.disabled = questionNumber === 1;
+                prevBtn.disabled = lessonNumber === 1;
                 if (nextBtn.classList.contains('nav-btn')) {
-                    nextBtn.disabled = questionNumber === 30;
+                    nextBtn.disabled = lessonNumber === 30;
                 }
 
                 if (questionNumber === 30 && nextBtn.classList.contains('submit-btn')) {
@@ -663,11 +663,11 @@ p {
             }
         }
 
-        function navigatetestQuestion(language, questionNumber) {
+        function navigateTestQuestion(language, questionNumber) {
             if (questionNumber < 1 || questionNumber > 30) return;
-            currenttestQuestions[language] = questionNumber;
-            completedtestQuestions[language].add(questionNumber);
-            toggletestQuestion(language, questionNumber);
+            currentTestQuestions[language] = questionNumber;
+            completedTestQuestions[language].add(questionNumber);
+            toggleTestQuestion(language, questionNumber);
         }
 
         function selectOption(language, questionNumber, optionIndex) {
@@ -686,7 +686,7 @@ p {
             }
         }
 
-        function submittest(language) {
+        function submitTest(language) {
             let score = 0;
             userAnswers[language].forEach((answer, index) => {
                 if (answer === testData[language][index].correct) {
@@ -698,11 +698,11 @@ p {
             if (score >= 25) {
                 window.location.href = 'correct.html';
             } else {
-                closetest();
+                closeTest();
             }
         }
 
-        function closetest() {
+        function closeTest() {
             const testModal = document.getElementById('testModal');
             testModal.classList.remove('active');
         }
