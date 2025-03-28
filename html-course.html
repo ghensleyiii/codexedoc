@@ -283,39 +283,16 @@
         }
 
         @media (max-width: 768px) {
-            .logo {
-                font-size: 2rem;
-            }
-
-            .logo span {
-                font-size: 4rem;
-                top: 6px;
-            }
-
-            .lessons-grid, .test-grid {
-                grid-template-columns: repeat(5, 1fr);
-            }
-
-            .start-btn, .test-btn {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
+            .logo { font-size: 2rem; }
+            .logo span { font-size: 4rem; top: 6px; }
+            .lessons-grid, .test-grid { grid-template-columns: repeat(5, 1fr); }
+            .start-btn, .test-btn { padding: 10px 20px; font-size: 1rem; }
         }
 
         @media (max-width: 480px) {
-            .lessons-grid, .test-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .nav-btn, .submit-btn {
-                padding: 8px 15px;
-                font-size: 0.9rem;
-            }
-
-            .button-container {
-                flex-direction: column;
-                gap: 10px;
-            }
+            .lessons-grid, .test-grid { grid-template-columns: repeat(3, 1fr); }
+            .nav-btn, .submit-btn { padding: 8px 15px; font-size: 0.9rem; }
+            .button-container { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
@@ -357,16 +334,7 @@
             html: [
                 {
                     description: "Basic Structure of an HTML Document",
-                    code: `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Page</title>
-</head>
-<body>
-    <h1>Hello</h1>
-</body>
-</html>`,
+                    code: `<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>My Page</title>\n</head>\n<body>\n    <h1>Hello</h1>\n</body>\n</html>`,
                     breakdown: [
                         "<!DOCTYPE html>: Declares the document as HTML5.",
                         "<html lang=\"en\">: Root element with language attribute.",
@@ -376,9 +344,7 @@
                 },
                 {
                     description: "Headings in HTML",
-                    code: `<h1>Heading 1</h1>
-<h2>Heading 2</h2>
-<h3>Heading 3</h3>`,
+                    code: `<h1>Heading 1</h1>\n<h2>Heading 2</h2>\n<h3>Heading 3</h3>`,
                     breakdown: [
                         "<h1> to <h6>: Define headings, <h1> is largest, <h6> smallest.",
                         "Used for structuring content hierarchically."
@@ -412,10 +378,7 @@
                 },
                 {
                     description: "Lists - Unordered",
-                    code: `<ul>
-    <li>Item 1</li>
-    <li>Item 2</li>
-</ul>`,
+                    code: `<ul>\n    <li>Item 1</li>\n    <li>Item 2</li>\n</ul>`,
                     breakdown: [
                         "<ul>: Unordered (bullet) list.",
                         "<li>: List item."
@@ -423,10 +386,7 @@
                 },
                 {
                     description: "Lists - Ordered",
-                    code: `<ol>
-    <li>First</li>
-    <li>Second</li>
-</ol>`,
+                    code: `<ol>\n    <li>First</li>\n    <li>Second</li>\n</ol>`,
                     breakdown: [
                         "<ol>: Ordered (numbered) list.",
                         "<li>: List item."
@@ -434,10 +394,7 @@
                 },
                 {
                     description: "Divisions and Spans",
-                    code: `<div>
-    <p>Paragraph in a div</p>
-    <span>Inline text</span>
-</div>`,
+                    code: `<div>\n    <p>Paragraph in a div</p>\n    <span>Inline text</span>\n</div>`,
                     breakdown: [
                         "<div>: Block-level container.",
                         "<span>: Inline container."
@@ -453,12 +410,7 @@
                 },
                 {
                     description: "Tables - Basic Structure",
-                    code: `<table>
-    <tr>
-        <td>Cell 1</td>
-        <td>Cell 2</td>
-    </tr>
-</table>`,
+                    code: `<table>\n    <tr>\n        <td>Cell 1</td>\n        <td>Cell 2</td>\n    </tr>\n</table>`,
                     breakdown: [
                         "<table>: Defines a table.",
                         "<tr>: Table row.",
@@ -467,25 +419,14 @@
                 },
                 {
                     description: "Table Headers",
-                    code: `<table>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-    </tr>
-    <tr>
-        <td>John</td>
-        <td>25</td>
-    </tr>
-</table>`,
+                    code: `<table>\n    <tr>\n        <th>Name</th>\n        <th>Age</th>\n    </tr>\n    <tr>\n        <td>John</td>\n        <td>25</td>\n    </tr>\n</table>`,
                     breakdown: [
                         "<th>: Table header cell, typically bold and centered."
                     ]
                 },
                 {
                     description: "Forms - Basic Input",
-                    code: `<form>
-    <input type="text" name="username">
-</form>`,
+                    code: `<form>\n    <input type="text" name="username">\n</form>`,
                     breakdown: [
                         "<form>: Container for input elements.",
                         "<input>: Input field, type defines its purpose."
@@ -493,19 +434,14 @@
                 },
                 {
                     description: "Forms - Buttons",
-                    code: `<form>
-    <input type="submit" value="Submit">
-</form>`,
+                    code: `<form>\n    <input type="submit" value="Submit">\n</form>`,
                     breakdown: [
                         "<input type=\"submit\">: Submits form data."
                     ]
                 },
                 {
                     description: "Forms - Labels",
-                    code: `<form>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email">
-</form>`,
+                    code: `<form>\n    <label for="email">Email:</label>\n    <input type="email" id="email" name="email">\n</form>`,
                     breakdown: [
                         "<label>: Associates text with an input.",
                         "for: Links label to input’s id."
@@ -513,12 +449,7 @@
                 },
                 {
                     description: "Forms - Radio Buttons",
-                    code: `<form>
-    <input type="radio" id="yes" name="choice" value="yes">
-    <label for="yes">Yes</label>
-    <input type="radio" id="no" name="choice" value="no">
-    <label for="no">No</label>
-</form>`,
+                    code: `<form>\n    <input type="radio" id="yes" name="choice" value="yes">\n    <label for="yes">Yes</label>\n    <input type="radio" id="no" name="choice" value="no">\n    <label for="no">No</label>\n</form>`,
                     breakdown: [
                         "<input type=\"radio\">: Single-choice option.",
                         "name: Groups radio buttons together."
@@ -526,22 +457,14 @@
                 },
                 {
                     description: "Forms - Checkboxes",
-                    code: `<form>
-    <input type="checkbox" id="subscribe" name="subscribe">
-    <label for="subscribe">Subscribe</label>
-</form>`,
+                    code: `<form>\n    <input type="checkbox" id="subscribe" name="subscribe">\n    <label for="subscribe">Subscribe</label>\n</form>`,
                     breakdown: [
                         "<input type=\"checkbox\">: Multi-select option."
                     ]
                 },
                 {
                     description: "Forms - Select Dropdown",
-                    code: `<form>
-    <select name="color">
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-    </select>
-</form>`,
+                    code: `<form>\n    <select name="color">\n        <option value="red">Red</option>\n        <option value="blue">Blue</option>\n    </select>\n</form>`,
                     breakdown: [
                         "<select>: Dropdown menu.",
                         "<option>: Individual choice."
@@ -549,82 +472,63 @@
                 },
                 {
                     description: "Semantic HTML - Header",
-                    code: `<header>
-    <h1>Site Title</h1>
-</header>`,
+                    code: `<header>\n    <h1>Site Title</h1>\n</header>`,
                     breakdown: [
                         "<header>: Represents introductory content or navigation."
                     ]
                 },
                 {
                     description: "Semantic HTML - Nav",
-                    code: `<nav>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-</nav>`,
+                    code: `<nav>\n    <a href="#home">Home</a>\n    <a href="#about">About</a>\n</nav>`,
                     breakdown: [
                         "<nav>: Defines a navigation section."
                     ]
                 },
                 {
                     description: "Semantic HTML - Main",
-                    code: `<main>
-    <p>Main content here</p>
-</main>`,
+                    code: `<main>\n    <p>Main content here</p>\n</main>`,
                     breakdown: [
                         "<main>: Primary content of the page."
                     ]
                 },
                 {
                     description: "Semantic HTML - Article",
-                    code: `<article>
-    <h2>Blog Post</h2>
-    <p>Content...</p>
-</article>`,
+                    code: `<article>\n    <h2>Blog Post</h2>\n    <p>Content...</p>\n</article>`,
                     breakdown: [
                         "<article>: Independent, self-contained content."
                     ]
                 },
                 {
                     description: "Semantic HTML - Section",
-                    code: `<section>
-    <h2>Section Title</h2>
-    <p>Section content</p>
-</section>`,
+                    code: `<section>\n    <h2>Section Title</h2>\n    <p>Section content</p>\n</section>`,
                     breakdown: [
                         "<section>: Thematic grouping of content."
                     ]
                 },
                 {
                     description: "Semantic HTML - Aside",
-                    code: `<aside>
-    <p>Sidebar info</p>
-</aside>`,
+                    code: `<aside>\n    <p>Sidebar info</p>\n</aside>`,
                     breakdown: [
                         "<aside>: Content tangentially related to main content."
                     ]
                 },
                 {
                     description: "Semantic HTML - Footer",
-                    code: `<footer>
-    <p>© 2025</p>
-</footer>`,
+                    code: `<footer>\n    <p>© 2025</p>\n</footer>`,
                     breakdown: [
                         "<footer>: Footer content, like copyright info."
                     ]
                 },
                 {
                     description: "HTML Comments",
-                    code: `<!-- This is a comment -->
-<p>Visible text</p>`,
+                    code: `<!-- This is a comment -->\n<p>Visible text</p>`,
                     breakdown: [
                         "<!-- -->: Comments, not displayed in browser."
                     ]
                 },
                 {
                     description: "Block vs Inline Elements",
-                    code: `<div>Block</div>
-<span>Inline</span>`,
+                    code: `<div>Block</div>\n<span>Inline</span>`,
                     breakdown: [
                         "Block: Takes full width, starts on new line (e.g., <div>).",
                         "Inline: Takes only needed width, stays on same line (e.g., <span>)."
@@ -632,7 +536,7 @@
                 },
                 {
                     description: "HTML Entities",
-                    code: `<p>Copyright &copy; 2025 &lt;Codexedoc&gt;</p>`,
+                    code: `<p>Copyright © 2025 &lt;Codexedoc&gt;</p>`,
                     breakdown: [
                         "&copy;: Displays ©.",
                         "&lt;: Displays <."
@@ -649,10 +553,7 @@
                 },
                 {
                     description: "Meta Tags for SEO",
-                    code: `<head>
-    <meta name="description" content="Learn HTML">
-    <meta name="keywords" content="HTML, tutorial">
-</head>`,
+                    code: `<head>\n    <meta name="description" content="Learn HTML">\n    <meta name="keywords" content="HTML, tutorial">\n</head>`,
                     breakdown: [
                         "<meta name=\"description\">: Page summary for search engines.",
                         "<meta name=\"keywords\">: Keywords for SEO."
@@ -660,12 +561,7 @@
                 },
                 {
                     description: "HTML5 Canvas",
-                    code: `<canvas id="myCanvas" width="200" height="100"></canvas>
-<script>
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
-    ctx.fillRect(10, 10, 50, 50);
-</script>`,
+                    code: `<canvas id="myCanvas" width="200" height="100"></canvas>\n<script>\n    var canvas = document.getElementById("myCanvas");\n    var ctx = canvas.getContext("2d");\n    ctx.fillRect(10, 10, 50, 50);\n</script>`,
                     breakdown: [
                         "<canvas>: HTML5 element for drawing graphics.",
                         "JavaScript: Used to render content (e.g., rectangle)."
@@ -731,7 +627,6 @@
         function startLearning(language) {
             const lessonsGrid = document.getElementById(`${language}-lessons`);
             const lessonContents = document.getElementById(`${language}-lesson-contents`);
-
             if (!lessonsGrid || !lessonContents) {
                 console.error("Lessons grid or contents not found!");
                 return;
@@ -741,31 +636,32 @@
             lessonContents.innerHTML = '';
             lessonsGrid.style.display = 'grid';
 
-            for (let i = 1; i <= 30; i++) {
+            lessonsData[language].forEach((lesson, i) => {
+                const lessonNumber = i + 1;
                 const lessonBox = document.createElement('div');
                 lessonBox.classList.add('lesson-box');
-                lessonBox.textContent = i;
+                lessonBox.textContent = lessonNumber;
                 lessonBox.onclick = () => {
-                    currentLessons[language] = i;
-                    completedLessons[language].add(i);
-                    toggleLesson(language, i);
+                    currentLessons[language] = lessonNumber;
+                    completedLessons[language].add(lessonNumber);
+                    toggleLesson(language, lessonNumber);
                 };
-                if (completedLessons[language].has(i)) {
+                if (completedLessons[language].has(lessonNumber)) {
                     lessonBox.classList.add('completed');
                 }
                 lessonsGrid.appendChild(lessonBox);
 
                 const lessonContent = document.createElement('div');
                 lessonContent.classList.add('lesson-content');
-                lessonContent.id = `${language}-lesson-${i}`;
+                lessonContent.id = `${language}-lesson-${lessonNumber}`;
                 
                 const description = document.createElement('div');
                 description.classList.add('lesson-description');
-                description.textContent = lessonsData[language][i-1].description;
+                description.textContent = lesson.description;
                 
                 const codeBreakdown = document.createElement('pre');
                 codeBreakdown.classList.add('code-breakdown');
-                codeBreakdown.textContent = lessonsData[language][i-1].code;
+                codeBreakdown.textContent = lesson.code;
                 
                 const explanation = document.createElement('div');
                 explanation.classList.add('code-explanation');
@@ -774,7 +670,7 @@
                 explanation.appendChild(explanationTitle);
                 
                 const explanationList = document.createElement('ul');
-                lessonsData[language][i-1].breakdown.forEach(item => {
+                lesson.breakdown.forEach(item => {
                     const li = document.createElement('li');
                     li.textContent = item;
                     explanationList.appendChild(li);
@@ -787,12 +683,12 @@
                 const prevBtn = document.createElement('button');
                 prevBtn.classList.add('nav-btn');
                 prevBtn.textContent = 'Previous';
-                prevBtn.onclick = () => navigateLesson(language, i - 1);
+                prevBtn.onclick = () => navigateLesson(language, lessonNumber - 1);
                 
                 const nextBtn = document.createElement('button');
                 nextBtn.classList.add('nav-btn');
                 nextBtn.textContent = 'Next';
-                nextBtn.onclick = () => navigateLesson(language, i + 1);
+                nextBtn.onclick = () => navigateLesson(language, lessonNumber + 1);
                 
                 navigation.appendChild(prevBtn);
                 navigation.appendChild(nextBtn);
@@ -802,7 +698,7 @@
                 lessonContent.appendChild(explanation);
                 lessonContent.appendChild(navigation);
                 lessonContents.appendChild(lessonContent);
-            }
+            });
 
             currentLessons[language] = 1;
             completedLessons[language].add(1);
@@ -810,6 +706,7 @@
         }
 
         function toggleLesson(language, lessonNumber) {
+            if (lessonNumber < 1 || lessonNumber > 30) return;
             document.querySelectorAll(`#${language}-lesson-contents .lesson-content`).forEach(content => {
                 content.classList.remove('active');
             });
@@ -841,6 +738,10 @@
             const testModal = document.getElementById('testModal');
             const testContents = document.getElementById('testContents');
             const testGrid = document.getElementById('testGrid');
+            if (!testModal || !testContents || !testGrid) {
+                console.error("Test modal elements not found!");
+                return;
+            }
 
             testContents.innerHTML = '';
             testGrid.innerHTML = '';
@@ -848,44 +749,43 @@
             userAnswers[language] = Array(30).fill(null);
             completedTestQuestions[language].clear();
 
-            // Shuffle test questions
             const shuffledTestData = shuffleArray(baseTestData[language]);
-
             testModal.classList.add('active');
 
-            for (let i = 1; i <= 30; i++) {
+            shuffledTestData.forEach((test, i) => {
+                const questionNumber = i + 1;
                 const testBox = document.createElement('div');
                 testBox.classList.add('test-box');
-                testBox.textContent = i;
+                testBox.textContent = questionNumber;
                 testBox.onclick = () => {
-                    currentTestQuestions[language] = i;
-                    completedTestQuestions[language].add(i);
-                    toggleTestQuestion(language, i);
+                    currentTestQuestions[language] = questionNumber;
+                    completedTestQuestions[language].add(questionNumber);
+                    toggleTestQuestion(language, questionNumber);
                 };
-                if (completedTestQuestions[language].has(i)) {
+                if (completedTestQuestions[language].has(questionNumber)) {
                     testBox.classList.add('completed');
                 }
                 testGrid.appendChild(testBox);
 
                 const testContent = document.createElement('div');
                 testContent.classList.add('test-content');
-                testContent.id = `${language}-test-${i}`;
+                testContent.id = `${language}-test-${questionNumber}`;
                 
                 const description = document.createElement('div');
                 description.classList.add('test-description');
-                description.textContent = shuffledTestData[i-1].description;
+                description.textContent = test.description;
                 
                 const question = document.createElement('div');
                 question.classList.add('test-question');
-                question.textContent = shuffledTestData[i-1].question;
+                question.textContent = test.question;
                 
                 const optionsContainer = document.createElement('div');
                 optionsContainer.classList.add('test-options');
-                shuffledTestData[i-1].options.forEach((option, index) => {
+                test.options.forEach((option, index) => {
                     const optionDiv = document.createElement('div');
                     optionDiv.classList.add('test-option');
                     optionDiv.textContent = option;
-                    optionDiv.onclick = () => selectOption(language, i, index, shuffledTestData);
+                    optionDiv.onclick = () => selectOption(language, questionNumber, index, shuffledTestData);
                     optionsContainer.appendChild(optionDiv);
                 });
                 
@@ -895,10 +795,10 @@
                 const prevBtn = document.createElement('button');
                 prevBtn.classList.add('nav-btn');
                 prevBtn.textContent = 'Previous';
-                prevBtn.onclick = () => navigateTestQuestion(language, i - 1);
+                prevBtn.onclick = () => navigateTestQuestion(language, questionNumber - 1);
                 
                 const nextBtn = document.createElement('button');
-                if (i === 30) {
+                if (questionNumber === 30) {
                     nextBtn.classList.add('submit-btn');
                     nextBtn.textContent = 'Submit';
                     nextBtn.onclick = () => submitTest(language, shuffledTestData);
@@ -907,7 +807,7 @@
                 } else {
                     nextBtn.classList.add('nav-btn');
                     nextBtn.textContent = 'Next';
-                    nextBtn.onclick = () => navigateTestQuestion(language, i + 1);
+                    nextBtn.onclick = () => navigateTestQuestion(language, questionNumber + 1);
                 }
                 
                 navigation.appendChild(prevBtn);
@@ -918,7 +818,7 @@
                 testContent.appendChild(optionsContainer);
                 testContent.appendChild(navigation);
                 testContents.appendChild(testContent);
-            }
+            });
 
             currentTestQuestions[language] = 1;
             completedTestQuestions[language].add(1);
@@ -926,6 +826,7 @@
         }
 
         function toggleTestQuestion(language, questionNumber) {
+            if (questionNumber < 1 || questionNumber > 30) return;
             document.querySelectorAll(`#testContents .test-content`).forEach(content => {
                 content.classList.remove('active');
             });
@@ -982,13 +883,16 @@
         }
 
         function submitTest(language, shuffledTestData) {
+            if (!userAnswers[language] || !shuffledTestData) {
+                alert("Error calculating score. Please restart the test.");
+                return;
+            }
             let score = 0;
             userAnswers[language].forEach((answer, index) => {
                 if (answer === shuffledTestData[index].correct) {
                     score++;
                 }
             });
-
             alert(`You scored ${score} out of 30!`);
             if (score >= 25) {
                 window.location.href = 'correct.html';
@@ -999,13 +903,15 @@
 
         function closeTest() {
             const testModal = document.getElementById('testModal');
-            testModal.classList.remove('active');
+            if (testModal) testModal.classList.remove('active');
         }
 
         // Initialization
         document.querySelectorAll('.lessons-grid').forEach(grid => {
             grid.style.display = 'none';
         });
+
+        console.log("Script initialized successfully");
     </script>
 </body>
 </html>
