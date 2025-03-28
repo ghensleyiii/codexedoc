@@ -352,105 +352,362 @@
     </footer>
 
     <script>
-        // HTML-specific lesson and test data
+        // HTML-specific lesson data (30 progressive lessons)
         const lessonsData = {
             html: [
                 {
-                    description: "Learn the basic structure of an HTML document.",
+                    description: "Basic Structure of an HTML Document",
                     code: `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My First Page</title>
+    <title>My Page</title>
 </head>
 <body>
-    <h1>Hello, World!</h1>
+    <h1>Hello</h1>
 </body>
 </html>`,
                     breakdown: [
-                        "<!DOCTYPE html>: Declares the document type as HTML5.",
-                        "<html lang=\"en\">: The root element of the HTML page, with a lang attribute specifying the language as English.",
-                        "<head>: Contains metadata about the document.",
-                        "<meta charset=\"UTF-8\">: Sets the character encoding to UTF-8, supporting a wide range of characters.",
-                        "<title>: Defines the title of the page, shown in the browser tab.",
-                        "<body>: Contains the visible content of the page.",
-                        "<h1>: A level 1 heading, the largest heading size."
+                        "<!DOCTYPE html>: Declares the document as HTML5.",
+                        "<html lang=\"en\">: Root element with language attribute.",
+                        "<head>: Contains metadata like character set and title.",
+                        "<body>: Contains visible content."
                     ]
                 },
                 {
-                    description: "Introduction to HTML headings and paragraphs.",
-                    code: `<h1>Main Heading</h1>
-<h2>Subheading</h2>
-<p>This is a paragraph of text.</p>`,
+                    description: "Headings in HTML",
+                    code: `<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>`,
                     breakdown: [
-                        "<h1>: A level 1 heading, used for the main title.",
-                        "<h2>: A level 2 heading, used for a subheading (smaller than h1).",
-                        "<p>: A paragraph element, used to display a block of text."
+                        "<h1> to <h6>: Define headings, <h1> is largest, <h6> smallest.",
+                        "Used for structuring content hierarchically."
                     ]
                 },
                 {
-                    description: "Adding links and images in HTML.",
-                    code: `<a href="https://example.com">Visit Example</a>
-<img src="image.jpg" alt="Sample Image">`,
+                    description: "Paragraphs and Text Formatting",
+                    code: `<p>This is a <b>bold</b> and <i>italic</i> paragraph.</p>`,
                     breakdown: [
-                        "<a>: An anchor tag, used to create hyperlinks.",
-                        "href=\"https://example.com\": The href attribute specifies the URL the link points to.",
-                        "<img>: An image tag, used to embed images.",
-                        "src=\"image.jpg\": The src attribute specifies the path to the image file.",
-                        "alt=\"Sample Image\": The alt attribute provides alternative text for the image, used for accessibility."
+                        "<p>: Defines a paragraph.",
+                        "<b>: Makes text bold.",
+                        "<i>: Makes text italic."
+                    ]
+                },
+                {
+                    description: "Links in HTML",
+                    code: `<a href="https://example.com">Click Me</a>`,
+                    breakdown: [
+                        "<a>: Anchor tag for hyperlinks.",
+                        "href: Specifies the URL destination."
+                    ]
+                },
+                {
+                    description: "Images in HTML",
+                    code: `<img src="photo.jpg" alt="A photo">`,
+                    breakdown: [
+                        "<img>: Embeds an image.",
+                        "src: Image file path.",
+                        "alt: Alternative text for accessibility."
+                    ]
+                },
+                {
+                    description: "Lists - Unordered",
+                    code: `<ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+</ul>`,
+                    breakdown: [
+                        "<ul>: Unordered (bullet) list.",
+                        "<li>: List item."
+                    ]
+                },
+                {
+                    description: "Lists - Ordered",
+                    code: `<ol>
+    <li>First</li>
+    <li>Second</li>
+</ol>`,
+                    breakdown: [
+                        "<ol>: Ordered (numbered) list.",
+                        "<li>: List item."
+                    ]
+                },
+                {
+                    description: "Divisions and Spans",
+                    code: `<div>
+    <p>Paragraph in a div</p>
+    <span>Inline text</span>
+</div>`,
+                    breakdown: [
+                        "<div>: Block-level container.",
+                        "<span>: Inline container."
+                    ]
+                },
+                {
+                    description: "Attributes in HTML",
+                    code: `<p id="intro" class="text">Hello</p>`,
+                    breakdown: [
+                        "id: Unique identifier.",
+                        "class: Groups elements for styling or scripting."
+                    ]
+                },
+                {
+                    description: "Tables - Basic Structure",
+                    code: `<table>
+    <tr>
+        <td>Cell 1</td>
+        <td>Cell 2</td>
+    </tr>
+</table>`,
+                    breakdown: [
+                        "<table>: Defines a table.",
+                        "<tr>: Table row.",
+                        "<td>: Table data (cell)."
+                    ]
+                },
+                {
+                    description: "Table Headers",
+                    code: `<table>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+    <tr>
+        <td>John</td>
+        <td>25</td>
+    </tr>
+</table>`,
+                    breakdown: [
+                        "<th>: Table header cell, typically bold and centered."
+                    ]
+                },
+                {
+                    description: "Forms - Basic Input",
+                    code: `<form>
+    <input type="text" name="username">
+</form>`,
+                    breakdown: [
+                        "<form>: Container for input elements.",
+                        "<input>: Input field, type defines its purpose."
+                    ]
+                },
+                {
+                    description: "Forms - Buttons",
+                    code: `<form>
+    <input type="submit" value="Submit">
+</form>`,
+                    breakdown: [
+                        "<input type=\"submit\">: Submits form data."
+                    ]
+                },
+                {
+                    description: "Forms - Labels",
+                    code: `<form>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+</form>`,
+                    breakdown: [
+                        "<label>: Associates text with an input.",
+                        "for: Links label to input’s id."
+                    ]
+                },
+                {
+                    description: "Forms - Radio Buttons",
+                    code: `<form>
+    <input type="radio" id="yes" name="choice" value="yes">
+    <label for="yes">Yes</label>
+    <input type="radio" id="no" name="choice" value="no">
+    <label for="no">No</label>
+</form>`,
+                    breakdown: [
+                        "<input type=\"radio\">: Single-choice option.",
+                        "name: Groups radio buttons together."
+                    ]
+                },
+                {
+                    description: "Forms - Checkboxes",
+                    code: `<form>
+    <input type="checkbox" id="subscribe" name="subscribe">
+    <label for="subscribe">Subscribe</label>
+</form>`,
+                    breakdown: [
+                        "<input type=\"checkbox\">: Multi-select option."
+                    ]
+                },
+                {
+                    description: "Forms - Select Dropdown",
+                    code: `<form>
+    <select name="color">
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+    </select>
+</form>`,
+                    breakdown: [
+                        "<select>: Dropdown menu.",
+                        "<option>: Individual choice."
+                    ]
+                },
+                {
+                    description: "Semantic HTML - Header",
+                    code: `<header>
+    <h1>Site Title</h1>
+</header>`,
+                    breakdown: [
+                        "<header>: Represents introductory content or navigation."
+                    ]
+                },
+                {
+                    description: "Semantic HTML - Nav",
+                    code: `<nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+</nav>`,
+                    breakdown: [
+                        "<nav>: Defines a navigation section."
+                    ]
+                },
+                {
+                    description: "Semantic HTML - Main",
+                    code: `<main>
+    <p>Main content here</p>
+</main>`,
+                    breakdown: [
+                        "<main>: Primary content of the page."
+                    ]
+                },
+                {
+                    description: "Semantic HTML - Article",
+                    code: `<article>
+    <h2>Blog Post</h2>
+    <p>Content...</p>
+</article>`,
+                    breakdown: [
+                        "<article>: Independent, self-contained content."
+                    ]
+                },
+                {
+                    description: "Semantic HTML - Section",
+                    code: `<section>
+    <h2>Section Title</h2>
+    <p>Section content</p>
+</section>`,
+                    breakdown: [
+                        "<section>: Thematic grouping of content."
+                    ]
+                },
+                {
+                    description: "Semantic HTML - Aside",
+                    code: `<aside>
+    <p>Sidebar info</p>
+</aside>`,
+                    breakdown: [
+                        "<aside>: Content tangentially related to main content."
+                    ]
+                },
+                {
+                    description: "Semantic HTML - Footer",
+                    code: `<footer>
+    <p>© 2025</p>
+</footer>`,
+                    breakdown: [
+                        "<footer>: Footer content, like copyright info."
+                    ]
+                },
+                {
+                    description: "HTML Comments",
+                    code: `<!-- This is a comment -->
+<p>Visible text</p>`,
+                    breakdown: [
+                        "<!-- -->: Comments, not displayed in browser."
+                    ]
+                },
+                {
+                    description: "Block vs Inline Elements",
+                    code: `<div>Block</div>
+<span>Inline</span>`,
+                    breakdown: [
+                        "Block: Takes full width, starts on new line (e.g., <div>).",
+                        "Inline: Takes only needed width, stays on same line (e.g., <span>)."
+                    ]
+                },
+                {
+                    description: "HTML Entities",
+                    code: `<p>Copyright &copy; 2025 &lt;Codexedoc&gt;</p>`,
+                    breakdown: [
+                        "&copy;: Displays ©.",
+                        "&lt;: Displays <."
+                    ]
+                },
+                {
+                    description: "Iframe Embedding",
+                    code: `<iframe src="https://example.com" width="300" height="200"></iframe>`,
+                    breakdown: [
+                        "<iframe>: Embeds external content.",
+                        "src: Source URL.",
+                        "width/height: Dimensions."
+                    ]
+                },
+                {
+                    description: "Meta Tags for SEO",
+                    code: `<head>
+    <meta name="description" content="Learn HTML">
+    <meta name="keywords" content="HTML, tutorial">
+</head>`,
+                    breakdown: [
+                        "<meta name=\"description\">: Page summary for search engines.",
+                        "<meta name=\"keywords\">: Keywords for SEO."
+                    ]
+                },
+                {
+                    description: "HTML5 Canvas",
+                    code: `<canvas id="myCanvas" width="200" height="100"></canvas>
+<script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    ctx.fillRect(10, 10, 50, 50);
+</script>`,
+                    breakdown: [
+                        "<canvas>: HTML5 element for drawing graphics.",
+                        "JavaScript: Used to render content (e.g., rectangle)."
                     ]
                 }
             ]
         };
 
-        const testData = {
-            html: Array.from({ length: 30 }, (_, i) => {
-                if (i === 0) {
-                    return {
-                        description: "HTML Basics Test",
-                        question: "What does the <!DOCTYPE html> declaration do?",
-                        options: [
-                            "It defines the document type as HTML5.",
-                            "It links to an external stylesheet.",
-                            "It creates a new HTML element."
-                        ],
-                        correct: 0
-                    };
-                } else if (i === 1) {
-                    return {
-                        description: "HTML Elements Test",
-                        question: "Which tag is used for the largest heading?",
-                        options: [
-                            "<h6>",
-                            "<h1>",
-                            "<p>"
-                        ],
-                        correct: 1
-                    };
-                } else if (i === 2) {
-                    return {
-                        description: "HTML Links and Images Test",
-                        question: "What does the 'alt' attribute in an <img> tag do?",
-                        options: [
-                            "Specifies the image source.",
-                            "Provides alternative text for accessibility.",
-                            "Sets the image width."
-                        ],
-                        correct: 1
-                    };
-                } else {
-                    return {
-                        description: `HTML Question ${i + 1}`,
-                        question: `What is the purpose of HTML question ${i + 1}?`,
-                        options: [
-                            "Option A",
-                            "Option B",
-                            "Option C"
-                        ],
-                        correct: 0
-                    };
-                }
-            })
+        // Base test data (will be shuffled later)
+        const baseTestData = {
+            html: [
+                { description: "Lesson 1 Test", question: "What does <!DOCTYPE html> declare?", options: ["HTML5 document", "CSS version", "JavaScript file"], correct: 0 },
+                { description: "Lesson 2 Test", question: "Which tag creates the largest heading?", options: ["<h6>", "<h1>", "<h3>"], correct: 1 },
+                { description: "Lesson 3 Test", question: "What tag makes text bold?", options: ["<i>", "<b>", "<p>"], correct: 1 },
+                { description: "Lesson 4 Test", question: "What attribute specifies a link’s destination?", options: ["src", "href", "alt"], correct: 1 },
+                { description: "Lesson 5 Test", question: "What does the 'alt' attribute do in an <img> tag?", options: ["Sets width", "Provides accessibility text", "Links to another page"], correct: 1 },
+                { description: "Lesson 6 Test", question: "Which tag creates an unordered list?", options: ["<ol>", "<ul>", "<li>"], correct: 1 },
+                { description: "Lesson 7 Test", question: "What tag is used for a numbered list?", options: ["<ul>", "<ol>", "<li>"], correct: 1 },
+                { description: "Lesson 8 Test", question: "Which is an inline element?", options: ["<div>", "<span>", "<p>"], correct: 1 },
+                { description: "Lesson 9 Test", question: "What attribute provides a unique identifier?", options: ["class", "id", "name"], correct: 1 },
+                { description: "Lesson 10 Test", question: "What tag defines a table cell?", options: ["<tr>", "<td>", "<th>"], correct: 1 },
+                { description: "Lesson 11 Test", question: "Which tag creates a table header?", options: ["<td>", "<th>", "<tr>"], correct: 1 },
+                { description: "Lesson 12 Test", question: "What tag wraps form elements?", options: ["<form>", "<input>", "<label>"], correct: 0 },
+                { description: "Lesson 13 Test", question: "What input type submits a form?", options: ["text", "submit", "button"], correct: 1 },
+                { description: "Lesson 14 Test", question: "What does the 'for' attribute in a label do?", options: ["Sets input type", "Links to input id", "Styles the label"], correct: 1 },
+                { description: "Lesson 15 Test", question: "What groups radio buttons together?", options: ["id", "name", "value"], correct: 1 },
+                { description: "Lesson 16 Test", question: "What input type allows multiple selections?", options: ["radio", "checkbox", "text"], correct: 1 },
+                { description: "Lesson 17 Test", question: "What tag creates a dropdown?", options: ["<select>", "<option>", "<input>"], correct: 0 },
+                { description: "Lesson 18 Test", question: "What semantic tag is for navigation?", options: ["<header>", "<nav>", "<main>"], correct: 1 },
+                { description: "Lesson 19 Test", question: "Which tag is for the main content?", options: ["<nav>", "<main>", "<footer>"], correct: 1 },
+                { description: "Lesson 20 Test", question: "What tag represents a standalone article?", options: ["<section>", "<article>", "<aside>"], correct: 1 },
+                { description: "Lesson 21 Test", question: "What tag groups related content?", options: ["<article>", "<section>", "<div>"], correct: 1 },
+                { description: "Lesson 22 Test", question: "Which tag is for sidebar content?", options: ["<aside>", "<footer>", "<header>"], correct: 0 },
+                { description: "Lesson 23 Test", question: "What semantic tag is for footer content?", options: ["<header>", "<footer>", "<main>"], correct: 1 },
+                { description: "Lesson 24 Test", question: "How do you write an HTML comment?", options: ["// Comment", "<!-- Comment -->", "# Comment"], correct: 1 },
+                { description: "Lesson 25 Test", question: "Which element takes the full width by default?", options: ["<span>", "<div>", "<a>"], correct: 1 },
+                { description: "Lesson 26 Test", question: "What entity displays a copyright symbol?", options: ["&copy;", "&lt;", "&amp;"], correct: 0 },
+                { description: "Lesson 27 Test", question: "What tag embeds external content?", options: ["<iframe>", "<img>", "<div>"], correct: 0 },
+                { description: "Lesson 28 Test", question: "What meta tag helps with SEO description?", options: ["name=\"keywords\"", "name=\"description\"", "name=\"title\""], correct: 1 },
+                { description: "Lesson 29 Test", question: "What HTML5 tag is used for graphics?", options: ["<canvas>", "<svg>", "<img>"], correct: 0 },
+                { description: "Lesson 30 Test", question: "What is required to draw on a canvas?", options: ["CSS", "JavaScript", "HTML only"], correct: 1 }
+            ]
         };
 
         // State management
@@ -460,9 +717,18 @@
         const completedTestQuestions = { html: new Set() };
         const userAnswers = { html: Array(30).fill(null) };
 
+        // Utility function to shuffle array
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
         // Lesson Functions
         function startLearning(language) {
-            console.log(`startLearning called with language: ${language}`); // Debug log
             const lessonsGrid = document.getElementById(`${language}-lessons`);
             const lessonContents = document.getElementById(`${language}-lesson-contents`);
 
@@ -475,7 +741,7 @@
             lessonContents.innerHTML = '';
             lessonsGrid.style.display = 'grid';
 
-            for (let i = 1; i <= lessonsData[language].length; i++) {
+            for (let i = 1; i <= 30; i++) {
                 const lessonBox = document.createElement('div');
                 lessonBox.classList.add('lesson-box');
                 lessonBox.textContent = i;
@@ -495,11 +761,11 @@
                 
                 const description = document.createElement('div');
                 description.classList.add('lesson-description');
-                description.textContent = lessonsData[language][i-1]?.description || `Lesson ${i}: Coming Soon`;
+                description.textContent = lessonsData[language][i-1].description;
                 
                 const codeBreakdown = document.createElement('pre');
                 codeBreakdown.classList.add('code-breakdown');
-                codeBreakdown.textContent = lessonsData[language][i-1]?.code || '// Code example coming soon';
+                codeBreakdown.textContent = lessonsData[language][i-1].code;
                 
                 const explanation = document.createElement('div');
                 explanation.classList.add('code-explanation');
@@ -508,8 +774,7 @@
                 explanation.appendChild(explanationTitle);
                 
                 const explanationList = document.createElement('ul');
-                const breakdownItems = lessonsData[language][i-1]?.breakdown || ['No breakdown available yet.'];
-                breakdownItems.forEach(item => {
+                lessonsData[language][i-1].breakdown.forEach(item => {
                     const li = document.createElement('li');
                     li.textContent = item;
                     explanationList.appendChild(li);
@@ -555,7 +820,7 @@
                 const prevBtn = selectedLesson.querySelector('.nav-btn:first-child');
                 const nextBtn = selectedLesson.querySelector('.nav-btn:last-child');
                 prevBtn.disabled = lessonNumber === 1;
-                nextBtn.disabled = lessonNumber === lessonsData[language].length;
+                nextBtn.disabled = lessonNumber === 30;
             }
 
             const lessonBox = document.querySelector(`#${language}-lessons .lesson-box:nth-child(${lessonNumber})`);
@@ -565,7 +830,7 @@
         }
 
         function navigateLesson(language, lessonNumber) {
-            if (lessonNumber < 1 || lessonNumber > lessonsData[language].length) return;
+            if (lessonNumber < 1 || lessonNumber > 30) return;
             currentLessons[language] = lessonNumber;
             completedLessons[language].add(lessonNumber);
             toggleLesson(language, lessonNumber);
@@ -582,6 +847,9 @@
             testGrid.style.display = 'grid';
             userAnswers[language] = Array(30).fill(null);
             completedTestQuestions[language].clear();
+
+            // Shuffle test questions
+            const shuffledTestData = shuffleArray(baseTestData[language]);
 
             testModal.classList.add('active');
 
@@ -605,20 +873,19 @@
                 
                 const description = document.createElement('div');
                 description.classList.add('test-description');
-                description.textContent = testData[language][i-1]?.description || `Question ${i}: Coming Soon`;
+                description.textContent = shuffledTestData[i-1].description;
                 
                 const question = document.createElement('div');
                 question.classList.add('test-question');
-                question.textContent = testData[language][i-1]?.question || 'Question coming soon.';
+                question.textContent = shuffledTestData[i-1].question;
                 
                 const optionsContainer = document.createElement('div');
                 optionsContainer.classList.add('test-options');
-                const options = testData[language][i-1]?.options || ['Option 1', 'Option 2', 'Option 3'];
-                options.forEach((option, index) => {
+                shuffledTestData[i-1].options.forEach((option, index) => {
                     const optionDiv = document.createElement('div');
                     optionDiv.classList.add('test-option');
                     optionDiv.textContent = option;
-                    optionDiv.onclick = () => selectOption(language, i, index);
+                    optionDiv.onclick = () => selectOption(language, i, index, shuffledTestData);
                     optionsContainer.appendChild(optionDiv);
                 });
                 
@@ -634,7 +901,7 @@
                 if (i === 30) {
                     nextBtn.classList.add('submit-btn');
                     nextBtn.textContent = 'Submit';
-                    nextBtn.onclick = () => submitTest(language);
+                    nextBtn.onclick = () => submitTest(language, shuffledTestData);
                     nextBtn.style.display = 'none';
                     nextBtn.id = `${language}-submit-btn`;
                 } else {
@@ -698,7 +965,7 @@
             toggleTestQuestion(language, questionNumber);
         }
 
-        function selectOption(language, questionNumber, optionIndex) {
+        function selectOption(language, questionNumber, optionIndex, shuffledTestData) {
             const options = document.querySelectorAll(`#${language}-test-${questionNumber} .test-option`);
             options.forEach(option => option.classList.remove('selected'));
             options[optionIndex].classList.add('selected');
@@ -714,10 +981,10 @@
             }
         }
 
-        function submitTest(language) {
+        function submitTest(language, shuffledTestData) {
             let score = 0;
             userAnswers[language].forEach((answer, index) => {
-                if (answer === testData[language][index].correct) {
+                if (answer === shuffledTestData[index].correct) {
                     score++;
                 }
             });
