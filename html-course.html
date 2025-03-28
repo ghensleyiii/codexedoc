@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codexedoc - HTML Lessons & Quiz</title>
+    <title>Codexedoc - HTML Course</title>
     <style>
         /* Full CSS from the original file */
         * {
@@ -66,7 +66,7 @@
             margin-bottom: 30px;
         }
 
-        .start-btn, .quiz-btn {
+        .start-btn, .test-btn {
             background-color: #00ff00;
             color: #1a1a1a;
             padding: 15px 30px;
@@ -78,11 +78,11 @@
             transition: background-color 0.3s;
         }
 
-        .start-btn:hover, .quiz-btn:hover {
+        .start-btn:hover, .test-btn:hover {
             background-color: #00cc00;
         }
 
-        .lessons-grid, .quiz-grid {
+        .lessons-grid, .test-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             gap: 10px;
@@ -91,7 +91,7 @@
             margin-top: 30px;
         }
 
-        .lesson-box, .quiz-box {
+        .lesson-box, .test-box {
             background-color: #2a2a2a;
             color: #d4d4d4;
             padding: 20px;
@@ -103,16 +103,16 @@
             transition: transform 0.2s, background-color 0.3s;
         }
 
-        .lesson-box.completed, .quiz-box.completed {
+        .lesson-box.completed, .test-box.completed {
             background-color: #00b7eb;
             color: #1a1a1a;
         }
 
-        .lesson-box:hover, .quiz-box:hover {
+        .lesson-box:hover, .test-box:hover {
             transform: scale(1.1);
         }
 
-        .lesson-content, .quiz-content {
+        .lesson-content, .test-content {
             display: none;
             background-color: #2a2a2a;
             padding: 20px;
@@ -122,11 +122,11 @@
             border: 1px solid #00b7eb;
         }
 
-        .lesson-content.active, .quiz-content.active {
+        .lesson-content.active, .test-content.active {
             display: block;
         }
 
-        .lesson-description, .quiz-description {
+        .lesson-description, .test-description {
             color: #00ff00;
             margin-bottom: 15px;
             font-size: 1.1rem;
@@ -163,21 +163,21 @@
             margin-bottom: 5px;
         }
 
-        .quiz-question {
+        .test-question {
             color: #d4d4d4;
             font-size: 1.1rem;
             margin-bottom: 15px;
             text-align: left;
         }
 
-        .quiz-options {
+        .test-options {
             display: flex;
             flex-direction: column;
             gap: 10px;
             margin-bottom: 15px;
         }
 
-        .quiz-option {
+        .test-option {
             background-color: #3a3a3a;
             color: #d4d4d4;
             padding: 10px;
@@ -187,11 +187,11 @@
             text-align: left;
         }
 
-        .quiz-option:hover {
+        .test-option:hover {
             background-color: #4a4a4a;
         }
 
-        .quiz-option.selected {
+        .test-option.selected {
             background-color: #00b7eb;
             color: #1a1a1a;
         }
@@ -222,7 +222,7 @@
             background-color: #00a3d3;
         }
 
-        .quiz-modal {
+        .test-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -234,11 +234,11 @@
             overflow-y: auto;
         }
 
-        .quiz-modal.active {
+        .test-modal.active {
             display: block;
         }
 
-        .quiz-modal-content {
+        .test-modal-content {
             background-color: #1a1a1a;
             margin: 5% auto;
             padding: 20px;
@@ -293,18 +293,18 @@
                 top: 6px;
             }
 
-            .lessons-grid, .quiz-grid {
+            .lessons-grid, .test-grid {
                 grid-template-columns: repeat(5, 1fr);
             }
 
-            .start-btn, .quiz-btn {
+            .start-btn, .test-btn {
                 padding: 10px 20px;
                 font-size: 1rem;
             }
         }
 
         @media (max-width: 480px) {
-            .lessons-grid, .quiz-grid {
+            .lessons-grid, .test-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
 
@@ -331,17 +331,17 @@
         <div id="html" class="tab-content active">
             <div class="button-container">
                 <button class="start-btn" onclick="startCourse('html')">Open Course</button>
-                <button class="quiz-btn" onclick="startQuiz('html')">Take Quiz</button>
+                <button class="test-btn" onclick="startTest('html')">Launch Test</button>
             </div>
             <div id="html-lesson-contents"></div>
             <div class="lessons-grid" id="html-lessons"></div>
         </div>
 
-        <div id="quizModal" class="quiz-modal">
-            <div class="quiz-modal-content">
-                <span class="close-btn" onclick="closeQuiz()">×</span>
-                <div id="quizContents"></div>
-                <div id="quizGrid" class="quiz-grid"></div>
+        <div id="testModal" class="test-modal">
+            <div class="test-modal-content">
+                <span class="close-btn" onclick="closetest()">×</span>
+                <div id="testContents"></div>
+                <div id="testGrid" class="test-grid"></div>
             </div>
         </div>
     </section>
@@ -353,7 +353,7 @@
     </footer>
 
     <script>
-        // HTML-specific lesson and quiz data
+        // HTML-specific lesson and test data
         const lessonsData = {
             html: [
                 {
@@ -404,11 +404,11 @@
             ]
         };
 
-        const quizData = {
+        const testData = {
             html: Array.from({ length: 30 }, (_, i) => {
                 if (i === 0) {
                     return {
-                        description: "HTML Basics Quiz",
+                        description: "HTML Basics test",
                         question: "What does the <!DOCTYPE html> declaration do?",
                         options: [
                             "It defines the document type as HTML5.",
@@ -419,7 +419,7 @@
                     };
                 } else if (i === 1) {
                     return {
-                        description: "HTML Elements Quiz",
+                        description: "HTML Elements test",
                         question: "Which tag is used for the largest heading?",
                         options: [
                             "<h6>",
@@ -430,7 +430,7 @@
                     };
                 } else if (i === 2) {
                     return {
-                        description: "HTML Links and Images Quiz",
+                        description: "HTML Links and Images test",
                         question: "What does the 'alt' attribute in an <img> tag do?",
                         options: [
                             "Specifies the image source.",
@@ -456,9 +456,9 @@
 
         // State management
         const currentLessons = { html: 0 };
-        const currentQuizQuestions = { html: 0 };
+        const currenttestQuestions = { html: 0 };
         const completedLessons = { html: new Set() };
-        const completedQuizQuestions = { html: new Set() };
+        const completedtestQuestions = { html: new Set() };
         const userAnswers = { html: Array(30).fill(null) };
 
         // Lesson Functions
@@ -566,51 +566,51 @@
             toggleLesson(language, lessonNumber);
         }
 
-        // Quiz Functions
-        function startQuiz(language) {
-            const quizModal = document.getElementById('quizModal');
-            const quizContents = document.getElementById('quizContents');
-            const quizGrid = document.getElementById('quizGrid');
+        // test Functions
+        function starttest(language) {
+            const testModal = document.getElementById('testModal');
+            const testContents = document.getElementById('testContents');
+            const testGrid = document.getElementById('testGrid');
 
-            quizContents.innerHTML = '';
-            quizGrid.innerHTML = '';
+            testContents.innerHTML = '';
+            testGrid.innerHTML = '';
             userAnswers[language] = Array(30).fill(null);
-            completedQuizQuestions[language].clear();
+            completedtestQuestions[language].clear();
 
-            quizModal.classList.add('active');
+            testModal.classList.add('active');
 
             for (let i = 1; i <= 30; i++) {
-                const quizBox = document.createElement('div');
-                quizBox.classList.add('quiz-box');
-                quizBox.textContent = i;
-                quizBox.onclick = () => {
-                    currentQuizQuestions[language] = i;
-                    completedQuizQuestions[language].add(i);
-                    toggleQuizQuestion(language, i);
+                const testBox = document.createElement('div');
+                testBox.classList.add('test-box');
+                testBox.textContent = i;
+                testBox.onclick = () => {
+                    currenttestQuestions[language] = i;
+                    completedtestQuestions[language].add(i);
+                    toggletestQuestion(language, i);
                 };
-                if (completedQuizQuestions[language].has(i)) {
-                    quizBox.classList.add('completed');
+                if (completedtestQuestions[language].has(i)) {
+                    testBox.classList.add('completed');
                 }
-                quizGrid.appendChild(quizBox);
+                testGrid.appendChild(testBox);
 
-                const quizContent = document.createElement('div');
-                quizContent.classList.add('quiz-content');
-                quizContent.id = `${language}-quiz-${i}`;
+                const testContent = document.createElement('div');
+                testContent.classList.add('test-content');
+                testContent.id = `${language}-test-${i}`;
                 
                 const description = document.createElement('div');
-                description.classList.add('quiz-description');
-                description.textContent = quizData[language][i-1]?.description || `Question ${i}: Coming Soon`;
+                description.classList.add('test-description');
+                description.textContent = testData[language][i-1]?.description || `Question ${i}: Coming Soon`;
                 
                 const question = document.createElement('div');
-                question.classList.add('quiz-question');
-                question.textContent = quizData[language][i-1]?.question || 'Question coming soon.';
+                question.classList.add('test-question');
+                question.textContent = testData[language][i-1]?.question || 'Question coming soon.';
                 
                 const optionsContainer = document.createElement('div');
-                optionsContainer.classList.add('quiz-options');
-                const options = quizData[language][i-1]?.options || ['Option 1', 'Option 2', 'Option 3'];
+                optionsContainer.classList.add('test-options');
+                const options = testData[language][i-1]?.options || ['Option 1', 'Option 2', 'Option 3'];
                 options.forEach((option, index) => {
                     const optionDiv = document.createElement('div');
-                    optionDiv.classList.add('quiz-option');
+                    optionDiv.classList.add('test-option');
                     optionDiv.textContent = option;
                     optionDiv.onclick = () => selectOption(language, i, index);
                     optionsContainer.appendChild(optionDiv);
@@ -622,42 +622,42 @@
                 const prevBtn = document.createElement('button');
                 prevBtn.classList.add('nav-btn');
                 prevBtn.textContent = 'Previous';
-                prevBtn.onclick = () => navigateQuizQuestion(language, i - 1);
+                prevBtn.onclick = () => navigatetestQuestion(language, i - 1);
                 
                 const nextBtn = document.createElement('button');
                 if (i === 30) {
                     nextBtn.classList.add('submit-btn');
                     nextBtn.textContent = 'Submit';
-                    nextBtn.onclick = () => submitQuiz(language);
+                    nextBtn.onclick = () => submittest(language);
                     nextBtn.style.display = 'none';
                     nextBtn.id = `${language}-submit-btn`;
                 } else {
                     nextBtn.classList.add('nav-btn');
                     nextBtn.textContent = 'Next';
-                    nextBtn.onclick = () => navigateQuizQuestion(language, i + 1);
+                    nextBtn.onclick = () => navigatetestQuestion(language, i + 1);
                 }
                 
                 navigation.appendChild(prevBtn);
                 navigation.appendChild(nextBtn);
                 
-                quizContent.appendChild(description);
-                quizContent.appendChild(question);
-                quizContent.appendChild(optionsContainer);
-                quizContent.appendChild(navigation);
-                quizContents.appendChild(quizContent);
+                testContent.appendChild(description);
+                testContent.appendChild(question);
+                testContent.appendChild(optionsContainer);
+                testContent.appendChild(navigation);
+                testContents.appendChild(testContent);
             }
 
-            currentQuizQuestions[language] = 1;
-            completedQuizQuestions[language].add(1);
-            toggleQuizQuestion(language, 1);
+            currenttestQuestions[language] = 1;
+            completedtestQuestions[language].add(1);
+            toggletestQuestion(language, 1);
         }
 
-        function toggleQuizQuestion(language, questionNumber) {
-            document.querySelectorAll(`#quizContents .quiz-content`).forEach(content => {
+        function toggletestQuestion(language, questionNumber) {
+            document.querySelectorAll(`#testContents .test-content`).forEach(content => {
                 content.classList.remove('active');
             });
 
-            const selectedQuestion = document.getElementById(`${language}-quiz-${questionNumber}`);
+            const selectedQuestion = document.getElementById(`${language}-test-${questionNumber}`);
             if (selectedQuestion) {
                 selectedQuestion.classList.add('active');
                 const prevBtn = selectedQuestion.querySelector('.nav-btn:first-child');
@@ -674,26 +674,26 @@
 
                 const selectedOptionIndex = userAnswers[language][questionNumber - 1];
                 if (selectedOptionIndex !== null) {
-                    const options = selectedQuestion.querySelectorAll('.quiz-option');
+                    const options = selectedQuestion.querySelectorAll('.test-option');
                     options[selectedOptionIndex].classList.add('selected');
                 }
             }
 
-            const quizBox = document.querySelector(`#quizGrid .quiz-box:nth-child(${questionNumber})`);
-            if (quizBox) {
-                quizBox.classList.add('completed');
+            const testBox = document.querySelector(`#testGrid .test-box:nth-child(${questionNumber})`);
+            if (testBox) {
+                testBox.classList.add('completed');
             }
         }
 
-        function navigateQuizQuestion(language, questionNumber) {
+        function navigatetestQuestion(language, questionNumber) {
             if (questionNumber < 1 || questionNumber > 30) return;
-            currentQuizQuestions[language] = questionNumber;
-            completedQuizQuestions[language].add(questionNumber);
-            toggleQuizQuestion(language, questionNumber);
+            currenttestQuestions[language] = questionNumber;
+            completedtestQuestions[language].add(questionNumber);
+            toggletestQuestion(language, questionNumber);
         }
 
         function selectOption(language, questionNumber, optionIndex) {
-            const options = document.querySelectorAll(`#${language}-quiz-${questionNumber} .quiz-option`);
+            const options = document.querySelectorAll(`#${language}-test-${questionNumber} .test-option`);
             options.forEach(option => option.classList.remove('selected'));
             options[optionIndex].classList.add('selected');
 
@@ -708,10 +708,10 @@
             }
         }
 
-        function submitQuiz(language) {
+        function submittest(language) {
             let score = 0;
             userAnswers[language].forEach((answer, index) => {
-                if (answer === quizData[language][index].correct) {
+                if (answer === testData[language][index].correct) {
                     score++;
                 }
             });
@@ -720,13 +720,13 @@
             if (score >= 25) {
                 window.location.href = 'correct.html';
             } else {
-                closeQuiz();
+                closetest();
             }
         }
 
-        function closeQuiz() {
-            const quizModal = document.getElementById('quizModal');
-            quizModal.classList.remove('active');
+        function closetest() {
+            const testModal = document.getElementById('testModal');
+            testModal.classList.remove('active');
         }
 
         // Initialization
