@@ -27,21 +27,51 @@
             font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: bold;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             line-height: 1;
         }
 
+        /* Style for cyan parts (CODE and EDOC) */
+        .title-cyan a {
+            color: #00b7eb; /* Cyan for unvisited */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .title-cyan a:visited {
+            color: #00b7eb; /* Cyan for visited */
+        }
+
+        .title-cyan a:hover,
+        .title-cyan a:active {
+            color: #00b7eb; /* Cyan for hover/active */
+        }
+
         .title-cyan {
-            color: #00b7eb;
             position: relative;
             top: -0.25em;
         }
 
+        /* Style for green part (X) */
+        .title-green a {
+            color: #00ff00; /* Green for unvisited */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .title-green a:visited {
+            color: #00ff00; /* Green for visited */
+        }
+
+        .title-green a:hover,
+        .title-green a:active {
+            color: #00ff00; /* Green for hover/active */
+        }
+
         .title-green {
-            color: #00ff00;
             font-size: 1.5em;
             vertical-align: baseline;
             line-height: 1;
+            position: relative;
+            top: -.1em; /* Raise X higher */
         }
 
         #gameInstructions {
@@ -168,7 +198,9 @@
 </head>
 <body>
     <div id="gameTitle">
-        <span class="title-cyan">CODE</span><span class="title-green">X</span><span class="title-cyan">EDOC</span>
+        <span class="title-cyan"><a href="index.html">CODE</a></span>
+        <span class="title-green"><a href="index.html">X</a></span>
+        <span class="title-cyan"><a href="index.html">EDOC</a></span>
     </div>
     <div id="gameInstructions">
         <p>Protect the laptop (💻) from incoming bugs (☣️/☢️).</p>
