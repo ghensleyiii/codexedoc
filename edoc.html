@@ -53,10 +53,29 @@
         }
 
         .main-section {
-            background-color: #1a1a1a;
+            background-color: #00ff00;
             padding: 50px 20px;
             text-align: center;
             color: #d4d4d4;
+        }
+
+        .instructions {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            color: #d4d4d4;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .instructions h2 {
+            color: #00b7eb;
+            margin-bottom: 10px;
+        }
+
+        .instructions p {
+            line-height: 1.8;
+            color: #1a1a1a;
         }
 
         .tabs {
@@ -75,6 +94,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
+            text-decoration: none;
         }
 
         .tab-btn:hover {
@@ -122,7 +142,6 @@
             .tabs {
                 flex-wrap: wrap;
                 gap: 5px;
-                text-decoration: none;
             }
 
             .tab-btn {
@@ -147,6 +166,12 @@
     </header>
 
     <section class="main-section">
+        <!-- Instructions added here -->
+        <div class="instructions">
+            <h2>Get Started with Your Coding Journey</h2>
+            <p>Welcome to Codexedoc! Choose a programming language below to start learning. Each course includes interactive lessons to teach you how to code, followed by a quiz to test your skills. Once you pass the quiz, you’ll earn a certificate to showcase your achievement. Click a language to begin!</p>
+        </div>
+
         <div class="tabs">
             <a href="html-course.html" class="tab-btn">HTML</a>
             <a href="css-course.html" class="tab-btn">CSS</a>
