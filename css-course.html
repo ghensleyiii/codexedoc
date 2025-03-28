@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codexedoc - CSS Lessons & Quiz</title>
+    <style>
+        /* Full CSS from the original file */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00b7eb;
+            display: inline-block;
+        }
+
+        .logo a {
+            color: #00b7eb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .logo a:hover {
+            color: #00ff00;
+        }
+
+        .logo span {
+            color: #00ff00;
+            font-size: 5rem;
+            position: relative;
+            top: 8px;
+        }
+
+        .main-section {
+            background-color: #1a1a1a;
+            padding: 50px 20px;
+            text-align: center;
+            color: #d4d4d4;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .start-btn, .quiz-btn {
+            background-color: #00ff00;
+            color: #1a1a1a;
+            padding: 15px 30px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .start-btn:hover, .quiz-btn:hover {
+            background-color: #00cc00;
+        }
+
+        .lessons-grid, .quiz-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+
+        .lesson-box, .quiz-box {
+            background-color: #2a2a2a;
+            color: #d4d4d4;
+            padding: 20px;
+            border: 2px solid #00b7eb;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .lesson-box.completed, .quiz-box.completed {
+            background-color: #00b7eb;
+            color: #1a1a1a;
+        }
+
+        .lesson-box:hover, .quiz-box:hover {
+            transform: scale(1.1);
+        }
+
+        .lesson-content, .quiz-content {
+            display: none;
+            background-color: #2a2a2a;
+            padding: 20px;
+            margin: 0 auto 20px auto;
+            max-width: 800px;
+            border-radius: 5px;
+            border: 1px solid #00b7eb;
+        }
+
+        .lesson-content.active, .quiz-content.active {
+            display: block;
+        }
+
+        .lesson-description, .quiz-description {
+            color: #00ff00;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .code-breakdown {
+            background-color: #000000;
+            color: #d4d4d4;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .code-explanation {
+            color: #d4d4d4;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .code-explanation h4 {
+            color: #00b7eb;
+            margin-bottom: 10px;
+        }
+
+        .code-explanation ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .code-explanation li {
+            margin-bottom: 5px;
+        }
+
+        .quiz-question {
+            color: #d4d4d4;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #3a3a3a;
+            color: #d4d4d4;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            background-color: #4a4a4a;
+        }
+
+        .quiz-option.selected {
+            background-color: #00b7eb;
+            color: #1a1a1a;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .nav-btn, .submit-btn {
+            background-color: #00b7eb;
+            color: #1a1a1a;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn:disabled, .submit-btn:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        .nav-btn:hover:not(:disabled), .submit-btn:hover:not(:disabled) {
+            background-color: #00a3d3;
+        }
+
+        .quiz-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 200;
+            overflow-y: auto;
+        }
+
+        .quiz-modal.active {
+            display: block;
+        }
+
+        .quiz-modal-content {
+            background-color: #1a1a1a;
+            margin: 5% auto;
+            padding: 20px;
+            max-width: 900px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #00ff00;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: #00ff00;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #00b7eb;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-logo {
+            font-size: 0.9rem;
+            color: #00b7eb;
+            font-weight: bold;
+        }
+
+        .footer-logo span {
+            color: #00ff00;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .logo span {
+                font-size: 4rem;
+                top: 6px;
+            }
+
+            .lessons-grid, .quiz-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .start-btn, .quiz-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lessons-grid, .quiz-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .nav-btn, .submit-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="edoc.html">CODE</a><a href="edoc.html"><span>X</span></a><a href="edoc.html">EDOC</a>
+        </div>
+    </header>
+
+    <section class="main-section">
+        <div id="css" class="tab-content active">
+            <div class="button-container">
+                <button class="start-btn" onclick="startLearning('css')">Start Learning</button>
+                <button class="quiz-btn" onclick="startQuiz('css')">Take Quiz</button>
+            </div>
+            <div id="css-lesson-contents"></div>
+            <div class="lessons-grid" id="css-lessons"></div>
+        </div>
+
+        <div id="quizModal" class="quiz-modal">
+            <div class="quiz-modal-content">
+                <span class="close-btn" onclick="closeQuiz()">×</span>
+                <div id="quizContents"></div>
+                <div id="quizGrid" class="quiz-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><span class="footer-logo">CODE<span>X</span>EDOC</span></p>
+        <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
+        <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+    </footer>
+
+    <script>
+        // CSS-specific lesson and quiz data
+        const lessonsData = {
+            css: [
+                {
+                    description: "Introduction to CSS syntax and selectors.",
+                    code: `h1 {
+    color: blue;
+    font-size: 24px;
+}
+
+p {
+    line-height: 1.6;
+}`,
+                    breakdown: [
+                        "h1: A CSS selector targeting all <h1> elements.",
+                        "color: blue;: Sets the text color of <h1> elements to blue.",
+                        "font-size: 24px;: Sets the font size of <h1> elements to 24 pixels.",
+                        "p: A CSS selector targeting all <p> elements.",
+                        "line-height: 1.6;: Sets the line height of <p> elements to 1.6 times the font size, improving readability."
+                    ]
+                },
+                {
+                    description: "Styling with classes and IDs.",
+                    code: `.my-class {
+    background-color: yellow;
+}
+
+#my-id {
+    border: 1px solid black;
+}`,
+                    breakdown: [
+                        ".my-class: A class selector, targets elements with class=\"my-class\".",
+                        "background-color: yellow;: Sets the background color to yellow.",
+                        "#my-id: An ID selector, targets the element with id=\"my-id\".",
+                        "border: 1px solid black;: Adds a 1-pixel wide, solid black border around the element."
+                    ]
+                }
+            ]
+        };
+
+        const quizData = {
+            css: Array.from({ length: 30 }, (_, i) => {
+                if (i === 0) {
+                    return {
+                        description: "CSS Basics Quiz",
+                        question: "What does the 'color' property in CSS do?",
+                        options: [
+                            "Sets the background color.",
+                            "Sets the text color.",
+                            "Sets the border color."
+                        ],
+                        correct: 1
+                    };
+                } else if (i === 1) {
+                    return {
+                        description: "CSS Selectors Quiz",
+                        question: "What does a class selector start with?",
+                        options: [
+                            "#",
+                            ".",
+                            "*"
+                        ],
+                        correct: 1
+                    };
+                } else {
+                    return {
+                        description: `CSS Question ${i + 1}`,
+                        question: `What is the purpose of CSS question ${i + 1}?`,
+                        options: [
+                            "Option A",
+                            "Option B",
+                            "Option C"
+                        ],
+                        correct: 0
+                    };
+                }
+            })
+        };
+
+        // State management
+        const currentLessons = { css: 0 };
+        const currentQuizQuestions = { css: 0 };
+        const completedLessons = { css: new Set() };
+        const completedQuizQuestions = { css: new Set() };
+        const userAnswers = { css: Array(30).fill(null) };
+
+        // Lesson Functions
+        function startLearning(language) {
+            const lessonsGrid = document.getElementById(`${language}-lessons`);
+            const lessonContents = document.getElementById(`${language}-lesson-contents`);
+
+            lessonsGrid.innerHTML = '';
+            lessonContents.innerHTML = '';
+            lessonsGrid.style.display = 'grid';
+
+            for (let i = 1; i <= 30; i++) {
+                const lessonBox = document.createElement('div');
+                lessonBox.classList.add('lesson-box');
+                lessonBox.textContent = i;
+                lessonBox.onclick = () => {
+                    currentLessons[language] = i;
+                    completedLessons[language].add(i);
+                    toggleLesson(language, i);
+                };
+                if (completedLessons[language].has(i)) {
+                    lessonBox.classList.add('completed');
+                }
+                lessonsGrid.appendChild(lessonBox);
+
+                const lessonContent = document.createElement('div');
+                lessonContent.classList.add('lesson-content');
+                lessonContent.id = `${language}-lesson-${i}`;
+                
+                const description = document.createElement('div');
+                description.classList.add('lesson-description');
+                description.textContent = lessonsData[language][i-1]?.description || `Lesson ${i}: Coming Soon`;
+                
+                const codeBreakdown = document.createElement('pre');
+                codeBreakdown.classList.add('code-breakdown');
+                codeBreakdown.textContent = lessonsData[language][i-1]?.code || '// Code example coming soon';
+                
+                const explanation = document.createElement('div');
+                explanation.classList.add('code-explanation');
+                const explanationTitle = document.createElement('h4');
+                explanationTitle.textContent = 'Code Breakdown';
+                explanation.appendChild(explanationTitle);
+                
+                const explanationList = document.createElement('ul');
+                const breakdownItems = lessonsData[language][i-1]?.breakdown || ['No breakdown available yet.'];
+                breakdownItems.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    explanationList.appendChild(li);
+                });
+                explanation.appendChild(explanationList);
+                
+                const navigation = document.createElement('div');
+                navigation.classList.add('navigation');
+                
+                const prevBtn = document.createElement('button');
+                prevBtn.classList.add('nav-btn');
+                prevBtn.textContent = 'Previous';
+                prevBtn.onclick = () => navigateLesson(language, i - 1);
+                
+                const nextBtn = document.createElement('button');
+                nextBtn.classList.add('nav-btn');
+                nextBtn.textContent = 'Next';
+                nextBtn.onclick = () => navigateLesson(language, i + 1);
+                
+                navigation.appendChild(prevBtn);
+                navigation.appendChild(nextBtn);
+                
+                lessonContent.appendChild(description);
+                lessonContent.appendChild(codeBreakdown);
+                lessonContent.appendChild(explanation);
+                lessonContent.appendChild(navigation);
+                lessonContents.appendChild(lessonContent);
+            }
+
+            currentLessons[language] = 1;
+            completedLessons[language].add(1);
+            toggleLesson(language, 1);
+        }
+
+        function toggleLesson(language, lessonNumber) {
+            document.querySelectorAll(`#${language}-lesson-contents .lesson-content`).forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const selectedLesson = document.getElementById(`${language}-lesson-${lessonNumber}`);
+            if (selectedLesson) {
+                selectedLesson.classList.add('active');
+                const prevBtn = selectedLesson.querySelector('.nav-btn:first-child');
+                const nextBtn = selectedLesson.querySelector('.nav-btn:last-child');
+                prevBtn.disabled = lessonNumber === 1;
+                nextBtn.disabled = lessonNumber === 30;
+            }
+
+            const lessonBox = document.querySelector(`#${language}-lessons .lesson-box:nth-child(${lessonNumber})`);
+            if (lessonBox) {
+                lessonBox.classList.add('completed');
+            }
+        }
+
+        function navigateLesson(language, lessonNumber) {
+            if (lessonNumber < 1 || lessonNumber > 30) return;
+            currentLessons[language] = lessonNumber;
+            completedLessons[language].add(lessonNumber);
+            toggleLesson(language, lessonNumber);
+        }
+
+        // Quiz Functions
+        function startQuiz(language) {
+            const quizModal = document.getElementById('quizModal');
+            const quizContents = document.getElementById('quizContents');
+            const quizGrid = document.getElementById('quizGrid');
+
+            quizContents.innerHTML = '';
+            quizGrid.innerHTML = '';
+            userAnswers[language] = Array(30).fill(null);
+            completedQuizQuestions[language].clear();
+
+            quizModal.classList.add('active');
+
+            for (let i = 1; i <= 30; i++) {
+                const quizBox = document.createElement('div');
+                quizBox.classList.add('quiz-box');
+                quizBox.textContent = i;
+                quizBox.onclick = () => {
+                    currentQuizQuestions[language] = i;
+                    completedQuizQuestions[language].add(i);
+                    toggleQuizQuestion(language, i);
+                };
+                if (completedQuizQuestions[language].has(i)) {
+                    quizBox.classList.add('completed');
+                }
+                quizGrid.appendChild(quizBox);
+
+                const quizContent = document.createElement('div');
+                quizContent.classList.add('quiz-content');
+                quizContent.id = `${language}-quiz-${i}`;
+                
+                const description = document.createElement('div');
+                description.classList.add('quiz-description');
+                description.textContent = quizData[language][i-1]?.description || `Question ${i}: Coming Soon`;
+                
+                const question = document.createElement('div');
+                question.classList.add('quiz-question');
+                question.textContent = quizData[language][i-1]?.question || 'Question coming soon.';
+                
+                const optionsContainer = document.createElement('div');
+                optionsContainer.classList.add('quiz-options');
+                const options = quizData[language][i-1]?.options || ['Option 1', 'Option 2', 'Option 3'];
+                options.forEach((option, index) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.classList.add('quiz-option');
+                    optionDiv.textContent = option;
+                    optionDiv.onclick = () => selectOption(language, i, index);
+                    optionsContainer.appendChild(optionDiv);
+                });
+                
+                const navigation = document.createElement('div');
+                navigation.classList.add('navigation');
+                
+                const prevBtn = document.createElement('button');
+                prevBtn.classList.add('nav-btn');
+                prevBtn.textContent = 'Previous';
+                prevBtn.onclick = () => navigateQuizQuestion(language, i - 1);
+                
+                const nextBtn = document.createElement('button');
+                if (i === 30) {
+                    nextBtn.classList.add('submit-btn');
+                    nextBtn.textContent = 'Submit';
+                    nextBtn.onclick = () => submitQuiz(language);
+                    nextBtn.style.display = 'none';
+                    nextBtn.id = `${language}-submit-btn`;
+                } else {
+                    nextBtn.classList.add('nav-btn');
+                    nextBtn.textContent = 'Next';
+                    nextBtn.onclick = () => navigateQuizQuestion(language, i + 1);
+                }
+                
+                navigation.appendChild(prevBtn);
+                navigation.appendChild(nextBtn);
+                
+                quizContent.appendChild(description);
+                quizContent.appendChild(question);
+                quizContent.appendChild(optionsContainer);
+                quizContent.appendChild(navigation);
+                quizContents.appendChild(quizContent);
+            }
+
+            currentQuizQuestions[language] = 1;
+            completedQuizQuestions[language].add(1);
+            toggleQuizQuestion(language, 1);
+        }
+
+        function toggleQuizQuestion(language, questionNumber) {
+            document.querySelectorAll(`#quizContents .quiz-content`).forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const selectedQuestion = document.getElementById(`${language}-quiz-${questionNumber}`);
+            if (selectedQuestion) {
+                selectedQuestion.classList.add('active');
+                const prevBtn = selectedQuestion.querySelector('.nav-btn:first-child');
+                const nextBtn = selectedQuestion.querySelector('.nav-btn:last-child') || selectedQuestion.querySelector('.submit-btn');
+                prevBtn.disabled = questionNumber === 1;
+                if (nextBtn.classList.contains('nav-btn')) {
+                    nextBtn.disabled = questionNumber === 30;
+                }
+
+                if (questionNumber === 30 && nextBtn.classList.contains('submit-btn')) {
+                    const allAnswered = userAnswers[language].every(answer => answer !== null);
+                    nextBtn.style.display = allAnswered ? 'block' : 'none';
+                }
+
+                const selectedOptionIndex = userAnswers[language][questionNumber - 1];
+                if (selectedOptionIndex !== null) {
+                    const options = selectedQuestion.querySelectorAll('.quiz-option');
+                    options[selectedOptionIndex].classList.add('selected');
+                }
+            }
+
+            const quizBox = document.querySelector(`#quizGrid .quiz-box:nth-child(${questionNumber})`);
+            if (quizBox) {
+                quizBox.classList.add('completed');
+            }
+        }
+
+        function navigateQuizQuestion(language, questionNumber) {
+            if (questionNumber < 1 || questionNumber > 30) return;
+            currentQuizQuestions[language] = questionNumber;
+            completedQuizQuestions[language].add(questionNumber);
+            toggleQuizQuestion(language, questionNumber);
+        }
+
+        function selectOption(language, questionNumber, optionIndex) {
+            const options = document.querySelectorAll(`#${language}-quiz-${questionNumber} .quiz-option`);
+            options.forEach(option => option.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+
+            userAnswers[language][questionNumber - 1] = optionIndex;
+
+            if (questionNumber === 30) {
+                const allAnswered = userAnswers[language].every(answer => answer !== null);
+                const submitBtn = document.getElementById(`${language}-submit-btn`);
+                if (submitBtn) {
+                    submitBtn.style.display = allAnswered ? 'block' : 'none';
+                }
+            }
+        }
+
+        function submitQuiz(language) {
+            let score = 0;
+            userAnswers[language].forEach((answer, index) => {
+                if (answer === quizData[language][index].correct) {
+                    score++;
+                }
+            });
+
+            alert(`You scored ${score} out of 30!`);
+            if (score >= 25) {
+                window.location.href = 'correct.html';
+            } else {
+                closeQuiz();
+            }
+        }
+
+        function closeQuiz() {
+            const quizModal = document.getElementById('quizModal');
+            quizModal.classList.remove('active');
+        }
+
+        // Initialization
+        document.querySelectorAll('.lessons-grid').forEach(grid => {
+            grid.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
