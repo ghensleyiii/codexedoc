@@ -332,8 +332,7 @@
                 <button class="start-btn" onclick="startLearning('html')">Open Course</button>
                 <button class="test-btn" onclick="startTest('html')">Launch Test</button>
             </div>
-            <div id="html-lesson-contents"></ wnętrz
-
+            <div id="html-lesson-contents"></div>
             <div class="lessons-grid" id="html-lessons"></div>
         </div>
 
@@ -463,8 +462,14 @@
 
         // Lesson Functions
         function startLearning(language) {
+            console.log(`startLearning called with language: ${language}`); // Debug log
             const lessonsGrid = document.getElementById(`${language}-lessons`);
             const lessonContents = document.getElementById(`${language}-lesson-contents`);
+
+            if (!lessonsGrid || !lessonContents) {
+                console.error("Lessons grid or contents not found!");
+                return;
+            }
 
             lessonsGrid.innerHTML = '';
             lessonContents.innerHTML = '';
