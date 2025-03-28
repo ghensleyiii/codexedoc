@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta and Title Section -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lessons - Codexedoc</title>
+    <title>Codexedoc - Lessons & Quiz</title>
+
+    <!-- CSS Styles Section -->
     <style>
+        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -18,6 +22,7 @@
             line-height: 1.6;
         }
 
+        /* Header Styles */
         header {
             background-color: #1a1a1a;
             padding: 20px;
@@ -51,97 +56,256 @@
             top: 8px;
         }
 
-        .lessons-section {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #000000;
-        }
-
-        .lesson {
-            margin-bottom: 20px;
-            border-radius: 5px;
-            color: #1a1a1a;
-            overflow: hidden;
-        }
-
-        .lesson:nth-child(odd) {
-            background-color: #00b7eb;
-        }
-
-        .lesson:nth-child(even) {
-            background-color: #00ff00;
-        }
-
-        .lesson-header {
-            padding: 20px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #1a1a1a;
-            transition: background-color 0.3s;
-        }
-
-        .lesson-header:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .lesson-content {
-            padding: 0 20px 20px;
-            display: none;
-        }
-
-        .lesson-content.active {
-            display: block;
-        }
-
-        /* Nested lesson styles */
-        .sub-lesson {
-            margin: 10px 0;
-            border-radius: 3px;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .sub-lesson-header {
-            padding: 10px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #1a1a1a;
-            transition: background-color 0.3s;
-        }
-
-        .sub-lesson-header:hover {
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        .sub-lesson-content {
-            padding: 10px;
-            display: none;
-        }
-
-        .sub-lesson-content.active {
-            display: block;
-        }
-
-        .lesson pre, .sub-lesson pre {
+        /* Main Section Styles */
+        .main-section {
             background-color: #1a1a1a;
-            color: #ffffff !important;
+            padding: 50px 20px;
+            text-align: center;
+            color: #d4d4d4;
+        }
+
+        /* Tab Navigation Styles */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            background-color: #2a2a2a;
+            color: #00b7eb;
+            padding: 10px 20px;
+            border: 2px solid #00b7eb;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: #00b7eb;
+            color: #1a1a1a;
+        }
+
+        .tab-btn:hover {
+            background-color: #00b7eb;
+            color: #1a1a1a;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Button Container for Start Learning and Take Quiz */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .start-btn, .quiz-btn {
+            background-color: #00ff00;
+            color: #1a1a1a;
+            padding: 15px 30px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .start-btn:hover, .quiz-btn:hover {
+            background-color: #00cc00;
+        }
+
+        /* Lesson and Quiz Grid Styles */
+        .lessons-grid, .quiz-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+
+        .lesson-box, .quiz-box {
+            background-color: #2a2a2a;
+            color: #d4d4d4;
+            padding: 20px;
+            border: 2px solid #00b7eb;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .lesson-box.completed, .quiz-box.completed {
+            background-color: #00b7eb;
+            color: #1a1a1a;
+        }
+
+        .lesson-box:hover, .quiz-box:hover {
+            transform: scale(1.1);
+        }
+
+        /* Lesson and Quiz Content Styles */
+        .lesson-content, .quiz-content {
+            display: none;
+            background-color: #2a2a2a;
+            padding: 20px;
+            margin: 0 auto 20px auto;
+            max-width: 800px;
+            border-radius: 5px;
+            border: 1px solid #00b7eb;
+        }
+
+        .lesson-content.active, .quiz-content.active {
+            display: block;
+        }
+
+        .lesson-description, .quiz-description {
+            color: #00ff00;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Code Display Styles */
+        .code-breakdown {
+            background-color: #000000;
+            color: #d4d4d4;
+            font-family: 'Courier New', Courier, monospace;
             padding: 15px;
             border-radius: 5px;
-            margin: 10px 0;
-            font-family: 'Courier New', Courier, monospace;
-            overflow-x: auto;
             white-space: pre-wrap;
-            border: 1px solid #333;
-            line-height: 1.4;
+            text-align: left;
+            margin-bottom: 15px;
         }
 
-        .lesson code, .sub-lesson code {
-            color: #ffffff !important;
-            font-family: 'Courier New', Courier, monospace;
+        .code-explanation {
+            color: #d4d4d4;
+            text-align: left;
+            margin-bottom: 15px;
         }
 
+        .code-explanation h4 {
+            color: #00b7eb;
+            margin-bottom: 10px;
+        }
+
+        .code-explanation ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .code-explanation li {
+            margin-bottom: 5px;
+        }
+
+        /* Quiz Question and Options Styles */
+        .quiz-question {
+            color: #d4d4d4;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background-color: #3a3a3a;
+            color: #d4d4d4;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            background-color: #4a4a4a;
+        }
+
+        .quiz-option.selected {
+            background-color: #00b7eb;
+            color: #1a1a1a;
+        }
+
+        /* Navigation and Submit Button Styles */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .nav-btn, .submit-btn {
+            background-color: #00b7eb;
+            color: #1a1a1a;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn:disabled, .submit-btn:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        .nav-btn:hover:not(:disabled), .submit-btn:hover:not(:disabled) {
+            background-color: #00a3d3;
+        }
+
+        /* Quiz Modal Styles */
+        .quiz-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 200;
+            overflow-y: auto;
+        }
+
+        .quiz-modal.active {
+            display: block;
+        }
+
+        .quiz-modal-content {
+            background-color: #1a1a1a;
+            margin: 5% auto;
+            padding: 20px;
+            max-width: 900px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #00ff00;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Footer Styles */
         footer {
             background-color: #1a1a1a;
             color: #00ff00;
@@ -169,6 +333,7 @@
             color: #00ff00;
         }
 
+        /* Responsive Design Styles */
         @media (max-width: 768px) {
             .logo {
                 font-size: 2rem;
@@ -179,609 +344,783 @@
                 top: 6px;
             }
 
-            .lessons-section {
-                padding: 15px;
+            .lessons-grid, .quiz-grid {
+                grid-template-columns: repeat(5, 1fr);
             }
 
-            .lesson-header {
-                font-size: 1.3rem;
-            }
-
-            .sub-lesson-header {
+            .start-btn, .quiz-btn {
+                padding: 10px 20px;
                 font-size: 1rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .tab-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lessons-grid, .quiz-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .tab-btn {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            .nav-btn, .submit-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Header Section -->
     <header>
         <div class="logo">
             <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
         </div>
     </header>
 
-    <section class="lessons-section">
-        <!-- HTML Section -->
-        <div class="lesson">
-            <div class="lesson-header" onclick="toggleLesson(this)">HTML Lessons</div>
-            <div class="lesson-content">
-                <p>Expand to explore 30 lessons on HTML, from basics to advanced techniques.</p>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">1. Basic Structure</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;My Page&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">2. Headings</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;h1&gt;Heading 1&lt;/h1&gt;&lt;h2&gt;Heading 2&lt;/h2&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">3. Paragraphs</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;p&gt;This is text.&lt;/p&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">4. Links</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;a href="https://example.com"&gt;Click&lt;/a&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">5. Images</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;img src="image.jpg" alt="Image"&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">6. Comments</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;!-- This is a comment --&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">7. Unordered Lists</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;ul&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/ul&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">8. Ordered Lists</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;ol&gt;&lt;li&gt;Step&lt;/li&gt;&lt;/ol&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">9. Divs</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;div&gt;Content&lt;/div&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">10. Spans</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;span&gt;Inline text&lt;/span&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">11. Line Breaks</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;br&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">12. Horizontal Rules</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;hr&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">13. Text Formatting</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;b&gt;Bold&lt;/b&gt; &lt;i&gt;Italic&lt;/i&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">14. Superscript/Subscript</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;sup&gt;2&lt;/sup&gt; &lt;sub&gt;2&lt;/sub&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">15. Blockquotes</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;blockquote&gt;Quote&lt;/blockquote&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">16. Meta Tags</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;meta charset="UTF-8"&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">17. Tables</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Cell&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">18. Table Headers</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;th&gt;Header&lt;/th&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">19. Forms</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;form&gt;&lt;/form&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">20. Input Fields</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;input type="text"&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">21. Buttons</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;button&gt;Click&lt;/button&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">22. Select Dropdown</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;select&gt;&lt;option&gt;Choice&lt;/option&gt;&lt;/select&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">23. Textareas</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;textarea&gt;&lt;/textarea&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">24. Labels</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;label for="id"&gt;Label&lt;/label&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">25. Fieldsets</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;fieldset&gt;&lt;legend&gt;Title&lt;/legend&gt;&lt;/fieldset&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">26. Iframes</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;iframe src="page.html"&gt;&lt;/iframe&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">27. Audio</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;audio src="sound.mp3" controls&gt;&lt;/audio&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">28. Video</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;video src="video.mp4" controls&gt;&lt;/video&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">29. Semantic Tags</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;header&gt;&lt;nav&gt;&lt;section&gt;&lt;article&gt;&lt;footer&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">30. Data Attributes</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;div data-info="value"&gt;&lt;/div&gt;</code></pre>
-                    </div>
-                </div>
-            </div>
+    <!-- Main Content Section -->
+    <section class="main-section">
+        <!-- Tabs for Language Selection -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('html')">HTML</button>
+            <button class="tab-btn" onclick="showTab('css')">CSS</button>
+            <button class="tab-btn" onclick="showTab('javascript')">JavaScript</button>
+            <button class="tab-btn" onclick="showTab('python')">Python</button>
         </div>
 
-        <!-- CSS Section -->
-        <div class="lesson">
-            <div class="lesson-header" onclick="toggleLesson(this)">CSS Lessons</div>
-            <div class="lesson-content">
-                <p>Expand to explore 30 lessons on CSS, from basics to advanced styling.</p>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">1. Inline CSS</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;p style="color: red;"&gt;Text&lt;/p&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">2. Internal CSS</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;style&gt;p { color: blue; }&lt;/style&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">3. External CSS</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">4. Colors</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>p { color: #ff0000; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">5. Backgrounds</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>body { background-color: #000; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">6. Element Selectors</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>h1 { font-size: 24px; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">7. Class Selectors</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>.class { color: green; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">8. ID Selectors</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>#id { font-weight: bold; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">9. Font Size</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>p { font-size: 16px; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">10. Font Family</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>body { font-family: Arial; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">11. Text Alignment</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>p { text-align: center; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">12. Margins</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>div { margin: 10px; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">13. Padding</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>div { padding: 20px; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">14. Borders</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>div { border: 1px solid black; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">15. Width/Height</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>img { width: 100px; height: 100px; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">16. Display</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>span { display: block; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">17. Position</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>div { position: absolute; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">18. Float</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>img { float: left; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">19. Overflow</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>div { overflow: scroll; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">20. Opacity</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>img { opacity: 0.5; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">21. Box Shadow</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>div { box-shadow: 2px 2px 5px #000; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">22. Transitions</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>a { transition: color 0.3s; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">23. Transforms</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>div { transform: rotate(45deg); }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">24. Flexbox</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>.container { display: flex; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">25. Flex Direction</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>.container { flex-direction: row; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">26. Grid</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>.grid { display: grid; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">27. Grid Template</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>.grid { grid-template-columns: 1fr 1fr; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">28. Media Queries</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>@media (max-width: 600px) { p { font-size: 14px; } }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">29. Pseudo-classes</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>a:hover { color: red; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">30. Animations</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>@keyframes fade { from { opacity: 0; } to { opacity: 1; } }</code></pre>
-                    </div>
-                </div>
+        <!-- HTML Tab Content -->
+        <div id="html" class="tab-content active">
+            <div class="button-container">
+                <button class="start-btn" onclick="startLearning('html')">Start Learning</button>
+                <button class="quiz-btn" onclick="startQuiz('html')">Take Quiz</button>
             </div>
+            <div id="html-lesson-contents"></div>
+            <div class="lessons-grid" id="html-lessons"></div>
         </div>
 
-        <!-- JavaScript Section -->
-        <div class="lesson">
-            <div class="lesson-header" onclick="toggleLesson(this)">JavaScript Lessons</div>
-            <div class="lesson-content">
-                <p>Expand to explore 30 lessons on JavaScript, from basics to advanced programming.</p>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">1. Script Tag</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>&lt;script&gt;alert("Hi");&lt;/script&gt;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">2. Variables (var)</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>var x = 5;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">3. Let</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>let y = 10;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">4. Const</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>const z = 15;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">5. Console Log</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>console.log("Hello");</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">6. Comments</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>// Single line</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">7. Multi-line Comments</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>/* Comment */</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">8. Numbers</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>let num = 42;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">9. Strings</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>let str = "Text";</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">10. Booleans</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>let bool = true;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">11. If Statements</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>if (x > 0) { console.log("Positive"); }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">12. Else</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>else { console.log("Negative"); }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">13. Else If</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>else if (x == 0) { console.log("Zero"); }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">14. For Loops</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>for (let i = 0; i < 5; i++) {}</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">15. While Loops</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>while (x > 0) { x--; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">16. Functions</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>function sayHi() { alert("Hi"); }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">17. Parameters</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>function add(a, b) { return a + b; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">18. Return</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>return x;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">19. Arrays</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>let arr = [1, 2, 3];</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">20. Array Push</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>arr.push(4);</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">21. Objects</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>let obj = { name: "Alex" };</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">22. Object Access</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>obj.name;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">23. Event Listeners</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>button.addEventListener("click", sayHi);</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">24. DOM Selection</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>document.querySelector("p");</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">25. Change Text</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>p.textContent = "New text";</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">26. Arrow Functions</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>const add = (a, b) => a + b;</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">27. Promises</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>new Promise((resolve) => resolve("Done"));</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">28. Async/Await</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>async function fetchData() { await data; }</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">29. Try/Catch</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>try { throw "Error"; } catch (e) {}</code></pre>
-                    </div>
-                </div>
-                <div class="sub-lesson">
-                    <div class="sub-lesson-header" onclick="toggleSubLesson(this)">30. Modules</div>
-                    <div class="sub-lesson-content">
-                        <pre><code>export function hi() {}; import { hi } from "./file.js";</code></pre>
-                    </div>
-                </div>
+        <!-- CSS Tab Content -->
+        <div id="css" class="tab-content">
+            <div class="button-container">
+                <button class="start-btn" onclick="startLearning('css')">Start Learning</button>
+                <button class="quiz-btn" onclick="startQuiz('css')">Take Quiz</button>
+            </div>
+            <div id="css-lesson-contents"></div>
+            <div class="lessons-grid" id="css-lessons"></div>
+        </div>
+
+        <!-- JavaScript Tab Content -->
+        <div id="javascript" class="tab-content">
+            <div class="button-container">
+                <button class="start-btn" onclick="startLearning('javascript')">Start Learning</button>
+                <button class="quiz-btn" onclick="startQuiz('javascript')">Take Quiz</button>
+            </div>
+            <div id="javascript-lesson-contents"></div>
+            <div class="lessons-grid" id="javascript-lessons"></div>
+        </div>
+
+        <!-- Python Tab Content -->
+        <div id="python" class="tab-content">
+            <div class="button-container">
+                <button class="start-btn" onclick="startLearning('python')">Start Learning</button>
+                <button class="quiz-btn" onclick="startQuiz('python')">Take Quiz</button>
+            </div>
+            <div id="python-lesson-contents"></div>
+            <div class="lessons-grid" id="python-lessons"></div>
+        </div>
+
+        <!-- Quiz Modal Popup -->
+        <div id="quizModal" class="quiz-modal">
+            <div class="quiz-modal-content">
+                <span class="close-btn" onclick="closeQuiz()">×</span>
+                <div id="quizContents"></div>
+                <div id="quizGrid" class="quiz-grid"></div>
             </div>
         </div>
     </section>
 
+    <!-- Footer Section -->
     <footer>
         <p><span class="footer-logo">CODE<span>X</span>EDOC</span></p>
         <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
         <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
     </footer>
 
+    <!-- JavaScript Section -->
     <script>
-        function toggleLesson(header) {
-            const content = header.nextElementSibling;
-            content.classList.toggle('active');
+        // Data Section: Lessons and Quiz Data
+        // Lesson data for each language
+        const lessonsData = {
+            html: [
+                {
+                    description: "Learn the basic structure of an HTML document.",
+                    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My First Page</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+</body>
+</html>`,
+                    breakdown: [
+                        "<!DOCTYPE html>: Declares the document type as HTML5.",
+                        "<html lang=\"en\">: The root element of the HTML page, with a lang attribute specifying the language as English.",
+                        "<head>: Contains metadata about the document.",
+                        "<meta charset=\"UTF-8\">: Sets the character encoding to UTF-8, supporting a wide range of characters.",
+                        "<title>: Defines the title of the page, shown in the browser tab.",
+                        "<body>: Contains the visible content of the page.",
+                        "<h1>: A level 1 heading, the largest heading size."
+                    ]
+                },
+                {
+                    description: "Introduction to HTML headings and paragraphs.",
+                    code: `<h1>Main Heading</h1>
+<h2>Subheading</h2>
+<p>This is a paragraph of text.</p>`,
+                    breakdown: [
+                        "<h1>: A level 1 heading, used for the main title.",
+                        "<h2>: A level 2 heading, used for a subheading (smaller than h1).",
+                        "<p>: A paragraph element, used to display a block of text."
+                    ]
+                },
+                {
+                    description: "Adding links and images in HTML.",
+                    code: `<a href="https://example.com">Visit Example</a>
+<img src="image.jpg" alt="Sample Image">`,
+                    breakdown: [
+                        "<a>: An anchor tag, used to create hyperlinks.",
+                        "href=\"https://example.com\": The href attribute specifies the URL the link points to.",
+                        "<img>: An image tag, used to embed images.",
+                        "src=\"image.jpg\": The src attribute specifies the path to the image file.",
+                        "alt=\"Sample Image\": The alt attribute provides alternative text for the image, used for accessibility."
+                    ]
+                }
+            ],
+            css: [
+                {
+                    description: "Introduction to CSS syntax and selectors.",
+                    code: `h1 {
+    color: blue;
+    font-size: 24px;
+}
+
+p {
+    line-height: 1.6;
+}`,
+                    breakdown: [
+                        "h1: A CSS selector targeting all <h1> elements.",
+                        "color: blue;: Sets the text color of <h1> elements to blue.",
+                        "font-size: 24px;: Sets the font size of <h1> elements to 24 pixels.",
+                        "p: A CSS selector targeting all <p> elements.",
+                        "line-height: 1.6;: Sets the line height of <p> elements to 1.6 times the font size, improving readability."
+                    ]
+                },
+                {
+                    description: "Styling with classes and IDs.",
+                    code: `.my-class {
+    background-color: yellow;
+}
+
+#my-id {
+    border: 1px solid black;
+}`,
+                    breakdown: [
+                        ".my-class: A class selector, targets elements with class=\"my-class\".",
+                        "background-color: yellow;: Sets the background color to yellow.",
+                        "#my-id: An ID selector, targets the element with id=\"my-id\".",
+                        "border: 1px solid black;: Adds a 1-pixel wide, solid black border around the element."
+                    ]
+                }
+            ],
+            javascript: [
+                {
+                    description: "Basic JavaScript variables and console output.",
+                    code: `let message = "Hello, World!";
+console.log(message);`,
+                    breakdown: [
+                        "let: A keyword to declare a block-scoped variable.",
+                        "message: The variable name, storing the string \"Hello, World!\".",
+                        "console.log(): A method to output data to the console.",
+                        "message: The variable being logged to the console."
+                    ]
+                },
+                {
+                    description: "Introduction to JavaScript functions.",
+                    code: `function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+console.log(greet("Alice"));`,
+                    breakdown: [
+                        "function: A keyword to define a function.",
+                        "greet: The name of the function.",
+                        "name: A parameter that the function accepts.",
+                        "return: A keyword to return a value from the function.",
+                        "\"Hello, \" + name + \"!\": String concatenation to create the greeting.",
+                        "console.log(): Outputs the result to the console.",
+                        "greet(\"Alice\"): Calls the greet function with the argument \"Alice\"."
+                    ]
+                }
+            ],
+            python: [
+                {
+                    description: "Basic Python print statement.",
+                    code: `print("Hello, World!")`,
+                    breakdown: [
+                        "print(): A built-in Python function to output text to the console.",
+                        "\"Hello, World!\": The string argument passed to print()."
+                    ]
+                },
+                {
+                    description: "Python variables and basic operations.",
+                    code: `x = 5
+y = 10
+sum = x + y
+print("Sum:", sum)`,
+                    breakdown: [
+                        "x = 5: Assigns the value 5 to the variable x.",
+                        "y = 10: Assigns the value 10 to the variable y.",
+                        "sum = x + y: Adds x and y, storing the result in the variable sum.",
+                        "print(): Outputs text to the console.",
+                        "\"Sum:\", sum: The arguments to print(), displaying the label \"Sum:\" followed by the value of sum."
+                    ]
+                }
+            ]
+        };
+
+        // Quiz data for each language (30 questions per language)
+        const quizData = {
+            html: Array.from({ length: 30 }, (_, i) => {
+                if (i === 0) {
+                    return {
+                        description: "HTML Basics Quiz",
+                        question: "What does the <!DOCTYPE html> declaration do?",
+                        options: [
+                            "It defines the document type as HTML5.",
+                            "It links to an external stylesheet.",
+                            "It creates a new HTML element."
+                        ],
+                        correct: 0
+                    };
+                } else if (i === 1) {
+                    return {
+                        description: "HTML Elements Quiz",
+                        question: "Which tag is used for the largest heading?",
+                        options: [
+                            "<h6>",
+                            "<h1>",
+                            "<p>"
+                        ],
+                        correct: 1
+                    };
+                } else if (i === 2) {
+                    return {
+                        description: "HTML Links and Images Quiz",
+                        question: "What does the 'alt' attribute in an <img> tag do?",
+                        options: [
+                            "Specifies the image source.",
+                            "Provides alternative text for accessibility.",
+                            "Sets the image width."
+                        ],
+                        correct: 1
+                    };
+                } else {
+                    return {
+                        description: `HTML Question ${i + 1}`,
+                        question: `What is the purpose of HTML question ${i + 1}?`,
+                        options: [
+                            "Option A",
+                            "Option B",
+                            "Option C"
+                        ],
+                        correct: 0
+                    };
+                }
+            }),
+            css: Array.from({ length: 30 }, (_, i) => {
+                if (i === 0) {
+                    return {
+                        description: "CSS Basics Quiz",
+                        question: "What does the 'color' property in CSS do?",
+                        options: [
+                            "Sets the background color.",
+                            "Sets the text color.",
+                            "Sets the border color."
+                        ],
+                        correct: 1
+                    };
+                } else if (i === 1) {
+                    return {
+                        description: "CSS Selectors Quiz",
+                        question: "What does a class selector start with?",
+                        options: [
+                            "#",
+                            ".",
+                            "*"
+                        ],
+                        correct: 1
+                    };
+                } else {
+                    return {
+                        description: `CSS Question ${i + 1}`,
+                        question: `What is the purpose of CSS question ${i + 1}?`,
+                        options: [
+                            "Option A",
+                            "Option B",
+                            "Option C"
+                        ],
+                        correct: 0
+                    };
+                }
+            }),
+            javascript: Array.from({ length: 30 }, (_, i) => {
+                if (i === 0) {
+                    return {
+                        description: "JavaScript Basics Quiz",
+                        question: "What keyword is used to declare a variable in JavaScript?",
+                        options: [
+                            "var",
+                            "function",
+                            "return"
+                        ],
+                        correct: 0
+                    };
+                } else if (i === 1) {
+                    return {
+                        description: "JavaScript Functions Quiz",
+                        question: "What does the 'return' keyword do in a function?",
+                        options: [
+                            "Logs a message to the console.",
+                            "Returns a value from the function.",
+                            "Declares a new variable."
+                        ],
+                        correct: 1
+                    };
+                } else {
+                    return {
+                        description: `JavaScript Question ${i + 1}`,
+                        question: `What is the purpose of JavaScript question ${i + 1}?`,
+                        options: [
+                            "Option A",
+                            "Option B",
+                            "Option C"
+                        ],
+                        correct: 0
+                    };
+                }
+            }),
+            python: Array.from({ length: 30 }, (_, i) => {
+                if (i === 0) {
+                    return {
+                        description: "Python Basics Quiz",
+                        question: "What does the print() function do in Python?",
+                        options: [
+                            "Reads input from the user.",
+                            "Outputs text to the console.",
+                            "Defines a new function."
+                        ],
+                        correct: 1
+                    };
+                } else if (i === 1) {
+                    return {
+                        description: "Python Variables Quiz",
+                        question: "How do you assign the value 10 to a variable x in Python?",
+                        options: [
+                            "x = 10",
+                            "let x = 10",
+                            "x := 10"
+                        ],
+                        correct: 0
+                    };
+                } else {
+                    return {
+                        description: `Python Question ${i + 1}`,
+                        question: `What is the purpose of Python question ${i + 1}?`,
+                        options: [
+                            "Option A",
+                            "Option B",
+                            "Option C"
+                        ],
+                        correct: 0
+                    };
+                }
+            })
+        };
+
+        // State Management Section
+        // Track the current lesson and quiz question for each language
+        const currentLessons = {
+            html: 0,
+            css: 0,
+            javascript: 0,
+            python: 0
+        };
+
+        const currentQuizQuestions = {
+            html: 0,
+            css: 0,
+            javascript: 0,
+            python: 0
+        };
+
+        // Track completed lessons and quiz questions for each language
+        const completedLessons = {
+            html: new Set(),
+            css: new Set(),
+            javascript: new Set(),
+            python: new Set()
+        };
+
+        const completedQuizQuestions = {
+            html: new Set(),
+            css: new Set(),
+            javascript: new Set(),
+            python: new Set()
+        };
+
+        // Track user answers for the quiz
+        const userAnswers = {
+            html: Array(30).fill(null),
+            css: Array(30).fill(null),
+            javascript: Array(30).fill(null),
+            python: Array(30).fill(null)
+        };
+
+        // Tab Navigation Functions
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Deactivate all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show the selected tab content
+            const selectedTab = document.getElementById(tabName);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+
+            // Activate the selected tab button
+            const selectedBtn = document.querySelector(`.tab-btn[onclick="showTab('${tabName}')"]`);
+            if (selectedBtn) {
+                selectedBtn.classList.add('active');
+            }
+
+            // Close quiz modal when switching tabs
+            closeQuiz();
         }
 
-        function toggleSubLesson(header) {
-            const content = header.nextElementSibling;
-            content.classList.toggle('active');
+        // Lesson Functions
+        function startLearning(language) {
+            const lessonsGrid = document.getElementById(`${language}-lessons`);
+            const lessonContents = document.getElementById(`${language}-lesson-contents`);
+
+            // Clear previous content
+            lessonsGrid.innerHTML = '';
+            lessonContents.innerHTML = '';
+
+            lessonsGrid.style.display = 'grid';
+
+            // Generate lesson boxes 1-30
+            for (let i = 1; i <= 30; i++) {
+                const lessonBox = document.createElement('div');
+                lessonBox.classList.add('lesson-box');
+                lessonBox.textContent = i;
+                lessonBox.onclick = () => {
+                    currentLessons[language] = i;
+                    completedLessons[language].add(i);
+                    toggleLesson(language, i);
+                };
+                if (completedLessons[language].has(i)) {
+                    lessonBox.classList.add('completed');
+                }
+                lessonsGrid.appendChild(lessonBox);
+
+                // Create lesson content
+                const lessonContent = document.createElement('div');
+                lessonContent.classList.add('lesson-content');
+                lessonContent.id = `${language}-lesson-${i}`;
+                
+                const description = document.createElement('div');
+                description.classList.add('lesson-description');
+                description.textContent = lessonsData[language][i-1]?.description || `Lesson ${i}: Coming Soon`;
+                
+                const codeBreakdown = document.createElement('pre');
+                codeBreakdown.classList.add('code-breakdown');
+                codeBreakdown.textContent = lessonsData[language][i-1]?.code || '// Code example coming soon';
+                
+                const explanation = document.createElement('div');
+                explanation.classList.add('code-explanation');
+                const explanationTitle = document.createElement('h4');
+                explanationTitle.textContent = 'Code Breakdown';
+                explanation.appendChild(explanationTitle);
+                
+                const explanationList = document.createElement('ul');
+                const breakdownItems = lessonsData[language][i-1]?.breakdown || ['No breakdown available yet.'];
+                breakdownItems.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    explanationList.appendChild(li);
+                });
+                explanation.appendChild(explanationList);
+                
+                const navigation = document.createElement('div');
+                navigation.classList.add('navigation');
+                
+                const prevBtn = document.createElement('button');
+                prevBtn.classList.add('nav-btn');
+                prevBtn.textContent = 'Previous';
+                prevBtn.onclick = () => navigateLesson(language, i - 1);
+                
+                const nextBtn = document.createElement('button');
+                nextBtn.classList.add('nav-btn');
+                nextBtn.textContent = 'Next';
+                nextBtn.onclick = () => navigateLesson(language, i + 1);
+                
+                navigation.appendChild(prevBtn);
+                navigation.appendChild(nextBtn);
+                
+                lessonContent.appendChild(description);
+                lessonContent.appendChild(codeBreakdown);
+                lessonContent.appendChild(explanation);
+                lessonContent.appendChild(navigation);
+                lessonContents.appendChild(lessonContent);
+            }
+
+            // Automatically show Lesson 1
+            currentLessons[language] = 1;
+            completedLessons[language].add(1);
+            toggleLesson(language, 1);
         }
+
+        function toggleLesson(language, lessonNumber) {
+            document.querySelectorAll(`#${language}-lesson-contents .lesson-content`).forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const selectedLesson = document.getElementById(`${language}-lesson-${lessonNumber}`);
+            if (selectedLesson) {
+                selectedLesson.classList.add('active');
+                const prevBtn = selectedLesson.querySelector('.nav-btn:first-child');
+                const nextBtn = selectedLesson.querySelector('.nav-btn:last-child');
+                prevBtn.disabled = lessonNumber === 1;
+                nextBtn.disabled = lessonNumber === 30;
+            }
+
+            const lessonBox = document.querySelector(`#${language}-lessons .lesson-box:nth-child(${lessonNumber})`);
+            if (lessonBox) {
+                lessonBox.classList.add('completed');
+            }
+        }
+
+        function navigateLesson(language, lessonNumber) {
+            if (lessonNumber < 1 || lessonNumber > 30) return;
+            currentLessons[language] = lessonNumber;
+            completedLessons[language].add(lessonNumber);
+            toggleLesson(language, lessonNumber);
+        }
+
+        // Quiz Functions
+        function startQuiz(language) {
+            const quizModal = document.getElementById('quizModal');
+            const quizContents = document.getElementById('quizContents');
+            const quizGrid = document.getElementById('quizGrid');
+
+            // Clear previous content and reset answers
+            quizContents.innerHTML = '';
+            quizGrid.innerHTML = '';
+            userAnswers[language] = Array(30).fill(null);
+            completedQuizQuestions[language].clear();
+
+            quizModal.classList.add('active');
+
+            // Generate quiz boxes 1-30
+            for (let i = 1; i <= 30; i++) {
+                const quizBox = document.createElement('div');
+                quizBox.classList.add('quiz-box');
+                quizBox.textContent = i;
+                quizBox.onclick = () => {
+                    currentQuizQuestions[language] = i;
+                    completedQuizQuestions[language].add(i);
+                    toggleQuizQuestion(language, i);
+                };
+                if (completedQuizQuestions[language].has(i)) {
+                    quizBox.classList.add('completed');
+                }
+                quizGrid.appendChild(quizBox);
+
+                // Create quiz content
+                const quizContent = document.createElement('div');
+                quizContent.classList.add('quiz-content');
+                quizContent.id = `${language}-quiz-${i}`;
+                
+                const description = document.createElement('div');
+                description.classList.add('quiz-description');
+                description.textContent = quizData[language][i-1]?.description || `Question ${i}: Coming Soon`;
+                
+                const question = document.createElement('div');
+                question.classList.add('quiz-question');
+                question.textContent = quizData[language][i-1]?.question || 'Question coming soon.';
+                
+                const optionsContainer = document.createElement('div');
+                optionsContainer.classList.add('quiz-options');
+                const options = quizData[language][i-1]?.options || ['Option 1', 'Option 2', 'Option 3'];
+                options.forEach((option, index) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.classList.add('quiz-option');
+                    optionDiv.textContent = option;
+                    optionDiv.onclick = () => selectOption(language, i, index);
+                    optionsContainer.appendChild(optionDiv);
+                });
+                
+                const navigation = document.createElement('div');
+                navigation.classList.add('navigation');
+                
+                const prevBtn = document.createElement('button');
+                prevBtn.classList.add('nav-btn');
+                prevBtn.textContent = 'Previous';
+                prevBtn.onclick = () => navigateQuizQuestion(language, i - 1);
+                
+                const nextBtn = document.createElement('button');
+                if (i === 30) {
+                    nextBtn.classList.add('submit-btn');
+                    nextBtn.textContent = 'Submit';
+                    nextBtn.onclick = () => submitQuiz(language);
+                    nextBtn.style.display = 'none'; // Hidden until all questions are answered
+                    nextBtn.id = `${language}-submit-btn`;
+                } else {
+                    nextBtn.classList.add('nav-btn');
+                    nextBtn.textContent = 'Next';
+                    nextBtn.onclick = () => navigateQuizQuestion(language, i + 1);
+                }
+                
+                navigation.appendChild(prevBtn);
+                navigation.appendChild(nextBtn);
+                
+                quizContent.appendChild(description);
+                quizContent.appendChild(question);
+                quizContent.appendChild(optionsContainer);
+                quizContent.appendChild(navigation);
+                quizContents.appendChild(quizContent);
+            }
+
+            // Automatically show Question 1
+            currentQuizQuestions[language] = 1;
+            completedQuizQuestions[language].add(1);
+            toggleQuizQuestion(language, 1);
+        }
+
+        function toggleQuizQuestion(language, questionNumber) {
+            document.querySelectorAll(`#quizContents .quiz-content`).forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const selectedQuestion = document.getElementById(`${language}-quiz-${questionNumber}`);
+            if (selectedQuestion) {
+                selectedQuestion.classList.add('active');
+                const prevBtn = selectedQuestion.querySelector('.nav-btn:first-child');
+                const nextBtn = selectedQuestion.querySelector('.nav-btn:last-child') || selectedQuestion.querySelector('.submit-btn');
+                prevBtn.disabled = questionNumber === 1;
+                if (nextBtn.classList.contains('nav-btn')) {
+                    nextBtn.disabled = questionNumber === 30;
+                }
+
+                // Show the Submit button on the last question if all questions are answered
+                if (questionNumber === 30 && nextBtn.classList.contains('submit-btn')) {
+                    const allAnswered = userAnswers[language].every(answer => answer !== null);
+                    nextBtn.style.display = allAnswered ? 'block' : 'none';
+                }
+
+                // Highlight previously selected option
+                const selectedOptionIndex = userAnswers[language][questionNumber - 1];
+                if (selectedOptionIndex !== null) {
+                    const options = selectedQuestion.querySelectorAll('.quiz-option');
+                    options[selectedOptionIndex].classList.add('selected');
+                }
+            }
+
+            const quizBox = document.querySelector(`#quizGrid .quiz-box:nth-child(${questionNumber})`);
+            if (quizBox) {
+                quizBox.classList.add('completed');
+            }
+        }
+
+        function navigateQuizQuestion(language, questionNumber) {
+            if (questionNumber < 1 || questionNumber > 30) return;
+            currentQuizQuestions[language] = questionNumber;
+            completedQuizQuestions[language].add(questionNumber);
+            toggleQuizQuestion(language, questionNumber);
+        }
+
+        function selectOption(language, questionNumber, optionIndex) {
+            const options = document.querySelectorAll(`#${language}-quiz-${questionNumber} .quiz-option`);
+            options.forEach(option => option.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+
+            // Store the user's answer
+            userAnswers[language][questionNumber - 1] = optionIndex;
+
+            // Check if all questions are answered and show Submit button if on the last question
+            if (questionNumber === 30) {
+                const allAnswered = userAnswers[language].every(answer => answer !== null);
+                const submitBtn = document.getElementById(`${language}-submit-btn`);
+                if (submitBtn) {
+                    submitBtn.style.display = allAnswered ? 'block' : 'none';
+                }
+            }
+        }
+
+        function submitQuiz(language) {
+            // Calculate the score
+            let score = 0;
+            userAnswers[language].forEach((answer, index) => {
+                if (answer === quizData[language][index].correct) {
+                    score++;
+                }
+            });
+
+            // Show the score
+            alert(`You scored ${score} out of 30!`);
+
+            // Redirect to correct.html if score is 25 or higher
+            if (score >= 25) {
+                window.location.href = 'correct.html';
+            } else {
+                closeQuiz();
+            }
+        }
+
+        function closeQuiz() {
+            const quizModal = document.getElementById('quizModal');
+            quizModal.classList.remove('active');
+        }
+
+        // Initialization Section
+        // Initially hide all lessons grids
+        document.querySelectorAll('.lessons-grid').forEach(grid => {
+            grid.style.display = 'none';
+        });
     </script>
 </body>
 </html>
