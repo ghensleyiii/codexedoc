@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codexedoc Laptop Defense</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+            overflow: auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        #gameTitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .title-cyan {
+            color: #00b7eb;
+            position: relative;
+            top: -0.25em;
+        }
+
+        .title-green {
+            color: #00ff00;
+            font-size: 1.5em;
+            vertical-align: baseline;
+            line-height: 1;
+        }
+
+        #gameInstructions {
+            color: #ffffff;
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            text-align: center;
+            margin-bottom: 15px;
+            max-width: 90%;
+            opacity: 0.9;
+        }
+
+        #gameCounter {
+            display: flex;
+            gap: 15px;
+            padding: 8px 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            border: 1px solid #00b7eb;
+            box-shadow: 0 0 10px rgba(0, 183, 235, 0.3);
+            margin-top: 10px;
+        }
+
+        .counter-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 60px;
+        }
+
+        .counter-label {
+            color: #00b7eb;
+            font-size: clamp(0.8rem, 1.6vw, 1rem);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .counter-value {
+            color: #00ff00;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: bold;
+            margin: 2px 0;
+        }
+
+        .counter-desc {
+            color: #ffffff;
+            font-size: clamp(0.6rem, 1.4vw, 0.8rem);
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            aspect-ratio: 4 / 3;
+            margin: 0 auto;
+        }
+
+        #gameCanvas {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #00b7eb;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tower-spot {
+            position: absolute;
+            width: clamp(15px, 3.5vw, 25px);
+            height: clamp(15px, 3.5vw, 25px);
+            background-color: rgba(0, 183, 235, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+
+        .tower-spot:hover {
+            background-color: rgba(0, 183, 235, 0.4);
+        }
+
+        #startButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 12px 25px;
+            font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #00ff00;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 10;
+            display: block;
+        }
+
+        #startButton:hover {
+            background-color: #00cc00;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            #gameCounter {
+                gap: 8px;
+                padding: 5px 10px;
+            }
+
+            .counter-section {
+                min-width: 45px;
+            }
+            
+            .tower-spot {
+                width: clamp(12px, 4vw, 18px);
+                height: clamp(12px, 4vw, 18px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="gameTitle">
+        <span class="title-cyan">CODE</span><span class="title-green">X</span><span class="title-cyan">EDOC</span>
+    </div>
+    <div id="gameInstructions">
+        <p>Protect the laptop (💻) from incoming bugs (☣️/☢️).</p>
+        <p>Use COD points to place DOC (📗) on blue spots.</p>
+    </div>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <button id="startButton">START</button>
+    </div>
+    <div id="gameCounter">
+        <div class="counter-section">
+            <span class="counter-label">COD</span>
+            <span class="counter-value" id="codValue">4</span>
+            <span class="counter-desc">Coded Points</span>
+        </div>
+        <div class="counter-section">
+            <span class="counter-label">EXE</span>
+            <span class="counter-value" id="exeValue">0</span>
+            <span class="counter-desc">Executed Bugs</span>
+        </div>
+        <div class="counter-section">
+            <span class="counter-label">DOC</span>
+            <span class="counter-value" id="docValue">2</span>
+            <span class="counter-desc">Document Price</span>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('gameContainer');
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startButton = document.getElementById('startButton');
+        const gameInstructions = document.getElementById('gameInstructions');
+
+        function resizeCanvas() {
+            const maxWidth = 800;
+            const maxHeight = 600;
+            const aspectRatio = maxWidth / maxHeight;
+            
+            const availableWidth = window.innerWidth * 0.9;
+            const availableHeight = window.innerHeight * 0.8;
+            
+            let width = Math.min(availableWidth, maxWidth);
+            let height = width / aspectRatio;
+            
+            if (height > availableHeight) {
+                height = availableHeight;
+                width = height * aspectRatio;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            container.style.width = `${width}px`;
+            container.style.height = `${height}px`;
+        }
+
+        let cod = 4;
+        let exe = 0;
+        let doc = 2;
+        let towers = [];
+        let enemies = [];
+        let towerSpots = [];
+        let enemySpawnRate = 1000; // Decreased from 2000 to spawn bugs every 1 second initially
+        let lastSpawn = 0;
+        let gameOver = false;
+        let gameWon = false;
+        let towerCount = 0;
+        let gameStarted = false;
+
+        function getScaledPath() {
+            const scaleX = canvas.width / 800;
+            const scaleY = canvas.height / 600;
+            return [
+                {x: 0, y: 300 * scaleY},
+                {x: 200 * scaleX, y: 300 * scaleY},
+                {x: 200 * scaleX, y: 100 * scaleY},
+                {x: 400 * scaleX, y: 100 * scaleY},
+                {x: 400 * scaleX, y: 500 * scaleY},
+                {x: 600 * scaleX, y: 500 * scaleY},
+                {x: 600 * scaleX, y: 300 * scaleY},
+                {x: 800 * scaleX, y: 300 * scaleY}
+            ];
+        }
+
+        function calculatePathLength(path) {
+            let totalLength = 0;
+            for (let i = 0; i < path.length - 1; i++) {
+                const dx = path[i + 1].x - path[i].x;
+                const dy = path[i + 1].y - path[i].y;
+                totalLength += Math.sqrt(dx * dx + dy * dy);
+            }
+            return totalLength;
+        }
+
+        function getPositionAtDistance(path, distance) {
+            let currentLength = 0;
+            for (let i = 0; i < path.length - 1; i++) {
+                const dx = path[i + 1].x - path[i].x;
+                const dy = path[i + 1].y - path[i].y;
+                const segmentLength = Math.sqrt(dx * dx + dy * dy);
+                
+                if (currentLength + segmentLength >= distance) {
+                    const remaining = distance - currentLength;
+                    const t = remaining / segmentLength;
+                    return {
+                        x: path[i].x + t * dx,
+                        y: path[i].y + t * dy,
+                        segment: i
+                    };
+                }
+                currentLength += segmentLength;
+            }
+            return { x: path[path.length - 1].x, y: path[path.length - 1].y, segment: path.length - 1 };
+        }
+
+        function createTowerSpots() {
+            towerSpots.forEach(spot => spot.remove());
+            towerSpots = [];
+            
+            const path = getScaledPath();
+            const offset = 40 * (canvas.height / 600);
+            const totalLength = calculatePathLength(path);
+            const numberOfSpots = 8; // 16 total spots
+            const stepSize = totalLength / (numberOfSpots - 1);
+
+            for (let i = 0; i < numberOfSpots; i++) {
+                const distance = i * stepSize;
+                const pos = getPositionAtDistance(path, distance);
+                
+                let dx = 0, dy = 0;
+                if (pos.segment < path.length - 1) {
+                    dx = path[pos.segment + 1].x - path[pos.segment].x;
+                    dy = path[pos.segment + 1].y - path[pos.segment].y;
+                }
+                const length = Math.sqrt(dx * dx + dy * dy);
+                if (length > 0) {
+                    dx /= length;
+                    dy /= length;
+                }
+                
+                const perpX = -dy;
+                const perpY = dx;
+
+                const spot1 = document.createElement('div');
+                spot1.className = 'tower-spot';
+                spot1.style.left = `${pos.x + perpX * offset}px`;
+                spot1.style.top = `${pos.y + perpY * offset}px`;
+                spot1.onclick = () => placeTower(pos.x + perpX * offset, pos.y + perpY * offset);
+                container.appendChild(spot1);
+                towerSpots.push(spot1);
+
+                const spot2 = document.createElement('div');
+                spot2.className = 'tower-spot';
+                spot2.style.left = `${pos.x - perpX * offset}px`;
+                spot2.style.top = `${pos.y - perpY * offset}px`;
+                spot2.onclick = () => placeTower(pos.x - perpX * offset, pos.y - perpY * offset);
+                container.appendChild(spot2);
+                towerSpots.push(spot2);
+            }
+        }
+
+        class Tower {
+            constructor(x, y, type) {
+                this.x = x;
+                this.y = y;
+                this.type = type;
+                this.range = 100 * (canvas.width / 800);
+                this.cooldown = 0;
+            }
+
+            draw() {
+                ctx.font = `${30 * (canvas.height / 600)}px Arial`;
+                ctx.fillStyle = '#00b7eb';
+                ctx.fillText(this.type, this.x - (15 * canvas.width / 800), this.y + (10 * canvas.height / 600));
+            }
+
+            shoot() {
+                if (this.cooldown <= 0) {
+                    for (let enemy of enemies) {
+                        const distance = Math.sqrt(
+                            Math.pow(enemy.x - this.x, 2) + Math.pow(enemy.y - this.y, 2)
+                        );
+                        if (distance < this.range) {
+                            enemy.health--;
+                            this.cooldown = 100; // Cooldown set to 100
+                            return;
+                        }
+                    }
+                }
+                this.cooldown--;
+            }
+        }
+
+        class Enemy {
+            constructor() {
+                const path = getScaledPath();
+                this.x = path[0].x;
+                this.y = path[0].y;
+                this.health = 2;
+                this.baseSpeed = 1 * (canvas.width / 800);
+                this.speedMultiplier = 1;
+                this.speed = this.baseSpeed * this.speedMultiplier;
+                this.pathIndex = 1;
+                this.type = Math.random() < 0.5 ? '☣️' : '☢️';
+            }
+
+            updateSpeed(multiplier) {
+                this.speedMultiplier = multiplier;
+                this.speed = this.baseSpeed * this.speedMultiplier;
+            }
+
+            move() {
+                const path = getScaledPath();
+                const target = path[this.pathIndex];
+                const dx = target.x - this.x;
+                const dy = target.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < this.speed) {
+                    this.x = target.x;
+                    this.y = target.y;
+                    this.pathIndex++;
+                    if (this.pathIndex >= path.length) {
+                        gameOver = true;
+                    }
+                } else {
+                    this.x += (dx / distance) * this.speed;
+                    this.y += (dy / distance) * this.speed;
+                }
+            }
+
+            draw() {
+                ctx.font = `${20 * (canvas.height / 600)}px Arial`;
+                ctx.fillStyle = '#00ff00';
+                ctx.fillText(this.type, this.x - (10 * canvas.width / 800), this.y + (10 * canvas.height / 600));
+            }
+        }
+
+        function placeTower(x, y) {
+            if (cod >= doc && !towers.some(t => t.x === x && t.y === y)) {
+                cod -= doc;
+                doc = Math.floor(doc * 1.5);
+                const type = '📗';
+                towers.push(new Tower(x, y, type));
+                towerCount++;
+                updateGameCounter();
+            }
+        }
+
+        function spawnEnemy() {
+            enemies.push(new Enemy());
+            // Spawn rate decreases by 2% each time, with a minimum of 500ms between spawns
+            enemySpawnRate = Math.max(500, enemySpawnRate * 0.98);
+        }
+
+        function updateGameCounter() {
+            document.getElementById('codValue').textContent = cod;
+            document.getElementById('exeValue').textContent = exe;
+            document.getElementById('docValue').textContent = doc;
+        }
+
+        function gameLoop(timestamp) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (!gameStarted) {
+                const path = getScaledPath();
+                ctx.beginPath();
+                ctx.strokeStyle = '#00b7eb';
+                ctx.lineWidth = 40 * (canvas.width / 800);
+                ctx.moveTo(path[0].x, path[0].y);
+                for (let point of path) {
+                    ctx.lineTo(point.x, point.y);
+                }
+                ctx.stroke();
+
+                ctx.font = `${40 * (canvas.height / 600)}px Arial`;
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText('💻', path[path.length - 1].x - (40 * canvas.width / 800), path[path.length - 1].y + (15 * canvas.height / 600));
+
+                requestAnimationFrame(gameLoop);
+                return;
+            }
+
+            if (gameOver) {
+                ctx.fillStyle = '#00ff00';
+                ctx.font = `${40 * (canvas.height / 600)}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
+                ctx.textAlign = 'start';
+                return;
+            }
+
+            if (gameWon) {
+                ctx.fillStyle = '#ffff00';
+                ctx.font = `${40 * (canvas.height / 600)}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.fillText('YOU WIN', canvas.width / 2, canvas.height / 2);
+                ctx.textAlign = 'start';
+                return;
+            }
+
+            const path = getScaledPath();
+            ctx.beginPath();
+            ctx.strokeStyle = '#00b7eb';
+            ctx.lineWidth = 40 * (canvas.width / 800);
+            ctx.moveTo(path[0].x, path[0].y);
+            for (let point of path) {
+                ctx.lineTo(point.x, point.y);
+            }
+            ctx.stroke();
+
+            ctx.font = `${40 * (canvas.height / 600)}px Arial`;
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('💻', path[path.length - 1].x - (40 * canvas.width / 800), path[path.length - 1].y + (15 * canvas.height / 600));
+
+            if (timestamp - lastSpawn > enemySpawnRate) {
+                spawnEnemy();
+                lastSpawn = timestamp;
+            }
+
+            towers.forEach(tower => {
+                tower.shoot();
+                tower.draw();
+            });
+
+            const speedMultiplier = 1 + Math.floor(exe / 64) * 0.25;
+
+            for (let i = enemies.length - 1; i >= 0; i--) {
+                enemies[i].updateSpeed(speedMultiplier);
+                enemies[i].move();
+                enemies[i].draw();
+                if (enemies[i].health <= 0) {
+                    enemies.splice(i, 1);
+                    cod += 1;
+                    exe += 1;
+                    updateGameCounter();
+                    if (exe >= 300) {
+                        gameWon = true;
+                    }
+                }
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        startButton.addEventListener('click', () => {
+            gameStarted = true;
+            startButton.style.display = 'none';
+            gameInstructions.style.display = 'none';
+            createTowerSpots();
+        });
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            if (gameStarted) {
+                createTowerSpots();
+            }
+        });
+        
+        resizeCanvas();
+        requestAnimationFrame(gameLoop);
+    </script>
+</body>
+</html>
