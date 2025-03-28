@@ -511,6 +511,328 @@
                         "src=\"image.jpg\": The src attribute specifies the path to the image file.",
                         "alt=\"Sample Image\": The alt attribute provides alternative text for the image, used for accessibility."
                     ]
+                },
+                {
+                    description: "Creating lists in HTML.",
+                    code: `<ul>
+    <li>First item</li>
+    <li>Second item</li>
+</ul>
+<ol>
+    <li>First step</li>
+    <li>Second step</li>
+</ol>`,
+                    breakdown: [
+                        "<ul>: An unordered list, displayed with bullets.",
+                        "<li>: A list item within a list.",
+                        "<ol>: An ordered list, displayed with numbers.",
+                        "<li>: A list item within an ordered list."
+                    ]
+                },
+                {
+                    description: "Using divs and spans for structure.",
+                    code: `<div>
+    <h2>Section Title</h2>
+    <p>This is a <span>highlighted</span> section.</p>
+</div>`,
+                    breakdown: [
+                        "<div>: A block-level container for grouping elements.",
+                        "<h2>: A heading within the div.",
+                        "<p>: A paragraph within the div.",
+                        "<span>: An inline container for styling or targeting specific text."
+                    ]
+                },
+                {
+                    description: "Introduction to HTML tables.",
+                    code: `<table>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+    <tr>
+        <td>Alice</td>
+        <td>25</td>
+    </tr>
+</table>`,
+                    breakdown: [
+                        "<table>: Defines a table.",
+                        "<tr>: Defines a table row.",
+                        "<th>: Defines a table header cell.",
+                        "<td>: Defines a table data cell."
+                    ]
+                },
+                {
+                    description: "Basic HTML forms.",
+                    code: `<form action="/submit" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+    <input type="submit" value="Submit">
+</form>`,
+                    breakdown: [
+                        "<form>: Creates a form for user input.",
+                        "action=\"/submit\": The URL where form data is sent.",
+                        "method=\"post\": The HTTP method for sending data.",
+                        "<label>: Associates text with a form element.",
+                        "<input>: An input field; type=\"text\" for text entry.",
+                        "<input type=\"submit\">: A button to submit the form."
+                    ]
+                },
+                {
+                    description: "Adding attributes to HTML elements.",
+                    code: `<button id="btn" class="action" disabled>Click Me</button>`,
+                    breakdown: [
+                        "<button>: A clickable button.",
+                        "id=\"btn\": A unique identifier for the element.",
+                        "class=\"action\": A class for styling or scripting.",
+                        "disabled: An attribute that disables the button."
+                    ]
+                },
+                {
+                    description: "Semantic HTML for better structure.",
+                    code: `<header>
+    <h1>Welcome</h1>
+</header>
+<main>
+    <section>
+        <p>Content here</p>
+    </section>
+</main>
+<footer>
+    <p>Footer info</p>
+</footer>`,
+                    breakdown: [
+                        "<header>: Represents introductory content.",
+                        "<main>: The main content of the page.",
+                        "<section>: A thematic grouping of content.",
+                        "<footer>: Represents footer content."
+                    ]
+                },
+                {
+                    description: "Embedding multimedia in HTML.",
+                    code: `<audio controls>
+    <source src="audio.mp3" type="audio/mp3">
+</audio>
+<video controls>
+    <source src="video.mp4" type="video/mp4">
+</video>`,
+                    breakdown: [
+                        "<audio>: Embeds sound content.",
+                        "<source>: Specifies the media file and type.",
+                        "controls: Adds playback controls.",
+                        "<video>: Embeds video content."
+                    ]
+                },
+                // Lessons 11-30 continue the progression
+                {
+                    description: "Using meta tags for SEO.",
+                    code: `<head>
+    <meta name="description" content="A learning platform">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+</head>`,
+                    breakdown: [
+                        "<meta name=\"description\">: Describes the page for search engines.",
+                        "<meta name=\"keywords\">: Lists keywords for SEO."
+                    ]
+                },
+                {
+                    description: "Creating a navigation bar.",
+                    code: `<nav>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+</nav>`,
+                    breakdown: [
+                        "<nav>: Defines a navigation section.",
+                        "<ul>: An unordered list for menu items.",
+                        "<li><a>: List items with links."
+                    ]
+                },
+                {
+                    description: "Styling with inline CSS.",
+                    code: `<p style="color: blue; font-size: 16px;">Styled text</p>`,
+                    breakdown: [
+                        "style=\"color: blue; font-size: 16px;\": Inline CSS applied directly to the element."
+                    ]
+                },
+                {
+                    description: "Using data attributes.",
+                    code: `<div data-info="custom" data-id="123">Content</div>`,
+                    breakdown: [
+                        "data-info=\"custom\": A custom data attribute.",
+                        "data-id=\"123\": Another custom data attribute for scripting."
+                    ]
+                },
+                {
+                    description: "Creating a simple form with validation.",
+                    code: `<form>
+    <input type="email" required placeholder="Enter email">
+    <input type="submit">
+</form>`,
+                    breakdown: [
+                        "<input type=\"email\">: An email input field.",
+                        "required: Ensures the field is filled.",
+                        "placeholder=\"Enter email\": Placeholder text."
+                    ]
+                },
+                {
+                    description: "Adding a button with an icon.",
+                    code: `<button><img src="icon.png" alt="Icon"> Click</button>`,
+                    breakdown: [
+                        "<button>: A button element.",
+                        "<img>: An image inside the button."
+                    ]
+                },
+                {
+                    description: "Using the figure element.",
+                    code: `<figure>
+    <img src="photo.jpg" alt="Photo">
+    <figcaption>A caption</figcaption>
+</figure>`,
+                    breakdown: [
+                        "<figure>: Groups media with a caption.",
+                        "<figcaption>: Describes the media."
+                    ]
+                },
+                {
+                    description: "Creating a dropdown menu.",
+                    code: `<select>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+</select>`,
+                    breakdown: [
+                        "<select>: A dropdown menu.",
+                        "<option>: An item in the dropdown."
+                    ]
+                },
+                {
+                    description: "Adding a progress bar.",
+                    code: `<progress value="70" max="100">70%</progress>`,
+                    breakdown: [
+                        "<progress>: Displays task completion.",
+                        "value=\"70\": Current progress.",
+                        "max=\"100\": Maximum value."
+                    ]
+                },
+                {
+                    description: "Using iframes for embedding.",
+                    code: `<iframe src="https://example.com" width="600" height="400"></iframe>`,
+                    breakdown: [
+                        "<iframe>: Embeds another webpage.",
+                        "src=\"https://example.com\": The URL to embed.",
+                        "width and height: Dimensions of the iframe."
+                    ]
+                },
+                {
+                    description: "Adding a details element.",
+                    code: `<details>
+    <summary>Click to expand</summary>
+    <p>Hidden content</p>
+</details>`,
+                    breakdown: [
+                        "<details>: Creates a collapsible section.",
+                        "<summary>: The visible heading.",
+                        "<p>: The hidden content."
+                    ]
+                },
+                {
+                    description: "Using HTML entities.",
+                    code: `<p>Copyright &copy; 2025 &amp; Co.</p>`,
+                    breakdown: [
+                        "&copy;: Displays the © symbol.",
+                        "&amp;: Displays the & symbol."
+                    ]
+                },
+                {
+                    description: "Creating a simple layout with articles.",
+                    code: `<article>
+    <h2>Article Title</h2>
+    <p>Article content</p>
+</article>`,
+                    breakdown: [
+                        "<article>: Represents independent content."
+                    ]
+                },
+                {
+                    description: "Adding a search input.",
+                    code: `<input type="search" placeholder="Search...">`,
+                    breakdown: [
+                        "<input type=\"search\">: A search-specific input."
+                    ]
+                },
+                {
+                    description: "Using the aside element.",
+                    code: `<aside>
+    <p>Sidebar content</p>
+</aside>`,
+                    breakdown: [
+                        "<aside>: Content tangentially related to the main content."
+                    ]
+                },
+                {
+                    description: "Creating a footer with links.",
+                    code: `<footer>
+    <a href="#privacy">Privacy</a>
+    <a href="#terms">Terms</a>
+</footer>`,
+                    breakdown: [
+                        "<footer>: Footer section with navigation links."
+                    ]
+                },
+                {
+                    description: "Adding ARIA attributes for accessibility.",
+                    code: `<button aria-label="Close">X</button>`,
+                    breakdown: [
+                        "aria-label=\"Close\": Provides a description for screen readers."
+                    ]
+                },
+                {
+                    description: "Using the picture element for responsive images.",
+                    code: `<picture>
+    <source media="(max-width: 600px)" srcset="small.jpg">
+    <img src="large.jpg" alt="Image">
+</picture>`,
+                    breakdown: [
+                        "<picture>: Allows multiple image sources.",
+                        "<source>: Specifies an image for a condition.",
+                        "<img>: Fallback image."
+                    ]
+                },
+                {
+                    description: "Creating a complex form.",
+                    code: `<form>
+    <fieldset>
+        <legend>User Info</legend>
+        <input type="text" name="name">
+        <input type="radio" name="gender" value="m"> Male
+        <input type="radio" name="gender" value="f"> Female
+    </fieldset>
+    <input type="submit">
+</form>`,
+                    breakdown: [
+                        "<fieldset>: Groups related form elements.",
+                        "<legend>: Describes the group.",
+                        "<input type=\"radio\">: Radio buttons for single selection."
+                    ]
+                },
+                {
+                    description: "Building a complete webpage structure.",
+                    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Page</title>
+</head>
+<body>
+    <header><h1>Welcome</h1></header>
+    <nav><a href="#home">Home</a></nav>
+    <main><p>Main content</p></main>
+    <footer><p>&copy; 2025</p></footer>
+</body>
+</html>`,
+                    breakdown: [
+                        "Combines all previous lessons into a full webpage."
+                    ]
                 }
             ],
             css: [
@@ -529,7 +851,7 @@ p {
                         "color: blue;: Sets the text color of <h1> elements to blue.",
                         "font-size: 24px;: Sets the font size of <h1> elements to 24 pixels.",
                         "p: A CSS selector targeting all <p> elements.",
-                        "line-height: 1.6;: Sets the line height of <p> elements to 1.6 times the font size, improving readability."
+                        "line-height: 1.6;: Sets the line height of <p> elements to 1.6 times the font size."
                     ]
                 },
                 {
@@ -545,7 +867,347 @@ p {
                         ".my-class: A class selector, targets elements with class=\"my-class\".",
                         "background-color: yellow;: Sets the background color to yellow.",
                         "#my-id: An ID selector, targets the element with id=\"my-id\".",
-                        "border: 1px solid black;: Adds a 1-pixel wide, solid black border around the element."
+                        "border: 1px solid black;: Adds a 1-pixel wide, solid black border."
+                    ]
+                },
+                {
+                    description: "Using the box model.",
+                    code: `div {
+    width: 200px;
+    padding: 10px;
+    margin: 20px;
+    border: 2px solid blue;
+}`,
+                    breakdown: [
+                        "width: 200px;: Sets the content width.",
+                        "padding: 10px;: Adds space inside the border.",
+                        "margin: 20px;: Adds space outside the border.",
+                        "border: 2px solid blue;: Defines the border."
+                    ]
+                },
+                {
+                    description: "Styling text properties.",
+                    code: `p {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+}`,
+                    breakdown: [
+                        "font-family: Arial, sans-serif;: Sets the font.",
+                        "font-weight: bold;: Makes text bold.",
+                        "text-align: center;: Centers the text."
+                    ]
+                },
+                {
+                    description: "Using pseudo-classes.",
+                    code: `a:hover {
+    color: red;
+}
+
+button:active {
+    background-color: grey;
+}`,
+                    breakdown: [
+                        "a:hover: Styles links when hovered.",
+                        "button:active: Styles buttons when clicked."
+                    ]
+                },
+                {
+                    description: "Introduction to Flexbox.",
+                    code: `.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}`,
+                    breakdown: [
+                        "display: flex;: Enables Flexbox.",
+                        "justify-content: space-between;: Spaces items evenly.",
+                        "align-items: center;: Centers items vertically."
+                    ]
+                },
+                {
+                    description: "Creating a CSS Grid layout.",
+                    code: `.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}`,
+                    breakdown: [
+                        "display: grid;: Enables CSS Grid.",
+                        "grid-template-columns: 1fr 1fr;: Creates two equal columns.",
+                        "gap: 10px;: Adds space between grid items."
+                    ]
+                },
+                {
+                    description: "Applying background properties.",
+                    code: `body {
+    background-image: url('bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}`,
+                    breakdown: [
+                        "background-image: url('bg.jpg');: Sets a background image.",
+                        "background-size: cover;: Scales image to cover the element.",
+                        "background-repeat: no-repeat;: Prevents tiling."
+                    ]
+                },
+                {
+                    description: "Using transitions for animation.",
+                    code: `button {
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: blue;
+}`,
+                    breakdown: [
+                        "transition: background-color 0.3s ease;: Animates background color change over 0.3 seconds."
+                    ]
+                },
+                {
+                    description: "Styling lists.",
+                    code: `ul {
+    list-style-type: square;
+    padding-left: 20px;
+}`,
+                    breakdown: [
+                        "list-style-type: square;: Changes bullet style.",
+                        "padding-left: 20px;: Adds indentation."
+                    ]
+                },
+                // Lessons 11-30
+                {
+                    description: "Using relative units.",
+                    code: `p {
+    font-size: 1.2em;
+    margin: 2rem;
+}`,
+                    breakdown: [
+                        "font-size: 1.2em;: Size relative to parent.",
+                        "margin: 2rem;: Margin relative to root font size."
+                    ]
+                },
+                {
+                    description: "Creating a sticky header.",
+                    code: `header {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+}`,
+                    breakdown: [
+                        "position: sticky;: Sticks to the top when scrolled."
+                    ]
+                },
+                {
+                    description: "Applying box-shadow.",
+                    code: `div {
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}`,
+                    breakdown: [
+                        "box-shadow: Adds a shadow with offset, blur, and color."
+                    ]
+                },
+                {
+                    description: "Using media queries.",
+                    code: `@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+}`,
+                    breakdown: [
+                        "@media: Applies styles based on screen size."
+                    ]
+                },
+                {
+                    description: "Centering elements.",
+                    code: `.centered {
+    margin: 0 auto;
+    width: 50%;
+}`,
+                    breakdown: [
+                        "margin: 0 auto;: Centers block elements horizontally."
+                    ]
+                },
+                {
+                    description: "Creating a hover effect.",
+                    code: `.box {
+    transition: transform 0.2s;
+}
+
+.box:hover {
+    transform: scale(1.1);
+}`,
+                    breakdown: [
+                        "transform: scale(1.1);: Enlarges the element on hover."
+                    ]
+                },
+                {
+                    description: "Styling form inputs.",
+                    code: `input {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid grey;
+}`,
+                    breakdown: [
+                        "Improves input appearance."
+                    ]
+                },
+                {
+                    description: "Using CSS variables.",
+                    code: `:root {
+    --main-color: #00b7eb;
+}
+
+p {
+    color: var(--main-color);
+}`,
+                    breakdown: [
+                        "--main-color: Defines a custom property.",
+                        "var(--main-color): Uses the custom property."
+                    ]
+                },
+                {
+                    description: "Applying opacity.",
+                    code: `img {
+    opacity: 0.8;
+}
+
+img:hover {
+    opacity: 1;
+}`,
+                    breakdown: [
+                        "opacity: 0.8;: Sets transparency."
+                    ]
+                },
+                {
+                    description: "Creating a gradient background.",
+                    code: `body {
+    background: linear-gradient(to right, #ff0000, #00ff00);
+}`,
+                    breakdown: [
+                        "linear-gradient: Creates a color gradient."
+                    ]
+                },
+                {
+                    description: "Using Flexbox for a navbar.",
+                    code: `.nav {
+    display: flex;
+    gap: 10px;
+}`,
+                    breakdown: [
+                        "gap: 10px;: Adds space between flex items."
+                    ]
+                },
+                {
+                    description: "Styling tables.",
+                    code: `table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 8px;
+}`,
+                    breakdown: [
+                        "border-collapse: collapse;: Merges borders."
+                    ]
+                },
+                {
+                    description: "Animating with keyframes.",
+                    code: `@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+div {
+    animation: fade 2s;
+}`,
+                    breakdown: [
+                        "@keyframes: Defines an animation sequence."
+                    ]
+                },
+                {
+                    description: "Using Grid for a gallery.",
+                    code: `.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}`,
+                    breakdown: [
+                        "repeat(3, 1fr): Creates three equal columns."
+                    ]
+                },
+                {
+                    description: "Applying text shadows.",
+                    code: `h1 {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}`,
+                    breakdown: [
+                        "text-shadow: Adds a shadow to text."
+                    ]
+                },
+                {
+                    description: "Creating a card layout.",
+                    code: `.card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+}`,
+                    breakdown: [
+                        "Styles a card-like component."
+                    ]
+                },
+                {
+                    description: "Using position absolute.",
+                    code: `.overlay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}`,
+                    breakdown: [
+                        "position: absolute;: Positions relative to nearest positioned ancestor."
+                    ]
+                },
+                {
+                    description: "Styling buttons with hover.",
+                    code: `button {
+    padding: 10px 20px;
+    background-color: #00b7eb;
+    border: none;
+}
+
+button:hover {
+    background-color: #00a3d3;
+}`,
+                    breakdown: [
+                        "Enhances button appearance."
+                    ]
+                },
+                {
+                    description: "Creating a responsive layout.",
+                    code: `.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}`,
+                    breakdown: [
+                        "flex-wrap: wrap;: Allows items to wrap on smaller screens."
+                    ]
+                },
+                {
+                    description: "Building a complete styled page.",
+                    code: `body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+header {
+    background: #00b7eb;
+    padding: 20px;
+    text-align: center;
+}`,
+                    breakdown: [
+                        "Combines previous concepts into a styled page."
                     ]
                 }
             ],
@@ -577,6 +1239,304 @@ console.log(greet("Alice"));`,
                         "console.log(): Outputs the result to the console.",
                         "greet(\"Alice\"): Calls the greet function with the argument \"Alice\"."
                     ]
+                },
+                {
+                    description: "Working with conditionals.",
+                    code: `let age = 18;
+if (age >= 18) {
+    console.log("Adult");
+} else {
+    console.log("Minor");
+}`,
+                    breakdown: [
+                        "if: Checks a condition.",
+                        "age >= 18: Condition to test.",
+                        "else: Executes if the condition is false."
+                    ]
+                },
+                {
+                    description: "Using loops in JavaScript.",
+                    code: `for (let i = 0; i < 5; i++) {
+    console.log(i);
+}`,
+                    breakdown: [
+                        "for: A loop structure.",
+                        "let i = 0: Initializes the counter.",
+                        "i < 5: Condition to continue the loop.",
+                        "i++: Increments the counter."
+                    ]
+                },
+                {
+                    description: "Manipulating arrays.",
+                    code: `let fruits = ["apple", "banana"];
+fruits.push("orange");
+console.log(fruits);`,
+                    breakdown: [
+                        "let fruits: Declares an array.",
+                        ".push(): Adds an element to the end of the array."
+                    ]
+                },
+                {
+                    description: "Working with objects.",
+                    code: `let person = {
+    name: "Alice",
+    age: 25
+};
+console.log(person.name);`,
+                    breakdown: [
+                        "let person: Declares an object.",
+                        "name: \"Alice\": A property key-value pair.",
+                        "person.name: Accesses the name property."
+                    ]
+                },
+                {
+                    description: "Introduction to DOM manipulation.",
+                    code: `document.getElementById("myId").textContent = "Hello";`,
+                    breakdown: [
+                        "document.getElementById(): Selects an element by ID.",
+                        ".textContent: Sets the text inside the element."
+                    ]
+                },
+                {
+                    description: "Adding event listeners.",
+                    code: `document.getElementById("btn").addEventListener("click", function() {
+    alert("Clicked!");
+});`,
+                    breakdown: [
+                        ".addEventListener(): Attaches an event handler.",
+                        "\"click\": The event type.",
+                        "function(): The code to run on click."
+                    ]
+                },
+                {
+                    description: "Using arrow functions.",
+                    code: `const add = (a, b) => a + b;
+console.log(add(2, 3));`,
+                    breakdown: [
+                        "=>: Arrow function syntax.",
+                        "a + b: Returns the sum."
+                    ]
+                },
+                {
+                    description: "Handling form input.",
+                    code: `let input = document.getElementById("name");
+console.log(input.value);`,
+                    breakdown: [
+                        ".value: Gets the value of an input element."
+                    ]
+                },
+                // Lessons 11-30
+                {
+                    description: "Using template literals.",
+                    code: `let name = "Bob";
+console.log(\`Hello, \${name}!\`);`,
+                    breakdown: [
+                        "\`...\`: Template literal syntax.",
+                        "${name}: Embeds a variable."
+                    ]
+                },
+                {
+                    description: "Destructuring objects.",
+                    code: `let user = { name: "Charlie", age: 30 };
+let { name, age } = user;
+console.log(name);`,
+                    breakdown: [
+                        "{ name, age }: Extracts properties into variables."
+                    ]
+                },
+                {
+                    description: "Working with array methods.",
+                    code: `let numbers = [1, 2, 3];
+let doubled = numbers.map(n => n * 2);
+console.log(doubled);`,
+                    breakdown: [
+                        ".map(): Applies a function to each element."
+                    ]
+                },
+                {
+                    description: "Using the spread operator.",
+                    code: `let arr1 = [1, 2];
+let arr2 = [...arr1, 3];
+console.log(arr2);`,
+                    breakdown: [
+                        "...: Spreads array elements."
+                    ]
+                },
+                {
+                    description: "Handling errors with try-catch.",
+                    code: `try {
+    throw new Error("Oops");
+} catch (error) {
+    console.log(error.message);
+}`,
+                    breakdown: [
+                        "try: Tests code for errors.",
+                        "catch: Handles the error."
+                    ]
+                },
+                {
+                    description: "Creating a simple counter.",
+                    code: `let count = 0;
+function increment() {
+    count++;
+    console.log(count);
+}
+increment();`,
+                    breakdown: [
+                        "Basic state management."
+                    ]
+                },
+                {
+                    description: "Using setTimeout for delays.",
+                    code: `setTimeout(() => {
+    console.log("Delayed");
+}, 2000);`,
+                    breakdown: [
+                        "setTimeout: Runs code after a delay (in milliseconds)."
+                    ]
+                },
+                {
+                    description: "Fetching data with promises.",
+                    code: `fetch("https://api.example.com")
+    .then(response => response.json())
+    .then(data => console.log(data));`,
+                    breakdown: [
+                        "fetch: Makes an HTTP request.",
+                        ".then: Handles the response."
+                    ]
+                },
+                {
+                    description: "Using async/await.",
+                    code: `async function getData() {
+    let response = await fetch("https://api.example.com");
+    let data = await response.json();
+    console.log(data);
+}
+getData();`,
+                    breakdown: [
+                        "async: Declares an asynchronous function.",
+                        "await: Pauses execution until promise resolves."
+                    ]
+                },
+                {
+                    description: "Creating a toggle function.",
+                    code: `let isOn = false;
+function toggle() {
+    isOn = !isOn;
+    console.log(isOn);
+}
+toggle();`,
+                    breakdown: [
+                        "!isOn: Flips the boolean value."
+                    ]
+                },
+                {
+                    description: "Manipulating CSS with JS.",
+                    code: `document.getElementById("box").style.backgroundColor = "blue";`,
+                    breakdown: [
+                        ".style: Accesses CSS properties."
+                    ]
+                },
+                {
+                    description: "Creating a simple calculator.",
+                    code: `function calculate(a, b, operation) {
+    return operation === "add" ? a + b : a - b;
+}
+console.log(calculate(5, 3, "add"));`,
+                    breakdown: [
+                        "Ternary operator for conditional logic."
+                    ]
+                },
+                {
+                    description: "Using localStorage.",
+                    code: `localStorage.setItem("key", "value");
+console.log(localStorage.getItem("key"));`,
+                    breakdown: [
+                        ".setItem(): Stores data.",
+                        ".getItem(): Retrieves data."
+                    ]
+                },
+                {
+                    description: "Filtering an array.",
+                    code: `let numbers = [1, 2, 3, 4];
+let evens = numbers.filter(n => n % 2 === 0);
+console.log(evens);`,
+                    breakdown: [
+                        ".filter(): Returns elements meeting a condition."
+                    ]
+                },
+                {
+                    description: "Creating a basic class.",
+                    code: `class Person {
+    constructor(name) {
+        this.name = name;
+    }
+}
+let p = new Person("Dave");
+console.log(p.name);`,
+                    breakdown: [
+                        "class: Defines a blueprint.",
+                        "constructor: Initializes object properties."
+                    ]
+                },
+                {
+                    description: "Adding methods to a class.",
+                    code: `class Person {
+    constructor(name) {
+        this.name = name;
+    }
+    greet() {
+        return "Hi, " + this.name;
+    }
+}
+let p = new Person("Eve");
+console.log(p.greet());`,
+                    breakdown: [
+                        "Methods defined within a class."
+                    ]
+                },
+                {
+                    description: "Using regular expressions.",
+                    code: `let str = "Hello123";
+console.log(str.match(/[0-9]/g));`,
+                    breakdown: [
+                        ".match(): Finds matches.",
+                        "/[0-9]/g: Matches all digits."
+                    ]
+                },
+                {
+                    description: "Creating a simple game loop.",
+                    code: `let score = 0;
+setInterval(() => {
+    score++;
+    console.log(score);
+}, 1000);`,
+                    breakdown: [
+                        "setInterval: Runs code repeatedly."
+                    ]
+                },
+                {
+                    description: "Handling multiple events.",
+                    code: `let btn = document.getElementById("btn");
+btn.addEventListener("mouseover", () => console.log("Hover"));
+btn.addEventListener("click", () => console.log("Click"));`,
+                    breakdown: [
+                        "Multiple listeners on one element."
+                    ]
+                },
+                {
+                    description: "Building a dynamic list.",
+                    code: `let ul = document.createElement("ul");
+let items = ["A", "B"];
+items.forEach(item => {
+    let li = document.createElement("li");
+    li.textContent = item;
+    ul.appendChild(li);
+});
+document.body.appendChild(ul);`,
+                    breakdown: [
+                        "Dynamically creates and appends elements."
+                    ]
                 }
             ],
             python: [
@@ -601,526 +1561,1066 @@ print("Sum:", sum)`,
                         "print(): Outputs text to the console.",
                         "\"Sum:\", sum: The arguments to print(), displaying the label \"Sum:\" followed by the value of sum."
                     ]
+                },
+                {
+                    description: "Using conditionals in Python.",
+                    code: `age = 18
+if age >= 18:
+    print("Adult")
+else:
+    print("Minor")`,
+                    breakdown: [
+                        "if: Tests a condition.",
+                        "age >= 18: The condition to check.",
+                        "else: Runs if the condition is false."
+                    ]
+                },
+                {
+                    description: "Introduction to Python loops.",
+                    code: `for i in range(5):
+    print(i)`,
+                    breakdown: [
+                        "for: A loop structure.",
+                        "range(5): Generates numbers 0 to 4.",
+                        "print(i): Outputs each number."
+                    ]
+                },
+                {
+                    description: "Working with lists.",
+                    code: `fruits = ["apple", "banana"]
+fruits.append("orange")
+print(fruits)`,
+                    breakdown: [
+                        "fruits = [...]: Creates a list.",
+                        ".append(): Adds an item to the list."
+                    ]
+                },
+                {
+                    description: "Defining functions in Python.",
+                    code: `def greet(name):
+    return "Hello, " + name
+print(greet("Alice"))`,
+                    breakdown: [
+                        "def: Defines a function.",
+                        "greet(name): Function name and parameter.",
+                        "return: Returns a value."
+                    ]
+                },
+                {
+                    description: "Using dictionaries.",
+                    code: `person = {"name": "Bob", "age": 25}
+print(person["name"])`,
+                    breakdown: [
+                        "person = {...}: Creates a dictionary.",
+                        "[\"name\"]: Accesses a value by key."
+                    ]
+                },
+                {
+                    description: "Handling user input.",
+                    code: `name = input("Enter your name: ")
+print("Hi, " + name)`,
+                    breakdown: [
+                        "input(): Gets user input.",
+                        "Stores input in the name variable."
+                    ]
+                },
+                {
+                    description: "List comprehension.",
+                    code: `numbers = [x * 2 for x in range(5)]
+print(numbers)`,
+                    breakdown: [
+                        "[x * 2 for x in range(5)]: Creates a list with doubled values."
+                    ]
+                },
+                {
+                    description: "Working with strings.",
+                    code: `text = "Hello"
+print(text.upper())`,
+                    breakdown: [
+                        ".upper(): Converts string to uppercase."
+                    ]
+                },
+                // Lessons 11-30
+                {
+                    description: "Using while loops.",
+                    code: `count = 0
+while count < 5:
+    print(count)
+    count += 1`,
+                    breakdown: [
+                        "while: Loops while a condition is true.",
+                        "count += 1: Increments the counter."
+                    ]
+                },
+                {
+                    description: "Handling exceptions.",
+                    code: `try:
+    print(5 / 0)
+except ZeroDivisionError:
+    print("Cannot divide by zero")`,
+                    breakdown: [
+                        "try: Tests code for errors.",
+                        "except: Catches specific errors."
+                    ]
+                },
+                {
+                    description: "Working with tuples.",
+                    code: `point = (3, 4)
+print(point[0])`,
+                    breakdown: [
+                        "(): Defines a tuple (immutable).",
+                        "[0]: Accesses an element."
+                    ]
+                },
+                {
+                    description: "Using sets.",
+                    code: `colors = {"red", "blue"}
+colors.add("green")
+print(colors)`,
+                    breakdown: [
+                        "{}: Defines a set (unique items).",
+                        ".add(): Adds an item."
+                    ]
+                },
+                {
+                    description: "Creating a simple calculator.",
+                    code: `def add(a, b):
+    return a + b
+print(add(3, 4))`,
+                    breakdown: [
+                        "Basic function for addition."
+                    ]
+                },
+                {
+                    description: "Using lambda functions.",
+                    code: `double = lambda x: x * 2
+print(double(5))`,
+                    breakdown: [
+                        "lambda: Anonymous function.",
+                        "x: x * 2: Doubles the input."
+                    ]
+                },
+                {
+                    description: "Reading from a file.",
+                    code: `with open("file.txt", "r") as file:
+    content = file.read()
+print(content)`,
+                    breakdown: [
+                        "with open(): Opens a file.",
+                        ".read(): Reads the content."
+                    ]
+                },
+                {
+                    description: "Writing to a file.",
+                    code: `with open("file.txt", "w") as file:
+    file.write("Hello")`,
+                    breakdown: [
+                        "\"w\": Write mode.",
+                        ".write(): Writes text to the file."
+                    ]
+                },
+                {
+                    description: "Using modules.",
+                    code: `import math
+print(math.sqrt(16))`,
+                    breakdown: [
+                        "import: Brings in a module.",
+                        "math.sqrt(): Calculates square root."
+                    ]
+                },
+                {
+                    description: "Working with dates.",
+                    code: `from datetime import datetime
+now = datetime.now()
+print(now)`,
+                    breakdown: [
+                        "datetime.now(): Gets current date and time."
+                    ]
+                },
+                {
+                    description: "Creating a list of dictionaries.",
+                    code: `users = [{"name": "Alice"}, {"name": "Bob"}]
+print(users[0]["name"])`,
+                    breakdown: [
+                        "Combines lists and dictionaries."
+                    ]
+                },
+                {
+                    description: "Using the random module.",
+                    code: `import random
+print(random.randint(1, 10))`,
+                    breakdown: [
+                        "random.randint(): Generates a random integer."
+                    ]
+                },
+                {
+                    description: "Defining a class.",
+                    code: `class Person:
+    def __init__(self, name):
+        self.name = name
+p = Person("Charlie")
+print(p.name)`,
+                    breakdown: [
+                        "class: Defines a class.",
+                        "__init__: Constructor method."
+                    ]
+                },
+                {
+                    description: "Adding methods to a class.",
+                    code: `class Person:
+    def __init__(self, name):
+        self.name = name
+    def greet(self):
+        return "Hi, " + self.name
+p = Person("Dave")
+print(p.greet())`,
+                    breakdown: [
+                        "greet(): A class method."
+                    ]
+                },
+                {
+                    description: "Inheritance in Python.",
+                    code: `class Student(Person):
+    def study(self):
+        return self.name + " is studying"
+s = Student("Eve")
+print(s.greet())`,
+                    breakdown: [
+                        "class Student(Person): Inherits from Person."
+                    ]
+                },
+                {
+                    description: "Using list slicing.",
+                    code: `numbers = [0, 1, 2, 3, 4]
+print(numbers[1:4])`,
+                    breakdown: [
+                        "[1:4]: Extracts elements from index 1 to 3."
+                    ]
+                },
+                {
+                    description: "Creating a simple game.",
+                    code: `import random
+number = random.randint(1, 10)
+guess = int(input("Guess a number: "))
+if guess == number:
+    print("Correct!")`,
+                    breakdown: [
+                        "Simple number guessing game."
+                    ]
+                },
+                {
+                    description: "Working with JSON.",
+                    code: `import json
+data = {"name": "Frank"}
+json_str = json.dumps(data)
+print(json_str)`,
+                    breakdown: [
+                        "json.dumps(): Converts dictionary to JSON string."
+                    ]
+                },
+                {
+                    description: "Using map and filter.",
+                    code: `numbers = [1, 2, 3]
+squared = list(map(lambda x: x**2, numbers))
+print(squared)`,
+                    breakdown: [
+                        "map(): Applies a function to all items."
+                    ]
+                },
+                {
+                    description: "Building a complete program.",
+                    code: `def main():
+    name = input("Enter name: ")
+    print(f"Hello, {name}!")
+if __name__ == "__main__":
+    main()`,
+                    breakdown: [
+                        "Combines input, functions, and f-strings."
+                    ]
                 }
             ]
         };
 
         // Quiz data for each language (30 questions per language)
         const quizData = {
-            html: Array.from({ length: 30 }, (_, i) => {
-                if (i === 0) {
-                    return {
-                        description: "HTML Basics Quiz",
-                        question: "What does the <!DOCTYPE html> declaration do?",
-                        options: [
-                            "It defines the document type as HTML5.",
-                            "It links to an external stylesheet.",
-                            "It creates a new HTML element."
-                        ],
-                        correct: 0
-                    };
-                } else if (i === 1) {
-                    return {
-                        description: "HTML Elements Quiz",
-                        question: "Which tag is used for the largest heading?",
-                        options: [
-                            "<h6>",
-                            "<h1>",
-                            "<p>"
-                        ],
-                        correct: 1
-                    };
-                } else if (i === 2) {
-                    return {
-                        description: "HTML Links and Images Quiz",
-                        question: "What does the 'alt' attribute in an <img> tag do?",
-                        options: [
-                            "Specifies the image source.",
-                            "Provides alternative text for accessibility.",
-                            "Sets the image width."
-                        ],
-                        correct: 1
-                    };
-                } else {
-                    return {
-                        description: `HTML Question ${i + 1}`,
-                        question: `What is the purpose of HTML question ${i + 1}?`,
-                        options: [
-                            "Option A",
-                            "Option B",
-                            "Option C"
-                        ],
-                        correct: 0
-                    };
+            html: [
+                {
+                    description: "HTML Basics Quiz",
+                    question: "What does the <!DOCTYPE html> declaration do?",
+                    options: [
+                        "It defines the document type as HTML5.",
+                        "It links to an external stylesheet.",
+                        "It creates a new HTML element."
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "HTML Elements Quiz",
+                    question: "Which tag is used for the largest heading?",
+                    options: [
+                        "<h6>",
+                        "<h1>",
+                        "<p>"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "HTML Links and Images Quiz",
+                    question: "What does the 'alt' attribute in an <img> tag do?",
+                    options: [
+                        "Specifies the image source.",
+                        "Provides alternative text for accessibility.",
+                        "Sets the image width."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "HTML Lists Quiz",
+                    question: "Which tag creates an ordered list?",
+                    options: [
+                        "<ul>",
+                        "<ol>",
+                        "<li>"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "HTML Structure Quiz",
+                    question: "What is the purpose of a <div> tag?",
+                    options: [
+                        "To create a hyperlink.",
+                        "To group elements.",
+                        "To embed an image."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "HTML Tables Quiz",
+                    question: "Which tag defines a table header cell?",
+                    options: [
+                        "<td>",
+                        "<tr>",
+                        "<th>"
+                    ],
+                    correct: 2
+                },
+                {
+                    description: "HTML Forms Quiz",
+                    question: "What does the 'method' attribute in a form specify?",
+                    options: [
+                        "The URL to send data.",
+                        "The HTTP method.",
+                        "The input type."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "HTML Attributes Quiz",
+                    question: "Which attribute disables a button?",
+                    options: [
+                        "disabled",
+                        "readonly",
+                        "hidden"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Semantic HTML Quiz",
+                    question: "Which tag represents the main content of a page?",
+                    options: [
+                        "<header>",
+                        "<main>",
+                        "<footer>"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Multimedia Quiz",
+                    question: "Which attribute adds playback controls to audio?",
+                    options: [
+                        "src",
+                        "controls",
+                        "type"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "SEO Quiz",
+                    question: "What does the meta keywords tag do?",
+                    options: [
+                        "Sets the page title.",
+                        "Lists keywords for search engines.",
+                        "Defines character encoding."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Navigation Quiz",
+                    question: "Which tag is used for navigation links?",
+                    options: [
+                        "<nav>",
+                        "<section>",
+                        "<div>"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Inline CSS Quiz",
+                    question: "Where is inline CSS applied?",
+                    options: [
+                        "In a separate file.",
+                        "In the <style> tag.",
+                        "Directly in the element's style attribute."
+                    ],
+                    correct: 2
+                },
+                {
+                    description: "Data Attributes Quiz",
+                    question: "What prefix do custom data attributes use?",
+                    options: [
+                        "data-",
+                        "custom-",
+                        "attr-"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Form Validation Quiz",
+                    question: "Which attribute makes an input required?",
+                    options: [
+                        "required",
+                        "mandatory",
+                        "validate"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Button Icon Quiz",
+                    question: "Can an <img> tag be placed inside a <button>?",
+                    options: [
+                        "Yes",
+                        "No",
+                        "Only with CSS"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Figure Quiz",
+                    question: "What tag provides a caption for a figure?",
+                    options: [
+                        "<caption>",
+                        "<figcaption>",
+                        "<label>"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Dropdown Quiz",
+                    question: "Which tag creates a dropdown menu?",
+                    options: [
+                        "<select>",
+                        "<option>",
+                        "<input>"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Progress Quiz",
+                    question: "What attribute sets the maximum value of a progress bar?",
+                    options: [
+                        "max",
+                        "value",
+                        "limit"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Iframe Quiz",
+                    question: "What does the 'src' attribute do in an iframe?",
+                    options: [
+                        "Sets the width.",
+                        "Specifies the embedded URL.",
+                        "Adds a border."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Details Quiz",
+                    question: "Which tag defines the visible part of a details element?",
+                    options: [
+                        "<summary>",
+                        "<details>",
+                        "<content>"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Entities Quiz",
+                    question: "What is the entity for the copyright symbol?",
+                    options: [
+                        "&copy;",
+                        "&reg;",
+                        "&trade;"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Article Quiz",
+                    question: "What does the <article> tag represent?",
+                    options: [
+                        "A sidebar.",
+                        "Independent content.",
+                        "A navigation menu."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Search Quiz",
+                    question: "Which input type is used for search fields?",
+                    options: [
+                        "text",
+                        "search",
+                        "query"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Aside Quiz",
+                    question: "What is the purpose of the <aside> tag?",
+                    options: [
+                        "Main content.",
+                        "Related content.",
+                        "Footer content."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Footer Links Quiz",
+                    question: "Can a <footer> contain links?",
+                    options: [
+                        "Yes",
+                        "No",
+                        "Only with CSS"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "ARIA Quiz",
+                    question: "What does 'aria-label' do?",
+                    options: [
+                        "Styles an element.",
+                        "Provides accessibility info.",
+                        "Hides an element."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Picture Quiz",
+                    question: "What does the <picture> tag allow?",
+                    options: [
+                        "Multiple image sources.",
+                        "Video embedding.",
+                        "Text styling."
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Complex Form Quiz",
+                    question: "What does <fieldset> do in a form?",
+                    options: [
+                        "Submits the form.",
+                        "Groups related elements.",
+                        "Validates input."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Full Page Quiz",
+                    question: "Which tag is required at the start of an HTML5 document?",
+                    options: [
+                        "<html>",
+                        "<!DOCTYPE html>",
+                        "<head>"
+                    ],
+                    correct: 1
                 }
-            }),
-            css: Array.from({ length: 30 }, (_, i) => {
-                if (i === 0) {
-                    return {
-                        description: "CSS Basics Quiz",
-                        question: "What does the 'color' property in CSS do?",
-                        options: [
-                            "Sets the background color.",
-                            "Sets the text color.",
-                            "Sets the border color."
-                        ],
-                        correct: 1
-                    };
-                } else if (i === 1) {
-                    return {
-                        description: "CSS Selectors Quiz",
-                        question: "What does a class selector start with?",
-                        options: [
-                            "#",
-                            ".",
-                            "*"
-                        ],
-                        correct: 1
-                    };
-                } else {
-                    return {
-                        description: `CSS Question ${i + 1}`,
-                        question: `What is the purpose of CSS question ${i + 1}?`,
-                        options: [
-                            "Option A",
-                            "Option B",
-                            "Option C"
-                        ],
-                        correct: 0
-                    };
+            ],
+            css: [
+                {
+                    description: "CSS Basics Quiz",
+                    question: "What does the 'color' property in CSS do?",
+                    options: [
+                        "Sets the background color.",
+                        "Sets the text color.",
+                        "Sets the border color."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "CSS Selectors Quiz",
+                    question: "What does a class selector start with?",
+                    options: [
+                        "#",
+                        ".",
+                        "*"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Box Model Quiz",
+                    question: "Which property adds space inside an element's border?",
+                    options: [
+                        "margin",
+                        "padding",
+                        "border"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Text Properties Quiz",
+                    question: "Which property centers text horizontally?",
+                    options: [
+                        "font-weight",
+                        "text-align",
+                        "line-height"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Pseudo-classes Quiz",
+                    question: "Which pseudo-class styles an element when hovered?",
+                    options: [
+                        ":active",
+                        ":hover",
+                        ":focus"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Flexbox Quiz",
+                    question: "What does 'justify-content: space-between' do?",
+                    options: [
+                        "Centers items.",
+                        "Spaces items evenly with no space at ends.",
+                        "Spaces items with space between them."
+                    ],
+                    correct: 2
+                },
+                {
+                    description: "Grid Quiz",
+                    question: "What does 'grid-template-columns: 1fr 1fr' create?",
+                    options: [
+                        "One column.",
+                        "Two equal columns.",
+                        "Two rows."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Background Quiz",
+                    question: "Which property prevents background image tiling?",
+                    options: [
+                        "background-size",
+                        "background-repeat",
+                        "background-position"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Transitions Quiz",
+                    question: "What does the 'transition' property animate?",
+                    options: [
+                        "Property changes.",
+                        "Element position.",
+                        "Text content."
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Lists Quiz",
+                    question: "Which property changes bullet style?",
+                    options: [
+                        "list-style-type",
+                        "padding-left",
+                        "font-style"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Units Quiz",
+                    question: "What does 'em' measure relative to?",
+                    options: [
+                        "Root font size.",
+                        "Parent font size.",
+                        "Screen width."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Sticky Quiz",
+                    question: "What does 'position: sticky' do?",
+                    options: [
+                        "Fixes an element in place.",
+                        "Sticks when scrolled to.",
+                        "Hides an element."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Shadow Quiz",
+                    question: "Which property adds a shadow to an element?",
+                    options: [
+                        "text-shadow",
+                        "box-shadow",
+                        "shadow"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Media Queries Quiz",
+                    question: "What does a media query adjust styles based on?",
+                    options: [
+                        "Screen size.",
+                        "Font size.",
+                        "Element ID."
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Centering Quiz",
+                    question: "How do you center a block element horizontally?",
+                    options: [
+                        "text-align: center;",
+                        "margin: 0 auto;",
+                        "float: center;"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Hover Effect Quiz",
+                    question: "Which property scales an element?",
+                    options: [
+                        "scale",
+                        "transform",
+                        "size"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Form Styling Quiz",
+                    question: "Which property rounds input corners?",
+                    options: [
+                        "border-radius",
+                        "border",
+                        "padding"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Variables Quiz",
+                    question: "Where are CSS variables typically defined?",
+                    options: [
+                        ":root",
+                        "body",
+                        "div"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Opacity Quiz",
+                    question: "What does 'opacity: 0' do?",
+                    options: [
+                        "Makes an element fully transparent.",
+                        "Makes it fully opaque.",
+                        "Changes its color."
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Gradient Quiz",
+                    question: "Which function creates a linear gradient?",
+                    options: [
+                        "gradient()",
+                        "linear-gradient()",
+                        "color-gradient()"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Flex Navbar Quiz",
+                    question: "What does 'gap' do in Flexbox?",
+                    options: [
+                        "Centers items.",
+                        "Adds space between items.",
+                        "Stretches items."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Table Styling Quiz",
+                    question: "What does 'border-collapse: collapse' do?",
+                    options: [
+                        "Merges borders.",
+                        "Hides borders.",
+                        "Spaces borders."
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Animation Quiz",
+                    question: "What defines an animation sequence?",
+                    options: [
+                        "@keyframes",
+                        "transition",
+                        "animate"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Grid Gallery Quiz",
+                    question: "What does 'repeat(3, 1fr)' do?",
+                    options: [
+                        "Creates three equal rows.",
+                        "Creates three equal columns.",
+                        "Repeats three items."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Text Shadow Quiz",
+                    question: "Which property adds a shadow to text?",
+                    options: [
+                        "box-shadow",
+                        "text-shadow",
+                        "shadow-text"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Card Layout Quiz",
+                    question: "Which property rounds card corners?",
+                    options: [
+                        "border-radius",
+                        "corner",
+                        "curve"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Position Quiz",
+                    question: "What does 'position: absolute' do?",
+                    options: [
+                        "Fixes position relative to viewport.",
+                        "Positions relative to nearest positioned ancestor.",
+                        "Keeps element in normal flow."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Button Styling Quiz",
+                    question: "Which property removes a button's border?",
+                    options: [
+                        "border: none;",
+                        "outline: none;",
+                        "border: 0px;"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Responsive Quiz",
+                    question: "What does 'flex-wrap: wrap' do?",
+                    options: [
+                        "Stacks items vertically.",
+                        "Allows items to wrap to new lines.",
+                        "Centers items."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Full Page Quiz",
+                    question: "Which property sets the default font for a page?",
+                    options: [
+                        "font-family",
+                        "font-style",
+                        "text-font"
+                    ],
+                    correct: 0
                 }
-            }),
-            javascript: Array.from({ length: 30 }, (_, i) => {
-                if (i === 0) {
-                    return {
-                        description: "JavaScript Basics Quiz",
-                        question: "What keyword is used to declare a variable in JavaScript?",
-                        options: [
-                            "var",
-                            "function",
-                            "return"
-                        ],
-                        correct: 0
-                    };
-                } else if (i === 1) {
-                    return {
-                        description: "JavaScript Functions Quiz",
-                        question: "What does the 'return' keyword do in a function?",
-                        options: [
-                            "Logs a message to the console.",
-                            "Returns a value from the function.",
-                            "Declares a new variable."
-                        ],
-                        correct: 1
-                    };
-                } else {
-                    return {
-                        description: `JavaScript Question ${i + 1}`,
-                        question: `What is the purpose of JavaScript question ${i + 1}?`,
-                        options: [
-                            "Option A",
-                            "Option B",
-                            "Option C"
-                        ],
-                        correct: 0
-                    };
-                }
-            }),
-            python: Array.from({ length: 30 }, (_, i) => {
-                if (i === 0) {
-                    return {
-                        description: "Python Basics Quiz",
-                        question: "What does the print() function do in Python?",
-                        options: [
-                            "Reads input from the user.",
-                            "Outputs text to the console.",
-                            "Defines a new function."
-                        ],
-                        correct: 1
-                    };
-                } else if (i === 1) {
-                    return {
-                        description: "Python Variables Quiz",
-                        question: "How do you assign the value 10 to a variable x in Python?",
-                        options: [
-                            "x = 10",
-                            "let x = 10",
-                            "x := 10"
-                        ],
-                        correct: 0
-                    };
-                } else {
-                    return {
-                        description: `Python Question ${i + 1}`,
-                        question: `What is the purpose of Python question ${i + 1}?`,
-                        options: [
-                            "Option A",
-                            "Option B",
-                            "Option C"
-                        ],
-                        correct: 0
-                    };
-                }
-            })
-        };
-
-        // State Management Section
-        // Track the current lesson and quiz question for each language
-        const currentLessons = {
-            html: 0,
-            css: 0,
-            javascript: 0,
-            python: 0
-        };
-
-        const currentQuizQuestions = {
-            html: 0,
-            css: 0,
-            javascript: 0,
-            python: 0
-        };
-
-        // Track completed lessons and quiz questions for each language
-        const completedLessons = {
-            html: new Set(),
-            css: new Set(),
-            javascript: new Set(),
-            python: new Set()
-        };
-
-        const completedQuizQuestions = {
-            html: new Set(),
-            css: new Set(),
-            javascript: new Set(),
-            python: new Set()
-        };
-
-        // Track user answers for the quiz
-        const userAnswers = {
-            html: Array(30).fill(null),
-            css: Array(30).fill(null),
-            javascript: Array(30).fill(null),
-            python: Array(30).fill(null)
-        };
-
-        // Tab Navigation Functions
-        function showTab(tabName) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-
-            // Deactivate all tab buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // Show the selected tab content
-            const selectedTab = document.getElementById(tabName);
-            if (selectedTab) {
-                selectedTab.classList.add('active');
-            }
-
-            // Activate the selected tab button
-            const selectedBtn = document.querySelector(`.tab-btn[onclick="showTab('${tabName}')"]`);
-            if (selectedBtn) {
-                selectedBtn.classList.add('active');
-            }
-
-            // Close quiz modal when switching tabs
-            closeQuiz();
-        }
-
-        // Lesson Functions
-        function startLearning(language) {
-            const lessonsGrid = document.getElementById(`${language}-lessons`);
-            const lessonContents = document.getElementById(`${language}-lesson-contents`);
-
-            // Clear previous content
-            lessonsGrid.innerHTML = '';
-            lessonContents.innerHTML = '';
-
-            lessonsGrid.style.display = 'grid';
-
-            // Generate lesson boxes 1-30
-            for (let i = 1; i <= 30; i++) {
-                const lessonBox = document.createElement('div');
-                lessonBox.classList.add('lesson-box');
-                lessonBox.textContent = i;
-                lessonBox.onclick = () => {
-                    currentLessons[language] = i;
-                    completedLessons[language].add(i);
-                    toggleLesson(language, i);
-                };
-                if (completedLessons[language].has(i)) {
-                    lessonBox.classList.add('completed');
-                }
-                lessonsGrid.appendChild(lessonBox);
-
-                // Create lesson content
-                const lessonContent = document.createElement('div');
-                lessonContent.classList.add('lesson-content');
-                lessonContent.id = `${language}-lesson-${i}`;
-                
-                const description = document.createElement('div');
-                description.classList.add('lesson-description');
-                description.textContent = lessonsData[language][i-1]?.description || `Lesson ${i}: Coming Soon`;
-                
-                const codeBreakdown = document.createElement('pre');
-                codeBreakdown.classList.add('code-breakdown');
-                codeBreakdown.textContent = lessonsData[language][i-1]?.code || '// Code example coming soon';
-                
-                const explanation = document.createElement('div');
-                explanation.classList.add('code-explanation');
-                const explanationTitle = document.createElement('h4');
-                explanationTitle.textContent = 'Code Breakdown';
-                explanation.appendChild(explanationTitle);
-                
-                const explanationList = document.createElement('ul');
-                const breakdownItems = lessonsData[language][i-1]?.breakdown || ['No breakdown available yet.'];
-                breakdownItems.forEach(item => {
-                    const li = document.createElement('li');
-                    li.textContent = item;
-                    explanationList.appendChild(li);
-                });
-                explanation.appendChild(explanationList);
-                
-                const navigation = document.createElement('div');
-                navigation.classList.add('navigation');
-                
-                const prevBtn = document.createElement('button');
-                prevBtn.classList.add('nav-btn');
-                prevBtn.textContent = 'Previous';
-                prevBtn.onclick = () => navigateLesson(language, i - 1);
-                
-                const nextBtn = document.createElement('button');
-                nextBtn.classList.add('nav-btn');
-                nextBtn.textContent = 'Next';
-                nextBtn.onclick = () => navigateLesson(language, i + 1);
-                
-                navigation.appendChild(prevBtn);
-                navigation.appendChild(nextBtn);
-                
-                lessonContent.appendChild(description);
-                lessonContent.appendChild(codeBreakdown);
-                lessonContent.appendChild(explanation);
-                lessonContent.appendChild(navigation);
-                lessonContents.appendChild(lessonContent);
-            }
-
-            // Automatically show Lesson 1
-            currentLessons[language] = 1;
-            completedLessons[language].add(1);
-            toggleLesson(language, 1);
-        }
-
-        function toggleLesson(language, lessonNumber) {
-            document.querySelectorAll(`#${language}-lesson-contents .lesson-content`).forEach(content => {
-                content.classList.remove('active');
-            });
-
-            const selectedLesson = document.getElementById(`${language}-lesson-${lessonNumber}`);
-            if (selectedLesson) {
-                selectedLesson.classList.add('active');
-                const prevBtn = selectedLesson.querySelector('.nav-btn:first-child');
-                const nextBtn = selectedLesson.querySelector('.nav-btn:last-child');
-                prevBtn.disabled = lessonNumber === 1;
-                nextBtn.disabled = lessonNumber === 30;
-            }
-
-            const lessonBox = document.querySelector(`#${language}-lessons .lesson-box:nth-child(${lessonNumber})`);
-            if (lessonBox) {
-                lessonBox.classList.add('completed');
-            }
-        }
-
-        function navigateLesson(language, lessonNumber) {
-            if (lessonNumber < 1 || lessonNumber > 30) return;
-            currentLessons[language] = lessonNumber;
-            completedLessons[language].add(lessonNumber);
-            toggleLesson(language, lessonNumber);
-        }
-
-        // Quiz Functions
-        function startQuiz(language) {
-            const quizModal = document.getElementById('quizModal');
-            const quizContents = document.getElementById('quizContents');
-            const quizGrid = document.getElementById('quizGrid');
-
-            // Clear previous content and reset answers
-            quizContents.innerHTML = '';
-            quizGrid.innerHTML = '';
-            userAnswers[language] = Array(30).fill(null);
-            completedQuizQuestions[language].clear();
-
-            quizModal.classList.add('active');
-
-            // Generate quiz boxes 1-30
-            for (let i = 1; i <= 30; i++) {
-                const quizBox = document.createElement('div');
-                quizBox.classList.add('quiz-box');
-                quizBox.textContent = i;
-                quizBox.onclick = () => {
-                    currentQuizQuestions[language] = i;
-                    completedQuizQuestions[language].add(i);
-                    toggleQuizQuestion(language, i);
-                };
-                if (completedQuizQuestions[language].has(i)) {
-                    quizBox.classList.add('completed');
-                }
-                quizGrid.appendChild(quizBox);
-
-                // Create quiz content
-                const quizContent = document.createElement('div');
-                quizContent.classList.add('quiz-content');
-                quizContent.id = `${language}-quiz-${i}`;
-                
-                const description = document.createElement('div');
-                description.classList.add('quiz-description');
-                description.textContent = quizData[language][i-1]?.description || `Question ${i}: Coming Soon`;
-                
-                const question = document.createElement('div');
-                question.classList.add('quiz-question');
-                question.textContent = quizData[language][i-1]?.question || 'Question coming soon.';
-                
-                const optionsContainer = document.createElement('div');
-                optionsContainer.classList.add('quiz-options');
-                const options = quizData[language][i-1]?.options || ['Option 1', 'Option 2', 'Option 3'];
-                options.forEach((option, index) => {
-                    const optionDiv = document.createElement('div');
-                    optionDiv.classList.add('quiz-option');
-                    optionDiv.textContent = option;
-                    optionDiv.onclick = () => selectOption(language, i, index);
-                    optionsContainer.appendChild(optionDiv);
-                });
-                
-                const navigation = document.createElement('div');
-                navigation.classList.add('navigation');
-                
-                const prevBtn = document.createElement('button');
-                prevBtn.classList.add('nav-btn');
-                prevBtn.textContent = 'Previous';
-                prevBtn.onclick = () => navigateQuizQuestion(language, i - 1);
-                
-                const nextBtn = document.createElement('button');
-                if (i === 30) {
-                    nextBtn.classList.add('submit-btn');
-                    nextBtn.textContent = 'Submit';
-                    nextBtn.onclick = () => submitQuiz(language);
-                    nextBtn.style.display = 'none'; // Hidden until all questions are answered
-                    nextBtn.id = `${language}-submit-btn`;
-                } else {
-                    nextBtn.classList.add('nav-btn');
-                    nextBtn.textContent = 'Next';
-                    nextBtn.onclick = () => navigateQuizQuestion(language, i + 1);
-                }
-                
-                navigation.appendChild(prevBtn);
-                navigation.appendChild(nextBtn);
-                
-                quizContent.appendChild(description);
-                quizContent.appendChild(question);
-                quizContent.appendChild(optionsContainer);
-                quizContent.appendChild(navigation);
-                quizContents.appendChild(quizContent);
-            }
-
-            // Automatically show Question 1
-            currentQuizQuestions[language] = 1;
-            completedQuizQuestions[language].add(1);
-            toggleQuizQuestion(language, 1);
-        }
-
-        function toggleQuizQuestion(language, questionNumber) {
-            document.querySelectorAll(`#quizContents .quiz-content`).forEach(content => {
-                content.classList.remove('active');
-            });
-
-            const selectedQuestion = document.getElementById(`${language}-quiz-${questionNumber}`);
-            if (selectedQuestion) {
-                selectedQuestion.classList.add('active');
-                const prevBtn = selectedQuestion.querySelector('.nav-btn:first-child');
-                const nextBtn = selectedQuestion.querySelector('.nav-btn:last-child') || selectedQuestion.querySelector('.submit-btn');
-                prevBtn.disabled = questionNumber === 1;
-                if (nextBtn.classList.contains('nav-btn')) {
-                    nextBtn.disabled = questionNumber === 30;
-                }
-
-                // Show the Submit button on the last question if all questions are answered
-                if (questionNumber === 30 && nextBtn.classList.contains('submit-btn')) {
-                    const allAnswered = userAnswers[language].every(answer => answer !== null);
-                    nextBtn.style.display = allAnswered ? 'block' : 'none';
-                }
-
-                // Highlight previously selected option
-                const selectedOptionIndex = userAnswers[language][questionNumber - 1];
-                if (selectedOptionIndex !== null) {
-                    const options = selectedQuestion.querySelectorAll('.quiz-option');
-                    options[selectedOptionIndex].classList.add('selected');
-                }
-            }
-
-            const quizBox = document.querySelector(`#quizGrid .quiz-box:nth-child(${questionNumber})`);
-            if (quizBox) {
-                quizBox.classList.add('completed');
-            }
-        }
-
-        function navigateQuizQuestion(language, questionNumber) {
-            if (questionNumber < 1 || questionNumber > 30) return;
-            currentQuizQuestions[language] = questionNumber;
-            completedQuizQuestions[language].add(questionNumber);
-            toggleQuizQuestion(language, questionNumber);
-        }
-
-        function selectOption(language, questionNumber, optionIndex) {
-            const options = document.querySelectorAll(`#${language}-quiz-${questionNumber} .quiz-option`);
-            options.forEach(option => option.classList.remove('selected'));
-            options[optionIndex].classList.add('selected');
-
-            // Store the user's answer
-            userAnswers[language][questionNumber - 1] = optionIndex;
-
-            // Check if all questions are answered and show Submit button if on the last question
-            if (questionNumber === 30) {
-                const allAnswered = userAnswers[language].every(answer => answer !== null);
-                const submitBtn = document.getElementById(`${language}-submit-btn`);
-                if (submitBtn) {
-                    submitBtn.style.display = allAnswered ? 'block' : 'none';
-                }
-            }
-        }
-
-        function submitQuiz(language) {
-            // Calculate the score
-            let score = 0;
-            userAnswers[language].forEach((answer, index) => {
-                if (answer === quizData[language][index].correct) {
-                    score++;
-                }
-            });
-
-            // Show the score
-            alert(`You scored ${score} out of 30!`);
-
-            // Redirect to correct.html if score is 25 or higher
-            if (score >= 25) {
-                window.location.href = 'correct.html';
-            } else {
-                closeQuiz();
-            }
-        }
-
-        function closeQuiz() {
-            const quizModal = document.getElementById('quizModal');
-            quizModal.classList.remove('active');
-        }
-
-        // Initialization Section
-        // Initially hide all lessons grids
-        document.querySelectorAll('.lessons-grid').forEach(grid => {
-            grid.style.display = 'none';
-        });
-    </script>
-</body>
-</html>
+            ],
+            javascript: [
+                {
+                    description: "JavaScript Basics Quiz",
+                    question: "What keyword is used to declare a variable in JavaScript?",
+                    options: [
+                        "var",
+                        "function",
+                        "return"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "JavaScript Functions Quiz",
+                    question: "What does the 'return' keyword do in a function?",
+                    options: [
+                        "Logs a message to the console.",
+                        "Returns a value from the function.",
+                        "Declares a new variable."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Conditionals Quiz",
+                    question: "What does 'else' do in an if statement?",
+                    options: [
+                        "Runs if the condition is true.",
+                        "Runs if the condition is false.",
+                        "Ends the statement."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Loops Quiz",
+                    question: "What does 'i++' do in a for loop?",
+                    options: [
+                        "Increments i by 1.",
+                        "Decrements i by 1.",
+                        "Checks a condition."
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Arrays Quiz",
+                    question: "What method adds an element to the end of an array?",
+                    options: [
+                        "push()",
+                        "pop()",
+                        "shift()"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Objects Quiz",
+                    question: "How do you access an object's property?",
+                    options: [
+                        "object.property",
+                        "object[property]",
+                        "Both A and B"
+                    ],
+                    correct: 2
+                },
+                {
+                    description: "DOM Quiz",
+                    question: "What does 'getElementById' return?",
+                    options: [
+                        "An array of elements.",
+                        "A single element.",
+                        "A class list."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Events Quiz",
+                    question: "Which method adds an event listener?",
+                    options: [
+                        "addEventListener()",
+                        "onEvent()",
+                        "listen()"
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Arrow Functions Quiz",
+                    question: "What symbol defines an arrow function?",
+                    options: [
+                        "=>",
+                        "->",
+                        "=="
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Form Input Quiz",
+                    question: "How do you get an input's value?",
+                    options: [
+                        ".textContent",
+                        ".value",
+                        ".innerHTML"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Template Literals Quiz",
+                    question: "What encloses a template literal?",
+                    options: [
+                        "Quotes",
+                        "Backticks",
+                        "Parentheses"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Destructuring Quiz",
+                    question: "What does '{name}' do with an object?",
+                    options: [
+                        "Creates a new object.",
+                        "Extracts the name property.",
+                        "Sets a property."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Array Methods Quiz",
+                    question: "What does '.map()' do?",
+                    options: [
+                        "Filters elements.",
+                        "Transforms each element.",
+                        "Removes elements."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Spread Operator Quiz",
+                    question: "What does '...' do with an array?",
+                    options: [
+                        "Spreads its elements.",
+                        "Combines arrays.",
+                        "Deletes elements."
+                    ],
+                    correct: 0
+                },
+                {
+                    description: "Error Handling Quiz",
+                    question: "What block catches an error?",
+                    options: [
+                        "try",
+                        "catch",
+                        "throw"
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Counter Quiz",
+                    question: "What does 'count++' do?",
+                    options: [
+                        "Decrements count.",
+                        "Increments count.",
+                        "Resets count."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Timeout Quiz",
+                    question: "What does 'setTimeout' do?",
+                    options: [
+                        "Runs code repeatedly.",
+                        "Delays code execution.",
+                        "Stops execution."
+                    ],
+                    correct: 1
+                },
+                {
+                    description: "Promises Quiz",
+                    question: "What does '.then()' handle?",
+                    options: [
+                        "Errors.",
+                        "Promise resolution
