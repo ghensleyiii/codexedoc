@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codexedoc - Code Validator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00b7eb;
+            display: inline-block;
+        }
+
+        .logo a {
+            color: #00b7eb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .logo a:hover {
+            color: #00ff00;
+        }
+
+        .logo span {
+            color: #00ff00;
+            font-size: 5rem;
+            position: relative;
+            top: 8px;
+        }
+
+        .main-section {
+            background-color: #00b7eb;
+            padding: 50px 20px;
+            text-align: center;
+            color: #1a1a1a;
+        }
+
+        .code-editor {
+            width: 100%;
+            margin: 0 auto 20px auto;
+            background-color: #00b7eb;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 600px;
+            background-color: #000000;
+            color: #d4d4d4;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            line-height: 1.2;
+        }
+
+        .code-editor textarea::placeholder {
+            color: #6a737d;
+        }
+
+        .highlight-error {
+            background-color: rgba(255, 68, 68, 0.3);
+        }
+
+        .buttons {
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            max-width: 600px;
+        }
+
+        .validate-btn, .test-btn, .document-btn {
+            background-color: #00ff00;
+            color: #1a1a1a;
+            padding: 10px 20px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .validate-btn:hover, .test-btn:hover, .document-btn:hover {
+            background-color: #00cc00;
+        }
+
+        .error-messages {
+            color: #ff4444;
+            margin-top: 10px;
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .output-section {
+            background-color: #00b7eb;
+            padding: 5px;
+            margin-top: 20px;
+        }
+
+        .output-container {
+            width: 100%;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 0px;
+            overflow: hidden;
+        }
+
+        .output-header {
+            color: #1a1a1a;
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: #00ff00;
+        }
+
+        #outputFrame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            background-color: #ffffff;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: #00ff00;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #00b7eb;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-logo {
+            font-size: 0.9rem;
+            color: #00b7eb;
+            font-weight: bold;
+        }
+
+        .footer-logo span {
+            color: #00ff00;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .logo span {
+                font-size: 4rem;
+                top: 6px;
+            }
+
+            .code-editor textarea {
+                height: 400px;
+            }
+
+            .buttons {
+                flex-direction: row;
+                gap: 10px;
+                max-width: 400px;
+            }
+
+            .validate-btn, .test-btn, .document-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            #outputFrame {
+                height: 400px;
+            }
+
+            .output-section {
+                padding: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .code-editor textarea {
+                height: 300px;
+                font-size: 0.8rem;
+            }
+
+            .buttons {
+                max-width: 300px;
+            }
+
+            #outputFrame {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
+        </div>
+    </header>
+
+    <section class="main-section">
+        <div class="code-editor">
+            <textarea id="codeInput" placeholder="Enter your code here..."></textarea>
+        </div>
+        <div class="buttons">
+            <button class="validate-btn" onclick="validateCode()">Code</button>
+            <button class="test-btn" onclick="executeCode()">Execute</button>
+            <button class="document-btn" onclick="saveCode()">Document</button>
+        </div>
+        <div id="errorMessages" class="error-messages"></div>
+        <div class="output-section">
+            <div class="output-container">
+                <div class="output-header">Output</div>
+                <iframe id="outputFrame"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><span class="footer-logo">CODE<span>X</span>EDOC</span></p>
+        <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
+        <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+    </footer>
+
+    <script>
+        const textarea = document.getElementById('codeInput');
+        const errorDiv = document.getElementById('errorMessages');
+        const outputFrame = document.getElementById('outputFrame');
+
+        function highlightError(start, end) {
+            textarea.focus();
+            textarea.setSelectionRange(start, end);
+            textarea.classList.add('highlight-error');
+        }
+
+        function clearHighlights() {
+            textarea.classList.remove('highlight-error');
+        }
+
+        textarea.addEventListener('input', clearHighlights);
+
+        function validateCode() {
+            const code = textarea.value.trim();
+            let errors = false;
+            clearHighlights();
+
+            if (!code) {
+                errors = true;
+                highlightError(0, 0);
+            } else if (code.indexOf('<html') === -1 || code.indexOf('</html>') === -1) {
+                errors = true;
+                const lines = code.split('\n');
+                if (code.indexOf('<html') === -1) {
+                    highlightError(0, lines[0].length); // Highlight first line
+                } else {
+                    const lastLineStart = code.lastIndexOf('\n') + 1;
+                    highlightError(lastLineStart, code.length); // Highlight last line
+                }
+            }
+
+            errorDiv.innerHTML = errors ? "Errors Detected" : "No Errors Detected";
+            errorDiv.style.color = errors ? "#ff4444" : "#00ff00";
+            
+            if (!errors) {
+                setTimeout(clearHighlights, 2000);
+            }
+        }
+
+        function executeCode() {
+            const code = textarea.value.trim();
+
+            try {
+                if (!code) {
+                    errorDiv.innerHTML = "Errors Detected";
+                    highlightError(0, 0);
+                    outputFrame.srcdoc = '';
+                    return;
+                }
+
+                outputFrame.srcdoc = '';
+                
+                if (code.includes('<html') && code.includes('</html>')) {
+                    outputFrame.srcdoc = code;
+                } else {
+                    outputFrame.srcdoc = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Output</title></head><body>${code}</body></html>`;
+                }
+
+                errorDiv.innerHTML = "No Errors Detected";
+                errorDiv.style.color = "#00ff00";
+
+                setTimeout(() => {
+                    errorDiv.innerHTML = "";
+                    errorDiv.style.color = "#ff4444";
+                    clearHighlights();
+                }, 3000);
+
+            } catch (e) {
+                errorDiv.innerHTML = "Errors Detected";
+                highlightError(0, code.length);
+                outputFrame.srcdoc = '';
+            }
+        }
+
+        function saveCode() {
+            const code = textarea.value.trim();
+            
+            try {
+                if (!code) {
+                    errorDiv.innerHTML = "Errors Detected";
+                    highlightError(0, 0);
+                    return;
+                }
+
+                const fullDocument = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Code - CODEXEDOC</title>
+</head>
+<body>
+${code}
+</body>
+</html>`;
+
+                const blob = new Blob([fullDocument], { type: "text/html;charset=utf-8" });
+                const link = document.createElement("a");
+                
+                if ('download' in link) {
+                    link.href = URL.createObjectURL(blob);
+                    link.download = "codexedoc_output.html";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else {
+                    const url = URL.createObjectURL(blob);
+                    window.location.href = url;
+                    setTimeout(() => URL.revokeObjectURL(url), 1000);
+                }
+                
+                errorDiv.innerHTML = "No Errors Detected";
+                errorDiv.style.color = "#00ff00";
+                
+                setTimeout(() => {
+                    errorDiv.innerHTML = "";
+                    errorDiv.style.color = "#ff4444";
+                    clearHighlights();
+                }, 3000);
+
+            } catch (e) {
+                errorDiv.innerHTML = "Errors Detected";
+                highlightError(0, code.length);
+            }
+        }
+    </script>
+</body>
+</html>
