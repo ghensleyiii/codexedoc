@@ -88,6 +88,34 @@
                 top: 6px;
             }
         }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            padding: 8px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            padding: 10px 20px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+        button:hover {
+            background-color: #1557b0;
+        }
     </style>
 </head>
 <body>
@@ -96,7 +124,132 @@
             <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
         </div>
     </header>
-    
+</head>
+<body>
+    <h1>Generate Your Certificate</h1>
+    <div class="form-container">
+        <form id="certificateForm">
+            <label for="nameInput">Enter Your Name:</label>
+            <input type="text" id="nameInput" name="name" placeholder="Your Full Name" required>
+            <br><br>
+            <button type="button" onclick="generateCertificate()">Download Certificate</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+            console.error("jsPDF library failed to load.");
+            alert("Error: jsPDF library failed to load. Please check your internet connection or try again later.");
+        } else {
+            console.log("jsPDF loaded successfully.");
+            const { jsPDF } = window.jspdf;
+
+            function generateCertificate() {
+                console.log("Starting certificate generation...");
+                try {
+                    // Get the name from the form
+                    const nameInput = document.getElementById("nameInput").value.trim();
+                    if (!nameInput) {
+                        alert("Please enter your name.");
+                        return;
+                    }
+
+                    // Get the current date and expiration date (1 year later)
+                    const today = new Date();
+                    const issueDate = today.toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+                    });
+                    const expiration = new Date(today);
+                    expiration.setFullYear(today.getFullYear() + 1);
+                    const expirationDate = expiration.toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+                    });
+
+                    // Create a new PDF document in landscape
+                    const doc = new jsPDF({
+                        orientation: "landscape",
+                        unit: "pt",
+                        format: "letter" // 792 x 612 pt
+                    });
+
+                    // Fancy diploma border (double-lined)
+                    doc.setLineWidth(4);
+                    doc.setDrawColor(0, 183, 235); // #00b7eb in RGB
+                    doc.rect(30, 30, 732, 552); // Outer border
+                    doc.setLineWidth(2);
+                    doc.setDrawColor(0, 255, 0); // #00ff00 inner border
+                    doc.rect(40, 40, 712, 532); // Inner border
+
+                    // Certificate text
+                    doc.setFont("times", "bold");
+                    // Line 1: CERTIFICATE (50pt)
+                    doc.setFontSize(50);
+                    doc.setTextColor(0, 183, 235); // #00b7eb in RGB
+                    doc.text("CERTIFICATE", 396, 150, { align: "center" });
+
+                    // Line 2: OF COMPLETION (30pt)
+                    doc.setFontSize(30);
+                    doc.setTextColor(0, 0, 0); // Black
+                    doc.text("OF COMPLETION", 396, 190, { align: "center" });
+
+                    // Line 3: THIS CERTIFICATE STATES THAT (30pt)
+                    doc.setFont("times", "normal");
+                    doc.setFontSize(30);
+                    doc.text("THIS CERTIFICATE STATES THAT", 396, 250, { align: "center" });
+
+                    // Line 4: Name (40pt)
+                    doc.setFont("times", "bold");
+                    doc.setFontSize(40);
+                    doc.text(nameInput, 396, 310, { align: "center" });
+
+                    // Space between Line 4 and Line 5
+                    // Line 5: has successfully completed the codexedoc.com (30pt)
+                    doc.setFont("times", "normal");
+                    doc.setFontSize(30);
+                    doc.text("has successfully completed the codexedoc.com", 396, 360, { align: "center" });
+
+                    // Line 6: HTML Coding Course (30pt)
+                    doc.text("HTML Coding Course", 396, 400, { align: "center" });
+
+                    // Date Issued in bottom-left corner (inside borders)
+                    doc.setFont("times", "normal");
+                    doc.setFontSize(16);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text(`Date Issued: ${issueDate}`, 60, 540);
+
+                    // Expires in bottom-right corner (inside borders)
+                    doc.text(`Expires: ${expirationDate}`, 742, 540, { align: "right" });
+
+                    // Larger CODEXEDOC centered on page bottom (inline with dates, inside borders)
+                    doc.setFont("helvetica", "normal"); // Closest to Tahoma
+                    doc.setFontSize(30); // Base size for CODE and EDOC
+					doc.setTextColor(0, 183, 235); // #00b7eb in RGB
+                    const centerX = 396; // Page center (792 / 2)
+                    const codeWidth = doc.getTextWidth("CODE ");
+                    const edocWidth = doc.getTextWidth(" EDOC");
+                    const xWidth = doc.getTextWidth("X"); // Width of X at 30pt (for spacing)
+                    doc.text("CODE ", centerX - (codeWidth + xWidth / 2), 540); // Left of X
+                    doc.text(" EDOC", centerX + (xWidth / 2), 540); // Right of X
+                    // Larger X (50% larger than 30pt = 45pt)
+                    doc.setFontSize(45);
+					doc.setTextColor(0, 255, 0); // #00ff00 in RGB
+                    doc.text("X", centerX - (doc.getTextWidth("X") / 2), 540); // Centered X
+
+                    // Save the PDF
+                    doc.save(`${nameInput}_certificate.pdf`);
+                    console.log("PDF saved successfully.");
+                } catch (error) {
+                    console.error("Error details:", error);
+                    alert("An error occurred: " + (error.message || "Unknown error") + ". Check the console for details.");
+                }
+            }
+        }
+    </script>
     <footer>
         <p><span class="footer-logo">CODE<span>X</span>EDOC</span></p>
         <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
