@@ -228,59 +228,20 @@
         }
 
         @media (max-width: 600px) {
-            .logo {
-                font-size: 1.5rem;
-            }
-
-            .logo span {
-                font-size: 2.5rem;
-                top: 3px;
-            }
-
-            .button-container {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .action-button {
-                width: 100%;
-                padding: 10px;
-                font-size: 1rem;
-            }
-
-            .content-container {
-                margin: 10px;
-                padding: 10px;
-            }
-
-            .lesson-title, .test-title {
-                font-size: 1.2rem;
-            }
-
-            .toc {
-                grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-            }
-
-            .toc-item {
-                font-size: 0.8rem;
-                padding: 8px;
-            }
-
-            .nav-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .nav-button {
-                width: 100%;
-                padding: 10px;
-            }
+            .logo { font-size: 1.5rem; }
+            .logo span { font-size: 2.5rem; top: 3px; }
+            .button-container { flex-direction: column; gap: 10px; }
+            .action-button { width: 100%; padding: 10px; font-size: 1rem; }
+            .content-container { margin: 10px; padding: 10px; }
+            .lesson-title, .test-title { font-size: 1.2rem; }
+            .toc { grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); }
+            .toc-item { font-size: 0.8rem; padding: 8px; }
+            .nav-buttons { flex-direction: column; gap: 10px; }
+            .nav-button { width: 100%; padding: 10px; }
         }
 
         @media (min-width: 601px) {
-            .toc {
-                grid-template-columns: repeat(5, 1fr);
-            }
+            .toc { grid-template-columns: repeat(5, 1fr); }
         }
     </style>
 </head>
@@ -960,6 +921,7 @@
     </footer>
 
     <script>
+        // DOM Elements
         const lessonContainer = document.getElementById('lessonContainer');
         const testContainer = document.getElementById('testContainer');
         const openCourseBtn = document.getElementById('openCourseBtn');
@@ -971,59 +933,29 @@
         const submitTestBtn = document.getElementById('submitTestBtn');
         const tocItems = document.querySelectorAll('.toc-item');
 
+        // State
         let currentLesson = 1;
         let currentQuestion = 1;
         const totalLessons = 30;
         const totalQuestions = 30;
-        let isTestMode = false;
 
-        openCourseBtn.addEventListener('click', () => {
-            isTestMode = false;
-            lessonContainer.classList.add('active');
-            testContainer.classList.remove('active');
-            showLesson(1);
-        });
-
-        launchTestBtn.addEventListener('click', () => {
-            isTestMode = true;
-            testContainer.classList.add('active');
-            lessonContainer.classList.remove('active');
-            showQuestion(1);
-        });
-
-        prevLessonBtn.addEventListener('click', () => currentLesson > 1 && showLesson(currentLesson - 1));
-        nextLessonBtn.addEventListener('click', () => currentLesson < totalLessons && showLesson(currentLesson + 1));
-        prevQuestionBtn.addEventListener('click', () => currentQuestion > 1 && showQuestion(currentQuestion - 1));
-        nextQuestionBtn.addEventListener('click', () => currentQuestion < totalQuestions && showQuestion(currentQuestion + 1));
-
-        submitTestBtn.addEventListener('click', submitTest);
-
-        tocItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const lessonNum = parseInt(item.dataset.lesson);
-                isTestMode = false;
-                lessonContainer.classList.add('active');
-                testContainer.classList.remove('active');
-                showLesson(lessonNum);
-            });
-        });
-
+        // Functions
         function showLesson(lessonNum) {
             currentLesson = lessonNum;
             document.querySelectorAll('.lesson').forEach(lesson => {
-                lesson.style.display = lesson.id === `lesson${lessonNum}` ? 'block' : 'none';
+                lesson.style.display = (lesson.id === `lesson${lessonNum}`) ? 'block' : 'none';
             });
-            prevLessonBtn.disabled = currentLesson === 1;
-            nextLessonBtn.disabled = currentLesson === totalLessons;
+            prevLessonBtn.disabled = (currentLesson === 1);
+            nextLessonBtn.disabled = (currentLesson === totalLessons);
         }
 
         function showQuestion(questionNum) {
             currentQuestion = questionNum;
             document.querySelectorAll('.test-question').forEach(question => {
-                question.style.display = question.id === `question${questionNum}` ? 'block' : 'none';
+                question.style.display = (question.id === `question${questionNum}`) ? 'block' : 'none';
             });
-            prevQuestionBtn.disabled = currentQuestion === 1;
-            nextQuestionBtn.disabled = currentQuestion === totalQuestions;
+            prevQuestionBtn.disabled = (currentQuestion === 1);
+            nextQuestionBtn.disabled = (currentQuestion === totalQuestions);
         }
 
         function submitTest() {
@@ -1039,6 +971,50 @@
             }
             alert(`Score: ${score}/${totalQuestions}. ${score >= 24 ? 'Passed! Great job!' : 'Review the lessons and retry.'}`);
         }
+
+        // Event Listeners
+        openCourseBtn.addEventListener('click', () => {
+            lessonContainer.classList.add('active');
+            testContainer.classList.remove('active');
+            showLesson(1);
+        });
+
+        launchTestBtn.addEventListener('click', () => {
+            testContainer.classList.add('active');
+            lessonContainer.classList.remove('active');
+            showQuestion(1);
+        });
+
+        prevLessonBtn.addEventListener('click', () => {
+            if (currentLesson > 1) showLesson(currentLesson - 1);
+        });
+
+        nextLessonBtn.addEventListener('click', () => {
+            if (currentLesson < totalLessons) showLesson(currentLesson + 1);
+        });
+
+        prevQuestionBtn.addEventListener('click', () => {
+            if (currentQuestion > 1) showQuestion(currentQuestion - 1);
+        });
+
+        nextQuestionBtn.addEventListener('click', () => {
+            if (currentQuestion < totalQuestions) showQuestion(currentQuestion + 1);
+        });
+
+        submitTestBtn.addEventListener('click', submitTest);
+
+        tocItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const lessonNum = parseInt(item.dataset.lesson);
+                lessonContainer.classList.add('active');
+                testContainer.classList.remove('active');
+                showLesson(lessonNum);
+            });
+        });
+
+        // Optional: Show first lesson by default
+        // lessonContainer.classList.add('active');
+        // showLesson(1);
     </script>
 </body>
 </html>
