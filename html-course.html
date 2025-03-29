@@ -3,76 +3,968 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codexedoc - HTML Course for Beginners</title>
+    <title>HTML Lessons & Test - CODEXEDOC</title>
     <style>
-        body { background-color: #1a1a1a; color: #d4d4d4; font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        header { background-color: #1a1a1a; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 2.5rem; font-weight: bold; color: #00b7eb; display: inline-block; }
-        .logo a { color: #00b7eb; text-decoration: none; }
-        .logo a:hover { color: #00ff00; }
-        .logo span { color: #00ff00; font-size: 5rem; position: relative; top: 8px; }
-        .main-section { padding: 50px 20px; text-align: center; }
-        .button-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
-        .start-btn, .test-btn { background-color: #00ff00; color: #1a1a1a; padding: 15px 30px; border: 2px solid #000; border-radius: 5px; font-size: 1.2rem; cursor: pointer; }
-        .start-btn:hover, .test-btn:hover { background-color: #00cc00; }
-        .lessons-grid { display: none; grid-template-columns: repeat(10, 1fr); gap: 10px; max-width: 1000px; margin: 0 auto; }
-        .lesson-box { background-color: #2a2a2a; padding: 20px; border: 2px solid #00b7eb; border-radius: 5px; cursor: pointer; text-align: center; font-size: 1.1rem; }
-        .lesson-box.completed { background-color: #00b7eb; color: #1a1a1a; }
-        .lesson-content { display: none; background-color: #2a2a2a; padding: 20px; margin: 20px auto; max-width: 800px; border: 1px solid #00b7eb; border-radius: 5px; }
-        .lesson-content.active { display: block; }
-        .lesson-description { color: #00ff00; margin-bottom: 15px; font-size: 1.5rem; }
-        .code-breakdown { background-color: #000; color: #d4d4d4; font-family: 'Courier New', monospace; padding: 15px; border-radius: 5px; white-space: pre-wrap; text-align: left; font-size: 1rem; }
-        .code-explanation { text-align: left; margin-top: 20px; }
-        .code-explanation h4 { color: #00b7eb; margin-bottom: 10px; font-size: 1.2rem; }
-        .code-explanation ul { list-style-type: disc; padding-left: 20px; }
-        .code-explanation li { margin-bottom: 10px; line-height: 1.5; }
-        .test-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 200; }
-        .test-modal.active { display: block; }
-        .test-modal-content { background-color: #1a1a1a; margin: 5% auto; padding: 20px; max-width: 900px; border-radius: 5px; }
-        .close-btn { position: absolute; top: 10px; right: 20px; color: #00ff00; font-size: 2rem; cursor: pointer; }
-        .test-grid { display: none; grid-template-columns: repeat(10, 1fr); gap: 10px; max-width: 1000px; margin: 0 auto; }
-        .test-box { background-color: #2a2a2a; padding: 20px; border: 2px solid #00b7eb; border-radius: 5px; cursor: pointer; text-align: center; }
-        .test-content { display: none; background-color: #2a2a2a; padding: 20px; margin: 20px auto; max-width: 800px; border: 1px solid #00b7eb; border-radius: 5px; }
-        .test-content.active { display: block; }
-        .test-question { color: #d4d4d4; margin-bottom: 15px; text-align: left; font-size: 1.2rem; }
-        .test-options { display: flex; flex-direction: column; gap: 10px; }
-        .test-option { background-color: #3a3a3a; color: #d4d4d4; padding: 10px; border-radius: 5px; cursor: pointer; }
-        .test-option.selected { background-color: #00b7eb; color: #1a1a1a; }
-        .navigation { display: flex; justify-content: space-between; margin-top: 20px; }
-        .nav-btn, .submit-btn { background-color: #00b7eb; color: #1a1a1a; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
-        .nav-btn:disabled, .submit-btn:disabled { background-color: #555; cursor: not-allowed; }
-        footer { background-color: #1a1a1a; color: #00ff00; text-align: center; padding: 20px; }
-        footer a { color: #00b7eb; text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
-        .footer-logo { color: #00b7eb; font-weight: bold; }
-        .footer-logo span { color: #00ff00; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00b7eb;
+        }
+
+        .logo a {
+            color: #00b7eb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .logo a:hover {
+            color: #00ff00;
+        }
+
+        .logo span {
+            color: #00ff00;
+            font-size: 3.5rem;
+            position: relative;
+            top: 5px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .action-button {
+            background-color: #00ff00;
+            color: #1a1a1a;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .action-button:hover {
+            background-color: #00b7eb;
+            color: #ffffff;
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 15px auto;
+            padding: 15px;
+            background-color: #2a2a2a;
+            border: 2px solid #00b7eb;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .content-container.active {
+            display: block;
+        }
+
+        .lesson-title, .test-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            border: 1px solid #333;
+        }
+
+        .lesson-instructions, .test-instructions {
+            margin: 10px 0;
+        }
+
+        .lesson-instructions li {
+            margin-bottom: 8px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .nav-button {
+            background-color: #00b7eb;
+            color: #ffffff;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background-color: #00ff00;
+            color: #1a1a1a;
+        }
+
+        .toc {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 10px;
+            padding: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .toc-item {
+            background-color: #00b7eb;
+            color: #1a1a1a;
+            padding: 1px;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .toc-item:hover {
+            background-color: #00ff00;
+        }
+
+        .test-question {
+            margin-bottom: 15px;
+        }
+
+        .test-question label {
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        .test-question input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .submit-button {
+            background-color: #00ff00;
+            color: #1a1a1a;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 15px auto;
+        }
+
+        .submit-button:hover {
+            background-color: #00b7eb;
+            color: #ffffff;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: #00ff00;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.8rem;
+        }
+
+        footer a {
+            color: #00b7eb;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-logo {
+            font-size: 0.8rem;
+            color: #00b7eb;
+            font-weight: bold;
+        }
+
+        .footer-logo span {
+            color: #00ff00;
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .logo span {
+                font-size: 2.5rem;
+                top: 3px;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .action-button {
+                width: 100%;
+                padding: 10px;
+                font-size: 1rem;
+            }
+
+            .content-container {
+                margin: 10px;
+                padding: 10px;
+            }
+
+            .lesson-title, .test-title {
+                font-size: 1.2rem;
+            }
+
+            .toc {
+                grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            }
+
+            .toc-item {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-button {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+
+        @media (min-width: 601px) {
+            .toc {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">
-            <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
+            <a href="#">CODE</a><span>X</span><a href="#">EDOC</a>
         </div>
     </header>
 
-    <section class="main-section">
-        <div id="html">
-            <div class="button-container">
-                <button class="start-btn" onclick="startLearning('html')">Open Course</button>
-                <button class="test-btn" onclick="startTest('html')">Launch Test</button>
-            </div>
-            <div id="html-lesson-contents"></div>
-            <div class="lessons-grid" id="html-lessons"></div>
-        </div>
+    <div class="button-container">
+        <button class="action-button" id="openCourseBtn">Open Course</button>
+        <button class="action-button" id="launchTestBtn">Launch Test</button>
+    </div>
 
-        <div id="testModal" class="test-modal">
-            <div class="test-modal-content">
-                <span class="close-btn" onclick="closeTest()">×</span>
-                <div id="testContents"></div>
-                <div id="testGrid" class="test-grid"></div>
+    <!-- Lessons Container -->
+    <div id="lessonContainer" class="content-container">
+        <div id="lesson1" class="lesson">
+            <div class="lesson-title">1. Basic Structure of an HTML Page</div>
+            <div class="code-block"><pre><code>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;My Page&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Every HTML page starts with a basic structure:</p>
+                <ul>
+                    <li><strong>&lt;!DOCTYPE html&gt;</strong>: Declares the document as HTML5.</li>
+                    <li><strong>&lt;html&gt;</strong>: The root element containing all content.</li>
+                    <li><strong>&lt;head&gt;</strong>: Holds metadata like the title.</li>
+                    <li><strong>&lt;body&gt;</strong>: Contains visible content.</li>
+                </ul>
+                <p><strong>Try it:</strong> Save this as <code>index.html</code> and open it in a browser!</p>
             </div>
         </div>
-    </section>
+        <div id="lesson2" class="lesson" style="display: none;">
+            <div class="lesson-title">2. Headings in HTML</div>
+            <div class="code-block"><pre><code>&lt;h1&gt;Heading 1&lt;/h1&gt;&lt;h2&gt;Heading 2&lt;/h2&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Headings organize content by importance:</p>
+                <ul>
+                    <li><strong>&lt;h1&gt;</strong> to <strong>&lt;h6&gt;</strong>: Six levels, <strong>&lt;h1&gt;</strong> is the largest and most important.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add these to your <code>&lt;body&gt;</code> and see the size difference!</p>
+            </div>
+        </div>
+        <div id="lesson3" class="lesson" style="display: none;">
+            <div class="lesson-title">3. Paragraphs in HTML</div>
+            <div class="code-block"><pre><code>&lt;p&gt;This is text.&lt;/p&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Paragraphs display blocks of text:</p>
+                <ul>
+                    <li><strong>&lt;p&gt;</strong>: Creates a paragraph with automatic spacing.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add this to your <code>&lt;body&gt;</code> to see text!</p>
+            </div>
+        </div>
+        <div id="lesson4" class="lesson" style="display: none;">
+            <div class="lesson-title">4. Links in HTML</div>
+            <div class="code-block"><pre><code>&lt;a href="https://example.com"&gt;Click&lt;/a&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Links connect pages or sites:</p>
+                <ul>
+                    <li><strong>&lt;a&gt;</strong>: Anchor tag, with <strong>href</strong> setting the destination URL.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add this and click to visit the URL!</p>
+            </div>
+        </div>
+        <div id="lesson5" class="lesson" style="display: none;">
+            <div class="lesson-title">5. Images in HTML</div>
+            <div class="code-block"><pre><code>&lt;img src="image.jpg" alt="Description"&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Images add visuals:</p>
+                <ul>
+                    <li><strong>&lt;img&gt;</strong>: Displays an image.</li>
+                    <li><strong>src</strong>: Path to the image file.</li>
+                    <li><strong>alt</strong>: Text description for accessibility.</li>
+                </ul>
+                <p><strong>Try it:</strong> Use an image file path and see it appear!</p>
+            </div>
+        </div>
+        <div id="lesson6" class="lesson" style="display: none;">
+            <div class="lesson-title">6. Comments in HTML</div>
+            <div class="code-block"><pre><code>&lt;!-- This is a comment --&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Comments are notes in code:</p>
+                <ul>
+                    <li><strong>&lt;!-- --&gt;</strong>: Text inside is hidden from the page but visible in code.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add a comment and check it doesn’t show!</p>
+            </div>
+        </div>
+        <div id="lesson7" class="lesson" style="display: none;">
+            <div class="lesson-title">7. Unordered Lists</div>
+            <div class="code-block"><pre><code>&lt;ul&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/ul&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Unordered lists use bullets:</p>
+                <ul>
+                    <li><strong>&lt;ul&gt;</strong>: Starts a bullet list.</li>
+                    <li><strong>&lt;li&gt;</strong>: Each list item.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add a list and see bullets!</p>
+            </div>
+        </div>
+        <div id="lesson8" class="lesson" style="display: none;">
+            <div class="lesson-title">8. Ordered Lists</div>
+            <div class="code-block"><pre><code>&lt;ol&gt;&lt;li&gt;Step&lt;/li&gt;&lt;/ol&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Ordered lists use numbers:</p>
+                <ul>
+                    <li><strong>&lt;ol&gt;</strong>: Starts a numbered list.</li>
+                    <li><strong>&lt;li&gt;</strong>: Each list item.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add a numbered list!</p>
+            </div>
+        </div>
+        <div id="lesson9" class="lesson" style="display: none;">
+            <div class="lesson-title">9. Divs in HTML</div>
+            <div class="code-block"><pre><code>&lt;div&gt;Content&lt;/div&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Divs group content:</p>
+                <ul>
+                    <li><strong>&lt;div&gt;</strong>: A block container for organizing elements.</li>
+                </ul>
+                <p><strong>Try it:</strong> Wrap some content in a div!</p>
+            </div>
+        </div>
+        <div id="lesson10" class="lesson" style="display: none;">
+            <div class="lesson-title">10. Spans in HTML</div>
+            <div class="code-block"><pre><code>&lt;span&gt;Text&lt;/span&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Spans style inline text:</p>
+                <ul>
+                    <li><strong>&lt;span&gt;</strong>: Inline container, doesn’t break lines.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add a span in a paragraph!</p>
+            </div>
+        </div>
+        <div id="lesson11" class="lesson" style="display: none;">
+            <div class="lesson-title">11. Line Breaks</div>
+            <div class="code-block"><pre><code>&lt;br&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Line breaks split text:</p>
+                <ul>
+                    <li><strong>&lt;br&gt;</strong>: Adds a single line break without extra spacing.</li>
+                </ul>
+                <p><strong>Try it:</strong> Use it between two lines!</p>
+            </div>
+        </div>
+        <div id="lesson12" class="lesson" style="display: none;">
+            <div class="lesson-title">12. Horizontal Rules</div>
+            <div class="code-block"><pre><code>&lt;hr&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Horizontal rules divide sections:</p>
+                <ul>
+                    <li><strong>&lt;hr&gt;</strong>: Draws a horizontal line.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add it between content!</p>
+            </div>
+        </div>
+        <div id="lesson13" class="lesson" style="display: none;">
+            <div class="lesson-title">13. Bold and Italic Text</div>
+            <div class="code-block"><pre><code>&lt;b&gt;Bold&lt;/b&gt; &lt;i&gt;Italic&lt;/i&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Format text for emphasis:</p>
+                <ul>
+                    <li><strong>&lt;b&gt;</strong>: Makes text bold.</li>
+                    <li><strong>&lt;i&gt;</strong>: Makes text italic.</li>
+                </ul>
+                <p><strong>Try it:</strong> Format some text!</p>
+            </div>
+        </div>
+        <div id="lesson14" class="lesson" style="display: none;">
+            <div class="lesson-title">14. Superscript and Subscript</div>
+            <div class="code-block"><pre><code>&lt;sup&gt;2&lt;/sup&gt; &lt;sub&gt;2&lt;/sub&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Position text above or below:</p>
+                <ul>
+                    <li><strong>&lt;sup&gt;</strong>: Superscript (e.g., exponents).</li>
+                    <li><strong>&lt;sub&gt;</strong>: Subscript (e.g., formulas).</li>
+                </ul>
+                <p><strong>Try it:</strong> Write 2<sup>2</sup> or H<sub>2</sub>O!</p>
+            </div>
+        </div>
+        <div id="lesson15" class="lesson" style="display: none;">
+            <div class="lesson-title">15. Blockquotes</div>
+            <div class="code-block"><pre><code>&lt;blockquote&gt;Quote&lt;/blockquote&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Blockquotes highlight quotes:</p>
+                <ul>
+                    <li><strong>&lt;blockquote&gt;</strong>: Indents and styles a quotation.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add a quote!</p>
+            </div>
+        </div>
+        <div id="lesson16" class="lesson" style="display: none;">
+            <div class="lesson-title">16. Meta Tags</div>
+            <div class="code-block"><pre><code>&lt;meta charset="UTF-8"&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Meta tags add page info:</p>
+                <ul>
+                    <li><strong>&lt;meta&gt;</strong>: Sets metadata, like character encoding.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add to <code>&lt;head&gt;</code>!</p>
+            </div>
+        </div>
+        <div id="lesson17" class="lesson" style="display: none;">
+            <div class="lesson-title">17. Tables</div>
+            <div class="code-block"><pre><code>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Cell&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Tables organize data:</p>
+                <ul>
+                    <li><strong>&lt;table&gt;</strong>: Creates a table.</li>
+                    <li><strong>&lt;tr&gt;</strong>: Table row.</li>
+                    <li><strong>&lt;td&gt;</strong>: Table cell.</li>
+                </ul>
+                <p><strong>Try it:</strong> Build a small table!</p>
+            </div>
+        </div>
+        <div id="lesson18" class="lesson" style="display: none;">
+            <div class="lesson-title">18. Table Headers</div>
+            <div class="code-block"><pre><code>&lt;th&gt;Header&lt;/th&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Table headers label data:</p>
+                <ul>
+                    <li><strong>&lt;th&gt;</strong>: Bold, centered header cell.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add headers to a table!</p>
+            </div>
+        </div>
+        <div id="lesson19" class="lesson" style="display: none;">
+            <div class="lesson-title">19. Forms</div>
+            <div class="code-block"><pre><code>&lt;form&gt;&lt;/form&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Forms collect user input:</p>
+                <ul>
+                    <li><strong>&lt;form&gt;</strong>: Container for input elements.</li>
+                </ul>
+                <p><strong>Try it:</strong> Start a form!</p>
+            </div>
+        </div>
+        <div id="lesson20" class="lesson" style="display: none;">
+            <div class="lesson-title">20. Input Fields</div>
+            <div class="code-block"><pre><code>&lt;input type="text"&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Inputs gather data:</p>
+                <ul>
+                    <li><strong>&lt;input&gt;</strong>: Creates an input field.</li>
+                    <li><strong>type="text"</strong>: For text entry.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add to a form!</p>
+            </div>
+        </div>
+        <div id="lesson21" class="lesson" style="display: none;">
+            <div class="lesson-title">21. Buttons</div>
+            <div class="code-block"><pre><code>&lt;button&gt;Click&lt;/button&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Buttons trigger actions:</p>
+                <ul>
+                    <li><strong>&lt;button&gt;</strong>: Creates a clickable button.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add a button!</p>
+            </div>
+        </div>
+        <div id="lesson22" class="lesson" style="display: none;">
+            <div class="lesson-title">22. Dropdowns</div>
+            <div class="code-block"><pre><code>&lt;select&gt;&lt;option&gt;Choice&lt;/option&gt;&lt;/select&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Dropdowns offer choices:</p>
+                <ul>
+                    <li><strong>&lt;select&gt;</strong>: Creates a dropdown.</li>
+                    <li><strong>&lt;option&gt;</strong>: Each choice.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add a dropdown!</p>
+            </div>
+        </div>
+        <div id="lesson23" class="lesson" style="display: none;">
+            <div class="lesson-title">23. Textareas</div>
+            <div class="code-block"><pre><code>&lt;textarea&gt;&lt;/textarea&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Textareas allow multi-line text:</p>
+                <ul>
+                    <li><strong>&lt;textarea&gt;</strong>: For longer input.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add to a form!</p>
+            </div>
+        </div>
+        <div id="lesson24" class="lesson" style="display: none;">
+            <div class="lesson-title">24. Labels</div>
+            <div class="code-block"><pre><code>&lt;label for="id"&gt;Text&lt;/label&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Labels describe inputs:</p>
+                <ul>
+                    <li><strong>&lt;label&gt;</strong>: Links to an input via <strong>for</strong>.</li>
+                </ul>
+                <p><strong>Try it:</strong> Label an input!</p>
+            </div>
+        </div>
+        <div id="lesson25" class="lesson" style="display: none;">
+            <div class="lesson-title">25. Fieldsets</div>
+            <div class="code-block"><pre><code>&lt;fieldset&gt;&lt;legend&gt;Title&lt;/legend&gt;&lt;/fieldset&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Fieldsets group form elements:</p>
+                <ul>
+                    <li><strong>&lt;fieldset&gt;</strong>: Groups inputs.</li>
+                    <li><strong>&lt;legend&gt;</strong>: Titles the group.</li>
+                </ul>
+                <p><strong>Try it:</strong> Group form elements!</p>
+            </div>
+        </div>
+        <div id="lesson26" class="lesson" style="display: none;">
+            <div class="lesson-title">26. Iframes</div>
+            <div class="code-block"><pre><code>&lt;iframe src="page.html"&gt;&lt;/iframe&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Iframes embed content:</p>
+                <ul>
+                    <li><strong>&lt;iframe&gt;</strong>: Displays another page inside yours.</li>
+                </ul>
+                <p><strong>Try it:</strong> Embed a URL!</p>
+            </div>
+        </div>
+        <div id="lesson27" class="lesson" style="display: none;">
+            <div class="lesson-title">27. Audio</div>
+            <div class="code-block"><pre><code>&lt;audio src="sound.mp3" controls&gt;&lt;/audio&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Audio adds sound:</p>
+                <ul>
+                    <li><strong>&lt;audio&gt;</strong>: Plays audio files.</li>
+                    <li><strong>controls</strong>: Adds playback buttons.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add an audio file!</p>
+            </div>
+        </div>
+        <div id="lesson28" class="lesson" style="display: none;">
+            <div class="lesson-title">28. Video</div>
+            <div class="code-block"><pre><code>&lt;video src="video.mp4" controls&gt;&lt;/video&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Video embeds movies:</p>
+                <ul>
+                    <li><strong>&lt;video&gt;</strong>: Plays video files.</li>
+                    <li><strong>controls</strong>: Adds playback controls.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add a video!</p>
+            </div>
+        </div>
+        <div id="lesson29" class="lesson" style="display: none;">
+            <div class="lesson-title">29. Semantic Tags</div>
+            <div class="code-block"><pre><code>&lt;header&gt;&lt;nav&gt;&lt;section&gt;&lt;footer&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Semantic tags add meaning:</p>
+                <ul>
+                    <li><strong>&lt;header&gt;</strong>: Top section.</li>
+                    <li><strong>&lt;nav&gt;</strong>: Navigation.</li>
+                    <li><strong>&lt;section&gt;</strong>: Content section.</li>
+                    <li><strong>&lt;footer&gt;</strong>: Bottom section.</li>
+                </ul>
+                <p><strong>Try it:</strong> Structure your page!</p>
+            </div>
+        </div>
+        <div id="lesson30" class="lesson" style="display: none;">
+            <div class="lesson-title">30. Data Attributes</div>
+            <div class="code-block"><pre><code>&lt;div data-info="value"&gt;&lt;/div&gt;</code></pre></div>
+            <div class="lesson-instructions">
+                <p>Data attributes store info:</p>
+                <ul>
+                    <li><strong>data-*</strong>: Custom attributes for extra data.</li>
+                </ul>
+                <p><strong>Try it:</strong> Add a data attribute!</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" id="prevLessonBtn" disabled>Previous</button>
+            <button class="nav-button" id="nextLessonBtn">Next</button>
+        </div>
+    </div>
+
+    <!-- Test Container -->
+    <div id="testContainer" class="content-container">
+        <div id="question1" class="test-question">
+            <div class="test-title">Question 1</div>
+            <div class="test-instructions">
+                <p>What declares an HTML5 document?</p>
+                <label><input type="radio" name="q1" value="a"> a) <code>&lt;html&gt;</code></label>
+                <label><input type="radio" name="q1" value="b"> b) <code>&lt;!DOCTYPE html&gt;</code></label>
+                <label><input type="radio" name="q1" value="c"> c) <code>&lt;head&gt;</code></label>
+            </div>
+        </div>
+        <div id="question2" class="test-question" style="display: none;">
+            <div class="test-title">Question 2</div>
+            <div class="test-instructions">
+                <p>Which tag is the largest heading?</p>
+                <label><input type="radio" name="q2" value="a"> a) <code>&lt;h6&gt;</code></label>
+                <label><input type="radio" name="q2" value="b"> b) <code>&lt;h3&gt;</code></label>
+                <label><input type="radio" name="q2" value="c"> c) <code>&lt;h1&gt;</code></label>
+            </div>
+        </div>
+        <div id="question3" class="test-question" style="display: none;">
+            <div class="test-title">Question 3</div>
+            <div class="test-instructions">
+                <p>What tag creates a paragraph?</p>
+                <label><input type="radio" name="q3" value="a"> a) <code>&lt;p&gt;</code></label>
+                <label><input type="radio" name="q3" value="b"> b) <code>&lt;div&gt;</code></label>
+                <label><input type="radio" name="q3" value="c"> c) <code>&lt;span&gt;</code></label>
+            </div>
+        </div>
+        <div id="question4" class="test-question" style="display: none;">
+            <div class="test-title">Question 4</div>
+            <div class="test-instructions">
+                <p>Which attribute sets a link’s destination?</p>
+                <label><input type="radio" name="q4" value="a"> a) <code>src</code></label>
+                <label><input type="radio" name="q4" value="b"> b) <code>href</code></label>
+                <label><input type="radio" name="q4" value="c"> c) <code>alt</code></label>
+            </div>
+        </div>
+        <div id="question5" class="test-question" style="display: none;">
+            <div class="test-title">Question 5</div>
+            <div class="test-instructions">
+                <p>What does <code>alt</code> do in an image?</p>
+                <label><input type="radio" name="q5" value="a"> a) Sets the size</label>
+                <label><input type="radio" name="q5" value="b"> b) Links to a URL</label>
+                <label><input type="radio" name="q5" value="c"> c) Describes the image</label>
+            </div>
+        </div>
+        <div id="question6" class="test-question" style="display: none;">
+            <div class="test-title">Question 6</div>
+            <div class="test-instructions">
+                <p>How do you write an HTML comment?</p>
+                <label><input type="radio" name="q6" value="a"> a) <code>// Comment</code></label>
+                <label><input type="radio" name="q6" value="b"> b) <code>&lt;!-- Comment --&gt;</code></label>
+                <label><input type="radio" name="q6" value="c"> c) <code>/* Comment */</code></label>
+            </div>
+        </div>
+        <div id="question7" class="test-question" style="display: none;">
+            <div class="test-title">Question 7</div>
+            <div class="test-instructions">
+                <p>Which tag starts a bullet list?</p>
+                <label><input type="radio" name="q7" value="a"> a) <code>&lt;ol&gt;</code></label>
+                <label><input type="radio" name="q7" value="b"> b) <code>&lt;ul&gt;</code></label>
+                <label><input type="radio" name="q7" value="c"> c) <code>&lt;li&gt;</code></label>
+            </div>
+        </div>
+        <div id="question8" class="test-question" style="display: none;">
+            <div class="test-title">Question 8</div>
+            <div class="test-instructions">
+                <p>Which tag starts a numbered list?</p>
+                <label><input type="radio" name="q8" value="a"> a) <code>&lt;ul&gt;</code></label>
+                <label><input type="radio" name="q8" value="b"> b) <code>&lt;ol&gt;</code></label>
+                <label><input type="radio" name="q8" value="c"> c) <code>&lt;li&gt;</code></label>
+            </div>
+        </div>
+        <div id="question9" class="test-question" style="display: none;">
+            <div class="test-title">Question 9</div>
+            <div class="test-instructions">
+                <p>What is a <code>&lt;div&gt;</code> for?</p>
+                <label><input type="radio" name="q9" value="a"> a) Linking pages</label>
+                <label><input type="radio" name="q9" value="b"> b) Grouping content</label>
+                <label><input type="radio" name="q9" value="c"> c) Adding images</label>
+            </div>
+        </div>
+        <div id="question10" class="test-question" style="display: none;">
+            <div class="test-title">Question 10</div>
+            <div class="test-instructions">
+                <p>What’s the difference between <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code>?</p>
+                <label><input type="radio" name="q10" value="a"> a) <code>&lt;div&gt;</code> is inline</label>
+                <label><input type="radio" name="q10" value="b"> b) <code>&lt;span&gt;</code> is block</label>
+                <label><input type="radio" name="q10" value="c"> c) <code>&lt;div&gt;</code> is block, <code>&lt;span&gt;</code> is inline</label>
+            </div>
+        </div>
+        <div id="question11" class="test-question" style="display: none;">
+            <div class="test-title">Question 11</div>
+            <div class="test-instructions">
+                <p>Which tag adds a line break?</p>
+                <label><input type="radio" name="q11" value="a"> a) <code>&lt;hr&gt;</code></label>
+                <label><input type="radio" name="q11" value="b"> b) <code>&lt;br&gt;</code></label>
+                <label><input type="radio" name="q11" value="c"> c) <code>&lt;p&gt;</code></label>
+            </div>
+        </div>
+        <div id="question12" class="test-question" style="display: none;">
+            <div class="test-title">Question 12</div>
+            <div class="test-instructions">
+                <p>What does <code>&lt;hr&gt;</code> create?</p>
+                <label><input type="radio" name="q12" value="a"> a) A line break</label>
+                <label><input type="radio" name="q12" value="b"> b) A paragraph</label>
+                <label><input type="radio" name="q12" value="c"> c) A horizontal line</label>
+            </div>
+        </div>
+        <div id="question13" class="test-question" style="display: none;">
+            <div class="test-title">Question 13</div>
+            <div class="test-instructions">
+                <p>Which tag makes text bold?</p>
+                <label><input type="radio" name="q13" value="a"> a) <code>&lt;i&gt;</code></label>
+                <label><input type="radio" name="q13" value="b"> b) <code>&lt;b&gt;</code></label>
+                <label><input type="radio" name="q13" value="c"> c) <code>&lt;sup&gt;</code></label>
+            </div>
+        </div>
+        <div id="question14" class="test-question" style="display: none;">
+            <div class="test-title">Question 14</div>
+            <div class="test-instructions">
+                <p>Which tag is for superscript?</p>
+                <label><input type="radio" name="q14" value="a"> a) <code>&lt;sub&gt;</code></label>
+                <label><input type="radio" name="q14" value="b"> b) <code>&lt;sup&gt;</code></label>
+                <label><input type="radio" name="q14" value="c"> c) <code>&lt;i&gt;</code></label>
+            </div>
+        </div>
+        <div id="question15" class="test-question" style="display: none;">
+            <div class="test-title">Question 15</div>
+            <div class="test-instructions">
+                <p>What’s the purpose of <code>&lt;blockquote&gt;</code>?</p>
+                <label><input type="radio" name="q15" value="a"> a) List items</label>
+                <label><input type="radio" name="q15" value="b"> b) Quote text</label>
+                <label><input type="radio" name="q15" value="c"> c) Embed images</label>
+            </div>
+        </div>
+        <div id="question16" class="test-question" style="display: none;">
+            <div class="test-title">Question 16</div>
+            <div class="test-instructions">
+                <p>What does <code>&lt;meta charset="UTF-8"&gt;</code> set?</p>
+                <label><input type="radio" name="q16" value="a"> a) Page title</label>
+                <label><input type="radio" name="q16" value="b"> b) Character encoding</label>
+                <label><input type="radio" name="q16" value="c"> c) Link URL</label>
+            </div>
+        </div>
+        <div id="question17" class="test-question" style="display: none;">
+            <div class="test-title">Question 17</div>
+            <div class="test-instructions">
+                <p>Which tag defines a table row?</p>
+                <label><input type="radio" name="q17" value="a"> a) <code>&lt;td&gt;</code></label>
+                <label><input type="radio" name="q17" value="b"> b) <code>&lt;th&gt;</code></label>
+                <label><input type="radio" name="q17" value="c"> c) <code>&lt;tr&gt;</code></label>
+            </div>
+        </div>
+        <div id="question18" class="test-question" style="display: none;">
+            <div class="test-title">Question 18</div>
+            <div class="test-instructions">
+                <p>Which tag is a table header?</p>
+                <label><input type="radio" name="q18" value="a"> a) <code>&lt;td&gt;</code></label>
+                <label><input type="radio" name="q18" value="b"> b) <code>&lt;th&gt;</code></label>
+                <label><input type="radio" name="q18" value="c"> c) <code>&lt;tr&gt;</code></label>
+            </div>
+        </div>
+        <div id="question19" class="test-question" style="display: none;">
+            <div class="test-title">Question 19</div>
+            <div class="test-instructions">
+                <p>Which tag creates a form?</p>
+                <label><input type="radio" name="q19" value="a"> a) <code>&lt;form&gt;</code></label>
+                <label><input type="radio" name="q19" value="b"> b) <code>&lt;input&gt;</code></label>
+                <label><input type="radio" name="q19" value="c"> c) <code>&lt;button&gt;</code></label>
+            </div>
+        </div>
+        <div id="question20" class="test-question" style="display: none;">
+            <div class="test-title">Question 20</div>
+            <div class="test-instructions">
+                <p>What makes an input a text field?</p>
+                <label><input type="radio" name="q20" value="a"> a) <code>type="text"</code></label>
+                <label><input type="radio" name="q20" value="b"> b) <code>type="submit"</code></label>
+                <label><input type="radio" name="q20" value="c"> c) <code>type="button"</code></label>
+            </div>
+        </div>
+        <div id="question21" class="test-question" style="display: none;">
+            <div class="test-title">Question 21</div>
+            <div class="test-instructions">
+                <p>Which tag makes a button?</p>
+                <label><input type="radio" name="q21" value="a"> a) <code>&lt;input&gt;</code></label>
+                <label><input type="radio" name="q21" value="b"> b) <code>&lt;button&gt;</code></label>
+                <label><input type="radio" name="q21" value="c"> c) <code>&lt;select&gt;</code></label>
+            </div>
+        </div>
+        <div id="question22" class="test-question" style="display: none;">
+            <div class="test-title">Question 22</div>
+            <div class="test-instructions">
+                <p>Which tag creates a dropdown?</p>
+                <label><input type="radio" name="q22" value="a"> a) <code>&lt;input&gt;</code></label>
+                <label><input type="radio" name="q22" value="b"> b) <code>&lt;button&gt;</code></label>
+                <label><input type="radio" name="q22" value="c"> c) <code>&lt;select&gt;</code></label>
+            </div>
+        </div>
+        <div id="question23" class="test-question" style="display: none;">
+            <div class="test-title">Question 23</div>
+            <div class="test-instructions">
+                <p>What’s used for multi-line text input?</p>
+                <label><input type="radio" name="q23" value="a"> a) <code>&lt;input&gt;</code></label>
+                <label><input type="radio" name="q23" value="b"> b) <code>&lt;textarea&gt;</code></label>
+                <label><input type="radio" name="q23" value="c"> c) <code>&lt;select&gt;</code></label>
+            </div>
+        </div>
+        <div id="question24" class="test-question" style="display: none;">
+            <div class="test-title">Question 24</div>
+            <div class="test-instructions">
+                <p>What does <code>for</code> in <code>&lt;label&gt;</code> do?</p>
+                <label><input type="radio" name="q24" value="a"> a) Sets text</label>
+                <label><input type="radio" name="q24" value="b"> b) Links to an input</label>
+                <label><input type="radio" name="q24" value="c"> c) Creates a button</label>
+            </div>
+        </div>
+        <div id="question25" class="test-question" style="display: none;">
+            <div class="test-title">Question 25</div>
+            <div class="test-instructions">
+                <p>Which tag groups form elements?</p>
+                <label><input type="radio" name="q25" value="a"> a) <code>&lt;fieldset&gt;</code></label>
+                <label><input type="radio" name="q25" value="b"> b) <code>&lt;label&gt;</code></label>
+                <label><input type="radio" name="q25" value="c"> c) <code>&lt;div&gt;</code></label>
+            </div>
+        </div>
+        <div id="question26" class="test-question" style="display: none;">
+            <div class="test-title">Question 26</div>
+            <div class="test-instructions">
+                <p>What does <code>&lt;iframe&gt;</code> embed?</p>
+                <label><input type="radio" name="q26" value="a"> a) An image</label>
+                <label><input type="radio" name="q26" value="b"> b) Another webpage</label>
+                <label><input type="radio" name="q26" value="c"> c) A form</label>
+            </div>
+        </div>
+        <div id="question27" class="test-question" style="display: none;">
+            <div class="test-title">Question 27</div>
+            <div class="test-instructions">
+                <p>What adds playback controls to <code>&lt;audio&gt;</code>?</p>
+                <label><input type="radio" name="q27" value="a"> a) <code>src</code></label>
+                <label><input type="radio" name="q27" value="b"> b) <code>alt</code></label>
+                <label><input type="radio" name="q27" value="c"> c) <code>controls</code></label>
+            </div>
+        </div>
+        <div id="question28" class="test-question" style="display: none;">
+            <div class="test-title">Question 28</div>
+            <div class="test-instructions">
+                <p>Which tag embeds a video?</p>
+                <label><input type="radio" name="q28" value="a"> a) <code>&lt;audio&gt;</code></label>
+                <label><input type="radio" name="q28" value="b"> b) <code>&lt;video&gt;</code></label>
+                <label><input type="radio" name="q28" value="c"> c) <code>&lt;img&gt;</code></label>
+            </div>
+        </div>
+        <div id="question29" class="test-question" style="display: none;">
+            <div class="test-title">Question 29</div>
+            <div class="test-instructions">
+                <p>Which is a semantic tag for navigation?</p>
+                <label><input type="radio" name="q29" value="a"> a) <code>&lt;div&gt;</code></label>
+                <label><input type="radio" name="q29" value="b"> b) <code>&lt;span&gt;</code></label>
+                <label><input type="radio" name="q29" value="c"> c) <code>&lt;nav&gt;</code></label>
+            </div>
+        </div>
+        <div id="question30" class="test-question" style="display: none;">
+            <div class="test-title">Question 30</div>
+            <div class="test-instructions">
+                <p>What’s the purpose of <code>data-*</code> attributes?</p>
+                <label><input type="radio" name="q30" value="a"> a) Styling</label>
+                <label><input type="radio" name="q30" value="b"> b) Storing custom data</label>
+                <label><input type="radio" name="q30" value="c"> c) Linking</label>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" id="prevQuestionBtn" disabled>Previous</button>
+            <button class="nav-button" id="nextQuestionBtn">Next</button>
+        </div>
+        <button class="submit-button" id="submitTestBtn">Submit Test</button>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <div class="toc-item" data-lesson="1">Lesson 1</div>
+        <div class="toc-item" data-lesson="2">Lesson 2</div>
+        <div class="toc-item" data-lesson="3">Lesson 3</div>
+        <div class="toc-item" data-lesson="4">Lesson 4</div>
+        <div class="toc-item" data-lesson="5">Lesson 5</div>
+        <div class="toc-item" data-lesson="6">Lesson 6</div>
+        <div class="toc-item" data-lesson="7">Lesson 7</div>
+        <div class="toc-item" data-lesson="8">Lesson 8</div>
+        <div class="toc-item" data-lesson="9">Lesson 9</div>
+        <div class="toc-item" data-lesson="10">Lesson 10</div>
+        <div class="toc-item" data-lesson="11">Lesson 11</div>
+        <div class="toc-item" data-lesson="12">Lesson 12</div>
+        <div class="toc-item" data-lesson="13">Lesson 13</div>
+        <div class="toc-item" data-lesson="14">Lesson 14</div>
+        <div class="toc-item" data-lesson="15">Lesson 15</div>
+        <div class="toc-item" data-lesson="16">Lesson 16</div>
+        <div class="toc-item" data-lesson="17">Lesson 17</div>
+        <div class="toc-item" data-lesson="18">Lesson 18</div>
+        <div class="toc-item" data-lesson="19">Lesson 19</div>
+        <div class="toc-item" data-lesson="20">Lesson 20</div>
+        <div class="toc-item" data-lesson="21">Lesson 21</div>
+        <div class="toc-item" data-lesson="22">Lesson 22</div>
+        <div class="toc-item" data-lesson="23">Lesson 23</div>
+        <div class="toc-item" data-lesson="24">Lesson 24</div>
+        <div class="toc-item" data-lesson="25">Lesson 25</div>
+        <div class="toc-item" data-lesson="26">Lesson 26</div>
+        <div class="toc-item" data-lesson="27">Lesson 27</div>
+        <div class="toc-item" data-lesson="28">Lesson 28</div>
+        <div class="toc-item" data-lesson="29">Lesson 29</div>
+        <div class="toc-item" data-lesson="30">Lesson 30</div>
+    </div>
 
     <footer>
         <p><span class="footer-logo">CODE<span>X</span>EDOC</span></p>
@@ -80,554 +972,85 @@
         <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
     </footer>
 
-    <script type="text/javascript">
-        console.log("Script starting");
+    <script>
+        const lessonContainer = document.getElementById('lessonContainer');
+        const testContainer = document.getElementById('testContainer');
+        const openCourseBtn = document.getElementById('openCourseBtn');
+        const launchTestBtn = document.getElementById('launchTestBtn');
+        const prevLessonBtn = document.getElementById('prevLessonBtn');
+        const nextLessonBtn = document.getElementById('nextLessonBtn');
+        const prevQuestionBtn = document.getElementById('prevQuestionBtn');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        const submitTestBtn = document.getElementById('submitTestBtn');
+        const tocItems = document.querySelectorAll('.toc-item');
 
-        try {
-            // Fixed escapeHTML function to properly display HTML code
-            function escapeHTML(str) {
-                return str.replace(/&/g, "&amp;")
-                         .replace(/</g, "&lt;")
-                         .replace(/>/g, "&gt;")
-                         .replace(/"/g, "&quot;")
-                         .replace(/'/g, "&#39;");
-            }
+        let currentLesson = 1;
+        let currentQuestion = 1;
+        const totalLessons = 30;
+        const totalQuestions = 30;
+        let isTestMode = false;
 
-            const lessonsData = {
-                html: [
-                    // Unit 1: HTML Basics
-                    {
-                        description: "What is HTML?",
-                        code: "<!DOCTYPE html>\n<html>\n<head>\n    <title>My First Page</title>\n</head>\n<body>\n    <h1>Hello!</h1>\n</body>\n</html>",
-                        breakdown: [
-                            "HTML stands for HyperText Markup Language. 'HyperText' means text with links to other pages, and 'Markup' means tags that describe the content.",
-                            "It’s like the skeleton of a webpage, telling the browser how to structure text, images, and links.",
-                            "This example is a full webpage: a title in the tab (<title>) and a big 'Hello!' on the screen (<h1>)."
-                        ]
-                    },
-                    {
-                        description: "Setting Up an HTML Document",
-                        code: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My Page</title>\n</head>\n<body>\n</body>\n</html>",
-                        breakdown: [
-                            "<!DOCTYPE html>: Tells the browser this is an HTML5 document, the latest standard.",
-                            "<html lang=\"en\">: The root of the page. 'lang=\"en\"' sets the language to English for accessibility.",
-                            "<head>: Holds metadata like <meta charset=\"UTF-8\"> (for special characters) and <title> (shown in the browser tab).",
-                            "<body>: Where all visible content goes. It’s empty now, but we’ll add to it soon."
-                        ]
-                    },
-                    {
-                        description: "Adding a Heading",
-                        code: "<h1>My First Heading</h1>",
-                        breakdown: [
-                            "<h1>: Creates a large heading, often used for the main title of a page.",
-                            "HTML has six heading levels (<h1> to <h6>), with <h1> being the biggest.",
-                            "Headings help organize your content, like a title in a book."
-                        ]
-                    },
-                    {
-                        description: "Writing Paragraphs",
-                        code: "<p>This is my first paragraph.</p>",
-                        breakdown: [
-                            "<p>: The paragraph tag creates a block of text, like a sentence or short paragraph.",
-                            "Paragraphs automatically add space above and below to separate them from other content.",
-                            "Use <p> for any text, like descriptions or instructions."
-                        ]
-                    },
-                    {
-                        description: "Creating Line Breaks",
-                        code: "<p>First line<br>Second line</p>",
-                        breakdown: [
-                            "<br>: Adds a line break, moving the text after it to a new line without starting a new paragraph.",
-                            "Unlike <p>, <br> doesn’t add extra spacing—just a single line break.",
-                            "Use <br> for things like addresses or poems where you want a new line without a full paragraph break."
-                        ]
-                    },
+        openCourseBtn.addEventListener('click', () => {
+            isTestMode = false;
+            lessonContainer.classList.add('active');
+            testContainer.classList.remove('active');
+            showLesson(1);
+        });
 
-                    // Unit 2: Formatting Text
-                    {
-                        description: "Making Text Bold",
-                        code: "<p>This is <b>bold</b> text.</p>",
-                        breakdown: [
-                            "<b>: Makes text bold, helping it stand out.",
-                            "Use bold text to highlight important words, like key terms or warnings.",
-                            "It’s a visual effect and doesn’t change the meaning of the text."
-                        ]
-                    },
-                    {
-                        description: "Italicizing Text",
-                        code: "<p>This is <i>italic</i> text.</p>",
-                        breakdown: [
-                            "<i>: Italicizes text, giving it a slanted look.",
-                            "Italics are often used for emphasis, book titles, or foreign words.",
-                            "Like <b>, <i> is for visual styling and doesn’t affect the content’s meaning."
-                        ]
-                    },
-                    {
-                        description: "Using Headings for Structure",
-                        code: "<h1>Main Title</h1>\n<h2>Section Title</h2>\n<h3>Subsection</h3>",
-                        breakdown: [
-                            "Headings (<h1> to <h6>) create a hierarchy, like an outline.",
-                            "<h1> is the most important (e.g., page title), <h2> for sections, <h3> for subsections.",
-                            "Using headings in order helps search engines and screen readers understand your page."
-                        ]
-                    },
-                    {
-                        description: "Adding Comments",
-                        code: "<!-- This is a comment -->\n<p>Visible text</p>",
-                        breakdown: [
-                            "<!-- -->: Anything between these is a comment—hidden on the page but visible in the code.",
-                            "Use comments to explain your code (e.g., 'This section is for the header') or test by hiding parts without deleting them.",
-                            "They’re like sticky notes for you or teammates to understand the code later."
-                        ]
-                    },
-                    {
-                        description: "Using HTML Entities",
-                        code: "<p>Copyright © 2025</p>",
-                        breakdown: [
-                            "HTML entities are codes for special characters or symbols.",
-                            "© shows the copyright symbol (©). It starts with '&' and ends with ';'.",
-                            "Entities are also used for characters like < (<) to avoid confusion with HTML tags."
-                        ]
-                    },
+        launchTestBtn.addEventListener('click', () => {
+            isTestMode = true;
+            testContainer.classList.add('active');
+            lessonContainer.classList.remove('active');
+            showQuestion(1);
+        });
 
-                    // Unit 3: Links and Images
-                    {
-                        description: "Creating Links",
-                        code: "<a href=\"https://example.com\">Click Me</a>",
-                        breakdown: [
-                            "<a>: The anchor tag creates a clickable link.",
-                            "href=\"https://example.com\": The 'href' attribute sets the link’s destination.",
-                            "'Click Me' is the text users see and click on."
-                        ]
-                    },
-                    {
-                        description: "Linking to Another Page",
-                        code: "<a href=\"about.html\">Go to About Page</a>",
-                        breakdown: [
-                            "Use a relative path like 'about.html' to link to another page on your site.",
-                            "A relative path means the file is in the same folder as your current page.",
-                            "This is useful for navigation, like linking to a 'Home' or 'Contact' page."
-                        ]
-                    },
-                    {
-                        description: "Adding Images",
-                        code: "<img src=\"photo.jpg\" alt=\"A sunny beach\">",
-                        breakdown: [
-                            "<img>: Adds an image to your page. It’s self-closing (no closing tag).",
-                            "src=\"photo.jpg\": The 'src' attribute points to the image file.",
-                            "alt=\"A sunny beach\": The 'alt' attribute describes the image for accessibility or if it fails to load."
-                        ]
-                    },
-                    {
-                        description: "Setting Image Size",
-                        code: "<img src=\"photo.jpg\" alt=\"A sunny beach\" width=\"200\" height=\"150\">",
-                        breakdown: [
-                            "width=\"200\": Sets the image width to 200 pixels.",
-                            "height=\"150\": Sets the image height to 150 pixels.",
-                            "Adjusting size helps the image fit your page, but keep the aspect ratio to avoid stretching."
-                        ]
-                    },
-                    {
-                        description: "Linking an Image",
-                        code: "<a href=\"https://example.com\">\n    <img src=\"photo.jpg\" alt=\"A sunny beach\">\n</a>",
-                        breakdown: [
-                            "Wrap an <img> tag in an <a> tag to make the image clickable.",
-                            "Clicking the image takes the user to the 'href' URL.",
-                            "This is common for logos that link to a homepage or clickable banners."
-                        ]
-                    },
+        prevLessonBtn.addEventListener('click', () => currentLesson > 1 && showLesson(currentLesson - 1));
+        nextLessonBtn.addEventListener('click', () => currentLesson < totalLessons && showLesson(currentLesson + 1));
+        prevQuestionBtn.addEventListener('click', () => currentQuestion > 1 && showQuestion(currentQuestion - 1));
+        nextQuestionBtn.addEventListener('click', () => currentQuestion < totalQuestions && showQuestion(currentQuestion + 1));
 
-                    // Unit 4: Lists
-                    {
-                        description: "Creating an Unordered List",
-                        code: "<ul>\n    <li>Apples</li>\n    <li>Oranges</li>\n    <li>Bananas</li>\n</ul>",
-                        breakdown: [
-                            "<ul>: Creates an unordered list with bullet points.",
-                            "<li>: Each 'list item' is wrapped in an <li> tag.",
-                            "Use unordered lists for items where order doesn’t matter, like a shopping list."
-                        ]
-                    },
-                    {
-                        description: "Creating an Ordered List",
-                        code: "<ol>\n    <li>Step 1</li>\n    <li>Step 2</li>\n    <li>Step 3</li>\n</ol>",
-                        breakdown: [
-                            "<ol>: Creates an ordered list with numbers.",
-                            "<li>: Each item is a <li> tag, numbered automatically.",
-                            "Ordered lists are great for steps, rankings, or anything where order matters."
-                        ]
-                    },
-                    {
-                        description: "Nesting Lists",
-                        code: "<ul>\n    <li>Fruits\n        <ul>\n            <li>Apples</li>\n            <li>Oranges</li>\n        </ul>\n    </li>\n    <li>Vegetables</li>\n</ul>",
-                        breakdown: [
-                            "Nesting means putting a list inside another list to create subcategories.",
-                            "Here, a <ul> inside a <li> makes a sublist under 'Fruits'.",
-                            "Nesting helps organize complex information, like a menu with sub-items."
-                        ]
-                    },
-                    {
-                        description: "Using Lists for Navigation",
-                        code: "<ul>\n    <li><a href=\"home.html\">Home</a></li>\n    <li><a href=\"about.html\">About</a></li>\n    <li><a href=\"contact.html\">Contact</a></li>\n</ul>",
-                        breakdown: [
-                            "Combine <ul> and <a> tags to create a navigation menu.",
-                            "Each <li> contains a link, making an organized menu.",
-                            "This structure is easy to style with CSS to create horizontal or vertical menus."
-                        ]
-                    },
-                    {
-                        description: "Definition Lists",
-                        code: "<dl>\n    <dt>HTML</dt>\n    <dd>HyperText Markup Language</dd>\n    <dt>CSS</dt>\n    <dd>Cascading Style Sheets</dd>\n</dl>",
-                        breakdown: [
-                            "<dl>: Creates a definition list for terms and their definitions.",
-                            "<dt>: Defines a term, like 'HTML'.",
-                            "<dd>: Provides the definition, like 'HyperText Markup Language'.",
-                            "Use definition lists for glossaries or FAQs."
-                        ]
-                    },
+        submitTestBtn.addEventListener('click', submitTest);
 
-                    // Unit 5: Grouping and Semantics
-                    {
-                        description: "Using Divs to Group Content",
-                        code: "<div>\n    <h1>Title</h1>\n    <p>Some text here.</p>\n</div>",
-                        breakdown: [
-                            "<div>: A container that groups elements together, often for layout or styling.",
-                            "Divs are block-level, meaning they take up the full width and start on a new line.",
-                            "Here, the <div> groups a heading and paragraph to treat them as a unit."
-                        ]
-                    },
-                    {
-                        description: "Inline Spans for Styling",
-                        code: "<p>This is a <span>special</span> word.</p>",
-                        breakdown: [
-                            "<span>: A container for small pieces of text, often used for styling specific words.",
-                            "<span> is inline, so it doesn’t start a new line.",
-                            "Here, <span> can be used to style 'special' differently, like changing its color."
-                        ]
-                    },
-                    {
-                        description: "Block vs Inline Elements",
-                        code: "<div>Block element</div>\n<span>Inline element</span>",
-                        breakdown: [
-                            "Block elements (like <div>, <p>) take up the full width and start on a new line.",
-                            "Inline elements (like <span>, <a>) only take up as much space as their content and stay on the same line.",
-                            "This difference helps you control how elements are arranged on your page."
-                        ]
-                    },
-                    {
-                        description: "Adding IDs and Classes",
-                        code: "<p id=\"intro\" class=\"highlight\">Welcome!</p>",
-                        breakdown: [
-                            "id=\"intro\": Gives the element a unique identifier for styling or JavaScript. IDs must be unique.",
-                            "class=\"highlight\": Assigns a class, which can be shared by multiple elements for styling.",
-                            "IDs and classes let you target elements to add styles or behavior."
-                        ]
-                    },
-                    {
-                        description: "Semantic HTML: Main Content",
-                        code: "<main>\n    <h1>Welcome</h1>\n    <p>This is the main content.</p>\n</main>",
-                        breakdown: [
-                            "<main>: Marks the primary content of the page, like the main article.",
-                            "There should only be one <main> per page, not nested in other semantic tags.",
-                            "Semantic tags like <main> help search engines and screen readers understand your page better."
-                        ]
-                    },
+        tocItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const lessonNum = parseInt(item.dataset.lesson);
+                isTestMode = false;
+                lessonContainer.classList.add('active');
+                testContainer.classList.remove('active');
+                showLesson(lessonNum);
+            });
+        });
 
-                    // Unit 6: Tables
-                    {
-                        description: "Creating a Basic Table",
-                        code: "<table>\n    <tr>\n        <td>Cell 1</td>\n        <td>Cell 2</td>\n    </tr>\n    <tr>\n        <td>Cell 3</td>\n        <td>Cell 4</td>\n    </tr>\n</table>",
-                        breakdown: [
-                            "<table>: Creates a table to display data in rows and columns.",
-                            "<tr>: Stands for 'table row' and defines a row in the table.",
-                            "<td>: Stands for 'table data' and defines a cell in a row."
-                        ]
-                    },
-                    {
-                        description: "Adding Table Headers",
-                        code: "<table>\n    <tr>\n        <th>Name</th>\n        <th>Age</th>\n    </tr>\n    <tr>\n        <td>Alice</td>\n        <td>25</td>\n    </tr>\n</table>",
-                        breakdown: [
-                            "<th>: Stands for 'table header' and creates a header cell, usually bold and centered.",
-                            "Here, <th> tags in the first row label the columns ('Name' and 'Age').",
-                            "Headers make tables easier to understand and improve accessibility."
-                        ]
-                    },
-                    {
-                        description: "Spanning Rows and Columns",
-                        code: "<table>\n    <tr>\n        <td colspan=\"2\">Spans 2 columns</td>\n    </tr>\n    <tr>\n        <td>Cell 1</td>\n        <td rowspan=\"2\">Spans 2 rows</td>\n    </tr>\n    <tr>\n        <td>Cell 2</td>\n    </tr>\n</table>",
-                        breakdown: [
-                            "colspan=\"2\": Makes a cell span across 2 columns.",
-                            "rowspan=\"2\": Makes a cell span across 2 rows.",
-                            "Spanning is useful for merging cells to create more complex table layouts."
-                        ]
-                    },
+        function showLesson(lessonNum) {
+            currentLesson = lessonNum;
+            document.querySelectorAll('.lesson').forEach(lesson => {
+                lesson.style.display = lesson.id === `lesson${lessonNum}` ? 'block' : 'none';
+            });
+            prevLessonBtn.disabled = currentLesson === 1;
+            nextLessonBtn.disabled = currentLesson === totalLessons;
+        }
 
-                    // Unit 7: Forms
-                    {
-                        description: "Creating a Basic Form with Labels",
-                        code: "<form>\n    <label for=\"username\">Username:</label>\n    <input type=\"text\" id=\"username\" name=\"username\" placeholder=\"Enter username\">\n</form>",
-                        breakdown: [
-                            "<form>: Creates a form to collect user input, like text or selections.",
-                            "<label for=\"username\">: Describes what the input is for and links to an input with the matching 'id'. Clicking the label focuses the input.",
-                            "<input type=\"text\">: Creates a text field for users to type in.",
-                            "name=\"username\": Identifies the input when the form is submitted.",
-                            "placeholder=\"Enter username\": Shows a hint in the field until the user types."
-                        ]
-                    },
-                    {
-                        description: "Adding Form Buttons",
-                        code: "<form>\n    <input type=\"submit\" value=\"Submit\">\n    <input type=\"reset\" value=\"Reset\">\n</form>",
-                        breakdown: [
-                            "<input type=\"submit\">: Creates a button to submit the form.",
-                            "<input type=\"reset\">: Creates a button to clear the form.",
-                            "value=\"Submit\": Sets the text on the button."
-                        ]
-                    }
-                ]
+        function showQuestion(questionNum) {
+            currentQuestion = questionNum;
+            document.querySelectorAll('.test-question').forEach(question => {
+                question.style.display = question.id === `question${questionNum}` ? 'block' : 'none';
+            });
+            prevQuestionBtn.disabled = currentQuestion === 1;
+            nextQuestionBtn.disabled = currentQuestion === totalQuestions;
+        }
+
+        function submitTest() {
+            const answers = {
+                q1: 'b', q2: 'c', q3: 'a', q4: 'b', q5: 'c', q6: 'b', q7: 'b', q8: 'b', q9: 'b', q10: 'c',
+                q11: 'b', q12: 'c', q13: 'b', q14: 'b', q15: 'b', q16: 'b', q17: 'c', q18: 'b', q19: 'a', q20: 'a',
+                q21: 'b', q22: 'c', q23: 'b', q24: 'b', q25: 'a', q26: 'b', q27: 'c', q28: 'b', q29: 'c', q30: 'b'
             };
-
-            const baseTestData = {
-                html: [
-                    { question: "What does HTML stand for?", options: ["HyperText Markup Language", "HighText Markup Language", "HyperTool Markup Language", "HyperText Main Language"], correct: 0 },
-                    { question: "What does <!DOCTYPE html> do?", options: ["Declares HTML5", "Creates a heading", "Links a stylesheet", "Defines a paragraph"], correct: 0 },
-                    { question: "Which tag creates the largest heading?", options: ["<h6>", "<h1>", "<h3>", "<h4>"], correct: 1 },
-                    { question: "What tag is used for a paragraph?", options: ["<p>", "<h1>", "<div>", "<span>"], correct: 0 },
-                    { question: "What does the <br> tag do?", options: ["Adds a line break", "Creates a paragraph", "Makes text bold", "Italicizes text"], correct: 0 },
-                    { question: "Which tag makes text bold?", options: ["<i>", "<b>", "<p>", "<span>"], correct: 1 },
-                    { question: "What tag italicizes text?", options: ["<b>", "<i>", "<div>", "<h1>"], correct: 1 },
-                    { question: "Which heading tag is for a subsection?", options: ["<h1>", "<h2>", "<h3>", "<h6>"], correct: 2 },
-                    { question: "How do you write an HTML comment?", options: ["// Comment", "<!-- Comment -->", "# Comment", "/* Comment */"], correct: 1 },
-                    { question: "What entity displays a copyright symbol?", options: ["&copy;", "&lt;", "&amp;", "&gt;"], correct: 0 },
-                    { question: "What tag creates a link?", options: ["<img>", "<a>", "<p>", "<div>"], correct: 1 },
-                    { question: "What attribute sets a link’s destination?", options: ["src", "href", "alt", "id"], correct: 1 },
-                    { question: "What tag adds an image?", options: ["<a>", "<img>", "<p>", "<span>"], correct: 1 },
-                    { question: "What attribute describes an image for accessibility?", options: ["src", "alt", "width", "height"], correct: 1 },
-                    { question: "How do you make an image clickable?", options: ["Wrap it in a <p> tag", "Wrap it in an <a> tag", "Add a class", "Use a <div>"], correct: 1 },
-                    { question: "What tag creates an unordered list?", options: ["<ol>", "<ul>", "<li>", "<list>"], correct: 1 },
-                    { question: "What tag creates a numbered list?", options: ["<ul>", "<ol>", "<li>", "<num>"], correct: 1 },
-                    { question: "How do you create a sublist?", options: ["Use a <div>", "Nest a list inside a <li>", "Add a class", "Use a <p>"], correct: 1 },
-                    { question: "What tag is used for a navigation list item?", options: ["<a>", "<li>", "<ul>", "<ol>"], correct: 1 },
-                    { question: "What tag defines a term in a definition list?", options: ["<dt>", "<dd>", "<dl>", "<li>"], correct: 0 },
-                    { question: "What tag groups elements as a block?", options: ["<span>", "<div>", "<a>", "<i>"], correct: 1 },
-                    { question: "What tag is used for inline styling?", options: ["<div>", "<span>", "<p>", "<h1>"], correct: 1 },
-                    { question: "Which element takes up the full width?", options: ["<span>", "<div>", "<a>", "<i>"], correct: 1 },
-                    { question: "What attribute gives a unique identifier?", options: ["class", "id", "name", "type"], correct: 1 },
-                    { question: "What semantic tag is for the main content?", options: ["<nav>", "<main>", "<footer>", "<aside>"], correct: 1 },
-                    { question: "What tag defines a table row?", options: ["<td>", "<tr>", "<th>", "<table>"], correct: 1 },
-                    { question: "What tag creates a table header?", options: ["<td>", "<th>", "<tr>", "<table>"], correct: 1 },
-                    { question: "What attribute makes a cell span 2 columns?", options: ["rowspan", "colspan", "span", "width"], correct: 1 },
-                    { question: "What does the <label> tag do in a form?", options: ["Creates a text field", "Links to an input for accessibility", "Submits the form", "Styles the input"], correct: 1 },
-                    { question: "What does <input type=\"submit\"> do?", options: ["Clears the form", "Submits the form", "Adds a label", "Creates a checkbox"], correct: 1 }
-                ]
-            };
-
-            console.log("Data defined successfully");
-
-            let currentLesson = 0;
-            let currentTest = 0;
-            const completedLessons = new Set();
-            const userAnswers = Array(30).fill(null);
-            let shuffledTestData = [];
-
-            function shuffleArray(array) {
-                const shuffled = [...array];
-                for (let i = shuffled.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-                }
-                return shuffled;
+            let score = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && selected.value === answers[`q${i}`]) score++;
             }
-
-            function startLearning(lang) {
-                console.log("startLearning called with:", lang);
-                const grid = document.getElementById("html-lessons");
-                const contents = document.getElementById("html-lesson-contents");
-                if (!grid || !contents) {
-                    console.error("Lesson elements not found: grid =", grid, "contents =", contents);
-                    return;
-                }
-                grid.innerHTML = "";
-                contents.innerHTML = "";
-                grid.style.display = "grid";
-
-                lessonsData.html.forEach((lesson, i) => {
-                    const num = i + 1;
-                    const box = document.createElement("div");
-                    box.classList.add("lesson-box");
-                    box.textContent = num;
-                    box.onclick = () => {
-                        console.log("Lesson box clicked:", num);
-                        currentLesson = num;
-                        completedLessons.add(num);
-                        toggleLesson(num);
-                    };
-                    grid.appendChild(box);
-
-                    const content = document.createElement("div");
-                    content.classList.add("lesson-content");
-                    content.id = `html-lesson-${num}`;
-                    content.innerHTML = `
-                        <div class="lesson-description">${lesson.description}</div>
-                        <pre class="code-breakdown">${escapeHTML(lesson.code)}</pre>
-                        <div class="code-explanation">
-                            <h4>Code Breakdown</h4>
-                            <ul>${lesson.breakdown.map(item => `<li>${item}</li>`).join("")}</ul>
-                        </div>
-                        <div class="navigation">
-                            <button class="nav-btn" onclick="navigateLesson(${num - 1})">Previous</button>
-                            <button class="nav-btn" onclick="navigateLesson(${num + 1})">Next</button>
-                        </div>
-                    `;
-                    contents.appendChild(content);
-                });
-
-                currentLesson = 1;
-                completedLessons.add(1);
-                toggleLesson(1);
-            }
-
-            function toggleLesson(num) {
-                console.log("toggleLesson called with:", num);
-                if (num < 1 || num > 30) return;
-                document.querySelectorAll(".lesson-content").forEach(c => c.classList.remove("active"));
-                const lesson = document.getElementById(`html-lesson-${num}`);
-                if (lesson) {
-                    lesson.classList.add("active");
-                    const prev = lesson.querySelector(".nav-btn:first-child");
-                    const next = lesson.querySelector(".nav-btn:last-child");
-                    prev.disabled = num === 1;
-                    next.disabled = num === 30;
-                }
-                const box = document.querySelector(`#html-lessons .lesson-box:nth-child(${num})`);
-                if (box) box.classList.add("completed");
-            }
-
-            function navigateLesson(num) {
-                console.log("navigateLesson called with:", num);
-                if (num < 1 || num > 30) return;
-                currentLesson = num;
-                completedLessons.add(num);
-                toggleLesson(num);
-            }
-
-            function startTest(lang) {
-                console.log("startTest called with:", lang);
-                const modal = document.getElementById("testModal");
-                const contents = document.getElementById("testContents");
-                const grid = document.getElementById("testGrid");
-                if (!modal || !contents || !grid) {
-                    console.error("Test elements not found: modal =", modal, "contents =", contents, "grid =", grid);
-                    return;
-                }
-                contents.innerHTML = "";
-                grid.innerHTML = "";
-                grid.style.display = "grid";
-                userAnswers.fill(null);
-
-                // Shuffle questions
-                shuffledTestData = shuffleArray(baseTestData.html);
-
-                // Shuffle options for each question
-                shuffledTestData = shuffledTestData.map(test => {
-                    const options = shuffleArray([...test.options]);
-                    const correctOption = test.options[test.correct];
-                    const correctIndex = options.indexOf(correctOption);
-                    return { ...test, options, correct: correctIndex };
-                });
-
-                shuffledTestData.forEach((test, i) => {
-                    const num = i + 1;
-                    const box = document.createElement("div");
-                    box.classList.add("test-box");
-                    box.textContent = num;
-                    box.onclick = () => {
-                        console.log("Test box clicked:", num);
-                        currentTest = num;
-                        toggleTest(num);
-                    };
-                    grid.appendChild(box);
-
-                    const content = document.createElement("div");
-                    content.classList.add("test-content");
-                    content.id = `html-test-${num}`;
-                    content.innerHTML = `
-                        <div class="test-question">${test.question}</div>
-                        <div class="test-options">${test.options.map((opt, idx) => `<div class="test-option" onclick="selectOption(${num}, ${idx})">${opt}</div>`).join("")}</div>
-                        <div class="navigation">
-                            <button class="nav-btn" onclick="navigateTest(${num - 1})">Previous</button>
-                            ${num === 30 ? `<button class="submit-btn" id="submit-btn" style="display:none" onclick="submitTest()">Submit</button>` : `<button class="nav-btn" onclick="navigateTest(${num + 1})">Next</button>`}
-                        </div>
-                    `;
-                    contents.appendChild(content);
-                });
-
-                currentTest = 1;
-                toggleTest(1);
-            }
-
-            function toggleTest(num) {
-                console.log("toggleTest called with:", num);
-                if (num < 1 || num > 30) return;
-                document.querySelectorAll(".test-content").forEach(c => c.classList.remove("active"));
-                const test = document.getElementById(`html-test-${num}`);
-                if (test) {
-                    test.classList.add("active");
-                    const prev = test.querySelector(".nav-btn:first-child");
-                    const next = test.querySelector(".nav-btn:last-child") || test.querySelector(".submit-btn");
-                    prev.disabled = num === 1;
-                    if (next.classList.contains("nav-btn")) next.disabled = num === 30;
-                    if (num === 30 && next.classList.contains("submit-btn")) {
-                        next.style.display = userAnswers.every(a => a !== null) ? "block" : "none";
-                    }
-                    const selectedIdx = userAnswers[num - 1];
-                    if (selectedIdx !== null) {
-                        const options = test.querySelectorAll(".test-option");
-                        options[selectedIdx].classList.add("selected");
-                    }
-                }
-            }
-
-            function navigateTest(num) {
-                console.log("navigateTest called with:", num);
-                if (num < 1 || num > 30) return;
-                currentTest = num;
-                toggleTest(num);
-            }
-
-            function selectOption(num, idx) {
-                console.log("selectOption called with: num =", num, "idx =", idx);
-                const options = document.querySelectorAll(`#html-test-${num} .test-option`);
-                options.forEach(opt => opt.classList.remove("selected"));
-                options[idx].classList.add("selected");
-                userAnswers[num - 1] = idx;
-                if (num === 30) {
-                    const submitBtn = document.getElementById("submit-btn");
-                    submitBtn.style.display = userAnswers.every(a => a !== null) ? "block" : "none";
-                }
-            }
-
-            function submitTest() {
-                console.log("submitTest called");
-                let score = 0;
-                userAnswers.forEach((answer, i) => {
-                    if (answer === shuffledTestData[i].correct) score++;
-                });
-                alert(`You scored ${score} out of 30!`);
-                if (score >= 25) {
-                    window.location.href = "correct.html";
-                } else {
-                    closeTest();
-                }
-            }
-
-            function closeTest() {
-                console.log("closeTest called");
-                document.getElementById("testModal").classList.remove("active");
-            }
-
-            console.log("Script loaded successfully");
-        } catch (e) {
-            console.error("Script error:", e);
-            alert("Script error: " + e.message);
+            alert(`Score: ${score}/${totalQuestions}. ${score >= 24 ? 'Passed! Great job!' : 'Review the lessons and retry.'}`);
         }
     </script>
 </body>
