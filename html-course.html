@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codexedoc - HTML Course</title>
+    <title>Codexedoc - HTML Course for Beginners</title>
     <style>
         body { background-color: #1a1a1a; color: #d4d4d4; font-family: Arial, sans-serif; margin: 0; padding: 0; }
         header { background-color: #1a1a1a; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; }
@@ -15,8 +15,8 @@
         .button-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
         .start-btn, .test-btn { background-color: #00ff00; color: #1a1a1a; padding: 15px 30px; border: 2px solid #000; border-radius: 5px; font-size: 1.2rem; cursor: pointer; }
         .start-btn:hover, .test-btn:hover { background-color: #00cc00; }
-        .lessons-grid { display: none; grid-template-columns: repeat(10, 1fr); gap: 10px; max-width: 800px; margin: 0 auto; }
-        .lesson-box { background-color: #2a2a2a; padding: 20px; border: 2px solid #00b7eb; border-radius: 5px; cursor: pointer; text-align: center; }
+        .lessons-grid { display: none; grid-template-columns: repeat(10, 1fr); gap: 10px; max-width: 1000px; margin: 0 auto; }
+        .lesson-box { background-color: #2a2a2a; padding: 20px; border: 2px solid #00b7eb; border-radius: 5px; cursor: pointer; text-align: center; font-size: 1.1rem; }
         .lesson-box.completed { background-color: #00b7eb; color: #1a1a1a; }
         .lesson-content { display: none; background-color: #2a2a2a; padding: 20px; margin: 20px auto; max-width: 800px; border: 1px solid #00b7eb; border-radius: 5px; }
         .lesson-content.active { display: block; }
@@ -30,7 +30,7 @@
         .test-modal.active { display: block; }
         .test-modal-content { background-color: #1a1a1a; margin: 5% auto; padding: 20px; max-width: 900px; border-radius: 5px; }
         .close-btn { position: absolute; top: 10px; right: 20px; color: #00ff00; font-size: 2rem; cursor: pointer; }
-        .test-grid { display: none; grid-template-columns: repeat(10, 1fr); gap: 10px; max-width: 800px; margin: 0 auto; }
+        .test-grid { display: none; grid-template-columns: repeat(10, 1fr); gap: 10px; max-width: 1000px; margin: 0 auto; }
         .test-box { background-color: #2a2a2a; padding: 20px; border: 2px solid #00b7eb; border-radius: 5px; cursor: pointer; text-align: center; }
         .test-content { display: none; background-color: #2a2a2a; padding: 20px; margin: 20px auto; max-width: 800px; border: 1px solid #00b7eb; border-radius: 5px; }
         .test-content.active { display: block; }
@@ -86,303 +86,308 @@
         try {
             // Helper function to escape HTML characters
             function escapeHTML(str) {
-                return str.replace(/&/g, "&amp;")
-                         .replace(/</g, "&lt;")
-                         .replace(/>/g, "&gt;")
-                         .replace(/"/g, "&quot;")
-                         .replace(/'/g, "&#39;");
+                return str.replace(/&/g, "&")
+                         .replace(/</g, "<")
+                         .replace(/>/g, ">")
+                         .replace(/"/g, """)
+                         .replace(/'/g, "'");
             }
 
             const lessonsData = {
                 html: [
+                    // Unit 1: HTML Basics
                     {
-                        description: "Basic Structure of an HTML Document",
-                        code: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My Page</title>\n</head>\n<body>\n    <h1>Hello, World!</h1>\n</body>\n</html>",
+                        description: "What is HTML?",
+                        code: "<!DOCTYPE html>\n<html>\n<head>\n    <title>My First Page</title>\n</head>\n<body>\n    <h1>Hello!</h1>\n</body>\n</html>",
                         breakdown: [
-                            "<!DOCTYPE html>: This declaration at the top of the document specifies that the page uses HTML5, ensuring the browser renders it according to modern standards.",
-                            "<html lang=\"en\">: The root element of the HTML page. The 'lang' attribute set to 'en' indicates the primary language is English, aiding accessibility tools like screen readers.",
-                            "<head>: Contains metadata about the document, such as character encoding (<meta charset=\"UTF-8\">) for supporting special characters, and the page title (<title>) displayed in the browser tab.",
-                            "<body>: Holds all the visible content of the page, like text, images, and links. Here, it includes a simple heading (<h1>) to display 'Hello, World!'."
+                            "HTML stands for HyperText Markup Language. It’s the language used to create web pages by defining their structure.",
+                            "Think of HTML as the skeleton of a webpage—it organizes content like text, images, and links.",
+                            "This example shows a simple webpage with a title and a heading. We’ll explore each part in the next lessons."
                         ]
                     },
                     {
-                        description: "Headings in HTML",
-                        code: "<h1>Main Heading</h1>\n<h2>Subheading</h2>\n<h3>Smaller Heading</h3>",
+                        description: "Setting Up an HTML Document",
+                        code: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My Page</title>\n</head>\n<body>\n</body>\n</html>",
                         breakdown: [
-                            "<h1> to <h6>: HTML provides six levels of headings, where <h1> is the largest and most important (often used for the main title), and <h6> is the smallest, typically for minor subheadings.",
-                            "Headings help structure content hierarchically, much like an outline in a document. They improve readability and help search engines understand the page’s structure.",
-                            "Best practice: Use headings in order (e.g., <h1> followed by <h2>, not jumping to <h3>) to maintain a logical hierarchy."
+                            "<!DOCTYPE html>: Tells the browser this is an HTML5 document, the latest standard.",
+                            "<html lang=\"en\">: The root of the page. 'lang=\"en\"' sets the language to English for accessibility.",
+                            "<head>: Holds metadata like <meta charset=\"UTF-8\"> (for special characters) and <title> (shown in the browser tab).",
+                            "<body>: Where all visible content goes. It’s empty now, but we’ll add to it soon."
                         ]
                     },
                     {
-                        description: "Paragraphs and Text Formatting",
-                        code: "<p>This is a <b>bold</b> and <i>italic</i> paragraph.</p>",
+                        description: "Adding a Heading",
+                        code: "<h1>My First Heading</h1>",
                         breakdown: [
-                            "<p>: The paragraph tag creates a block of text, automatically adding spacing before and after to separate it from other content.",
-                            "<b>: Makes text bold, providing visual emphasis. It’s often used to highlight important words or phrases without implying structural significance.",
-                            "<i>: Italicizes text, commonly used for emphasis, to denote titles (e.g., book names), or for foreign words. It’s an inline element, meaning it doesn’t break the flow of text."
+                            "<h1>: Creates a large heading, often used for the main title of a page.",
+                            "HTML has six heading levels (<h1> to <h6>), with <h1> being the biggest.",
+                            "Headings help organize your content, like a title in a book."
                         ]
                     },
                     {
-                        description: "Links in HTML",
-                        code: "<a href=\"https://example.com\">Visit Example</a>",
+                        description: "Writing Paragraphs",
+                        code: "<p>This is my first paragraph.</p>",
                         breakdown: [
-                            "<a>: The anchor tag creates a hyperlink, allowing users to navigate to another page, file, or location on the web.",
-                            "href=\"https://example.com\": The 'href' attribute specifies the destination URL. It can link to external sites, internal pages, or other resources like email (mailto:).",
-                            "The text between <a> and </a> (e.g., 'Visit Example') is the clickable link text that users see."
+                            "<p>: The paragraph tag creates a block of text, like a sentence or short paragraph.",
+                            "Paragraphs automatically add space above and below to separate them from other content.",
+                            "Use <p> for any text, like descriptions or instructions."
                         ]
                     },
                     {
-                        description: "Images in HTML",
-                        code: "<img src=\"image.jpg\" alt=\"A description\">",
+                        description: "Creating Line Breaks",
+                        code: "<p>First line<br>Second line</p>",
                         breakdown: [
-                            "<img>: Embeds an image into the page. It’s a self-closing tag, meaning it doesn’t need a closing tag (no </img>).",
-                            "src=\"image.jpg\": The 'src' attribute specifies the image’s file path or URL, which can be local (relative path) or remote (full URL).",
-                            "alt=\"A description\": The 'alt' attribute provides alternative text for accessibility (e.g., for screen readers) and displays if the image fails to load."
+                            "<br>: Adds a line break, moving the text after it to a new line without starting a new paragraph.",
+                            "Unlike <p>, <br> doesn’t add extra spacing—just a single line break.",
+                            "Use <br> for things like addresses or poems where you want a new line without a full paragraph break."
+                        ]
+                    },
+
+                    // Unit 2: Formatting Text
+                    {
+                        description: "Making Text Bold",
+                        code: "<p>This is <b>bold</b> text.</p>",
+                        breakdown: [
+                            "<b>: Makes text bold, helping it stand out.",
+                            "Use bold text to highlight important words, like key terms or warnings.",
+                            "It’s a visual effect and doesn’t change the meaning of the text."
                         ]
                     },
                     {
-                        description: "Unordered Lists",
-                        code: "<ul>\n    <li>Item 1</li>\n    <li>Item 2</li>\n    <li>Item 3</li>\n</ul>",
+                        description: "Italicizing Text",
+                        code: "<p>This is <i>italic</i> text.</p>",
                         breakdown: [
-                            "<ul>: Creates an unordered list, which displays items with bullet points. It’s ideal for lists where the order doesn’t matter, like a shopping list.",
-                            "<li>: Each list item is wrapped in a <li> tag, representing one entry in the list. The browser automatically adds bullets before each item.",
-                            "Lists improve readability by breaking down information into digestible chunks, and they can be nested for sublists."
+                            "<i>: Italicizes text, giving it a slanted look.",
+                            "Italics are often used for emphasis, book titles, or foreign words.",
+                            "Like <b>, <i> is for visual styling and doesn’t affect the content’s meaning."
                         ]
                     },
                     {
-                        description: "Ordered Lists",
-                        code: "<ol>\n    <li>First</li>\n    <li>Second</li>\n    <li>Third</li>\n</ol>",
+                        description: "Using Headings for Structure",
+                        code: "<h1>Main Title</h1>\n<h2>Section Title</h2>\n<h3>Subsection</h3>",
                         breakdown: [
-                            "<ol>: Creates an ordered list, which displays items with numbers or letters. It’s used for lists where order matters, like steps in a recipe.",
-                            "<li>: Each item in the list is wrapped in a <li> tag. The browser automatically numbers the items sequentially.",
-                            "You can customize the numbering style using the 'type' attribute (e.g., <ol type=\"A\"> for letters) or CSS."
+                            "Headings (<h1> to <h6>) create a hierarchy, like an outline.",
+                            "<h1> is the most important (e.g., page title), <h2> for sections, <h3> for subsections.",
+                            "Using headings in order helps search engines and screen readers understand your page."
                         ]
                     },
                     {
-                        description: "Divisions and Spans",
-                        code: "<div>\n    <p>Inside a div</p>\n    <span>Inline text</span>\n</div>",
-                        breakdown: [
-                            "<div>: A block-level container used to group elements together. It takes up the full width of its parent and starts on a new line, making it ideal for layout sections.",
-                            "<span>: An inline container used to apply styles or scripts to a small portion of text. It doesn’t break the flow of content, so it’s perfect for styling specific words.",
-                            "Both <div> and <span> are generic containers with no semantic meaning, often used for styling or JavaScript manipulation."
-                        ]
-                    },
-                    {
-                        description: "HTML Attributes",
-                        code: "<p id=\"intro\" class=\"highlight\">Hello</p>",
-                        breakdown: [
-                            "Attributes provide additional information about HTML elements and are always included in the opening tag, in the format name=\"value\".",
-                            "id=\"intro\": The 'id' attribute assigns a unique identifier to an element, which can be used for styling (CSS) or scripting (JavaScript). IDs must be unique within a page.",
-                            "class=\"highlight\": The 'class' attribute assigns one or more class names to an element, allowing you to apply the same styles or scripts to multiple elements."
-                        ]
-                    },
-                    {
-                        description: "Basic Tables",
-                        code: "<table>\n    <tr>\n        <td>Cell 1</td>\n        <td>Cell 2</td>\n    </tr>\n    <tr>\n        <td>Cell 3</td>\n        <td>Cell 4</td>\n    </tr>\n</table>",
-                        breakdown: [
-                            "<table>: Defines a table, used to display data in rows and columns, like a spreadsheet.",
-                            "<tr>: Stands for 'table row' and defines a row in the table. Each <tr> contains cells.",
-                            "<td>: Stands for 'table data' and defines a cell within a row. You can put text, images, or other elements inside a <td>."
-                        ]
-                    },
-                    {
-                        description: "Table Headers",
-                        code: "<table>\n    <tr>\n        <th>Name</th>\n        <th>Age</th>\n    </tr>\n    <tr>\n        <td>Alice</td>\n        <td>25</td>\n    </tr>\n</table>",
-                        breakdown: [
-                            "<th>: Stands for 'table header' and defines a header cell in a table. It’s typically bold and centered by default, used to label columns or rows.",
-                            "In this example, <th> tags in the first row create column headers ('Name' and 'Age'), while <td> tags in the second row hold the data.",
-                            "Using <th> improves accessibility, as screen readers can identify headers and associate them with data cells."
-                        ]
-                    },
-                    {
-                        description: "Basic Forms and Inputs",
-                        code: "<form>\n    <input type=\"text\" name=\"username\" placeholder=\"Enter username\">\n</form>",
-                        breakdown: [
-                            "<form>: Creates a form for user input, such as text fields, buttons, or checkboxes. It’s used to collect data to send to a server.",
-                            "<input>: A versatile tag for creating input fields. The 'type' attribute determines the input type (e.g., 'text' for a text field).",
-                            "name=\"username\": The 'name' attribute identifies the input when the form is submitted, so the server knows what data it’s receiving.",
-                            "placeholder=\"Enter username\": Provides a hint to the user about what to enter, displayed inside the input field until the user types."
-                        ]
-                    },
-                    {
-                        description: "Form Buttons",
-                        code: "<form>\n    <input type=\"submit\" value=\"Submit\">\n    <input type=\"reset\" value=\"Reset\">\n</form>",
-                        breakdown: [
-                            "<input type=\"submit\">: Creates a submit button that sends the form data to the server (or triggers a script if there’s no server).",
-                            "<input type=\"reset\">: Creates a reset button that clears all form inputs back to their default values.",
-                            "value=\"Submit\": The 'value' attribute sets the text displayed on the button, so users know what it does."
-                        ]
-                    },
-                    {
-                        description: "Labels in Forms",
-                        code: "<form>\n    <label for=\"email\">Email:</label>\n    <input type=\"email\" id=\"email\" name=\"email\">\n</form>",
-                        breakdown: [
-                            "<label>: Associates a text label with a form input, improving usability and accessibility by describing what the input is for.",
-                            "for=\"email\": The 'for' attribute matches the 'id' of the input it’s linked to, so clicking the label focuses the input field.",
-                            "<input type=\"email\">: A specialized input type that validates the user’s entry to ensure it’s a valid email address (e.g., includes '@')."
-                        ]
-                    },
-                    {
-                        description: "Radio Buttons in Forms",
-                        code: "<form>\n    <input type=\"radio\" id=\"yes\" name=\"choice\" value=\"yes\">\n    <label for=\"yes\">Yes</label>\n    <input type=\"radio\" id=\"no\" name=\"choice\" value=\"no\">\n    <label for=\"no\">No</label>\n</form>",
-                        breakdown: [
-                            "<input type=\"radio\">: Creates a radio button, allowing users to select one option from a group of choices.",
-                            "name=\"choice\": The 'name' attribute groups radio buttons together, ensuring only one can be selected at a time.",
-                            "value=\"yes\": The 'value' attribute specifies the data sent to the server if that option is selected.",
-                            "Labels with 'for' attributes make the radio buttons clickable via their text, improving usability."
-                        ]
-                    },
-                    {
-                        description: "Checkboxes in Forms",
-                        code: "<form>\n    <input type=\"checkbox\" id=\"subscribe\" name=\"subscribe\" value=\"yes\">\n    <label for=\"subscribe\">Subscribe to newsletter</label>\n</form>",
-                        breakdown: [
-                            "<input type=\"checkbox\">: Creates a checkbox, allowing users to select multiple options independently.",
-                            "Unlike radio buttons, checkboxes don’t need to share a 'name' to work together, but the 'name' attribute is still used for form submission.",
-                            "value=\"yes\": Specifies the data sent if the box is checked. If unchecked, no data is sent for that input.",
-                            "Labels enhance accessibility by making the checkbox clickable via its text."
-                        ]
-                    },
-                    {
-                        description: "Dropdown Menus in Forms",
-                        code: "<form>\n    <select name=\"color\">\n        <option value=\"red\">Red</option>\n        <option value=\"blue\">Blue</option>\n        <option value=\"green\">Green</option>\n    </select>\n</form>",
-                        breakdown: [
-                            "<select>: Creates a dropdown menu, allowing users to select one option from a list.",
-                            "<option>: Each option in the dropdown is defined by an <option> tag. The 'value' attribute specifies the data sent when selected.",
-                            "The text between <option> and </option> (e.g., 'Red') is what the user sees in the dropdown.",
-                            "The 'name' attribute on <select> identifies the dropdown’s data when the form is submitted."
-                        ]
-                    },
-                    {
-                        description: "Semantic HTML: Header",
-                        code: "<header>\n    <h1>Website Title</h1>\n    <nav>Navigation Links</nav>\n</header>",
-                        breakdown: [
-                            "<header>: A semantic element that represents introductory content, typically containing the site’s title, logo, or navigation.",
-                            "It’s often placed at the top of the page or within a section to introduce what follows.",
-                            "Semantic elements like <header> improve accessibility and SEO by clearly defining the page’s structure."
-                        ]
-                    },
-                    {
-                        description: "Semantic HTML: Navigation",
-                        code: "<nav>\n    <a href=\"home.html\">Home</a>\n    <a href=\"about.html\">About</a>\n</nav>",
-                        breakdown: [
-                            "<nav>: A semantic element that defines a navigation section, typically containing links to other pages or sections.",
-                            "It helps screen readers and search engines identify the primary navigation links, improving accessibility and SEO.",
-                            "You can place <nav> inside a <header> or use it standalone, depending on your layout."
-                        ]
-                    },
-                    {
-                        description: "Semantic HTML: Main Content",
-                        code: "<main>\n    <h1>Main Content</h1>\n    <p>This is the primary content.</p>\n</main>",
-                        breakdown: [
-                            "<main>: A semantic element that wraps the primary content of the page, excluding headers, footers, and sidebars.",
-                            "There should only be one <main> element per page, and it shouldn’t be nested inside other semantic elements like <article> or <section>.",
-                            "It helps assistive technologies focus on the core content, enhancing user experience."
-                        ]
-                    },
-                    {
-                        description: "Semantic HTML: Articles",
-                        code: "<article>\n    <h2>Blog Post Title</h2>\n    <p>Blog content here...</p>\n</article>",
-                        breakdown: [
-                            "<article>: A semantic element for self-contained content that could stand alone, like a blog post, news article, or forum post.",
-                            "It’s independent and can be reused in different contexts, such as in an RSS feed.",
-                            "You can nest <article> elements (e.g., for comments within a blog post) to represent related but distinct content."
-                        ]
-                    },
-                    {
-                        description: "Semantic HTML: Sections",
-                        code: "<section>\n    <h2>Section Title</h2>\n    <p>Section content here...</p>\n</section>",
-                        breakdown: [
-                            "<section>: A semantic element that groups related content together, often with a heading to describe its purpose.",
-                            "It’s used to break up a page into thematic sections, like chapters in a book, but it’s more generic than <article>.",
-                            "Each <section> should have a heading (<h1>-<h6>) to define its topic, improving the page’s structure."
-                        ]
-                    },
-                    {
-                        description: "Semantic HTML: Asides",
-                        code: "<aside>\n    <h3>Related Info</h3>\n    <p>This is a sidebar.</p>\n</aside>",
-                        breakdown: [
-                            "<aside>: A semantic element for content that’s tangentially related to the main content, like a sidebar, pull quote, or advertisement.",
-                            "It’s often styled to appear beside the main content, but its placement is flexible.",
-                            "Using <aside> helps assistive technologies understand that its content is supplementary, not critical to the main narrative."
-                        ]
-                    },
-                    {
-                        description: "Semantic HTML: Footer",
-                        code: "<footer>\n    <p>© 2025 My Website</p>\n    <a href=\"contact.html\">Contact Us</a>\n</footer>",
-                        breakdown: [
-                            "<footer>: A semantic element for footer content, typically containing copyright info, contact details, or links to related pages.",
-                            "It can be used at the bottom of the page or within a section/article to provide closing information.",
-                            "Footers improve the page’s structure by clearly marking the end of a content block."
-                        ]
-                    },
-                    {
-                        description: "HTML Comments",
+                        description: "Adding Comments",
                         code: "<!-- This is a comment -->\n<p>Visible text</p>",
                         breakdown: [
-                            "<!-- -->: Defines a comment in HTML. Anything between these tags is ignored by the browser and not displayed on the page.",
-                            "Comments are useful for leaving notes in your code, debugging (e.g., temporarily hiding code), or documenting your work.",
-                            "They can span multiple lines, as long as they’re enclosed within the comment tags."
+                            "<!-- -->: Creates a comment, which isn’t shown on the page but is visible in the code.",
+                            "Comments are useful for leaving notes or temporarily hiding code while testing.",
+                            "They help you and others understand your code later."
+                        ]
+                    },
+                    {
+                        description: "Using HTML Entities",
+                        code: "<p>Copyright © 2025</p>",
+                        breakdown: [
+                            "HTML entities are codes for special characters or symbols.",
+                            "© shows the copyright symbol (©). It starts with '&' and ends with ';'.",
+                            "Entities are also used for characters like < (<) to avoid confusion with HTML tags."
+                        ]
+                    },
+
+                    // Unit 3: Links and Images
+                    {
+                        description: "Creating Links",
+                        code: "<a href=\"https://example.com\">Click Me</a>",
+                        breakdown: [
+                            "<a>: The anchor tag creates a clickable link.",
+                            "href=\"https://example.com\": The 'href' attribute sets the link’s destination.",
+                            "'Click Me' is the text users see and click on."
+                        ]
+                    },
+                    {
+                        description: "Linking to Another Page",
+                        code: "<a href=\"about.html\">Go to About Page</a>",
+                        breakdown: [
+                            "Use a relative path like 'about.html' to link to another page on your site.",
+                            "A relative path means the file is in the same folder as your current page.",
+                            "This is useful for navigation, like linking to a 'Home' or 'Contact' page."
+                        ]
+                    },
+                    {
+                        description: "Adding Images",
+                        code: "<img src=\"photo.jpg\" alt=\"A sunny beach\">",
+                        breakdown: [
+                            "<img>: Adds an image to your page. It’s self-closing (no closing tag).",
+                            "src=\"photo.jpg\": The 'src' attribute points to the image file.",
+                            "alt=\"A sunny beach\": The 'alt' attribute describes the image for accessibility or if it fails to load."
+                        ]
+                    },
+                    {
+                        description: "Setting Image Size",
+                        code: "<img src=\"photo.jpg\" alt=\"A sunny beach\" width=\"200\" height=\"150\">",
+                        breakdown: [
+                            "width=\"200\": Sets the image width to 200 pixels.",
+                            "height=\"150\": Sets the image height to 150 pixels.",
+                            "Adjusting size helps the image fit your page, but keep the aspect ratio to avoid stretching."
+                        ]
+                    },
+                    {
+                        description: "Linking an Image",
+                        code: "<a href=\"https://example.com\">\n    <img src=\"photo.jpg\" alt=\"A sunny beach\">\n</a>",
+                        breakdown: [
+                            "Wrap an <img> tag in an <a> tag to make the image clickable.",
+                            "Clicking the image takes the user to the 'href' URL.",
+                            "This is common for logos that link to a homepage or clickable banners."
+                        ]
+                    },
+
+                    // Unit 4: Lists
+                    {
+                        description: "Creating an Unordered List",
+                        code: "<ul>\n    <li>Apples</li>\n    <li>Oranges</li>\n    <li>Bananas</li>\n</ul>",
+                        breakdown: [
+                            "<ul>: Creates an unordered list with bullet points.",
+                            "<li>: Each 'list item' is wrapped in an <li> tag.",
+                            "Use unordered lists for items where order doesn’t matter, like a shopping list."
+                        ]
+                    },
+                    {
+                        description: "Creating an Ordered List",
+                        code: "<ol>\n    <li>Step 1</li>\n    <li>Step 2</li>\n    <li>Step 3</li>\n</ol>",
+                        breakdown: [
+                            "<ol>: Creates an ordered list with numbers.",
+                            "<li>: Each item is a <li> tag, numbered automatically.",
+                            "Ordered lists are great for steps, rankings, or anything where order matters."
+                        ]
+                    },
+                    {
+                        description: "Nesting Lists",
+                        code: "<ul>\n    <li>Fruits\n        <ul>\n            <li>Apples</li>\n            <li>Oranges</li>\n        </ul>\n    </li>\n    <li>Vegetables</li>\n</ul>",
+                        breakdown: [
+                            "Nesting means putting a list inside another list to create subcategories.",
+                            "Here, a <ul> inside a <li> makes a sublist under 'Fruits'.",
+                            "Nesting helps organize complex information, like a menu with sub-items."
+                        ]
+                    },
+                    {
+                        description: "Using Lists for Navigation",
+                        code: "<ul>\n    <li><a href=\"home.html\">Home</a></li>\n    <li><a href=\"about.html\">About</a></li>\n    <li><a href=\"contact.html\">Contact</a></li>\n</ul>",
+                        breakdown: [
+                            "Combine <ul> and <a> tags to create a navigation menu.",
+                            "Each <li> contains a link, making an organized menu.",
+                            "This structure is easy to style with CSS to create horizontal or vertical menus."
+                        ]
+                    },
+                    {
+                        description: "Definition Lists",
+                        code: "<dl>\n    <dt>HTML</dt>\n    <dd>HyperText Markup Language</dd>\n    <dt>CSS</dt>\n    <dd>Cascading Style Sheets</dd>\n</dl>",
+                        breakdown: [
+                            "<dl>: Creates a definition list for terms and their definitions.",
+                            "<dt>: Defines a term, like 'HTML'.",
+                            "<dd>: Provides the definition, like 'HyperText Markup Language'.",
+                            "Use definition lists for glossaries or FAQs."
+                        ]
+                    },
+
+                    // Unit 5: Grouping and Semantics
+                    {
+                        description: "Using Divs to Group Content",
+                        code: "<div>\n    <h1>Title</h1>\n    <p>Some text here.</p>\n</div>",
+                        breakdown: [
+                            "<div>: A container that groups elements together, often for layout or styling.",
+                            "Divs are block-level, meaning they take up the full width and start on a new line.",
+                            "Here, the <div> groups a heading and paragraph to treat them as a unit."
+                        ]
+                    },
+                    {
+                        description: "Inline Spans for Styling",
+                        code: "<p>This is a <span>special</span> word.</p>",
+                        breakdown: [
+                            "<span>: A container for small pieces of text, often used for styling specific words.",
+                            "<span> is inline, so it doesn’t start a new line.",
+                            "Here, <span> can be used to style 'special' differently, like changing its color."
                         ]
                     },
                     {
                         description: "Block vs Inline Elements",
                         code: "<div>Block element</div>\n<span>Inline element</span>",
                         breakdown: [
-                            "Block elements (e.g., <div>, <p>, <h1>): Take up the full width of their parent container and start on a new line, stacking vertically.",
-                            "Inline elements (e.g., <span>, <a>, <b>): Only take up as much width as their content needs and stay on the same line as surrounding content.",
-                            "Understanding block vs inline helps with layout design, as it affects how elements are positioned on the page."
+                            "Block elements (like <div>, <p>) take up the full width and start on a new line.",
+                            "Inline elements (like <span>, <a>) only take up as much space as their content and stay on the same line.",
+                            "This difference helps you control how elements are arranged on your page."
                         ]
                     },
                     {
-                        description: "HTML Entities",
-                        code: "<p>Copyright © 2025 &lt;Codexedoc&gt;</p>",
+                        description: "Adding IDs and Classes",
+                        code: "<p id=\"intro\" class=\"highlight\">Welcome!</p>",
                         breakdown: [
-                            "HTML entities are special codes used to display reserved characters or symbols that have specific meanings in HTML.",
-                            "&copy;: Renders the copyright symbol (©). It’s an entity for a character that might not be easily typed.",
-                            "&lt;: Renders a less-than sign (<), which is normally reserved for HTML tags. Using the entity ensures it’s displayed as text.",
-                            "Entities start with '&' and end with ';', and they’re essential for displaying special characters safely."
+                            "id=\"intro\": Gives the element a unique identifier for styling or JavaScript. IDs must be unique.",
+                            "class=\"highlight\": Assigns a class, which can be shared by multiple elements for styling.",
+                            "IDs and classes let you target elements to add styles or behavior."
                         ]
                     },
                     {
-                        description: "Embedding Iframes",
-                        code: "<iframe src=\"https://example.com\" width=\"300\" height=\"200\"></iframe>",
+                        description: "Semantic HTML: Main Content",
+                        code: "<main>\n    <h1>Welcome</h1>\n    <p>This is the main content.</p>\n</main>",
                         breakdown: [
-                            "<iframe>: Embeds another webpage or resource within the current page, creating a window to external content.",
-                            "src=\"https://example.com\": Specifies the URL of the content to embed, such as a webpage, video, or map.",
-                            "width=\"300\" height=\"200\": Sets the dimensions of the iframe in pixels, controlling its size on the page.",
-                            "Iframes are useful for embedding third-party content but should be used carefully due to security and performance concerns."
+                            "<main>: Marks the primary content of the page, like the main article.",
+                            "There should only be one <main> per page, not nested in other semantic tags.",
+                            "Semantic tags like <main> help search engines and screen readers understand your page."
+                        ]
+                    },
+
+                    // Unit 6: Tables
+                    {
+                        description: "Creating a Basic Table",
+                        code: "<table>\n    <tr>\n        <td>Cell 1</td>\n        <td>Cell 2</td>\n    </tr>\n    <tr>\n        <td>Cell 3</td>\n        <td>Cell 4</td>\n    </tr>\n</table>",
+                        breakdown: [
+                            "<table>: Creates a table to display data in rows and columns.",
+                            "<tr>: Stands for 'table row' and defines a row in the table.",
+                            "<td>: Stands for 'table data' and defines a cell in a row."
                         ]
                     },
                     {
-                        description: "Meta Tags for SEO",
-                        code: "<head>\n    <meta name=\"description\" content=\"Learn HTML basics\">\n    <meta name=\"keywords\" content=\"HTML, tutorial, beginners\">\n</head>",
+                        description: "Adding Table Headers",
+                        code: "<table>\n    <tr>\n        <th>Name</th>\n        <th>Age</th>\n    </tr>\n    <tr>\n        <td>Alice</td>\n        <td>25</td>\n    </tr>\n</table>",
                         breakdown: [
-                            "<meta>: Provides metadata about the page, which isn’t displayed but is used by browsers, search engines, and other tools.",
-                            "name=\"description\": Describes the page’s content in a short summary (e.g., 150-160 characters), often shown in search engine results.",
-                            "name=\"keywords\": Lists keywords relevant to the page’s content, helping search engines understand the topic (though less impactful today due to SEO evolution).",
-                            "Proper meta tags improve search engine optimization (SEO) by making the page more discoverable."
+                            "<th>: Stands for 'table header' and creates a header cell, usually bold and centered.",
+                            "Here, <th> tags in the first row label the columns ('Name' and 'Age').",
+                            "Headers make tables easier to understand and improve accessibility."
                         ]
                     },
                     {
-                        description: "HTML5 Audio",
-                        code: "<audio controls>\n    <source src=\"audio.mp3\" type=\"audio/mpeg\">\n    Your browser does not support audio.\n</audio>",
+                        description: "Spanning Rows and Columns",
+                        code: "<table>\n    <tr>\n        <td colspan=\"2\">Spans 2 columns</td>\n    </tr>\n    <tr>\n        <td>Cell 1</td>\n        <td rowspan=\"2\">Spans 2 rows</td>\n    </tr>\n    <tr>\n        <td>Cell 2</td>\n    </tr>\n</table>",
                         breakdown: [
-                            "<audio>: An HTML5 element for embedding audio files, such as music or podcasts, directly into the page.",
-                            "controls: Adds playback controls (play, pause, volume) so users can interact with the audio.",
-                            "<source>: Specifies the audio file’s path (src) and type (type=\"audio/mpeg\"). Multiple <source> tags can provide fallback formats.",
-                            "Fallback text (e.g., 'Your browser does not support audio') displays if the browser doesn’t support the <audio> element."
+                            "colspan=\"2\": Makes a cell span across 2 columns.",
+                            "rowspan=\"2\": Makes a cell span across 2 rows.",
+                            "Spanning is useful for merging cells to create more complex table layouts."
+                        ]
+                    },
+
+                    // Unit 7: Forms
+                    {
+                        description: "Creating a Basic Form",
+                        code: "<form>\n    <input type=\"text\" name=\"username\" placeholder=\"Enter username\">\n</form>",
+                        breakdown: [
+                            "<form>: Creates a form to collect user input, like text or selections.",
+                            "<input type=\"text\">: Creates a text field for users to type in.",
+                            "name=\"username\": Identifies the input when the form is submitted.",
+                            "placeholder=\"Enter username\": Shows a hint in the field until the user types."
                         ]
                     },
                     {
-                        description: "HTML5 Video",
-                        code: "<video controls width=\"400\">\n    <source src=\"video.mp4\" type=\"video/mp4\">\n    Your browser does not support video.\n</video>",
+                        description: "Adding Form Buttons",
+                        code: "<form>\n    <input type=\"submit\" value=\"Submit\">\n    <input type=\"reset\" value=\"Reset\">\n</form>",
                         breakdown: [
-                            "<video>: An HTML5 element for embedding video files directly into the page, such as tutorials or promotional clips.",
-                            "controls: Adds playback controls (play, pause, volume, fullscreen) for user interaction.",
-                            "width=\"400\": Sets the video player’s width in pixels. Height adjusts automatically to maintain aspect ratio unless specified.",
-                            "<source>: Defines the video file’s path and type. Multiple sources can be provided for compatibility (e.g., MP4, WebM).",
-                            "Fallback text ensures users with unsupported browsers see a message instead of a broken element."
+                            "<input type=\"submit\">: Creates a button to submit the form.",
+                            "<input type=\"reset\">: Creates a button to clear the form.",
+                            "value=\"Submit\": Sets the text on the button."
+                        ]
+                    },
+                    {
+                        description: "Using Labels in Forms",
+                        code: "<form>\n    <label for=\"email\">Email:</label>\n    <input type=\"email\" id=\"email\" name=\"email\">\n</form>",
+                        breakdown: [
+                            "<label>: Describes what an input is for, improving usability.",
+                            "for=\"email\": Links the label to an input with the matching 'id'.",
+                            "<input type=\"email\">: Ensures the user enters a valid email address."
                         ]
                     }
                 ]
@@ -390,36 +395,36 @@
 
             const baseTestData = {
                 html: [
-                    { question: "What does <!DOCTYPE html> declare?", options: ["HTML5 document", "CSS version", "JavaScript file", "HTML4 document"], correct: 0 },
+                    { question: "What does HTML stand for?", options: ["HyperText Markup Language", "HighText Markup Language", "HyperTool Markup Language", "HyperText Main Language"], correct: 0 },
+                    { question: "What does <!DOCTYPE html> do?", options: ["Declares HTML5", "Creates a heading", "Links a stylesheet", "Defines a paragraph"], correct: 0 },
                     { question: "Which tag creates the largest heading?", options: ["<h6>", "<h1>", "<h3>", "<h4>"], correct: 1 },
-                    { question: "What tag makes text bold?", options: ["<i>", "<b>", "<p>", "<span>"], correct: 1 },
-                    { question: "What attribute specifies a link’s destination?", options: ["src", "href", "alt", "id"], correct: 1 },
-                    { question: "What does the 'alt' attribute do in an <img> tag?", options: ["Sets width", "Provides accessibility text", "Links to another page", "Specifies the source"], correct: 1 },
-                    { question: "Which tag creates an unordered list?", options: ["<ol>", "<ul>", "<li>", "<list>"], correct: 1 },
-                    { question: "What tag is used for a numbered list?", options: ["<ul>", "<ol>", "<li>", "<num>"], correct: 1 },
-                    { question: "Which is an inline element?", options: ["<div>", "<span>", "<p>", "<h1>"], correct: 1 },
-                    { question: "What attribute provides a unique identifier?", options: ["class", "id", "name", "type"], correct: 1 },
-                    { question: "What tag defines a table cell?", options: ["<tr>", "<td>", "<th>", "<table>"], correct: 1 },
-                    { question: "Which tag creates a table header?", options: ["<td>", "<th>", "<tr>", "<table>"], correct: 1 },
-                    { question: "What tag wraps form elements?", options: ["<form>", "<input>", "<label>", "<select>"], correct: 0 },
-                    { question: "What input type submits a form?", options: ["text", "submit", "button", "reset"], correct: 1 },
-                    { question: "What does the 'for' attribute in a label do?", options: ["Sets input type", "Links to input id", "Styles the label", "Submits the form"], correct: 1 },
-                    { question: "What groups radio buttons together?", options: ["id", "name", "value", "type"], correct: 1 },
-                    { question: "What input type allows multiple selections?", options: ["radio", "checkbox", "text", "submit"], correct: 1 },
-                    { question: "What tag creates a dropdown?", options: ["<select>", "<option>", "<input>", "<dropdown>"], correct: 0 },
-                    { question: "What semantic tag is for navigation?", options: ["<header>", "<nav>", "<main>", "<footer>"], correct: 1 },
-                    { question: "Which tag is for the main content?", options: ["<nav>", "<main>", "<footer>", "<aside>"], correct: 1 },
-                    { question: "What tag represents a standalone article?", options: ["<section>", "<article>", "<aside>", "<div>"], correct: 1 },
-                    { question: "What tag groups related content?", options: ["<article>", "<section>", "<div>", "<aside>"], correct: 1 },
-                    { question: "Which tag is for sidebar content?", options: ["<aside>", "<footer>", "<header>", "<main>"], correct: 0 },
-                    { question: "What semantic tag is for footer content?", options: ["<header>", "<footer>", "<main>", "<nav>"], correct: 1 },
+                    { question: "What tag is used for a paragraph?", options: ["<p>", "<h1>", "<div>", "<span>"], correct: 0 },
+                    { question: "What does the <br> tag do?", options: ["Adds a line break", "Creates a paragraph", "Makes text bold", "Italicizes text"], correct: 0 },
+                    { question: "Which tag makes text bold?", options: ["<i>", "<b>", "<p>", "<span>"], correct: 1 },
+                    { question: "What tag italicizes text?", options: ["<b>", "<i>", "<div>", "<h1>"], correct: 1 },
+                    { question: "Which heading tag is for a subsection?", options: ["<h1>", "<h2>", "<h3>", "<h6>"], correct: 2 },
                     { question: "How do you write an HTML comment?", options: ["// Comment", "<!-- Comment -->", "# Comment", "/* Comment */"], correct: 1 },
-                    { question: "Which element takes the full width by default?", options: ["<span>", "<div>", "<a>", "<i>"], correct: 1 },
-                    { question: "What entity displays a copyright symbol?", options: ["&copy;", "&lt;", "&amp;", "&gt;"], correct: 0 },
-                    { question: "What tag embeds external content?", options: ["<iframe>", "<img>", "<div>", "<span>"], correct: 0 },
-                    { question: "What meta tag helps with SEO description?", options: ["name=\"keywords\"", "name=\"description\"", "name=\"title\"", "name=\"author\""], correct: 1 },
-                    { question: "What HTML5 tag embeds audio?", options: ["<audio>", "<video>", "<media>", "<sound>"], correct: 0 },
-                    { question: "What attribute adds playback controls to a video?", options: ["controls", "autoplay", "loop", "muted"], correct: 0 }
+                    { question: "What entity displays a copyright symbol?", options: ["©", "<", "&", ">"], correct: 0 },
+                    { question: "What tag creates a link?", options: ["<img>", "<a>", "<p>", "<div>"], correct: 1 },
+                    { question: "What attribute sets a link’s destination?", options: ["src", "href", "alt", "id"], correct: 1 },
+                    { question: "What tag adds an image?", options: ["<a>", "<img>", "<p>", "<span>"], correct: 1 },
+                    { question: "What attribute describes an image for accessibility?", options: ["src", "alt", "width", "height"], correct: 1 },
+                    { question: "How do you make an image clickable?", options: ["Wrap it in a <p> tag", "Wrap it in an <a> tag", "Add a class", "Use a <div>"], correct: 1 },
+                    { question: "What tag creates an unordered list?", options: ["<ol>", "<ul>", "<li>", "<list>"], correct: 1 },
+                    { question: "What tag creates a numbered list?", options: ["<ul>", "<ol>", "<li>", "<num>"], correct: 1 },
+                    { question: "How do you create a sublist?", options: ["Use a <div>", "Nest a list inside a <li>", "Add a class", "Use a <p>"], correct: 1 },
+                    { question: "What tag is used for a navigation list item?", options: ["<a>", "<li>", "<ul>", "<ol>"], correct: 1 },
+                    { question: "What tag defines a term in a definition list?", options: ["<dt>", "<dd>", "<dl>", "<li>"], correct: 0 },
+                    { question: "What tag groups elements as a block?", options: ["<span>", "<div>", "<a>", "<i>"], correct: 1 },
+                    { question: "What tag is used for inline styling?", options: ["<div>", "<span>", "<p>", "<h1>"], correct: 1 },
+                    { question: "Which element takes up the full width?", options: ["<span>", "<div>", "<a>", "<i>"], correct: 1 },
+                    { question: "What attribute gives a unique identifier?", options: ["class", "id", "name", "type"], correct: 1 },
+                    { question: "What semantic tag is for the main content?", options: ["<nav>", "<main>", "<footer>", "<aside>"], correct: 1 },
+                    { question: "What tag defines a table row?", options: ["<td>", "<tr>", "<th>", "<table>"], correct: 1 },
+                    { question: "What tag creates a table header?", options: ["<td>", "<th>", "<tr>", "<table>"], correct: 1 },
+                    { question: "What attribute makes a cell span 2 columns?", options: ["rowspan", "colspan", "span", "width"], correct: 1 },
+                    { question: "What tag creates a form?", options: ["<form>", "<input>", "<label>", "<select>"], correct: 0 },
+                    { question: "What does the 'for' attribute in a label do?", options: ["Sets input type", "Links to input id", "Styles the label", "Submits the form"], correct: 1 }
                 ]
             };
 
