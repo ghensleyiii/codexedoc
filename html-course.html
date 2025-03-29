@@ -84,7 +84,7 @@
         console.log("Script starting");
 
         try {
-            // Helper function to escape HTML characters
+            // Fixed escapeHTML function to properly display HTML code
             function escapeHTML(str) {
                 return str.replace(/&/g, "&amp;")
                          .replace(/</g, "&lt;")
@@ -100,18 +100,18 @@
                         description: "What is HTML?",
                         code: "<!DOCTYPE html>\n<html>\n<head>\n    <title>My First Page</title>\n</head>\n<body>\n    <h1>Hello!</h1>\n</body>\n</html>",
                         breakdown: [
-                            "HTML stands for HyperText Markup Language. It’s the standard language for creating web pages by defining their structure.",
-                            "Think of HTML as the skeleton of a webpage—it organizes content like text, images, and links.",
-                            "This example shows a simple webpage with a title and a heading. We’ll explore each part in the next lessons."
+                            "HTML stands for HyperText Markup Language. 'HyperText' means text with links to other pages, and 'Markup' means tags that describe the content.",
+                            "It’s like the skeleton of a webpage, telling the browser how to structure text, images, and links.",
+                            "This example is a full webpage: a title in the tab (<title>) and a big 'Hello!' on the screen (<h1>)."
                         ]
                     },
                     {
                         description: "Setting Up an HTML Document",
                         code: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My Page</title>\n</head>\n<body>\n</body>\n</html>",
                         breakdown: [
-                            "<!DOCTYPE html>: Declares the document as HTML5, the latest standard.",
-                            "<html lang=\"en\">: The root element of the page. 'lang=\"en\"' sets the language to English for accessibility.",
-                            "<head>: Contains metadata like <meta charset=\"UTF-8\"> (for special characters) and <title> (shown in the browser tab).",
+                            "<!DOCTYPE html>: Tells the browser this is an HTML5 document, the latest standard.",
+                            "<html lang=\"en\">: The root of the page. 'lang=\"en\"' sets the language to English for accessibility.",
+                            "<head>: Holds metadata like <meta charset=\"UTF-8\"> (for special characters) and <title> (shown in the browser tab).",
                             "<body>: Where all visible content goes. It’s empty now, but we’ll add to it soon."
                         ]
                     },
@@ -120,8 +120,8 @@
                         code: "<h1>My First Heading</h1>",
                         breakdown: [
                             "<h1>: Creates a large heading, often used for the main title of a page.",
-                            "HTML has six heading levels (<h1> to <h6>), with <h1> being the biggest and most important.",
-                            "Headings help organize content, like a title in a book."
+                            "HTML has six heading levels (<h1> to <h6>), with <h1> being the biggest.",
+                            "Headings help organize your content, like a title in a book."
                         ]
                     },
                     {
@@ -148,8 +148,8 @@
                         description: "Making Text Bold",
                         code: "<p>This is <b>bold</b> text.</p>",
                         breakdown: [
-                            "<b>: Makes text bold, helping it stand out visually.",
-                            "Use bold text to emphasize important words, like key terms or warnings.",
+                            "<b>: Makes text bold, helping it stand out.",
+                            "Use bold text to highlight important words, like key terms or warnings.",
                             "It’s a visual effect and doesn’t change the meaning of the text."
                         ]
                     },
@@ -157,7 +157,7 @@
                         description: "Italicizing Text",
                         code: "<p>This is <i>italic</i> text.</p>",
                         breakdown: [
-                            "<i>: Italicizes text, giving it a slanted appearance.",
+                            "<i>: Italicizes text, giving it a slanted look.",
                             "Italics are often used for emphasis, book titles, or foreign words.",
                             "Like <b>, <i> is for visual styling and doesn’t affect the content’s meaning."
                         ]
@@ -166,18 +166,18 @@
                         description: "Using Headings for Structure",
                         code: "<h1>Main Title</h1>\n<h2>Section Title</h2>\n<h3>Subsection</h3>",
                         breakdown: [
-                            "Headings (<h1> to <h6>) create a hierarchy, like an outline for your page.",
-                            "<h1> is the most important (e.g., the page title), <h2> for main sections, <h3> for subsections, and so on.",
-                            "Using headings in order helps search engines and screen readers understand your page’s structure."
+                            "Headings (<h1> to <h6>) create a hierarchy, like an outline.",
+                            "<h1> is the most important (e.g., page title), <h2> for sections, <h3> for subsections.",
+                            "Using headings in order helps search engines and screen readers understand your page."
                         ]
                     },
                     {
                         description: "Adding Comments",
                         code: "<!-- This is a comment -->\n<p>Visible text</p>",
                         breakdown: [
-                            "<!-- -->: Creates a comment, which isn’t shown on the page but is visible in the code.",
-                            "Comments are useful for leaving notes or temporarily hiding code while testing.",
-                            "They help you and others understand your code later."
+                            "<!-- -->: Anything between these is a comment—hidden on the page but visible in the code.",
+                            "Use comments to explain your code (e.g., 'This section is for the header') or test by hiding parts without deleting them.",
+                            "They’re like sticky notes for you or teammates to understand the code later."
                         ]
                     },
                     {
@@ -195,7 +195,7 @@
                         description: "Creating Links",
                         code: "<a href=\"https://example.com\">Click Me</a>",
                         breakdown: [
-                            "<a>: The anchor tag creates a clickable link to another page or resource.",
+                            "<a>: The anchor tag creates a clickable link.",
                             "href=\"https://example.com\": The 'href' attribute sets the link’s destination.",
                             "'Click Me' is the text users see and click on."
                         ]
@@ -363,10 +363,11 @@
 
                     // Unit 7: Forms
                     {
-                        description: "Creating a Basic Form",
-                        code: "<form>\n    <input type=\"text\" name=\"username\" placeholder=\"Enter username\">\n</form>",
+                        description: "Creating a Basic Form with Labels",
+                        code: "<form>\n    <label for=\"username\">Username:</label>\n    <input type=\"text\" id=\"username\" name=\"username\" placeholder=\"Enter username\">\n</form>",
                         breakdown: [
                             "<form>: Creates a form to collect user input, like text or selections.",
+                            "<label for=\"username\">: Describes what the input is for and links to an input with the matching 'id'. Clicking the label focuses the input.",
                             "<input type=\"text\">: Creates a text field for users to type in.",
                             "name=\"username\": Identifies the input when the form is submitted.",
                             "placeholder=\"Enter username\": Shows a hint in the field until the user types."
@@ -379,15 +380,6 @@
                             "<input type=\"submit\">: Creates a button to submit the form.",
                             "<input type=\"reset\">: Creates a button to clear the form.",
                             "value=\"Submit\": Sets the text on the button."
-                        ]
-                    },
-                    {
-                        description: "Using Labels in Forms",
-                        code: "<form>\n    <label for=\"email\">Email:</label>\n    <input type=\"email\" id=\"email\" name=\"email\">\n</form>",
-                        breakdown: [
-                            "<label>: Describes what an input is for, improving usability.",
-                            "for=\"email\": Links the label to an input with the matching 'id'.",
-                            "<input type=\"email\">: Ensures the user enters a valid email address."
                         ]
                     }
                 ]
@@ -404,7 +396,7 @@
                     { question: "What tag italicizes text?", options: ["<b>", "<i>", "<div>", "<h1>"], correct: 1 },
                     { question: "Which heading tag is for a subsection?", options: ["<h1>", "<h2>", "<h3>", "<h6>"], correct: 2 },
                     { question: "How do you write an HTML comment?", options: ["// Comment", "<!-- Comment -->", "# Comment", "/* Comment */"], correct: 1 },
-                    { question: "What entity displays a copyright symbol?", options: ["©", "<", "&", ">"], correct: 0 },
+                    { question: "What entity displays a copyright symbol?", options: ["&copy;", "&lt;", "&amp;", "&gt;"], correct: 0 },
                     { question: "What tag creates a link?", options: ["<img>", "<a>", "<p>", "<div>"], correct: 1 },
                     { question: "What attribute sets a link’s destination?", options: ["src", "href", "alt", "id"], correct: 1 },
                     { question: "What tag adds an image?", options: ["<a>", "<img>", "<p>", "<span>"], correct: 1 },
@@ -423,10 +415,12 @@
                     { question: "What tag defines a table row?", options: ["<td>", "<tr>", "<th>", "<table>"], correct: 1 },
                     { question: "What tag creates a table header?", options: ["<td>", "<th>", "<tr>", "<table>"], correct: 1 },
                     { question: "What attribute makes a cell span 2 columns?", options: ["rowspan", "colspan", "span", "width"], correct: 1 },
-                    { question: "What tag creates a form?", options: ["<form>", "<input>", "<label>", "<select>"], correct: 0 },
-                    { question: "What does the 'for' attribute in a label do?", options: ["Sets input type", "Links to input id", "Styles the label", "Submits the form"], correct: 1 }
+                    { question: "What does the <label> tag do in a form?", options: ["Creates a text field", "Links to an input for accessibility", "Submits the form", "Styles the input"], correct: 1 },
+                    { question: "What does <input type=\"submit\"> do?", options: ["Clears the form", "Submits the form", "Adds a label", "Creates a checkbox"], correct: 1 }
                 ]
             };
+
+            console.log("Data defined successfully");
 
             let currentLesson = 0;
             let currentTest = 0;
@@ -444,11 +438,11 @@
             }
 
             function startLearning(lang) {
-                console.log("startLearning:", lang);
+                console.log("startLearning called with:", lang);
                 const grid = document.getElementById("html-lessons");
                 const contents = document.getElementById("html-lesson-contents");
                 if (!grid || !contents) {
-                    console.error("Lesson elements not found");
+                    console.error("Lesson elements not found: grid =", grid, "contents =", contents);
                     return;
                 }
                 grid.innerHTML = "";
@@ -461,6 +455,7 @@
                     box.classList.add("lesson-box");
                     box.textContent = num;
                     box.onclick = () => {
+                        console.log("Lesson box clicked:", num);
                         currentLesson = num;
                         completedLessons.add(num);
                         toggleLesson(num);
@@ -491,6 +486,7 @@
             }
 
             function toggleLesson(num) {
+                console.log("toggleLesson called with:", num);
                 if (num < 1 || num > 30) return;
                 document.querySelectorAll(".lesson-content").forEach(c => c.classList.remove("active"));
                 const lesson = document.getElementById(`html-lesson-${num}`);
@@ -506,6 +502,7 @@
             }
 
             function navigateLesson(num) {
+                console.log("navigateLesson called with:", num);
                 if (num < 1 || num > 30) return;
                 currentLesson = num;
                 completedLessons.add(num);
@@ -513,12 +510,12 @@
             }
 
             function startTest(lang) {
-                console.log("startTest:", lang);
+                console.log("startTest called with:", lang);
                 const modal = document.getElementById("testModal");
                 const contents = document.getElementById("testContents");
                 const grid = document.getElementById("testGrid");
                 if (!modal || !contents || !grid) {
-                    console.error("Test elements not found");
+                    console.error("Test elements not found: modal =", modal, "contents =", contents, "grid =", grid);
                     return;
                 }
                 contents.innerHTML = "";
@@ -543,6 +540,7 @@
                     box.classList.add("test-box");
                     box.textContent = num;
                     box.onclick = () => {
+                        console.log("Test box clicked:", num);
                         currentTest = num;
                         toggleTest(num);
                     };
@@ -567,6 +565,7 @@
             }
 
             function toggleTest(num) {
+                console.log("toggleTest called with:", num);
                 if (num < 1 || num > 30) return;
                 document.querySelectorAll(".test-content").forEach(c => c.classList.remove("active"));
                 const test = document.getElementById(`html-test-${num}`);
@@ -588,12 +587,14 @@
             }
 
             function navigateTest(num) {
+                console.log("navigateTest called with:", num);
                 if (num < 1 || num > 30) return;
                 currentTest = num;
                 toggleTest(num);
             }
 
             function selectOption(num, idx) {
+                console.log("selectOption called with: num =", num, "idx =", idx);
                 const options = document.querySelectorAll(`#html-test-${num} .test-option`);
                 options.forEach(opt => opt.classList.remove("selected"));
                 options[idx].classList.add("selected");
@@ -605,6 +606,7 @@
             }
 
             function submitTest() {
+                console.log("submitTest called");
                 let score = 0;
                 userAnswers.forEach((answer, i) => {
                     if (answer === shuffledTestData[i].correct) score++;
@@ -618,6 +620,7 @@
             }
 
             function closeTest() {
+                console.log("closeTest called");
                 document.getElementById("testModal").classList.remove("active");
             }
 
