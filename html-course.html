@@ -328,7 +328,7 @@
                         breakdown: [
                             "<main>: Marks the primary content of the page, like the main article.",
                             "There should only be one <main> per page, not nested in other semantic tags.",
-                            "Semantic tags like <main> help search engines and screen readers understand your page."
+                            "Semantic tags like <main> help search engines and screen readers understand your page better."
                         ]
                     },
 
@@ -428,6 +428,8 @@
                 ]
             };
 
+            console.log("Data defined successfully");
+
             let currentLesson = 0;
             let currentTest = 0;
             const completedLessons = new Set();
@@ -444,11 +446,11 @@
             }
 
             function startLearning(lang) {
-                console.log("startLearning:", lang);
+                console.log("startLearning called with:", lang);
                 const grid = document.getElementById("html-lessons");
                 const contents = document.getElementById("html-lesson-contents");
                 if (!grid || !contents) {
-                    console.error("Lesson elements not found");
+                    console.error("Lesson elements not found: grid =", grid, "contents =", contents);
                     return;
                 }
                 grid.innerHTML = "";
@@ -461,6 +463,7 @@
                     box.classList.add("lesson-box");
                     box.textContent = num;
                     box.onclick = () => {
+                        console.log("Lesson box clicked:", num);
                         currentLesson = num;
                         completedLessons.add(num);
                         toggleLesson(num);
@@ -491,6 +494,7 @@
             }
 
             function toggleLesson(num) {
+                console.log("toggleLesson called with:", num);
                 if (num < 1 || num > 30) return;
                 document.querySelectorAll(".lesson-content").forEach(c => c.classList.remove("active"));
                 const lesson = document.getElementById(`html-lesson-${num}`);
@@ -506,6 +510,7 @@
             }
 
             function navigateLesson(num) {
+                console.log("navigateLesson called with:", num);
                 if (num < 1 || num > 30) return;
                 currentLesson = num;
                 completedLessons.add(num);
@@ -513,12 +518,12 @@
             }
 
             function startTest(lang) {
-                console.log("startTest:", lang);
+                console.log("startTest called with:", lang);
                 const modal = document.getElementById("testModal");
                 const contents = document.getElementById("testContents");
                 const grid = document.getElementById("testGrid");
                 if (!modal || !contents || !grid) {
-                    console.error("Test elements not found");
+                    console.error("Test elements not found: modal =", modal, "contents =", contents, "grid =", grid);
                     return;
                 }
                 contents.innerHTML = "";
@@ -543,6 +548,7 @@
                     box.classList.add("test-box");
                     box.textContent = num;
                     box.onclick = () => {
+                        console.log("Test box clicked:", num);
                         currentTest = num;
                         toggleTest(num);
                     };
@@ -567,6 +573,7 @@
             }
 
             function toggleTest(num) {
+                console.log("toggleTest called with:", num);
                 if (num < 1 || num > 30) return;
                 document.querySelectorAll(".test-content").forEach(c => c.classList.remove("active"));
                 const test = document.getElementById(`html-test-${num}`);
@@ -588,12 +595,14 @@
             }
 
             function navigateTest(num) {
+                console.log("navigateTest called with:", num);
                 if (num < 1 || num > 30) return;
                 currentTest = num;
                 toggleTest(num);
             }
 
             function selectOption(num, idx) {
+                console.log("selectOption called with: num =", num, "idx =", idx);
                 const options = document.querySelectorAll(`#html-test-${num} .test-option`);
                 options.forEach(opt => opt.classList.remove("selected"));
                 options[idx].classList.add("selected");
@@ -605,6 +614,7 @@
             }
 
             function submitTest() {
+                console.log("submitTest called");
                 let score = 0;
                 userAnswers.forEach((answer, i) => {
                     if (answer === shuffledTestData[i].correct) score++;
@@ -618,6 +628,7 @@
             }
 
             function closeTest() {
+                console.log("closeTest called");
                 document.getElementById("testModal").classList.remove("active");
             }
 
