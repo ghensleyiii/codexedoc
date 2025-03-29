@@ -5,295 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codexedoc - HTML Course</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            background-color: #1a1a1a;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        header {
-            background-color: #1a1a1a;
-            padding: 20px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #00b7eb;
-            display: inline-block;
-        }
-
-        .logo a {
-            color: #00b7eb;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .logo a:hover {
-            color: #00ff00;
-        }
-
-        .logo span {
-            color: #00ff00;
-            font-size: 5rem;
-            position: relative;
-            top: 8px;
-        }
-
-        .main-section {
-            background-color: #1a1a1a;
-            padding: 50px 20px;
-            text-align: center;
-            color: #d4d4d4;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .start-btn, .test-btn {
-            background-color: #00ff00;
-            color: #1a1a1a;
-            padding: 15px 30px;
-            border: 2px solid #000000;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .start-btn:hover, .test-btn:hover {
-            background-color: #00cc00;
-        }
-
-        .lessons-grid, .test-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 10px;
-            max-width: 800px;
-            margin: 0 auto;
-            margin-top: 30px;
-        }
-
-        .lesson-box, .test-box {
-            background-color: #2a2a2a;
-            color: #d4d4d4;
-            padding: 20px;
-            border: 2px solid #00b7eb;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            font-weight: bold;
-            transition: transform 0.2s, background-color 0.3s;
-        }
-
-        .lesson-box.completed, .test-box.completed {
-            background-color: #00b7eb;
-            color: #1a1a1a;
-        }
-
-        .lesson-box:hover, .test-box:hover {
-            transform: scale(1.1);
-        }
-
-        .lesson-content, .test-content {
-            display: none;
-            background-color: #2a2a2a;
-            padding: 20px;
-            margin: 0 auto 20px auto;
-            max-width: 800px;
-            border-radius: 5px;
-            border: 1px solid #00b7eb;
-        }
-
-        .lesson-content.active, .test-content.active {
-            display: block;
-        }
-
-        .lesson-description, .test-description {
-            color: #00ff00;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .code-breakdown {
-            background-color: #000000;
-            color: #d4d4d4;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 15px;
-            border-radius: 5px;
-            white-space: pre-wrap;
-            text-align: left;
-            margin-bottom: 15px;
-        }
-
-        .code-explanation {
-            color: #d4d4d4;
-            text-align: left;
-            margin-bottom: 15px;
-        }
-
-        .code-explanation h4 {
-            color: #00b7eb;
-            margin-bottom: 10px;
-        }
-
-        .code-explanation ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-
-        .code-explanation li {
-            margin-bottom: 5px;
-        }
-
-        .test-question {
-            color: #d4d4d4;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .test-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .test-option {
-            background-color: #3a3a3a;
-            color: #d4d4d4;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-align: left;
-        }
-
-        .test-option:hover {
-            background-color: #4a4a4a;
-        }
-
-        .test-option.selected {
-            background-color: #00b7eb;
-            color: #1a1a1a;
-        }
-
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .nav-btn, .submit-btn {
-            background-color: #00b7eb;
-            color: #1a1a1a;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .nav-btn:disabled, .submit-btn:disabled {
-            background-color: #555;
-            cursor: not-allowed;
-        }
-
-        .nav-btn:hover:not(:disabled), .submit-btn:hover:not(:disabled) {
-            background-color: #00a3d3;
-        }
-
-        .test-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 200;
-            overflow-y: auto;
-        }
-
-        .test-modal.active {
-            display: block;
-        }
-
-        .test-modal-content {
-            background-color: #1a1a1a;
-            margin: 5% auto;
-            padding: 20px;
-            max-width: 900px;
-            border-radius: 5px;
-            position: relative;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            color: #00ff00;
-            font-size: 2rem;
-            cursor: pointer;
-        }
-
-        footer {
-            background-color: #1a1a1a;
-            color: #00ff00;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
-        }
-
-        footer a {
-            color: #00b7eb;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .footer-logo {
-            font-size: 0.9rem;
-            color: #00b7eb;
-            font-weight: bold;
-        }
-
-        .footer-logo span {
-            color: #00ff00;
-        }
-
-        @media (max-width: 768px) {
-            .logo { font-size: 2rem; }
-            .logo span { font-size: 4rem; top: 6px; }
-            .lessons-grid, .test-grid { grid-template-columns: repeat(5, 1fr); }
-            .start-btn, .test-btn { padding: 10px 20px; font-size: 1rem; }
-        }
-
-        @media (max-width: 480px) {
-            .lessons-grid, .test-grid { grid-template-columns: repeat(3, 1fr); }
-            .nav-btn, .submit-btn { padding: 8px 15px; font-size: 0.9rem; }
-            .button-container { flex-direction: column; gap: 10px; }
-        }
+        body { background-color: #1a1a1a; color: #d4d4d4; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        header { background-color: #1a1a1a; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 2.5rem; font-weight: bold; color: #00b7eb; display: inline-block; }
+        .logo a { color: #00b7eb; text-decoration: none; }
+        .logo a:hover { color: #00ff00; }
+        .logo span { color: #00ff00; font-size: 5rem; position: relative; top: 8px; }
+        .main-section { padding: 50px 20px; text-align: center; }
+        .button-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+        .start-btn, .test-btn { background-color: #00ff00; color: #1a1a1a; padding: 15px 30px; border: 2px solid #000; border-radius: 5px; font-size: 1.2rem; cursor: pointer; }
+        .start-btn:hover, .test-btn:hover { background-color: #00cc00; }
+        .lessons-grid { display: none; grid-template-columns: repeat(10, 1fr); gap: 10px; max-width: 800px; margin: 0 auto; }
+        .lesson-box { background-color: #2a2a2a; padding: 20px; border: 2px solid #00b7eb; border-radius: 5px; cursor: pointer; text-align: center; }
+        .lesson-box.completed { background-color: #00b7eb; color: #1a1a1a; }
+        .lesson-content { display: none; background-color: #2a2a2a; padding: 20px; margin: 20px auto; max-width: 800px; border: 1px solid #00b7eb; border-radius: 5px; }
+        .lesson-content.active { display: block; }
+        .lesson-description { color: #00ff00; margin-bottom: 15px; font-size: 1.5rem; }
+        .code-breakdown { background-color: #000; color: #d4d4d4; font-family: 'Courier New', monospace; padding: 15px; border-radius: 5px; white-space: pre-wrap; text-align: left; font-size: 1rem; }
+        .code-explanation { text-align: left; margin-top: 20px; }
+        .code-explanation h4 { color: #00b7eb; margin-bottom: 10px; font-size: 1.2rem; }
+        .code-explanation ul { list-style-type: disc; padding-left: 20px; }
+        .code-explanation li { margin-bottom: 10px; line-height: 1.5; }
+        .test-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 200; }
+        .test-modal.active { display: block; }
+        .test-modal-content { background-color: #1a1a1a; margin: 5% auto; padding: 20px; max-width: 900px; border-radius: 5px; }
+        .close-btn { position: absolute; top: 10px; right: 20px; color: #00ff00; font-size: 2rem; cursor: pointer; }
+        .test-grid { display: none; grid-template-columns: repeat(10, 1fr); gap: 10px; max-width: 800px; margin: 0 auto; }
+        .test-box { background-color: #2a2a2a; padding: 20px; border: 2px solid #00b7eb; border-radius: 5px; cursor: pointer; text-align: center; }
+        .test-content { display: none; background-color: #2a2a2a; padding: 20px; margin: 20px auto; max-width: 800px; border: 1px solid #00b7eb; border-radius: 5px; }
+        .test-content.active { display: block; }
+        .test-question { color: #d4d4d4; margin-bottom: 15px; text-align: left; font-size: 1.2rem; }
+        .test-options { display: flex; flex-direction: column; gap: 10px; }
+        .test-option { background-color: #3a3a3a; color: #d4d4d4; padding: 10px; border-radius: 5px; cursor: pointer; }
+        .test-option.selected { background-color: #00b7eb; color: #1a1a1a; }
+        .navigation { display: flex; justify-content: space-between; margin-top: 20px; }
+        .nav-btn, .submit-btn { background-color: #00b7eb; color: #1a1a1a; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .nav-btn:disabled, .submit-btn:disabled { background-color: #555; cursor: not-allowed; }
+        footer { background-color: #1a1a1a; color: #00ff00; text-align: center; padding: 20px; }
+        footer a { color: #00b7eb; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        .footer-logo { color: #00b7eb; font-weight: bold; }
+        .footer-logo span { color: #00ff00; }
     </style>
 </head>
 <body>
@@ -304,7 +56,7 @@
     </header>
 
     <section class="main-section">
-        <div id="html" class="tab-content active">
+        <div id="html">
             <div class="button-container">
                 <button class="start-btn" onclick="startLearning('html')">Open Course</button>
                 <button class="test-btn" onclick="startTest('html')">Launch Test</button>
@@ -315,7 +67,7 @@
 
         <div id="testModal" class="test-modal">
             <div class="test-modal-content">
-                <span class="close-btn" onclick="closeTest()" aria-label="Close test modal">×</span>
+                <span class="close-btn" onclick="closeTest()">×</span>
                 <div id="testContents"></div>
                 <div id="testGrid" class="test-grid"></div>
             </div>
@@ -328,590 +80,547 @@
         <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
     </footer>
 
-    <script>
-        // HTML-specific lesson data (30 progressive lessons)
-        const lessonsData = {
-            html: [
-                {
-                    description: "Basic Structure of an HTML Document",
-                    code: `<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>My Page</title>\n</head>\n<body>\n    <h1>Hello</h1>\n</body>\n</html>`,
-                    breakdown: [
-                        "<!DOCTYPE html>: Declares the document as HTML5.",
-                        "<html lang=\"en\">: Root element with language attribute.",
-                        "<head>: Contains metadata like character set and title.",
-                        "<body>: Contains visible content."
-                    ]
-                },
-                {
-                    description: "Headings in HTML",
-                    code: `<h1>Heading 1</h1>\n<h2>Heading 2</h2>\n<h3>Heading 3</h3>`,
-                    breakdown: [
-                        "<h1> to <h6>: Define headings, <h1> is largest, <h6> smallest.",
-                        "Used for structuring content hierarchically."
-                    ]
-                },
-                {
-                    description: "Paragraphs and Text Formatting",
-                    code: `<p>This is a <b>bold</b> and <i>italic</i> paragraph.</p>`,
-                    breakdown: [
-                        "<p>: Defines a paragraph.",
-                        "<b>: Makes text bold.",
-                        "<i>: Makes text italic."
-                    ]
-                },
-                {
-                    description: "Links in HTML",
-                    code: `<a href="https://example.com">Click Me</a>`,
-                    breakdown: [
-                        "<a>: Anchor tag for hyperlinks.",
-                        "href: Specifies the URL destination."
-                    ]
-                },
-                {
-                    description: "Images in HTML",
-                    code: `<img src="photo.jpg" alt="A photo">`,
-                    breakdown: [
-                        "<img>: Embeds an image.",
-                        "src: Image file path.",
-                        "alt: Alternative text for accessibility."
-                    ]
-                },
-                {
-                    description: "Lists - Unordered",
-                    code: `<ul>\n    <li>Item 1</li>\n    <li>Item 2</li>\n</ul>`,
-                    breakdown: [
-                        "<ul>: Unordered (bullet) list.",
-                        "<li>: List item."
-                    ]
-                },
-                {
-                    description: "Lists - Ordered",
-                    code: `<ol>\n    <li>First</li>\n    <li>Second</li>\n</ol>`,
-                    breakdown: [
-                        "<ol>: Ordered (numbered) list.",
-                        "<li>: List item."
-                    ]
-                },
-                {
-                    description: "Divisions and Spans",
-                    code: `<div>\n    <p>Paragraph in a div</p>\n    <span>Inline text</span>\n</div>`,
-                    breakdown: [
-                        "<div>: Block-level container.",
-                        "<span>: Inline container."
-                    ]
-                },
-                {
-                    description: "Attributes in HTML",
-                    code: `<p id="intro" class="text">Hello</p>`,
-                    breakdown: [
-                        "id: Unique identifier.",
-                        "class: Groups elements for styling or scripting."
-                    ]
-                },
-                {
-                    description: "Tables - Basic Structure",
-                    code: `<table>\n    <tr>\n        <td>Cell 1</td>\n        <td>Cell 2</td>\n    </tr>\n</table>`,
-                    breakdown: [
-                        "<table>: Defines a table.",
-                        "<tr>: Table row.",
-                        "<td>: Table data (cell)."
-                    ]
-                },
-                {
-                    description: "Table Headers",
-                    code: `<table>\n    <tr>\n        <th>Name</th>\n        <th>Age</th>\n    </tr>\n    <tr>\n        <td>John</td>\n        <td>25</td>\n    </tr>\n</table>`,
-                    breakdown: [
-                        "<th>: Table header cell, typically bold and centered."
-                    ]
-                },
-                {
-                    description: "Forms - Basic Input",
-                    code: `<form>\n    <input type="text" name="username">\n</form>`,
-                    breakdown: [
-                        "<form>: Container for input elements.",
-                        "<input>: Input field, type defines its purpose."
-                    ]
-                },
-                {
-                    description: "Forms - Buttons",
-                    code: `<form>\n    <input type="submit" value="Submit">\n</form>`,
-                    breakdown: [
-                        "<input type=\"submit\">: Submits form data."
-                    ]
-                },
-                {
-                    description: "Forms - Labels",
-                    code: `<form>\n    <label for="email">Email:</label>\n    <input type="email" id="email" name="email">\n</form>`,
-                    breakdown: [
-                        "<label>: Associates text with an input.",
-                        "for: Links label to input’s id."
-                    ]
-                },
-                {
-                    description: "Forms - Radio Buttons",
-                    code: `<form>\n    <input type="radio" id="yes" name="choice" value="yes">\n    <label for="yes">Yes</label>\n    <input type="radio" id="no" name="choice" value="no">\n    <label for="no">No</label>\n</form>`,
-                    breakdown: [
-                        "<input type=\"radio\">: Single-choice option.",
-                        "name: Groups radio buttons together."
-                    ]
-                },
-                {
-                    description: "Forms - Checkboxes",
-                    code: `<form>\n    <input type="checkbox" id="subscribe" name="subscribe">\n    <label for="subscribe">Subscribe</label>\n</form>`,
-                    breakdown: [
-                        "<input type=\"checkbox\">: Multi-select option."
-                    ]
-                },
-                {
-                    description: "Forms - Select Dropdown",
-                    code: `<form>\n    <select name="color">\n        <option value="red">Red</option>\n        <option value="blue">Blue</option>\n    </select>\n</form>`,
-                    breakdown: [
-                        "<select>: Dropdown menu.",
-                        "<option>: Individual choice."
-                    ]
-                },
-                {
-                    description: "Semantic HTML - Header",
-                    code: `<header>\n    <h1>Site Title</h1>\n</header>`,
-                    breakdown: [
-                        "<header>: Represents introductory content or navigation."
-                    ]
-                },
-                {
-                    description: "Semantic HTML - Nav",
-                    code: `<nav>\n    <a href="#home">Home</a>\n    <a href="#about">About</a>\n</nav>`,
-                    breakdown: [
-                        "<nav>: Defines a navigation section."
-                    ]
-                },
-                {
-                    description: "Semantic HTML - Main",
-                    code: `<main>\n    <p>Main content here</p>\n</main>`,
-                    breakdown: [
-                        "<main>: Primary content of the page."
-                    ]
-                },
-                {
-                    description: "Semantic HTML - Article",
-                    code: `<article>\n    <h2>Blog Post</h2>\n    <p>Content...</p>\n</article>`,
-                    breakdown: [
-                        "<article>: Independent, self-contained content."
-                    ]
-                },
-                {
-                    description: "Semantic HTML - Section",
-                    code: `<section>\n    <h2>Section Title</h2>\n    <p>Section content</p>\n</section>`,
-                    breakdown: [
-                        "<section>: Thematic grouping of content."
-                    ]
-                },
-                {
-                    description: "Semantic HTML - Aside",
-                    code: `<aside>\n    <p>Sidebar info</p>\n</aside>`,
-                    breakdown: [
-                        "<aside>: Content tangentially related to main content."
-                    ]
-                },
-                {
-                    description: "Semantic HTML - Footer",
-                    code: `<footer>\n    <p>© 2025</p>\n</footer>`,
-                    breakdown: [
-                        "<footer>: Footer content, like copyright info."
-                    ]
-                },
-                {
-                    description: "HTML Comments",
-                    code: `<!-- This is a comment -->\n<p>Visible text</p>`,
-                    breakdown: [
-                        "<!-- -->: Comments, not displayed in browser."
-                    ]
-                },
-                {
-                    description: "Block vs Inline Elements",
-                    code: `<div>Block</div>\n<span>Inline</span>`,
-                    breakdown: [
-                        "Block: Takes full width, starts on new line (e.g., <div>).",
-                        "Inline: Takes only needed width, stays on same line (e.g., <span>)."
-                    ]
-                },
-                {
-                    description: "HTML Entities",
-                    code: `<p>Copyright © 2025 &lt;Codexedoc&gt;</p>`,
-                    breakdown: [
-                        "&copy;: Displays ©.",
-                        "&lt;: Displays <."
-                    ]
-                },
-                {
-                    description: "Iframe Embedding",
-                    code: `<iframe src="https://example.com" width="300" height="200"></iframe>`,
-                    breakdown: [
-                        "<iframe>: Embeds external content.",
-                        "src: Source URL.",
-                        "width/height: Dimensions."
-                    ]
-                },
-                {
-                    description: "Meta Tags for SEO",
-                    code: `<head>\n    <meta name="description" content="Learn HTML">\n    <meta name="keywords" content="HTML, tutorial">\n</head>`,
-                    breakdown: [
-                        "<meta name=\"description\">: Page summary for search engines.",
-                        "<meta name=\"keywords\">: Keywords for SEO."
-                    ]
-                },
-                {
-                    description: "HTML5 Canvas",
-                    code: `<canvas id="myCanvas" width="200" height="100"></canvas>\n<script>\n    var canvas = document.getElementById("myCanvas");\n    var ctx = canvas.getContext("2d");\n    ctx.fillRect(10, 10, 50, 50);\n</script>`,
-                    breakdown: [
-                        "<canvas>: HTML5 element for drawing graphics.",
-                        "JavaScript: Used to render content (e.g., rectangle)."
-                    ]
-                }
-            ]
-        };
+    <script type="text/javascript">
+        console.log("Script starting");
 
-        // Base test data (will be shuffled later)
-        const baseTestData = {
-            html: [
-                { description: "Lesson 1 Test", question: "What does <!DOCTYPE html> declare?", options: ["HTML5 document", "CSS version", "JavaScript file"], correct: 0 },
-                { description: "Lesson 2 Test", question: "Which tag creates the largest heading?", options: ["<h6>", "<h1>", "<h3>"], correct: 1 },
-                { description: "Lesson 3 Test", question: "What tag makes text bold?", options: ["<i>", "<b>", "<p>"], correct: 1 },
-                { description: "Lesson 4 Test", question: "What attribute specifies a link’s destination?", options: ["src", "href", "alt"], correct: 1 },
-                { description: "Lesson 5 Test", question: "What does the 'alt' attribute do in an <img> tag?", options: ["Sets width", "Provides accessibility text", "Links to another page"], correct: 1 },
-                { description: "Lesson 6 Test", question: "Which tag creates an unordered list?", options: ["<ol>", "<ul>", "<li>"], correct: 1 },
-                { description: "Lesson 7 Test", question: "What tag is used for a numbered list?", options: ["<ul>", "<ol>", "<li>"], correct: 1 },
-                { description: "Lesson 8 Test", question: "Which is an inline element?", options: ["<div>", "<span>", "<p>"], correct: 1 },
-                { description: "Lesson 9 Test", question: "What attribute provides a unique identifier?", options: ["class", "id", "name"], correct: 1 },
-                { description: "Lesson 10 Test", question: "What tag defines a table cell?", options: ["<tr>", "<td>", "<th>"], correct: 1 },
-                { description: "Lesson 11 Test", question: "Which tag creates a table header?", options: ["<td>", "<th>", "<tr>"], correct: 1 },
-                { description: "Lesson 12 Test", question: "What tag wraps form elements?", options: ["<form>", "<input>", "<label>"], correct: 0 },
-                { description: "Lesson 13 Test", question: "What input type submits a form?", options: ["text", "submit", "button"], correct: 1 },
-                { description: "Lesson 14 Test", question: "What does the 'for' attribute in a label do?", options: ["Sets input type", "Links to input id", "Styles the label"], correct: 1 },
-                { description: "Lesson 15 Test", question: "What groups radio buttons together?", options: ["id", "name", "value"], correct: 1 },
-                { description: "Lesson 16 Test", question: "What input type allows multiple selections?", options: ["radio", "checkbox", "text"], correct: 1 },
-                { description: "Lesson 17 Test", question: "What tag creates a dropdown?", options: ["<select>", "<option>", "<input>"], correct: 0 },
-                { description: "Lesson 18 Test", question: "What semantic tag is for navigation?", options: ["<header>", "<nav>", "<main>"], correct: 1 },
-                { description: "Lesson 19 Test", question: "Which tag is for the main content?", options: ["<nav>", "<main>", "<footer>"], correct: 1 },
-                { description: "Lesson 20 Test", question: "What tag represents a standalone article?", options: ["<section>", "<article>", "<aside>"], correct: 1 },
-                { description: "Lesson 21 Test", question: "What tag groups related content?", options: ["<article>", "<section>", "<div>"], correct: 1 },
-                { description: "Lesson 22 Test", question: "Which tag is for sidebar content?", options: ["<aside>", "<footer>", "<header>"], correct: 0 },
-                { description: "Lesson 23 Test", question: "What semantic tag is for footer content?", options: ["<header>", "<footer>", "<main>"], correct: 1 },
-                { description: "Lesson 24 Test", question: "How do you write an HTML comment?", options: ["// Comment", "<!-- Comment -->", "# Comment"], correct: 1 },
-                { description: "Lesson 25 Test", question: "Which element takes the full width by default?", options: ["<span>", "<div>", "<a>"], correct: 1 },
-                { description: "Lesson 26 Test", question: "What entity displays a copyright symbol?", options: ["&copy;", "&lt;", "&amp;"], correct: 0 },
-                { description: "Lesson 27 Test", question: "What tag embeds external content?", options: ["<iframe>", "<img>", "<div>"], correct: 0 },
-                { description: "Lesson 28 Test", question: "What meta tag helps with SEO description?", options: ["name=\"keywords\"", "name=\"description\"", "name=\"title\""], correct: 1 },
-                { description: "Lesson 29 Test", question: "What HTML5 tag is used for graphics?", options: ["<canvas>", "<svg>", "<img>"], correct: 0 },
-                { description: "Lesson 30 Test", question: "What is required to draw on a canvas?", options: ["CSS", "JavaScript", "HTML only"], correct: 1 }
-            ]
-        };
-
-        // State management
-        const currentLessons = { html: 0 };
-        const currentTestQuestions = { html: 0 };
-        const completedLessons = { html: new Set() };
-        const completedTestQuestions = { html: new Set() };
-        const userAnswers = { html: Array(30).fill(null) };
-
-        // Utility function to shuffle array
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-
-        // Lesson Functions
-        function startLearning(language) {
-            const lessonsGrid = document.getElementById(`${language}-lessons`);
-            const lessonContents = document.getElementById(`${language}-lesson-contents`);
-            if (!lessonsGrid || !lessonContents) {
-                console.error("Lessons grid or contents not found!");
-                return;
+        try {
+            // Helper function to escape HTML characters
+            function escapeHTML(str) {
+                return str.replace(/&/g, "&amp;")
+                         .replace(/</g, "&lt;")
+                         .replace(/>/g, "&gt;")
+                         .replace(/"/g, "&quot;")
+                         .replace(/'/g, "&#39;");
             }
 
-            lessonsGrid.innerHTML = '';
-            lessonContents.innerHTML = '';
-            lessonsGrid.style.display = 'grid';
+            const lessonsData = {
+                html: [
+                    {
+                        description: "Basic Structure of an HTML Document",
+                        code: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My Page</title>\n</head>\n<body>\n    <h1>Hello, World!</h1>\n</body>\n</html>",
+                        breakdown: [
+                            "<!DOCTYPE html>: This declaration at the top of the document specifies that the page uses HTML5, ensuring the browser renders it according to modern standards.",
+                            "<html lang=\"en\">: The root element of the HTML page. The 'lang' attribute set to 'en' indicates the primary language is English, aiding accessibility tools like screen readers.",
+                            "<head>: Contains metadata about the document, such as character encoding (<meta charset=\"UTF-8\">) for supporting special characters, and the page title (<title>) displayed in the browser tab.",
+                            "<body>: Holds all the visible content of the page, like text, images, and links. Here, it includes a simple heading (<h1>) to display 'Hello, World!'."
+                        ]
+                    },
+                    {
+                        description: "Headings in HTML",
+                        code: "<h1>Main Heading</h1>\n<h2>Subheading</h2>\n<h3>Smaller Heading</h3>",
+                        breakdown: [
+                            "<h1> to <h6>: HTML provides six levels of headings, where <h1> is the largest and most important (often used for the main title), and <h6> is the smallest, typically for minor subheadings.",
+                            "Headings help structure content hierarchically, much like an outline in a document. They improve readability and help search engines understand the page’s structure.",
+                            "Best practice: Use headings in order (e.g., <h1> followed by <h2>, not jumping to <h3>) to maintain a logical hierarchy."
+                        ]
+                    },
+                    {
+                        description: "Paragraphs and Text Formatting",
+                        code: "<p>This is a <b>bold</b> and <i>italic</i> paragraph.</p>",
+                        breakdown: [
+                            "<p>: The paragraph tag creates a block of text, automatically adding spacing before and after to separate it from other content.",
+                            "<b>: Makes text bold, providing visual emphasis. It’s often used to highlight important words or phrases without implying structural significance.",
+                            "<i>: Italicizes text, commonly used for emphasis, to denote titles (e.g., book names), or for foreign words. It’s an inline element, meaning it doesn’t break the flow of text."
+                        ]
+                    },
+                    {
+                        description: "Links in HTML",
+                        code: "<a href=\"https://example.com\">Visit Example</a>",
+                        breakdown: [
+                            "<a>: The anchor tag creates a hyperlink, allowing users to navigate to another page, file, or location on the web.",
+                            "href=\"https://example.com\": The 'href' attribute specifies the destination URL. It can link to external sites, internal pages, or other resources like email (mailto:).",
+                            "The text between <a> and </a> (e.g., 'Visit Example') is the clickable link text that users see."
+                        ]
+                    },
+                    {
+                        description: "Images in HTML",
+                        code: "<img src=\"image.jpg\" alt=\"A description\">",
+                        breakdown: [
+                            "<img>: Embeds an image into the page. It’s a self-closing tag, meaning it doesn’t need a closing tag (no </img>).",
+                            "src=\"image.jpg\": The 'src' attribute specifies the image’s file path or URL, which can be local (relative path) or remote (full URL).",
+                            "alt=\"A description\": The 'alt' attribute provides alternative text for accessibility (e.g., for screen readers) and displays if the image fails to load."
+                        ]
+                    },
+                    {
+                        description: "Unordered Lists",
+                        code: "<ul>\n    <li>Item 1</li>\n    <li>Item 2</li>\n    <li>Item 3</li>\n</ul>",
+                        breakdown: [
+                            "<ul>: Creates an unordered list, which displays items with bullet points. It’s ideal for lists where the order doesn’t matter, like a shopping list.",
+                            "<li>: Each list item is wrapped in a <li> tag, representing one entry in the list. The browser automatically adds bullets before each item.",
+                            "Lists improve readability by breaking down information into digestible chunks, and they can be nested for sublists."
+                        ]
+                    },
+                    {
+                        description: "Ordered Lists",
+                        code: "<ol>\n    <li>First</li>\n    <li>Second</li>\n    <li>Third</li>\n</ol>",
+                        breakdown: [
+                            "<ol>: Creates an ordered list, which displays items with numbers or letters. It’s used for lists where order matters, like steps in a recipe.",
+                            "<li>: Each item in the list is wrapped in a <li> tag. The browser automatically numbers the items sequentially.",
+                            "You can customize the numbering style using the 'type' attribute (e.g., <ol type=\"A\"> for letters) or CSS."
+                        ]
+                    },
+                    {
+                        description: "Divisions and Spans",
+                        code: "<div>\n    <p>Inside a div</p>\n    <span>Inline text</span>\n</div>",
+                        breakdown: [
+                            "<div>: A block-level container used to group elements together. It takes up the full width of its parent and starts on a new line, making it ideal for layout sections.",
+                            "<span>: An inline container used to apply styles or scripts to a small portion of text. It doesn’t break the flow of content, so it’s perfect for styling specific words.",
+                            "Both <div> and <span> are generic containers with no semantic meaning, often used for styling or JavaScript manipulation."
+                        ]
+                    },
+                    {
+                        description: "HTML Attributes",
+                        code: "<p id=\"intro\" class=\"highlight\">Hello</p>",
+                        breakdown: [
+                            "Attributes provide additional information about HTML elements and are always included in the opening tag, in the format name=\"value\".",
+                            "id=\"intro\": The 'id' attribute assigns a unique identifier to an element, which can be used for styling (CSS) or scripting (JavaScript). IDs must be unique within a page.",
+                            "class=\"highlight\": The 'class' attribute assigns one or more class names to an element, allowing you to apply the same styles or scripts to multiple elements."
+                        ]
+                    },
+                    {
+                        description: "Basic Tables",
+                        code: "<table>\n    <tr>\n        <td>Cell 1</td>\n        <td>Cell 2</td>\n    </tr>\n    <tr>\n        <td>Cell 3</td>\n        <td>Cell 4</td>\n    </tr>\n</table>",
+                        breakdown: [
+                            "<table>: Defines a table, used to display data in rows and columns, like a spreadsheet.",
+                            "<tr>: Stands for 'table row' and defines a row in the table. Each <tr> contains cells.",
+                            "<td>: Stands for 'table data' and defines a cell within a row. You can put text, images, or other elements inside a <td>."
+                        ]
+                    },
+                    {
+                        description: "Table Headers",
+                        code: "<table>\n    <tr>\n        <th>Name</th>\n        <th>Age</th>\n    </tr>\n    <tr>\n        <td>Alice</td>\n        <td>25</td>\n    </tr>\n</table>",
+                        breakdown: [
+                            "<th>: Stands for 'table header' and defines a header cell in a table. It’s typically bold and centered by default, used to label columns or rows.",
+                            "In this example, <th> tags in the first row create column headers ('Name' and 'Age'), while <td> tags in the second row hold the data.",
+                            "Using <th> improves accessibility, as screen readers can identify headers and associate them with data cells."
+                        ]
+                    },
+                    {
+                        description: "Basic Forms and Inputs",
+                        code: "<form>\n    <input type=\"text\" name=\"username\" placeholder=\"Enter username\">\n</form>",
+                        breakdown: [
+                            "<form>: Creates a form for user input, such as text fields, buttons, or checkboxes. It’s used to collect data to send to a server.",
+                            "<input>: A versatile tag for creating input fields. The 'type' attribute determines the input type (e.g., 'text' for a text field).",
+                            "name=\"username\": The 'name' attribute identifies the input when the form is submitted, so the server knows what data it’s receiving.",
+                            "placeholder=\"Enter username\": Provides a hint to the user about what to enter, displayed inside the input field until the user types."
+                        ]
+                    },
+                    {
+                        description: "Form Buttons",
+                        code: "<form>\n    <input type=\"submit\" value=\"Submit\">\n    <input type=\"reset\" value=\"Reset\">\n</form>",
+                        breakdown: [
+                            "<input type=\"submit\">: Creates a submit button that sends the form data to the server (or triggers a script if there’s no server).",
+                            "<input type=\"reset\">: Creates a reset button that clears all form inputs back to their default values.",
+                            "value=\"Submit\": The 'value' attribute sets the text displayed on the button, so users know what it does."
+                        ]
+                    },
+                    {
+                        description: "Labels in Forms",
+                        code: "<form>\n    <label for=\"email\">Email:</label>\n    <input type=\"email\" id=\"email\" name=\"email\">\n</form>",
+                        breakdown: [
+                            "<label>: Associates a text label with a form input, improving usability and accessibility by describing what the input is for.",
+                            "for=\"email\": The 'for' attribute matches the 'id' of the input it’s linked to, so clicking the label focuses the input field.",
+                            "<input type=\"email\">: A specialized input type that validates the user’s entry to ensure it’s a valid email address (e.g., includes '@')."
+                        ]
+                    },
+                    {
+                        description: "Radio Buttons in Forms",
+                        code: "<form>\n    <input type=\"radio\" id=\"yes\" name=\"choice\" value=\"yes\">\n    <label for=\"yes\">Yes</label>\n    <input type=\"radio\" id=\"no\" name=\"choice\" value=\"no\">\n    <label for=\"no\">No</label>\n</form>",
+                        breakdown: [
+                            "<input type=\"radio\">: Creates a radio button, allowing users to select one option from a group of choices.",
+                            "name=\"choice\": The 'name' attribute groups radio buttons together, ensuring only one can be selected at a time.",
+                            "value=\"yes\": The 'value' attribute specifies the data sent to the server if that option is selected.",
+                            "Labels with 'for' attributes make the radio buttons clickable via their text, improving usability."
+                        ]
+                    },
+                    {
+                        description: "Checkboxes in Forms",
+                        code: "<form>\n    <input type=\"checkbox\" id=\"subscribe\" name=\"subscribe\" value=\"yes\">\n    <label for=\"subscribe\">Subscribe to newsletter</label>\n</form>",
+                        breakdown: [
+                            "<input type=\"checkbox\">: Creates a checkbox, allowing users to select multiple options independently.",
+                            "Unlike radio buttons, checkboxes don’t need to share a 'name' to work together, but the 'name' attribute is still used for form submission.",
+                            "value=\"yes\": Specifies the data sent if the box is checked. If unchecked, no data is sent for that input.",
+                            "Labels enhance accessibility by making the checkbox clickable via its text."
+                        ]
+                    },
+                    {
+                        description: "Dropdown Menus in Forms",
+                        code: "<form>\n    <select name=\"color\">\n        <option value=\"red\">Red</option>\n        <option value=\"blue\">Blue</option>\n        <option value=\"green\">Green</option>\n    </select>\n</form>",
+                        breakdown: [
+                            "<select>: Creates a dropdown menu, allowing users to select one option from a list.",
+                            "<option>: Each option in the dropdown is defined by an <option> tag. The 'value' attribute specifies the data sent when selected.",
+                            "The text between <option> and </option> (e.g., 'Red') is what the user sees in the dropdown.",
+                            "The 'name' attribute on <select> identifies the dropdown’s data when the form is submitted."
+                        ]
+                    },
+                    {
+                        description: "Semantic HTML: Header",
+                        code: "<header>\n    <h1>Website Title</h1>\n    <nav>Navigation Links</nav>\n</header>",
+                        breakdown: [
+                            "<header>: A semantic element that represents introductory content, typically containing the site’s title, logo, or navigation.",
+                            "It’s often placed at the top of the page or within a section to introduce what follows.",
+                            "Semantic elements like <header> improve accessibility and SEO by clearly defining the page’s structure."
+                        ]
+                    },
+                    {
+                        description: "Semantic HTML: Navigation",
+                        code: "<nav>\n    <a href=\"home.html\">Home</a>\n    <a href=\"about.html\">About</a>\n</nav>",
+                        breakdown: [
+                            "<nav>: A semantic element that defines a navigation section, typically containing links to other pages or sections.",
+                            "It helps screen readers and search engines identify the primary navigation links, improving accessibility and SEO.",
+                            "You can place <nav> inside a <header> or use it standalone, depending on your layout."
+                        ]
+                    },
+                    {
+                        description: "Semantic HTML: Main Content",
+                        code: "<main>\n    <h1>Main Content</h1>\n    <p>This is the primary content.</p>\n</main>",
+                        breakdown: [
+                            "<main>: A semantic element that wraps the primary content of the page, excluding headers, footers, and sidebars.",
+                            "There should only be one <main> element per page, and it shouldn’t be nested inside other semantic elements like <article> or <section>.",
+                            "It helps assistive technologies focus on the core content, enhancing user experience."
+                        ]
+                    },
+                    {
+                        description: "Semantic HTML: Articles",
+                        code: "<article>\n    <h2>Blog Post Title</h2>\n    <p>Blog content here...</p>\n</article>",
+                        breakdown: [
+                            "<article>: A semantic element for self-contained content that could stand alone, like a blog post, news article, or forum post.",
+                            "It’s independent and can be reused in different contexts, such as in an RSS feed.",
+                            "You can nest <article> elements (e.g., for comments within a blog post) to represent related but distinct content."
+                        ]
+                    },
+                    {
+                        description: "Semantic HTML: Sections",
+                        code: "<section>\n    <h2>Section Title</h2>\n    <p>Section content here...</p>\n</section>",
+                        breakdown: [
+                            "<section>: A semantic element that groups related content together, often with a heading to describe its purpose.",
+                            "It’s used to break up a page into thematic sections, like chapters in a book, but it’s more generic than <article>.",
+                            "Each <section> should have a heading (<h1>-<h6>) to define its topic, improving the page’s structure."
+                        ]
+                    },
+                    {
+                        description: "Semantic HTML: Asides",
+                        code: "<aside>\n    <h3>Related Info</h3>\n    <p>This is a sidebar.</p>\n</aside>",
+                        breakdown: [
+                            "<aside>: A semantic element for content that’s tangentially related to the main content, like a sidebar, pull quote, or advertisement.",
+                            "It’s often styled to appear beside the main content, but its placement is flexible.",
+                            "Using <aside> helps assistive technologies understand that its content is supplementary, not critical to the main narrative."
+                        ]
+                    },
+                    {
+                        description: "Semantic HTML: Footer",
+                        code: "<footer>\n    <p>© 2025 My Website</p>\n    <a href=\"contact.html\">Contact Us</a>\n</footer>",
+                        breakdown: [
+                            "<footer>: A semantic element for footer content, typically containing copyright info, contact details, or links to related pages.",
+                            "It can be used at the bottom of the page or within a section/article to provide closing information.",
+                            "Footers improve the page’s structure by clearly marking the end of a content block."
+                        ]
+                    },
+                    {
+                        description: "HTML Comments",
+                        code: "<!-- This is a comment -->\n<p>Visible text</p>",
+                        breakdown: [
+                            "<!-- -->: Defines a comment in HTML. Anything between these tags is ignored by the browser and not displayed on the page.",
+                            "Comments are useful for leaving notes in your code, debugging (e.g., temporarily hiding code), or documenting your work.",
+                            "They can span multiple lines, as long as they’re enclosed within the comment tags."
+                        ]
+                    },
+                    {
+                        description: "Block vs Inline Elements",
+                        code: "<div>Block element</div>\n<span>Inline element</span>",
+                        breakdown: [
+                            "Block elements (e.g., <div>, <p>, <h1>): Take up the full width of their parent container and start on a new line, stacking vertically.",
+                            "Inline elements (e.g., <span>, <a>, <b>): Only take up as much width as their content needs and stay on the same line as surrounding content.",
+                            "Understanding block vs inline helps with layout design, as it affects how elements are positioned on the page."
+                        ]
+                    },
+                    {
+                        description: "HTML Entities",
+                        code: "<p>Copyright © 2025 &lt;Codexedoc&gt;</p>",
+                        breakdown: [
+                            "HTML entities are special codes used to display reserved characters or symbols that have specific meanings in HTML.",
+                            "&copy;: Renders the copyright symbol (©). It’s an entity for a character that might not be easily typed.",
+                            "&lt;: Renders a less-than sign (<), which is normally reserved for HTML tags. Using the entity ensures it’s displayed as text.",
+                            "Entities start with '&' and end with ';', and they’re essential for displaying special characters safely."
+                        ]
+                    },
+                    {
+                        description: "Embedding Iframes",
+                        code: "<iframe src=\"https://example.com\" width=\"300\" height=\"200\"></iframe>",
+                        breakdown: [
+                            "<iframe>: Embeds another webpage or resource within the current page, creating a window to external content.",
+                            "src=\"https://example.com\": Specifies the URL of the content to embed, such as a webpage, video, or map.",
+                            "width=\"300\" height=\"200\": Sets the dimensions of the iframe in pixels, controlling its size on the page.",
+                            "Iframes are useful for embedding third-party content but should be used carefully due to security and performance concerns."
+                        ]
+                    },
+                    {
+                        description: "Meta Tags for SEO",
+                        code: "<head>\n    <meta name=\"description\" content=\"Learn HTML basics\">\n    <meta name=\"keywords\" content=\"HTML, tutorial, beginners\">\n</head>",
+                        breakdown: [
+                            "<meta>: Provides metadata about the page, which isn’t displayed but is used by browsers, search engines, and other tools.",
+                            "name=\"description\": Describes the page’s content in a short summary (e.g., 150-160 characters), often shown in search engine results.",
+                            "name=\"keywords\": Lists keywords relevant to the page’s content, helping search engines understand the topic (though less impactful today due to SEO evolution).",
+                            "Proper meta tags improve search engine optimization (SEO) by making the page more discoverable."
+                        ]
+                    },
+                    {
+                        description: "HTML5 Audio",
+                        code: "<audio controls>\n    <source src=\"audio.mp3\" type=\"audio/mpeg\">\n    Your browser does not support audio.\n</audio>",
+                        breakdown: [
+                            "<audio>: An HTML5 element for embedding audio files, such as music or podcasts, directly into the page.",
+                            "controls: Adds playback controls (play, pause, volume) so users can interact with the audio.",
+                            "<source>: Specifies the audio file’s path (src) and type (type=\"audio/mpeg\"). Multiple <source> tags can provide fallback formats.",
+                            "Fallback text (e.g., 'Your browser does not support audio') displays if the browser doesn’t support the <audio> element."
+                        ]
+                    },
+                    {
+                        description: "HTML5 Video",
+                        code: "<video controls width=\"400\">\n    <source src=\"video.mp4\" type=\"video/mp4\">\n    Your browser does not support video.\n</video>",
+                        breakdown: [
+                            "<video>: An HTML5 element for embedding video files directly into the page, such as tutorials or promotional clips.",
+                            "controls: Adds playback controls (play, pause, volume, fullscreen) for user interaction.",
+                            "width=\"400\": Sets the video player’s width in pixels. Height adjusts automatically to maintain aspect ratio unless specified.",
+                            "<source>: Defines the video file’s path and type. Multiple sources can be provided for compatibility (e.g., MP4, WebM).",
+                            "Fallback text ensures users with unsupported browsers see a message instead of a broken element."
+                        ]
+                    }
+                ]
+            };
 
-            lessonsData[language].forEach((lesson, i) => {
-                const lessonNumber = i + 1;
-                const lessonBox = document.createElement('div');
-                lessonBox.classList.add('lesson-box');
-                lessonBox.textContent = lessonNumber;
-                lessonBox.onclick = () => {
-                    currentLessons[language] = lessonNumber;
-                    completedLessons[language].add(lessonNumber);
-                    toggleLesson(language, lessonNumber);
-                };
-                if (completedLessons[language].has(lessonNumber)) {
-                    lessonBox.classList.add('completed');
+            const baseTestData = {
+                html: [
+                    { question: "What does <!DOCTYPE html> declare?", options: ["HTML5 document", "CSS version", "JavaScript file", "HTML4 document"], correct: 0 },
+                    { question: "Which tag creates the largest heading?", options: ["<h6>", "<h1>", "<h3>", "<h4>"], correct: 1 },
+                    { question: "What tag makes text bold?", options: ["<i>", "<b>", "<p>", "<span>"], correct: 1 },
+                    { question: "What attribute specifies a link’s destination?", options: ["src", "href", "alt", "id"], correct: 1 },
+                    { question: "What does the 'alt' attribute do in an <img> tag?", options: ["Sets width", "Provides accessibility text", "Links to another page", "Specifies the source"], correct: 1 },
+                    { question: "Which tag creates an unordered list?", options: ["<ol>", "<ul>", "<li>", "<list>"], correct: 1 },
+                    { question: "What tag is used for a numbered list?", options: ["<ul>", "<ol>", "<li>", "<num>"], correct: 1 },
+                    { question: "Which is an inline element?", options: ["<div>", "<span>", "<p>", "<h1>"], correct: 1 },
+                    { question: "What attribute provides a unique identifier?", options: ["class", "id", "name", "type"], correct: 1 },
+                    { question: "What tag defines a table cell?", options: ["<tr>", "<td>", "<th>", "<table>"], correct: 1 },
+                    { question: "Which tag creates a table header?", options: ["<td>", "<th>", "<tr>", "<table>"], correct: 1 },
+                    { question: "What tag wraps form elements?", options: ["<form>", "<input>", "<label>", "<select>"], correct: 0 },
+                    { question: "What input type submits a form?", options: ["text", "submit", "button", "reset"], correct: 1 },
+                    { question: "What does the 'for' attribute in a label do?", options: ["Sets input type", "Links to input id", "Styles the label", "Submits the form"], correct: 1 },
+                    { question: "What groups radio buttons together?", options: ["id", "name", "value", "type"], correct: 1 },
+                    { question: "What input type allows multiple selections?", options: ["radio", "checkbox", "text", "submit"], correct: 1 },
+                    { question: "What tag creates a dropdown?", options: ["<select>", "<option>", "<input>", "<dropdown>"], correct: 0 },
+                    { question: "What semantic tag is for navigation?", options: ["<header>", "<nav>", "<main>", "<footer>"], correct: 1 },
+                    { question: "Which tag is for the main content?", options: ["<nav>", "<main>", "<footer>", "<aside>"], correct: 1 },
+                    { question: "What tag represents a standalone article?", options: ["<section>", "<article>", "<aside>", "<div>"], correct: 1 },
+                    { question: "What tag groups related content?", options: ["<article>", "<section>", "<div>", "<aside>"], correct: 1 },
+                    { question: "Which tag is for sidebar content?", options: ["<aside>", "<footer>", "<header>", "<main>"], correct: 0 },
+                    { question: "What semantic tag is for footer content?", options: ["<header>", "<footer>", "<main>", "<nav>"], correct: 1 },
+                    { question: "How do you write an HTML comment?", options: ["// Comment", "<!-- Comment -->", "# Comment", "/* Comment */"], correct: 1 },
+                    { question: "Which element takes the full width by default?", options: ["<span>", "<div>", "<a>", "<i>"], correct: 1 },
+                    { question: "What entity displays a copyright symbol?", options: ["&copy;", "&lt;", "&amp;", "&gt;"], correct: 0 },
+                    { question: "What tag embeds external content?", options: ["<iframe>", "<img>", "<div>", "<span>"], correct: 0 },
+                    { question: "What meta tag helps with SEO description?", options: ["name=\"keywords\"", "name=\"description\"", "name=\"title\"", "name=\"author\""], correct: 1 },
+                    { question: "What HTML5 tag embeds audio?", options: ["<audio>", "<video>", "<media>", "<sound>"], correct: 0 },
+                    { question: "What attribute adds playback controls to a video?", options: ["controls", "autoplay", "loop", "muted"], correct: 0 }
+                ]
+            };
+
+            let currentLesson = 0;
+            let currentTest = 0;
+            const completedLessons = new Set();
+            const userAnswers = Array(30).fill(null);
+            let shuffledTestData = [];
+
+            function shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
                 }
-                lessonsGrid.appendChild(lessonBox);
+                return shuffled;
+            }
 
-                const lessonContent = document.createElement('div');
-                lessonContent.classList.add('lesson-content');
-                lessonContent.id = `${language}-lesson-${lessonNumber}`;
-                
-                const description = document.createElement('div');
-                description.classList.add('lesson-description');
-                description.textContent = lesson.description;
-                
-                const codeBreakdown = document.createElement('pre');
-                codeBreakdown.classList.add('code-breakdown');
-                codeBreakdown.textContent = lesson.code;
-                
-                const explanation = document.createElement('div');
-                explanation.classList.add('code-explanation');
-                const explanationTitle = document.createElement('h4');
-                explanationTitle.textContent = 'Code Breakdown';
-                explanation.appendChild(explanationTitle);
-                
-                const explanationList = document.createElement('ul');
-                lesson.breakdown.forEach(item => {
-                    const li = document.createElement('li');
-                    li.textContent = item;
-                    explanationList.appendChild(li);
+            function startLearning(lang) {
+                console.log("startLearning:", lang);
+                const grid = document.getElementById("html-lessons");
+                const contents = document.getElementById("html-lesson-contents");
+                if (!grid || !contents) {
+                    console.error("Lesson elements not found");
+                    return;
+                }
+                grid.innerHTML = "";
+                contents.innerHTML = "";
+                grid.style.display = "grid";
+
+                lessonsData.html.forEach((lesson, i) => {
+                    const num = i + 1;
+                    const box = document.createElement("div");
+                    box.classList.add("lesson-box");
+                    box.textContent = num;
+                    box.onclick = () => {
+                        currentLesson = num;
+                        completedLessons.add(num);
+                        toggleLesson(num);
+                    };
+                    grid.appendChild(box);
+
+                    const content = document.createElement("div");
+                    content.classList.add("lesson-content");
+                    content.id = `html-lesson-${num}`;
+                    content.innerHTML = `
+                        <div class="lesson-description">${lesson.description}</div>
+                        <pre class="code-breakdown">${escapeHTML(lesson.code)}</pre>
+                        <div class="code-explanation">
+                            <h4>Code Breakdown</h4>
+                            <ul>${lesson.breakdown.map(item => `<li>${item}</li>`).join("")}</ul>
+                        </div>
+                        <div class="navigation">
+                            <button class="nav-btn" onclick="navigateLesson(${num - 1})">Previous</button>
+                            <button class="nav-btn" onclick="navigateLesson(${num + 1})">Next</button>
+                        </div>
+                    `;
+                    contents.appendChild(content);
                 });
-                explanation.appendChild(explanationList);
-                
-                const navigation = document.createElement('div');
-                navigation.classList.add('navigation');
-                
-                const prevBtn = document.createElement('button');
-                prevBtn.classList.add('nav-btn');
-                prevBtn.textContent = 'Previous';
-                prevBtn.onclick = () => navigateLesson(language, lessonNumber - 1);
-                
-                const nextBtn = document.createElement('button');
-                nextBtn.classList.add('nav-btn');
-                nextBtn.textContent = 'Next';
-                nextBtn.onclick = () => navigateLesson(language, lessonNumber + 1);
-                
-                navigation.appendChild(prevBtn);
-                navigation.appendChild(nextBtn);
-                
-                lessonContent.appendChild(description);
-                lessonContent.appendChild(codeBreakdown);
-                lessonContent.appendChild(explanation);
-                lessonContent.appendChild(navigation);
-                lessonContents.appendChild(lessonContent);
-            });
 
-            currentLessons[language] = 1;
-            completedLessons[language].add(1);
-            toggleLesson(language, 1);
-        }
-
-        function toggleLesson(language, lessonNumber) {
-            if (lessonNumber < 1 || lessonNumber > 30) return;
-            document.querySelectorAll(`#${language}-lesson-contents .lesson-content`).forEach(content => {
-                content.classList.remove('active');
-            });
-
-            const selectedLesson = document.getElementById(`${language}-lesson-${lessonNumber}`);
-            if (selectedLesson) {
-                selectedLesson.classList.add('active');
-                const prevBtn = selectedLesson.querySelector('.nav-btn:first-child');
-                const nextBtn = selectedLesson.querySelector('.nav-btn:last-child');
-                prevBtn.disabled = lessonNumber === 1;
-                nextBtn.disabled = lessonNumber === 30;
+                currentLesson = 1;
+                completedLessons.add(1);
+                toggleLesson(1);
             }
 
-            const lessonBox = document.querySelector(`#${language}-lessons .lesson-box:nth-child(${lessonNumber})`);
-            if (lessonBox) {
-                lessonBox.classList.add('completed');
-            }
-        }
-
-        function navigateLesson(language, lessonNumber) {
-            if (lessonNumber < 1 || lessonNumber > 30) return;
-            currentLessons[language] = lessonNumber;
-            completedLessons[language].add(lessonNumber);
-            toggleLesson(language, lessonNumber);
-        }
-
-        // Test Functions
-        function startTest(language) {
-            const testModal = document.getElementById('testModal');
-            const testContents = document.getElementById('testContents');
-            const testGrid = document.getElementById('testGrid');
-            if (!testModal || !testContents || !testGrid) {
-                console.error("Test modal elements not found!");
-                return;
-            }
-
-            testContents.innerHTML = '';
-            testGrid.innerHTML = '';
-            testGrid.style.display = 'grid';
-            userAnswers[language] = Array(30).fill(null);
-            completedTestQuestions[language].clear();
-
-            const shuffledTestData = shuffleArray(baseTestData[language]);
-            testModal.classList.add('active');
-
-            shuffledTestData.forEach((test, i) => {
-                const questionNumber = i + 1;
-                const testBox = document.createElement('div');
-                testBox.classList.add('test-box');
-                testBox.textContent = questionNumber;
-                testBox.onclick = () => {
-                    currentTestQuestions[language] = questionNumber;
-                    completedTestQuestions[language].add(questionNumber);
-                    toggleTestQuestion(language, questionNumber);
-                };
-                if (completedTestQuestions[language].has(questionNumber)) {
-                    testBox.classList.add('completed');
+            function toggleLesson(num) {
+                if (num < 1 || num > 30) return;
+                document.querySelectorAll(".lesson-content").forEach(c => c.classList.remove("active"));
+                const lesson = document.getElementById(`html-lesson-${num}`);
+                if (lesson) {
+                    lesson.classList.add("active");
+                    const prev = lesson.querySelector(".nav-btn:first-child");
+                    const next = lesson.querySelector(".nav-btn:last-child");
+                    prev.disabled = num === 1;
+                    next.disabled = num === 30;
                 }
-                testGrid.appendChild(testBox);
+                const box = document.querySelector(`#html-lessons .lesson-box:nth-child(${num})`);
+                if (box) box.classList.add("completed");
+            }
 
-                const testContent = document.createElement('div');
-                testContent.classList.add('test-content');
-                testContent.id = `${language}-test-${questionNumber}`;
-                
-                const description = document.createElement('div');
-                description.classList.add('test-description');
-                description.textContent = test.description;
-                
-                const question = document.createElement('div');
-                question.classList.add('test-question');
-                question.textContent = test.question;
-                
-                const optionsContainer = document.createElement('div');
-                optionsContainer.classList.add('test-options');
-                test.options.forEach((option, index) => {
-                    const optionDiv = document.createElement('div');
-                    optionDiv.classList.add('test-option');
-                    optionDiv.textContent = option;
-                    optionDiv.onclick = () => selectOption(language, questionNumber, index, shuffledTestData);
-                    optionsContainer.appendChild(optionDiv);
+            function navigateLesson(num) {
+                if (num < 1 || num > 30) return;
+                currentLesson = num;
+                completedLessons.add(num);
+                toggleLesson(num);
+            }
+
+            function startTest(lang) {
+                console.log("startTest:", lang);
+                const modal = document.getElementById("testModal");
+                const contents = document.getElementById("testContents");
+                const grid = document.getElementById("testGrid");
+                if (!modal || !contents || !grid) {
+                    console.error("Test elements not found");
+                    return;
+                }
+                contents.innerHTML = "";
+                grid.innerHTML = "";
+                grid.style.display = "grid";
+                userAnswers.fill(null);
+
+                // Shuffle questions
+                shuffledTestData = shuffleArray(baseTestData.html);
+
+                // Shuffle options for each question
+                shuffledTestData = shuffledTestData.map(test => {
+                    const options = shuffleArray([...test.options]);
+                    const correctOption = test.options[test.correct];
+                    const correctIndex = options.indexOf(correctOption);
+                    return { ...test, options, correct: correctIndex };
                 });
-                
-                const navigation = document.createElement('div');
-                navigation.classList.add('navigation');
-                
-                const prevBtn = document.createElement('button');
-                prevBtn.classList.add('nav-btn');
-                prevBtn.textContent = 'Previous';
-                prevBtn.onclick = () => navigateTestQuestion(language, questionNumber - 1);
-                
-                const nextBtn = document.createElement('button');
-                if (questionNumber === 30) {
-                    nextBtn.classList.add('submit-btn');
-                    nextBtn.textContent = 'Submit';
-                    nextBtn.onclick = () => submitTest(language, shuffledTestData);
-                    nextBtn.style.display = 'none';
-                    nextBtn.id = `${language}-submit-btn`;
+
+                shuffledTestData.forEach((test, i) => {
+                    const num = i + 1;
+                    const box = document.createElement("div");
+                    box.classList.add("test-box");
+                    box.textContent = num;
+                    box.onclick = () => {
+                        currentTest = num;
+                        toggleTest(num);
+                    };
+                    grid.appendChild(box);
+
+                    const content = document.createElement("div");
+                    content.classList.add("test-content");
+                    content.id = `html-test-${num}`;
+                    content.innerHTML = `
+                        <div class="test-question">${test.question}</div>
+                        <div class="test-options">${test.options.map((opt, idx) => `<div class="test-option" onclick="selectOption(${num}, ${idx})">${opt}</div>`).join("")}</div>
+                        <div class="navigation">
+                            <button class="nav-btn" onclick="navigateTest(${num - 1})">Previous</button>
+                            ${num === 30 ? `<button class="submit-btn" id="submit-btn" style="display:none" onclick="submitTest()">Submit</button>` : `<button class="nav-btn" onclick="navigateTest(${num + 1})">Next</button>`}
+                        </div>
+                    `;
+                    contents.appendChild(content);
+                });
+
+                currentTest = 1;
+                toggleTest(1);
+            }
+
+            function toggleTest(num) {
+                if (num < 1 || num > 30) return;
+                document.querySelectorAll(".test-content").forEach(c => c.classList.remove("active"));
+                const test = document.getElementById(`html-test-${num}`);
+                if (test) {
+                    test.classList.add("active");
+                    const prev = test.querySelector(".nav-btn:first-child");
+                    const next = test.querySelector(".nav-btn:last-child") || test.querySelector(".submit-btn");
+                    prev.disabled = num === 1;
+                    if (next.classList.contains("nav-btn")) next.disabled = num === 30;
+                    if (num === 30 && next.classList.contains("submit-btn")) {
+                        next.style.display = userAnswers.every(a => a !== null) ? "block" : "none";
+                    }
+                    const selectedIdx = userAnswers[num - 1];
+                    if (selectedIdx !== null) {
+                        const options = test.querySelectorAll(".test-option");
+                        options[selectedIdx].classList.add("selected");
+                    }
+                }
+            }
+
+            function navigateTest(num) {
+                if (num < 1 || num > 30) return;
+                currentTest = num;
+                toggleTest(num);
+            }
+
+            function selectOption(num, idx) {
+                const options = document.querySelectorAll(`#html-test-${num} .test-option`);
+                options.forEach(opt => opt.classList.remove("selected"));
+                options[idx].classList.add("selected");
+                userAnswers[num - 1] = idx;
+                if (num === 30) {
+                    const submitBtn = document.getElementById("submit-btn");
+                    submitBtn.style.display = userAnswers.every(a => a !== null) ? "block" : "none";
+                }
+            }
+
+            function submitTest() {
+                let score = 0;
+                userAnswers.forEach((answer, i) => {
+                    if (answer === shuffledTestData[i].correct) score++;
+                });
+                alert(`You scored ${score} out of 30!`);
+                if (score >= 25) {
+                    window.location.href = "correct.html";
                 } else {
-                    nextBtn.classList.add('nav-btn');
-                    nextBtn.textContent = 'Next';
-                    nextBtn.onclick = () => navigateTestQuestion(language, questionNumber + 1);
-                }
-                
-                navigation.appendChild(prevBtn);
-                navigation.appendChild(nextBtn);
-                
-                testContent.appendChild(description);
-                testContent.appendChild(question);
-                testContent.appendChild(optionsContainer);
-                testContent.appendChild(navigation);
-                testContents.appendChild(testContent);
-            });
-
-            currentTestQuestions[language] = 1;
-            completedTestQuestions[language].add(1);
-            toggleTestQuestion(language, 1);
-        }
-
-        function toggleTestQuestion(language, questionNumber) {
-            if (questionNumber < 1 || questionNumber > 30) return;
-            document.querySelectorAll(`#testContents .test-content`).forEach(content => {
-                content.classList.remove('active');
-            });
-
-            const selectedQuestion = document.getElementById(`${language}-test-${questionNumber}`);
-            if (selectedQuestion) {
-                selectedQuestion.classList.add('active');
-                const prevBtn = selectedQuestion.querySelector('.nav-btn:first-child');
-                const nextBtn = selectedQuestion.querySelector('.nav-btn:last-child') || selectedQuestion.querySelector('.submit-btn');
-                prevBtn.disabled = questionNumber === 1;
-                if (nextBtn.classList.contains('nav-btn')) {
-                    nextBtn.disabled = questionNumber === 30;
-                }
-
-                if (questionNumber === 30 && nextBtn.classList.contains('submit-btn')) {
-                    const allAnswered = userAnswers[language].every(answer => answer !== null);
-                    nextBtn.style.display = allAnswered ? 'block' : 'none';
-                }
-
-                const selectedOptionIndex = userAnswers[language][questionNumber - 1];
-                if (selectedOptionIndex !== null) {
-                    const options = selectedQuestion.querySelectorAll('.test-option');
-                    options[selectedOptionIndex].classList.add('selected');
+                    closeTest();
                 }
             }
 
-            const testBox = document.querySelector(`#testGrid .test-box:nth-child(${questionNumber})`);
-            if (testBox) {
-                testBox.classList.add('completed');
+            function closeTest() {
+                document.getElementById("testModal").classList.remove("active");
             }
+
+            console.log("Script loaded successfully");
+        } catch (e) {
+            console.error("Script error:", e);
+            alert("Script error: " + e.message);
         }
-
-        function navigateTestQuestion(language, questionNumber) {
-            if (questionNumber < 1 || questionNumber > 30) return;
-            currentTestQuestions[language] = questionNumber;
-            completedTestQuestions[language].add(questionNumber);
-            toggleTestQuestion(language, questionNumber);
-        }
-
-        function selectOption(language, questionNumber, optionIndex, shuffledTestData) {
-            const options = document.querySelectorAll(`#${language}-test-${questionNumber} .test-option`);
-            options.forEach(option => option.classList.remove('selected'));
-            options[optionIndex].classList.add('selected');
-
-            userAnswers[language][questionNumber - 1] = optionIndex;
-
-            if (questionNumber === 30) {
-                const allAnswered = userAnswers[language].every(answer => answer !== null);
-                const submitBtn = document.getElementById(`${language}-submit-btn`);
-                if (submitBtn) {
-                    submitBtn.style.display = allAnswered ? 'block' : 'none';
-                }
-            }
-        }
-
-        function submitTest(language, shuffledTestData) {
-            if (!userAnswers[language] || !shuffledTestData) {
-                alert("Error calculating score. Please restart the test.");
-                return;
-            }
-            let score = 0;
-            userAnswers[language].forEach((answer, index) => {
-                if (answer === shuffledTestData[index].correct) {
-                    score++;
-                }
-            });
-            alert(`You scored ${score} out of 30!`);
-            if (score >= 25) {
-                window.location.href = 'correct.html';
-            } else {
-                closeTest();
-            }
-        }
-
-        function closeTest() {
-            const testModal = document.getElementById('testModal');
-            if (testModal) testModal.classList.remove('active');
-        }
-
-        // Initialization
-        document.querySelectorAll('.lessons-grid').forEach(grid => {
-            grid.style.display = 'none';
-        });
-
-        console.log("Script initialized successfully");
     </script>
 </body>
 </html>
