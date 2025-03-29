@@ -324,358 +324,361 @@
         <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
     </footer>
 
-<script>
+    <script>
         const lessons = [
             { 
                 title: "1. What is HTML?", 
-                instruction: "HTML, which stands for HyperText Markup Language, is the foundational language used to create and structure content on the web. It’s what tells a web browser how to display text, images, and other elements on a webpage. Every HTML document begins with the "<html>" tag, which acts like a container for everything else on the page. This tag signals to the browser that what follows is HTML code, and it’s always paired with a closing "</html>" tag at the end of the document to complete the structure.\"", 
-                description: "<html>Hello World</html>", 
-                example: "<html>Hello World</html>",
+                instruction: "HTML stands for HyperText Markup Language. It’s the standard language for creating web pages, using tags like &lt;html&gt; to structure content.", 
+                description: "<b>&lt;html&gt;Hello&lt;/html&gt;</b>", 
+                example: "<html>Hello</html>" 
             },
             { 
-                title: "2. Adding a Document Type", 
-                instruction: "\"To ensure your webpage works correctly in modern browsers, you need to declare it as an HTML5 document by adding "<!DOCTYPE html>" at the very top of your file. This isn’t a regular tag with a closing pair—it’s a special declaration that tells the browser to interpret your code using the latest HTML standards. Without it, the browser might guess the version, leading to display issues. After this declaration, you then start your "<html>" tag to begin the actual content.\"", 
-                description: "\"<!DOCTYPE html><html>Hello</html>\"", 
-                example: "<!DOCTYPE html><html>Hello</html>" 
+                title: "2. Document Structure", 
+                instruction: "Every HTML page starts with a &lt;!DOCTYPE html&gt; declaration, followed by an <html> tag containing <head> and <body> sections.", 
+                description: "<b>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;</b>", 
+                example: "<!DOCTYPE html><html><head></head><body></body></html>" 
             },
             { 
-                title: "3. The HTML Root Tag", 
-                instruction: "\"The "<html>" tag is the root of every webpage—it’s like the outermost box that holds everything else. You open it with "<html>" right after the "<!DOCTYPE html>" declaration and close it with "</html>" at the end of your file. Inside this tag, you’ll place all the content, structure, and instructions for your webpage. Think of it as the foundation that defines the entire HTML document, ensuring the browser knows where the webpage starts and stops.\"", 
-                description: "\"<html>My first page</html>\"", 
-                example: "<html>My first page</html>" 
+                title: "3. The Head Section", 
+                instruction: "The &lt;head&gt; section contains metadata about the page, like the title, using the &lt;title&gt; tag.", 
+                description: "<b>&lt;head&gt;&lt;title&gt;My Page&lt;/title&gt;&lt;/head&gt;</b>", 
+                example: "<head><title>My Page</title></head>" 
             },
             { 
-                title: "4. The Head Section", 
-                instruction: "\"Within the "<html>" tag, you create a "<head>" section to store information about your webpage that doesn’t appear directly on the screen. This section, opened with "<head>" and closed with "</head>", is where you put things like the page title, character encoding, and links to stylesheets or scripts. It’s like the backstage area of your webpage, setting up everything the browser needs to know before displaying the visible content.\"", 
-                description: "\"<html><head></head>My page</html>\"", 
-                example: "<html><head></head>My page</html>" 
+                title: "4. The Body Section", 
+                instruction: "The &lt;body&gt; section holds the visible content of the webpage, like text or images.", 
+                description: "<b>&lt;body&gt;Welcome&lt;/body&gt;</b>", 
+                example: "<body>Welcome</body>" 
             },
             { 
-                title: "5. The Body Section", 
-                instruction: "\"After the "<head>" section inside your "<html>" tag, you add the "<body>" section, which is where all the visible content of your webpage lives. Open it with "<body>" and close it with "</body>". This is where you’ll put text, images, headings, links—anything you want users to see when they visit your page. The "<body>" is the main stage, while "<head>" handles the behind-the-scenes setup.\"", 
-                description: "\"<html><head></head><body>Hello</body></html>\"", 
-                example: "<html><head></head><body>Hello</body></html>" 
+                title: "5. Headings", 
+                instruction: "Headings organize content with &lt;h1&gt; to &lt;h6&gt; tags, where &lt;h1&gt; is the largest and most important.", 
+                description: "<b>&lt;h1&gt;Main Title&lt;/h1&gt;</b>", 
+                example: "<h1>Main Title</h1>" 
             },
             { 
-                title: "6. Setting a Title", 
-                instruction: "\"Inside the "<head>" section, you use the "<title>" tag to give your webpage a name that appears in the browser’s tab or title bar. Open it with "<title>", add your text (like the name of your site), and close it with "</title>". This title doesn’t show up on the page itself but helps users and search engines identify your page. It’s a small but crucial detail for navigation and accessibility.\"", 
-                description: "\"<html><head><title>My Site</title></head><body>Hi</body></html>\"", 
-                example: "<html><head><title>My Site</title></head><body>Hi</body></html>" 
+                title: "6. Smaller Headings", 
+                instruction: "Use &lt;h2&gt; to &lt;h6&gt; for subheadings, decreasing in size as the number increases.", 
+                description: "<b>&lt;h2&gt;Subtitle&lt;/h2&gt;</b>", 
+                example: "<h2>Subtitle</h2>" 
             },
             { 
-                title: "7. Writing Paragraphs", 
-                instruction: "\"To add readable blocks of text to your webpage, use the "<p>" tag inside the "<body>" section. Start with "<p>", write your text (like a sentence or paragraph), and end with "</p>". Each "<p>" tag creates a new paragraph with some space around it, making your content easier to read. This is perfect for articles, descriptions, or any time you need to present text in a structured way.\"", 
-                description: "\"<html><body><p>This is my text.</p></body></html>\"", 
-                example: "<html><body><p>This is my text.</p></body></html>" 
+                title: "7. Paragraphs", 
+                instruction: "The &lt;p&gt; tag creates paragraphs for blocks of text.", 
+                description: "<b>&lt;p&gt;This is a paragraph.&lt;/p&gt;</b>", 
+                example: "<p>This is a paragraph.</p>" 
             },
             { 
-                title: "8. Making Headings", 
-                instruction: "\"For big, bold titles on your webpage, use the "<h1>" tag within the "<body>" section. Open it with "<h1>", add your title text, and close it with "</h1>". This creates the largest heading size, ideal for the main title of your page. It stands out visually and helps organize your content, signaling to readers and search engines what your page is about.\"", 
-                description: "\"<html><body><h1>Welcome</h1></body></html>\"", 
-                example: "<html><body><h1>Welcome</h1></body></html>" 
+                title: "8. Line Breaks", 
+                instruction: "The &lt;br&gt; tag inserts a line break within text, without starting a new paragraph.", 
+                description: "<b>Line1&lt;br&gt;Line2</b>", 
+                example: "Line1<br>Line2" 
             },
             { 
-                title: "9. Smaller Headings", 
-                instruction: "\"If you need subheadings that are still prominent but smaller than your main title, use the "<h2>" tag inside "<body>". Start with "<h2>", write your subheading, and end with "</h2>". This is great for breaking up sections under your "<h1>" title, creating a hierarchy that makes your page easier to scan and understand.\"", 
-                description: "\"<html><body><h1>Big</h1><h2>Small</h2></body></html>\"", 
-                example: "<html><body><h1>Big</h1><h2>Small</h2></body></html>" 
+                title: "9. Horizontal Rules", 
+                instruction: "The &lt;hr&gt; tag adds a horizontal line to separate content sections.", 
+                description: "<b>&lt;hr&gt;</b>", 
+                example: "<hr>" 
             },
             { 
-                title: "10. Even Smaller Headings", 
-                instruction: "\"For even smaller subheadings, use "<h3>" in the "<body>" section, opening with "<h3>" and closing with "</h3>". HTML offers six heading levels, from "<h1>" (largest) to "<h6>" (smallest), so "<h3>" is perfect for third-level topics under "<h1>" and "<h2>". This layering helps you organize content deeply and clearly for readers.\"", 
-                description: "\"<html><body><h1>One</h1><h2>Two</h2><h3>Three</h3></body></html>\"", 
-                example: "<html><body><h1>One</h1><h2>Two</h2><h3>Three</h3></body></html>" 
+                title: "10. Bold Text", 
+                instruction: "The &lt;b&gt; tag makes text bold for emphasis.", 
+                description: "<b>&lt;b&gt;Bold&lt;/b&gt;</b>", 
+                example: "<b>Bold</b>" 
             },
             { 
-                title: "11. Adding Line Breaks", 
-                instruction: "\"Sometimes you want to move text to a new line without starting a whole new paragraph—use "<br>" for that. Place "<br>" anywhere in your "<body>" content where you want a line break. It’s a single tag with no closing pair, and it’s handy for things like addresses or poems where you need tight control over line spacing.\"", 
-                description: "\"<html><body>Hello<br>World</body></html>\"", 
-                example: "<html><body>Hello<br>World</body></html>" 
+                title: "11. Italic Text", 
+                instruction: "The &lt;i&gt; tag italicizes text for emphasis or style.", 
+                description: "<b>&lt;i&gt;Italic&lt;/i&gt;</b>", 
+                example: "<i>Italic</i>" 
             },
             { 
-                title: "12. Horizontal Lines", 
-                instruction: "\"To visually separate sections of your webpage, insert "<hr>" inside "<body>". This single tag, which doesn’t need a closing tag, draws a horizontal line across the page. It’s useful for breaking up content—like dividing a header from the main text or marking the end of a section—without changing the layout too much.\"", 
-                description: "\"<html><body>Top<hr>Bottom</body></html>\"", 
-                example: "<html><body>Top<hr>Bottom</body></html>" 
+                title: "12. Underlined Text", 
+                instruction: "The &lt;u&gt; tag underlines text to highlight or mark it.", 
+                description: "<b>&lt;u&gt;Under&lt;/u&gt;</b>", 
+                example: "<u>Under</u>" 
             },
             { 
-                title: "13. Bold Text", 
-                instruction: "\"To make text stand out with a bold appearance, wrap it in "<b>" and "</b>" tags within "<body>". Start with "<b>", add your text, and close with "</b>". This is great for emphasizing important words or phrases, like key terms or calls to action, making them pop visually without changing their meaning.\"", 
-                description: "\"<html><body><b>Bold</b> text</body></html>\"", 
-                example: "<html><body><b>Bold</b> text</body></html>" 
+                title: "13. Strong Emphasis", 
+                instruction: "The &lt;strong&gt; tag indicates important text, typically rendered as bold.", 
+                description: "<b>&lt;strong&gt;Important&lt;/strong&gt;</b>", 
+                example: "<strong>Important</strong>" 
             },
             { 
-                title: "14. Italic Text", 
-                instruction: "\"For a slanted, italicized look to emphasize text, use "<i>" and "</i>" inside "<body>". Open with "<i>", write your text, and close with "</i>". This is often used for quotes, book titles, or to subtly highlight something without making it as loud as bold text—perfect for adding nuance to your content.\"", 
-                description: "\"<html><body><i>Italic</i> text</body></html>\"", 
-                example: "<html><body><i>Italic</i> text</body></html>" 
+                title: "14. Emphasized Text", 
+                instruction: "The &lt;em&gt; tag marks text for emphasis, usually italicized.", 
+                description: "<b>&lt;em&gt;Emphasis&lt;/em&gt;</b>", 
+                example: "<em>Emphasis</em>" 
             },
             { 
-                title: "15. Underlined Text", 
-                instruction: "\"To draw a line under your text for emphasis, wrap it with "<u>" and "</u>" in "<body>". Begin with "<u>", add your text, and end with "</u>". This can highlight key points or mimic handwritten underlines, though it’s less common today since underlined text often looks like a link—use it thoughtfully!\"", 
-                description: "\"<html><body><u>Under</u> text</body></html>\"", 
-                example: "<html><body><u>Under</u> text</body></html>" 
+                title: "15. Links", 
+                instruction: "The &lt;a&gt; tag creates hyperlinks with the 'href' attribute specifying the URL.", 
+                description: "<b>&lt;a href='https://example.com'&gt;Click&lt;/a&gt;</b>", 
+                example: "<a href='https://example.com'>Click</a>" 
             },
             { 
-                title: "16. Linking to Other Pages", 
-                instruction: "\"To connect your webpage to another page or website, use the "<a>" tag with an href attribute inside "<body>". Write "<a href=\\\"URL\\">" (replacing URL with the web address), add the clickable text, and close with "</a>". This creates a hyperlink—when users click it, they’re taken to the linked location, like another page or an external site.\"", 
-                description: "\"<html><body><a href=\\\"https://example.com\\">Click me</a></body></html>\"", 
-                example: "<html><body><a href=\"https://example.com\">Click me</a></body></html>" 
+                title: "16. Images", 
+                instruction: "The &lt;img&gt; tag embeds images using 'src' for the file path and 'alt' for accessibility text.", 
+                description: "<b>&lt;img src='pic.jpg' alt='A picture'&gt;</b>", 
+                example: "<img src='pic.jpg' alt='A picture'>" 
             },
             { 
-                title: "17. Adding Images", 
-                instruction: "\"To display an image on your webpage, use the "<img>" tag in "<body>" with a src attribute. Write "<img src=\\\"image-url\\">" where the src value is the path to your image file (like a web URL or local file). Add an alt attribute, like "alt=\\\"description\\\"", for accessibility—it describes the image if it fails to load or for screen readers.\"", 
-                description: "\"<html><body><img src=\\\"https://via.placeholder.com/100\\\" alt=\\\"Square\\"></body></html>\"", 
-                example: "<html><body><img src=\"https://via.placeholder.com/100\" alt=\"Square\"></body></html>" 
+                title: "17. Image Attributes", 
+                instruction: "Add 'width' and 'height' attributes to &lt;img&gt; to control image size in pixels.", 
+                description: "<b>&lt;img src='pic.jpg' alt='Pic' width='100' height='100'&gt;</b>", 
+                example: "<img src='pic.jpg' alt='Pic' width='100' height='100'>" 
             },
             { 
-                title: "18. Image Sizes", 
-                instruction: "\"You can resize an image by adding width and height attributes to the "<img>" tag in "<body>". After "<img src=\\\"image-url\\">", include "width=\\\"number\\\"" and "height=\\\"number\\\"" (in pixels, like "50"), followed by the alt attribute. This controls how big the image appears on the page, overriding its natural size for better layout control.\"", 
-                description: "\"<html><body><img src=\\\"https://via.placeholder.com/100\\\" width=\\\"50\\\" height=\\\"50\\\" alt=\\\"Small\\"></body></html>\"", 
-                example: "<html><body><img src=\"https://via.placeholder.com/100\" width=\"50\" height=\"50\" alt=\"Small\"></body></html>" 
+                title: "18. Comments", 
+                instruction: "Comments are added with &lt;!-- and --&gt; to include notes that don’t display.", 
+                description: "<b>&lt;!-- This is hidden --&gt;</b>", 
+                example: "<!-- This is hidden -->" 
             },
             { 
-                title: "19. Comments", 
-                instruction: "\"To leave notes in your HTML code that won’t show on the webpage, use comments with "<!--" and "-->". Inside "<body>" or anywhere in your file, write "<!--" followed by your note (like a reminder or explanation), then close with "-->". These are invisible to users but help you and other developers understand the code later.\"", 
-                description: "\"<html><body>Hello <!-- Secret note --> World</body></html>\"", 
-                example: "<html><body>Hello <!-- Secret note --> World</body></html>" 
+                title: "19. Unordered Lists", 
+                instruction: "The &lt;ul&gt; tag creates a bulleted list, with &lt;li&gt; tags for each item.", 
+                description: "<b>&lt;ul&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;/ul&gt;</b>", 
+                example: "<ul><li>Item 1</li></ul>" 
             },
             { 
-                title: "20. Unordered Lists", 
-                instruction: "\"For a list with bullet points, use "<ul>" (unordered list) inside "<body>". Open with "<ul>", then add each item with "<li>" (list item) and close it with "</li>", and finish the list with "</ul>". Each "<li>" gets a bullet, making this ideal for things like shopping lists or features where order doesn’t matter.\"", 
-                description: "\"<html><body><ul><li>Apple</li><li>Banana</li></ul></body></html>\"", 
-                example: "<html><body><ul><li>Apple</li><li>Banana</li></ul></body></html>" 
+                title: "20. Ordered Lists", 
+                instruction: "The &lt;ol&gt; tag creates a numbered list, with &lt;li&gt; tags for each item.", 
+                description: "<b>&lt;ol&gt;&lt;li&gt;Step 1&lt;/li&gt;&lt;/ol&gt;</b>", 
+                example: "<ol><li>Step 1</li></ol>" 
             },
             { 
-                title: "21. Ordered Lists", 
-                instruction: "\"To create a numbered list, use "<ol>" (ordered list) within "<body>". Start with "<ol>", add each item with "<li>" and "</li>" for the text, and close the list with "</ol>". The browser automatically numbers each "<li>" in sequence, perfect for steps, rankings, or anything where order is important.\"", 
-                description: "\"<html><body><ol><li>First</li><li>Second</li></ol></body></html>\"", 
-                example: "<html><body><ol><li>First</li><li>Second</li></ol></body></html>" 
+                title: "21. Nested Lists", 
+                instruction: "Place a &lt;ul&gt; or &lt;ol&gt; inside an &lt;li&gt; to create a nested list.", 
+                description: "<b>&lt;ul&gt;&lt;li&gt;Item&lt;ul&gt;&lt;li&gt;Subitem&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;</b>", 
+                example: "<ul><li>Item<ul><li>Subitem</li></ul></li></ul>" 
             },
             { 
-                title: "22. List Items", 
-                instruction: "\"Every item in a list—whether "<ul>" or "<ol>"—is defined with the "<li>" tag inside "<body>". Open each item with "<li>", write the content (like a word or sentence), and close with "</li>". These items are the building blocks of your list, and the parent tag ("<ul>" or "<ol>") decides if they get bullets or numbers.\"", 
-                description: "\"<html><body><ul><li>One</li><li>Two</li></ul></body></html>\"", 
-                example: "<html><body><ul><li>One</li><li>Two</li></ul></body></html>" 
+                title: "22. Definition Lists", 
+                instruction: "The &lt;dl&gt; tag creates a definition list, with &lt;dt&gt; for terms and &lt;dd&gt; for descriptions.", 
+                description: "<b>&lt;dl&gt;&lt;dt&gt;Term&lt;/dt&gt;&lt;dd&gt;Definition&lt;/dd&gt;&lt;/dl&gt;</b>", 
+                example: "<dl>\n  <dt>Term</dt>\n  <dd>Definition</dd>\n</dl>" 
             },
             { 
-                title: "23. Nesting Lists", 
-                instruction: "\"To create sublists within a list, nest a "<ul>" or "<ol>" inside an "<li>" within "<body>". Start with your main list (like "<ul>"), add an "<li>", then inside that "<li>" open a new "<ul>" or "<ol>" with its own "<li>" items, and close everything properly. This creates a hierarchy, like categories with sub-items, for more complex organization.\"", 
-                description: "\"<html><body><ul><li>Fruit<ul><li>Apple</li></ul></li></ul></body></html>\"", 
-                example: "<html><body><ul><li>Fruit<ul><li>Apple</li></ul></li></ul></body></html>" 
+                title: "23. Divisions", 
+                instruction: "The <div> tag groups content into a block for organization.", 
+                description: "<b>&lt;div&gt;Content here&lt;/div&gt;</b>", 
+                example: "<div>Content here</div>" 
             },
             { 
-                title: "24. Grouping with Divs", 
-                instruction: "\"To group multiple elements together in "<body>", use the "<div>" tag. Open with "<div>", add your content (like headings, paragraphs, or images), and close with "</div>". This creates a block-level container that’s great for organizing sections of your page or applying styles to a group of items all at once.\"", 
-                description: "\"<html><body><div><h1>Title</h1><p>Text</p></div></body></html>\"", 
-                example: "<html><body><div><h1>Title</h1><p>Text</p></div></body></html>" 
+                title: "24. Spans", 
+                instruction: "The <span> tag marks inline content, like a word, within a line.", 
+                description: "<b>&lt;span&gt;Inline&lt;/span&gt; text</b>", 
+                example: "<span>Inline</span> text" 
             },
             { 
-                title: "25. Inline Spans", 
-                instruction: "\"For small tweaks to specific parts of text within "<body>", use "<span>". Open with "<span>", add the text you want to modify, and close with "</span>". Unlike "<div>", which is block-level, "<span>" is inline, meaning it doesn’t break the flow of text—ideal for styling a single word or phrase.\"", 
-                description: "\"<html><body>Hello <span>World</span></body></html>\"", 
-                example: "<html><body>Hello <span>World</span></body></html>" 
+                title: "25. Blockquotes", 
+                instruction: "The <blockquote> tag indents a quotation to set it apart.", 
+                description: "<b>&lt;blockquote&gt;Quote here&lt;/blockquote&gt;</b>", 
+                example: "<blockquote>Quote here</blockquote>" 
             },
             { 
-                title: "26. Block Quotes", 
-                instruction: "\"To highlight a long quotation in "<body>", use "<blockquote>". Start with "<blockquote>", add the quote text, and close with "</blockquote>". This tag indents the text, setting it apart from regular paragraphs, making it clear it’s a borrowed or significant statement—great for testimonials or excerpts.\"", 
-                description: "\"<html><body><blockquote>Words of wisdom</blockquote></body></html>\"", 
-                example: "<html><body><blockquote>Words of wisdom</blockquote></body></html>" 
+                title: "26. Preformatted Text", 
+                instruction: "The <pre> tag preserves whitespace and formatting in text.", 
+                description: "<b>&lt;pre&gt;Line 1\n    Line 2&lt;/pre&gt;</b>", 
+                example: "<pre>Line 1\n    Line 2</pre>" 
             },
             { 
-                title: "27. Preformatted Text", 
-                instruction: "\"If you want text to appear exactly as typed—including spaces and line breaks—use "<pre>" in "<body>". Open with "<pre>", write your text (like code or poetry), and close with "</pre>". This preserves formatting without extra styling, making it perfect for showing code snippets or structured text as-is.\"", 
-                description: "\"<html><body><pre>Hello   World</pre></body></html>\"", 
-                example: "<html><body><pre>Hello   World</pre></body></html>" 
+                title: "27. Code Snippets", 
+                instruction: "The <code> tag marks inline code, often used for programming snippets.", 
+                description: "<b>&lt;code&gt;x = 5&lt;/code&gt;</b>", 
+                example: "<code>x = 5</code>" 
             },
             { 
-                title: "28. Showing Code", 
-                instruction: "\"To display programming code or commands within "<body>", wrap them in "<code>" and "</code>". Start with "<code>", add the code (like a function or script line), and close with "</code>". This tag styles the text in a monospace font, signaling it’s code rather than regular content—often paired with "<pre>" for multi-line examples.\"", 
-                description: "\"<html><body><code>print(\\\"Hello\\\")</code></body></html>\"", 
-                example: "<html><body><code>print(\\\"Hello\\\")</code></body></html>" 
+                title: "28. Tables", 
+                instruction: "The <table> tag creates a table, with <tr> for rows and <td> for cells.", 
+                description: "<b>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Cell&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</b>", 
+                example: "<table>\n  <tr>\n    <td>Cell</td>\n  </tr>\n</table>" 
             },
             { 
-                title: "29. Basic Tables", 
-                instruction: "\"To organize data in a grid, use "<table>" in "<body>". Open with "<table>", then add rows with "<tr>" (table row) and cells within each row using "<td>" (table data), closing each with "</tr>" and "</table>". This creates a simple table structure for things like schedules or comparisons, with each "<td>" holding a piece of data.\"", 
-                description: "\"<html><body><table><tr><td>Cell</td></tr></table></body></html>\"", 
-                example: "<html><body><table><tr><td>Cell</td></tr></table></body></html>" 
+                title: "29. Table Headers", 
+                instruction: "The <th> tag defines bold, centered table headers within a <tr>.", 
+                description: "<b>&lt;table&gt;&lt;tr&gt;&lt;th&gt;Header&lt;/th&gt;&lt;/tr&gt;&lt;/table&gt;</b>", 
+                example: "<table>\n  <tr>\n    <th>Header</th>\n  </tr>\n</table>" 
             },
             { 
                 title: "30. Table Rows", 
-                instruction: "\"Inside a "<table>" in "<body>", define each row with "<tr>" and "</tr>". Open "<tr>", add cells with "<td>" for each piece of data (like text or numbers), close each with "</td>", and end the row with "</tr>". Repeat for multiple rows—each "<tr>" stacks vertically, building the table’s structure row by row.\"", 
-                description: "\"<html><body><table><tr><td>Row1</td></tr><tr><td>Row2</td></tr></table></body></html>\"", 
-                example: "<html><body><table><tr><td>Row1</td></tr><tr><td>Row2</td></tr></table></body></html>" 
+                instruction: "Multiple <tr> tags in a <table> create additional rows.", 
+                description: "<b>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Row 1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Row 2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</b>", 
+                example: "<table>\n  <tr>\n    <td>Row 1</td>\n  </tr>\n  <tr>\n    <td>Row 2</td>\n  </tr>\n</table>" 
             },
             { 
-                title: "31. Table Cells", 
-                instruction: "\"Within each "<tr>" inside a "<table>" in "<body>", use "<td>" to create individual cells. Start with "<td>", add your content (like a name or number), and close with "</td>". Multiple "<td>" tags in a single "<tr>" line up horizontally as columns, letting you fill your table with data across rows and columns.\"", 
-                description: "\"<html><body><table><tr><td>One</td><td>Two</td></tr></table></body></html>\"", 
-                example: "<html><body><table><tr><td>One</td><td>Two</td></tr></table></body></html>" 
+                title: "31. Table Columns", 
+                instruction: "Add multiple <td> or <th> tags in a <tr> to create columns.", 
+                description: "<b>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Col 1&lt;/td&gt;&lt;td&gt;Col 2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</b>", 
+                example: "<table>\n  <tr>\n    <td>Col 1</td>\n    <td>Col 2</td>\n  </tr>\n</table>" 
             },
             { 
-                title: "32. Table Headers", 
-                instruction: "\"To label columns or rows in a "<table>" within "<body>", use "<th>" instead of "<td>". Open with "<th>", add the header text (like a column title), and close with "</th>". These cells are bold and centered by default, making them stand out as titles for the data below or beside them in the table.\"", 
-                description: "\"<html><body><table><tr><th>Name</th></tr><tr><td>John</td></tr></table></body></html>\"", 
-                example: "<html><body><table><tr><th>Name</th></tr><tr><td>John</td></tr></table></body></html>" 
+                title: "32. Table Captions", 
+                instruction: "The <caption> tag adds a title above a <table>.", 
+                description: "<b>&lt;table&gt;&lt;caption&gt;My Table&lt;/caption&gt;&lt;tr&gt;&lt;td&gt;Data&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</b>", 
+                example: "<table>\n  <caption>My Table</caption>\n  <tr>\n    <td>Data</td>\n  </tr>\n</table>" 
             },
             { 
-                title: "33. Starting a Form", 
-                instruction: "\"To collect user input—like names or messages—start with "<form>" in "<body>". Open with "<form>" and close with "</ව Sinhala and Tamil translations of the instructions are provided below in the respective sections of the lesson cards below—they’ll be hidden on the site itself but visible here for your convenience. Open with "<form>" and close with "</form>", creating a container for input fields, buttons, and more. This tag sets up an interactive area where users can type or select options, which you can later connect to a server for processing.\"", 
-                description: "\"<html><body><form></form></body></html>\"", 
-                example: "<html><body><form></form></body></html>" 
+                title: "33. Forms", 
+                instruction: "The <form> tag creates a container for user input elements.", 
+                description: "<b>&lt;form&gt;&lt;/form&gt;</b>", 
+                example: "<form></form>" 
             },
             { 
-                title: "34. Text Input", 
-                instruction: "\"Inside "<form>" in "<body>", add "<input type=\\\"text\\">" to create a single-line text box. This single tag (no closing tag needed) lets users type things like their name or email. You can customize it with attributes like "id" or "name" to identify it later when the form is submitted to a server.\"", 
-                description: "\"<html><body><form><input type=\\\"text\\"></form></body></html>\"", 
-                example: "<html><body><form><input type=\"text\"></form></body></html>" 
+                title: "34. Text Inputs", 
+                instruction: "The <input> tag with type='text' creates a single-line text field.", 
+                description: "<b>&lt;form&gt;&lt;input type='text'&gt;&lt;/form&gt;</b>", 
+                example: "<form>\n  <input type='text'>\n</form>" 
             },
             { 
-                title: "35. Adding Buttons", 
-                instruction: "\"To make your "<form>" interactive, add a "<button>" inside "<body>". Open with "<button>", write the button text (like "Submit" or "Click"), and close with "</button>". This creates a clickable element users can press to submit the form or trigger an action, depending on how you set it up.\"", 
-                description: "\"<html><body><form><button>Click</button></form></body></html>\"", 
-                example: "<html><body><form><button>Click</button></form></body></html>" 
+                title: "35. Buttons", 
+                instruction: "The <button> tag creates a clickable button within a <form>.", 
+                description: "<b>&lt;form&gt;&lt;button&gt;Submit&lt;/button&gt;&lt;/form&gt;</b>", 
+                example: "<form>\n  <button>Submit</button>\n</form>" 
             },
             { 
-                title: "36. Labeling Inputs", 
-                instruction: "\"To explain what an input is for, use "<label>" with a for attribute in "<form>" within "<body>". Write "<label for=\\\"input-id\\">" (matching the input’s id), add the label text (like "Name:"), and close with "</label>". Pair it with an "<input>" tag—clicking the label will focus the input, improving usability.\"", 
-                description: "\"<html><body><form><label for=\\\"name\\">Name:</label><input type=\\\"text\\\" id=\\\"name\\"></form></body></html>\"", 
-                example: "<html><body><form><label for=\"name\">Name:</label><input type=\"text\" id=\"name\"></form></body></html>" 
+                title: "36. Labels", 
+                instruction: "The <label> tag describes an input, linked with the 'for' attribute.", 
+                description: "<b>&lt;form&gt;&lt;label for='name'&gt;Name:&lt;/label&gt;&lt;input type='text' id='name'&gt;&lt;/form&gt;</b>", 
+                example: "<form>\n  <label for='name'>Name:</label>\n  <input type='text' id='name'>\n</form>" 
             },
             { 
-                title: "37. Dropdown Menus", 
-                instruction: "\"For a list of choices in "<form>" inside "<body>", use "<select>" and "<option>". Open with "<select>", add each choice with "<option>" and "</option>" (like "Yes" or "No"), and close with "</select>". Users can click to pick one option from the dropdown, making it great for forms with predefined answers.\"", 
-                description: "\"<html><body><form><select><option>Yes</option><option>No</option></select></form></body></html>\"", 
-                example: "<html><body><form><select><option>Yes</option><option>No</option></select></form></body></html>" 
+                title: "37. Dropdowns", 
+                instruction: "The <select> tag with <option> tags creates a dropdown menu.", 
+                description: "<b>&lt;form&gt;&lt;select&gt;&lt;option&gt;Option 1&lt;/option&gt;&lt;/select&gt;&lt;/form&gt;</b>", 
+                example: "<form>\n  <select>\n    <option>Option 1</option>\n  </select>\n</form>" 
             },
             { 
-                title: "38. Text Areas", 
-                instruction: "\"If you need a bigger space for text in "<form>" within "<body>", use "<textarea>". Open with "<textarea>", leave it empty or add default text, and close with "</textarea>". This creates a multi-line box where users can write longer responses, like comments or messages, unlike the single-line "<input>".\"", 
-                description: "\"<html><body><form><textarea></textarea></form></body></html>\"", 
-                example: "<html><body><form><textarea></textarea></form></body></html>" 
+                title: "38. Textareas", 
+                instruction: "The <textarea> tag creates a multi-line text input area.", 
+                description: "<b>&lt;form&gt;&lt;textarea&gt;&lt;/textarea&gt;&lt;/form&gt;</b>", 
+                example: "<form>\n  <textarea></textarea>\n</form>" 
             },
             { 
                 title: "39. Checkboxes", 
-                instruction: "\"To let users select multiple options in "<form>" inside "<body>", use "<input type=\\\"checkbox\\">". This single tag creates a small box they can check or uncheck, paired with text (like " Agree") to describe it. Add as many as needed—each checkbox is independent, perfect for things like interest lists.\"", 
-                description: "\"<html><body><form><input type=\\\"checkbox\\"> Agree</form></body></html>\"", 
-                example: "<html><body><form><input type=\"checkbox\"> Agree</form></body></html>" 
+                instruction: "The <input> tag with type='checkbox' allows multiple selections.", 
+                description: "<b>&lt;form&gt;&lt;input type='checkbox'&gt; Yes&lt;/form&gt;</b>", 
+                example: "<form>\n  <input type='checkbox'> Yes\n</form>" 
             },
             { 
                 title: "40. Radio Buttons", 
-                instruction: "\"For single-choice options in "<form>" within "<body>", use "<input type=\\\"radio\\">" with a shared name attribute. Write multiple "<input type=\\\"radio\\\" name=\\\"group-name\\">" tags (same "name" value), each with different text (like "Yes" or "No"). Only one can be selected at a time in the group, ideal for exclusive choices.\"", 
-                description: "\"<html><body><form><input type=\\\"radio\\\" name=\\\"yesno\\"> Yes<input type=\\\"radio\\\" name=\\\"yesno\\"> No</form></body></html>\"", 
-                example: "<html><body><form><input type=\"radio\" name=\"yesno\"> Yes<input type=\"radio\" name=\"yesno\"> No</form></body></html>" 
+                instruction: "The <input> tag with type='radio' allows one selection from a group.", 
+                description: "<b>&lt;form&gt;&lt;input type='radio' name='choice'&gt; Yes&lt;/form&gt;</b>", 
+                example: "<form>\n  <input type='radio' name='choice'> Yes\n</form>" 
             },
             { 
-                title: "41. Grouping Form Elements", 
-                instruction: "\"To organize related inputs in "<form>" inside "<body>", wrap them in "<fieldset>" with a "<legend>" title. Open with "<fieldset>", add "<legend>" and "</legend>" for the group name (like "Info"), include your inputs, and close with "</fieldset>". This visually groups items, making complex forms clearer.\"", 
-                description: "\"<html><body><form><fieldset><legend>Info</legend><input type=\\\"text\\"></fieldset></form></body></html>\"", 
-                example: "<html><body><form><fieldset><legend>Info</legend><input type=\"text\"></fieldset></form></body></html>" 
+                title: "41. Fieldsets", 
+                instruction: "The <fieldset> tag groups form elements, with <legend> for a title.", 
+                description: "<b>&lt;form&gt;&lt;fieldset&gt;&lt;legend&gt;Group&lt;/legend&gt;&lt;input type='text'&gt;&lt;/fieldset&gt;&lt;/form&gt;</b>", 
+                example: "<form>\n  <fieldset>\n    <legend>Group</legend>\n    <input type='text'>\n  </fieldset>\n</form>" 
             },
             { 
-                title: "42. Form Actions", 
-                instruction: "\"To tell "<form>" in "<body>" where to send its data, add an action attribute. Write "<form action=\\\"URL\\">" (replace URL with a file or server address), add your inputs, and close with "</form>". When submitted, the form sends user data to that location—crucial for processing responses like sign-ups or searches.\"", 
-                description: "\"<html><body><form action=\\\"submit.html\\"><input type=\\\"text\\"></form></body></html>\"", 
-                example: "<html><body><form action=\"submit.html\"><input type=\"text\"></form></body></html>" 
+                title: "42. Form Action", 
+                instruction: "The 'action' attribute in <form> specifies where data is sent.", 
+                description: "<b>&lt;form action='submit.html'&gt;&lt;input type='text'&gt;&lt;/form&gt;</b>", 
+                example: "<form action='submit.html'>\n  <input type='text'>\n</form>" 
             },
             { 
-                title: "43. Form Methods", 
-                instruction: "\"Control how "<form>" data is sent with the method attribute in "<body>". Add "<form method=\\\"post\\">" (or "get") to your "<form>" tag—’post’ hides data in the request body (good for sensitive info), while ‘get’ adds it to the URL (better for searches). Include inputs and close with "</form>". This defines the submission style.\"", 
-                description: "\"<html><body><form method=\\\"post\\"><input type=\\\"text\\"></form></body></html>\"", 
-                example: "<html><body><form method=\"post\"><input type=\"text\"></form></body></html>" 
-            },
- spectrum: "\"<html><body><form><input type=\\\"text\\\" placeholder=\\\"Your name\\"></form></body></html>\"", 
-                example: "<html><body><form><input type=\"text\" placeholder=\"Your name\"></form></body></html>" 
+                title: "43. Form Method", 
+                instruction: "The 'method' attribute in <form> sets how data is sent (e.g., 'get' or 'post').", 
+                description: "<b>&lt;form action='submit.html' method='post'&gt;&lt;input type='text'&gt;&lt;/form&gt;</b>", 
+                example: "<form action='submit.html' method='post'>\n  <input type='text'>\n</form>" 
             },
             { 
-                title: "45. Required Inputs", 
-                instruction: "\"To force users to fill out an "<input>" in "<form>" inside "<body>", add the required attribute. Write "<input type=\\\"text\\\" required>"—no closing tag needed. If they try to submit without entering text, the browser stops them with a message. Pair it with a "<button>" to test the form’s submission.\"", 
-                description: "\"<html><body><form><input type=\\\"text\\\" required><button>Submit</button></form></body></html>\"", 
-                example: "<html><body><form><input type=\"text\" required><button>Submit</button></form></body></html>" 
+                title: "44. Input Placeholders", 
+                instruction: "The 'placeholder' attribute in <input> shows hint text.", 
+                description: "<b>&lt;input type='text' placeholder='Enter name'&gt;</b>", 
+                example: "<input type='text' placeholder='Enter name'>" 
+            },
+            { 
+                title: "45. Required Fields", 
+                instruction: "The 'required' attribute in <input> makes a field mandatory.", 
+                description: "<b>&lt;form&gt;&lt;input type='text' required&gt;&lt;/form&gt;</b>", 
+                example: "<form>\n  <input type='text' required>\n</form>" 
             },
             { 
                 title: "46. Meta Tags", 
-                instruction: "\"In "<head>" within "<html>", use "<meta>" tags to add hidden info about your page. Write "<meta charset=\\\"UTF-8\\">" (no closing tag) to set the character encoding, ensuring special characters display correctly. These tags don’t show on the page but help browsers and search engines understand your content.\"", 
-                description: "\"<html><head><meta charset=\\\"UTF-8\\"></head><body>Hello</body></html>\"", 
-                example: "<html><head><meta charset=\"UTF-8\"></head><body>Hello</body></html>" 
+                instruction: "The <meta> tag in <head> adds metadata like character encoding.", 
+                description: "<b>&lt;head&gt;&lt;meta charset='UTF-8'&gt;&lt;/head&gt;</b>", 
+                example: "<head>\n  <meta charset='UTF-8'>\n</head>" 
             },
             { 
-                title: "47. Page Description", 
-                instruction: "\"To summarize your page for search engines, add a "<meta>" tag with a description in "<head>" inside "<html>". Write "<meta name=\\\"description\\\" content=\\\"your summary\\">"—the content value is a short sentence about your page. It’s invisible to users but helps with SEO and browser previews.\"", 
-                description: "\"<html><head><meta name=\\\"description\\\" content=\\\"My site\\"></head><body>Hi</body></html>\"", 
-                example: "<html><head><meta name=\"description\" content=\"My site\"></head><body>Hi</body></html>" 
+                title: "47. Meta Descriptions", 
+                instruction: "The <meta> tag with 'name' and 'content' adds a page description.", 
+                description: "<b>&lt;head&gt;&lt;meta name='description' content='My site'&gt;&lt;/head&gt;</b>", 
+                example: "<head>\n  <meta name='description' content='My site'>\n</head>" 
             },
             { 
-                title: "48. Semantic Header", 
-                instruction: "\"For a meaningful top section in "<body>", use "<header>". Open with "<header>", add content like "<h1>" or navigation, and close with "</header>". This semantic tag tells browsers and screen readers it’s the introductory area, improving structure and accessibility over a plain "<div>".\"", 
-                description: "\"<html><body><header><h1>Welcome</h1></header></body></html>\"", 
-                example: "<html><body><header><h1>Welcome</h1></header></body></html>" 
+                title: "48. Semantic Headers", 
+                instruction: "The <header> tag defines a page or section header.", 
+                description: "<b>&lt;header&gt;&lt;h1&gt;Welcome&lt;/h1&gt;&lt;/header&gt;</b>", 
+                example: "<header>\n  <h1>Welcome</h1>\n</header>" 
             },
             { 
-                title: "49. Semantic Footer", 
-                instruction: "\"To mark the bottom section of your page in "<body>", use "<footer>". Start with "<footer>", add content like copyright info or links, and close with "</footer>". This semantic tag indicates it’s the closing area, enhancing meaning and accessibility compared to a generic "<div>" for the same purpose.\"", 
-                description: "\"<html><body><footer>© 2025</footer></body></html>\"", 
-                example: "<html><body><footer>© 2025</footer></body></html>" 
+                title: "49. Semantic Footers", 
+                instruction: "The <footer> tag defines a page or section footer.", 
+                description: "<b>&lt;footer&gt;&lt;p&gt;Contact us&lt;/p&gt;&lt;/footer&gt;</b>", 
+                example: "<footer>\n  <p>Contact us</p>\n</footer>" 
             },
             { 
-                title: "50. Semantic Article", 
-                instruction: "\"For standalone content like a blog post in "<body>", use "<article>". Open with "<article>", include your content (like "<h1>" and "<p>"), and close with "</article>". This semantic tag signals that the content is self-contained, making it clear to browsers and assistive tools it’s a distinct piece of your page.\"", 
-                description: "\"<html><body><article><h1>News</h1><p>Story</p></article></body></html>\"", 
-                example: "<html><body><article><h1>News</h1><p>Story</p></article></body></html>" 
+                title: "50. Semantic Articles", 
+                instruction: "The <article> tag defines independent content, like a blog post.", 
+                description: "<b>&lt;article&gt;&lt;h1&gt;Post&lt;/h1&gt;&lt;p&gt;Text&lt;/p&gt;&lt;/article&gt;</b>", 
+                example: "<article>\n  <h1>Post</h1>\n  <p>Text</p>\n</article>" 
             }
         ];
 
-        const MutationObserveruestions = [
+        const questions = [
             { q: "What does HTML stand for?", a: ["HyperText Markup Language", "HighText Machine Language", "HyperTool Multi Language"], correct: 0 },
-            { q: "What declares an HTML document?", a: ["<!DOCTYPE html>", "<html>", "<head>"], correct: 0 },
-            { q: "What tag sets the page title?", a: ["<title>", "<head>", "<body>"], correct: 0 },
-            { q: "Where does visible content go?", a: ["<body>", "<head>", "<title>"], correct: 0 },
-            { q: "Which tag makes the largest heading?", a: ["<h1>", "<h3>", "<h6>"], correct: 0 },
-            { q: "Which tag makes a smaller heading?", a: ["<h2>", "<h1>", "<p>"], correct: 0 },
-            { q: "What tag creates a paragraph?", a: ["<p>", "<div>", "<span>"], correct: 0 },
-            { q: "What tag adds a line break?", a: ["<br>", "<hr>", "<p>"], correct: 0 },
-            { q: "What tag creates a horizontal line?", a: ["<hr>", "<br>", "<line>"], correct: 0 },
-            { q: "How do you make text bold?", a: ["<b>", "<i>", "<u>"], correct: 0 },
-            { q: "How do you italicize text?", a: ["<i>", "<b>", "<u>"], correct: 0 },
-            { q: "What tag underlines text?", a: ["<u>", "<b>", "<i>"], correct: 0 },
-            { q: "What tag indicates strong importance?", a: ["<strong>", "<b>", "<em>"], correct: 0 },
-            { q: "What tag emphasizes text?", a: ["<em>", "<i>", "<strong>"], correct: 0 },
-            { q: "How do you create a link?", a: ["<a href='url'>", "<link src='url'>", "<img href='url'>"], correct: 0 },
-            { q: "Which tag adds an image?", a: ["<img>", "<a>", "<p>"], correct: 0 },
+            { q: "What declares an HTML document?", a: ["&lt;!DOCTYPE html&gt;", "&lt;html&gt;", "&lt;head&gt;"], correct: 0 },
+            { q: "What tag sets the page title?", a: ["&lt;title&gt;", "&lt;head&gt;", "&lt;body&gt;"], correct: 0 },
+            { q: "Where does visible content go?", a: ["&lt;body&gt;", "&lt;head&gt;", "&lt;title&gt;"], correct: 0 },
+            { q: "Which tag makes the largest heading?", a: ["&lt;h1&gt;", "&lt;h3&gt;", "&lt;h6&gt;"], correct: 0 },
+            { q: "Which tag makes a smaller heading?", a: ["&lt;h2&gt;", "&lt;h1&gt;", "&lt;p&gt;"], correct: 0 },
+            { q: "What tag creates a paragraph?", a: ["&lt;p&gt;", "&lt;div&gt;", "&lt;span&gt;"], correct: 0 },
+            { q: "What tag adds a line break?", a: ["&lt;br&gt;", "&lt;hr&gt;", "&lt;p&gt;"], correct: 0 },
+            { q: "What tag creates a horizontal line?", a: ["&lt;hr&gt;", "&lt;br&gt;", "&lt;line&gt;"], correct: 0 },
+            { q: "How do you make text bold?", a: ["&lt;b&gt;", "&lt;i&gt;", "&lt;u&gt;"], correct: 0 },
+            { q: "How do you italicize text?", a: ["&lt;i&gt;", "&lt;b&gt;", "&lt;u&gt;"], correct: 0 },
+            { q: "What tag underlines text?", a: ["&lt;u&gt;", "&lt;b&gt;", "&lt;i&gt;"], correct: 0 },
+            { q: "What tag indicates strong importance?", a: ["&lt;strong&gt;", "&lt;b&gt;", "&lt;em&gt;"], correct: 0 },
+            { q: "What tag emphasizes text?", a: ["&lt;em&gt;", "&lt;i&gt;", "&lt;strong&gt;"], correct: 0 },
+            { q: "How do you create a link?", a: ["&lt;a href='url'&gt;", "&lt;link src='url'&gt;", "&lt;img href='url'&gt;"], correct: 0 },
+            { q: "Which tag adds an image?", a: ["&lt;img&gt;", "&lt;a&gt;", "&lt;p&gt;"], correct: 0 },
             { q: "Which attribute sets image size?", a: ["width", "src", "alt"], correct: 0 },
-            { q: "How do you write a comment?", a: ["<!-- Comment -->", "// Comment", "/* Comment */"], correct: 0 },
-            { q: "What tag starts an unordered list?", a: ["<ul>", "<ol>", "<li>"], correct: 0 },
-            { q: "What tag starts an ordered list?", a: ["<ol>", "<ul>", "<li>"], correct: 0 },
-            { q: "How do you nest a list?", a: ["<ul> in <li>", "<li> in <p>", "<ol> in <div>"], correct: 0 },
-            { q: "What tag starts a definition list?", a: ["<dl>", "<ul>", "<ol>"], correct: 0 },
-            { q: "What tag groups content in a block?", a: ["<div>", "<span>", "<p>"], correct: 0 },
-            { q: "What tag marks inline content?", a: ["<span>", "<div>", "<block>"], correct: 0 },
-            { q: "What tag is used for quotes?", a: ["<blockquote>", "<quote>", "<q>"], correct: 0 },
-            { q: "What tag preserves text formatting?", a: ["<pre>", "<code>", "<p>"], correct: 0 },
-            { q: "What tag marks inline code?", a: ["<code>", "<pre>", "<span>"], correct: 0 },
-            { q: "What tag creates a table?", a: ["<table>", "<tr>", "<td>"], correct: 0 },
-            { q: "What tag makes a table header?", a: ["<th>", "<td>", "<tr>"], correct: 0 },
-            { q: "What tag defines a table row?", a: ["<tr>", "<td>", "<th>"], correct: 0 },
-            { q: "What tag adds a table column?", a: ["<td>", "<tr>", "<table>"], correct: 0 },
-            { q: "What tag adds a table title?", a: ["<caption>", "<title>", "<th>"], correct: 0 },
-            { q: "Which tag starts a form?", a: ["<form>", "<input>", "<button>"], correct: 0 },
-            { q: "What creates a text input?", a: ["<input type='text'>", "<input type='button'>", "<text>"], correct: 0 },
-            { q: "What tag makes a button?", a: ["<button>", "<input>", "<click>"], correct: 0 },
-            { q: "What tag links a label to an input?", a: ["<label>", "<input>", "<form>"], correct: 0 },
-            { q: "What tag starts a dropdown?", a: ["<select>", "<option>", "<dropdown>"], correct: 0 },
-            { q: "What tag creates a text area?", a: ["<textarea>", "<input>", "<text>"], correct: 0 },
-            { q: "What creates a checkbox?", a: ["<input type='checkbox'>", "<input type='radio'>", "<check>"], correct: 0 },
-            { q: "What creates a radio button?", a: ["<input type='radio'>", "<input type='checkbox'>", "<radio>"], correct: 0 },
-            { q: "What tag groups form elements?", a: ["<fieldset>", "<form>", "<group>"], correct: 0 },
+            { q: "How do you write a comment?", a: ["&lt;!-- Comment --&gt;", "// Comment", "/* Comment */"], correct: 0 },
+            { q: "What tag starts an unordered list?", a: ["&lt;ul&gt;", "&lt;ol&gt;", "&lt;li&gt;"], correct: 0 },
+            { q: "What tag starts an ordered list?", a: ["&lt;ol&gt;", "&lt;ul&gt;", "&lt;li&gt;"], correct: 0 },
+            { q: "How do you nest a list?", a: ["&lt;ul&gt; in &lt;li&gt;", "&lt;li&gt; in &lt;p&gt;", "&lt;ol&gt; in &lt;div&gt;"], correct: 0 },
+            { q: "What tag starts a definition list?", a: ["&lt;dl&gt;", "&lt;ul&gt;", "&lt;ol&gt;"], correct: 0 },
+            { q: "What tag groups content in a block?", a: ["&lt;div&gt;", "&lt;span&gt;", "&lt;p&gt;"], correct: 0 },
+            { q: "What tag marks inline content?", a: ["&lt;span&gt;", "&lt;div&gt;", "&lt;block&gt;"], correct: 0 },
+            { q: "What tag is used for quotes?", a: ["&lt;blockquote&gt;", "&lt;quote&gt;", "&lt;q&gt;"], correct: 0 },
+            { q: "What tag preserves text formatting?", a: ["&lt;pre&gt;", "&lt;code&gt;", "&lt;p&gt;"], correct: 0 },
+            { q: "What tag marks inline code?", a: ["&lt;code&gt;", "&lt;pre&gt;", "&lt;span&gt;"], correct: 0 },
+            { q: "What tag creates a table?", a: ["&lt;table&gt;", "&lt;tr&gt;", "&lt;td&gt;"], correct: 0 },
+            { q: "What tag makes a table header?", a: ["&lt;th&gt;", "&lt;td&gt;", "&lt;tr&gt;"], correct: 0 },
+            { q: "What tag defines a table row?", a: ["&lt;tr&gt;", "&lt;td&gt;", "&lt;th&gt;"], correct: 0 },
+            { q: "What tag adds a table column?", a: ["&lt;td&gt;", "&lt;tr&gt;", "&lt;table&gt;"], correct: 0 },
+            { q: "What tag adds a table title?", a: ["&lt;caption&gt;", "&lt;title&gt;", "&lt;th&gt;"], correct: 0 },
+            { q: "Which tag starts a form?", a: ["&lt;form&gt;", "&lt;input&gt;", "&lt;button&gt;"], correct: 0 },
+            { q: "What creates a text input?", a: ["&lt;input type='text'&gt;", "&lt;input type='button'&gt;", "&lt;text&gt;"], correct: 0 },
+            { q: "What tag makes a button?", a: ["&lt;button&gt;", "&lt;input&gt;", "&lt;click&gt;"], correct: 0 },
+            { q: "What tag links a label to an input?", a: ["&lt;label&gt;", "&lt;input&gt;", "&lt;form&gt;"], correct: 0 },
+            { q: "What tag starts a dropdown?", a: ["&lt;select&gt;", "&lt;option&gt;", "&lt;dropdown&gt;"], correct: 0 },
+            { q: "What tag creates a text area?", a: ["&lt;textarea&gt;", "&lt;input&gt;", "&lt;text&gt;"], correct: 0 },
+            { q: "What creates a checkbox?", a: ["&lt;input type='checkbox'&gt;", "&lt;input type='radio'&gt;", "&lt;check&gt;"], correct: 0 },
+            { q: "What creates a radio button?", a: ["&lt;input type='radio'&gt;", "&lt;input type='checkbox'&gt;", "&lt;radio&gt;"], correct: 0 },
+            { q: "What tag groups form elements?", a: ["&lt;fieldset&gt;", "&lt;form&gt;", "&lt;group&gt;"], correct: 0 },
             { q: "What attribute sends form data?", a: ["action", "method", "submit"], correct: 0 },
             { q: "What attribute sets data send method?", a: ["method", "action", "type"], correct: 0 },
             { q: "What attribute shows input hints?", a: ["placeholder", "value", "text"], correct: 0 },
             { q: "What attribute makes a field required?", a: ["required", "mandatory", "must"], correct: 0 },
-            { q: "What tag sets character encoding?", a: ["<meta charset='UTF-8'>", "<meta encoding='UTF-8'>", "<meta type='UTF-8'>"], correct: 0 },
-            { q: "What tag adds a page description?", a: ["<meta name='description'>", "<title>", "<head>"], correct: 0 },
-            { q: "What tag defines a header?", a: ["<header>", "<head>", "<h1>"], correct: 0 },
-            { q: "What tag defines a footer?", a: ["<footer>", "<body>", "<div>"], correct: 0 },
-            { q: "What tag defines an article?", a: ["<article>", "<div>", "<section>"], correct: 0 }
+            { q: "What tag sets character encoding?", a: ["&lt;meta charset='UTF-8'&gt;", "&lt;meta encoding='UTF-8'&gt;", "&lt;meta type='UTF-8'&gt;"], correct: 0 },
+            { q: "What tag adds a page description?", a: ["&lt;meta name='description'&gt;", "&lt;title&gt;", "&lt;head&gt;"], correct: 0 },
+            { q: "What tag defines a header?", a: ["&lt;header&gt;", "&lt;head&gt;", "&lt;h1&gt;"], correct: 0 },
+            { q: "What tag defines a footer?", a: ["&lt;footer&gt;", "&lt;body&gt;", "&lt;div&gt;"], correct: 0 },
+            { q: "What tag defines an article?", a: ["&lt;article&gt;", "&lt;div&gt;", "&lt;section&gt;"], correct: 0 }
         ];
 
         let currentLesson = 0;
