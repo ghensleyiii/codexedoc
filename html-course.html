@@ -49,7 +49,6 @@
         }
 
         .main-section {
-            max-width: 1000px;
             margin: auto;
             padding: 20px;
             background-color: #000000;
@@ -282,6 +281,26 @@
             font-size: 0.9rem;
         }
 
+        footer a {
+            color: #00b7eb;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-logo {
+            font-size: 0.9rem;
+            color: #00b7eb;
+            font-weight: bold;
+        }
+
+        .footer-logo span {
+            color: #00ff00;
+        }
+
+
         @media (max-width: 768px) {
             .logo { font-size: 2rem; }
             .logo span { font-size: 4rem; top: 6px; }
@@ -349,302 +368,302 @@
         const lessons = [
             { 
                 title: "1. What is HTML?", 
-                instruction: "HTML stands for HyperText Markup Language. It’s the standard language for creating web pages, using tags like <html> to structure content.", 
-                description: "<b><html>Hello</html></b>", 
+                instruction: "HTML stands for HyperText Markup Language. It’s the standard language for creating web pages, using tags like &lt;html&gt; to structure content.", 
+                description: "<b>&lt;html&gt;Hello&lt;/html&gt;</b>", 
                 example: "<html>Hello</html>" 
             },
             { 
                 title: "2. Document Structure", 
-                instruction: "Every HTML page starts with a <!DOCTYPE html> declaration, followed by an <html> tag containing <head> and <body> sections.", 
-                description: "<b><!DOCTYPE html><html><head></head><body></body></html></b>", 
+                instruction: "Every HTML page starts with a &lt;!DOCTYPE html&gt; declaration, followed by an <html> tag containing <head> and <body> sections.", 
+                description: "<b>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;</b>", 
                 example: "<!DOCTYPE html><html><head></head><body></body></html>" 
             },
             { 
                 title: "3. The Head Section", 
-                instruction: "The <head> section contains metadata about the page, like the title, using the <title> tag.", 
-                description: "<b><head><title>My Page</title></head></b>", 
+                instruction: "The &lt;head&gt; section contains metadata about the page, like the title, using the &lt;title&gt; tag.", 
+                description: "<b>&lt;head&gt;&lt;title&gt;My Page&lt;/title&gt;&lt;/head&gt;</b>", 
                 example: "<head><title>My Page</title></head>" 
             },
             { 
                 title: "4. The Body Section", 
-                instruction: "The <body> section holds the visible content of the webpage, like text or images.", 
-                description: "<b><body>Welcome</body></b>", 
+                instruction: "The &lt;body&gt; section holds the visible content of the webpage, like text or images.", 
+                description: "<b>&lt;body&gt;Welcome&lt;/body&gt;</b>", 
                 example: "<body>Welcome</body>" 
             },
             { 
                 title: "5. Headings", 
-                instruction: "Headings organize content with <h1> to <h6> tags, where <h1> is the largest and most important.", 
-                description: "<b><h1>Main Title</h1></b>", 
+                instruction: "Headings organize content with &lt;h1&gt; to &lt;h6&gt; tags, where &lt;h1&gt; is the largest and most important.", 
+                description: "<b>&lt;h1&gt;Main Title&lt;/h1&gt;</b>", 
                 example: "<h1>Main Title</h1>" 
             },
             { 
                 title: "6. Smaller Headings", 
-                instruction: "Use <h2> to <h6> for subheadings, decreasing in size as the number increases.", 
-                description: "<b><h2>Subtitle</h2></b>", 
+                instruction: "Use &lt;h2&gt; to &lt;h6&gt; for subheadings, decreasing in size as the number increases.", 
+                description: "<b>&lt;h2&gt;Subtitle&lt;/h2&gt;</b>", 
                 example: "<h2>Subtitle</h2>" 
             },
             { 
                 title: "7. Paragraphs", 
-                instruction: "The <p> tag creates paragraphs for blocks of text.", 
-                description: "<b><p>This is a paragraph.</p></b>", 
+                instruction: "The &lt;p&gt; tag creates paragraphs for blocks of text.", 
+                description: "<b>&lt;p&gt;This is a paragraph.&lt;/p&gt;</b>", 
                 example: "<p>This is a paragraph.</p>" 
             },
             { 
                 title: "8. Line Breaks", 
-                instruction: "The <br> tag inserts a line break within text, without starting a new paragraph.", 
-                description: "<b>Line1<br>Line2</b>", 
+                instruction: "The &lt;br&gt; tag inserts a line break within text, without starting a new paragraph.", 
+                description: "<b>Line1&lt;br&gt;Line2</b>", 
                 example: "Line1<br>Line2" 
             },
             { 
                 title: "9. Horizontal Rules", 
-                instruction: "The <hr> tag adds a horizontal line to separate content sections.", 
-                description: "<b><hr></b>", 
+                instruction: "The &lt;hr&gt; tag adds a horizontal line to separate content sections.", 
+                description: "<b>&lt;hr&gt;</b>", 
                 example: "<hr>" 
             },
             { 
                 title: "10. Bold Text", 
-                instruction: "The <b> tag makes text bold for emphasis.", 
-                description: "<b><b>Bold</b></b>", 
+                instruction: "The &lt;b&gt; tag makes text bold for emphasis.", 
+                description: "<b>&lt;b&gt;Bold&lt;/b&gt;</b>", 
                 example: "<b>Bold</b>" 
             },
             { 
                 title: "11. Italic Text", 
-                instruction: "The <i> tag italicizes text for emphasis or style.", 
-                description: "<b><i>Italic</i></b>", 
+                instruction: "The &lt;i&gt; tag italicizes text for emphasis or style.", 
+                description: "<b>&lt;i&gt;Italic&lt;/i&gt;</b>", 
                 example: "<i>Italic</i>" 
             },
             { 
                 title: "12. Underlined Text", 
-                instruction: "The <u> tag underlines text to highlight or mark it.", 
-                description: "<b><u>Under</u></b>", 
+                instruction: "The &lt;u&gt; tag underlines text to highlight or mark it.", 
+                description: "<b>&lt;u&gt;Under&lt;/u&gt;</b>", 
                 example: "<u>Under</u>" 
             },
             { 
                 title: "13. Strong Emphasis", 
-                instruction: "The <strong> tag indicates important text, typically rendered as bold.", 
-                description: "<b><strong>Important</strong></b>", 
+                instruction: "The &lt;strong&gt; tag indicates important text, typically rendered as bold.", 
+                description: "<b>&lt;strong&gt;Important&lt;/strong&gt;</b>", 
                 example: "<strong>Important</strong>" 
             },
             { 
                 title: "14. Emphasized Text", 
-                instruction: "The <em> tag marks text for emphasis, usually italicized.", 
-                description: "<b><em>Emphasis</em></b>", 
+                instruction: "The &lt;em&gt; tag marks text for emphasis, usually italicized.", 
+                description: "<b>&lt;em&gt;Emphasis&lt;/em&gt;</b>", 
                 example: "<em>Emphasis</em>" 
             },
             { 
                 title: "15. Links", 
-                instruction: "The <a> tag creates hyperlinks with the 'href' attribute specifying the URL.", 
-                description: "<b><a href='https://example.com'>Click</a></b>", 
+                instruction: "The &lt;a&gt; tag creates hyperlinks with the 'href' attribute specifying the URL.", 
+                description: "<b>&lt;a href='https://example.com'&gt;Click&lt;/a&gt;</b>", 
                 example: "<a href='https://example.com'>Click</a>" 
             },
             { 
                 title: "16. Images", 
-                instruction: "The <img> tag embeds images using 'src' for the file path and 'alt' for accessibility text.", 
-                description: "<b><img src='pic.jpg' alt='A picture'></b>", 
+                instruction: "The &lt;img&gt; tag embeds images using 'src' for the file path and 'alt' for accessibility text.", 
+                description: "<b>&lt;img src='pic.jpg' alt='A picture'&gt;</b>", 
                 example: "<img src='pic.jpg' alt='A picture'>" 
             },
             { 
                 title: "17. Image Attributes", 
-                instruction: "Add 'width' and 'height' attributes to <img> to control image size in pixels.", 
-                description: "<b><img src='pic.jpg' alt='Pic' width='100' height='100'></b>", 
+                instruction: "Add 'width' and 'height' attributes to &lt;img&gt; to control image size in pixels.", 
+                description: "<b>&lt;img src='pic.jpg' alt='Pic' width='100' height='100'&gt;</b>", 
                 example: "<img src='pic.jpg' alt='Pic' width='100' height='100'>" 
             },
             { 
                 title: "18. Comments", 
-                instruction: "Comments are added with <!-- and --> to include notes that don’t display.", 
-                description: "<b><!-- This is hidden --></b>", 
+                instruction: "Comments are added with &lt;!-- and --&gt; to include notes that don’t display.", 
+                description: "<b>&lt;!-- This is hidden --&gt;</b>", 
                 example: "<!-- This is hidden -->" 
             },
             { 
                 title: "19. Unordered Lists", 
-                instruction: "The <ul> tag creates a bulleted list, with <li> tags for each item.", 
-                description: "<b><ul><li>Item 1</li></ul></b>", 
+                instruction: "The &lt;ul&gt; tag creates a bulleted list, with &lt;li&gt; tags for each item.", 
+                description: "<b>&lt;ul&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;/ul&gt;</b>", 
                 example: "<ul><li>Item 1</li></ul>" 
             },
             { 
                 title: "20. Ordered Lists", 
-                instruction: "The <ol> tag creates a numbered list, with <li> tags for each item.", 
-                description: "<b><ol><li>Step 1</li></ol></b>", 
+                instruction: "The &lt;ol&gt; tag creates a numbered list, with &lt;li&gt; tags for each item.", 
+                description: "<b>&lt;ol&gt;&lt;li&gt;Step 1&lt;/li&gt;&lt;/ol&gt;</b>", 
                 example: "<ol><li>Step 1</li></ol>" 
             },
             { 
                 title: "21. Nested Lists", 
-                instruction: "Place a <ul> or <ol> inside an <li> to create a nested list.", 
-                description: "<b><ul><li>Item<ul><li>Subitem</li></ul></li></ul></b>", 
+                instruction: "Place a &lt;ul&gt; or &lt;ol&gt; inside an &lt;li&gt; to create a nested list.", 
+                description: "<b>&lt;ul&gt;&lt;li&gt;Item&lt;ul&gt;&lt;li&gt;Subitem&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;</b>", 
                 example: "<ul><li>Item<ul><li>Subitem</li></ul></li></ul>" 
             },
             { 
                 title: "22. Definition Lists", 
-                instruction: "The <dl> tag creates a definition list, with <dt> for terms and <dd> for descriptions.", 
-                description: "<b><dl><dt>Term</dt><dd>Definition</dd></dl></b>", 
+                instruction: "The &lt;dl&gt; tag creates a definition list, with &lt;dt&gt; for terms and &lt;dd&gt; for descriptions.", 
+                description: "<b>&lt;dl&gt;&lt;dt&gt;Term&lt;/dt&gt;&lt;dd&gt;Definition&lt;/dd&gt;&lt;/dl&gt;</b>", 
                 example: "<dl><dt>Term</dt><dd>Definition</dd></dl>" 
             },
             { 
                 title: "23. Divisions", 
-                instruction: "The <div> tag groups content into a block for organization.", 
-                description: "<b><div>Content here</div></b>", 
+                instruction: "The &lt;div&gt; tag groups content into a block for organization.", 
+                description: "<b>&lt;div&gt;Content here&lt;/div&gt;</b>", 
                 example: "<div>Content here</div>" 
             },
             { 
                 title: "24. Spans", 
-                instruction: "The <span> tag marks inline content, like a word, within a line.", 
-                description: "<b><span>Inline</span> text</b>", 
+                instruction: "The &lt;span&gt; tag marks inline content, like a word, within a line.", 
+                description: "<b>&lt;span&gt;Inline&lt;/span&gt; text</b>", 
                 example: "<span>Inline</span> text" 
             },
             { 
                 title: "25. Blockquotes", 
-                instruction: "The <blockquote> tag indents a quotation to set it apart.", 
-                description: "<b><blockquote>Quote here</blockquote></b>", 
+                instruction: "The &lt;blockquote&gt; tag indents a quotation to set it apart.", 
+                description: "<b>&lt;blockquote&gt;Quote here&lt;/blockquote&gt;</b>", 
                 example: "<blockquote>Quote here</blockquote>" 
             },
             { 
                 title: "26. Preformatted Text", 
-                instruction: "The <pre> tag preserves whitespace and formatting in text.", 
-                description: "<b><pre>Line 1 Line 2</pre></b>", 
+                instruction: "The &lt;pre&gt; tag preserves whitespace and formatting in text.", 
+                description: "<b>&lt;pre&gt;Line 1 Line 2&lt;/pre&gt;</b>", 
                 example: "<pre>Line 1 Line 2</pre>" 
             },
             { 
                 title: "27. Code Snippets", 
-                instruction: "The <code> tag marks inline code, often used for programming snippets.", 
-                description: "<b><code>x = 5</code></b>", 
+                instruction: "The &lt;code&gt; tag marks inline code, often used for programming snippets.", 
+                description: "<b>&lt;code&gt;x = 5&lt;/code&gt;</b>", 
                 example: "<code>x = 5</code>" 
             },
             { 
                 title: "28. Tables", 
-                instruction: "The <table> tag creates a table, with <tr> for rows and <td> for cells.", 
-                description: "<b><table><tr><td>Cell</td></tr></table></b>", 
+                instruction: "The &lt;table&gt; tag creates a table, with <tr> for rows and &lt;td&gt; for cells.", 
+                description: "<b>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Cell&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</b>", 
                 example: "<table><tr><td>Cell</td></tr></table>" 
             },
             { 
                 title: "29. Table Headers", 
-                instruction: "The <th> tag defines bold, centered table headers within a <tr>.", 
-                description: "<b><table><tr><th>Header</th></tr></table></b>", 
+                instruction: "The &lt;th&gt; tag defines bold, centered table headers within a &lt;tr&gt;.", 
+                description: "<b>&lt;table&gt;&lt;tr&gt;&lt;th&gt;Header&lt;/th&gt;&lt;/tr&gt;&lt;/table&gt;</b>", 
                 example: "<table><tr><th>Header</th></tr></table>" 
             },
             { 
                 title: "30. Table Rows", 
-                instruction: "Multiple <tr> tags in a <table> create additional rows.", 
-                description: "<b><table><tr><td>Row 1</td></tr><tr><td>Row 2</td></tr></table></b>", 
+                instruction: "Multiple &lt;tr&gt; tags in a &lt;table&gt; create additional rows.", 
+                description: "<b>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Row 1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Row 2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</b>", 
                 example: "<table><tr><td>Row 1</td></tr><tr><td>Row 2</td></tr></table>" 
             },
             { 
                 title: "31. Table Columns", 
-                instruction: "Add multiple <td> or <th> tags in a <tr> to create columns.", 
-                description: "<b><table><tr><td>Col 1</td><td>Col 2</td></tr></table></b>", 
+                instruction: "Add multiple &lt;td&gt; or &lt;th&gt; tags in a &lt;tr&gt; to create columns.", 
+                description: "<b>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Col 1&lt;/td&gt;&lt;td&gt;Col 2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</b>", 
                 example: "<table><tr><td>Col 1</td><td>Col 2</td></tr></table>" 
             },
             { 
                 title: "32. Table Captions", 
-                instruction: "The <caption> tag adds a title above a <table>.", 
-                description: "<b><table><caption>My Table</caption><tr><td>Data</td></tr></table></b>", 
+                instruction: "The &lt;caption&gt; tag adds a title above a &lt;table&gt;.", 
+                description: "<b>&lt;table&gt;&lt;caption&gt;My Table&lt;/caption&gt;&lt;tr&gt;&lt;td&gt;Data&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</b>", 
                 example: "<table><caption>My Table</caption><tr><td>Data</td></tr></table>" 
             },
             { 
                 title: "33. Forms", 
-                instruction: "The <form> tag creates a container for user input elements.", 
-                description: "<b><form></form></b>", 
+                instruction: "The &lt;form&gt; tag creates a container for user input elements.", 
+                description: "<b>&lt;form&gt;&lt;/form&gt;</b>", 
                 example: "<form></form>" 
             },
             { 
                 title: "34. Text Inputs", 
-                instruction: "The <input> tag with type='text' creates a single-line text field.", 
-                description: "<b><form><input type='text'></form></b>", 
+                instruction: "The &lt;input&gt; tag with type='text' creates a single-line text field.", 
+                description: "<b>&lt;form&gt;&lt;input type='text'&gt;&lt;/form&gt;</b>", 
                 example: "<form><input type='text'></form>" 
             },
             { 
                 title: "35. Buttons", 
-                instruction: "The <button> tag creates a clickable button within a <form>.", 
-                description: "<b><form><button>Submit</button></form></b>", 
+                instruction: "The &lt;button&gt; tag creates a clickable button within a &lt;form&gt;.", 
+                description: "<b>&lt;form&gt;&lt;button&gt;Submit&lt;/button&gt;&lt;/form&gt;</b>", 
                 example: "<form><button>Submit</button></form>" 
             },
             { 
                 title: "36. Labels", 
-                instruction: "The <label> tag describes an input, linked with the 'for' attribute.", 
-                description: "<b><form><label for='name'>Name:</label><input type='text' id='name'></form></b>", 
+                instruction: "The &lt;label&gt; tag describes an input, linked with the 'for' attribute.", 
+                description: "<b>&lt;form&gt;&lt;label for='name'&gt;Name:&lt;/label&gt;&lt;input type='text' id='name'&gt;&lt;/form&gt;</b>", 
                 example: "<form><label for='name'>Name:</label><input type='text' id='name'></form>" 
             },
             { 
                 title: "37. Dropdowns", 
-                instruction: "The <select> tag with <option> tags creates a dropdown menu.", 
-                description: "<b><form><select><option>Option 1</option></select></form></b>", 
+                instruction: "The &lt;select&gt; tag with &lt;option&gt; tags creates a dropdown menu.", 
+                description: "<b>&lt;form&gt;&lt;select&gt;&lt;option&gt;Option 1&lt;/option&gt;&lt;/select&gt;&lt;/form&gt;</b>", 
                 example: "<form><select><option>Option 1</option></select></form>" 
             },
             { 
                 title: "38. Textareas", 
-                instruction: "The <textarea> tag creates a multi-line text input area.", 
-                description: "<b><form><textarea></textarea></form></b>", 
+                instruction: "The &lt;textarea&gt; tag creates a multi-line text input area.", 
+                description: "<b>&lt;form&gt;&lt;textarea&gt;&lt;/textarea&gt;&lt;/form&gt;</b>", 
                 example: "<form><textarea></textarea></form>" 
             },
             { 
                 title: "39. Checkboxes", 
-                instruction: "The <input> tag with type='checkbox' allows multiple selections.", 
-                description: "<b><form><input type='checkbox'> Yes</form></b>", 
+                instruction: "The &lt;input&gt; tag with type='checkbox' allows multiple selections.", 
+                description: "<b>&lt;form&gt;&lt;input type='checkbox'&gt; Yes&lt;/form&gt;</b>", 
                 example: "<form><input type='checkbox'> Yes</form>" 
             },
             { 
                 title: "40. Radio Buttons", 
-                instruction: "The <input> tag with type='radio' allows one selection from a group.", 
-                description: "<b><form><input type='radio' name='choice'> Yes</form></b>", 
+                instruction: "The &lt;input&gt; tag with type='radio' allows one selection from a group.", 
+                description: "<b>&lt;form&gt;&lt;input type='radio' name='choice'&gt; Yes&lt;/form&gt;</b>", 
                 example: "<form><input type='radio' name='choice'> Yes</form>" 
             },
             { 
                 title: "41. Fieldsets", 
-                instruction: "The <fieldset> tag groups form elements, with <legend> for a title.", 
-                description: "<b><form><fieldset><legend>Group</legend><input type='text'></fieldset></form></b>", 
+                instruction: "The &lt;fieldset&gt; tag groups form elements, with &lt;legend&gt; for a title.", 
+                description: "<b>&lt;form&gt;&lt;fieldset&gt;&lt;legend&gt;Group&lt;/legend&gt;&lt;input type='text'&gt;&lt;/fieldset&gt;&lt;/form&gt;</b>", 
                 example: "<form><fieldset><legend>Group</legend><input type='text'></fieldset></form>" 
             },
             { 
                 title: "42. Form Action", 
-                instruction: "The 'action' attribute in <form> specifies where data is sent.", 
-                description: "<b><form action='submit.html'><input type='text'></form></b>", 
+                instruction: "The 'action' attribute in &lt;form&gt; specifies where data is sent.", 
+                description: "<b>&lt;form action='submit.html'&gt;&lt;input type='text'&gt;&lt;/form&gt;</b>", 
                 example: "<form action='submit.html'><input type='text'></form>" 
             },
             { 
                 title: "43. Form Method", 
-                instruction: "The 'method' attribute in <form> sets how data is sent (e.g., 'get' or 'post').", 
-                description: "<b><form action='submit.html' method='post'><input type='text'></form></b>", 
+                instruction: "The 'method' attribute in &lt;form&gt; sets how data is sent (e.g., 'get' or 'post').", 
+                description: "<b>&lt;form action='submit.html' method='post'&gt;&lt;input type='text'&gt;&lt;/form&gt;</b>", 
                 example: "<form action='submit.html' method='post'><input type='text'></form>" 
             },
             { 
                 title: "44. Input Placeholders", 
-                instruction: "The 'placeholder' attribute in <input> shows hint text.", 
-                description: "<b><input type='text' placeholder='Enter name'></b>", 
+                instruction: "The 'placeholder' attribute in &lt;input&gt; shows hint text.", 
+                description: "<b>&lt;input type='text' placeholder='Enter name'&gt;</b>", 
                 example: "<input type='text' placeholder='Enter name'>" 
             },
             { 
                 title: "45. Required Fields", 
-                instruction: "The 'required' attribute in <input> makes a field mandatory.", 
-                description: "<b><form><input type='text' required></form></b>", 
+                instruction: "The 'required' attribute in &lt;input&gt; makes a field mandatory.", 
+                description: "<b>&lt;form&gt;&lt;input type='text' required&gt;&lt;/form&gt;</b>", 
                 example: "<form><input type='text' required></form>" 
             },
             { 
                 title: "46. Meta Tags", 
-                instruction: "The <meta> tag in <head> adds metadata like character encoding.", 
-                description: "<b><head><meta charset='UTF-8'></head></b>", 
+                instruction: "The &lt;meta&gt; tag in &lt;head&gt; adds metadata like character encoding.", 
+                description: "<b>&lt;head&gt;&lt;meta charset='UTF-8'&gt;&lt;/head&gt;</b>", 
                 example: "<head><meta charset='UTF-8'></head>" 
             },
             { 
                 title: "47. Meta Descriptions", 
-                instruction: "The <meta> tag with 'name' and 'content' adds a page description.", 
-                description: "<b><head><meta name='description' content='My site'></head></b>", 
+                instruction: "The &lt;meta&gt; tag with 'name' and 'content' adds a page description.", 
+                description: "<b>&lt;head&gt;&lt;meta name='description' content='My site'&gt;&lt;/head&gt;</b>", 
                 example: "<head><meta name='description' content='My site'></head>" 
             },
             { 
                 title: "48. Semantic Headers", 
-                instruction: "The <header> tag defines a page or section header.", 
-                description: "<b><header><h1>Welcome</h1></header></b>", 
+                instruction: "The &lt;header&gt; tag defines a page or section header.", 
+                description: "<b>&lt;header&gt;&lt;h1&gt;Welcome&lt;/h1&gt;&lt;/header&gt;</b>", 
                 example: "<header><h1>Welcome</h1></header>" 
             },
             { 
                 title: "49. Semantic Footers", 
-                instruction: "The <footer> tag defines a page or section footer.", 
-                description: "<b><footer><p>Contact us</p></footer></b>", 
+                instruction: "The &lt;footer&gt; tag defines a page or section footer.", 
+                description: "<b>&lt;footer&gt;&lt;p&gt;Contact us&lt;/p&gt;&lt;/footer&gt;</b>", 
                 example: "<footer><p>Contact us</p></footer>" 
             },
             { 
                 title: "50. Semantic Articles", 
-                instruction: "The <article> tag defines independent content, like a blog post.", 
-                description: "<b><article><h1>Post</h1><p>Text</p></article></b>", 
+                instruction: "The &lt;article&gt; tag defines independent content, like a blog post.", 
+                description: "<b>&lt;article&gt;&lt;h1&gt;Post&lt;/h1&gt;&lt;p&gt;Text&lt;/p&gt;&lt;/article&gt;</b>", 
                 example: "<article><h1>Post</h1><p>Text</p></article>" 
             }
         ];
