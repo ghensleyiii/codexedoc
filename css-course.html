@@ -339,19 +339,19 @@
             { 
                 title: "3. Inline CSS", 
                 instruction: "Inline CSS applies styles directly to an HTML element using the 'style' attribute.", 
-                description: "<b><p style='color: red;'>Text</p></b>", 
+                description: "<b>&lt;p style='color: red;'&gt;Text&lt;/p&gt;</b>", 
                 example: "<p style='color: red;'>Text</p>" 
             },
             { 
                 title: "4. Internal CSS", 
                 instruction: "Internal CSS is defined within a &lt;style&gt; tag in the &lt;head&gt; section of an HTML file.", 
-                description: "<b><style> body { background: #fff; } </style></b>", 
+                description: "<b>7lt;style&gt; body { background: #fff; } &lt;/style&gt;</b>", 
                 example: "<style> body { background: #fff; } </style>" 
             },
             { 
                 title: "5. External CSS", 
                 instruction: "External CSS uses a separate .css file linked with the &lt;link&gt; tag.", 
-                description: "<b><link rel='stylesheet' href='styles.css'></b>", 
+                description: "<b>&lt;link rel='stylesheet' href='styles.css'&gt;</b>", 
                 example: "<link rel='stylesheet' href='styles.css'>" 
             },
             { 
@@ -630,9 +630,9 @@
         const questions = [
             { q: "What does CSS stand for?", a: ["Cascading Style Sheets", "Creative Style System", "Colorful Style Sheets"], correct: 0 },
             { q: "What is the correct CSS syntax?", a: ["selector { property: value; }", "selector (property = value)", "property: selector { value; }"], correct: 0 },
-            { q: "How do you apply inline CSS?", a: ["style attribute", "<style> tag", "<link> tag"], correct: 0 },
-            { q: "Where is internal CSS placed?", a: ["<style> in <head>", "<style> in <body>", "External file"], correct: 0 },
-            { q: "How do you link external CSS?", a: ["<link rel='stylesheet'>", "<style src='file'>", "<css href='file'>"], correct: 0 },
+            { q: "How do you apply inline CSS?", a: ["style attribute", "&lt;style&gt; tag", "&lt;link&gt; tag"], correct: 0 },
+            { q: "Where is internal CSS placed?", a: ["&lt;style&gt; in &lt;head&gt;", "&lt;style&gt; in &lt;body&gt;", "External file"], correct: 0 },
+            { q: "How do you link external CSS?", a: ["&lt;link rel='stylesheet'&gt;", "&lt;style src='file'&gt;", "&lt;css href='file'&gt;'"], correct: 0 },
             { q: "What targets an HTML element in CSS?", a: ["Element selector", "Class selector", "ID selector"], correct: 0 },
             { q: "How do you select a class?", a: [".class", "#class", "class"], correct: 0 },
             { q: "How do you select an ID?", a: ["#id", ".id", "id"], correct: 0 },
