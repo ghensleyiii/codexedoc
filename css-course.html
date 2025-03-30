@@ -3,916 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Lessons & Test - CODEXEDOC</title>
+    <title>CSS Course & Test - Codexedoc</title>
     <style>
+        /* General Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
-
         body {
             background-color: #1a1a1a;
-            color: #ffffff;
+            color: #333;
             line-height: 1.6;
-            overflow-x: hidden;
         }
-
         header {
             background-color: #1a1a1a;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
-
         .logo {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
             color: #00b7eb;
+            display: inline-block;
         }
-
         .logo a {
             color: #00b7eb;
             text-decoration: none;
             transition: color 0.3s;
         }
-
         .logo a:hover {
             color: #00ff00;
         }
-
         .logo span {
             color: #00ff00;
-            font-size: 3.5rem;
+            font-size: 5rem;
             position: relative;
-            top: 5px;
+            top: 8px;
         }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 15px;
+        .main-section {
+            margin: auto;
+            padding: 20px;
+            background-color: #000000;
+            border-radius: 5px;
         }
-
-        .action-button {
-            background-color: #00ff00;
+        .buttons {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .btn-lesson {
+            padding: 15px 30px;
+            margin: 10px;
+            background-color: #00b7eb;
             color: #1a1a1a;
-            padding: 12px 25px;
             border: none;
             border-radius: 5px;
-            font-size: 1.1rem;
-            font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
+            font-size: 1.2rem;
         }
-
-        .action-button:hover {
-            background-color: #00b7eb;
-            color: #ffffff;
-        }
-
-        .content-container {
-            max-width: 900px;
-            margin: 15px auto;
-            padding: 15px;
-            background-color: #2a2a2a;
-            border: 2px solid #00b7eb;
+        .btn-test {
+            padding: 15px 30px;
+            margin: 10px;
+            background-color: #00ff00;
+            color: #1a1a1a;
+            border: none;
             border-radius: 5px;
-            display: none;
+            cursor: pointer;
+            font-size: 1.2rem;
         }
-
-        .content-container.active {
+        .lesson-box {
+            display: none;
+            background-color: #00b7eb;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            color: #1a1a1a;
+        }
+        .test-box {
+            display: none;
+            background-color: #00ff00;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            color: #1a1a1a;
+        }
+        .lesson-box.active, .test-box.active {
             display: block;
         }
-
-        .lesson-title, .test-title {
-            font-size: 1.4rem;
-            font-weight: bold;
+        .lesson-content {
+            background-color: #000000;
             color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .code-block {
-            background-color: #1a1a1a;
-            color: #ffffff;
-            padding: 10px;
+            padding: 20px;
             border-radius: 5px;
             margin: 10px 0;
+        }
+        .lesson-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        .lesson-content .instruction, 
+        .lesson-content .description, 
+        .lesson-content .example {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .lesson-content .instruction {
+            background-color: #1a1a1a;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .lesson-content .description {
+            background-color: #1a1a1a;
+            font-size: 1rem;
+            color: #ccc;
+            font-weight: bold;
+        }
+        .lesson-content .example {
+            background-color: #333;
             font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            border-left: 4px solid #00ff00;
+            white-space: pre-wrap;
+        }
+        .test-question {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+            position: relative;
+        }
+        .submit-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #00b7eb;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: none;
+        }
+        .submit-btn:hover {
+            background-color: #00a3d3;
+        }
+        pre {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
             overflow-x: auto;
             white-space: pre-wrap;
             border: 1px solid #333;
         }
-
-        .lesson-instructions, .test-instructions {
-            margin: 10px 0;
-        }
-
-        .lesson-instructions li {
-            margin-bottom: 8px;
-        }
-
         .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
+            margin: 20px 0;
+            text-align: center;
         }
-
-        .nav-button {
-            background-color: #00b7eb;
-            color: #ffffff;
-            padding: 8px 15px;
+        .nav-btn-lesson {
+            padding: 10px 20px;
+            background-color: #000000;
+            color: #00b7eb;
             border: none;
             border-radius: 5px;
-            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s;
+            margin: 0 10px;
         }
-
-        .nav-button:disabled {
-            background-color: #555;
+        .nav-btn-test {
+            padding: 10px 20px;
+            background-color: #000000;
+            color: #00ff00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .nav-btn-lesson:disabled, .nav-btn-test:disabled {
+            background-color: #666;
+            color: #999;
             cursor: not-allowed;
         }
-
-        .nav-button:hover:not(:disabled) {
-            background-color: #00ff00;
-            color: #1a1a1a;
+        .progress-squares {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 20px 0;
+            justify-content: center;
         }
-
-        .toc {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-            gap: 10px;
-            padding: 15px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .toc-item {
+        .lesson-square {
+            width: 25px;
+            height: 25px;
             background-color: #00b7eb;
-            color: #1a1a1a;
-            padding: 1px;
+            border-radius: 3px;
             text-align: center;
-            border-radius: 5px;
+            color: #000000;
             font-size: 0.9rem;
-            font-weight: bold;
+            line-height: 25px;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
-
-        .toc-item:hover {
+        .lesson-square.completed {
             background-color: #00ff00;
         }
-
-        .test-question {
-            margin-bottom: 15px;
-        }
-
-        .test-question label {
-            display: block;
-            margin: 5px 0;
-            cursor: pointer;
-        }
-
-        .test-question input[type="radio"] {
-            margin-right: 8px;
-        }
-
-        .submit-button {
+        .test-square {
+            width: 25px;
+            height: 25px;
             background-color: #00ff00;
-            color: #1a1a1a;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
+            border-radius: 3px;
+            text-align: center;
+            color: #000000;
+            font-size: 0.9rem;
+            line-height: 25px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            display: block;
-            margin: 15px auto;
         }
-
-        .submit-button:hover {
+        .test-square.completed {
             background-color: #00b7eb;
-            color: #ffffff;
         }
-
+        .certificate-form, .retry-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #000000;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+        .certificate-form.active, .retry-message.active {
+            display: block;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
         footer {
             background-color: #1a1a1a;
             color: #00ff00;
             text-align: center;
-            padding: 15px;
-            font-size: 0.8rem;
+            padding: 20px;
+            font-size: 0.9rem;
         }
-
         footer a {
             color: #00b7eb;
             text-decoration: none;
         }
-
         footer a:hover {
             text-decoration: underline;
         }
-
         .footer-logo {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #00b7eb;
             font-weight: bold;
         }
-
         .footer-logo span {
             color: #00ff00;
         }
-
-        @media (max-width: 600px) {
-            .logo { font-size: 1.5rem; }
-            .logo span { font-size: 2.5rem; top: 3px; }
-            .button-container { flex-direction: column; gap: 10px; }
-            .action-button { width: 100%; padding: 10px; font-size: 1rem; }
-            .content-container { margin: 10px; padding: 10px; }
-            .lesson-title, .test-title { font-size: 1.2rem; }
-            .toc { grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); }
-            .toc-item { font-size: 0.8rem; padding: 8px; }
-            .nav-buttons { flex-direction: column; gap: 10px; }
-            .nav-button { width: 100%; padding: 10px; }
+        @media (max-width: 768px) {
+            .logo { font-size: 2rem; }
+            .logo span { font-size: 4rem; top: 6px; }
+            .main-section { padding: 15px; }
+            .btn-lesson, .btn-test { font-size: 1rem; padding: 10px 20px; }
+            .lesson-square, .test-square { width: 20px; height: 20px; font-size: 0.8rem; line-height: 20px; }
+            .lesson-content h2 { font-size: 1.5rem; }
+            .lesson-content .instruction { font-size: 1rem; }
+            .lesson-content .description { font-size: 0.9rem; }
+            .lesson-content .example { font-size: 0.9rem; }
         }
 
-        @media (min-width: 601px) {
-            .toc { grid-template-columns: repeat(5, 1fr); }
+        /* Updated Styles: Removed green boxes and blue highlighting */
+        .test-question label {
+            display: block; /* Keeps options stacked vertically */
+            padding: 5px 0; /* Minimal padding for spacing */
+            color: #ffffff; /* Matches test-question text color */
         }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">
-            <a href="#">CODE</a><span>X</span><a href="#">EDOC</a>
+            <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
         </div>
     </header>
 
-    <div class="button-container">
-        <button class="action-button" id="openCourseBtn">Open Course</button>
-        <button class="action-button" id="launchTestBtn">Launch Test</button>
-    </div>
+    <section class="main-section">
+        <div class="buttons">
+            <button class="btn-lesson" onclick="toggleLessonBox()">Open Lesson</button>
+            <button class="btn-test" onclick="toggleTestBox()">Launch Test</button>
+        </div>
 
-    <!-- Lessons Container -->
-    <div id="lessonContainer" class="content-container">
-        <div id="lesson1" class="lesson">
-            <div class="lesson-title">1. Introduction to CSS</div>
-            <div class="code-block"><pre><code>p { color: blue; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>CSS (Cascading Style Sheets) styles HTML elements:</p>
-                <ul>
-                    <li><strong>Selector</strong>: Targets elements (e.g., <code>p</code>).</li>
-                    <li><strong>Property</strong>: Defines what to style (e.g., <code>color</code>).</li>
-                    <li><strong>Value</strong>: Sets the style (e.g., <code>blue</code>).</li>
-                </ul>
-                <p><strong>Try it:</strong> Add this to a <code><style></code> tag in an HTML file!</p>
+        <div class="lesson-box" id="lessonBox">
+            <div class="lesson-content" id="lessonContent"></div>
+            <div class="nav-buttons">
+                <button class="nav-btn-lesson" onclick="prevLesson()" id="prevLessonBtn">Last</button>
+                <button class="nav-btn-lesson" onclick="nextLesson()" id="nextLessonBtn">Next</button>
             </div>
+            <div class="progress-squares" id="lessonSquares"></div>
         </div>
-        <div id="lesson2" class="lesson" style="display: none;">
-            <div class="lesson-title">2. Inline CSS</div>
-            <div class="code-block"><pre><code><p style="color: red;">Text</p></code></pre></div>
-            <div class="lesson-instructions">
-                <p>Inline CSS applies styles directly to elements:</p>
-                <ul>
-                    <li><strong>style</strong>: Attribute for inline styling.</li>
-                </ul>
-                <p><strong>Try it:</strong> Add this to an HTML element!</p>
-            </div>
-        </div>
-        <div id="lesson3" class="lesson" style="display: none;">
-            <div class="lesson-title">3. Internal CSS</div>
-            <div class="code-block"><pre><code><style> p { font-size: 16px; } </style></code></pre></div>
-            <div class="lesson-instructions">
-                <p>Internal CSS uses a <code><style></code> tag in the <code><head></code>:</p>
-                <ul>
-                    <li>Styles multiple elements at once.</li>
-                </ul>
-                <p><strong>Try it:</strong> Add this to your HTML <code><head></code>!</p>
-            </div>
-        </div>
-        <div id="lesson4" class="lesson" style="display: none;">
-            <div class="lesson-title">4. External CSS</div>
-            <div class="code-block"><pre><code><link rel="stylesheet" href="styles.css"></code></pre></div>
-            <div class="lesson-instructions">
-                <p>External CSS links a separate file:</p>
-                <ul>
-                    <li><strong>href</strong>: Path to the CSS file.</li>
-                </ul>
-                <p><strong>Try it:</strong> Create a <code>styles.css</code> file and link it!</p>
-            </div>
-        </div>
-        <div id="lesson5" class="lesson" style="display: none;">
-            <div class="lesson-title">5. CSS Selectors</div>
-            <div class="code-block"><pre><code>.class { color: green; } #id { font-weight: bold; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Selectors target elements:</p>
-                <ul>
-                    <li><strong>.class</strong>: Targets classes.</li>
-                    <li><strong>#id</strong>: Targets IDs.</li>
-                </ul>
-                <p><strong>Try it:</strong> Use these with HTML elements!</p>
-            </div>
-        </div>
-        <div id="lesson6" class="lesson" style="display: none;">
-            <div class="lesson-title">6. Colors in CSS</div>
-            <div class="code-block"><pre><code>p { color: #ff0000; background-color: rgb(0, 255, 0); }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Colors can be set using names, hex, or RGB:</p>
-                <ul>
-                    <li><strong>#ff0000</strong>: Hex for red.</li>
-                    <li><strong>rgb(0, 255, 0)</strong>: Green in RGB.</li>
-                </ul>
-                <p><strong>Try it:</strong> Change some colors!</p>
-            </div>
-        </div>
-        <div id="lesson7" class="lesson" style="display: none;">
-            <div class="lesson-title">7. Fonts</div>
-            <div class="code-block"><pre><code>p { font-family: Arial; font-size: 20px; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Style text with fonts:</p>
-                <ul>
-                    <li><strong>font-family</strong>: Sets the font.</li>
-                    <li><strong>font-size</strong>: Sets the size.</li>
-                </ul>
-                <p><strong>Try it:</strong> Customize text!</p>
-            </div>
-        </div>
-        <div id="lesson8" class="lesson" style="display: none;">
-            <div class="lesson-title">8. Text Alignment</div>
-            <div class="code-block"><pre><code>p { text-align: center; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Align text:</p>
-                <ul>
-                    <li><strong>text-align</strong>: Left, right, center, or justify.</li>
-                </ul>
-                <p><strong>Try it:</strong> Align some text!</p>
-            </div>
-        </div>
-        <div id="lesson9" class="lesson" style="display: none;">
-            <div class="lesson-title">9. Margins</div>
-            <div class="code-block"><pre><code>div { margin: 10px; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Margins create space outside elements:</p>
-                <ul>
-                    <li><strong>margin</strong>: Sets all sides.</li>
-                </ul>
-                <p><strong>Try it:</strong> Add margins to a div!</p>
-            </div>
-        </div>
-        <div id="lesson10" class="lesson" style="display: none;">
-            <div class="lesson-title">10. Padding</div>
-            <div class="code-block"><pre><code>div { padding: 15px; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Padding creates space inside elements:</p>
-                <ul>
-                    <li><strong>padding</strong>: Sets all sides.</li>
-                </ul>
-                <p><strong>Try it:</strong> Add padding to a div!</p>
-            </div>
-        </div>
-        <div id="lesson11" class="lesson" style="display: none;">
-            <div class="lesson-title">11. Borders</div>
-            <div class="code-block"><pre><code>div { border: 2px solid black; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Borders outline elements:</p>
-                <ul>
-                    <li><strong>border</strong>: Width, style, color.</li>
-                </ul>
-                <p><strong>Try it:</strong> Add a border to a div!</p>
-            </div>
-        </div>
-        <div id="lesson12" class="lesson" style="display: none;">
-            <div class="lesson-title">12. Backgrounds</div>
-            <div class="code-block"><pre><code>div { background-color: yellow; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Backgrounds style element backs:</p>
-                <ul>
-                    <li><strong>background-color</strong>: Sets a solid color.</li>
-                </ul>
-                <p><strong>Try it:</strong> Change a background!</p>
-            </div>
-        </div>
-        <div id="lesson13" class="lesson" style="display: none;">
-            <div class="lesson-title">13. Background Images</div>
-            <div class="code-block"><pre><code>div { background-image: url('img.jpg'); }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Use images as backgrounds:</p>
-                <ul>
-                    <li><strong>background-image</strong>: Sets an image.</li>
-                </ul>
-                <p><strong>Try it:</strong> Add an image background!</p>
-            </div>
-        </div>
-        <div id="lesson14" class="lesson" style="display: none;">
-            <div class="lesson-title">14. Box Model</div>
-            <div class="code-block"><pre><code>div { width: 100px; height: 100px; margin: 10px; padding: 10px; border: 1px solid; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>The box model defines element sizing:</p>
-                <ul>
-                    <li>Includes content, padding, border, margin.</li>
-                </ul>
-                <p><strong>Try it:</strong> Create a box!</p>
-            </div>
-        </div>
-        <div id="lesson15" class="lesson" style="display: none;">
-            <div class="lesson-title">15. Display Property</div>
-            <div class="code-block"><pre><code>span { display: block; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Display controls layout:</p>
-                <ul>
-                    <li><strong>block</strong>: Full width.</li>
-                    <li><strong>inline</strong>: Same line.</li>
-                </ul>
-                <p><strong>Try it:</strong> Change a span’s display!</p>
-            </div>
-        </div>
-        <div id="lesson16" class="lesson" style="display: none;">
-            <div class="lesson-title">16. Visibility</div>
-            <div class="code-block"><pre><code>p { visibility: hidden; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Visibility hides elements:</p>
-                <ul>
-                    <li><strong>hidden</strong>: Invisible but takes space.</li>
-                </ul>
-                <p><strong>Try it:</strong> Hide an element!</p>
-            </div>
-        </div>
-        <div id="lesson17" class="lesson" style="display: none;">
-            <div class="lesson-title">17. Position: Static</div>
-            <div class="code-block"><pre><code>div { position: static; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Static is the default position:</p>
-                <ul>
-                    <li>Follows normal flow.</li>
-                </ul>
-                <p><strong>Try it:</strong> Test static positioning!</p>
-            </div>
-        </div>
-        <div id="lesson18" class="lesson" style="display: none;">
-            <div class="lesson-title">18. Position: Relative</div>
-            <div class="code-block"><pre><code>div { position: relative; top: 10px; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Relative positions from its normal spot:</p>
-                <ul>
-                    <li><strong>top</strong>: Moves down.</li>
-                </ul>
-                <p><strong>Try it:</strong> Shift an element!</p>
-            </div>
-        </div>
-        <div id="lesson19" class="lesson" style="display: none;">
-            <div class="lesson-title">19. Position: Absolute</div>
-            <div class="code-block"><pre><code>div { position: absolute; top: 0; left: 0; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Absolute positions relative to parent:</p>
-                <ul>
-                    <li>Removes from flow.</li>
-                </ul>
-                <p><strong>Try it:</strong> Place an element!</p>
-            </div>
-        </div>
-        <div id="lesson20" class="lesson" style="display: none;">
-            <div class="lesson-title">20. Position: Fixed</div>
-            <div class="code-block"><pre><code>header { position: fixed; top: 0; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Fixed stays on screen:</p>
-                <ul>
-                    <li>Stays during scroll.</li>
-                </ul>
-                <p><strong>Try it:</strong> Fix a header!</p>
-            </div>
-        </div>
-        <div id="lesson21" class="lesson" style="display: none;">
-            <div class="lesson-title">21. Float</div>
-            <div class="code-block"><pre><code>img { float: left; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Float moves elements aside:</p>
-                <ul>
-                    <li><strong>left</strong>: To the left.</li>
-                </ul>
-                <p><strong>Try it:</strong> Float an image!</p>
-            </div>
-        </div>
-        <div id="lesson22" class="lesson" style="display: none;">
-            <div class="lesson-title">22. Clear</div>
-            <div class="code-block"><pre><code>p { clear: both; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Clear stops float effects:</p>
-                <ul>
-                    <li><strong>both</strong>: Clears all floats.</li>
-                </ul>
-                <p><strong>Try it:</strong> Clear a float!</p>
-            </div>
-        </div>
-        <div id="lesson23" class="lesson" style="display: none;">
-            <div class="lesson-title">23. Flexbox Basics</div>
-            <div class="code-block"><pre><code>.container { display: flex; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Flexbox aligns items:</p>
-                <ul>
-                    <li><strong>display: flex</strong>: Enables flex.</li>
-                </ul>
-                <p><strong>Try it:</strong> Create a flex container!</p>
-            </div>
-        </div>
-        <div id="lesson24" class="lesson" style="display: none;">
-            <div class="lesson-title">24. Flex Direction</div>
-            <div class="code-block"><pre><code>.container { display: flex; flex-direction: column; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Flex direction sets item flow:</p>
-                <ul>
-                    <li><strong>column</strong>: Vertical stack.</li>
-                </ul>
-                <p><strong>Try it:</strong> Change flex direction!</p>
-            </div>
-        </div>
-        <div id="lesson25" class="lesson" style="display: none;">
-            <div class="lesson-title">25. Grid Basics</div>
-            <div class="code-block"><pre><code>.grid { display: grid; grid-template-columns: 1fr 1fr; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Grid creates 2D layouts:</p>
-                <ul>
-                    <li><strong>grid-template-columns</strong>: Defines columns.</li>
-                </ul>
-                <p><strong>Try it:</strong> Make a grid!</p>
-            </div>
-        </div>
-        <div id="lesson26" class="lesson" style="display: none;">
-            <div class="lesson-title">26. Media Queries</div>
-            <div class="code-block"><pre><code>@media (max-width: 600px) { p { font-size: 14px; } }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Media queries adapt styles:</p>
-                <ul>
-                    <li><strong>max-width</strong>: Applies below size.</li>
-                </ul>
-                <p><strong>Try it:</strong> Add a media query!</p>
-            </div>
-        </div>
-        <div id="lesson27" class="lesson" style="display: none;">
-            <div class="lesson-title">27. Pseudo-classes</div>
-            <div class="code-block"><pre><code>a:hover { color: red; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Pseudo-classes style states:</p>
-                <ul>
-                    <li><strong>:hover</strong>: On mouse over.</li>
-                </ul>
-                <p><strong>Try it:</strong> Hover an element!</p>
-            </div>
-        </div>
-        <div id="lesson28" class="lesson" style="display: none;">
-            <div class="lesson-title">28. Pseudo-elements</div>
-            <div class="code-block"><pre><code>p::first-line { font-weight: bold; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Pseudo-elements style parts:</p>
-                <ul>
-                    <li><strong>::first-line</strong>: Targets first line.</li>
-                </ul>
-                <p><strong>Try it:</strong> Style a part!</p>
-            </div>
-        </div>
-        <div id="lesson29" class="lesson" style="display: none;">
-            <div class="lesson-title">29. CSS Animations</div>
-            <div class="code-block"><pre><code>@keyframes move { from { left: 0; } to { left: 100px; } } div { animation: move 2s; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Animations create motion:</p>
-                <ul>
-                    <li><strong>@keyframes</strong>: Defines steps.</li>
-                </ul>
-                <p><strong>Try it:</strong> Animate an element!</p>
-            </div>
-        </div>
-        <div id="lesson30" class="lesson" style="display: none;">
-            <div class="lesson-title">30. CSS Transitions</div>
-            <div class="code-block"><pre><code>button { transition: background-color 0.3s; } button:hover { background-color: blue; }</code></pre></div>
-            <div class="lesson-instructions">
-                <p>Transitions animate property changes:</p>
-                <ul>
-                    <li><strong>transition</strong>: Property and duration.</li>
-                </ul>
-                <p><strong>Try it:</strong> Add a hover transition!</p>
-            </div>
-        </div>
-        <div class="nav-buttons">
-            <button class="nav-button" id="prevLessonBtn" disabled>Previous</button>
-            <button class="nav-button" id="nextLessonBtn">Next</button>
-        </div>
-    </div>
 
-    <!-- Test Container -->
-    <div id="testContainer" class="content-container">
-        <div id="question1" class="test-question">
-            <div class="test-title">Question 1</div>
-            <div class="test-instructions">
-                <p>What does CSS stand for?</p>
-                <label><input type="radio" name="q1" value="a"> a) Creative Style Sheets</label>
-                <label><input type="radio" name="q1" value="b"> b) Cascading Style Sheets</label>
-                <label><input type="radio" name="q1" value="c"> c) Computer Style Sheets</label>
+        <div class="test-box" id="testBox">
+            <div class="test-question" id="testQuestion"></div>
+            <div class="nav-buttons">
+                <button class="nav-btn-test" onclick="prevQuestion()" id="prevQuestionBtn">Last</button>
+                <button class="nav-btn-test" onclick="nextQuestion()" id="nextQuestionBtn">Next</button>
+            </div>
+            <div class="progress-squares" id="testSquares"></div>
+            <div class="certificate-form" id="certificateForm">
+                <h2>Congratulations!</h2>
+                <p>Enter your name for your certificate (80%+ score):</p>
+                <input type="text" id="nameInput" placeholder="Your Name" required>
+                <button class="nav-btn-test" onclick="generateCertificate()">Generate Certificate</button>
+            </div>
+            <div class="retry-message" id="retryMessage">
+                <h2>Try Again</h2>
+                <p>Your score was below 80%. Please review the lessons and try again.</p>
             </div>
         </div>
-        <div id="question2" class="test-question" style="display: none;">
-            <div class="test-title">Question 2</div>
-            <div class="test-instructions">
-                <p>Where is inline CSS applied?</p>
-                <label><input type="radio" name="q2" value="a"> a) In a separate file</label>
-                <label><input type="radio" name="q2" value="b"> b) In the HTML element</label>
-                <label><input type="radio" name="q2" value="c"> c) In the <code><head></code></label>
-            </div>
-        </div>
-        <div id="question3" class="test-question" style="display: none;">
-            <div class="test-title">Question 3</div>
-            <div class="test-instructions">
-                <p>How is internal CSS added?</p>
-                <label><input type="radio" name="q3" value="a"> a) Via <code><link></code></label>
-                <label><input type="radio" name="q3" value="b"> b) Via <code>style</code> attribute</label>
-                <label><input type="radio" name="q3" value="c"> c) Via <code><style></code> tag</label>
-            </div>
-        </div>
-        <div id="question4" class="test-question" style="display: none;">
-            <div class="test-title">Question 4</div>
-            <div class="test-instructions">
-                <p>What tag links external CSS?</p>
-                <label><input type="radio" name="q4" value="a"> a) <code><style></code></label>
-                <label><input type="radio" name="q4" value="b"> b) <code><link></code></label>
-                <label><input type="radio" name="q4" value="c"> c) <code><script></code></label>
-            </div>
-        </div>
-        <div id="question5" class="test-question" style="display: none;">
-            <div class="test-title">Question 5</div>
-            <div class="test-instructions">
-                <p>Which selector targets a class?</p>
-                <label><input type="radio" name="q5" value="a"> a) <code>.class</code></label>
-                <label><input type="radio" name="q5" value="b"> b) <code>#id</code></label>
-                <label><input type="radio" name="q5" value="c"> c) <code>tag</code></label>
-            </div>
-        </div>
-        <div id="question6" class="test-question" style="display: none;">
-            <div class="test-title">Question 6</div>
-            <div class="test-instructions">
-                <p>How is red written in hex?</p>
-                <label><input type="radio" name="q6" value="a"> a) <code>#00ff00</code></label>
-                <label><input type="radio" name="q6" value="b"> b) <code>#ff0000</code></label>
-                <label><input type="radio" name="q6" value="c"> c) <code>#0000ff</code></label>
-            </div>
-        </div>
-        <div id="question7" class="test-question" style="display: none;">
-            <div class="test-title">Question 7</div>
-            <div class="test-instructions">
-                <p>Which property sets font?</p>
-                <label><input type="radio" name="q7" value="a"> a) <code>color</code></label>
-                <label><input type="radio" name="q7" value="b"> b) <code>font-size</code></label>
-                <label><input type="radio" name="q7" value="c"> c) <code>font-family</code></label>
-            </div>
-        </div>
-        <div id="question8" class="test-question" style="display: none;">
-            <div class="test-title">Question 8</div>
-            <div class="test-instructions">
-                <p>What aligns text to the center?</p>
-                <label><input type="radio" name="q8" value="a"> a) <code>text-align: left</code></label>
-                <label><input type="radio" name="q8" value="b"> b) <code>text-align: center</code></label>
-                <label><input type="radio" name="q8" value="c"> c) <code>text-align: right</code></label>
-            </div>
-        </div>
-        <div id="question9" class="test-question" style="display: none;">
-            <div class="test-title">Question 9</div>
-            <div class="test-instructions">
-                <p>What creates space outside an element?</p>
-                <label><input type="radio" name="q9" value="a"> a) <code>padding</code></label>
-                <label><input type="radio" name="q9" value="b"> b) <code>margin</code></label>
-                <label><input type="radio" name="q9" value="c"> c) <code>border</code></label>
-            </div>
-        </div>
-        <div id="question10" class="test-question" style="display: none;">
-            <div class="test-title">Question 10</div>
-            <div class="test-instructions">
-                <p>What creates space inside an element?</p>
-                <label><input type="radio" name="q10" value="a"> a) <code>padding</code></label>
-                <label><input type="radio" name="q10" value="b"> b) <code>margin</code></label>
-                <label><input type="radio" name="q10" value="c"> c) <code>border</code></label>
-            </div>
-        </div>
-        <div id="question11" class="test-question" style="display: none;">
-            <div class="test-title">Question 11</div>
-            <div class="test-instructions">
-                <p>What adds an outline?</p>
-                <label><input type="radio" name="q11" value="a"> a) <code>margin</code></label>
-                <label><input type="radio" name="q11" value="b"> b) <code>border</code></label>
-                <label><input type="radio" name="q11" value="c"> c) <code>padding</code></label>
-            </div>
-        </div>
-        <div id="question12" class="test-question" style="display: none;">
-            <div class="test-title">Question 12</div>
-            <div class="test-instructions">
-                <p>Which sets a background color?</p>
-                <label><input type="radio" name="q12" value="a"> a) <code>color</code></label>
-                <label><input type="radio" name="q12" value="b"> b) <code>background-image</code></label>
-                <label><input type="radio" name="q12" value="c"> c) <code>background-color</code></label>
-            </div>
-        </div>
-        <div id="question13" class="test-question" style="display: none;">
-            <div class="test-title">Question 13</div>
-            <div class="test-instructions">
-                <p>How do you add a background image?</p>
-                <label><input type="radio" name="q13" value="a"> a) <code>background-color</code></label>
-                <label><input type="radio" name="q13" value="b"> b) <code>background-image</code></label>
-                <label><input type="radio" name="q13" value="c"> c) <code>color</code></label>
-            </div>
-        </div>
-        <div id="question14" class="test-question" style="display: none;">
-            <div class="test-title">Question 14</div>
-            <div class="test-instructions">
-                <p>What’s part of the box model?</p>
-                <label><input type="radio" name="q14" value="a"> a) Font size</label>
-                <label><input type="radio" name="q14" value="b"> b) Padding</label>
-                <label><input type="radio" name="q14" value="c"> c) Text alignment</label>
-            </div>
-        </div>
-        <div id="question15" class="test-question" style="display: none;">
-            <div class="test-title">Question 15</div>
-            <div class="test-instructions">
-                <p>What does <code>display: block</code> do?</p>
-                <label><input type="radio" name="q15" value="a"> a) Makes an element full-width</label>
-                <label><input type="radio" name="q15" value="b"> b) Hides an element</label>
-                <label><input type="radio" name="q15" value="c"> c) Aligns text</label>
-            </div>
-        </div>
-        <div id="question16" class="test-question" style="display: none;">
-            <div class="test-title">Question 16</div>
-            <div class="test-instructions">
-                <p>What does <code>visibility: hidden</code> do?</p>
-                <label><input type="radio" name="q16" value="a"> a) Removes space</label>
-                <label><input type="radio" name="q16" value="b"> b) Shows an element</label>
-                <label><input type="radio" name="q16" value="c"> c) Hides but keeps space</label>
-            </div>
-        </div>
-        <div id="question17" class="test-question" style="display: none;">
-            <div class="test-title">Question 17</div>
-            <div class="test-instructions">
-                <p>What’s the default position?</p>
-                <label><input type="radio" name="q17" value="a"> a) <code>absolute</code></label>
-                <label><input type="radio" name="q17" value="b"> b) <code>static</code></label>
-                <label><input type="radio" name="q17" value="c"> c) <code>relative</code></label>
-            </div>
-        </div>
-        <div id="question18" class="test-question" style="display: none;">
-            <div class="test-title">Question 18</div>
-            <div class="test-instructions">
-                <p>What moves relative to normal position?</p>
-                <label><input type="radio" name="q18" value="a"> a) <code>position: relative</code></label>
-                <label><input type="radio" name="q18" value="b"> b) <code>position: absolute</code></label>
-                <label><input type="radio" name="q18" value="c"> c) <code>position: fixed</code></label>
-            </div>
-        </div>
-        <div id="question19" class="test-question" style="display: none;">
-            <div class="test-title">Question 19</div>
-            <div class="test-instructions">
-                <p>What removes an element from flow?</p>
-                <label><input type="radio" name="q19" value="a"> a) <code>position: static</code></label>
-                <label><input type="radio" name="q19" value="b"> b) <code>position: absolute</code></label>
-                <label><input type="radio" name="q19" value="c"> c) <code>position: relative</code></label>
-            </div>
-        </div>
-        <div id="question20" class="test-question" style="display: none;">
-            <div class="test-title">Question 20</div>
-            <div class="test-instructions">
-                <p>What stays fixed on scroll?</p>
-                <label><input type="radio" name="q20" value="a"> a) <code>position: relative</code></label>
-                <label><input type="radio" name="q20" value="b"> b) <code>position: absolute</code></label>
-                <label><input type="radio" name="q20" value="c"> c) <code>position: fixed</code></label>
-            </div>
-        </div>
-        <div id="question21" class="test-question" style="display: none;">
-            <div class="test-title">Question 21</div>
-            <div class="test-instructions">
-                <p>What moves an image to the left?</p>
-                <label><input type="radio" name="q21" value="a"> a) <code>float: left</code></label>
-                <label><input type="radio" name="q21" value="b"> b) <code>float: right</code></label>
-                <label><input type="radio" name="q21" value="c"> c) <code>clear: both</code></label>
-            </div>
-        </div>
-        <div id="question22" class="test-question" style="display: none;">
-            <div class="test-title">Question 22</div>
-            <div class="test-instructions">
-                <p>What stops float effects?</p>
-                <label><input type="radio" name="q22" value="a"> a) <code>float: none</code></label>
-                <label><input type="radio" name="q22" value="b"> b) <code>clear: both</code></label>
-                <label><input type="radio" name="q22" value="c"> c) <code>position: absolute</code></label>
-            </div>
-        </div>
-        <div id="question23" class="test-question" style="display: none;">
-            <div class="test-title">Question 23</div>
-            <div class="test-instructions">
-                <p>What enables flexbox?</p>
-                <label><input type="radio" name="q23" value="a"> a) <code>display: block</code></label>
-                <label><input type="radio" name="q23" value="b"> b) <code>display: inline</code></label>
-                <label><input type="radio" name="q23" value="c"> c) <code>display: flex</code></label>
-            </div>
-        </div>
-        <div id="question24" class="test-question" style="display: none;">
-            <div class="test-title">Question 24</div>
-            <div class="test-instructions">
-                <p>What stacks flex items vertically?</p>
-                <label><input type="radio" name="q24" value="a"> a) <code>flex-direction: row</code></label>
-                <label><input type="radio" name="q24" value="b"> b) <code>flex-direction: column</code></label>
-                <label><input type="radio" name="q24" value="c"> c) <code>flex-direction: reverse</code></label>
-            </div>
-        </div>
-        <div id="question25" class="test-question" style="display: none;">
-            <div class="test-title">Question 25</div>
-            <div class="test-instructions">
-                <p>What creates a grid layout?</p>
-                <label><input type="radio" name="q25" value="a"> a) <code>display: grid</code></label>
-                <label><input type="radio" name="q25" value="b"> b) <code>display: flex</code></label>
-                <label><input type="radio" name="q25" value="c"> c) <code>display: block</code></label>
-            </div>
-        </div>
-        <div id="question26" class="test-question" style="display: none;">
-            <div class="test-title">Question 26</div>
-            <div class="test-instructions">
-                <p>What adapts styles for screen size?</p>
-                <label><input type="radio" name="q26" value="a"> a) <code>position</code></label>
-                <label><input type="radio" name="q26" value="b"> b) <code>float</code></label>
-                <label><input type="radio" name="q26" value="c"> c) <code>@media</code></label>
-            </div>
-        </div>
-        <div id="question27" class="test-question" style="display: none;">
-            <div class="test-title">Question 27</div>
-            <div class="test-instructions">
-                <p>What’s a pseudo-class?</p>
-                <label><input type="radio" name="q27" value="a"> a) <code>::first-line</code></label>
-                <label><input type="radio" name="q27" value="b"> b) <code>:hover</code></label>
-                <label><input type="radio" name="q27" value="c"> c) <code>.class</code></label>
-            </div>
-        </div>
-        <div id="question28" class="test-question" style="display: none;">
-            <div class="test-title">Question 28</div>
-            <div class="test-instructions">
-                <p>What’s a pseudo-element?</p>
-                <label><input type="radio" name="q28" value="a"> a) <code>::before</code></label>
-                <label><input type="radio" name="q28" value="b"> b) <code>:hover</code></label>
-                <label><input type="radio" name="q28" value="c"> c) <code>#id</code></label>
-            </div>
-        </div>
-        <div id="question29" class="test-question" style="display: none;">
-            <div class="test-title">Question 29</div>
-            <div class="test-instructions">
-                <p>What defines animation steps?</p>
-                <label><input type="radio" name="q29" value="a"> a) <code>transition</code></label>
-                <label><input type="radio" name="q29" value="b"> b) <code>@media</code></label>
-                <label><input type="radio" name="q29" value="c"> c) <code>@keyframes</code></label>
-            </div>
-        </div>
-        <div id="question30" class="test-question" style="display: none;">
-            <div class="test-title">Question 30</div>
-            <div class="test-instructions">
-                <p>What does <code>transition</code> do?</p>
-                <label><input type="radio" name="q30" value="a"> a) Changes layout</label>
-                <label><input type="radio" name="q30" value="b"> b) Animates property changes</label>
-                <label><input type="radio" name="q30" value="c"> c) Sets font size</label>
-            </div>
-        </div>
-        <div class="nav-buttons">
-            <button class="nav-button" id="prevQuestionBtn" disabled>Previous</button>
-            <button class="nav-button" id="nextQuestionBtn">Next</button>
-        </div>
-        <button class="submit-button" id="submitTestBtn">Submit Test</button>
-    </div>
-
-    <!-- Table of Contents -->
-    <div class="toc">
-        <div class="toc-item" data-lesson="1">1</div>
-        <div class="toc-item" data-lesson="2">2</div>
-        <div class="toc-item" data-lesson="3">3</div>
-        <div class="toc-item" data-lesson="4">4</div>
-        <div class="toc-item" data-lesson="5">5</div>
-        <div class="toc-item" data-lesson="6">6</div>
-        <div class="toc-item" data-lesson="7">7</div>
-        <div class="toc-item" data-lesson="8">8</div>
-        <div class="toc-item" data-lesson="9">9</div>
-        <div class="toc-item" data-lesson="10">10</div>
-        <div class="toc-item" data-lesson="11">11</div>
-        <div class="toc-item" data-lesson="12">12</div>
-        <div class="toc-item" data-lesson="13">13</div>
-        <div class="toc-item" data-lesson="14">14</div>
-        <div class="toc-item" data-lesson="15">15</div>
-        <div class="toc-item" data-lesson="16">16</div>
-        <div class="toc-item" data-lesson="17">17</div>
-        <div class="toc-item" data-lesson="18">18</div>
-        <div class="toc-item" data-lesson="19">19</div>
-        <div class="toc-item" data-lesson="20">20</div>
-        <div class="toc-item" data-lesson="21">21</div>
-        <div class="toc-item" data-lesson="22">22</div>
-        <div class="toc-item" data-lesson="23">23</div>
-        <div class="toc-item" data-lesson="24">24</div>
-        <div class="toc-item" data-lesson="25">25</div>
-        <div class="toc-item" data-lesson="26">26</div>
-        <div class="toc-item" data-lesson="27">27</div>
-        <div class="toc-item" data-lesson="28">28</div>
-        <div class="toc-item" data-lesson="29">29</div>
-        <div class="toc-item" data-lesson="30">30</div>
-    </div>
+    </section>
 
     <footer>
         <p><span class="footer-logo">CODE<span>X</span>EDOC</span></p>
@@ -921,100 +329,569 @@
     </footer>
 
     <script>
-        // DOM Elements
-        const lessonContainer = document.getElementById('lessonContainer');
-        const testContainer = document.getElementById('testContainer');
-        const openCourseBtn = document.getElementById('openCourseBtn');
-        const launchTestBtn = document.getElementById('launchTestBtn');
-        const prevLessonBtn = document.getElementById('prevLessonBtn');
-        const nextLessonBtn = document.getElementById('nextLessonBtn');
-        const prevQuestionBtn = document.getElementById('prevQuestionBtn');
-        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
-        const submitTestBtn = document.getElementById('submitTestBtn');
-        const tocItems = document.querySelectorAll('.toc-item');
+        // Lesson Data
+        const lessons = [
+            { 
+                title: "1. What is CSS?", 
+                instruction: "CSS stands for Cascading Style Sheets. It’s used to style and layout HTML elements on web pages.", 
+                description: "<b>p { color: blue; }</b>", 
+                example: "<p style='color: blue;'>Hello</p>" 
+            },
+            { 
+                title: "2. CSS Syntax", 
+                instruction: "CSS rules consist of a selector and a declaration block with properties and values.", 
+                description: "<b>h1 { font-size: 24px; }</b>", 
+                example: "h1 { font-size: 24px; }" 
+            },
+            { 
+                title: "3. Inline CSS", 
+                instruction: "Inline CSS applies styles directly to an HTML element using the 'style' attribute.", 
+                description: "<b><p style='color: red;'>Text</p></b>", 
+                example: "<p style='color: red;'>Text</p>" 
+            },
+            { 
+                title: "4. Internal CSS", 
+                instruction: "Internal CSS is defined within a <style> tag in the <head> section of an HTML file.", 
+                description: "<b><style> body { background: #fff; } </style></b>", 
+                example: "<style> body { background: #fff; } </style>" 
+            },
+            { 
+                title: "5. External CSS", 
+                instruction: "External CSS uses a separate .css file linked with the <link> tag.", 
+                description: "<b><link rel='stylesheet' href='styles.css'></b>", 
+                example: "<link rel='stylesheet' href='styles.css'>" 
+            },
+            { 
+                title: "6. Selectors", 
+                instruction: "Selectors target HTML elements. The element selector targets tags like 'p' or 'h1'.", 
+                description: "<b>p { color: green; }</b>", 
+                example: "p { color: green; }" 
+            },
+            { 
+                title: "7. Class Selectors", 
+                instruction: "Class selectors use a dot (.) to target elements with a specific class.", 
+                description: "<b>.highlight { background: yellow; }</b>", 
+                example: ".highlight { background: yellow; }" 
+            },
+            { 
+                title: "8. ID Selectors", 
+                instruction: "ID selectors use a hash (#) to target a unique element by its ID.", 
+                description: "<b>#header { font-size: 20px; }</b>", 
+                example: "#header { font-size: 20px; }" 
+            },
+            { 
+                title: "9. Universal Selector", 
+                instruction: "The universal selector (*) applies styles to all elements on the page.", 
+                description: "<b>* { margin: 0; }</b>", 
+                example: "* { margin: 0; }" 
+            },
+            { 
+                title: "10. Grouping Selectors", 
+                instruction: "Group selectors with a comma to apply the same styles to multiple elements.", 
+                description: "<b>h1, h2 { color: blue; }</b>", 
+                example: "h1, h2 { color: blue; }" 
+            },
+            { 
+                title: "11. Colors", 
+                instruction: "CSS colors can be set using names, hex codes, or RGB values.", 
+                description: "<b>p { color: #ff0000; }</b>", 
+                example: "p { color: #ff0000; }" 
+            },
+            { 
+                title: "12. Backgrounds", 
+                instruction: "The background property styles an element’s background color or image.", 
+                description: "<b>body { background: lightblue; }</b>", 
+                example: "body { background: lightblue; }" 
+            },
+            { 
+                title: "13. Fonts", 
+                instruction: "The font-family property sets the typeface for text.", 
+                description: "<b>p { font-family: Arial; }</b>", 
+                example: "p { font-family: Arial; }" 
+            },
+            { 
+                title: "14. Font Size", 
+                instruction: "The font-size property adjusts text size using pixels, em, or rem.", 
+                description: "<b>h1 { font-size: 32px; }</b>", 
+                example: "h1 { font-size: 32px; }" 
+            },
+            { 
+                title: "15. Text Alignment", 
+                instruction: "The text-align property aligns text: left, right, center, or justify.", 
+                description: "<b>p { text-align: center; }</b>", 
+                example: "p { text-align: center; }" 
+            },
+            { 
+                title: "16. Margins", 
+                instruction: "The margin property sets the space outside an element.", 
+                description: "<b>div { margin: 20px; }</b>", 
+                example: "div { margin: 20px; }" 
+            },
+            { 
+                title: "17. Padding", 
+                instruction: "The padding property sets the space inside an element’s border.", 
+                description: "<b>div { padding: 10px; }</b>", 
+                example: "div { padding: 10px; }" 
+            },
+            { 
+                title: "18. Borders", 
+                instruction: "The border property defines an element’s border with style, width, and color.", 
+                description: "<b>div { border: 1px solid black; }</b>", 
+                example: "div { border: 1px solid black; }" 
+            },
+            { 
+                title: "19. Width and Height", 
+                instruction: "The width and height properties set an element’s dimensions.", 
+                description: "<b>img { width: 100px; height: 100px; }</b>", 
+                example: "img { width: 100px; height: 100px; }" 
+            },
+            { 
+                title: "20. Display Property", 
+                instruction: "The display property controls element layout: block, inline, or none.", 
+                description: "<b>span { display: block; }</b>", 
+                example: "span { display: block; }" 
+            },
+            { 
+                title: "21. Position Property", 
+                instruction: "The position property (static, relative, absolute, fixed) controls element placement.", 
+                description: "<b>div { position: absolute; }</b>", 
+                example: "div { position: absolute; }" 
+            },
+            { 
+                title: "22. Top, Right, Bottom, Left", 
+                instruction: "These properties adjust positioning for non-static elements.", 
+                description: "<b>div { position: absolute; top: 10px; }</b>", 
+                example: "div { position: absolute; top: 10px; }" 
+            },
+            { 
+                title: "23. Float", 
+                instruction: "The float property moves an element left or right, with text wrapping around.", 
+                description: "<b>img { float: left; }</b>", 
+                example: "img { float: left; }" 
+            },
+            { 
+                title: "24. Clear", 
+                instruction: "The clear property prevents elements from wrapping around floated items.", 
+                description: "<b>p { clear: both; }</b>", 
+                example: "p { clear: both; }" 
+            },
+            { 
+                title: "25. Overflow", 
+                instruction: "The overflow property manages content that exceeds an element’s size.", 
+                description: "<b>div { overflow: scroll; }</b>", 
+                example: "div { overflow: scroll; }" 
+            },
+            { 
+                title: "26. Opacity", 
+                instruction: "The opacity property sets transparency from 0 (invisible) to 1 (opaque).", 
+                description: "<b>img { opacity: 0.5; }</b>", 
+                example: "img { opacity: 0.5; }" 
+            },
+            { 
+                title: "27. Box Shadow", 
+                instruction: "The box-shadow property adds a shadow effect to elements.", 
+                description: "<b>div { box-shadow: 2px 2px 5px gray; }</b>", 
+                example: "div { box-shadow: 2px 2px 5px gray; }" 
+            },
+            { 
+                title: "28. Text Shadow", 
+                instruction: "The text-shadow property adds a shadow to text.", 
+                description: "<b>h1 { text-shadow: 1px 1px 2px black; }</b>", 
+                example: "h1 { text-shadow: 1px 1px 2px black; }" 
+            },
+            { 
+                title: "29. Flexbox", 
+                instruction: "Flexbox (display: flex) creates flexible layouts for arranging items.", 
+                description: "<b>.container { display: flex; }</b>", 
+                example: ".container { display: flex; }" 
+            },
+            { 
+                title: "30. Flex Direction", 
+                instruction: "The flex-direction property sets the axis of flex items: row or column.", 
+                description: "<b>.container { display: flex; flex-direction: column; }</b>", 
+                example: ".container { display: flex; flex-direction: column; }" 
+            },
+            { 
+                title: "31. Justify Content", 
+                instruction: "The justify-content property aligns flex items along the main axis.", 
+                description: "<b>.container { display: flex; justify-content: space-between; }</b>", 
+                example: ".container { display: flex; justify-content: space-between; }" 
+            },
+            { 
+                title: "32. Align Items", 
+                instruction: "The align-items property aligns flex items along the cross axis.", 
+                description: "<b>.container { display: flex; align-items: center; }</b>", 
+                example: ".container { display: flex; align-items: center; }" 
+            },
+            { 
+                title: "33. CSS Grid", 
+                instruction: "CSS Grid (display: grid) creates a two-dimensional layout system.", 
+                description: "<b>.grid { display: grid; }</b>", 
+                example: ".grid { display: grid; }" 
+            },
+            { 
+                title: "34. Grid Template Columns", 
+                instruction: "The grid-template-columns property defines column sizes in a grid.", 
+                description: "<b>.grid { display: grid; grid-template-columns: 1fr 1fr; }</b>", 
+                example: ".grid { display: grid; grid-template-columns: 1fr 1fr; }" 
+            },
+            { 
+                title: "35. Grid Gap", 
+                instruction: "The gap property sets spacing between grid rows and columns.", 
+                description: "<b>.grid { display: grid; gap: 10px; }</b>", 
+                example: ".grid { display: grid; gap: 10px; }" 
+            },
+            { 
+                title: "36. Pseudo-Classes", 
+                instruction: "Pseudo-classes like :hover style elements based on user interaction.", 
+                description: "<b>a:hover { color: red; }</b>", 
+                example: "a:hover { color: red; }" 
+            },
+            { 
+                title: "37. Pseudo-Elements", 
+                instruction: "Pseudo-elements like ::before add content before an element.", 
+                description: "<b>p::before { content: '★'; }</b>", 
+                example: "p::before { content: '★'; }" 
+            },
+            { 
+                title: "38. Transitions", 
+                instruction: "The transition property animates property changes over time.", 
+                description: "<b>button { transition: background 0.3s; }</b>", 
+                example: "button { transition: background 0.3s; }" 
+            },
+            { 
+                title: "39. Transformations", 
+                instruction: "The transform property rotates, scales, or moves elements.", 
+                description: "<b>img { transform: rotate(45deg); }</b>", 
+                example: "img { transform: rotate(45deg); }" 
+            },
+            { 
+                title: "40. Animations", 
+                instruction: "The @keyframes rule defines custom animations.", 
+                description: "<b>@keyframes fade { from { opacity: 0; } to { opacity: 1; } }</b>", 
+                example: "@keyframes fade { from { opacity: 0; } to { opacity: 1; } }" 
+            },
+            { 
+                title: "41. Animation Property", 
+                instruction: "The animation property applies keyframes with timing and repetition.", 
+                description: "<b>div { animation: fade 2s infinite; }</b>", 
+                example: "div { animation: fade 2s infinite; }" 
+            },
+            { 
+                title: "42. Media Queries", 
+                instruction: "Media queries apply styles based on screen size or device.", 
+                description: "<b>@media (max-width: 600px) { body { font-size: 14px; } }</b>", 
+                example: "@media (max-width: 600px) { body { font-size: 14px; } }" 
+            },
+            { 
+                title: "43. Variables", 
+                instruction: "CSS custom properties (variables) store reusable values.", 
+                description: "<b>:root { --main-color: blue; } p { color: var(--main-color); }</b>", 
+                example: ":root { --main-color: blue; } p { color: var(--main-color); }" 
+            },
+            { 
+                title: "44. Box Sizing", 
+                instruction: "The box-sizing property changes how the box model calculates size.", 
+                description: "<b>* { box-sizing: border-box; }</b>", 
+                example: "* { box-sizing: border-box; }" 
+            },
+            { 
+                title: "45. Z-Index", 
+                instruction: "The z-index property controls stacking order of positioned elements.", 
+                description: "<b>div { position: absolute; z-index: 10; }</b>", 
+                example: "div { position: absolute; z-index: 10; }" 
+            },
+            { 
+                title: "46. Cursor", 
+                instruction: "The cursor property changes the mouse pointer style.", 
+                description: "<b>button { cursor: pointer; }</b>", 
+                example: "button { cursor: pointer; }" 
+            },
+            { 
+                title: "47. Text Decoration", 
+                instruction: "The text-decoration property adds underlines, overlines, or line-through.", 
+                description: "<b>a { text-decoration: none; }</b>", 
+                example: "a { text-decoration: none; }" 
+            },
+            { 
+                title: "48. Line Height", 
+                instruction: "The line-height property sets the space between text lines.", 
+                description: "<b>p { line-height: 1.5; }</b>", 
+                example: "p { line-height: 1.5; }" 
+            },
+            { 
+                title: "49. Letter Spacing", 
+                instruction: "The letter-spacing property adjusts space between characters.", 
+                description: "<b>h1 { letter-spacing: 2px; }</b>", 
+                example: "h1 { letter-spacing: 2px; }" 
+            },
+            { 
+                title: "50. Word Spacing", 
+                instruction: "The word-spacing property adjusts space between words.", 
+                description: "<b>p { word-spacing: 5px; }</b>", 
+                example: "p { word-spacing: 5px; }" 
+            }
+        ];
 
-        // State
-        let currentLesson = 1;
-        let currentQuestion = 1;
-        const totalLessons = 30;
-        const totalQuestions = 30;
+        // Test Questions (each with exactly 3 answers)
+        const questions = [
+            { q: "What does CSS stand for?", a: ["Cascading Style Sheets", "Creative Style System", "Colorful Style Sheets"], correct: 0 },
+            { q: "What is the correct CSS syntax?", a: ["selector { property: value; }", "selector (property = value)", "property: selector { value; }"], correct: 0 },
+            { q: "How do you apply inline CSS?", a: ["style attribute", "<style> tag", "<link> tag"], correct: 0 },
+            { q: "Where is internal CSS placed?", a: ["<style> in <head>", "<style> in <body>", "External file"], correct: 0 },
+            { q: "How do you link external CSS?", a: ["<link rel='stylesheet'>", "<style src='file'>", "<css href='file'>"], correct: 0 },
+            { q: "What targets an HTML element in CSS?", a: ["Element selector", "Class selector", "ID selector"], correct: 0 },
+            { q: "How do you select a class?", a: [".class", "#class", "class"], correct: 0 },
+            { q: "How do you select an ID?", a: ["#id", ".id", "id"], correct: 0 },
+            { q: "What selector targets all elements?", a: ["*", ".", "#"], correct: 0 },
+            { q: "How do you group selectors?", a: ["h1, h2", "h1 + h2", "h1 > h2"], correct: 0 },
+            { q: "How can you set a color in CSS?", a: ["#ff0000", "blink", "shade"], correct: 0 },
+            { q: "What property sets the background?", a: ["background", "color", "border"], correct: 0 },
+            { q: "What property changes the font?", a: ["font-family", "font-size", "text-align"], correct: 0 },
+            { q: "How do you set text size?", a: ["font-size", "text-size", "size"], correct: 0 },
+            { q: "What aligns text?", a: ["text-align", "align", "position"], correct: 0 },
+            { q: "What property adds outer space?", a: ["margin", "padding", "border"], correct: 0 },
+            { q: "What property adds inner space?", a: ["padding", "margin", "spacing"], correct: 0 },
+            { q: "What property creates a border?", a: ["border", "outline", "edge"], correct: 0 },
+            { q: "What sets an element’s size?", a: ["width", "size", "dimension"], correct: 0 },
+            { q: "What makes an element block-level?", a: ["display: block", "display: inline", "display: none"], correct: 0 },
+            { q: "What property positions elements?", a: ["position", "float", "display"], correct: 0 },
+            { q: "What moves a positioned element?", a: ["top", "float", "margin"], correct: 0 },
+            { q: "What moves an element left or right?", a: ["float", "position", "align"], correct: 0 },
+            { q: "What stops wrapping around floats?", a: ["clear", "overflow", "display"], correct: 0 },
+            { q: "What handles excess content?", a: ["overflow", "clip", "hide"], correct: 0 },
+            { q: "What sets transparency?", a: ["opacity", "visibility", "color"], correct: 0 },
+            { q: "What adds a shadow to a box?", a: ["box-shadow", "text-shadow", "shadow"], correct: 0 },
+            { q: "What adds a shadow to text?", a: ["text-shadow", "box-shadow", "shade"], correct: 0 },
+            { q: "What creates a flexible layout?", a: ["display: flex", "display: grid", "float"], correct: 0 },
+            { q: "What sets flex item direction?", a: ["flex-direction", "justify-content", "align-items"], correct: 0 },
+            { q: "What aligns flex items horizontally?", a: ["justify-content", "align-items", "flex-direction"], correct: 0 },
+            { q: "What aligns flex items vertically?", a: ["align-items", "justify-content", "flex-wrap"], correct: 0 },
+            { q: "What creates a grid layout?", a: ["display: grid", "display: flex", "display: block"], correct: 0 },
+            { q: "What defines grid columns?", a: ["grid-template-columns", "grid-gap", "grid-rows"], correct: 0 },
+            { q: "What sets grid spacing?", a: ["gap", "margin", "padding"], correct: 0 },
+            { q: "What styles on hover?", a: [":hover", "::before", ":active"], correct: 0 },
+            { q: "What adds content before an element?", a: ["::before", ":hover", "::after"], correct: 0 },
+            { q: "What animates property changes?", a: ["transition", "transform", "animation"], correct: 0 },
+            { q: "What rotates an element?", a: ["transform", "transition", "rotate"], correct: 0 },
+            { q: "What defines an animation?", a: ["@keyframes", "transition", "transform"], correct: 0 },
+            { q: "What applies an animation?", a: ["animation", "@keyframes", "transition"], correct: 0 },
+            { q: "What adjusts styles by screen size?", a: ["@media", "@keyframes", "transform"], correct: 0 },
+            { q: "How do you define a CSS variable?", a: ["--variable", "var()", "$variable"], correct: 0 },
+            { q: "What adjusts the box model?", a: ["box-sizing", "box-shadow", "border"], correct: 0 },
+            { q: "What controls stacking order?", a: ["z-index", "position", "overflow"], correct: 0 },
+            { q: "What changes the mouse pointer?", a: ["cursor", "pointer", "hover"], correct: 0 },
+            { q: "What removes a link underline?", a: ["text-decoration: none", "underline: none", "decoration: off"], correct: 0 },
+            { q: "What sets line spacing?", a: ["line-height", "letter-spacing", "word-spacing"], correct: 0 },
+            { q: "What adjusts character spacing?", a: ["letter-spacing", "line-height", "word-spacing"], correct: 0 },
+            { q: "What adjusts word spacing?", a: ["word-spacing", "letter-spacing", "line-height"], correct: 0 }
+        ];
 
-        // Functions
-        function showLesson(lessonNum) {
-            currentLesson = lessonNum;
-            document.querySelectorAll('.lesson').forEach(lesson => {
-                lesson.style.display = (lesson.id === `lesson${lessonNum}`) ? 'block' : 'none';
-            });
-            prevLessonBtn.disabled = (currentLesson === 1);
-            nextLessonBtn.disabled = (currentLesson === totalLessons);
+        // State Variables
+        let currentLesson = 0;
+        let currentQuestion = 0;
+        let answers = new Array(50).fill(null);
+        let lessonProgress = new Array(50).fill(false);
+        let testProgress = new Array(50).fill(false);
+
+        // Shuffle Function for Questions
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
 
-        function showQuestion(questionNum) {
-            currentQuestion = questionNum;
-            document.querySelectorAll('.test-question').forEach(question => {
-                question.style.display = (question.id === `question${questionNum}`) ? 'block' : 'none';
+        const shuffledQuestions = shuffle([...questions]);
+
+        // Toggle Lesson and Test Boxes
+        function toggleLessonBox() {
+            const lessonBox = document.getElementById('lessonBox');
+            const testBox = document.getElementById('testBox');
+            if (testBox.classList.contains('active')) {
+                testBox.classList.remove('active');
+            }
+            lessonBox.classList.toggle('active');
+            if (lessonBox.classList.contains('active')) {
+                updateLesson();
+                updateLessonSquares();
+            }
+        }
+
+        function toggleTestBox() {
+            const lessonBox = document.getElementById('lessonBox');
+            const testBox = document.getElementById('testBox');
+            if (lessonBox.classList.contains('active')) {
+                lessonBox.classList.remove('active');
+            }
+            testBox.classList.toggle('active');
+            if (testBox.classList.contains('active')) {
+                updateQuestion();
+                updateTestSquares();
+            }
+        }
+
+        // Update Lesson Display
+        function updateLesson() {
+            const lesson = lessons[currentLesson];
+            document.getElementById('lessonContent').innerHTML = `
+                <h2>${lesson.title}</h2>
+                <div class="instruction">${lesson.instruction}</div>
+                <div class="description">${lesson.description}</div>
+                <div class="example">${lesson.example}</div>
+            `;
+            document.getElementById('prevLessonBtn').disabled = currentLesson === 0;
+            document.getElementById('nextLessonBtn').disabled = currentLesson === lessons.length - 1;
+            lessonProgress[currentLesson] = true;
+            updateLessonSquares();
+        }
+
+        // Update Test Question Display
+        function updateQuestion() {
+            const q = shuffledQuestions[currentQuestion];
+            document.getElementById('testQuestion').innerHTML = `
+                <h2>Question ${currentQuestion + 1}</h2>
+                <p>${q.q}</p>
+                ${q.a.map((opt, i) => `<label><input type="radio" name="q${currentQuestion}" value="${i}" ${answers[currentQuestion] === i ? 'checked' : ''}> ${opt}</label><br>`).join('')}
+                <button class="submit-btn" id="submitBtn" onclick="submitTest()">Submit</button>
+            `;
+            document.getElementById('prevQuestionBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextQuestionBtn').disabled = currentQuestion === shuffledQuestions.length - 1;
+
+            const submitBtn = document.getElementById('submitBtn');
+            const allAnswered = answers.every(answer => answer !== null);
+            if (currentQuestion === shuffledQuestions.length - 1 && allAnswered) {
+                submitBtn.style.display = 'block';
+            } else {
+                submitBtn.style.display = 'none';
+            }
+
+            // Handle Radio Button Selection (No Visual Highlighting)
+            document.querySelectorAll(`input[name="q${currentQuestion}"]`).forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    answers[currentQuestion] = parseInt(e.target.value);
+                    testProgress[currentQuestion] = true;
+                    updateTestSquares();
+                    const allAnswered = answers.every(answer => answer !== null);
+                    if (currentQuestion === shuffledQuestions.length - 1 && allAnswered) {
+                        document.getElementById('submitBtn').style.display = 'block';
+                    }
+                });
             });
-            prevQuestionBtn.disabled = (currentQuestion === 1);
-            nextQuestionBtn.disabled = (currentQuestion === totalQuestions);
+        }
+
+        // Update Progress Squares
+        function updateLessonSquares() {
+            const squares = document.getElementById('lessonSquares');
+            squares.innerHTML = '';
+            lessonProgress.forEach((completed, i) => {
+                const square = document.createElement('div');
+                square.className = `lesson-square ${completed ? 'completed' : ''}`;
+                square.textContent = i + 1;
+                square.onclick = () => {
+                    currentLesson = i;
+                    updateLesson();
+                };
+                squares.appendChild(square);
+            });
+        }
+
+        function updateTestSquares() {
+            const squares = document.getElementById('testSquares');
+            squares.innerHTML = '';
+            testProgress.forEach((completed, i) => {
+                const square = document.createElement('div');
+                square.className = `test-square ${completed ? 'completed' : ''}`;
+                square.textContent = i + 1;
+                square.onclick = () => {
+                    currentQuestion = i;
+                    updateQuestion();
+                };
+                squares.appendChild(square);
+            });
+        }
+
+        // Navigation Functions
+        function prevLesson() {
+            if (currentLesson > 0) currentLesson--;
+            updateLesson();
+        }
+
+        function nextLesson() {
+            if (currentLesson < lessons.length - 1) currentLesson++;
+            updateLesson();
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) currentQuestion--;
+            updateQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < shuffledQuestions.length - 1) {
+                currentQuestion++;
+                updateQuestion();
+            } else {
+                gradeTest();
+            }
+        }
+
+        // Test Grading and Submission
+        function gradeTest() {
+            let correct = 0;
+            answers.forEach((ans, i) => {
+                if (ans === shuffledQuestions[i].correct) correct++;
+            });
+            const score = (correct / 50) * 100;
+            document.getElementById('testQuestion').style.display = 'none';
+            document.getElementById('prevQuestionBtn').style.display = 'none';
+            document.getElementById('nextQuestionBtn').style.display = 'none';
+            if (score >= 80) {
+                document.getElementById('certificateForm').classList.add('active');
+            } else {
+                document.getElementById('retryMessage').classList.add('active');
+            }
         }
 
         function submitTest() {
-            const answers = {
-                q1: 'b', q2: 'b', q3: 'c', q4: 'b', q5: 'a', q6: 'b', q7: 'c', q8: 'b', q9: 'b', q10: 'a',
-                q11: 'b', q12: 'c', q13: 'b', q14: 'b', q15: 'a', q16: 'c', q17: 'b', q18: 'a', q19: 'b', q20: 'c',
-                q21: 'a', q22: 'b', q23: 'c', q24: 'b', q25: 'a', q26: 'c', q27: 'b', q28: 'a', q29: 'c', q30: 'b'
-            };
-            let score = 0;
-            for (let i = 1; i <= totalQuestions; i++) {
-                const selected = document.querySelector(`input[name="q${i}"]:checked`);
-                if (selected && selected.value === answers[`q${i}`]) score++;
+            if (!answers.every(answer => answer !== null)) {
+                alert('Please answer all questions before submitting.');
+                return;
             }
-            alert(`Score: ${score}/${totalQuestions}. ${score >= 24 ? 'Passed! Great job!' : 'Review the lessons and retry.'}`);
+
+            let correct = 0;
+            answers.forEach((ans, i) => {
+                if (ans === shuffledQuestions[i].correct) correct++;
+            });
+            
+            if (correct >= 40) {
+                window.location.href = 'correct-css.html'; // Update this to your desired redirect
+            } else {
+                gradeTest();
+            }
         }
 
-        // Event Listeners
-        openCourseBtn.addEventListener('click', () => {
-            lessonContainer.classList.add('active');
-            testContainer.classList.remove('active');
-            showLesson(1);
-        });
-
-        launchTestBtn.addEventListener('click', () => {
-            testContainer.classList.add('active');
-            lessonContainer.classList.remove('active');
-            showQuestion(1);
-        });
-
-        prevLessonBtn.addEventListener('click', () => {
-            if (currentLesson > 1) showLesson(currentLesson - 1);
-        });
-
-        nextLessonBtn.addEventListener('click', () => {
-            if (currentLesson < totalLessons) showLesson(currentLesson + 1);
-        });
-
-        prevQuestionBtn.addEventListener('click', () => {
-            if (currentQuestion > 1) showQuestion(currentQuestion - 1);
-        });
-
-        nextQuestionBtn.addEventListener('click', () => {
-            if (currentQuestion < totalQuestions) showQuestion(currentQuestion + 1);
-        });
-
-        submitTestBtn.addEventListener('click', submitTest);
-
-        tocItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const lessonNum = parseInt(item.dataset.lesson);
-                lessonContainer.classList.add('active');
-                testContainer.classList.remove('active');
-                showLesson(lessonNum);
-            });
-        });
-
-        // Optional: Show first lesson by default
-        // lessonContainer.classList.add('active');
-        // showLesson(1);
+        // Certificate Generation
+        function generateCertificate() {
+            const name = document.getElementById('nameInput').value.trim();
+            if (!name) {
+                alert('Please enter your name.');
+                return;
+            }
+            const certWindow = window.open('', '_blank');
+            certWindow.document.write(`
+                <html>
+                <body style="text-align: center; font-family: Arial; background: #1a1a1a; color: #00ff00;">
+                    <h1 style="color: #00b7eb;">CODEXEDOC Certificate</h1>
+                    <p style="font-size: 1.5rem; margin: 20px;">Awarded to: ${name}</p>
+                    <p>For successfully completing the CODEXEDOC CSS Course with a score of 80% or higher.</p>
+                    <p>Date: March 29, 2025</p>
+                </body>
+                </html>
+            `);
+            certWindow.document.close();
+        }
     </script>
 </body>
 </html>
