@@ -306,7 +306,7 @@
                     doc.setFont("times", "normal");
                     doc.setFontSize(16);
                     doc.setTextColor(0, 0, 0);
-                    doc.text(`Date Issued: ${issueDate}`, 50, 540, { align: "left" });
+                    doc.text(`Date Issued: ${issueDate}`, 60, 540, { align: "left" });
 
                     // Expires in bottom-right corner (inside borders)
                     doc.text(`Expires: ${expirationDate}`, 742, 540, { align: "right" });
@@ -324,7 +324,7 @@
                     // Larger X (50% larger than 30pt = 45pt)
                     doc.setFontSize(45);
 					doc.setTextColor(0, 255, 0); // #00ff00 in RGB
-                    doc.text("X", centerX - (doc.getTextWidth("X") / 2), 540, { align: "center" }); // Centered X
+                    doc.text("X", centerX - (doc.getTextWidth("X") / 2), 540); // Centered X
 
                     // Save the PDF
                     doc.save(`${nameInput}_certificate.pdf`);
