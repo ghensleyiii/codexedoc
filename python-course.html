@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codexedoc - Python Course</title>
+    <title>Python Course & Test - Codexedoc</title>
     <style>
-        /* Full CSS from the original file */
         * {
             margin: 0;
             padding: 0;
@@ -14,258 +13,284 @@
         }
 
         body {
-            background-color: #1a1a1a;
+            background-color: #eee;
             color: #333;
             line-height: 1.6;
         }
 
         header {
-            background-color: #1a1a1a;
+            background-color: #eee;
             padding: 20px;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+			position: sticky;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
             font-size: 2.5rem;
             font-weight: bold;
-            color: #00b7eb;
+            color: #00ff00;
             display: inline-block;
         }
 
         .logo a {
-            color: #00b7eb;
+            color: #00ff00;
             text-decoration: none;
             transition: color 0.3s;
         }
 
         .logo a:hover {
-            color: #00ff00;
+            color: #1e90ff;
         }
 
         .logo span {
-            color: #00ff00;
+            color: #1e90ff;
             font-size: 5rem;
             position: relative;
             top: 8px;
         }
 
         .main-section {
-            background-color: #1a1a1a;
-            padding: 50px 20px;
+            margin: auto;
+            padding: 20px;
+            background-color: #eee;
+            border-radius: 5px;
+        }
+
+        .buttons {
             text-align: center;
-            color: #d4d4d4;
+            margin: 20px 0;
         }
 
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .start-btn, .test-btn {
-            background-color: #00ff00;
-            color: #1a1a1a;
+        .btn-lesson {
             padding: 15px 30px;
-            border: 2px solid #000000;
+            margin: 10px;
+            background-color: #1e90ff;
+            color: #eee;
+            border: none;
             border-radius: 5px;
-            font-weight: bold;
+            cursor: pointer;
             font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .start-btn:hover, .test-btn:hover {
-            background-color: #00cc00;
-        }
-
-        .lessons-grid, .test-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 10px;
-            max-width: 800px;
-            margin: 0 auto;
-            margin-top: 30px;
-        }
-
-        .lesson-box, .test-box {
-            background-color: #2a2a2a;
-            color: #d4d4d4;
-            padding: 20px;
-            border: 2px solid #00b7eb;
+        .btn-test {
+            padding: 15px 30px;
+            margin: 10px;
+            background-color: #00ff00;
+            color: #eee;
+            border: none;
             border-radius: 5px;
             cursor: pointer;
-            text-align: center;
-            font-weight: bold;
-            transition: transform 0.2s, background-color 0.3s;
+            font-size: 1.2rem;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .lesson-box.completed, .test-box.completed {
-            background-color: #00b7eb;
-            color: #1a1a1a;
-        }
-
-        .lesson-box:hover, .test-box:hover {
-            transform: scale(1.1);
-        }
-
-        .lesson-content, .test-content {
+        .lesson-box {
             display: none;
-            background-color: #2a2a2a;
+            background-color: #1e90ff;
             padding: 20px;
-            margin: 0 auto 20px auto;
-            max-width: 800px;
+            margin: 20px 0;
             border-radius: 5px;
-            border: 1px solid #00b7eb;
+            color: #333;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .lesson-content.active, .test-content.active {
+        .test-box {
+            display: none;
+            background-color: #00ff00;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            color: #1a1a1a;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .lesson-box.active, .test-box.active {
             display: block;
         }
 
-        .lesson-description, .test-description {
-            color: #00ff00;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
+        .lesson-content {
+            background-color: #333;
+            color: #eee;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 10px 0;
         }
 
-        .code-breakdown {
-            background-color: #000000;
-            color: #d4d4d4;
-            font-family: 'Courier New', Courier, monospace;
+        .lesson-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #eee; /* White titles */
+        }
+
+        .lesson-content .instruction, 
+        .lesson-content .description, 
+        .lesson-content .example {
+            margin-bottom: 20px;
             padding: 15px;
             border-radius: 5px;
-            white-space: pre-wrap;
-            text-align: left;
-            margin-bottom: 15px;
         }
 
-        .code-explanation {
-            color: #d4d4d4;
-            text-align: left;
-            margin-bottom: 15px;
+        .lesson-content .instruction {
+            background-color: #333;
+            font-size: 1.1rem;
+            line-height: 1.8;
         }
 
-        .code-explanation h4 {
-            color: #00b7eb;
-            margin-bottom: 10px;
+        .lesson-content .description {
+            background-color: #333;
+            font-size: 1rem;
+            color: #eee;
+			border-left: 4px solid #00ff00;
+            font-weight: bold; /* Bold description */
         }
 
-        .code-explanation ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-
-        .code-explanation li {
-            margin-bottom: 5px;
+        .lesson-content .example {
+		    color: #eee;
+            background-color: #333;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+			border: 1px solid #00ff00;
+			white-space: pre-wrap;
         }
 
         .test-question {
-            color: #d4d4d4;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .test-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .test-option {
-            background-color: #3a3a3a;
-            color: #d4d4d4;
-            padding: 10px;
+            background-color: #333;
+            color: #eee;
+            padding: 20px;
             border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-align: left;
+            margin: 10px 0;
+            position: relative; /* Added for submit button positioning */
         }
 
-        .test-option:hover {
-            background-color: #4a4a4a;
-        }
-
-        .test-option.selected {
-            background-color: #00b7eb;
-            color: #1a1a1a;
-        }
-
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .nav-btn, .submit-btn {
-            background-color: #00b7eb;
-            color: #1a1a1a;
+        .submit-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
             padding: 10px 20px;
+            background-color: #1e90ff;
+            color: #333;
             border: none;
             border-radius: 5px;
-            font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 1rem;
+            display: none;
         }
 
-        .nav-btn:disabled, .submit-btn:disabled {
-            background-color: #555;
+        .submit-btn:hover {
+            background-color: #00ff00;
+        }
+
+        pre {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            border: 1px solid #333;
+        }
+
+        .nav-buttons {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .nav-btn-lesson {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #1e90ff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn-test {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #00ff00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .nav-btn-lesson:disabled, .nav-btn-test:disabled {
+            background-color: #333;
+            color: #eee;
             cursor: not-allowed;
         }
 
-        .nav-btn:hover:not(:disabled), .submit-btn:hover:not(:disabled) {
-            background-color: #00a3d3;
+        .progress-squares {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 20px 0;
+            justify-content: center;
         }
 
-        .test-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 200;
-            overflow-y: auto;
-        }
-
-        .test-modal.active {
-            display: block;
-        }
-
-        .test-modal-content {
-            background-color: #1a1a1a;
-            margin: 5% auto;
-            padding: 20px;
-            max-width: 900px;
-            border-radius: 5px;
-            position: relative;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            color: #00ff00;
-            font-size: 2rem;
+        .lesson-square {
+            width: 25px;
+            height: 25px;
+            background-color: #1e90ff;
+            border-radius: 3px;
+            text-align: center;
+            color: #333;
+            font-size: 0.9rem;
+            line-height: 25px;
             cursor: pointer;
         }
 
+        .lesson-square.completed {
+            background-color: #00ff00;
+        }
+
+        .test-square {
+            width: 25px;
+            height: 25px;
+            background-color: #00ff00;
+            border-radius: 3px;
+            text-align: center;
+            color: #333;
+            font-size: 0.9rem;
+            line-height: 25px;
+            cursor: pointer;
+        }
+
+        .test-square.completed {
+            background-color: #1e90ff;
+        }
+
+        .certificate-form, .retry-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #eee;
+            color: #333;
+            border-radius: 5px;
+        }
+
+        .certificate-form.active, .retry-message.active {
+            display: block;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 200px;
+        }
+
         footer {
-            background-color: #1a1a1a;
-            color: #00ff00;
+            background-color: #333;
+            color: #1e90ff;
             text-align: center;
             padding: 20px;
             font-size: 0.9rem;
         }
 
         footer a {
-            color: #00b7eb;
+            color: #00ff00;
             text-decoration: none;
         }
 
@@ -275,73 +300,68 @@
 
         .footer-logo {
             font-size: 0.9rem;
-            color: #00b7eb;
+            color: #00ff00;
             font-weight: bold;
         }
 
         .footer-logo span {
-            color: #00ff00;
+            color: #1e90ff;
         }
+
 
         @media (max-width: 768px) {
-            .logo {
-                font-size: 2rem;
-            }
-
-            .logo span {
-                font-size: 4rem;
-                top: 6px;
-            }
-
-            .lessons-grid, .test-grid {
-                grid-template-columns: repeat(5, 1fr);
-            }
-
-            .start-btn, .test-btn {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .lessons-grid, .test-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .nav-btn, .submit-btn {
-                padding: 8px 15px;
-                font-size: 0.9rem;
-            }
-
-            .button-container {
-                flex-direction: column;
-                gap: 10px;
-            }
+            .logo { font-size: 2rem; }
+            .logo span { font-size: 4rem; top: 6px; }
+            .main-section { padding: 15px; }
+            .btn-lesson, .btn-test { font-size: 1rem; padding: 10px 20px; }
+            .lesson-square, .test-square { width: 20px; height: 20px; font-size: 0.8rem; line-height: 20px; }
+            .lesson-content h2 { font-size: 1.5rem; }
+            .lesson-content .instruction { font-size: 1rem; }
+            .lesson-content .description { font-size: 0.9rem; }
+            .lesson-content .example { font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">
-            <a href="edoc.html">CODE</a><a href="edoc.html"><span>X</span></a><a href="edoc.html">EDOC</a>
+            <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
         </div>
     </header>
 
     <section class="main-section">
-        <div id="python" class="tab-content active">
-            <div class="button-container">
-                <button class="start-btn" onclick="startCourse('python')">Open Course</button>
-                <button class="test-btn" onclick="startTest('python')">Launch Test</button>
-            </div>
-            <div id="python-lesson-contents"></div>
-            <div class="lessons-grid" id="python-lessons"></div>
+        <div class="buttons">
+            <button class="btn-lesson" onclick="toggleLessonBox()">Open Lesson</button>
+            <button class="btn-test" onclick="toggleTestBox()">Launch Test</button>
         </div>
 
-        <div id="testModal" class="test-modal">
-            <div class="test-modal-content">
-                <span class="close-btn" onclick="closetest()">×</span>
-                <div id="testContents"></div>
-                <div id="testGrid" class="test-grid"></div>
+        <div class="lesson-box" id="lessonBox">
+            <div class="lesson-content" id="lessonContent"></div>
+            <div class="nav-buttons">
+                <button class="nav-btn-lesson" onclick="prevLesson()" id="prevLessonBtn">Last</button>
+                <button class="nav-btn-lesson" onclick="nextLesson()" id="nextLessonBtn">Next</button>
+            </div>
+            <div class="progress-squares" id="lessonSquares"></div>
+        </div>
+
+        <div class="test-box" id="testBox">
+            <div class="test-question" id="testQuestion">
+                <button class="submit-btn" id="submitBtn" onclick="submitTest()">Submit</button>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn-test" onclick="prevQuestion()" id="prevQuestionBtn">Last</button>
+                <button class="nav-btn-test" onclick="nextQuestion()" id="nextQuestionBtn">Next</button>
+            </div>
+            <div class="progress-squares" id="testSquares"></div>
+            <div class="certificate-form" id="certificateForm">
+                <h2>Congratulations!</h2>
+                <p>Enter your name for your certificate (80%+ score):</p>
+                <input type="text" id="nameInput" placeholder="Your Name" required>
+                <button class="nav-btn-test" onclick="generateCertificate()">Generate Certificate</button>
+            </div>
+            <div class="retry-message" id="retryMessage">
+                <h2>Try Again</h2>
+                <p>Your score was below 80%. Please review the lessons and try again.</p>
             </div>
         </div>
     </section>
@@ -353,352 +373,297 @@
     </footer>
 
     <script>
-        // Python-specific lesson and test data
-        const lessonsData = {
-            python: [
-                {
-                    description: "Basic Python print statement.",
-                    code: `print("Hello, World!")`,
-                    breakdown: [
-                        "print(): A built-in Python function to output text to the console.",
-                        "\"Hello, World!\": The string argument passed to print()."
-                    ]
-                },
-                {
-                    description: "Python variables and basic operations.",
-                    code: `x = 5
-y = 10
-sum = x + y
-print("Sum:", sum)`,
-                    breakdown: [
-                        "x = 5: Assigns the value 5 to the variable x.",
-                        "y = 10: Assigns the value 10 to the variable y.",
-                        "sum = x + y: Adds x and y, storing the result in the variable sum.",
-                        "print(): Outputs text to the console.",
-                        "\"Sum:\", sum: The arguments to print(), displaying the label \"Sum:\" followed by the value of sum."
-                    ]
-                }
-            ]
-        };
+        const lessons = [
+            { title: "1. What is Python?", instruction: "Python is a high-level, interpreted programming language known for its readability.", description: "<b>print('Hello')</b>", example: "print('Hello World')" },
+            { title: "2. Python Setup", instruction: "Install Python from python.org and use an IDE like VSCode.", description: "<b>Basic Python script</b>", example: "# hello.py\nprint('Hello')" },
+            { title: "3. Variables", instruction: "Variables in Python don't need type declaration.", description: "<b>x = 5</b>", example: "x = 5\nprint(x)" },
+            { title: "4. Data Types", instruction: "Common types include int, float, str, bool.", description: "<b>y = 3.14</b>", example: "y = 3.14\nprint(type(y))" },
+            { title: "5. Strings", instruction: "Strings are sequences of characters.", description: "<b>s = 'Python'</b>", example: "s = 'Python'\nprint(s)" },
+            { title: "6. Arithmetic Operators", instruction: "Use +, -, *, /, //, %, ** for arithmetic.", description: "<b>z = 5 + 3</b>", example: "z = 5 + 3\nprint(z)" },
+            { title: "7. Comparison Operators", instruction: "Use ==, !=, >, <, >=, <= for comparisons.", description: "<b>5 > 3</b>", example: "print(5 > 3)" },
+            { title: "8. Logical Operators", instruction: "Use and, or, not for logical operations.", description: "<b>True and False</b>", example: "print(True and False)" },
+            { title: "9. If Statements", instruction: "If statements control flow based on conditions.", description: "<b>if x > 0:</b>", example: "x = 5\nif x > 0:\n    print('Positive')" },
+            { title: "10. Else Statements", instruction: "Else handles the false case of an if.", description: "<b>else:</b>", example: "x = -1\nif x > 0:\n    print('Positive')\nelse:\n    print('Negative')" },
+            { title: "11. Elif Statements", instruction: "Elif adds more conditions to check.", description: "<b>elif x == 0:</b>", example: "x = 0\nif x > 0:\n    print('Positive')\nelif x == 0:\n    print('Zero')" },
+            { title: "12. While Loops", instruction: "While loops repeat while a condition is true.", description: "<b>while x < 5:</b>", example: "x = 0\nwhile x < 5:\n    print(x)\n    x += 1" },
+            { title: "13. For Loops", instruction: "For loops iterate over sequences.", description: "<b>for i in range(5):</b>", example: "for i in range(5):\n    print(i)" },
+            { title: "14. Break Statement", instruction: "Break exits a loop early.", description: "<b>break</b>", example: "for i in range(5):\n    if i == 3:\n        break\n    print(i)" },
+            { title: "15. Continue Statement", instruction: "Continue skips to the next iteration.", description: "<b>continue</b>", example: "for i in range(5):\n    if i == 3:\n        continue\n    print(i)" },
+            { title: "16. Lists", instruction: "Lists are mutable, ordered sequences.", description: "<b>my_list = [1, 2, 3]</b>", example: "my_list = [1, 2, 3]\nprint(my_list)" },
+            { title: "17. List Indexing", instruction: "Access list elements using indices.", description: "<b>my_list[0]</b>", example: "my_list = [1, 2, 3]\nprint(my_list[0])" },
+            { title: "18. List Slicing", instruction: "Slice lists to get sublists.", description: "<b>my_list[1:3]</b>", example: "my_list = [1, 2, 3, 4]\nprint(my_list[1:3])" },
+            { title: "19. List Methods", instruction: "Lists have methods like append(), remove().", description: "<b>my_list.append(4)</b>", example: "my_list = [1, 2, 3]\nmy_list.append(4)\nprint(my_list)" },
+            { title: "20. Tuples", instruction: "Tuples are immutable sequences.", description: "<b>my_tuple = (1, 2, 3)</b>", example: "my_tuple = (1, 2, 3)\nprint(my_tuple)" },
+            { title: "21. Dictionaries", instruction: "Dictionaries store key-value pairs.", description: "<b>my_dict = {'a': 1}</b>", example: "my_dict = {'a': 1}\nprint(my_dict['a'])" },
+            { title: "22. Sets", instruction: "Sets store unique, unordered elements.", description: "<b>my_set = {1, 2, 3}</b>", example: "my_set = {1, 2, 3}\nprint(my_set)" },
+            { title: "23. Functions", instruction: "Functions are reusable code blocks.", description: "<b>def my_func():</b>", example: "def my_func():\n    print('Hello')\nmy_func()" },
+            { title: "24. Function Arguments", instruction: "Pass data to functions via arguments.", description: "<b>def my_func(x):</b>", example: "def my_func(x):\n    print(x)\nmy_func(5)" },
+            { title: "25. Return Statements", instruction: "Functions can return values.", description: "<b>return x</b>", example: "def add(a, b):\n    return a + b\nprint(add(2, 3))" },
+            { title: "26. Default Arguments", instruction: "Set default values for arguments.", description: "<b>def my_func(x=5):</b>", example: "def my_func(x=5):\n    print(x)\nmy_func()" },
+            { title: "27. Lambda Functions", instruction: "Lambda creates anonymous functions.", description: "<b>lambda x: x + 1</b>", example: "f = lambda x: x + 1\nprint(f(5))" },
+            { title: "28. String Methods", instruction: "Strings have methods like upper(), split().", description: "<b>'hello'.upper()</b>", example: "s = 'hello'\nprint(s.upper())" },
+            { title: "29. String Formatting", instruction: "Format strings with f-strings or .format().", description: "<b>f'Value: {x}'</b>", example: "x = 5\nprint(f'Value: {x}')" },
+            { title: "30. List Comprehension", instruction: "Create lists concisely.", description: "<b>[x*2 for x in range(5)]</b>", example: "squares = [x*2 for x in range(5)]\nprint(squares)" },
+            { title: "31. Modules", instruction: "Import code from other files.", description: "<b>import math</b>", example: "import math\nprint(math.pi)" },
+            { title: "32. File Reading", instruction: "Read files using open().", description: "<b>with open('file.txt') as f:</b>", example: "with open('file.txt', 'r') as f:\n    print(f.read())" },
+            { title: "33. File Writing", instruction: "Write to files using open().", description: "<b>with open('file.txt', 'w'):</b>", example: "with open('file.txt', 'w') as f:\n    f.write('Hello')" },
+            { title: "34. Exceptions", instruction: "Handle errors with try/except.", description: "<b>try: ... except:</b>", example: "try:\n    x = 1/0\nexcept ZeroDivisionError:\n    print('Error')" },
+            { title: "35. Classes", instruction: "Classes define objects.", description: "<b>class MyClass:</b>", example: "class MyClass:\n    x = 5\nobj = MyClass()" },
+            { title: "36. Constructors", instruction: "Initialize objects with __init__.", description: "<b>def __init__(self):</b>", example: "class MyClass:\n    def __init__(self):\n        self.x = 5" },
+            { title: "37. Methods", instruction: "Classes can have methods.", description: "<b>def my_method(self):</b>", example: "class MyClass:\n    def my_method(self):\n        print('Hello')" },
+            { title: "38. Inheritance", instruction: "Classes can inherit from others.", description: "<b>class Child(Parent):</b>", example: "class Parent:\n    pass\nclass Child(Parent):\n    pass" },
+            { title: "39. Polymorphism", instruction: "Different classes can share method names.", description: "<b>def sound(self):</b>", example: "class Dog:\n    def sound(self):\n        print('Woof')" },
+            { title: "40. Encapsulation", instruction: "Hide data with underscores.", description: "<b>self._x</b>", example: "class MyClass:\n    def __init__(self):\n        self._x = 5" },
+            { title: "41. Generators", instruction: "Generate values lazily with yield.", description: "<b>yield x</b>", example: "def gen():\n    for i in range(3):\n        yield i" },
+            { title: "42. Decorators", instruction: "Modify functions with decorators.", description: "<b>@decorator</b>", example: "def deco(func):\n    return func\n@deco\ndef hi():\n    print('Hi')" },
+            { title: "43. Iterators", instruction: "Create custom iteration.", description: "<b>def __iter__(self):</b>", example: "class MyIter:\n    def __iter__(self):\n        self.a = 1\n        return self" },
+            { title: "44. Regular Expressions", instruction: "Use re for pattern matching.", description: "<b>import re</b>", example: "import re\nprint(re.search('a', 'cat'))" },
+            { title: "45. DateTime", instruction: "Work with dates and times.", description: "<b>from datetime import datetime</b>", example: "from datetime import datetime\nprint(datetime.now())" },
+            { title: "46. JSON", instruction: "Handle JSON data.", description: "<b>import json</b>", example: "import json\ndata = {'a': 1}\nprint(json.dumps(data))" },
+            { title: "47. OS Module", instruction: "Interact with the operating system.", description: "<b>import os</b>", example: "import os\nprint(os.getcwd())" },
+            { title: "48. Random Module", instruction: "Generate random numbers.", description: "<b>import random</b>", example: "import random\nprint(random.randint(1, 10))" },
+            { title: "49. Sys Module", instruction: "Access system-specific parameters.", description: "<b>import sys</b>", example: "import sys\nprint(sys.version)" },
+            { title: "50. Pip", instruction: "Install packages with pip.", description: "<b>pip install package</b>", example: "# Run in terminal\npip install requests" }
+        ];
 
-        const testData = {
-            python: Array.from({ length: 30 }, (_, i) => {
-                if (i === 0) {
-                    return {
-                        description: "Python Basics test",
-                        question: "What does the print() function do in Python?",
-                        options: [
-                            "Reads input from the user.",
-                            "Outputs text to the console.",
-                            "Defines a new function."
-                        ],
-                        correct: 1
-                    };
-                } else if (i === 1) {
-                    return {
-                        description: "Python Variables test",
-                        question: "How do you assign the value 10 to a variable x in Python?",
-                        options: [
-                            "x = 10",
-                            "let x = 10",
-                            "x := 10"
-                        ],
-                        correct: 0
-                    };
-                } else {
-                    return {
-                        description: `Python Question ${i + 1}`,
-                        question: `What is the purpose of Python question ${i + 1}?`,
-                        options: [
-                            "Option A",
-                            "Option B",
-                            "Option C"
-                        ],
-                        correct: 0
-                    };
-                }
-            })
-        };
+        const questions = [
+            { q: "What is Python?", a: ["Interpreted language", "Compiled language", "Hardware"], correct: 0 },
+            { q: "How do you run Python code?", a: ["Using an IDE", "In a browser", "With a compiler"], correct: 0 },
+            { q: "How do you declare a variable?", a: ["x = 5", "int x = 5", "var x = 5"], correct: 0 },
+            { q: "Which is a Python data type?", a: ["float", "array", "object"], correct: 0 },
+            { q: "How do you create a string?", a: ["s = 'text'", "string s = 'text'", "s = new String('text')"], correct: 0 },
+            { q: "Which is an arithmetic operator?", a: ["**", "==", "and"], correct: 0 },
+            { q: "Which compares values?", a: ["!=", "+", "*"], correct: 0 },
+            { q: "Which is a logical operator?", a: ["or", ">=", "/"], correct: 0 },
+            { q: "How do you start an if statement?", a: ["if x > 0:", "if (x > 0)", "if x > 0 then"], correct: 0 },
+            { q: "What follows an if statement?", a: ["else", "elif", "while"], correct: 0 },
+            { q: "What adds more conditions?", a: ["elif", "else", "for"], correct: 0 },
+            { q: "How do you start a while loop?", a: ["while x < 5:", "while (x < 5)", "do while x < 5"], correct: 0 },
+            { q: "How do you start a for loop?", a: ["for i in range(5):", "for (i = 0; i < 5; i++)", "foreach i in 5"], correct: 0 },
+            { q: "What exits a loop?", a: ["break", "continue", "return"], correct: 0 },
+            { q: "What skips an iteration?", a: ["continue", "break", "exit"], correct: 0 },
+            { q: "How do you create a list?", a: ["[1, 2, 3]", "(1, 2, 3)", "{1, 2, 3}"], correct: 0 },
+            { q: "How do you access the first element?", a: ["my_list[0]", "my_list[1]", "my_list.first()"], correct: 0 },
+            { q: "What does my_list[1:3] do?", a: ["Gets elements 1 and 2", "Gets element 3", "Gets all elements"], correct: 0 },
+            { q: "How do you add to a list?", a: ["append()", "add()", "push()"], correct: 0 },
+            { q: "How do you create a tuple?", a: ["(1, 2, 3)", "[1, 2, 3]", "{1, 2, 3}"], correct: 0 },
+            { q: "How do you create a dictionary?", a: ["{'a': 1}", "[a: 1]", "(a: 1)"], correct: 0 },
+            { q: "How do you create a set?", a: ["{1, 2, 3}", "[1, 2, 3]", "(1, 2, 3)"], correct: 0 },
+            { q: "How do you define a function?", a: ["def my_func():", "function my_func()", "my_func = function()"], correct: 0 },
+            { q: "How do you pass an argument?", a: ["def my_func(x):", "def my_func[x]:", "def my_func(x=):"], correct: 0 },
+            { q: "How do you return a value?", a: ["return x", "print(x)", "yield x"], correct: 0 },
+            { q: "How do you set a default argument?", a: ["x=5", "x: 5", "default x = 5"], correct: 0 },
+            { q: "What creates an anonymous function?", a: ["lambda", "def", "func"], correct: 0 },
+            { q: "How do you make a string uppercase?", a: ["upper()", "toUpper()", "up()"], correct: 0 },
+            { q: "How do you format a string?", a: ["f'Value: {x}'", "'Value: ' + x", "format(x)"], correct: 0 },
+            { q: "What is list comprehension?", a: ["[x*2 for x in range(5)]", "for x in range(5): x*2", "list(x*2)"], correct: 0 },
+            { q: "How do you import a module?", a: ["import math", "include math", "using math"], correct: 0 },
+            { q: "How do you read a file?", a: ["with open('file.txt')", "open('file.txt')", "read('file.txt')"], correct: 0 },
+            { q: "How do you write to a file?", a: ["with open('file.txt', 'w')", "write('file.txt')", "open('file.txt', 'r')"], correct: 0 },
+            { q: "How do you handle errors?", a: ["try/except", "if/else", "while"], correct: 0 },
+            { q: "How do you define a class?", a: ["class MyClass:", "new MyClass()", "MyClass = class"], correct: 0 },
+            { q: "What initializes a class?", a: ["__init__", "__start__", "init"], correct: 0 },
+            { q: "How do you add a method to a class?", a: ["def my_method(self):", "method my_method()", "my_method = func()"], correct: 0 },
+            { q: "How do you inherit a class?", a: ["class Child(Parent):", "Child extends Parent", "Child = Parent"], correct: 0 },
+            { q: "What allows polymorphism?", a: ["Same method names", "Different class names", "Unique IDs"], correct: 0 },
+            { q: "How do you hide data?", a: ["self._x", "private x", "hide x"], correct: 0 },
+            { q: "What does yield do?", a: ["Generates values", "Returns values", "Prints values"], correct: 0 },
+            { q: "What modifies a function?", a: ["@decorator", "#decorator", "decorate()"], correct: 0 },
+            { q: "How do you create an iterator?", a: ["__iter__", "__loop__", "__next__"], correct: 0 },
+            { q: "What module handles regex?", a: ["re", "regex", "pattern"], correct: 0 },
+            { q: "What module handles dates?", a: ["datetime", "time", "date"], correct: 0 },
+            { q: "What module handles JSON?", a: ["json", "data", "object"], correct: 0 },
+            { q: "What module interacts with the OS?", a: ["os", "system", "sys"], correct: 0 },
+            { q: "What module generates random numbers?", a: ["random", "rand", "num"], correct: 0 },
+            { q: "What module provides system info?", a: ["sys", "os", "info"], correct: 0 },
+            { q: "How do you install packages?", a: ["pip install", "python install", "get package"], correct: 0 }
+        ];
 
-        // State management
-        const currentLessons = { python: 0 };
-        const currenttestQuestions = { python: 0 };
-        const completedLessons = { python: new Set() };
-        const completedtestQuestions = { python: new Set() };
-        const userAnswers = { python: Array(30).fill(null) };
+        let currentLesson = 0;
+        let currentQuestion = 0;
+        let answers = new Array(50).fill(null);
+        let lessonProgress = new Array(50).fill(false);
+        let testProgress = new Array(50).fill(false);
 
-        // Lesson Functions
-        function startLearning(language) {
-            const lessonsGrid = document.getElementById(`${language}-lessons`);
-            const lessonContents = document.getElementById(`${language}-lesson-contents`);
-
-            lessonsGrid.innerHTML = '';
-            lessonContents.innerHTML = '';
-            lessonsGrid.style.display = 'grid';
-
-            for (let i = 1; i <= 30; i++) {
-                const lessonBox = document.createElement('div');
-                lessonBox.classList.add('lesson-box');
-                lessonBox.textContent = i;
-                lessonBox.onclick = () => {
-                    currentLessons[language] = i;
-                    completedLessons[language].add(i);
-                    toggleLesson(language, i);
-                };
-                if (completedLessons[language].has(i)) {
-                    lessonBox.classList.add('completed');
-                }
-                lessonsGrid.appendChild(lessonBox);
-
-                const lessonContent = document.createElement('div');
-                lessonContent.classList.add('lesson-content');
-                lessonContent.id = `${language}-lesson-${i}`;
-                
-                const description = document.createElement('div');
-                description.classList.add('lesson-description');
-                description.textContent = lessonsData[language][i-1]?.description || `Lesson ${i}: Coming Soon`;
-                
-                const codeBreakdown = document.createElement('pre');
-                codeBreakdown.classList.add('code-breakdown');
-                codeBreakdown.textContent = lessonsData[language][i-1]?.code || '// Code example coming soon';
-                
-                const explanation = document.createElement('div');
-                explanation.classList.add('code-explanation');
-                const explanationTitle = document.createElement('h4');
-                explanationTitle.textContent = 'Code Breakdown';
-                explanation.appendChild(explanationTitle);
-                
-                const explanationList = document.createElement('ul');
-                const breakdownItems = lessonsData[language][i-1]?.breakdown || ['No breakdown available yet.'];
-                breakdownItems.forEach(item => {
-                    const li = document.createElement('li');
-                    li.textContent = item;
-                    explanationList.appendChild(li);
-                });
-                explanation.appendChild(explanationList);
-                
-                const navigation = document.createElement('div');
-                navigation.classList.add('navigation');
-                
-                const prevBtn = document.createElement('button');
-                prevBtn.classList.add('nav-btn');
-                prevBtn.textContent = 'Previous';
-                prevBtn.onclick = () => navigateLesson(language, i - 1);
-                
-                const nextBtn = document.createElement('button');
-                nextBtn.classList.add('nav-btn');
-                nextBtn.textContent = 'Next';
-                nextBtn.onclick = () => navigateLesson(language, i + 1);
-                
-                navigation.appendChild(prevBtn);
-                navigation.appendChild(nextBtn);
-                
-                lessonContent.appendChild(description);
-                lessonContent.appendChild(codeBreakdown);
-                lessonContent.appendChild(explanation);
-                lessonContent.appendChild(navigation);
-                lessonContents.appendChild(lessonContent);
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
-
-            currentLessons[language] = 1;
-            completedLessons[language].add(1);
-            toggleLesson(language, 1);
+            return array;
         }
 
-        function toggleLesson(language, lessonNumber) {
-            document.querySelectorAll(`#${language}-lesson-contents .lesson-content`).forEach(content => {
-                content.classList.remove('active');
-            });
+        const shuffledQuestions = shuffle([...questions]);
 
-            const selectedLesson = document.getElementById(`${language}-lesson-${lessonNumber}`);
-            if (selectedLesson) {
-                selectedLesson.classList.add('active');
-                const prevBtn = selectedLesson.querySelector('.nav-btn:first-child');
-                const nextBtn = selectedLesson.querySelector('.nav-btn:last-child');
-                prevBtn.disabled = lessonNumber === 1;
-                nextBtn.disabled = lessonNumber === 30;
+        function toggleLessonBox() {
+            const lessonBox = document.getElementById('lessonBox');
+            const testBox = document.getElementById('testBox');
+            if (testBox.classList.contains('active')) {
+                testBox.classList.remove('active');
             }
-
-            const lessonBox = document.querySelector(`#${language}-lessons .lesson-box:nth-child(${lessonNumber})`);
-            if (lessonBox) {
-                lessonBox.classList.add('completed');
+            lessonBox.classList.toggle('active');
+            if (lessonBox.classList.contains('active')) {
+                updateLesson();
+                updateLessonSquares();
             }
         }
 
-        function navigateLesson(language, lessonNumber) {
-            if (lessonNumber < 1 || lessonNumber > 30) return;
-            currentLessons[language] = lessonNumber;
-            completedLessons[language].add(lessonNumber);
-            toggleLesson(language, lessonNumber);
-        }
-
-        // test Functions
-        function starttest(language) {
-            const testModal = document.getElementById('testModal');
-            const testContents = document.getElementById('testContents');
-            const testGrid = document.getElementById('testGrid');
-
-            testContents.innerHTML = '';
-            testGrid.innerHTML = '';
-            userAnswers[language] = Array(30).fill(null);
-            completedtestQuestions[language].clear();
-
-            testModal.classList.add('active');
-
-            for (let i = 1; i <= 30; i++) {
-                const testBox = document.createElement('div');
-                testBox.classList.add('test-box');
-                testBox.textContent = i;
-                testBox.onclick = () => {
-                    currenttestQuestions[language] = i;
-                    completedtestQuestions[language].add(i);
-                    toggletestQuestion(language, i);
-                };
-                if (completedtestQuestions[language].has(i)) {
-                    testBox.classList.add('completed');
-                }
-                testGrid.appendChild(testBox);
-
-                const testContent = document.createElement('div');
-                testContent.classList.add('test-content');
-                testContent.id = `${language}-test-${i}`;
-                
-                const description = document.createElement('div');
-                description.classList.add('test-description');
-                description.textContent = testData[language][i-1]?.description || `Question ${i}: Coming Soon`;
-                
-                const question = document.createElement('div');
-                question.classList.add('test-question');
-                question.textContent = testData[language][i-1]?.question || 'Question coming soon.';
-                
-                const optionsContainer = document.createElement('div');
-                optionsContainer.classList.add('test-options');
-                const options = testData[language][i-1]?.options || ['Option 1', 'Option 2', 'Option 3'];
-                options.forEach((option, index) => {
-                    const optionDiv = document.createElement('div');
-                    optionDiv.classList.add('test-option');
-                    optionDiv.textContent = option;
-                    optionDiv.onclick = () => selectOption(language, i, index);
-                    optionsContainer.appendChild(optionDiv);
-                });
-                
-                const navigation = document.createElement('div');
-                navigation.classList.add('navigation');
-                
-                const prevBtn = document.createElement('button');
-                prevBtn.classList.add('nav-btn');
-                prevBtn.textContent = 'Previous';
-                prevBtn.onclick = () => navigatetestQuestion(language, i - 1);
-                
-                const nextBtn = document.createElement('button');
-                if (i === 30) {
-                    nextBtn.classList.add('submit-btn');
-                    nextBtn.textContent = 'Submit';
-                    nextBtn.onclick = () => submittest(language);
-                    nextBtn.style.display = 'none';
-                    nextBtn.id = `${language}-submit-btn`;
-                } else {
-                    nextBtn.classList.add('nav-btn');
-                    nextBtn.textContent = 'Next';
-                    nextBtn.onclick = () => navigatetestQuestion(language, i + 1);
-                }
-                
-                navigation.appendChild(prevBtn);
-                navigation.appendChild(nextBtn);
-                
-                testContent.appendChild(description);
-                testContent.appendChild(question);
-                testContent.appendChild(optionsContainer);
-                testContent.appendChild(navigation);
-                testContents.appendChild(testContent);
+        function toggleTestBox() {
+            const lessonBox = document.getElementById('lessonBox');
+            const testBox = document.getElementById('testBox');
+            if (lessonBox.classList.contains('active')) {
+                lessonBox.classList.remove('active');
             }
-
-            currenttestQuestions[language] = 1;
-            completedtestQuestions[language].add(1);
-            toggletestQuestion(language, 1);
-        }
-
-        function toggletestQuestion(language, questionNumber) {
-            document.querySelectorAll(`#testContents .test-content`).forEach(content => {
-                content.classList.remove('active');
-            });
-
-            const selectedQuestion = document.getElementById(`${language}-test-${questionNumber}`);
-            if (selectedQuestion) {
-                selectedQuestion.classList.add('active');
-                const prevBtn = selectedQuestion.querySelector('.nav-btn:first-child');
-                const nextBtn = selectedQuestion.querySelector('.nav-btn:last-child') || selectedQuestion.querySelector('.submit-btn');
-                prevBtn.disabled = questionNumber === 1;
-                if (nextBtn.classList.contains('nav-btn')) {
-                    nextBtn.disabled = questionNumber === 30;
-                }
-
-                if (questionNumber === 30 && nextBtn.classList.contains('submit-btn')) {
-                    const allAnswered = userAnswers[language].every(answer => answer !== null);
-                    nextBtn.style.display = allAnswered ? 'block' : 'none';
-                }
-
-                const selectedOptionIndex = userAnswers[language][questionNumber - 1];
-                if (selectedOptionIndex !== null) {
-                    const options = selectedQuestion.querySelectorAll('.test-option');
-                    options[selectedOptionIndex].classList.add('selected');
-                }
-            }
-
-            const testBox = document.querySelector(`#testGrid .test-box:nth-child(${questionNumber})`);
-            if (testBox) {
-                testBox.classList.add('completed');
+            testBox.classList.toggle('active');
+            if (testBox.classList.contains('active')) {
+                updateQuestion();
+                updateTestSquares();
             }
         }
 
-        function navigatetestQuestion(language, questionNumber) {
-            if (questionNumber < 1 || questionNumber > 30) return;
-            currenttestQuestions[language] = questionNumber;
-            completedtestQuestions[language].add(questionNumber);
-            toggletestQuestion(language, questionNumber);
+        function updateLesson() {
+            const lesson = lessons[currentLesson];
+            document.getElementById('lessonContent').innerHTML = `
+                <h2>${lesson.title}</h2>
+                <div class="instruction">${lesson.instruction}</div>
+                <div class="description">${lesson.description}</div>
+                <div class="example">${lesson.example}</div>
+            `;
+            document.getElementById('prevLessonBtn').disabled = currentLesson === 0;
+            document.getElementById('nextLessonBtn').disabled = currentLesson === lessons.length - 1;
+            lessonProgress[currentLesson] = true;
+            updateLessonSquares();
         }
 
-        function selectOption(language, questionNumber, optionIndex) {
-            const options = document.querySelectorAll(`#${language}-test-${questionNumber} .test-option`);
-            options.forEach(option => option.classList.remove('selected'));
-            options[optionIndex].classList.add('selected');
+        function updateQuestion() {
+            const q = shuffledQuestions[currentQuestion];
+            document.getElementById('testQuestion').innerHTML = `
+                <h2>Question ${currentQuestion + 1}</h2>
+                <p>${q.q}</p>
+                ${q.a.map((opt, i) => `<label><input type="radio" name="q${currentQuestion}" value="${i}" ${answers[currentQuestion] === i ? 'checked' : ''}> ${opt}</label><br>`).join('')}
+                <button class="submit-btn" id="submitBtn" onclick="submitTest()">Submit</button>
+            `;
+            document.getElementById('prevQuestionBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextQuestionBtn').disabled = currentQuestion === shuffledQuestions.length - 1;
 
-            userAnswers[language][questionNumber - 1] = optionIndex;
-
-            if (questionNumber === 30) {
-                const allAnswered = userAnswers[language].every(answer => answer !== null);
-                const submitBtn = document.getElementById(`${language}-submit-btn`);
-                if (submitBtn) {
-                    submitBtn.style.display = allAnswered ? 'block' : 'none';
-                }
-            }
-        }
-
-        function submittest(language) {
-            let score = 0;
-            userAnswers[language].forEach((answer, index) => {
-                if (answer === testData[language][index].correct) {
-                    score++;
-                }
-            });
-
-            alert(`You scored ${score} out of 30!`);
-            if (score >= 25) {
-                window.location.href = 'correct.html';
+            const submitBtn = document.getElementById('submitBtn');
+            const allAnswered = answers.every(answer => answer !== null);
+            if (currentQuestion === shuffledQuestions.length - 1 && allAnswered) {
+                submitBtn.style.display = 'block';
             } else {
-                closetest();
+                submitBtn.style.display = 'none';
+            }
+
+            document.querySelectorAll(`input[name="q${currentQuestion}"]`).forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    answers[currentQuestion] = parseInt(e.target.value);
+                    testProgress[currentQuestion] = true;
+                    updateTestSquares();
+                    const allAnswered = answers.every(answer => answer !== null);
+                    if (currentQuestion === shuffledQuestions.length - 1 && allAnswered) {
+                        document.getElementById('submitBtn').style.display = 'block';
+                    }
+                });
+            });
+        }
+
+        function updateLessonSquares() {
+            const squares = document.getElementById('lessonSquares');
+            squares.innerHTML = '';
+            lessonProgress.forEach((completed, i) => {
+                const square = document.createElement('div');
+                square.className = `lesson-square ${completed ? 'completed' : ''}`;
+                square.textContent = i + 1;
+                square.onclick = () => {
+                    currentLesson = i;
+                    updateLesson();
+                };
+                squares.appendChild(square);
+            });
+        }
+
+        function updateTestSquares() {
+            const squares = document.getElementById('testSquares');
+            squares.innerHTML = '';
+            testProgress.forEach((completed, i) => {
+                const square = document.createElement('div');
+                square.className = `test-square ${completed ? 'completed' : ''}`;
+                square.textContent = i + 1;
+                square.onclick = () => {
+                    currentQuestion = i;
+                    updateQuestion();
+                };
+                squares.appendChild(square);
+            });
+        }
+
+        function prevLesson() {
+            if (currentLesson > 0) currentLesson--;
+            updateLesson();
+        }
+
+        function nextLesson() {
+            if (currentLesson < lessons.length - 1) currentLesson++;
+            updateLesson();
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) currentQuestion--;
+            updateQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < shuffledQuestions.length - 1) {
+                currentQuestion++;
+                updateQuestion();
+            } else {
+                gradeTest();
             }
         }
 
-        function closetest() {
-            const testModal = document.getElementById('testModal');
-            testModal.classList.remove('active');
+        function gradeTest() {
+            let correct = 0;
+            answers.forEach((ans, i) => {
+                if (ans === shuffledQuestions[i].correct) correct++;
+            });
+            const score = (correct / 50) * 100;
+            document.getElementById('testQuestion').style.display = 'none';
+            document.getElementById('prevQuestionBtn').style.display = 'none';
+            document.getElementById('nextQuestionBtn').style.display = 'none';
+            if (score >= 80) {
+                document.getElementById('certificateForm').classList.add('active');
+            } else {
+                document.getElementById('retryMessage').classList.add('active');
+            }
         }
 
-        // Initialization
-        document.querySelectorAll('.lessons-grid').forEach(grid => {
-            grid.style.display = 'none';
-        });
+        function submitTest() {
+            if (!answers.every(answer => answer !== null)) {
+                alert('Please answer all questions before submitting.');
+                return;
+            }
+            gradeTest();
+        }
+
+        function generateCertificate() {
+            const name = document.getElementById('nameInput').value.trim();
+            if (!name) {
+                alert('Please enter your name.');
+                return;
+            }
+            const certWindow = window.open('', '_blank');
+            certWindow.document.write(`
+                <html>
+                <body style="text-align: center; font-family: Arial; background: #1a1a1a; color: #00ff00;">
+                    <h1 style="color: #00b7eb;">CODEXEDOC Certificate</h1>
+                    <p style="font-size: 1.5rem; margin: 20px;">Awarded to: ${name}</p>
+                    <p>For successfully completing the CODEXEDOC Python Course with a score of 80% or higher.</p>
+                    <p>Date: March 31, 2025</p>
+                </body>
+                </html>
+            `);
+            certWindow.document.close();
+        }
     </script>
 </body>
 </html>
