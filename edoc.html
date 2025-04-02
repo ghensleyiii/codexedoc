@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codexedoc - Lessons & Quiz</title>
     <style>
-        /* Same CSS as before, unchanged */
         * {
             margin: 0;
             padding: 0;
@@ -14,68 +13,73 @@
         }
 
         body {
-            background-color: #1a1a1a;
+            background-color: #eee;
             color: #333;
             line-height: 1.6;
+            min-height: 100vh; /* Added */
+            display: flex; /* Added */
+            flex-direction: column; /* Added */
         }
 
         header {
-            background-color: #1a1a1a;
+            background-color: #eee;
             padding: 20px;
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 100;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
             font-size: 2.5rem;
             font-weight: bold;
-            color: #00b7eb;
+            color: #00ff00;
             display: inline-block;
         }
 
         .logo a {
-            color: #00b7eb;
+            color: #00ff00;
             text-decoration: none;
             transition: color 0.3s;
         }
 
         .logo a:hover {
-            color: #00ff00;
+            color: #1e90ff;
         }
 
         .logo span {
-            color: #00ff00;
+            color: #1e90ff;
             font-size: 5rem;
             position: relative;
             top: 8px;
         }
 
         .main-section {
-            background-color: #00ff00;
+            background-color: #eee;
             padding: 50px 20px;
             text-align: center;
-            color: #d4d4d4;
+            color: #333;
+            flex: 1; /* Added */
         }
 
         .instructions {
             margin-bottom: 30px;
             font-size: 1.1rem;
-            color: #d4d4d4;
+            color: #333;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .instructions h2 {
-            color: #1a1a1a;
+            color: #1e90ff;
             margin-bottom: 10px;
         }
 
         .instructions p {
             line-height: 1.8;
-            color: #1a1a1a;
+            color: #333;
         }
 
         .tabs {
@@ -86,32 +90,32 @@
         }
 
         .tab-btn {
-            background-color: #2a2a2a;
-            color: #00b7eb;
+            background-color: #1e90ff;
+            color: #eee;
             padding: 10px 20px;
-            border: 2px solid #00b7eb;
+            border: 2px solid #1e90ff;
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
             text-decoration: none;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .tab-btn:hover {
-            background-color: #00b7eb;
-            color: #1a1a1a;
+            background-color: #00ff00;
         }
 
         footer {
-            background-color: #1a1a1a;
-            color: #00ff00;
+            background-color: #333;
+            color: #1e90ff;
             text-align: center;
             padding: 20px;
             font-size: 0.9rem;
         }
 
         footer a {
-            color: #00b7eb;
+            color: #00ff00;
             text-decoration: none;
         }
 
@@ -121,12 +125,12 @@
 
         .footer-logo {
             font-size: 0.9rem;
-            color: #00b7eb;
+            color: #00ff00;
             font-weight: bold;
         }
 
         .footer-logo span {
-            color: #00ff00;
+            color: #1e90ff;
         }
 
         @media (max-width: 768px) {
@@ -179,7 +183,6 @@
             <a href="python-course.html" class="tab-btn">Python</a>
         </div>
     </section>
-
     <footer>
         <p><span class="footer-logo">CODE<span>X</span>EDOC</span></p>
         <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
