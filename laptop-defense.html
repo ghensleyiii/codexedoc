@@ -12,7 +12,7 @@
         }
 
         body {
-            background-color: #1a1a1a;
+            background-color: #333;
             font-family: Arial, sans-serif;
             overflow: auto;
             min-height: 100vh;
@@ -33,17 +33,17 @@
 
         /* Style for cyan parts (CODE and EDOC) */
         .title-cyan a {
-            color: #00b7eb; /* Cyan for unvisited */
+            color: #00ff00; /* Cyan for unvisited */
             text-decoration: none; /* Remove underline */
         }
 
         .title-cyan a:visited {
-            color: #00b7eb; /* Cyan for visited */
+            color: #00ff00; /* Cyan for visited */
         }
 
         .title-cyan a:hover,
         .title-cyan a:active {
-            color: #00b7eb; /* Cyan for hover/active */
+            color: #00ff00; /* Cyan for hover/active */
         }
 
         .title-cyan {
@@ -53,17 +53,17 @@
 
         /* Style for green part (X) */
         .title-green a {
-            color: #00ff00; /* Green for unvisited */
+            color: #1e90ff; /* Green for unvisited */
             text-decoration: none; /* Remove underline */
         }
 
         .title-green a:visited {
-            color: #00ff00; /* Green for visited */
+            color: #1e90ff; /* Green for visited */
         }
 
         .title-green a:hover,
         .title-green a:active {
-            color: #00ff00; /* Green for hover/active */
+            color: #1e90ff; /* Green for hover/active */
         }
 
         .title-green {
@@ -75,7 +75,7 @@
         }
 
         #gameInstructions {
-            color: #ffffff;
+            color: #eee;
             font-size: clamp(0.7rem, 1.5vw, 0.9rem);
             text-align: center;
             margin-bottom: 15px;
@@ -87,10 +87,10 @@
             display: flex;
             gap: 15px;
             padding: 8px 15px;
-            background: rgba(0, 0, 0, 0.8);
+            background: #eee;
             border-radius: 8px;
-            border: 1px solid #00b7eb;
-            box-shadow: 0 0 10px rgba(0, 183, 235, 0.3);
+            border: 1px solid #1e90ff;
+            box-shadow: 0 0 10px #1e90ff;
             margin-top: 10px;
         }
 
@@ -102,7 +102,7 @@
         }
 
         .counter-label {
-            color: #00b7eb;
+            color: #1e90ff;
             font-size: clamp(0.8rem, 1.6vw, 1rem);
             font-weight: bold;
             text-transform: uppercase;
@@ -116,7 +116,7 @@
         }
 
         .counter-desc {
-            color: #ffffff;
+            color: #333;
             font-size: clamp(0.6rem, 1.4vw, 0.8rem);
             opacity: 0.8;
             text-align: center;
@@ -133,7 +133,7 @@
         #gameCanvas {
             width: 100%;
             height: 100%;
-            border: 1px solid #00b7eb;
+            border: 1px solid #1e90ff;
             display: block;
             position: relative;
             z-index: 1;
@@ -143,7 +143,7 @@
             position: absolute;
             width: clamp(15px, 3.5vw, 25px);
             height: clamp(15px, 3.5vw, 25px);
-            background-color: rgba(0, 183, 235, 0.2);
+            background-color: #1e90ff;
             border-radius: 50%;
             cursor: pointer;
             transform: translate(-50%, -50%);
@@ -151,7 +151,7 @@
         }
 
         .tower-spot:hover {
-            background-color: rgba(0, 183, 235, 0.4);
+            background-color: #eee;
         }
 
         #startButton {
@@ -348,7 +348,7 @@
                 spot1.className = 'tower-spot';
                 spot1.style.left = `${pos.x + perpX * offset}px`;
                 spot1.style.top = `${pos.y + perpY * offset}px`;
-                spot1.onclick = () => placeTower(pos.x + perpX * offset, pos.y + perpY * offset);
+                spot1.onclick = () => placeTower(pos.x + perpX * offset, pos.y + perpY * offset, spot1); // Pass spot1
                 container.appendChild(spot1);
                 towerSpots.push(spot1);
 
@@ -356,7 +356,7 @@
                 spot2.className = 'tower-spot';
                 spot2.style.left = `${pos.x - perpX * offset}px`;
                 spot2.style.top = `${pos.y - perpY * offset}px`;
-                spot2.onclick = () => placeTower(pos.x - perpX * offset, pos.y - perpY * offset);
+                spot2.onclick = () => placeTower(pos.x - perpX * offset, pos.y - perpY * offset, spot2); // Pass spot2
                 container.appendChild(spot2);
                 towerSpots.push(spot2);
             }
@@ -373,7 +373,7 @@
 
             draw() {
                 ctx.font = `${30 * (canvas.height / 600)}px Arial`;
-                ctx.fillStyle = '#00b7eb';
+                ctx.fillStyle = '#1e90ff';
                 ctx.fillText(this.type, this.x - (15 * canvas.width / 800), this.y + (10 * canvas.height / 600));
             }
 
@@ -439,13 +439,14 @@
             }
         }
 
-        function placeTower(x, y) {
+        function placeTower(x, y, spot) { // Added spot parameter
             if (cod >= doc && !towers.some(t => t.x === x && t.y === y)) {
                 cod -= doc;
                 doc = Math.floor(doc * 1.5);
                 const type = '📗';
                 towers.push(new Tower(x, y, type));
                 towerCount++;
+                spot.style.display = 'none'; // Hide the blue circle
                 updateGameCounter();
             }
         }
@@ -468,7 +469,7 @@
             if (!gameStarted) {
                 const path = getScaledPath();
                 ctx.beginPath();
-                ctx.strokeStyle = '#00b7eb';
+                ctx.strokeStyle = '#1e90ff';
                 ctx.lineWidth = 40 * (canvas.width / 800);
                 ctx.moveTo(path[0].x, path[0].y);
                 for (let point of path) {
@@ -504,7 +505,7 @@
 
             const path = getScaledPath();
             ctx.beginPath();
-            ctx.strokeStyle = '#00b7eb';
+            ctx.strokeStyle = '#1e90ff';
             ctx.lineWidth = 40 * (canvas.width / 800);
             ctx.moveTo(path[0].x, path[0].y);
             for (let point of path) {
