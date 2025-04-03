@@ -87,7 +87,9 @@
         }
 
         .highlight-error {
-            background-color: #909090;
+            text-decoration: underline;
+            text-decoration-color: #909090;
+            text-decoration-thickness: 2px;
         }
 
         .buttons {
@@ -306,34 +308,215 @@
 
         function clearHighlights() {
             textarea.classList.remove('highlight-error');
+            textarea.setSelectionRange(0, 0); // Reset selection
         }
 
         textarea.addEventListener('input', clearHighlights);
 
+        // Comment removal function
+        function removeComments(code, language) {
+            if (language === 'html') {
+                return code.replace(/<!--[\s\S]*?-->/g, '');
+            } else if (language === 'javascript' || language === 'java' || language === 'cpp') {
+                return code.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+            } else if (language === 'python') {
+                return code.replace(/#.*$/gm, '');
+            } else if (language === 'css') {
+                return code.replace(/\/\*[\s\S]*?\*\//g, '');
+            }
+            return code;
+        }
+
+        // Language detection and validation
+        const languageValidators = {
+            javascript: (code) => {
+                const errors = [];
+                const cleanCode = removeComments(code, 'javascript');
+                try {
+                    new Function(cleanCode);
+                } catch (e) {
+                    const match = e.message.match(/line (\d+)/);
+                    const lineNum = match ? parseInt(match[1]) - 1 : 0;
+                    const lines = code.split('\n');
+                    const line = lines[lineNum];
+                    const errorMatch = e.message.match(/'([^']+)'/);
+                    const errorToken = errorMatch ? errorMatch[1] : '';
+                    const start = lines.slice(0, lineNum).join('\n').length + line.indexOf(errorToken) + 1;
+                    const end = start + (errorToken.length || 1);
+                    errors.push({ message: e.message, start, end });
+                }
+                return errors; // Removed semicolon check to avoid false positives
+            },
+            python: (code) => {
+                const errors = [];
+                const cleanCode = removeComments(code, 'python');
+                const lines = cleanCode.split('\n');
+                lines.forEach((line, i) => {
+                    if (!line.trim()) return;
+                    const leadingSpaces = line.match(/^\s*/)[0].length;
+                    if (leadingSpaces % 4 !== 0 && line.trim().startsWith(' ')) {
+                        const start = code.split('\n').slice(0, i).join('\n').length + 1;
+                        errors.push({ message: `Invalid indentation at line ${i + 1} (must be multiples of 4 spaces)`, start, end: start + leadingSpaces });
+                    }
+                    if (line.trim().match(/^(if|for|while|def|class)/) && !line.endsWith(':')) {
+                        const start = code.split('\n').slice(0, i).join('\n').length + line.lastIndexOf(line.trim()) + 1;
+                        errors.push({ message: `Missing colon at line ${i + 1}`, start, end: start + line.trim().length });
+                    }
+                });
+                return errors;
+            },
+            html: (code) => {
+                const errors = [];
+                const cleanCode = removeComments(code, 'html');
+                const lines = cleanCode.split('\n');
+                
+                if (!cleanCode.match(/^<!DOCTYPE\s+html>/i)) {
+                    const start = 0;
+                    errors.push({ 
+                        message: "Missing or invalid DOCTYPE declaration (should be <!DOCTYPE html>)", 
+                        start, 
+                        end: lines[0].indexOf('<') !== -1 ? lines[0].indexOf('<') : lines[0].length 
+                    });
+                }
+
+                const tagRegex = /<[^>]+/g;
+                let match;
+                const stack = [];
+
+                while ((match = tagRegex.exec(cleanCode)) !== null) {
+                    const tag = match[0];
+                    const start = match.index;
+                    
+                    if (!tag.endsWith('>')) {
+                        errors.push({
+                            message: `Incomplete tag: ${tag} missing closing '>'`,
+                            start,
+                            end: start + tag.length
+                        });
+                        continue;
+                    }
+
+                    const isClosing = tag.startsWith('</');
+                    const tagNameMatch = tag.match(/[a-z][a-z0-9]*/i);
+                    if (!tagNameMatch) {
+                        errors.push({
+                            message: `Invalid tag syntax: ${tag}`,
+                            start,
+                            end: start + tag.length
+                        });
+                        continue;
+                    }
+                    const tagName = tagNameMatch[0];
+
+                    if (!isClosing) {
+                        if (!['br', 'img', 'hr', 'input'].includes(tagName.toLowerCase())) {
+                            stack.push({ name: tagName, start });
+                        }
+                    } else if (stack.length) {
+                        const lastTag = stack.pop();
+                        if (lastTag.name.toLowerCase() !== tagName.toLowerCase()) {
+                            errors.push({
+                                message: `Mismatched closing tag: expected </${lastTag.name}> but found </${tagName}>`,
+                                start,
+                                end: start + tagName.length + 2
+                            });
+                            stack.push(lastTag);
+                        }
+                    }
+                }
+
+                stack.forEach(tag => {
+                    errors.push({
+                        message: `Unclosed tag: <${tag.name}>`,
+                        start: tag.start,
+                        end: tag.start + tag.name.length + 1
+                    });
+                });
+
+                return errors;
+            },
+            css: (code) => {
+                const errors = [];
+                const cleanCode = removeComments(code, 'css');
+                const lines = cleanCode.split('\n');
+                let inBlock = false;
+                lines.forEach((line, i) => {
+                    if (!line.trim()) return;
+                    if (line.match(/^[.#]?[a-zA-Z][\w-]*\s*{/)) {
+                        inBlock = true;
+                    } else if (line.match(/^\s*}/)) {
+                        inBlock = false;
+                    } else if (inBlock && !line.match(/^\s*[a-z-]+:\s*.+;/)) {
+                        const start = code.split('\n').slice(0, i).join('\n').length + line.indexOf(line.trim()) + 1;
+                        errors.push({ message: `Invalid CSS property at line ${i + 1}`, start, end: start + line.trim().length });
+                    } else if (!inBlock && !line.match(/^[.#]?[a-zA-Z][\w-]*\s*{/)) {
+                        const start = code.split('\n').slice(0, i).join('\n').length + line.indexOf(line.trim()) + 1;
+                        errors.push({ message: `Invalid CSS selector at line ${i + 1}`, start, end: start + line.trim().length });
+                    }
+                });
+                if (inBlock) {
+                    errors.push({ message: "Missing closing brace", start: cleanCode.lastIndexOf('{'), end: cleanCode.lastIndexOf('{') + 1 });
+                }
+                return errors;
+            },
+            java: (code) => {
+                const errors = [];
+                const cleanCode = removeComments(code, 'java');
+                if (!cleanCode.match(/public\s+class\s+\w+/)) {
+                    errors.push({ message: 'Missing public class declaration', start: 0, end: code.indexOf(' ') !== -1 ? code.indexOf(' ') : code.length });
+                }
+                return errors;
+            },
+            cpp: (code) => {
+                const errors = [];
+                const cleanCode = removeComments(code, 'cpp');
+                if (!cleanCode.includes('int main')) {
+                    errors.push({ message: 'Missing main function', start: 0, end: code.indexOf(' ') !== -1 ? code.indexOf(' ') : code.length });
+                }
+                return errors;
+            }
+        };
+
+        function detectLanguage(code) {
+            if (code.includes('function') || code.includes('let') || code.includes('const')) return 'javascript';
+            if (code.includes('def ') || code.includes('print(')) return 'python';
+            if (code.includes('<html') || code.includes('<div')) return 'html';
+            if (code.includes('{') && code.includes('}') && code.includes(':')) return 'css';
+            if (code.includes('public class') || code.includes('System.out')) return 'java';
+            if (code.includes('#include') || code.includes('int main')) return 'cpp';
+            return 'html'; // default to original behavior
+        }
+
         function validateCode() {
-            const code = textarea.value.trim();
-            let errors = false;
+            // Complete reset
             clearHighlights();
+            errorDiv.innerHTML = '';
+            errorDiv.style.color = "#909090";
+            const code = textarea.value.trim();
 
             if (!code) {
-                errors = true;
-                highlightError(0, 0);
-            } else if (code.indexOf('<html') === -1 || code.indexOf('</html>') === -1) {
-                errors = true;
-                const lines = code.split('\n');
-                if (code.indexOf('<html') === -1) {
-                    highlightError(0, lines[0].length); // Highlight first line
-                } else {
-                    const lastLineStart = code.lastIndexOf('\n') + 1;
-                    highlightError(lastLineStart, code.length); // Highlight last line
-                }
+                highlightError(0, 1);
+                errorDiv.innerHTML = "Errors Detected: No code entered";
+                return;
             }
 
-            errorDiv.innerHTML = errors ? "Errors Detected" : "No Errors Detected";
-            errorDiv.style.color = errors ? "#909090" : "#00ff00";
-            
-            if (!errors) {
-                setTimeout(clearHighlights, 2000);
+            const language = detectLanguage(code);
+            const errors = languageValidators[language](code);
+
+            if (errors.length > 0) {
+                errors.forEach((error, index) => {
+                    highlightError(error.start, error.end);
+                    errorDiv.innerHTML += `${error.message}${index < errors.length - 1 ? '<br>' : ''}`;
+                });
+                errorDiv.style.color = "#909090";
+            } else {
+                errorDiv.innerHTML = "No Errors Detected";
+                errorDiv.style.color = "#00ff00";
+                setTimeout(() => {
+                    clearHighlights();
+                    errorDiv.innerHTML = "";
+                    errorDiv.style.color = "#909090";
+                }, 2000);
             }
         }
 
@@ -343,7 +526,7 @@
             try {
                 if (!code) {
                     errorDiv.innerHTML = "Errors Detected";
-                    highlightError(0, 0);
+                    highlightError(0, 1);
                     outputFrame.srcdoc = '';
                     return;
                 }
@@ -378,7 +561,7 @@
             try {
                 if (!code) {
                     errorDiv.innerHTML = "Errors Detected";
-                    highlightError(0, 0);
+                    highlightError(0, 1);
                     return;
                 }
 
