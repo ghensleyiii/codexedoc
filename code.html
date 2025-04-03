@@ -308,7 +308,9 @@
 
         function clearHighlights() {
             textarea.classList.remove('highlight-error');
-            textarea.setSelectionRange(0, 0); // Reset selection
+    	    textarea.setSelectionRange(0, 0); // Reset selection
+            textarea.blur(); // Temporarily remove focus
+            setTimeout(() => textarea.focus(), 0); // Restore focus to allow normal clicking
         }
 
         textarea.addEventListener('input', clearHighlights);
