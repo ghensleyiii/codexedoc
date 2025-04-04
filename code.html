@@ -249,7 +249,7 @@
 
         @media (max-width: 480px) {
             .code-editor textarea {
-                height: 300px;
+                height:300px;
                 font-size: 0.8rem;
             }
 
@@ -308,9 +308,7 @@
 
         function clearHighlights() {
             textarea.classList.remove('highlight-error');
-    	    textarea.setSelectionRange(0, 0); // Reset selection
-            textarea.blur(); // Temporarily remove focus
-            setTimeout(() => textarea.focus(), 0); // Restore focus to allow normal clicking
+            textarea.setSelectionRange(0, 0); // Reset selection
         }
 
         textarea.addEventListener('input', clearHighlights);
@@ -347,7 +345,7 @@
                     const end = start + (errorToken.length || 1);
                     errors.push({ message: e.message, start, end });
                 }
-                return errors; // Removed semicolon check to avoid false positives
+                return errors;
             },
             python: (code) => {
                 const errors = [];
@@ -370,9 +368,9 @@
             html: (code) => {
                 const errors = [];
                 const cleanCode = removeComments(code, 'html');
-                const lines = cleanCode.split('\n');
                 
                 if (!cleanCode.match(/^<!DOCTYPE\s+html>/i)) {
+                    const lines = cleanCode.split('\n');
                     const start = 0;
                     errors.push({ 
                         message: "Missing or invalid DOCTYPE declaration (should be <!DOCTYPE html>)", 
@@ -381,7 +379,8 @@
                     });
                 }
 
-                const tagRegex = /<[^>]+/g;
+                // Match complete tags, including attributes
+                const tagRegex = /<[^>]+>/g;
                 let match;
                 const stack = [];
 
@@ -389,29 +388,26 @@
                     const tag = match[0];
                     const start = match.index;
                     
-                    if (!tag.endsWith('>')) {
-                        errors.push({
-                            message: `Incomplete tag: ${tag} missing closing '>'`,
-                            start,
-                            end: start + tag.length
-                        });
-                        continue;
-                    }
+                    // Skip DOCTYPE declaration
+                    if (tag.match(/^<!DOCTYPE/i)) continue;
 
                     const isClosing = tag.startsWith('</');
-                    const tagNameMatch = tag.match(/[a-z][a-z0-9]*/i);
+                    const tagNameMatch = tag.match(/<\/?([a-z][a-z0-9]*)/i);
+                    
                     if (!tagNameMatch) {
                         errors.push({
-                            message: `Invalid tag syntax: ${tag}`,
+                            message: `Invalid tag syntax: '${tag}'`,
                             start,
                             end: start + tag.length
                         });
                         continue;
                     }
-                    const tagName = tagNameMatch[0];
+                    
+                    const tagName = tagNameMatch[1];
 
                     if (!isClosing) {
-                        if (!['br', 'img', 'hr', 'input'].includes(tagName.toLowerCase())) {
+                        // Check for self-closing tags or tags that don't need closing
+                        if (!['br', 'img', 'hr', 'input'].includes(tagName.toLowerCase()) && !tag.endsWith('/>')) {
                             stack.push({ name: tagName, start });
                         }
                     } else if (stack.length) {
@@ -420,10 +416,16 @@
                             errors.push({
                                 message: `Mismatched closing tag: expected </${lastTag.name}> but found </${tagName}>`,
                                 start,
-                                end: start + tagName.length + 2
+                                end: start + tag.length
                             });
-                            stack.push(lastTag);
+                            stack.push(lastTag); // Put it back if mismatched
                         }
+                    } else {
+                        errors.push({
+                            message: `Unexpected closing tag </${tagName}> without matching opening tag`,
+                            start,
+                            end: start + tag.length
+                        });
                     }
                 }
 
@@ -490,22 +492,27 @@
         }
 
         function validateCode() {
-            // Complete reset
+            // Force a complete reset
             clearHighlights();
             errorDiv.innerHTML = '';
             errorDiv.style.color = "#909090";
             const code = textarea.value.trim();
-
+            
+            // Reset selection after clearing highlights
+            textarea.setSelectionRange(0, 0);
+            
             if (!code) {
                 highlightError(0, 1);
                 errorDiv.innerHTML = "Errors Detected: No code entered";
                 return;
             }
 
+            // Fresh validation
             const language = detectLanguage(code);
-            const errors = languageValidators[language](code);
+            const errors = languageValidators[language](code.slice());
 
             if (errors.length > 0) {
+                errorDiv.innerHTML = "Errors Detected:<br>";
                 errors.forEach((error, index) => {
                     highlightError(error.start, error.end);
                     errorDiv.innerHTML += `${error.message}${index < errors.length - 1 ? '<br>' : ''}`;
