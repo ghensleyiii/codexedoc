@@ -291,7 +291,7 @@
                     doc.setDrawColor(30, 144, 255); /* #1e90ff */
                     doc.rect(30, 30, 732, 552);
                     doc.setLineWidth(2);
-                    doc.setDrawColor(0, 255, 0); /* #00ff00 */
+                    doc.setDrawColor(0, 204, 0); /* #00ff00 */
                     doc.rect(40, 40, 712, 532);
 
                     doc.setFont("times", "bold");
@@ -325,7 +325,7 @@
                     // Reset font state completely before "CODEXEDOC"
                     doc.setFont("arial", "normal"); // Reset to Arial normal first to clear any Times state
                     doc.setFontSize(30);
-                    doc.setTextColor(0, 255, 0); /* #00ff00 */
+                    doc.setTextColor(0, 204, 0); /* #00ff00 */
                     doc.setFont("arial", "bold"); // Now set to bold
                     const centerX = 396;
                     const codeWidth = doc.getTextWidth("CODE ");
@@ -336,7 +336,7 @@
                     // Reset font state for "EDOC"
                     doc.setFont("arial", "normal"); // Reset to Arial normal
                     doc.setFontSize(30);
-                    doc.setTextColor(0, 255, 0); /* #00ff00 */
+                    doc.setTextColor(0, 204, 0); /* #00ff00 */
                     doc.setFont("arial", "bold"); // Set to bold
                     doc.text(" EDOC", centerX + (xWidth / 2), 540);
 
