@@ -33,17 +33,17 @@
 
         /* Style for cyan parts (CODE and EDOC) */
         .title-cyan a {
-            color: #00ff00; /* Cyan for unvisited */
+            color: #00cc00; /* Cyan for unvisited */
             text-decoration: none; /* Remove underline */
         }
 
         .title-cyan a:visited {
-            color: #00ff00; /* Cyan for visited */
+            color: #00cc00; /* Cyan for visited */
         }
 
         .title-cyan a:hover,
         .title-cyan a:active {
-            color: #00ff00; /* Cyan for hover/active */
+            color: #00cc00; /* Cyan for hover/active */
         }
 
         .title-cyan {
@@ -109,7 +109,7 @@
         }
 
         .counter-value {
-            color: #00ff00;
+            color: #00cc00;
             font-size: clamp(1rem, 2vw, 1.3rem);
             font-weight: bold;
             margin: 2px 0;
@@ -163,7 +163,7 @@
             font-size: clamp(0.9rem, 1.8vw, 1.3rem);
             font-weight: bold;
             color: #ffffff;
-            background-color: #00ff00;
+            background-color: #00cc00;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -434,7 +434,7 @@
 
             draw() {
                 ctx.font = `${20 * (canvas.height / 600)}px Arial`;
-                ctx.fillStyle = '#00ff00';
+                ctx.fillStyle = '#00cc00';
                 ctx.fillText(this.type, this.x - (10 * canvas.width / 800), this.y + (10 * canvas.height / 600));
             }
         }
@@ -486,7 +486,7 @@
             }
 
             if (gameOver) {
-                ctx.fillStyle = '#00ff00';
+                ctx.fillStyle = '#00cc00';
                 ctx.font = `${40 * (canvas.height / 600)}px Arial`;
                 ctx.textAlign = 'center';
                 ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
