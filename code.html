@@ -308,7 +308,7 @@
 
         function clearHighlights() {
             textarea.classList.remove('highlight-error');
-            textarea.setSelectionRange(0, 0); // Reset selection
+            // Removed setSelectionRange from here to prevent cursor jumping on input
         }
 
         textarea.addEventListener('input', clearHighlights);
@@ -498,7 +498,7 @@
             errorDiv.style.color = "#909090";
             const code = textarea.value.trim();
             
-            // Reset selection after clearing highlights
+            // Reset selection only during validation
             textarea.setSelectionRange(0, 0);
             
             if (!code) {
