@@ -65,6 +65,7 @@
             background-color: #eee;
             padding: 5px;
             border-radius: 5px;
+            position: relative; /* For underline positioning */
         }
 
         .code-editor textarea {
@@ -80,16 +81,19 @@
             resize: none;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             line-height: 1.2;
+            z-index: 1;
+            position: relative;
         }
 
         .code-editor textarea::placeholder {
             color: #1e90ff;
         }
 
-        .highlight-error {
-            text-decoration: underline;
-            text-decoration-color: #909090;
-            text-decoration-thickness: 2px;
+        .error-underline {
+            position: absolute;
+            border-bottom: 2px solid #909090; /* Gray underline */
+            pointer-events: none; /* Allow interaction with textarea */
+            z-index: 2;
         }
 
         .buttons {
@@ -299,16 +303,41 @@
         const textarea = document.getElementById('codeInput');
         const errorDiv = document.getElementById('errorMessages');
         const outputFrame = document.getElementById('outputFrame');
+        const codeEditor = document.querySelector('.code-editor');
 
         function highlightError(start, end) {
+            // Remove any existing underlines
+            clearHighlights();
+
+            // Calculate position based on textarea metrics
+            const fontSize = 16; // Matches 1rem font-size
+            const lineHeight = 1.2 * fontSize;
+            const charWidth = fontSize * 0.6; // Approximate monospace character width
+            const padding = 15; // Matches textarea padding
+
+            const text = textarea.value;
+            const lines = text.substring(0, start).split('\n');
+            const lineNumber = lines.length - 1;
+            const charInLine = lines[lineNumber].length;
+
+            const top = padding + lineNumber * lineHeight + lineHeight - 2; // Position underline at bottom of text
+            const left = padding + charInLine * charWidth;
+            const width = (end - start) * charWidth;
+
+            // Create underline span
+            const underline = document.createElement('span');
+            underline.className = 'error-underline';
+            underline.style.top = `${top}px`;
+            underline.style.left = `${left}px`;
+            underline.style.width = `${width}px`;
+
+            codeEditor.appendChild(underline);
             textarea.focus();
-            textarea.setSelectionRange(start, end);
-            textarea.classList.add('highlight-error');
         }
 
         function clearHighlights() {
-            textarea.classList.remove('highlight-error');
-            // Removed setSelectionRange from here to prevent cursor jumping on input
+            const underlines = codeEditor.querySelectorAll('.error-underline');
+            underlines.forEach(u => u.remove());
         }
 
         textarea.addEventListener('input', clearHighlights);
@@ -341,7 +370,7 @@
                     const line = lines[lineNum];
                     const errorMatch = e.message.match(/'([^']+)'/);
                     const errorToken = errorMatch ? errorMatch[1] : '';
-                    const start = lines.slice(0, lineNum).join('\n').length + line.indexOf(errorToken) + 1;
+                    const start = lines.slice(0, lineNum).join('\n').length + (line.indexOf(errorToken) !== -1 ? line.indexOf(errorToken) : 0);
                     const end = start + (errorToken.length || 1);
                     errors.push({ message: e.message, start, end });
                 }
@@ -356,11 +385,14 @@
                     const leadingSpaces = line.match(/^\s*/)[0].length;
                     if (leadingSpaces % 4 !== 0 && line.trim().startsWith(' ')) {
                         const start = code.split('\n').slice(0, i).join('\n').length + 1;
-                        errors.push({ message: `Invalid indentation at line ${i + 1} (must be multiples of 4 spaces)`, start, end: start + leadingSpaces });
+                        const end = start + leadingSpaces;
+                        errors.push({ message: `Invalid indentation at line ${i + 1} (must be multiples of 4 spaces)`, start, end });
+                        return; // Only report one error per line
                     }
                     if (line.trim().match(/^(if|for|while|def|class)/) && !line.endsWith(':')) {
-                        const start = code.split('\n').slice(0, i).join('\n').length + line.lastIndexOf(line.trim()) + 1;
-                        errors.push({ message: `Missing colon at line ${i + 1}`, start, end: start + line.trim().length });
+                        const start = code.split('\n').slice(0, i).join('\n').length + line.indexOf(line.trim());
+                        const end = start + line.trim().length;
+                        errors.push({ message: `Missing colon at line ${i + 1}`, start, end });
                     }
                 });
                 return errors;
@@ -372,14 +404,15 @@
                 if (!cleanCode.match(/^<!DOCTYPE\s+html>/i)) {
                     const lines = cleanCode.split('\n');
                     const start = 0;
+                    const end = lines[0].indexOf('<') !== -1 ? lines[0].indexOf('<') : lines[0].length;
                     errors.push({ 
                         message: "Missing or invalid DOCTYPE declaration (should be <!DOCTYPE html>)", 
                         start, 
-                        end: lines[0].indexOf('<') !== -1 ? lines[0].indexOf('<') : lines[0].length 
+                        end 
                     });
+                    return errors; // Stop after first error
                 }
 
-                // Match complete tags, including attributes
                 const tagRegex = /<[^>]+>/g;
                 let match;
                 const stack = [];
@@ -388,7 +421,6 @@
                     const tag = match[0];
                     const start = match.index;
                     
-                    // Skip DOCTYPE declaration
                     if (tag.match(/^<!DOCTYPE/i)) continue;
 
                     const isClosing = tag.startsWith('</');
@@ -400,42 +432,46 @@
                             start,
                             end: start + tag.length
                         });
-                        continue;
+                        return errors; // Stop after first error
                     }
                     
                     const tagName = tagNameMatch[1];
 
                     if (!isClosing) {
-                        // Check for self-closing tags or tags that don't need closing
                         if (!['br', 'img', 'hr', 'input'].includes(tagName.toLowerCase()) && !tag.endsWith('/>')) {
                             stack.push({ name: tagName, start });
                         }
                     } else if (stack.length) {
                         const lastTag = stack.pop();
                         if (lastTag.name.toLowerCase() !== tagName.toLowerCase()) {
+                            const end = start + tag.length;
                             errors.push({
                                 message: `Mismatched closing tag: expected </${lastTag.name}> but found </${tagName}>`,
                                 start,
-                                end: start + tag.length
+                                end
                             });
-                            stack.push(lastTag); // Put it back if mismatched
+                            return errors; // Stop after first error
                         }
                     } else {
+                        const end = start + tag.length;
                         errors.push({
                             message: `Unexpected closing tag </${tagName}> without matching opening tag`,
                             start,
-                            end: start + tag.length
+                            end
                         });
+                        return errors; // Stop after first error
                     }
                 }
 
-                stack.forEach(tag => {
+                if (stack.length > 0) {
+                    const tag = stack[0]; // Highlight only the first unclosed tag
+                    const end = tag.start + tag.name.length + 1;
                     errors.push({
                         message: `Unclosed tag: <${tag.name}>`,
                         start: tag.start,
-                        end: tag.start + tag.name.length + 1
+                        end
                     });
-                });
+                }
 
                 return errors;
             },
@@ -451,15 +487,21 @@
                     } else if (line.match(/^\s*}/)) {
                         inBlock = false;
                     } else if (inBlock && !line.match(/^\s*[a-z-]+:\s*.+;/)) {
-                        const start = code.split('\n').slice(0, i).join('\n').length + line.indexOf(line.trim()) + 1;
-                        errors.push({ message: `Invalid CSS property at line ${i + 1}`, start, end: start + line.trim().length });
+                        const start = code.split('\n').slice(0, i).join('\n').length + line.indexOf(line.trim());
+                        const end = start + line.trim().length;
+                        errors.push({ message: `Invalid CSS property at line ${i + 1}`, start, end });
+                        return; // Stop after first error in block
                     } else if (!inBlock && !line.match(/^[.#]?[a-zA-Z][\w-]*\s*{/)) {
-                        const start = code.split('\n').slice(0, i).join('\n').length + line.indexOf(line.trim()) + 1;
-                        errors.push({ message: `Invalid CSS selector at line ${i + 1}`, start, end: start + line.trim().length });
+                        const start = code.split('\n').slice(0, i).join('\n').length + line.indexOf(line.trim());
+                        const end = start + line.trim().length;
+                        errors.push({ message: `Invalid CSS selector at line ${i + 1}`, start, end });
+                        return; // Stop after first error
                     }
                 });
                 if (inBlock) {
-                    errors.push({ message: "Missing closing brace", start: cleanCode.lastIndexOf('{'), end: cleanCode.lastIndexOf('{') + 1 });
+                    const start = cleanCode.lastIndexOf('{');
+                    const end = start + 1;
+                    errors.push({ message: "Missing closing brace", start, end });
                 }
                 return errors;
             },
@@ -467,7 +509,9 @@
                 const errors = [];
                 const cleanCode = removeComments(code, 'java');
                 if (!cleanCode.match(/public\s+class\s+\w+/)) {
-                    errors.push({ message: 'Missing public class declaration', start: 0, end: code.indexOf(' ') !== -1 ? code.indexOf(' ') : code.length });
+                    const start = 0;
+                    const end = code.indexOf(' ') !== -1 ? code.indexOf(' ') : code.length;
+                    errors.push({ message: 'Missing public class declaration', start, end });
                 }
                 return errors;
             },
@@ -475,7 +519,9 @@
                 const errors = [];
                 const cleanCode = removeComments(code, 'cpp');
                 if (!cleanCode.includes('int main')) {
-                    errors.push({ message: 'Missing main function', start: 0, end: code.indexOf(' ') !== -1 ? code.indexOf(' ') : code.length });
+                    const start = 0;
+                    const end = code.indexOf(' ') !== -1 ? code.indexOf(' ') : code.length;
+                    errors.push({ message: 'Missing main function', start, end });
                 }
                 return errors;
             }
@@ -492,13 +538,11 @@
         }
 
         function validateCode() {
-            // Force a complete reset
             clearHighlights();
             errorDiv.innerHTML = '';
             errorDiv.style.color = "#909090";
             const code = textarea.value.trim();
             
-            // Reset selection only during validation
             textarea.setSelectionRange(0, 0);
             
             if (!code) {
@@ -507,15 +551,16 @@
                 return;
             }
 
-            // Fresh validation
             const language = detectLanguage(code);
             const errors = languageValidators[language](code.slice());
 
             if (errors.length > 0) {
                 errorDiv.innerHTML = "Errors Detected:<br>";
                 errors.forEach((error, index) => {
-                    highlightError(error.start, error.end);
                     errorDiv.innerHTML += `${error.message}${index < errors.length - 1 ? '<br>' : ''}`;
+                    if (index === 0) { // Underline only the first error
+                        highlightError(error.start, error.end);
+                    }
                 });
                 errorDiv.style.color = "#909090";
             } else {
