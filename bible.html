@@ -90,9 +90,29 @@
             width: auto;
             min-width: 200px;
             text-align: left;
+            margin: 10px;
         }
 
-        #trackerToggle:hover {
+        #notesToggle {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #00cc00;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            position: relative;
+            width: auto;
+            min-width: 200px;
+            text-align: center;
+            margin: 10px;
+        }
+
+        #trackerToggle:hover, #notesToggle:hover {
             background-color: #1e90ff;
             transform: scale(1.05);
         }
@@ -113,7 +133,7 @@
 
         .progress-circle .circle-bg {
             fill: none;
-            stroke DEFAULT_STYLE: #eee;
+            stroke: #eee;
             stroke-width: 3;
         }
 
@@ -256,7 +276,7 @@
             border-color: #1e90ff;
         }
 
-        #resetTracker {
+        #resetTracker, .delete-btn {
             display: inline-flex;
             align-items: center;
             padding: 10px 20px;
@@ -269,22 +289,21 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
             width: auto;
-            min-width: 200px;
-            margin-top: 20px;
+            min-width: 150px;
             text-align: left;
             position: relative;
         }
 
-        #resetTracker:hover {
+        #resetTracker:hover, .delete-btn:hover {
             background-color: #1e90ff;
             transform: scale(1.05);
         }
 
-        #resetTracker.active {
+        #resetTracker.active, .delete-btn.active {
             background-color: #00cc00;
         }
 
-        #resetTracker input[type="checkbox"] {
+        #resetTracker input[type="checkbox"], .delete-btn input[type="checkbox"] {
             margin-left: 20px;
             width: 20px;
             height: 20px;
@@ -324,6 +343,95 @@
         .footer-logo span {
             color: #1e90ff;
         }
+
+        /* Notes Section Styles */
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        #titleInput, #notesInput, #searchInput {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #333;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #notesInput {
+            resize: vertical;
+        }
+
+        #saveBtn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            background-color: #1e90ff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #saveBtn:hover {
+            background-color: #00cc00;
+        }
+
+        .search-section {
+            margin-bottom: 20px;
+        }
+
+        .article {
+            border: 1px solid #1e90ff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background-color: #eeeeee;
+            position: relative;
+        }
+
+        .article h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #1e90ff;
+        }
+
+        .delete-btn-container {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        .notes-preview {
+            margin-bottom: 10px;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .article-footer small {
+            color: #333333;
+        }
+
+        .edit-link, .open-link {
+            color: #1e90ff;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .edit-link:hover, .open-link:hover {
+            text-decoration: underline;
+        }
+
+        .highlight {
+            background-color: #1e90ff;
+        }
     </style>
 </head>
 <body>
@@ -332,6 +440,10 @@
             <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
         </div>
     </header>
+
+    <div style="margin: 20px; text-align: center; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); padding: 15px;">
+        <p>"Happy is the man who does not walk according to the advice of the wicked And does not stand on the path of sinners And does not sit in the seat of scoffers. But his delight is in the law of Jehovah, And he reads His law in an undertone day and night. He will be like a tree planted by streams of water, A tree that produces fruit in its season, The foliage of which does not wither. And everything he does will succeed. The wicked are not like that; They are like the chaff that the wind blows away. That is why the wicked will not remain standing in the judgment; Nor will sinners remain in the assembly of the righteous. For Jehovah is aware of the way of the righteous, But the way of the wicked will perish." - Psalms 1:1-6 (NWT)</p>
+    </div>
 
     <div class="tracker-section">
         <div class="tracker-container">
@@ -344,6 +456,7 @@
                     <div class="percentage">0%</div>
                 </div>
             </button>
+            <button id="notesToggle">Bible Reading Notes</button>
         </div>
         <div id="bookList" class="dropdown-content">
             <!-- Book list will be generated here -->
@@ -352,6 +465,17 @@
                     <input type="checkbox" id="resetCheckbox">
                 </button>
             </div>
+        </div>
+        <div id="notesContent" class="dropdown-content">
+            <div class="input-section">
+                <input type="text" id="titleInput" placeholder="Enter article title">
+                <textarea id="notesInput" rows="10" placeholder="Enter your notes"></textarea>
+                <button id="saveBtn" class="btn-study">Save Article</button>
+            </div>
+            <div class="search-section">
+                <input type="text" id="searchInput" placeholder="Search articles..." onkeyup="searchArticles()">
+            </div>
+            <div id="articlesContainer"></div>
         </div>
     </div>
 
@@ -530,7 +654,6 @@
             bookDiv.appendChild(chapterList);
             bookList.insertBefore(bookDiv, resetContainer);
 
-            // Fixed book title click handler
             bookTitle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const chapterList = bookDiv.querySelector('.chapter-list');
@@ -541,31 +664,47 @@
         updateProgress();
 
         const trackerToggle = document.getElementById('trackerToggle');
-        const dropdownContent = document.getElementById('bookList');
+        const notesToggle = document.getElementById('notesToggle');
+        const bookListContent = document.getElementById('bookList');
+        const notesContent = document.getElementById('notesContent');
         const trackerSection = document.querySelector('.tracker-section');
         const resetTracker = document.getElementById('resetTracker');
         const resetCheckbox = document.getElementById('resetCheckbox');
 
         trackerToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (dropdownContent.style.display === 'block') {
-                dropdownContent.style.display = 'none';
+            if (bookListContent.style.display === 'block') {
+                bookListContent.style.display = 'none';
                 trackerSection.classList.remove('active');
             } else {
-                dropdownContent.style.display = 'block';
+                bookListContent.style.display = 'block';
+                notesContent.style.display = 'none';
+                trackerSection.classList.add('active');
+            }
+        });
+
+        notesToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (notesContent.style.display === 'block') {
+                notesContent.style.display = 'none';
+                trackerSection.classList.remove('active');
+            } else {
+                notesContent.style.display = 'block';
+                bookListContent.style.display = 'none';
                 trackerSection.classList.add('active');
             }
         });
 
         document.addEventListener('click', (event) => {
             if (!trackerSection.contains(event.target)) {
-                dropdownContent.style.display = 'none';
+                bookListContent.style.display = 'none';
+                notesContent.style.display = 'none';
                 trackerSection.classList.remove('active');
             }
         });
 
         resetCheckbox.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent button click from triggering
+            e.stopPropagation();
             resetTracker.classList.toggle('active');
         });
 
@@ -582,6 +721,178 @@
                 resetTracker.classList.remove('active');
             }
         });
+
+        // Notes Section JavaScript
+        let articles = JSON.parse(localStorage.getItem('articles')) || [];
+        let editingArticleId = null;
+        let openArticles = new Set();
+        displayArticles(articles);
+
+        function saveOrUpdateArticle() {
+            const title = document.getElementById('titleInput').value;
+            const notes = document.getElementById('notesInput').value;
+            const saveBtn = document.getElementById('saveBtn');
+            
+            if (title && notes) {
+                if (editingArticleId) {
+                    const articleIndex = articles.findIndex(a => a.id === editingArticleId);
+                    articles[articleIndex] = {
+                        ...articles[articleIndex],
+                        title: title,
+                        notes: notes,
+                        date: new Date().toLocaleString()
+                    };
+                    editingArticleId = null;
+                    saveBtn.textContent = 'Save Article';
+                    saveBtn.style.backgroundColor = '#FFD800';
+                } else {
+                    const article = {
+                        id: Date.now(),
+                        title: title,
+                        notes: notes,
+                        date: new Date().toLocaleString()
+                    };
+                    articles.push(article);
+                }
+                
+                localStorage.setItem('articles', JSON.stringify(articles));
+                document.getElementById('titleInput').value = '';
+                document.getElementById('notesInput').value = '';
+                displayArticles(articles);
+            }
+        }
+
+        function editArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (article) {
+                document.getElementById('titleInput').value = article.title;
+                document.getElementById('notesInput').value = article.notes;
+                editingArticleId = id;
+                const saveBtn = document.getElementById('saveBtn');
+                saveBtn.textContent = 'Update Article';
+                saveBtn.style.backgroundColor = '#ffe868';
+            }
+        }
+
+        function deleteArticle(id) {
+            const deleteBtn = document.querySelector(`.delete-btn[data-id="${id}"]`);
+            const checkbox = deleteBtn.querySelector('input[type="checkbox"]');
+            if (checkbox.checked) {
+                articles = articles.filter(article => article.id !== id);
+                openArticles.delete(id);
+                localStorage.setItem('articles', JSON.stringify(articles));
+                displayArticles(articles);
+            }
+        }
+
+        function toggleArticle(id) {
+            if (openArticles.has(id)) {
+                openArticles.delete(id);
+            } else {
+                openArticles.add(id);
+            }
+            displayArticles(articles);
+        }
+
+        function highlightText(text, searchTerm) {
+            if (!searchTerm) return text;
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function formatNotes(notes) {
+            return notes.replace(/\n/g, '<br>');
+        }
+
+        function getPreviewText(notes, searchTerm, isOpen) {
+            const maxPreviewLength = 85;
+            const contextLength = 30;
+
+            let formattedNotes = formatNotes(notes);
+
+            if (isOpen) {
+                return highlightText(formattedNotes, searchTerm);
+            }
+
+            if (searchTerm) {
+                const lowerNotes = notes.toLowerCase();
+                const lowerSearch = searchTerm.toLowerCase();
+                const index = lowerNotes.indexOf(lowerSearch);
+                if (index !== -1) {
+                    const start = Math.max(0, index - contextLength);
+                    const end = Math.min(notes.length, index + searchTerm.length + contextLength);
+                    let preview = notes.substring(start, end);
+                    if (start > 0) preview = '...' + preview;
+                    if (end < notes.length) preview += '...';
+                    return highlightText(formatNotes(preview), searchTerm);
+                }
+            }
+
+            return notes.length > maxPreviewLength 
+                ? highlightText(formatNotes(notes.substring(0, maxPreviewLength)) + '...', searchTerm) 
+                : highlightText(formattedNotes, searchTerm);
+        }
+
+        function displayArticles(articlesToShow) {
+            const container = document.getElementById('articlesContainer');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            container.innerHTML = '';
+            
+            const sortedArticles = [...articlesToShow].sort((a, b) => 
+                a.title.localeCompare(b.title)
+            );
+            
+            sortedArticles.forEach(article => {
+                const isOpen = openArticles.has(article.id);
+                const articleDiv = document.createElement('div');
+                articleDiv.className = 'article';
+                const highlightedTitle = highlightText(article.title, searchTerm);
+                const previewNotes = getPreviewText(article.notes, searchTerm, isOpen);
+                const showOpenLink = article.notes.length > 85 || (searchTerm && !isOpen);
+
+                articleDiv.innerHTML = `
+                    <h2>${highlightedTitle}</h2>
+                    <div class="delete-btn-container">
+                        <button class="delete-btn" data-id="${article.id}">Delete
+                            <input type="checkbox" class="delete-checkbox">
+                        </button>
+                    </div>
+                    <p class="notes-preview">${previewNotes}</p>
+                    <div class="article-footer">
+                        <small>Created: ${article.date}</small>
+                        <div>
+                            ${showOpenLink ? `<span class="open-link" onclick="toggleArticle(${article.id})">${isOpen ? 'Close' : 'Open'}</span>` : ''}
+                            <span class="edit-link" onclick="editArticle(${article.id})">Edit</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(articleDiv);
+
+                const deleteBtn = articleDiv.querySelector('.delete-btn');
+                const checkbox = deleteBtn.querySelector('.delete-checkbox');
+                
+                checkbox.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteBtn.classList.toggle('active');
+                });
+
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteArticle(article.id);
+                });
+            });
+        }
+
+        function searchArticles() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredArticles = articles.filter(article => 
+                article.title.toLowerCase().includes(searchTerm) || 
+                article.notes.toLowerCase().includes(searchTerm)
+            );
+            displayArticles(filteredArticles);
+        }
+
+        document.getElementById('saveBtn').addEventListener('click', saveOrUpdateArticle);
     </script>
 </body>
 </html>
