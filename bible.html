@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CODEXEDOC</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico"> <!-- Browser tab favicon -->
-    <link rel="apple-touch-icon" href="apple-touch-icon.png"> <!-- iOS home screen icon -->
-    <link rel="icon" type="image/png" sizes="192x192" href="apple-touch-icon.png"> <!-- Android home screen icon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="apple-touch-icon.png">
     <style>
         * {
             margin: 0;
@@ -21,7 +21,6 @@
             line-height: 1.6;
         }
 
-        /* Header Styles */
         header {
             background-color: #eeeeee;
             padding: 20px;
@@ -56,13 +55,12 @@
             top: 8px;
         }
 
-        /* Tracker Styles */
         .tracker-section {
             margin: 20px;
             background-color: #eeeeee;
             border-radius: 5px;
-            border: 1px solid #ccc;
             transition: border 0.3s ease, background-color 0.3s ease;
+            border: none;
         }
 
         .tracker-section.active {
@@ -115,7 +113,7 @@
 
         .progress-circle .circle-bg {
             fill: none;
-            stroke: #eee;
+            stroke DEFAULT_STYLE: #eee;
             stroke-width: 3;
         }
 
@@ -256,7 +254,48 @@
             border-color: #1e90ff;
         }
 
-        /* Footer Styles */
+        #resetTracker {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #666;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: auto;
+            min-width: 200px;
+            margin-top: 20px;
+            text-align: left;
+            position: relative;
+        }
+
+        #resetTracker:hover {
+            background-color: #1e90ff;
+            transform: scale(1.05);
+        }
+
+        #resetTracker.active {
+            background-color: #00cc00;
+        }
+
+        #resetTracker input[type="checkbox"] {
+            margin-left: 20px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+
+        .reset-container {
+            text-align: center;
+            padding: 10px;
+        }
+
         footer {
             background-color: #333333;
             color: #1e90ff;
@@ -304,7 +343,14 @@
                 </div>
             </button>
         </div>
-        <div id="bookList" class="dropdown-content"></div>
+        <div id="bookList" class="dropdown-content">
+            <!-- Book list will be generated here -->
+            <div class="reset-container">
+                <button id="resetTracker">Reset Tracker
+                    <input type="checkbox" id="resetCheckbox">
+                </button>
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -314,7 +360,6 @@
     </footer>
 
     <script>
-        // Bible data: all 66 books with chapter counts
         const bibleBooks = [
             { name: "Genesis", chapters: 50 },
             { name: "Exodus", chapters: 40 },
@@ -384,19 +429,14 @@
             { name: "Revelation", chapters: 22 }
         ];
 
-        // Calculate total chapters
         const totalChapters = bibleBooks.reduce((sum, book) => sum + book.chapters, 0);
-
-        // Load saved progress from localStorage or initialize empty
         let progress = JSON.parse(localStorage.getItem('bibleProgress')) || {};
 
-        // Function to save progress to localStorage
         function saveProgress() {
             localStorage.setItem('bibleProgress', JSON.stringify(progress));
             updateProgress();
         }
 
-        // Function to update progress display and circles
         function updateProgress() {
             let overallCompleted = 0;
             
@@ -412,7 +452,7 @@
                 overallCompleted += completed;
                 
                 const bookPercent = Math.round((completed / total) * 100);
-                const circumference = 2 * Math.PI * 13; // r=13 for book circles
+                const circumference = 2 * Math.PI * 13;
                 const bookOffset = circumference * (1 - completed / total);
                 
                 bookCircle.style.strokeDasharray = `${circumference} ${circumference}`;
@@ -426,11 +466,10 @@
                 }
             });
 
-            // Update overall progress
             const overallPercent = Math.round((overallCompleted / totalChapters) * 100);
             const overallCircle = document.querySelector('#overallProgress .circle-fg');
             const overallPercentage = document.querySelector('#overallProgress .percentage');
-            const overallCircumference = 2 * Math.PI * 17; // r=17 for main circle
+            const overallCircumference = 2 * Math.PI * 17;
             const overallOffset = overallCircumference * (1 - overallCompleted / totalChapters);
             
             overallCircle.style.strokeDasharray = `${overallCircumference} ${overallCircumference}`;
@@ -438,8 +477,9 @@
             overallPercentage.textContent = `${overallPercent}%`;
         }
 
-        // Generate the book and chapter list
         const bookList = document.getElementById('bookList');
+        const resetContainer = bookList.querySelector('.reset-container');
+        
         bibleBooks.forEach(book => {
             const bookDiv = document.createElement('div');
             bookDiv.className = 'book';
@@ -450,7 +490,6 @@
             bookTitle.textContent = book.name;
             bookDiv.appendChild(bookTitle);
 
-            // Book progress circle
             const bookProgress = document.createElement('div');
             bookProgress.className = 'book-progress';
             bookProgress.innerHTML = `
@@ -465,7 +504,6 @@
             const chapterList = document.createElement('div');
             chapterList.className = 'chapter-list';
 
-            // Create clickable chapter boxes
             for (let i = 1; i <= book.chapters; i++) {
                 const chapterDiv = document.createElement('div');
                 chapterDiv.className = 'chapter';
@@ -476,7 +514,8 @@
                     chapterSpan.classList.add('completed');
                 }
 
-                chapterSpan.addEventListener('click', () => {
+                chapterSpan.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     chapterSpan.classList.toggle('completed');
                     progress[`${book.name}-${i}`] = chapterSpan.classList.contains('completed');
                     saveProgress();
@@ -487,27 +526,26 @@
             }
 
             bookDiv.appendChild(chapterList);
-            bookList.appendChild(bookDiv);
+            bookList.insertBefore(bookDiv, resetContainer);
 
-            // Book dropdown toggle
-            bookTitle.addEventListener('click', () => {
-                if (chapterList.style.display === 'block') {
-                    chapterList.style.display = 'none';
-                } else {
-                    chapterList.style.display = 'block';
-                }
+            // Fixed book title click handler
+            bookTitle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const chapterList = bookDiv.querySelector('.chapter-list');
+                chapterList.style.display = chapterList.style.display === 'block' ? 'none' : 'block';
             });
         });
 
-        // Initial progress update
         updateProgress();
 
-        // Main dropdown toggle functionality
         const trackerToggle = document.getElementById('trackerToggle');
         const dropdownContent = document.getElementById('bookList');
         const trackerSection = document.querySelector('.tracker-section');
+        const resetTracker = document.getElementById('resetTracker');
+        const resetCheckbox = document.getElementById('resetCheckbox');
 
-        trackerToggle.addEventListener('click', () => {
+        trackerToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
             if (dropdownContent.style.display === 'block') {
                 dropdownContent.style.display = 'none';
                 trackerSection.classList.remove('active');
@@ -517,11 +555,29 @@
             }
         });
 
-        // Close main dropdown and remove border when clicking outside
         document.addEventListener('click', (event) => {
-            if (!trackerToggle.contains(event.target) && !dropdownContent.contains(event.target)) {
+            if (!trackerSection.contains(event.target)) {
                 dropdownContent.style.display = 'none';
                 trackerSection.classList.remove('active');
+            }
+        });
+
+        resetCheckbox.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent button click from triggering
+            resetTracker.classList.toggle('active');
+        });
+
+        resetTracker.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (resetCheckbox.checked) {
+                progress = {};
+                localStorage.setItem('bibleProgress', JSON.stringify(progress));
+                document.querySelectorAll('.chapter span').forEach(span => {
+                    span.classList.remove('completed');
+                });
+                updateProgress();
+                resetCheckbox.checked = false;
+                resetTracker.classList.remove('active');
             }
         });
     </script>
