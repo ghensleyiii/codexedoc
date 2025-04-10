@@ -109,7 +109,7 @@
             margin: 10px;
         }
 
-        #notesToggle {
+        #notesToggle, #plansToggle {
             display: inline-block;
             padding: 10px 20px;
             font-size: 18px;
@@ -128,7 +128,7 @@
             margin: 10px;
         }
 
-        #trackerToggle:hover, #notesToggle:hover {
+        #trackerToggle:hover, #notesToggle:hover, #plansToggle:hover {
             background-color: #1e90ff;
             transform: scale(1.05);
         }
@@ -198,12 +198,12 @@
 
         .book-title {
             margin: 0;
-            padding: 10px 60px 10px 10px;
+            padding: 10px;
             cursor: pointer;
             background-color: #1e90ff;
             border-radius: 5px;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            text-align: left;
+            text-align: center;
             font-size: 16px;
             font-weight: bold;
             position: relative;
@@ -360,7 +360,6 @@
             color: #1e90ff;
         }
 
-        /* Notes Section Styles */
         .input-section {
             margin-bottom: 20px;
         }
@@ -449,6 +448,64 @@
             background-color: #1e90ff;
         }
 
+        .plan-details {
+            display: none;
+            padding: 20px;
+            background-color: #eeeeee;
+            border-radius: 5px;
+            max-height: 60vh;
+            overflow-y: auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+
+        .plan-details ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .plan-details li {
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+        }
+
+        .plan-details li:last-child {
+            border-bottom: none;
+        }
+
+        .plan-details input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 2px solid #333;
+            border-radius: 3px;
+            background-color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        .plan-details input[type="checkbox"]:checked {
+            background-color: #1e90ff;
+            border-color: #1e90ff;
+            position: relative;
+        }
+
+        .plan-details input[type="checkbox"]:checked::after {
+            content: '\2713'; /* Unicode for checkmark */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -475,9 +532,9 @@
                 </div>
             </button>
             <button id="notesToggle">Bible Reading Notes</button>
+            <button id="plansToggle">Bible Reading Plans</button>
         </div>
         <div id="bookList" class="dropdown-content">
-            <!-- Book list will be generated here -->
             <div class="reset-container">
                 <button id="resetTracker">Reset Tracker
                     <input type="checkbox" id="resetCheckbox">
@@ -494,6 +551,10 @@
                 <input type="text" id="searchInput" placeholder="Search articles..." onkeyup="searchArticles()">
             </div>
             <div id="articlesContainer"></div>
+        </div>
+        <div id="plansContent" class="dropdown-content">
+            <div id="plansList" class="book-list"></div>
+            <div id="planDetails" class="plan-details"></div>
         </div>
     </div>
 
@@ -575,10 +636,15 @@
 
         const totalChapters = bibleBooks.reduce((sum, book) => sum + book.chapters, 0);
         let progress = JSON.parse(localStorage.getItem('bibleProgress')) || {};
+        let planProgress = JSON.parse(localStorage.getItem('planProgress')) || {};
 
         function saveProgress() {
             localStorage.setItem('bibleProgress', JSON.stringify(progress));
             updateProgress();
+        }
+
+        function savePlanProgress() {
+            localStorage.setItem('planProgress', JSON.stringify(planProgress));
         }
 
         function updateProgress() {
@@ -672,8 +738,7 @@
             bookDiv.appendChild(chapterList);
             bookList.insertBefore(bookDiv, resetContainer);
 
-            bookTitle.addEventListener('click', (e) => {
-                e.stopPropagation();
+            bookTitle.addEventListener('click', () => {
                 const chapterList = bookDiv.querySelector('.chapter-list');
                 chapterList.style.display = chapterList.style.display === 'block' ? 'none' : 'block';
             });
@@ -683,43 +748,49 @@
 
         const trackerToggle = document.getElementById('trackerToggle');
         const notesToggle = document.getElementById('notesToggle');
+        const plansToggle = document.getElementById('plansToggle');
         const bookListContent = document.getElementById('bookList');
         const notesContent = document.getElementById('notesContent');
+        const plansContent = document.getElementById('plansContent');
         const trackerSection = document.querySelector('.tracker-section');
-        const resetTracker = document.getElementById('resetTracker');
-        const resetCheckbox = document.getElementById('resetCheckbox');
+
+        function toggleSection(content, otherContents) {
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                trackerSection.classList.remove('active');
+            } else {
+                content.style.display = 'block';
+                otherContents.forEach(other => other.style.display = 'none');
+                trackerSection.classList.add('active');
+            }
+        }
 
         trackerToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (bookListContent.style.display === 'block') {
-                bookListContent.style.display = 'none';
-                trackerSection.classList.remove('active');
-            } else {
-                bookListContent.style.display = 'block';
-                notesContent.style.display = 'none';
-                trackerSection.classList.add('active');
-            }
+            toggleSection(bookListContent, [notesContent, plansContent]);
         });
 
         notesToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (notesContent.style.display === 'block') {
-                notesContent.style.display = 'none';
-                trackerSection.classList.remove('active');
-            } else {
-                notesContent.style.display = 'block';
-                bookListContent.style.display = 'none';
-                trackerSection.classList.add('active');
-            }
+            toggleSection(notesContent, [bookListContent, plansContent]);
+        });
+
+        plansToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSection(plansContent, [bookListContent, notesContent]);
         });
 
         document.addEventListener('click', (event) => {
             if (!trackerSection.contains(event.target)) {
                 bookListContent.style.display = 'none';
                 notesContent.style.display = 'none';
+                plansContent.style.display = 'none';
                 trackerSection.classList.remove('active');
             }
         });
+
+        const resetTracker = document.getElementById('resetTracker');
+        const resetCheckbox = document.getElementById('resetCheckbox');
 
         resetCheckbox.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -730,9 +801,14 @@
             e.stopPropagation();
             if (resetCheckbox.checked) {
                 progress = {};
+                planProgress = {};
                 localStorage.setItem('bibleProgress', JSON.stringify(progress));
+                localStorage.setItem('planProgress', JSON.stringify(planProgress));
                 document.querySelectorAll('.chapter span').forEach(span => {
                     span.classList.remove('completed');
+                });
+                document.querySelectorAll('.plan-details input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
                 });
                 updateProgress();
                 resetCheckbox.checked = false;
@@ -740,7 +816,6 @@
             }
         });
 
-        // Notes Section JavaScript
         let articles = JSON.parse(localStorage.getItem('articles')) || [];
         let editingArticleId = null;
         let openArticles = new Set();
@@ -911,6 +986,146 @@
         }
 
         document.getElementById('saveBtn').addEventListener('click', saveOrUpdateArticle);
+
+        const readingPlans = {
+            "Chronological Order One Year": [
+                "Genesis 1-3", "Genesis 4-7", "Genesis 8-11", "Genesis 12-15", "Genesis 16-19",
+                "Genesis 20-23", "Genesis 24-27", "Genesis 28-31", "Genesis 32-35", "Genesis 36-39",
+                "Genesis 40-43", "Genesis 44-47", "Genesis 48-50", "Job 1-4", "Job 5-8",
+                "Job 9-12", "Job 13-16", "Job 17-20", "Job 21-24", "Job 25-28",
+                "Job 29-32", "Job 33-36", "Job 37-39", "Job 40-42", "Exodus 1-4",
+                "Exodus 5-8", "Exodus 9-12", "Exodus 13-16", "Exodus 17-20", "Exodus 21-24",
+                "Exodus 25-28", "Exodus 29-32", "Exodus 33-36", "Exodus 37-40", "Leviticus 1-4",
+                "Leviticus 5-8", "Leviticus 9-12", "Leviticus 13-16", "Leviticus 17-20", "Leviticus 21-24",
+                "Leviticus 25-27", "Numbers 1-4", "Numbers 5-8", "Numbers 9-12", "Numbers 13-16",
+                "Numbers 17-20", "Numbers 21-24", "Numbers 25-28", "Numbers 29-32", "Numbers 33-36",
+                "Deuteronomy 1-4", "Deuteronomy 5-8", "Deuteronomy 9-12", "Deuteronomy 13-16", "Deuteronomy 17-20",
+                "Deuteronomy 21-24", "Deuteronomy 25-28", "Deuteronomy 29-32", "Deuteronomy 33-34", "Joshua 1-4",
+                "Joshua 5-8", "Joshua 9-12", "Joshua 13-16", "Joshua 17-20", "Joshua 21-24",
+                "Judges 1-4", "Judges 5-8", "Judges 9-12", "Judges 13-16", "Judges 17-21",
+                "Ruth 1-4", "1 Samuel 1-4", "1 Samuel 5-8", "1 Samuel 9-12", "1 Samuel 13-16",
+                "1 Samuel 17-20", "1 Samuel 21-24", "1 Samuel 25-28", "1 Samuel 29-31", "2 Samuel 1-4",
+                "2 Samuel 5-8", "2 Samuel 9-12", "2 Samuel 13-16", "2 Samuel 17-20", "2 Samuel 21-24",
+                "1 Chronicles 1-4", "1 Chronicles 5-8", "1 Chronicles 9-12", "1 Chronicles 13-16", "1 Chronicles 17-20",
+                "1 Chronicles 21-24", "1 Chronicles 25-29", "Psalms 1-5", "Psalms 6-10", "Psalms 11-15",
+                "Psalms 16-20", "Psalms 21-25", "Psalms 26-30", "Psalms 31-35", "Psalms 36-40",
+                "Psalms 41-45", "Psalms 46-50", "Psalms 51-55", "Psalms 56-60", "Psalms 61-65",
+                "Psalms 66-70", "Psalms 71-75", "Psalms 76-80", "Psalms 81-85", "Psalms 86-90",
+                "Psalms 91-95", "Psalms 96-100", "Psalms 101-105", "Psalms 106-110", "Psalms 111-115",
+                "Psalms 116-120", "Psalms 121-125", "Psalms 126-130", "Psalms 131-135", "Psalms 136-140",
+                "Psalms 141-145", "Psalms 146-150", "1 Kings 1-4", "1 Kings 5-8", "1 Kings 9-12",
+                "1 Kings 13-16", "1 Kings 17-19", "1 Kings 20-22", "2 Kings 1-4", "2 Kings 5-8",
+                "2 Kings 9-12", "2 Kings 13-16", "2 Kings 17-20", "2 Kings 21-25", "1 Chronicles 1-3",
+                "1 Chronicles 4-6", "1 Chronicles 7-9", "2 Chronicles 1-4", "2 Chronicles 5-8", "2 Chronicles 9-12",
+                "2 Chronicles 13-16", "2 Chronicles 17-20", "2 Chronicles 21-24", "2 Chronicles 25-28", "2 Chronicles 29-32",
+                "2 Chronicles 33-36", "Ezra 1-3", "Ezra 4-6", "Ezra 7-10", "Nehemiah 1-4",
+                "Nehemiah 5-8", "Nehemiah 9-13", "Esther 1-4", "Esther 5-10", "Isaiah 1-4",
+                "Isaiah 5-8", "Isaiah 9-12", "Isaiah 13-16", "Isaiah 17-20", "Isaiah 21-24",
+                "Isaiah 25-28", "Isaiah 29-32", "Isaiah 33-36", "Isaiah 37-40", "Isaiah 41-44",
+                "Isaiah 45-48", "Isaiah 49-52", "Isaiah 53-56", "Isaiah 57-60", "Isaiah 61-64",
+                "Isaiah 65-66", "Jeremiah 1-3", "Jeremiah 4-6", "Jeremiah 7-10", "Jeremiah 11-14",
+                "Jeremiah 15-18", "Jeremiah 19-22", "Jeremiah 23-26", "Jeremiah 27-30", "Jeremiah 31-34",
+                "Jeremiah 35-38", "Jeremiah 39-42", "Jeremiah 43-46", "Jeremiah 47-49", "Jeremiah 50-52",
+                "Lamentations 1-5", "Ezekiel 1-4", "Ezekiel 5-8", "Ezekiel 9-12", "Ezekiel 13-16",
+                "Ezekiel 17-20", "Ezekiel 21-24", "Ezekiel 25-28", "Ezekiel 29-32", "Ezekiel 33-36",
+                "Ezekiel 37-40", "Ezekiel 41-44", "Ezekiel 45-48", "Daniel 1-3", "Daniel 4-6",
+                "Daniel 7-9", "Daniel 10-12", "Hosea 1-4", "Hosea 5-9", "Hosea 10-14",
+                "Joel 1-3", "Amos 1-4", "Amos 5-9", "Obadiah 1; Jonah 1-4", "Micah 1-4",
+                "Micah 5-7", "Nahum 1-3", "Habakkuk 1-3", "Zephaniah 1-3", "Haggai 1-2",
+                "Zechariah 1-4", "Zechariah 5-8", "Zechariah 9-12", "Zechariah 13-14", "Malachi 1-4",
+                "Matthew 1-4", "Matthew 5-7", "Matthew 8-11", "Matthew 12-15", "Matthew 16-19",
+                "Matthew 20-23", "Matthew 24-25", "Matthew 26-28", "Mark 1-3", "Mark 4-6",
+                "Mark 7-9", "Mark 10-12", "Mark 13-16", "Luke 1-3", "Luke 4-6",
+                "Luke 7-9", "Luke 10-12", "Luke 13-15", "Luke 16-18", "Luke 19-21",
+                "Luke 22-24", "John 1-3", "John 4-6", "John 7-9", "John 10-12",
+                "John 13-15", "John 16-18", "John 19-21", "Acts 1-3", "Acts 4-6",
+                "Acts 7-9", "Acts 10-12", "Acts 13-15", "Acts 16-18", "Acts 19-21",
+                "Acts 22-24", "Acts 25-28", "Romans 1-4", "Romans 5-8", "Romans 9-12",
+                "Romans 13-16", "1 Corinthians 1-4", "1 Corinthians 5-8", "1 Corinthians 9-12", "1 Corinthians 13-16",
+                "2 Corinthians 1-4", "2 Corinthians 5-9", "2 Corinthians 10-13", "Galatians 1-3", "Galatians 4-6",
+                "Ephesians 1-3", "Ephesians 4-6", "Philippians 1-4", "Colossians 1-4", "1 Thessalonians 1-5",
+                "2 Thessalonians 1-3", "1 Timothy 1-3", "1 Timothy 4-6", "2 Timothy 1-4", "Titus 1-3",
+                "Philemon 1; Hebrews 1-4", "Hebrews 5-8", "Hebrews 9-11", "Hebrews 12-13", "James 1-5",
+                "1 Peter 1-5", "2 Peter 1-3", "1 John 1-5", "2 John 1; 3 John 1; Jude 1", "Revelation 1-3",
+                "Revelation 4-7", "Revelation 8-11", "Revelation 12-15", "Revelation 16-18", "Revelation 19-22"
+            ],
+            "Chronological Order Two Years": [
+                "Genesis 1-2", "Genesis 3-4", "Genesis 5-6"
+            ],
+            "Chronological Order Three Years": [
+                "Genesis 1", "Genesis 2", "Genesis 3"
+            ]
+        };
+
+        const plansList = document.getElementById('plansList');
+        const planDetails = document.getElementById('planDetails');
+
+        function parseReading(reading) {
+            const [book, range] = reading.split(/ (.+)/);
+            if (!range) return [{ book, chapters: [] }];
+            const chapterRanges = range.split('; ').map(r => {
+                const [start, end] = r.split('-').map(Number);
+                const chapters = [];
+                for (let i = start || 1; i <= (end || start || 1); i++) {
+                    chapters.push(i);
+                }
+                return { book, chapters };
+            });
+            return chapterRanges;
+        }
+
+        function updateTrackerFromPlan(planName, dayIndex, isChecked) {
+            const reading = readingPlans[planName][dayIndex];
+            const parsedReadings = parseReading(reading);
+            parsedReadings.forEach(({ book, chapters }) => {
+                chapters.forEach(chapter => {
+                    const key = `${book}-${chapter}`;
+                    progress[key] = isChecked;
+                    const chapterSpan = document.querySelector(`.book[data-book="${book}"] .chapter span:nth-child(${chapter})`);
+                    if (chapterSpan) {
+                        if (isChecked) {
+                            chapterSpan.classList.add('completed');
+                        } else {
+                            chapterSpan.classList.remove('completed');
+                        }
+                    }
+                });
+            });
+            saveProgress();
+        }
+
+        Object.keys(readingPlans).forEach(planName => {
+            const planDiv = document.createElement('div');
+            planDiv.className = 'book';
+
+            const planTitle = document.createElement('h3');
+            planTitle.className = 'book-title';
+            planTitle.textContent = planName;
+            planDiv.appendChild(planTitle);
+
+            planTitle.addEventListener('click', () => {
+                const ul = document.createElement('ul');
+                readingPlans[planName].forEach((reading, index) => {
+                    const li = document.createElement('li');
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = planProgress[`${planName}-${index}`] || false;
+                    checkbox.addEventListener('change', () => {
+                        planProgress[`${planName}-${index}`] = checkbox.checked;
+                        savePlanProgress();
+                        updateTrackerFromPlan(planName, index, checkbox.checked);
+                    });
+                    li.appendChild(checkbox);
+                    li.appendChild(document.createTextNode(reading)); // Removed "Day ${index + 1}: "
+                    ul.appendChild(li);
+                });
+                planDetails.innerHTML = '';
+                planDetails.appendChild(ul);
+                planDetails.style.display = 'block';
+            });
+
+            plansList.appendChild(planDiv);
+        });
     </script>
 </body>
 </html>
