@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <title>Codexedoc Laptop Defense</title>
     <style>
         * {
@@ -20,97 +20,31 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 0 20px 20px 20px; /* No top padding to keep header at top */
         }
 
-        /* Header Styles (Unchanged from Last Fix) */
-        header {
-            background-color: #eeeeee;
-            padding: 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            left: 0;
-            margin: 0;
+        main {
+            padding: 0 20px 20px 20px;
+            flex: 1;
         }
 
-        .logo {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #333333;
-            display: inline-block;
-            font-family: 'Audiowide', cursive, sans-serif;
-        }
-
-        header .logo a,
-        header .logo a:link,
-        header .logo a:visited,
-        header .logo a:active {
-            color: #333333;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-family: 'Audiowide', cursive, sans-serif;
-        }
-
-        header .logo a:hover {
-            color: #1e90ff;
-        }
-
-        .logo span {
-            font-family: 'Audiowide', cursive, sans-serif;
-            color: #1e90ff;
-            font-size: 4rem;
-            vertical-align: baseline;
-            position: relative;
-            top: 0.30rem;
-        }
-
-        /* Footer Styles (Unchanged from Last Fix) */
-        footer {
-            background-color: #333333;
-            color: #1e90ff;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
-            width: 100%;
-        }
-
-        footer a {
-            color: #eeeeee;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .footer-logo {
-            font-size: 0.9rem;
-            color: #eeeeee;
-            font-weight: bold;
-        }
-
-        .footer-logo span {
-            color: #1e90ff;
-        }
-
-        /* Game-Specific Styles (Mostly Unchanged) */
+        /* Game-Specific Styles */
         #gameInstructions {
             color: #333333;
             font-size: clamp(0.7rem, 1.5vw, 0.9rem);
             text-align: center;
-            margin-bottom: 15px;
-            max-width: 90%;
-            opacity: 0.9;
-            padding: 50px 20px;
+            margin: 0 auto 15px auto;
+            max-width: 800px;
+            width: 90%;
+            padding: 30px 0;
         }
 
         #gameInstructions h3 {
             font-size: 1.5rem;
-            margin-bottom: 30px;
+            margin: 0 auto 20px auto;
+            text-align: center;
+            font-weight: bold;
+            line-height: 1.4;
+            width: 100%;
         }
 
         #gameCounter {
@@ -126,7 +60,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-top: 10px;
-            margin-bottom: 40px; /* Added space above footer */
+            margin-bottom: 40px;
         }
 
         .counter-section {
@@ -154,7 +88,7 @@
             color: #333;
             font-size: clamp(0.6rem, 1.4vw, 0.8rem);
             opacity: 0.8;
-            text-align:<Transaction center;
+            text-align: center;
         }
 
         #gameContainer {
@@ -210,30 +144,16 @@
             background-color: #00cc00;
         }
 
-        /* Responsive Header and Footer Styles */
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 2rem;
-            }
-
-            .logo span {
-                font-size: 3rem;
-                vertical-align: baseline;
-                position: relative;
-                top: 0.30rem;
-            }
-        }
-
         /* Game-Specific Responsive Styles */
         @media (max-width: 600px) {
-            body {
+            main {
                 padding: 0 10px 10px 10px;
             }
 
             #gameCounter {
                 gap: 8px;
                 padding: 5px 10px;
-                margin-bottom: 30px; /* Adjusted space for smaller screens */
+                margin-bottom: 30px;
             }
 
             .counter-section {
@@ -253,31 +173,33 @@
             <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
         </div>
     </header>
-    <div id="gameInstructions">
-        <h3>Protect the laptop (💻) from incoming bugs (☣️/☢️).</h3>
-        <h3>Use COD points to place DOC (📗) on blue spots.</h3>
-    </div>
-    <div id="gameContainer">
-        <canvas id="gameCanvas"></canvas>
-        <button id="startButton">START</button>
-    </div>
-    <div id="gameCounter">
-        <div class="counter-section">
-            <span class="counter-label">COD</span>
-            <span class="counter-value" id="codValue">4</span>
-            <span class="counter-desc">Code Points</span>
+    <main>
+        <div id="gameInstructions">
+            <h3>Protect the laptop (💻) from incoming bugs (☣️/☢️).</h3>
+            <h3>Use COD points to place DOC (📗) on blue spots.</h3>
         </div>
-        <div class="counter-section">
-            <span class="counter-label">EXE</span>
-            <span class="counter-value" id="exeValue">0</span>
-            <span class="counter-desc">Executed Bugs</span>
+        <div id="gameContainer">
+            <canvas id="gameCanvas"></canvas>
+            <button id="startButton">START</button>
         </div>
-        <div class="counter-section">
-            <span class="counter-label">DOC</span>
-            <span class="counter-value" id="docValue">2</span>
-            <span class="counter-desc">Document Price</span>
+        <div id="gameCounter">
+            <div class="counter-section">
+                <span class="counter-label">COD</span>
+                <span class="counter-value" id="codValue">4</span>
+                <span class="counter-desc">Code Points</span>
+            </div>
+            <div class="counter-section">
+                <span class="counter-label">EXE</span>
+                <span class="counter-value" id="exeValue">0</span>
+                <span class="counter-desc">Executed Bugs</span>
+            </div>
+            <div class="counter-section">
+                <span class="counter-label">DOC</span>
+                <span class="counter-value" id="docValue">2</span>
+                <span class="counter-desc">Document Price</span>
+            </div>
         </div>
-    </div>
+    </main>
     <footer>
         <p><span class="footer-logo">CODE<span><a class="bible" href="bible.html">X</a></span>EDOC</span></p>
         <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
