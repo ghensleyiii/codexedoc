@@ -56,7 +56,7 @@
             width: 50%;
             margin: 0 auto;
             padding: 8px 15px;
-            background: #eee;
+            background: #eeeeee;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-top: 10px;
@@ -78,14 +78,14 @@
         }
 
         .counter-value {
-            color: #00cc00;
+            color: #333333;
             font-size: clamp(1rem, 2vw, 1.3rem);
             font-weight: bold;
             margin: 2px 0;
         }
 
         .counter-desc {
-            color: #333;
+            color: #1e90ff;
             font-size: clamp(0.6rem, 1.4vw, 0.8rem);
             opacity: 0.8;
             text-align: center;
@@ -120,7 +120,7 @@
         }
 
         .tower-spot:hover {
-            background-color: #eee;
+            background-color: #333333;
         }
 
         #startButton {
@@ -131,8 +131,8 @@
             padding: 12px 25px;
             font-size: clamp(0.9rem, 1.8vw, 1.3rem);
             font-weight: bold;
-            color: #ffffff;
-            background-color: #00cc00;
+            color: #eeeeee;
+            background-color: #333333;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -141,7 +141,7 @@
         }
 
         #startButton:hover {
-            background-color: #00cc00;
+            background-color: #1e90ff;
         }
 
         /* Game-Specific Responsive Styles */
@@ -462,7 +462,7 @@
             }
 
             if (gameOver) {
-                ctx.fillStyle = '#00cc00';
+                ctx.fillStyle = '#333333';
                 ctx.font = `${40 * (canvas.height / 600)}px Arial`;
                 ctx.textAlign = 'center';
                 ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
@@ -490,7 +490,7 @@
             ctx.stroke();
 
             ctx.font = `${40 * (canvas.height / 600)}px Arial`;
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = '#eeeeee';
             ctx.fillText('💻', path[path.length - 1].x - (40 * canvas.width / 800), path[path.length - 1].y + (15 * canvas.height / 600));
 
             if (timestamp - lastSpawn > enemySpawnRate) {
