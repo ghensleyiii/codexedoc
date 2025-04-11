@@ -109,7 +109,7 @@
         }
 
         .validate-btn:hover, .test-btn:hover, .document-btn:hover {
-            background-color: #00cc00;
+            background-color: #333333;
         }
 
         .error-messages {
@@ -133,12 +133,12 @@
             background-color: #eee;
             border-radius: 0px;
             overflow: hidden;
-	    border: 2px solid #00cc00;
+	    border: 2px solid #333333;
 	    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .output-header {
-            color: #00cc00;
+            color: #333333;
             padding: 10px;
             font-size: 1rem;
             font-weight: bold;
@@ -147,7 +147,7 @@
         }
 		
 	hr {
-	    border: 1px solid #00cc00;
+	    border: 1px solid #333333;
 	    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	}
 
@@ -498,7 +498,7 @@
                 errorDiv.style.color = "#909090";
             } else {
                 errorDiv.innerHTML = "No Errors Detected";
-                errorDiv.style.color = "#00cc00";
+                errorDiv.style.color = "#333333";
                 setTimeout(() => {
                     clearHighlights();
                     errorDiv.innerHTML = "";
@@ -527,7 +527,7 @@
                 }
 
                 errorDiv.innerHTML = "No Errors Detected";
-                errorDiv.style.color = "#00cc00";
+                errorDiv.style.color = "#333333";
 
                 setTimeout(() => {
                     errorDiv.innerHTML = "";
@@ -580,7 +580,7 @@ ${code}
                 }
                 
                 errorDiv.innerHTML = "No Errors Detected";
-                errorDiv.style.color = "#00cc00";
+                errorDiv.style.color = "#333333";
                 
                 setTimeout(() => {
                     errorDiv.innerHTML = "";
