@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="favicon.ico"> <!-- Browser tab favicon -->
     <link rel="apple-touch-icon" href="apple-touch-icon.png"> <!-- iOS home screen icon -->
     <link rel="icon" type="image/png" sizes="192x192" href="apple-touch-icon.png"> <!-- Android home screen icon -->
@@ -36,9 +36,9 @@
         .logo {
             font-size: 3rem;
             font-weight: bold;
-            color: #333333<!--#00cc00-->;
+            color: #333333;
             display: inline-block;
-	    font-family: 'Audiowide', cursive, sans-serif;
+            font-family: 'Audiowide', cursive, sans-serif;
         }
 
         header .logo a,
@@ -58,15 +58,18 @@
         .logo span {
             font-family: 'Audiowide', cursive, sans-serif;
             color: #1e90ff !important;
-	    font-size: 4rem;
+            font-size: 4rem; /* 1rem larger than .logo */
+            vertical-align: baseline; /* Aligns baseline of X with CODE and EDOC */
+            position: relative; /* Allows fine-tuning with top */
+            top: 0.45rem; /* Increased to lower the X a tiny bit more */
         }
-	    
+
         /* Main Section Styles */
         .main-section {
             background-color: #eeeeee;
             padding: 50px 20px;
             text-align: center;
-            color: #333; /* Fixed incomplete color value from original */
+            color: #333;
         }
 
         .main-section h1 {
@@ -107,7 +110,7 @@
             background-color: #eeeeee;
             padding: 50px 20px 20px 20px;
             text-align: center;
-			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .steps-section h2 {
@@ -154,23 +157,23 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            overflow: hidden; /* Ensures the image doesn't overflow the rounded corners */
-			max-height: 460px;
-		}
+            overflow: hidden;
+            max-height: 460px;
+        }
 
         img {
-            width: 100%; /* Makes the image fill the width of the container */
-            height: 100%; /* Ensures the image fills the height (if a height is set) */
-            object-fit: cover; /* Scales the image to cover the container while maintaining aspect ratio */
-            display: block; /* Removes any default inline spacing */
-            border-radius: 10px; /* Matches the container's border-radius */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 10px;
         }
 
         .game-section {
             background-color: #eeeeee;
             padding: 20px 20px 50px 20px;
             text-align: center;
-			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .game-section a {
@@ -184,7 +187,7 @@
         }
 
         .game-button {
-            display: inline-block; /* Makes it behave like a button */
+            display: inline-block;
             background-color: #1e90ff;
             color: #eeeeee;
             padding: 10px 100px;
@@ -203,7 +206,7 @@
         }        
 
         .game-button:active {
-            background-color: #1e90ff; /* Feedback on tap */
+            background-color: #1e90ff;
             color: #eeeeee;
         }
 
@@ -221,9 +224,9 @@
             text-decoration: none;
         }
 
-	.bible {
-	     color: #1e90ff;
-	}
+        .bible {
+            color: #1e90ff;
+        }
 
         footer a:hover {
             text-decoration: underline;
@@ -245,9 +248,12 @@
                 font-size: 2rem;
             }
 
-	    .logo span {
-		font-size: 3rem;
-	    }
+            .logo span {
+                font-size: 3rem; /* 1rem larger than .logo */
+                vertical-align: baseline; /* Aligns baseline */
+                position: relative; /* Fine-tuning */
+                top: 0.35rem; /* Increased to lower the X a tiny bit more */
+            }
 
             .main-section h1 {
                 font-size: 1.5rem;
