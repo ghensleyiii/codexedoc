@@ -26,13 +26,13 @@
         /* Header Styles (Unchanged from Last Fix) */
         header {
             background-color: #eeeeee;
-            padding: 20px;
+            padding: 0;
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 100vw;
+            width: 100%;
             left: 0;
             margin: 0;
         }
@@ -116,9 +116,12 @@
         #gameCounter {
             display: flex;
             gap: 15px;
-            padding: 50px 20px 20px 20px;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            /*padding: 8px 15px;*/
+            width: 25%;
+            margin: 0 auto;
+            padding: 8px 15px;*/
             background: #eee;
             border-radius: 8px;
             border: 1px solid #1e90ff;
@@ -263,7 +266,7 @@
         <div class="counter-section">
             <span class="counter-label">COD</span>
             <span class="counter-value" id="codValue">4</span>
-            <span class="counter-desc">Coded Points</span>
+            <span class="counter-desc">Code Points</span>
         </div>
         <div class="counter-section">
             <span class="counter-label">EXE</span>
