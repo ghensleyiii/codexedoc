@@ -345,23 +345,35 @@
                 const perpX = -dy;
                 const perpY = dx;
 
-                const spot1Pos = scalePoint({ x: pos.x + perpX * offset, y: pos.y + perpY * offset });
-                const spot1 = document.createElement('div');
-                spot1.className = 'tower-spot';
-                spot1.style.left = `${spot1Pos.x}px`;
-                spot1.style.top = `${spot1Pos.y}px`;
-                spot1.onclick = () => placeTower(pos.x + perpX * offset, pos.y + perpY * offset, spot1);
-                container.appendChild(spot1);
-                towerSpots.push(spot1);
+                // Spot 1
+                const spot1X = pos.x + perpX * offset;
+                const spot1Y = pos.y + perpY * offset;
+                // Only create spot if no tower exists at this position
+                if (!towers.some(t => t.normX === spot1X && t.normY === spot1Y)) {
+                    const spot1Pos = scalePoint({ x: spot1X, y: spot1Y });
+                    const spot1 = document.createElement('div');
+                    spot1.className = 'tower-spot';
+                    spot1.style.left = `${spot1Pos.x}px`;
+                    spot1.style.top = `${spot1Pos.y}px`;
+                    spot1.onclick = () => placeTower(spot1X, spot1Y, spot1);
+                    container.appendChild(spot1);
+                    towerSpots.push(spot1);
+                }
 
-                const spot2Pos = scalePoint({ x: pos.x - perpX * offset, y: pos.y - perpY * offset });
-                const spot2 = document.createElement('div');
-                spot2.className = 'tower-spot';
-                spot2.style.left = `${spot2Pos.x}px`;
-                spot2.style.top = `${spot2Pos.y}px`;
-                spot2.onclick = () => placeTower(pos.x - perpX * offset, pos.y - perpY * offset, spot2);
-                container.appendChild(spot2);
-                towerSpots.push(spot2);
+                // Spot 2
+                const spot2X = pos.x - perpX * offset;
+                const spot2Y = pos.y - perpY * offset;
+                // Only create spot if no tower exists at this position
+                if (!towers.some(t => t.normX === spot2X && t.normY === spot2Y)) {
+                    const spot2Pos = scalePoint({ x: spot2X, y: spot2Y });
+                    const spot2 = document.createElement('div');
+                    spot2.className = 'tower-spot';
+                    spot2.style.left = `${spot2Pos.x}px`;
+                    spot2.style.top = `${spot2Pos.y}px`;
+                    spot2.onclick = () => placeTower(spot2X, spot2Y, spot2);
+                    container.appendChild(spot2);
+                    towerSpots.push(spot2);
+                }
             }
         }
 
@@ -383,7 +395,6 @@
             }
 
             draw() {
-                // Reverted to previous offset-based rendering, adjusted for better alignment
                 ctx.font = `${25 * scaleY}px Arial`; // Match tower spot size
                 ctx.fillStyle = '#1e90ff';
                 ctx.fillText(this.type, this.x - 12 * scaleX, this.y + 12 * scaleY);
@@ -476,7 +487,7 @@
                 const type = '📗';
                 towers.push(new Tower(x, y, type));
                 towerCount++;
-                spot.style.display = 'none'; // Ensure spot is hidden
+                spot.style.display = 'none'; // Hide the spot immediately
                 updateGameCounter();
             }
         }
