@@ -212,9 +212,13 @@
         const startButton = document.getElementById('startButton');
         const gameInstructions = document.getElementById('gameInstructions');
 
+        // Reference resolution for normalized coordinates
+        const REF_WIDTH = 800;
+        const REF_HEIGHT = 600;
+
         function resizeCanvas() {
-            const maxWidth = 800;
-            const maxHeight = 600;
+            const maxWidth = REF_WIDTH;
+            const maxHeight = REF_HEIGHT;
             const aspectRatio = maxWidth / maxHeight;
             
             const availableWidth = window.innerWidth * 0.9;
@@ -232,7 +236,15 @@
             canvas.height = height;
             container.style.width = `${width}px`;
             container.style.height = `${height}px`;
+
+            // Update scale factors
+            scaleX = canvas.width / REF_WIDTH;
+            scaleY = canvas.height / REF_HEIGHT;
         }
+
+        // Scaling factors
+        let scaleX = canvas.width / REF_WIDTH;
+        let scaleY = canvas.height / REF_HEIGHT;
 
         let cod = 4;
         let exe = 0;
@@ -248,18 +260,30 @@
         let gameStarted = false;
 
         function getScaledPath() {
-            const scaleX = canvas.width / 800;
-            const scaleY = canvas.height / 600;
             return [
-                {x: 0, y: 300 * scaleY},
-                {x: 200 * scaleX, y: 300 * scaleY},
-                {x: 200 * scaleX, y: 100 * scaleY},
-                {x: 400 * scaleX, y: 100 * scaleY},
-                {x: 400 * scaleX, y: 500 * scaleY},
-                {x: 600 * scaleX, y: 500 * scaleY},
-                {x: 600 * scaleX, y: 300 * scaleY},
-                {x: 800 * scaleX, y: 300 * scaleY}
+                {x: 0, y: 300},
+                {x: 200, y: 300},
+                {x: 200, y: 100},
+                {x: 400, y: 100},
+                {x: 400, y: 500},
+                {x: 600, y: 500},
+                {x: 600, y: 300},
+                {x: 800, y: 300}
             ];
+        }
+
+        function scalePoint(point) {
+            return {
+                x: point.x * scaleX,
+                y: point.y * scaleY
+            };
+        }
+
+        function unscalePoint(point) {
+            return {
+                x: point.x / scaleX,
+                y: point.y / scaleY
+            };
         }
 
         function calculatePathLength(path) {
@@ -298,7 +322,7 @@
             towerSpots = [];
             
             const path = getScaledPath();
-            const offset = 40 * (canvas.height / 600);
+            const offset = 40;
             const totalLength = calculatePathLength(path);
             const numberOfSpots = 8;
             const stepSize = totalLength / (numberOfSpots - 1);
@@ -321,18 +345,20 @@
                 const perpX = -dy;
                 const perpY = dx;
 
+                const spot1Pos = scalePoint({ x: pos.x + perpX * offset, y: pos.y + perpY * offset });
                 const spot1 = document.createElement('div');
                 spot1.className = 'tower-spot';
-                spot1.style.left = `${pos.x + perpX * offset}px`;
-                spot1.style.top = `${pos.y + perpY * offset}px`;
+                spot1.style.left = `${spot1Pos.x}px`;
+                spot1.style.top = `${spot1Pos.y}px`;
                 spot1.onclick = () => placeTower(pos.x + perpX * offset, pos.y + perpY * offset, spot1);
                 container.appendChild(spot1);
                 towerSpots.push(spot1);
 
+                const spot2Pos = scalePoint({ x: pos.x - perpX * offset, y: pos.y - perpY * offset });
                 const spot2 = document.createElement('div');
                 spot2.className = 'tower-spot';
-                spot2.style.left = `${pos.x - perpX * offset}px`;
-                spot2.style.top = `${pos.y - perpY * offset}px`;
+                spot2.style.left = `${spot2Pos.x}px`;
+                spot2.style.top = `${spot2Pos.y}px`;
                 spot2.onclick = () => placeTower(pos.x - perpX * offset, pos.y - perpY * offset, spot2);
                 container.appendChild(spot2);
                 towerSpots.push(spot2);
@@ -341,17 +367,26 @@
 
         class Tower {
             constructor(x, y, type) {
-                this.x = x;
-                this.y = y;
+                this.normX = x; // Store normalized coordinates
+                this.normY = y;
                 this.type = type;
-                this.range = 100 * (canvas.width / 800);
+                this.range = 100; // Normalized range
                 this.cooldown = 0;
             }
 
+            get x() {
+                return this.normX * scaleX;
+            }
+
+            get y() {
+                return this.normY * scaleY;
+            }
+
             draw() {
-                ctx.font = `${30 * (canvas.height / 600)}px Arial`;
+                // Reverted to previous offset-based rendering, adjusted for better alignment
+                ctx.font = `${25 * scaleY}px Arial`; // Match tower spot size
                 ctx.fillStyle = '#1e90ff';
-                ctx.fillText(this.type, this.x - (15 * canvas.width / 800), this.y + (10 * canvas.height / 600));
+                ctx.fillText(this.type, this.x - 12 * scaleX, this.y + 12 * scaleY);
             }
 
             shoot() {
@@ -360,7 +395,7 @@
                         const distance = Math.sqrt(
                             Math.pow(enemy.x - this.x, 2) + Math.pow(enemy.y - this.y, 2)
                         );
-                        if (distance < this.range) {
+                        if (distance < this.range * scaleX) {
                             enemy.health--;
                             this.cooldown = 100;
                             return;
@@ -374,14 +409,30 @@
         class Enemy {
             constructor() {
                 const path = getScaledPath();
-                this.x = path[0].x;
-                this.y = path[0].y;
+                this.normX = path[0].x;
+                this.normY = path[0].y;
                 this.health = 2;
-                this.baseSpeed = 1 * (canvas.width / 800);
+                this.baseSpeed = 1;
                 this.speedMultiplier = 1;
                 this.speed = this.baseSpeed * this.speedMultiplier;
                 this.pathIndex = 1;
                 this.type = Math.random() < 0.5 ? '☣️' : '☢️';
+            }
+
+            get x() {
+                return this.normX * scaleX;
+            }
+
+            get y() {
+                return this.normY * scaleY;
+            }
+
+            set x(value) {
+                this.normX = value / scaleX;
+            }
+
+            set y(value) {
+                this.normY = value / scaleY;
             }
 
             updateSpeed(multiplier) {
@@ -392,38 +443,40 @@
             move() {
                 const path = getScaledPath();
                 const target = path[this.pathIndex];
-                const dx = target.x - this.x;
-                const dy = target.y - this.y;
+                const dx = target.x - this.normX;
+                const dy = target.y - this.normY;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
+                const scaledSpeed = this.speed * (scaleX + scaleY) / 2;
+
                 if (distance < this.speed) {
-                    this.x = target.x;
-                    this.y = target.y;
+                    this.normX = target.x;
+                    this.normY = target.y;
                     this.pathIndex++;
                     if (this.pathIndex >= path.length) {
                         gameOver = true;
                     }
                 } else {
-                    this.x += (dx / distance) * this.speed;
-                    this.y += (dy / distance) * this.speed;
+                    this.normX += (dx / distance) * this.speed;
+                    this.normY += (dy / distance) * this.speed;
                 }
             }
 
             draw() {
-                ctx.font = `${20 * (canvas.height / 600)}px Arial`;
+                ctx.font = `${20 * scaleY}px Arial`;
                 ctx.fillStyle = '#00cc00';
-                ctx.fillText(this.type, this.x - (10 * canvas.width / 800), this.y + (10 * canvas.height / 600));
+                ctx.fillText(this.type, this.x - 10 * scaleX, this.y + 10 * scaleY);
             }
         }
 
         function placeTower(x, y, spot) {
-            if (cod >= doc && !towers.some(t => t.x === x && t.y === y)) {
+            if (cod >= doc && !towers.some(t => t.normX === x && t.normY === y)) {
                 cod -= doc;
                 doc = Math.floor(doc * 1.5);
                 const type = '📗';
                 towers.push(new Tower(x, y, type));
                 towerCount++;
-                spot.style.display = 'none';
+                spot.style.display = 'none'; // Ensure spot is hidden
                 updateGameCounter();
             }
         }
@@ -443,19 +496,19 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             if (!gameStarted) {
-                const path = getScaledPath();
+                const path = getScaledPath().map(scalePoint);
                 ctx.beginPath();
                 ctx.strokeStyle = '#1e90ff';
-                ctx.lineWidth = 40 * (canvas.width / 800);
+                ctx.lineWidth = 40 * scaleX;
                 ctx.moveTo(path[0].x, path[0].y);
                 for (let point of path) {
                     ctx.lineTo(point.x, point.y);
                 }
                 ctx.stroke();
 
-                ctx.font = `${40 * (canvas.height / 600)}px Arial`;
+                ctx.font = `${40 * scaleY}px Arial`;
                 ctx.fillStyle = '#ffffff';
-                ctx.fillText('💻', path[path.length - 1].x - (40 * canvas.width / 800), path[path.length - 1].y + (15 * canvas.height / 600));
+                ctx.fillText('💻', path[path.length - 1].x - 40 * scaleX, path[path.length - 1].y + 15 * scaleY);
 
                 requestAnimationFrame(gameLoop);
                 return;
@@ -463,7 +516,7 @@
 
             if (gameOver) {
                 ctx.fillStyle = '#333333';
-                ctx.font = `${40 * (canvas.height / 600)}px Arial`;
+                ctx.font = `${40 * scaleY}px Arial`;
                 ctx.textAlign = 'center';
                 ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
                 ctx.textAlign = 'start';
@@ -472,26 +525,26 @@
 
             if (gameWon) {
                 ctx.fillStyle = '#1e90ff';
-                ctx.font = `${40 * (canvas.height / 600)}px Arial`;
+                ctx.font = `${40 * scaleY}px Arial`;
                 ctx.textAlign = 'center';
                 ctx.fillText('YOU WIN', canvas.width / 2, canvas.height / 2);
                 ctx.textAlign = 'start';
                 return;
             }
 
-            const path = getScaledPath();
+            const path = getScaledPath().map(scalePoint);
             ctx.beginPath();
             ctx.strokeStyle = '#1e90ff';
-            ctx.lineWidth = 40 * (canvas.width / 800);
+            ctx.lineWidth = 40 * scaleX;
             ctx.moveTo(path[0].x, path[0].y);
             for (let point of path) {
                 ctx.lineTo(point.x, point.y);
             }
             ctx.stroke();
 
-            ctx.font = `${40 * (canvas.height / 600)}px Arial`;
+            ctx.font = `${40 * scaleY}px Arial`;
             ctx.fillStyle = '#eeeeee';
-            ctx.fillText('💻', path[path.length - 1].x - (40 * canvas.width / 800), path[path.length - 1].y + (15 * canvas.height / 600));
+            ctx.fillText('💻', path[path.length - 1].x - 40 * scaleX, path[path.length - 1].y + 15 * scaleY);
 
             if (timestamp - lastSpawn > enemySpawnRate) {
                 spawnEnemy();
