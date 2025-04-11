@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <title>Codexedoc Laptop Defense</title>
     <style>
         * {
@@ -197,11 +199,11 @@
     </style>
 </head>
 <body>
-    <div id="gameTitle">
-        <span class="title-cyan"><a href="index.html">CODE</a></span>
-        <span class="title-green"><a href="index.html">X</a></span>
-        <span class="title-cyan"><a href="index.html">EDOC</a></span>
-    </div>
+    <header>
+        <div class="logo">
+            <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
+        </div>
+    </header>
     <div id="gameInstructions">
         <p>Protect the laptop (💻) from incoming bugs (☣️/☢️).</p>
         <p>Use COD points to place DOC (📗) on blue spots.</p>
@@ -227,7 +229,11 @@
             <span class="counter-desc">Document Price</span>
         </div>
     </div>
-
+    <footer>
+        <p><span class="footer-logo">CODE<span><a class="bible" href="bible.html">X</a></span>EDOC</span></p>
+        <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
+        <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+    </footer>
     <script>
         const container = document.getElementById('gameContainer');
         const canvas = document.getElementById('gameCanvas');
