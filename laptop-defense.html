@@ -20,19 +20,84 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 0 20px 20px 20px; /* No top padding to keep header at top */
         }
 
-        <!--#gameTitle {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            font-weight: bold;
+        /* Header Styles (Unchanged from Last Fix) */
+        header {
+            background-color: #eeeeee;
+            padding: 20px;
             text-align: center;
-            margin-bottom: 20px;
-            line-height: 1;
-        }-->
-        
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100vw;
+            left: 0;
+            margin: 0;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333333;
+            display: inline-block;
+            font-family: 'Audiowide', cursive, sans-serif;
+        }
+
+        header .logo a,
+        header .logo a:link,
+        header .logo a:visited,
+        header .logo a:active {
+            color: #333333;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-family: 'Audiowide', cursive, sans-serif;
+        }
+
+        header .logo a:hover {
+            color: #1e90ff;
+        }
+
+        .logo span {
+            font-family: 'Audiowide', cursive, sans-serif;
+            color: #1e90ff;
+            font-size: 4rem;
+            vertical-align: baseline;
+            position: relative;
+            top: 0.30rem;
+        }
+
+        /* Footer Styles (Unchanged from Last Fix) */
+        footer {
+            background-color: #333333;
+            color: #1e90ff;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        footer a {
+            color: #eeeeee;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-logo {
+            font-size: 0.9rem;
+            color: #eeeeee;
+            font-weight: bold;
+        }
+
+        .footer-logo span {
+            color: #1e90ff;
+        }
+
+        /* Game-Specific Styles (Mostly Unchanged) */
         #gameInstructions {
             color: #333333;
             font-size: clamp(0.7rem, 1.5vw, 0.9rem);
@@ -43,7 +108,7 @@
             padding: 50px 20px;
         }
 
-        #gameInsructions h2 {
+        #gameInstructions h2 {
             font-size: 2.5rem;
             margin-bottom: 30px;
         }
@@ -57,6 +122,7 @@
             border: 1px solid #1e90ff;
             box-shadow: 0 0 10px #1e90ff;
             margin-top: 10px;
+            margin-bottom: 40px; /* Added space above footer */
         }
 
         .counter-section {
@@ -84,7 +150,7 @@
             color: #333;
             font-size: clamp(0.6rem, 1.4vw, 0.8rem);
             opacity: 0.8;
-            text-align: center;
+            text-align:<Transaction center;
         }
 
         #gameContainer {
@@ -140,20 +206,36 @@
             background-color: #00cc00;
         }
 
+        /* Responsive Header and Footer Styles */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .logo span {
+                font-size: 3rem;
+                vertical-align: baseline;
+                position: relative;
+                top: 0.30rem;
+            }
+        }
+
+        /* Game-Specific Responsive Styles */
         @media (max-width: 600px) {
             body {
-                padding: 10px;
+                padding: 0 10px 10px 10px;
             }
 
             #gameCounter {
                 gap: 8px;
                 padding: 5px 10px;
+                margin-bottom: 30px; /* Adjusted space for smaller screens */
             }
 
             .counter-section {
                 min-width: 45px;
             }
-            
+
             .tower-spot {
                 width: clamp(12px, 4vw, 18px);
                 height: clamp(12px, 4vw, 18px);
@@ -232,7 +314,7 @@
         let towers = [];
         let enemies = [];
         let towerSpots = [];
-        let enemySpawnRate = 1000; // Decreased from 2000 to spawn bugs every 1 second initially
+        let enemySpawnRate = 1000;
         let lastSpawn = 0;
         let gameOver = false;
         let gameWon = false;
@@ -292,7 +374,7 @@
             const path = getScaledPath();
             const offset = 40 * (canvas.height / 600);
             const totalLength = calculatePathLength(path);
-            const numberOfSpots = 8; // 16 total spots
+            const numberOfSpots = 8;
             const stepSize = totalLength / (numberOfSpots - 1);
 
             for (let i = 0; i < numberOfSpots; i++) {
@@ -317,7 +399,7 @@
                 spot1.className = 'tower-spot';
                 spot1.style.left = `${pos.x + perpX * offset}px`;
                 spot1.style.top = `${pos.y + perpY * offset}px`;
-                spot1.onclick = () => placeTower(pos.x + perpX * offset, pos.y + perpY * offset, spot1); // Pass spot1
+                spot1.onclick = () => placeTower(pos.x + perpX * offset, pos.y + perpY * offset, spot1);
                 container.appendChild(spot1);
                 towerSpots.push(spot1);
 
@@ -325,7 +407,7 @@
                 spot2.className = 'tower-spot';
                 spot2.style.left = `${pos.x - perpX * offset}px`;
                 spot2.style.top = `${pos.y - perpY * offset}px`;
-                spot2.onclick = () => placeTower(pos.x - perpX * offset, pos.y - perpY * offset, spot2); // Pass spot2
+                spot2.onclick = () => placeTower(pos.x - perpX * offset, pos.y - perpY * offset, spot2);
                 container.appendChild(spot2);
                 towerSpots.push(spot2);
             }
@@ -354,7 +436,7 @@
                         );
                         if (distance < this.range) {
                             enemy.health--;
-                            this.cooldown = 100; // Cooldown set to 100
+                            this.cooldown = 100;
                             return;
                         }
                     }
@@ -408,21 +490,20 @@
             }
         }
 
-        function placeTower(x, y, spot) { // Added spot parameter
+        function placeTower(x, y, spot) {
             if (cod >= doc && !towers.some(t => t.x === x && t.y === y)) {
                 cod -= doc;
                 doc = Math.floor(doc * 1.5);
                 const type = '📗';
                 towers.push(new Tower(x, y, type));
                 towerCount++;
-                spot.style.display = 'none'; // Hide the blue circle
+                spot.style.display = 'none';
                 updateGameCounter();
             }
         }
 
         function spawnEnemy() {
             enemies.push(new Enemy());
-            // Spawn rate decreases by 2% each time, with a minimum of 500ms between spawns
             enemySpawnRate = Math.max(500, enemySpawnRate * 0.98);
         }
 
@@ -464,7 +545,7 @@
             }
 
             if (gameWon) {
-                ctx.fillStyle = '##1e90ff';
+                ctx.fillStyle = '#1e90ff';
                 ctx.font = `${40 * (canvas.height / 600)}px Arial`;
                 ctx.textAlign = 'center';
                 ctx.fillText('YOU WIN', canvas.width / 2, canvas.height / 2);
