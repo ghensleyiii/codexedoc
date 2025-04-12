@@ -33,7 +33,25 @@
             background-color: #eee;
             padding: 5px;
             border-radius: 5px;
-            position: relative; /* For underline positioning */
+            position: relative;
+        }
+
+        .line-numbers {
+            width: 48px;
+            background-color: #ddd;
+            color: #1e90ff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            padding: 10px 5px;
+            text-align: right;
+            user-select: none;
+            line-height: 1.2;
+            position: absolute;
+            top: 7px; /* 2px border + 5px code-editor padding */
+            bottom: 7px; /* Matches top */
+            left: 7px;
+            z-index: 1;
+            overflow: hidden;
         }
 
         .code-editor textarea {
@@ -43,25 +61,18 @@
             color: #333;
             font-family: 'Courier New', Courier, monospace;
             font-size: 1rem;
-            padding: 15px;
+            padding: 10px 15px 10px 63px;
             border: 2px solid #1e90ff;
             border-radius: 5px;
             resize: none;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             line-height: 1.2;
-            z-index: 1;
             position: relative;
+            z-index: 0;
         }
 
         .code-editor textarea::placeholder {
             color: #1e90ff;
-        }
-
-        .error-underline {
-            position: absolute;
-            border-bottom: 2px solid #909090; /* Gray underline */
-            pointer-events: none; /* Allow interaction with textarea */
-            z-index: 2;
         }
 
         .buttons {
@@ -75,7 +86,7 @@
         .validate-btn {
             background-color: #1e90ff;
             color: #eee;
-			border: 2px solid #1e90ff;
+            border: 2px solid #1e90ff;
             padding: 10px 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
@@ -83,11 +94,11 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-		
-	.test-btn {
+        
+        .test-btn {
             background-color: #1e90ff;
             color: #eee;
-			border: 2px solid #1e90ff;
+            border: 2px solid #1e90ff;
             padding: 10px 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
@@ -95,11 +106,11 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-		
-	.document-btn {
+        
+        .document-btn {
             background-color: #1e90ff;
             color: #eee;
-			border: 2px solid #1e90ff;
+            border: 2px solid #1e90ff;
             padding: 10px 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
@@ -133,8 +144,8 @@
             background-color: #eee;
             border-radius: 0px;
             overflow: hidden;
-	    border: 2px solid #333333;
-	    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 2px solid #333333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .output-header {
@@ -143,13 +154,13 @@
             font-size: 1rem;
             font-weight: bold;
             background-color: #eee;
-	    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-		
-	hr {
-	    border: 1px solid #333333;
-	    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	}
+        
+        hr {
+            border: 1px solid #333333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
         #outputFrame {
             width: 100%;
@@ -159,7 +170,6 @@
         }
         
         @media (max-width: 768px) {
-
             .code-editor textarea {
                 height: 400px;
             }
@@ -186,8 +196,18 @@
 
         @media (max-width: 480px) {
             .code-editor textarea {
-                height:300px;
+                height: 300px;
                 font-size: 0.8rem;
+                padding: 10px 15px 10px 53px;
+            }
+
+            .line-numbers {
+                font-size: 0.8rem;
+                width: 38px;
+                padding: 10px 3px;
+                top: 7px;
+                bottom: 7px;
+                left: 7px;
             }
 
             .buttons {
@@ -209,6 +229,7 @@
 
     <section class="main-section">
         <div class="code-editor">
+            <div class="line-numbers" id="lineNumbers"></div>
             <textarea id="codeInput" placeholder="Enter your code here..."></textarea>
         </div>
         <div class="buttons">
@@ -220,7 +241,7 @@
         <div class="output-section">
             <div class="output-container">
                 <div class="output-header">OUTPUT</div>
-				<hr>
+                <hr>
                 <iframe id="outputFrame"></iframe>
             </div>
         </div>
@@ -236,44 +257,54 @@
         const textarea = document.getElementById('codeInput');
         const errorDiv = document.getElementById('errorMessages');
         const outputFrame = document.getElementById('outputFrame');
-        const codeEditor = document.querySelector('.code-editor');
+        const lineNumbers = document.getElementById('lineNumbers');
+        const MAX_LINES = 9999;
 
-        function highlightError(start, end) {
-            // Remove any existing underlines
-            clearHighlights();
+        function updateLineNumbers() {
+            const lines = textarea.value.split('\n');
+            let numberOfLines = Math.min(lines.length, MAX_LINES);
+            const lineHeight = parseFloat(getComputedStyle(textarea).lineHeight);
+            const visibleHeight = textarea.clientHeight - 24; // 10px top + 10px bottom padding + 2px top border + 2px bottom border
+            const visibleLines = Math.floor(visibleHeight / lineHeight);
+            const scrollTop = textarea.scrollTop;
+            const firstVisibleLine = Math.floor(scrollTop / lineHeight);
 
-            // Calculate position based on textarea metrics
-            const fontSize = 16; // Matches 1rem font-size
-            const lineHeight = 1.2 * fontSize;
-            const charWidth = fontSize * 0.6; // Approximate monospace character width
-            const padding = 15; // Matches textarea padding
+            // Generate numbers for all lines
+            const allNumbers = [];
+            for (let i = 0; i < numberOfLines; i++) {
+                allNumbers.push(i + 1);
+            }
 
-            const text = textarea.value;
-            const lines = text.substring(0, start).split('\n');
-            const lineNumber = lines.length - 1;
-            const charInLine = lines[lineNumber].length;
+            // Slice to show only the visible portion
+            const visibleNumbers = allNumbers.slice(firstVisibleLine, firstVisibleLine + visibleLines);
 
-            const top = padding + lineNumber * lineHeight + lineHeight - 2; // Position underline at bottom of text
-            const left = padding + charInLine * charWidth;
-            const width = (end - start) * charWidth;
+            // Pad with empty strings if needed to match visibleLines
+            while (visibleNumbers.length < visibleLines) {
+                visibleNumbers.push('');
+            }
 
-            // Create underline span
-            const underline = document.createElement('span');
-            underline.className = 'error-underline';
-            underline.style.top = `${top}px`;
-            underline.style.left = `${left}px`;
-            underline.style.width = `${width}px`;
+            // Update the line numbers div
+            lineNumbers.innerHTML = visibleNumbers.join('<br>');
 
-            codeEditor.appendChild(underline);
-            textarea.focus();
+            // Truncate input if it exceeds MAX_LINES
+            if (lines.length > MAX_LINES) {
+                textarea.value = lines.slice(0, MAX_LINES).join('\n');
+                numberOfLines = MAX_LINES;
+            }
+
+            // Sync scrolling
+            lineNumbers.scrollTop = scrollTop;
         }
 
-        function clearHighlights() {
-            const underlines = codeEditor.querySelectorAll('.error-underline');
-            underlines.forEach(u => u.remove());
-        }
+        textarea.addEventListener('input', updateLineNumbers);
+        textarea.addEventListener('scroll', () => {
+            updateLineNumbers();
+            lineNumbers.scrollTop = textarea.scrollTop;
+        });
+        textarea.addEventListener('resize', updateLineNumbers);
 
-        textarea.addEventListener('input', clearHighlights);
+        // Initialize line numbers
+        updateLineNumbers();
 
         // Comment removal function
         function removeComments(code, language) {
@@ -299,13 +330,7 @@
                 } catch (e) {
                     const match = e.message.match(/line (\d+)/);
                     const lineNum = match ? parseInt(match[1]) - 1 : 0;
-                    const lines = code.split('\n');
-                    const line = lines[lineNum];
-                    const errorMatch = e.message.match(/'([^']+)'/);
-                    const errorToken = errorMatch ? errorMatch[1] : '';
-                    const start = lines.slice(0, lineNum).join('\n').length + (line.indexOf(errorToken) !== -1 ? line.indexOf(errorToken) : 0);
-                    const end = start + (errorToken.length || 1);
-                    errors.push({ message: e.message, start, end });
+                    errors.push({ message: e.message });
                 }
                 return errors;
             },
@@ -317,15 +342,11 @@
                     if (!line.trim()) return;
                     const leadingSpaces = line.match(/^\s*/)[0].length;
                     if (leadingSpaces % 4 !== 0 && line.trim().startsWith(' ')) {
-                        const start = code.split('\n').slice(0, i).join('\n').length + 1;
-                        const end = start + leadingSpaces;
-                        errors.push({ message: `Invalid indentation at line ${i + 1} (must be multiples of 4 spaces)`, start, end });
-                        return; // Only report one error per line
+                        errors.push({ message: `Invalid indentation at line ${i + 1} (must be multiples of 4 spaces)` });
+                        return;
                     }
                     if (line.trim().match(/^(if|for|while|def|class)/) && !line.endsWith(':')) {
-                        const start = code.split('\n').slice(0, i).join('\n').length + line.indexOf(line.trim());
-                        const end = start + line.trim().length;
-                        errors.push({ message: `Missing colon at line ${i + 1}`, start, end });
+                        errors.push({ message: `Missing colon at line ${i + 1}` });
                     }
                 });
                 return errors;
@@ -335,15 +356,10 @@
                 const cleanCode = removeComments(code, 'html');
                 
                 if (!cleanCode.match(/^<!DOCTYPE\s+html>/i)) {
-                    const lines = cleanCode.split('\n');
-                    const start = 0;
-                    const end = lines[0].indexOf('<') !== -1 ? lines[0].indexOf('<') : lines[0].length;
                     errors.push({ 
-                        message: "Missing or invalid DOCTYPE declaration (should be <!DOCTYPE html>)", 
-                        start, 
-                        end 
+                        message: "Missing or invalid DOCTYPE declaration (should be <!DOCTYPE html>)"
                     });
-                    return errors; // Stop after first error
+                    return errors;
                 }
 
                 const tagRegex = /<[^>]+>/g;
@@ -352,57 +368,42 @@
 
                 while ((match = tagRegex.exec(cleanCode)) !== null) {
                     const tag = match[0];
-                    const start = match.index;
-                    
-                    if (tag.match(/^<!DOCTYPE/i)) continue;
-
                     const isClosing = tag.startsWith('</');
                     const tagNameMatch = tag.match(/<\/?([a-z][a-z0-9]*)/i);
                     
                     if (!tagNameMatch) {
                         errors.push({
-                            message: `Invalid tag syntax: '${tag}'`,
-                            start,
-                            end: start + tag.length
+                            message: `Invalid tag syntax: '${tag}'`
                         });
-                        return errors; // Stop after first error
+                        return errors;
                     }
                     
                     const tagName = tagNameMatch[1];
 
                     if (!isClosing) {
                         if (!['br', 'img', 'hr', 'input'].includes(tagName.toLowerCase()) && !tag.endsWith('/>')) {
-                            stack.push({ name: tagName, start });
+                            stack.push({ name: tagName });
                         }
                     } else if (stack.length) {
                         const lastTag = stack.pop();
                         if (lastTag.name.toLowerCase() !== tagName.toLowerCase()) {
-                            const end = start + tag.length;
                             errors.push({
-                                message: `Mismatched closing tag: expected </${lastTag.name}> but found </${tagName}>`,
-                                start,
-                                end
+                                message: `Mismatched closing tag: expected </${lastTag.name}> but found </${tagName}>`
                             });
-                            return errors; // Stop after first error
+                            return errors;
                         }
                     } else {
-                        const end = start + tag.length;
                         errors.push({
-                            message: `Unexpected closing tag </${tagName}> without matching opening tag`,
-                            start,
-                            end
+                            message: `Unexpected closing tag </${tagName}> without matching opening tag`
                         });
-                        return errors; // Stop after first error
+                        return errors;
                     }
                 }
 
                 if (stack.length > 0) {
-                    const tag = stack[0]; // Highlight only the first unclosed tag
-                    const end = tag.start + tag.name.length + 1;
+                    const tag = stack[0];
                     errors.push({
-                        message: `Unclosed tag: <${tag.name}>`,
-                        start: tag.start,
-                        end
+                        message: `Unclosed tag: <${tag.name}>`
                     });
                 }
 
@@ -420,21 +421,15 @@
                     } else if (line.match(/^\s*}/)) {
                         inBlock = false;
                     } else if (inBlock && !line.match(/^\s*[a-z-]+:\s*.+;/)) {
-                        const start = code.split('\n').slice(0, i).join('\n').length + line.indexOf(line.trim());
-                        const end = start + line.trim().length;
-                        errors.push({ message: `Invalid CSS property at line ${i + 1}`, start, end });
-                        return; // Stop after first error in block
+                        errors.push({ message: `Invalid CSS property at line ${i + 1}` });
+                        return;
                     } else if (!inBlock && !line.match(/^[.#]?[a-zA-Z][\w-]*\s*{/)) {
-                        const start = code.split('\n').slice(0, i).join('\n').length + line.indexOf(line.trim());
-                        const end = start + line.trim().length;
-                        errors.push({ message: `Invalid CSS selector at line ${i + 1}`, start, end });
-                        return; // Stop after first error
+                        errors.push({ message: `Invalid CSS selector at line ${i + 1}` });
+                        return;
                     }
                 });
                 if (inBlock) {
-                    const start = cleanCode.lastIndexOf('{');
-                    const end = start + 1;
-                    errors.push({ message: "Missing closing brace", start, end });
+                    errors.push({ message: "Missing closing brace" });
                 }
                 return errors;
             },
@@ -442,9 +437,7 @@
                 const errors = [];
                 const cleanCode = removeComments(code, 'java');
                 if (!cleanCode.match(/public\s+class\s+\w+/)) {
-                    const start = 0;
-                    const end = code.indexOf(' ') !== -1 ? code.indexOf(' ') : code.length;
-                    errors.push({ message: 'Missing public class declaration', start, end });
+                    errors.push({ message: 'Missing public class declaration' });
                 }
                 return errors;
             },
@@ -452,9 +445,7 @@
                 const errors = [];
                 const cleanCode = removeComments(code, 'cpp');
                 if (!cleanCode.includes('int main')) {
-                    const start = 0;
-                    const end = code.indexOf(' ') !== -1 ? code.indexOf(' ') : code.length;
-                    errors.push({ message: 'Missing main function', start, end });
+                    errors.push({ message: 'Missing main function' });
                 }
                 return errors;
             }
@@ -467,11 +458,10 @@
             if (code.includes('{') && code.includes('}') && code.includes(':')) return 'css';
             if (code.includes('public class') || code.includes('System.out')) return 'java';
             if (code.includes('#include') || code.includes('int main')) return 'cpp';
-            return 'html'; // default to original behavior
+            return 'html';
         }
 
         function validateCode() {
-            clearHighlights();
             errorDiv.innerHTML = '';
             errorDiv.style.color = "#909090";
             const code = textarea.value.trim();
@@ -479,7 +469,6 @@
             textarea.setSelectionRange(0, 0);
             
             if (!code) {
-                highlightError(0, 1);
                 errorDiv.innerHTML = "Errors Detected: No code entered";
                 return;
             }
@@ -491,16 +480,12 @@
                 errorDiv.innerHTML = "Errors Detected:<br>";
                 errors.forEach((error, index) => {
                     errorDiv.innerHTML += `${error.message}${index < errors.length - 1 ? '<br>' : ''}`;
-                    if (index === 0) { // Underline only the first error
-                        highlightError(error.start, error.end);
-                    }
                 });
                 errorDiv.style.color = "#909090";
             } else {
                 errorDiv.innerHTML = "No Errors Detected";
                 errorDiv.style.color = "#333333";
                 setTimeout(() => {
-                    clearHighlights();
                     errorDiv.innerHTML = "";
                     errorDiv.style.color = "#909090";
                 }, 2000);
@@ -513,7 +498,6 @@
             try {
                 if (!code) {
                     errorDiv.innerHTML = "Errors Detected";
-                    highlightError(0, 1);
                     outputFrame.srcdoc = '';
                     return;
                 }
@@ -532,12 +516,10 @@
                 setTimeout(() => {
                     errorDiv.innerHTML = "";
                     errorDiv.style.color = "#909090";
-                    clearHighlights();
                 }, 3000);
 
             } catch (e) {
                 errorDiv.innerHTML = "Errors Detected";
-                highlightError(0, code.length);
                 outputFrame.srcdoc = '';
             }
         }
@@ -548,7 +530,6 @@
             try {
                 if (!code) {
                     errorDiv.innerHTML = "Errors Detected";
-                    highlightError(0, 1);
                     return;
                 }
 
@@ -585,12 +566,10 @@ ${code}
                 setTimeout(() => {
                     errorDiv.innerHTML = "";
                     errorDiv.style.color = "#909090";
-                    clearHighlights();
                 }, 3000);
 
             } catch (e) {
                 errorDiv.innerHTML = "Errors Detected";
-                highlightError(0, code.length);
             }
         }
     </script>
