@@ -38,20 +38,31 @@
 
         .line-numbers {
             width: 48px;
-            background-color: #ddd;
+            background-color: #333333;
             color: #1e90ff;
             font-family: 'Courier New', Courier, monospace;
             font-size: 1rem;
-            padding: 10px 5px;
             text-align: right;
             user-select: none;
-            line-height: 1.2;
+            line-height: 1.2; /* Match textarea line-height */
             position: absolute;
-            top: 7px; /* 2px border + 5px code-editor padding */
-            bottom: 7px; /* Matches top */
+            top: 7px; /* 5px code-editor padding + 2px textarea border */
             left: 7px;
             z-index: 1;
             overflow: hidden;
+            /* Adjusted height as requested */
+            height: calc(100% - 21.5px); /* Changed to calc(100% - 21.5px) */
+            padding: 11px 5px 10px 0; /* Kept padding for alignment */
+        }
+
+        /* Use <pre> for line numbers to ensure consistent spacing */
+        .line-numbers pre {
+            margin: 0;
+            padding: 0;
+            line-height: 1.2; /* Match textarea */
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem; /* Match textarea */
+            display: block; /* Ensure consistent rendering */
         }
 
         .code-editor textarea {
@@ -204,10 +215,17 @@
             .line-numbers {
                 font-size: 0.8rem;
                 width: 38px;
-                padding: 10px 3px;
+                padding: 11px 3px 10px 0; /* Match desktop adjustment */
                 top: 7px;
-                bottom: 7px;
-                left: 7px;
+                height: calc(100% - 21.5px); /* Match desktop */
+                line-height: 1.2; /* Match mobile textarea */
+                background-color: #333333; /* Match desktop */
+            }
+
+            .line-numbers pre {
+                font-size: 0.8rem;
+                line-height: 1.2;
+                display: block;
             }
 
             .buttons {
@@ -229,7 +247,7 @@
 
     <section class="main-section">
         <div class="code-editor">
-            <div class="line-numbers" id="lineNumbers"></div>
+            <div class="line-numbers" id="lineNumbers"><pre></pre></div>
             <textarea id="codeInput" placeholder="Enter your code here..."></textarea>
         </div>
         <div class="buttons">
@@ -258,6 +276,7 @@
         const errorDiv = document.getElementById('errorMessages');
         const outputFrame = document.getElementById('outputFrame');
         const lineNumbers = document.getElementById('lineNumbers');
+        const lineNumbersPre = lineNumbers.querySelector('pre');
         const MAX_LINES = 9999;
 
         function updateLineNumbers() {
@@ -265,26 +284,31 @@
             let numberOfLines = Math.min(lines.length, MAX_LINES);
             const lineHeight = parseFloat(getComputedStyle(textarea).lineHeight);
             const visibleHeight = textarea.clientHeight - 24; // 10px top + 10px bottom padding + 2px top border + 2px bottom border
-            const visibleLines = Math.floor(visibleHeight / lineHeight);
+            const visibleLines = Math.floor(visibleHeight / lineHeight) + 1; // Add 1 to account for partial last line
             const scrollTop = textarea.scrollTop;
             const firstVisibleLine = Math.floor(scrollTop / lineHeight);
 
-            // Generate numbers for all lines
+            // Generate numbers for all lines up to numberOfLines
             const allNumbers = [];
             for (let i = 0; i < numberOfLines; i++) {
                 allNumbers.push(i + 1);
             }
 
+            // Extend numbers up to MAX_LINES if needed
+            for (let i = numberOfLines; i < firstVisibleLine + visibleLines && i < MAX_LINES; i++) {
+                allNumbers.push(i + 1);
+            }
+
             // Slice to show only the visible portion
-            const visibleNumbers = allNumbers.slice(firstVisibleLine, firstVisibleLine + visibleLines);
+            let visibleNumbers = allNumbers.slice(firstVisibleLine, firstVisibleLine + visibleLines);
 
             // Pad with empty strings if needed to match visibleLines
             while (visibleNumbers.length < visibleLines) {
                 visibleNumbers.push('');
             }
 
-            // Update the line numbers div
-            lineNumbers.innerHTML = visibleNumbers.join('<br>');
+            // Update the line numbers using <pre>
+            lineNumbersPre.innerHTML = visibleNumbers.join('\n');
 
             // Truncate input if it exceeds MAX_LINES
             if (lines.length > MAX_LINES) {
@@ -293,7 +317,7 @@
             }
 
             // Sync scrolling
-            lineNumbers.scrollTop = scrollTop;
+            lineNumbers.scrollTop = textarea.scrollTop;
         }
 
         textarea.addEventListener('input', updateLineNumbers);
