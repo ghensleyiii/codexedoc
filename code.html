@@ -19,7 +19,7 @@
             color: #333;
             line-height: 1.6;
         }
-       
+
         .main-section {
             background-color: #eee;
             padding: 50px 20px;
@@ -28,41 +28,39 @@
         }
 
         .code-editor {
+            position: relative;
             width: 100%;
             margin: 0 auto 20px auto;
             background-color: #eee;
             padding: 5px;
             border-radius: 5px;
-            position: relative;
         }
 
         .line-numbers {
             width: 48px;
             background-color: #333333;
             color: #1e90ff;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1rem;
+            font-family: 'Courier New', Courier, 'Lucida Console', monospace;
+            font-size: 16px;
             text-align: right;
             user-select: none;
-            line-height: 1.2; /* Match textarea line-height */
+            line-height: 20px;
             position: absolute;
-            top: 7px; /* 5px code-editor padding + 2px textarea border */
-            left: 7px;
-            z-index: 1;
+            top: 7px; /* Adjusted to align with textarea content (5px padding + 2px border) */
+            left: 5px;
+            height: calc(100% - 21.5px); /* Kept as requested */
+            padding: 10px 5px 10px 0;
             overflow: hidden;
-            /* Adjusted height as requested */
-            height: calc(100% - 21.5px); /* Changed to calc(100% - 21.5px) */
-            padding: 11px 5px 10px 0; /* Kept padding for alignment */
+            z-index: 10;
         }
 
-        /* Use <pre> for line numbers to ensure consistent spacing */
         .line-numbers pre {
             margin: 0;
             padding: 0;
-            line-height: 1.2; /* Match textarea */
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1rem; /* Match textarea */
-            display: block; /* Ensure consistent rendering */
+            line-height: 20px;
+            font-family: 'Courier New', Courier, 'Lucida Console', monospace;
+            font-size: 16px;
+            display: block;
         }
 
         .code-editor textarea {
@@ -70,14 +68,14 @@
             height: 600px;
             background-color: #eee;
             color: #333;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1rem;
-            padding: 10px 15px 10px 63px;
+            font-family: 'Courier New', Courier, 'Lucida Console', monospace;
+            font-size: 16px;
+            padding: 10px 15px 10px 60px;
             border: 2px solid #1e90ff;
             border-radius: 5px;
             resize: none;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            line-height: 1.2;
+            line-height: 20px;
             position: relative;
             z-index: 0;
         }
@@ -105,7 +103,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        
+
         .test-btn {
             background-color: #1e90ff;
             color: #eee;
@@ -117,7 +115,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        
+
         .document-btn {
             background-color: #1e90ff;
             color: #eee;
@@ -167,7 +165,7 @@
             background-color: #eee;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        
+
         hr {
             border: 1px solid #333333;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -179,7 +177,7 @@
             border: none;
             background-color: #eee;
         }
-        
+
         @media (max-width: 768px) {
             .code-editor textarea {
                 height: 400px;
@@ -208,24 +206,25 @@
         @media (max-width: 480px) {
             .code-editor textarea {
                 height: 300px;
-                font-size: 0.8rem;
-                padding: 10px 15px 10px 53px;
+                font-size: 14px;
+                line-height: 18px;
+                padding: 10px 15px 10px 50px;
             }
 
             .line-numbers {
-                font-size: 0.8rem;
+                font-size: 14px;
+                line-height: 18px;
                 width: 38px;
-                padding: 11px 3px 10px 0; /* Match desktop adjustment */
-                top: 7px;
-                height: calc(100% - 21.5px); /* Match desktop */
-                line-height: 1.2; /* Match mobile textarea */
-                background-color: #333333; /* Match desktop */
+                top: 7px; /* Match desktop adjustment */
+                height: calc(100% - 21.5px); /* Kept as requested */
+                padding: 10px 3px 10px 0;
+                background-color: #333333;
+                z-index: 10;
             }
 
             .line-numbers pre {
-                font-size: 0.8rem;
-                line-height: 1.2;
-                display: block;
+                font-size: 14px;
+                line-height: 18px;
             }
 
             .buttons {
@@ -281,56 +280,49 @@
 
         function updateLineNumbers() {
             const lines = textarea.value.split('\n');
-            let numberOfLines = Math.min(lines.length, MAX_LINES);
-            const lineHeight = parseFloat(getComputedStyle(textarea).lineHeight);
+            const numberOfLines = Math.min(lines.length, MAX_LINES);
+            const lineHeight = parseFloat(getComputedStyle(textarea).lineHeight) || 20;
             const visibleHeight = textarea.clientHeight - 24; // 10px top + 10px bottom padding + 2px top border + 2px bottom border
-            const visibleLines = Math.floor(visibleHeight / lineHeight) + 1; // Add 1 to account for partial last line
+            const visibleLines = Math.ceil(visibleHeight / lineHeight);
             const scrollTop = textarea.scrollTop;
             const firstVisibleLine = Math.floor(scrollTop / lineHeight);
 
-            // Generate numbers for all lines up to numberOfLines
-            const allNumbers = [];
-            for (let i = 0; i < numberOfLines; i++) {
-                allNumbers.push(i + 1);
-            }
+            // Generate line numbers
+            const allNumbers = Array.from(
+                { length: Math.max(numberOfLines, firstVisibleLine + visibleLines) },
+                (_, i) => i + 1
+            );
 
-            // Extend numbers up to MAX_LINES if needed
-            for (let i = numberOfLines; i < firstVisibleLine + visibleLines && i < MAX_LINES; i++) {
-                allNumbers.push(i + 1);
-            }
-
-            // Slice to show only the visible portion
+            // Slice visible portion
             let visibleNumbers = allNumbers.slice(firstVisibleLine, firstVisibleLine + visibleLines);
 
-            // Pad with empty strings if needed to match visibleLines
+            // Pad with empty strings to match visible lines
             while (visibleNumbers.length < visibleLines) {
                 visibleNumbers.push('');
             }
 
-            // Update the line numbers using <pre>
+            // Update line numbers
             lineNumbersPre.innerHTML = visibleNumbers.join('\n');
 
-            // Truncate input if it exceeds MAX_LINES
+            // Truncate input if exceeds MAX_LINES
             if (lines.length > MAX_LINES) {
                 textarea.value = lines.slice(0, MAX_LINES).join('\n');
-                numberOfLines = MAX_LINES;
             }
 
-            // Sync scrolling
-            lineNumbers.scrollTop = textarea.scrollTop;
+            // Sync scroll
+            requestAnimationFrame(() => {
+                lineNumbers.scrollTop = scrollTop;
+            });
         }
 
         textarea.addEventListener('input', updateLineNumbers);
         textarea.addEventListener('scroll', () => {
             updateLineNumbers();
-            lineNumbers.scrollTop = textarea.scrollTop;
         });
-        textarea.addEventListener('resize', updateLineNumbers);
+        window.addEventListener('resize', updateLineNumbers);
 
-        // Initialize line numbers
         updateLineNumbers();
 
-        // Comment removal function
         function removeComments(code, language) {
             if (language === 'html') {
                 return code.replace(/<!--[\s\S]*?-->/g, '');
@@ -344,7 +336,6 @@
             return code;
         }
 
-        // Language detection and validation
         const languageValidators = {
             javascript: (code) => {
                 const errors = [];
@@ -378,9 +369,9 @@
             html: (code) => {
                 const errors = [];
                 const cleanCode = removeComments(code, 'html');
-                
+
                 if (!cleanCode.match(/^<!DOCTYPE\s+html>/i)) {
-                    errors.push({ 
+                    errors.push({
                         message: "Missing or invalid DOCTYPE declaration (should be <!DOCTYPE html>)"
                     });
                     return errors;
@@ -394,14 +385,14 @@
                     const tag = match[0];
                     const isClosing = tag.startsWith('</');
                     const tagNameMatch = tag.match(/<\/?([a-z][a-z0-9]*)/i);
-                    
+
                     if (!tagNameMatch) {
                         errors.push({
                             message: `Invalid tag syntax: '${tag}'`
                         });
                         return errors;
                     }
-                    
+
                     const tagName = tagNameMatch[1];
 
                     if (!isClosing) {
@@ -489,9 +480,9 @@
             errorDiv.innerHTML = '';
             errorDiv.style.color = "#909090";
             const code = textarea.value.trim();
-            
+
             textarea.setSelectionRange(0, 0);
-            
+
             if (!code) {
                 errorDiv.innerHTML = "Errors Detected: No code entered";
                 return;
@@ -527,7 +518,7 @@
                 }
 
                 outputFrame.srcdoc = '';
-                
+
                 if (code.includes('<html') && code.includes('</html>')) {
                     outputFrame.srcdoc = code;
                 } else {
@@ -550,7 +541,7 @@
 
         function saveCode() {
             const code = textarea.value.trim();
-            
+
             try {
                 if (!code) {
                     errorDiv.innerHTML = "Errors Detected";
@@ -571,7 +562,7 @@ ${code}
 
                 const blob = new Blob([fullDocument], { type: "text/html;charset=utf-8" });
                 const link = document.createElement("a");
-                
+
                 if ('download' in link) {
                     link.href = URL.createObjectURL(blob);
                     link.download = "codexedoc_output.html";
@@ -583,10 +574,10 @@ ${code}
                     window.location.href = url;
                     setTimeout(() => URL.revokeObjectURL(url), 1000);
                 }
-                
+
                 errorDiv.innerHTML = "No Errors Detected";
                 errorDiv.style.color = "#333333";
-                
+
                 setTimeout(() => {
                     errorDiv.innerHTML = "";
                     errorDiv.style.color = "#909090";
