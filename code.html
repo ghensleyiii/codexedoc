@@ -179,6 +179,7 @@
             background-color: #eee;
             padding: 5px;
             margin-top: 20px;
+            display: none; /* Hidden by default */
         }
 
         .output-container {
@@ -308,7 +309,7 @@
             <button class="save-file-btn" onclick="saveCode()">Save</button>
         </div>
         <div id="errorMessages" class="error-messages"></div>
-        <div class="output-section">
+        <div class="output-section" id="outputSection">
             <div class="output-container">
                 <div class="output-header">OUTPUT</div>
                 <hr>
@@ -327,6 +328,7 @@
         const textarea = document.getElementById('codeInput');
         const errorDiv = document.getElementById('errorMessages');
         const outputFrame = document.getElementById('outputFrame');
+        const outputSection = document.getElementById('outputSection');
         const lineNumbers = document.getElementById('lineNumbers');
         const lineNumbersPre = lineNumbers.querySelector('pre');
         const saveFileContainer = document.getElementById('saveFileContainer');
@@ -458,6 +460,9 @@
             javascript: (code) => {
                 const errors = [];
                 const cleanCode = removeComments(code, 'javascript');
+                const lines = cleanCode.split('\n');
+
+                // Check for syntax errors using Function constructor
                 try {
                     new Function(cleanCode);
                 } catch (e) {
@@ -468,6 +473,39 @@
                         line: lineNum
                     });
                 }
+
+                // Check for missing parentheses in function declarations
+                lines.forEach((line, i) => {
+                    const trimmed = line.trim();
+                    if (trimmed.startsWith('function ') && !trimmed.includes('(')) {
+                        errors.push({
+                            message: `The function declaration is missing parentheses after the function name. Ensure the function is defined with '()' after the name (e.g., 'function sayHello()').`,
+                            line: i + 1
+                        });
+                    }
+                });
+
+                // Check for undeclared variables in loops and assignments
+                const varRegex = /\b(let|const|var)\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\b/g;
+                const declaredVars = new Set();
+                let match;
+                while ((match = varRegex.exec(cleanCode)) !== null) {
+                    declaredVars.add(match[2]);
+                }
+
+                lines.forEach((line, i) => {
+                    const trimmed = line.trim();
+                    if (trimmed.match(/for\s*\(\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*=/)) {
+                        const loopVarMatch = trimmed.match(/for\s*\(\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=/);
+                        if (loopVarMatch && !declaredVars.has(loopVarMatch[1]) && !trimmed.match(/\b(let|const|var)\s+[a-zA-Z_$][a-zA-Z0-9_$]*\s*=/)) {
+                            errors.push({
+                                message: `The variable '${loopVarMatch[1]}' in the for loop is not declared. Use 'let', 'const', or 'var' to declare it (e.g., 'let ${loopVarMatch[1]}').`,
+                                line: i + 1
+                            });
+                        }
+                    }
+                });
+
                 return errors;
             },
             python: (code) => {
@@ -730,6 +768,7 @@
 
             if (!code) {
                 errorDiv.innerHTML = 'No code entered';
+                outputSection.style.display = 'none';
                 return;
             }
 
@@ -760,15 +799,28 @@
                 if (!code) {
                     errorDiv.innerHTML = 'No code entered';
                     outputFrame.srcdoc = '';
+                    outputSection.style.display = 'none';
                     return;
                 }
 
-                outputFrame.srcdoc = '';
+                const language = detectLanguage(code);
 
-                if (code.includes('<html') && code.includes('</html>')) {
+                if (language === 'html') {
                     outputFrame.srcdoc = code;
+                    outputSection.style.display = 'block';
                 } else {
-                    outputFrame.srcdoc = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Output</title></head><body>${code}</body></html>`;
+                    // For non-HTML, check if code contains HTML tags for potential rendering
+                    const hasHtmlTags = /<[a-z][\s\S]*>/i.test(code);
+                    if (hasHtmlTags) {
+                        outputFrame.srcdoc = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Output</title></head><body>${code}</body></html>`;
+                        outputSection.style.display = 'block';
+                    } else {
+                        outputFrame.srcdoc = '';
+                        outputSection.style.display = 'none';
+                        errorDiv.innerHTML = 'No visible output for this code. Only HTML content is displayed in the output section.';
+                        errorDiv.style.color = '#909090';
+                        return;
+                    }
                 }
 
                 errorDiv.innerHTML = 'No Errors Detected';
@@ -782,6 +834,7 @@
             } catch (e) {
                 errorDiv.innerHTML = 'Execution error';
                 outputFrame.srcdoc = '';
+                outputSection.style.display = 'none';
             }
         }
 
@@ -789,6 +842,7 @@
             const code = textarea.value.trim();
             if (!code) {
                 errorDiv.innerHTML = 'No code entered';
+                outputSection.style.display = 'none';
                 return;
             }
             saveFileContainer.style.display = 'flex';
