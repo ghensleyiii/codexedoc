@@ -1684,7 +1684,7 @@
         const plansList = document.getElementById('plansList');
         const planDetails = document.getElementById('planDetails');
 
-        function parseReading(reading) {
+        /*function parseReading(reading) {
             const [book, range] = reading.split(/ (.+)/);
             if (!range) return [{ book, chapters: [] }];
             const chapterRanges = range.split('; ').map(r => {
@@ -1696,9 +1696,35 @@
                 return { book, chapters };
             });
             return chapterRanges;
+        }*/
+        function parseReading(reading) {
+            const readings = reading.split('; ').map(r => r.trim());
+            const result = [];
+
+            for (const r of readings) {
+            const match = r.match(/^([\w\s]+?)\s*(\d+(?:-\d+)?)?$/);
+            if (!match) continue;
+
+            const book = match[1].trim();
+            const range = match[2] || '1';
+
+            let chapters = [];
+            if (range.includes('-')) {
+                const [start, end] = range.split('-').map(Number);
+                for (let i = start; i <= end; i++) {
+                    chapters.push(i);
+                }
+            } else {
+                chapters.push(Number(range));
+            }
+
+            result.push({ book, chapters });
+            }
+
+            return result;
         }
 
-        function updateTrackerFromPlan(planName, dayIndex, isChecked) {
+        /*function updateTrackerFromPlan(planName, dayIndex, isChecked) {
             const reading = readingPlans[planName][dayIndex];
             const parsedReadings = parseReading(reading);
             parsedReadings.forEach(({ book, chapters }) => {
@@ -1716,6 +1742,26 @@
                 });
             });
             saveProgress();
+        }*/
+        function updateTrackerFromPlan(planName, dayIndex, isChecked) {
+        const reading = readingPlans[planName][dayIndex];
+        const parsedReadings = parseReading(reading);
+
+        parsedReadings.forEach(({ book, chapters }) => {
+            chapters.forEach(chapter => {
+                const key = `${book}-${chapter}`;
+                progress[key] = isChecked;
+
+                const chapterSpan = document.querySelector(
+                    `.book[data-book="${book}"] .chapter span:nth-child(${chapter})`
+                );
+                if (chapterSpan) {
+                    chapterSpan.classList.toggle('completed', isChecked);
+                }
+            });
+        });
+
+        saveProgress();
         }
 
         Object.keys(readingPlans).forEach(planName => {
