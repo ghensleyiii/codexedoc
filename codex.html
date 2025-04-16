@@ -64,7 +64,7 @@
             font-size: 18px;
             font-weight: bold;
             color: white;
-            background-color: #00cc00;
+            background-color: #1e90ff;
             border: none;
             border-radius: 5px;
             text-decoration: none;
@@ -83,7 +83,7 @@
             font-size: 18px;
             font-weight: bold;
             color: white;
-            background-color: #00cc00;
+            background-color: #1e90ff;
             border: none;
             border-radius: 5px;
             text-decoration: none;
@@ -97,7 +97,7 @@
         }
 
         #trackerToggle:hover, #notesToggle:hover, #plansToggle:hover {
-            background-color: #1e90ff;
+            background-color: #333333;
             transform: scale(1.05);
         }
 
@@ -185,7 +185,7 @@
         }
 
         .book-title.completed {
-            background-color: #00cc00;
+            background-color: #333333;
             color: #eeeeee;
         }
 
@@ -279,12 +279,12 @@
         }
 
         #resetTracker:hover, .delete-btn:hover {
-            background-color: #1e90ff;
+            background-color: #333333;
             transform: scale(1.05);
         }
 
         #resetTracker.active, .delete-btn.active {
-            background-color: #00cc00;
+            background-color: #1e90ff;
         }
 
         #resetTracker input[type="checkbox"], .delete-btn input[type="checkbox"] {
@@ -332,7 +332,7 @@
         }
 
         #saveBtn:hover {
-            background-color: #00cc00;
+            background-color: #333333;
         }
 
         .search-section {
@@ -409,7 +409,7 @@
             display: flex;
             align-items: center;
             padding: 5px 0;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #333;
             color: #333;
         }
 
@@ -427,7 +427,7 @@
             appearance: none;
             border: 2px solid #333;
             border-radius: 3px;
-            background-color: #fff;
+            background-color: #eee;
             transition: background-color 0.3s ease;
         }
 
@@ -443,7 +443,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #fff;
+            color: #eee;
             font-size: 14px;
             font-weight: bold;
         }
@@ -778,7 +778,7 @@
                     };
                     editingArticleId = null;
                     saveBtn.textContent = 'Save Article';
-                    saveBtn.style.backgroundColor = '#FFD800';
+                    saveBtn.style.backgroundColor = '#1e90ff';
                 } else {
                     const article = {
                         id: Date.now(),
