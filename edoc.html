@@ -18,17 +18,17 @@
             background-color: #eee;
             color: #333;
             line-height: 1.6;
-            min-height: 100vh; /* Added */
-            display: flex; /* Added */
-            flex-direction: column; /* Added */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-	    
+        
         .main-section {
             background-color: #eee;
             padding: 50px 20px;
             text-align: center;
             color: #333;
-            flex: 1; /* Added */
+            flex: 1;
         }
 
         .instructions {
@@ -58,20 +58,39 @@
         }
 
         .tab-btn {
-            background-color: #1e90ff;
-            color: #eee;
-            padding: 10px 20px;
-            border: 2px solid #1e90ff;
-            border-radius: 5px;
+            background-color: #eee; /* Light gray background */
+            color: #1e90ff; /* Blue text */
+            padding: 15px 20px;
+            border: 2px solid #1e90ff; /* Blue border */
+            border-radius: 0;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
             text-decoration: none;
-	   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+			border-radius: 5px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+        }
+
+        .tab-btn img {
+            width: 48px; /* Doubled from 24px */
+            height: 48px; /* Doubled from 24px */
+        }
+
+        .tab-btn span {
+            flex: 1;
+            text-align: center;
+            font-family: 'Audiowide', cursive, sans-serif;
         }
 
         .tab-btn:hover {
-            background-color: #333333;
+            border-color: #333; /* Dark gray border on hover */
+            color: #333; /* Dark gray text on hover */
         }
 
         @media (max-width: 768px) {
@@ -81,15 +100,27 @@
             }
 
             .tab-btn {
-                padding: 8px 15px;
+                padding: 12px 15px;
                 font-size: 0.9rem;
+                max-width: 250px;
+            }
+
+            .tab-btn img {
+                width: 40px; /* Doubled from 20px */
+                height: 40px; /* Doubled from 20px */
             }
         }
 
         @media (max-width: 480px) {
             .tab-btn {
-                padding: 6px 10px;
+                padding: 10px 12px;
                 font-size: 0.8rem;
+                max-width: 200px;
+            }
+
+            .tab-btn img {
+                width: 36px; /* Doubled from 18px */
+                height: 36px; /* Doubled from 18px */
             }
         }
     </style>
@@ -102,17 +133,16 @@
     </header>
 
     <section class="main-section">
-        <!-- Instructions added here -->
         <div class="instructions">
             <h2>Begin Your Coding Career</h2>
-            <p>Welcome to CODEXEDOC! Start by selecting a programming language below. Each course offers lessons to help you learn coding, followed by a test to prove your knowledge. Pass the test to earn a certificate and showcase your achievement.</p>
+            <p>Welcome to CODEXEDOC! Start by selecting a programming language below. Each language offers a course to help you learn coding, a test to prove your knowledge, and a language library. Pass the test to earn a certificate and showcase your achievement.</p>
         </div>
 
         <div class="tabs">
-            <a href="html-course.html" class="tab-btn">HTML</a>
-            <a href="css-course.html" class="tab-btn">CSS</a>
-            <a href="javascript-course.html" class="tab-btn">JavaScript</a>
-            <a href="python-course.html" class="tab-btn">Python</a>
+            <a href="html-course.html" class="tab-btn"><img src="html.png" alt="HTML Icon"><span>HTML</span></a>
+            <a href="css-course.html" class="tab-btn"><img src="css.png" alt="CSS Icon"><span>CSS</span></a>
+            <a href="javascript-course.html" class="tab-btn"><img src="javascript.png" alt="JavaScript Icon"><span>JavaScript</span></a>
+            <a href="python-course.html" class="tab-btn"><img src="python.png" alt="Python Icon"><span>Python</span></a>
         </div>
     </section>
     <footer>
