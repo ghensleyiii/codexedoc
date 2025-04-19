@@ -93,19 +93,6 @@
   color: #1e90ff;
 }
 
-@media (max-width: 768px) {
-  .logo {
-    font-size: 2rem;
-  }
-
-  .logo span {
-    font-size: 3rem; /* 1rem larger than .logo */
-    vertical-align: baseline; /* Aligns baseline */
-    position: relative; /* Fine-tuning */
-    top: 0.30rem; /* Increased to lower the X a tiny bit more */
-    }
-
-}
 /*END OF HEADER LOGO*/
         .hero {
             text-align: center;
@@ -249,6 +236,21 @@
         .feedback.incorrect {
             color: #333;
         }
+
+	@media (max-width: 768px) {
+            .logo {
+                 font-size: 2rem;
+            }
+
+            .logo span {
+                 font-size: 3rem; /* 1rem larger than .logo */
+                 vertical-align: baseline; /* Aligns baseline */
+                 position: relative; /* Fine-tuning */
+                 top: 0.30rem; /* Increased to lower the X a tiny bit more */
+             }
+
+	     
+         }
     </style>
 </head>
    <header class="headerlogo">
