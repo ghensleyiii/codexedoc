@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="favicon.ico"> <!-- Browser tab favicon -->
-    <link rel="apple-touch-icon" href="apple-touch-icon.png"> <!-- iOS home screen icon -->
-    <link rel="icon" type="image/png" sizes="192x192" href="apple-touch-icon.png"> <!-- Android home screen icon -->
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
-    <title>HTML PROGRAMMING LANGUAGE</title>
+    <title>HTML</title>
     <style>
         * {
             box-sizing: border-box;
@@ -23,11 +19,8 @@
         .hero {
             text-align: center;
             margin-bottom: 20px;
-
-        .hero h1 {
-          font-family: 'Audiowide', cursive, sans-serif;
         }
-        h1 {
+        .headone {
             font-size: 2em;
             color: #333;
         }
@@ -165,14 +158,9 @@
         }
     </style>
 </head>
-    <!--<header>
-        <div class="logo">
-            <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
-        </div>
-    </header>-->
 <body>
     <div class="hero">
-        <h1>HTML PROGRAMMING LANGUAGE</h1>
+        <h1 class="headone">HTML</h1>
         <nav class="tabs">
             <button class="tab-btn active" data-tab="lessons" aria-label="View lessons">Lessons</button>
             <button class="tab-btn" data-tab="test" aria-label="Take test">Test</button>
@@ -206,6 +194,12 @@
             <div id="library-content"></div>
         </section>
     </main>
+
+    <footer>
+        <p><span class="footer-logo">CODE<span><a class="bible" href="codex.html">X</a></span>EDOC</span></p>
+        <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
+        <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+    </footer>
 
     <script>
 	        const lessons = [
@@ -2999,9 +2993,4 @@ x = 10;
         displayLibrary();
     </script>
 </body>
-    <!--<footer>
-        <p><span class="footer-logo">CODE<span><a class="bible" href="codex.html">X</a></span>EDOC</span></p>
-        <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
-        <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
-    </footer>-->
 </html>
