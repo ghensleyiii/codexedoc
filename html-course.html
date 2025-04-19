@@ -1,0 +1,3008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico"> <!-- Browser tab favicon -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png"> <!-- iOS home screen icon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="apple-touch-icon.png"> <!-- Android home screen icon -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <title>HTML PROGRAMMING LANGUAGE</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #eee;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 20px;
+
+        .hero h1 {
+          font-family: 'Audiowide', cursive, sans-serif;
+        }
+        h1 {
+            font-size: 2em;
+            color: #333;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .tab-btn {
+            padding: 10px 20px;
+            background: #1e90ff;
+            color: #eee;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tab-btn.active {
+            background: #333;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .lesson-nav, .test-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .nav-btn {
+            padding: 8px 16px;
+            background: #1e90ff;
+            color: #eee;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .nav-btn:disabled {
+            background: #eee;
+            cursor: not-allowed;
+        }
+        .lesson-body, .test-content {
+            background: #eee;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .lesson-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        .lesson-links button {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: #1e90ff;
+            color: #eee;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .lesson-links button:hover {
+            background: #333;
+        }
+        .lesson-links button.active {
+            background: #333;
+        }
+        .demo-box {
+            border-top: 3px solid #1e90ff;
+            padding: 10px;
+            border-radius: 4px;
+            background: #eee;
+			margin-top: 20px;
+        }
+        pre {
+            background: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+			border: 1px solid #1e90ff;
+			margin-top: 20px;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background: #eee;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .test-content form {
+            margin-bottom: 20px;
+        }
+        .test-content label {
+            display: block;
+            margin: 5px 0;
+        }
+        .test-summary {
+            margin-top: 20px;
+            background: #eee;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        #library-search {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #1e90ff;
+            border-radius: 4px;
+        }
+        #library-content details {
+            margin-bottom: 10px;
+        }
+        #library-content summary {
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .feedback {
+            margin-top: 5px;
+        }
+        .feedback.correct {
+            color: #1e90ff;
+        }
+        .feedback.incorrect {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+  <header>
+        <div class="logo">
+            <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
+        </div>
+    </header>
+    <div class="hero">
+        <h1>HTML PROGRAMMING LANGUAGE</h1>
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="lessons" aria-label="View lessons">Lessons</button>
+            <button class="tab-btn" data-tab="test" aria-label="Take test">Test</button>
+            <button class="tab-btn" data-tab="library" aria-label="View HTML tag library">Library</button>
+        </nav>
+    </div>
+
+    <main>
+        <section id="lessons" class="tab-content active">
+            <div class="lesson-nav">
+                <button class="nav-btn" id="prev-lesson" aria-label="Previous lesson" disabled>Previous</button>
+                <h2 id="lesson-title"></h2>
+                <button class="nav-btn" id="next-lesson" aria-label="Next lesson">Next</button>
+            </div>
+            <div id="lesson-content" class="lesson-body"></div>
+            <div class="lesson-links"></div>
+        </section>
+
+        <section id="test" class="tab-content">
+            <div class="test-nav">
+                <button class="nav-btn" id="prev-test" aria-label="Previous test page" disabled>Previous</button>
+                <span id="test-progress"></span>
+                <button class="nav-btn" id="next-test" aria-label="Next test page">Next</button>
+            </div>
+            <div id="test-content" class="test-content"></div>
+            <div id="test-summary" class="test-summary"></div>
+        </section>
+
+        <section id="library" class="tab-content">
+            <input type="text" id="library-search" placeholder="Search tags..." aria-label="Search HTML tags">
+            <div id="library-content"></div>
+        </section>
+    </main>
+    <footer>
+        <p><span class="footer-logo">CODE<span><a class="bible" href="codex.html">X</a></span>EDOC</span></p>
+        <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
+        <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+    </footer>
+
+    <script>
+	        const lessons = [
+    {
+        title: "What is HTML?",
+        content: `
+            <p>HTML, or HyperText Markup Language, is the standard language for creating webpages, defining their structure and content. It uses tags, such as &lt;p&gt; for paragraphs or &lt;img&gt; for images, to organize text, media, and links. Unlike programming languages, HTML focuses on markup, instructing browsers how to display elements. It was developed to share information across networks, enabling global accessibility. HTML forms the backbone of the internet, used by every website to deliver content. Its simplicity makes it beginner-friendly, yet it supports complex layouts. Tags are enclosed in angle brackets, creating elements that browsers render. HTML5, the latest version, enhances multimedia and mobile support. Learning HTML is the first step in web development, essential for structuring digital content. This lesson introduces HTML's purpose, setting the foundation for your journey.</p>
+            <pre><code>
+&lt;!-- Simple HTML example --&gt;
+&lt;p&gt;Welcome to HTML!&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>Welcome to HTML!</p>
+            </div>
+        `
+    },
+    {
+        title: "History of HTML",
+        content: `
+            <p>HTML was first proposed by Tim Berners-Lee in 1989 at CERN to share scientific documents online. The initial version, released in 1991, included basic tags like &lt;h1&gt; and &lt;p&gt; for simple pages. HTML 2.0, launched in 1995, standardized forms and tables, expanding functionality. By 1997, HTML 3.2 introduced styling features, though limited by today’s standards. HTML 4.01, finalized in 1999, improved accessibility and scripting support. XHTML, introduced in 2000, enforced stricter syntax aligned with XML. HTML5, released in 2014, brought multimedia tags like &lt;video&gt; and semantic elements like &lt;article&gt;. It reduced reliance on plugins like Flash, prioritizing mobile compatibility. HTML continues to evolve under the WHATWG, adapting to modern needs. This lesson traces HTML’s growth, preparing you for its current capabilities.</p>
+            <pre><code>
+&lt;!-- Early HTML example --&gt;
+&lt;title&gt;My Page&lt;/title&gt;
+&lt;h1&gt;Hello&lt;/h1&gt;
+            </code></pre>
+            <div class="demo-box">
+                <h1>Hello</h1>
+            </div>
+        `
+    },
+    {
+        title: "How HTML Works",
+        content: `
+            <p>HTML structures content using tags, which browsers interpret to render webpages. Tags, like &lt;div&gt; or &lt;a&gt;, form elements that define text, links, or media. These elements create a Document Object Model (DOM), a tree structure browsers use to display content. The &lt;!DOCTYPE html&gt; declaration ensures standards compliance, starting every document. The &lt;html&gt; tag contains &lt;head&gt; for metadata and &lt;body&gt; for visible content. Browsers parse HTML sequentially, applying default styles unless overridden. Semantic tags, like &lt;section&gt;, enhance accessibility by conveying meaning. HTML is platform-independent, working across devices like phones or desktops. Errors, such as unclosed tags, can disrupt rendering, so accuracy matters. This lesson explains HTML’s mechanics, preparing you for practical coding.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;p&gt;HTML in action.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>HTML in action.</p>
+            </div>
+        `
+    },
+    {
+        title: "HTML in Web Development",
+        content: `
+            <p>HTML is the foundation of web development, structuring content for every webpage. It works alongside technologies like CSS for styling and JavaScript for interactivity, forming the web’s core. Tags like &lt;form&gt; or &lt;nav&gt; enable features such as user input or navigation. HTML5 introduced APIs for advanced functionality, like geolocation. Search engines use HTML’s semantic structure to index pages, impacting SEO. Developers rely on HTML to create accessible, user-friendly interfaces for blogs, stores, or apps. Its versatility supports both static and dynamic sites. Cross-browser compatibility ensures consistent rendering across Chrome, Firefox, or Safari. HTML’s simplicity allows rapid prototyping, while its depth powers complex platforms. This lesson highlights HTML’s critical role in digital experiences.</p>
+            <pre><code>
+&lt;nav&gt;
+    &lt;a href="#"&gt;Home&lt;/a&gt;
+&lt;/nav&gt;
+&lt;p&gt;Web content&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <nav><a href="#" onclick="return false;">Home</a></nav>
+                <p>Web content</p>
+            </div>
+        `
+    },
+    {
+        title: "Why Learn HTML?",
+        content: `
+            <p>Learning HTML unlocks the ability to create and customize webpages, a vital skill in the digital age. It’s the first step in web development, foundational for careers in coding or design. HTML’s simple syntax is accessible to beginners, yet it scales to professional projects. Understanding HTML improves collaboration with developers, as it’s the web’s universal language. It enhances SEO knowledge, helping content reach wider audiences. HTML5’s modern features, like &lt;video&gt; support, keep it relevant. Free tools and communities make learning widely accessible. Mastering HTML builds confidence to explore advanced topics like CSS. It empowers you to build portfolios, blogs, or business sites. This lesson motivates you to embrace HTML’s practical value.</p>
+            <pre><code>
+&lt;!-- HTML’s impact --&gt;
+&lt;p&gt;Create now!&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>Create now!</p>
+            </div>
+        `
+    },
+    {
+        title: "Basic HTML Document Structure",
+        content: `
+            <p>Every HTML document follows a standard structure to ensure consistent rendering across browsers. The &lt;!DOCTYPE html&gt; declaration specifies HTML5, placed at the document’s start. The &lt;html&gt; tag, with a lang="en" attribute, wraps all content, defining the language. The &lt;head&gt; tag holds metadata, like the &lt;title&gt;, which sets the page’s name. The &lt;body&gt; contains visible content, such as text or images. Proper nesting of tags prevents rendering errors, maintaining functionality. The &lt;meta charset="UTF-8"&gt; attribute ensures global character support. This structure is the foundation for all webpages, simple or complex. Mastering it is essential for building valid HTML. This lesson introduces the document skeleton, starting your coding journey.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;title&gt;First Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;Hello, World!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>Hello, World!</p>
+            </div>
+        `
+    },
+    {
+        title: "Understanding HTML Tags",
+        content: `
+            <p>HTML tags are the core components of webpages, defining elements like headings or paragraphs. Tags, such as &lt;h1&gt; or &lt;p&gt;, are enclosed in angle brackets, with most requiring a closing tag, like &lt;/p&gt;. An element includes the tag and its content, e.g., &lt;p&gt;Text&lt;/p&gt;. Self-closing tags, like &lt;img&gt;, don’t need a closing tag. Tags can be nested, but incorrect nesting causes rendering issues. Each tag has a specific role, from text formatting to media embedding. Elements form the DOM, which browsers use to display pages. Proper tag usage ensures structured content. This lesson covers tag basics, building on document structure. It prepares you for creating organized webpages.</p>
+            <pre><code>
+&lt;h1&gt;Welcome&lt;/h1&gt;
+&lt;p&gt;This is a paragraph.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <h1>Welcome</h1>
+                <p>This is a paragraph.</p>
+            </div>
+        `
+    },
+    {
+        title: "HTML Attributes",
+        content: `
+            <p>Attributes add extra information to HTML elements, enhancing their functionality within the opening tag. They are written as name="value", like href="https://example.com" in &lt;a&gt; tags for links. Common attributes include id for unique identifiers and class for grouping elements. The alt attribute in &lt;img&gt; provides accessibility text for images. Attributes like src specify file paths for media elements. Some attributes, like required, enforce form input rules. Proper attribute use ensures robust page behavior. Errors in attribute syntax can break functionality, so precision is key. This lesson introduces attributes, extending your tag knowledge. It sets the stage for more complex HTML structures.</p>
+            <pre><code>
+&lt;a href="https://example.com"&gt;Visit Site&lt;/a&gt;
+&lt;img src="image.jpg" alt="Description"&gt;
+            </code></pre>
+            <div class="demo-box">
+                <a href="#" onclick="return false;">Visit Site</a>
+                <p><img src="https://via.placeholder.com/100" alt="Description"></p>
+            </div>
+        `
+    },
+    {
+        title: "Headings in HTML",
+        content: `
+            <p>Headings organize content hierarchically, making webpages scannable and accessible. HTML provides six levels, from &lt;h1&gt; (most important) to &lt;h6&gt; (least), used for titles and subtitles. The &lt;h1&gt; tag typically defines the main page topic, appearing once per page. Lower headings, like &lt;h2&gt; or &lt;h3&gt;, create subsections, guiding readers. Proper hierarchy improves SEO, as search engines prioritize headings. Screen readers rely on headings for navigation, enhancing accessibility. Overusing high-level headings can confuse structure, so balance is essential. Headings should be semantic, not styled with other tags like &lt;p&gt;. This lesson covers heading usage, building on tags. It prepares you for structured content creation.</p>
+            <pre><code>
+&lt;h1&gt;Main Title&lt;/h1&gt;
+&lt;h2&gt;Subtitle&lt;/h2&gt;
+&lt;h3&gt;Section&lt;/h3&gt;
+            </code></pre>
+            <div class="demo-box">
+                <h1>Main Title</h1>
+                <h2>Subtitle</h2>
+                <h3>Section</h3>
+            </div>
+        `
+    },
+    {
+        title: "Paragraphs and Text",
+        content: `
+            <p>The &lt;p&gt; tag defines paragraphs, grouping text to separate ideas for readability. Paragraphs are block-level elements, starting new lines to structure content clearly. They can contain text, inline tags like &lt;strong&gt;, or links, but not block elements like &lt;div&gt;. Proper paragraph use enhances user comprehension and page flow. Overlapping paragraphs with other block tags causes rendering errors. The &lt;p&gt; tag is essential for articles, blogs, or descriptions. It supports accessibility by providing clear content breaks. Paragraphs can be nested in sections for better organization. This lesson explores text structuring, building on headings. It sets the foundation for content-heavy pages.</p>
+            <pre><code>
+&lt;p&gt;This is a paragraph.&lt;/p&gt;
+&lt;p&gt;Another paragraph with &lt;strong&gt;bold&lt;/strong&gt; text.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>This is a paragraph.</p>
+                <p>Another paragraph with <strong>bold</strong> text.</p>
+            </div>
+        `
+    },
+    {
+        title: "Links with Anchor Tags",
+        content: `
+            <p>The &lt;a&gt; tag creates hyperlinks, connecting pages or sections via the href attribute, like href="https://example.com". The target="_blank" attribute opens links in new tabs, improving navigation. Internal links, using href="#id", jump to page sections for smooth scrolling. The title attribute adds hover text, enhancing accessibility. Links can point to emails or files, expanding functionality. Well-structured links improve user experience and site connectivity. Broken links harm usability, so validation is crucial. The &lt;a&gt; tag is inline, fitting within text seamlessly. This lesson covers hyperlink creation, building on attributes. It prepares you for navigation structures.</p>
+            <pre><code>
+&lt;a href="https://example.com" target="_blank"&gt;External Link&lt;/a&gt;
+&lt;a href="#section"&gt;To Section&lt;/a&gt;
+            </code></pre>
+            <div class="demo-box">
+                <a href="#" onclick="return false;">External Link</a>
+                <p><a href="#" onclick="return false;">To Section</a></p>
+            </div>
+        `
+    },
+    {
+        title: "Images in HTML",
+        content: `
+            <p>The &lt;img&gt; tag embeds images, enhancing visual appeal, using src to specify the file path. The alt attribute provides text for screen readers or failed loads, boosting accessibility. Attributes like width and height control display size, ensuring consistent layouts. Optimized images reduce load times, critical for performance. Relative paths, like "images/photo.jpg", simplify file management. Missing alt text harms SEO and inclusivity, so it’s mandatory. The &lt;img&gt; tag is self-closing, requiring no end tag. Images must use web-compatible formats, like PNG or JPEG. This lesson teaches image integration, building on self-closing tags. It prepares you for multimedia content.</p>
+            <pre><code>
+&lt;img src="photo.jpg" alt="Scenic view" width="200"&gt;
+            </code></pre>
+            <div class="demo-box">
+                <img src="https://via.placeholder.com/200" alt="Scenic view">
+            </div>
+        `
+    },
+    {
+        title: "Unordered Lists",
+        content: `
+            <p>Unordered lists, created with &lt;ul&gt;, display items with bullets, ideal for non-sequential data like menus. Each item uses the &lt;li&gt; tag, such as &lt;li&gt;Item&lt;/li&gt;, for individual entries. Lists improve scannability, making content user-friendly. Nested &lt;ul&gt; tags create sublists, enhancing hierarchy. Improper nesting, like missing &lt;li&gt;, causes rendering errors. Unordered lists are block-level, starting new lines for clarity. They’re semantic, distinguishing lists from plain text. The &lt;ul&gt; tag is widely used in navigation or features lists. This lesson introduces unordered lists, building on content structure. It prepares you for ordered lists next.</p>
+            <pre><code>
+&lt;ul&gt;
+    &lt;li&gt;Apple&lt;/li&gt;
+    &lt;li&gt;Banana&lt;/li&gt;
+&lt;/ul&gt;
+            </code></pre>
+            <div class="demo-box">
+                <ul>
+                    <li>Apple</li>
+                    <li>Banana</li>
+                </ul>
+            </div>
+        `
+    },
+    {
+        title: "Ordered Lists",
+        content: `
+            <p>Ordered lists, using &lt;ol&gt;, display numbered items, perfect for steps or rankings. Each item is defined with &lt;li&gt;, like &lt;li&gt;Step&lt;/li&gt;, ensuring sequence clarity. The type attribute, like type="A", changes numbering to letters or Roman numerals. Nested &lt;ol&gt; tags create sublists, useful for detailed instructions. Ordered lists are block-level, aligning neatly in layouts. They’re semantic, conveying priority or order to users and search engines. Incorrect nesting disrupts numbering, so precision is key. The &lt;ol&gt; tag suits recipes or tutorials. This lesson covers ordered lists, building on unordered lists. It expands your ability to organize sequential content.</p>
+            <pre><code>
+&lt;ol&gt;
+    &lt;li&gt;Step 1&lt;/li&gt;
+    &lt;li&gt;Step 2&lt;/li&gt;
+&lt;/ol&gt;
+            </code></pre>
+            <div class="demo-box">
+                <ol>
+                    <li>Step 1</li>
+                    <li>Step 2</li>
+                </ol>
+            </div>
+        `
+    },
+    {
+        title: "Definition Lists",
+        content: `
+            <p>Definition lists, created with &lt;dl&gt;, pair terms and descriptions, ideal for glossaries or metadata. The &lt;dt&gt; tag defines the term, while &lt;dd&gt; provides its description. Multiple &lt;dd&gt; tags can follow a single &lt;dt&gt;, offering flexibility. These lists are semantic, clarifying relationships between terms and details. They’re block-level, ensuring clear separation in layouts. Unlike &lt;ul&gt; or &lt;ol&gt;, &lt;dl&gt; focuses on descriptive content. Proper nesting avoids confusion in rendering. Definition lists are underused but powerful for structured data. This lesson introduces &lt;dl&gt;, building on lists. It prepares you for more semantic elements.</p>
+            <pre><code>
+&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+    &lt;dt&gt;SEO&lt;/dt&gt;
+    &lt;dd&gt;Search Engine Optimization&lt;/dd&gt;
+&lt;/dl&gt;
+            </code></pre>
+            <div class="demo-box">
+                <dl>
+                    <dt>HTML</dt>
+                    <dd>HyperText Markup Language</dd>
+                    <dt>SEO</dt>
+                    <dd>Search Engine Optimization</dd>
+                </dl>
+            </div>
+        `
+    },
+    {
+        title: "Block vs Inline Elements",
+        content: `
+            <p>HTML elements are either block-level or inline, affecting layout and flow. Block elements, like &lt;div&gt; or &lt;p&gt;, start new lines and take full width, ideal for sections. Inline elements, like &lt;span&gt; or &lt;a&gt;, flow within text, perfect for small tweaks. Mixing them correctly shapes page structure. Misusing block elements inside inline ones disrupts rendering. Understanding their behavior is crucial for layout control. Block elements create distinct content areas, while inline elements enhance text. The distinction guides nesting rules in HTML. This lesson clarifies element types, building on tags. It prepares you for divs and spans next.</p>
+            <pre><code>
+&lt;div&gt;Block content&lt;/div&gt;
+&lt;span&gt;Inline content&lt;/span&gt; &lt;span&gt;More inline&lt;/span&gt;
+            </code></pre>
+            <div class="demo-box">
+                <div style="border: 1px solid #ccc;">Block content</div>
+                <span style="border: 1px solid #ccc;">Inline content</span>
+                <span style="border: 1px solid #ccc;">More inline</span>
+            </div>
+        `
+    },
+    {
+        title: "Div Elements",
+        content: `
+            <p>The &lt;div&gt; tag is a block-level container, grouping content for organization or styling. It’s generic, used to structure sections like headers or footers. The &lt;div&gt; tag takes full width, starting a new line in layouts. Attributes like id or class target &lt;div&gt; for specific purposes. Overusing &lt;div&gt; can clutter code, so semantic alternatives are preferred. It’s versatile, foundational for complex page layouts. Nesting &lt;div&gt; creates hierarchical structures, but deep nesting slows rendering. The &lt;div&gt; tag is a building block for web design. This lesson introduces &lt;div&gt;, building on block elements. It prepares you for semantic replacements.</p>
+            <pre><code>
+&lt;div id="container"&gt;
+    &lt;p&gt;Section content&lt;/p&gt;
+&lt;/div&gt;
+            </code></pre>
+            <div class="demo-box">
+                <div style="border: 1px solid #ccc; padding: 10px;">
+                    <p>Section content</p>
+                </div>
+            </div>
+        `
+    },
+    {
+        title: "Span Elements",
+        content: `
+            <p>The &lt;span&gt; tag is an inline container, used to style or script small text portions. Unlike &lt;div&gt;, it doesn’t break text flow, fitting seamlessly in sentences. Attributes like class or id target &lt;span&gt; for specific effects. It’s ideal for highlighting phrases or applying inline changes. Overusing &lt;span&gt; for block content disrupts layouts, so use appropriately. The &lt;span&gt; tag is lightweight, enhancing text without structural impact. It’s often nested in &lt;p&gt; or &lt;div&gt; for precision. The &lt;span&gt; tag complements &lt;div&gt; in fine-tuning content. This lesson covers &lt;span&gt;, building on inline elements. It prepares you for text formatting.</p>
+            <pre><code>
+&lt;p&gt;Text with &lt;span class="highlight"&gt;key&lt;/span&gt; emphasis.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>Text with <span style="background: yellow;">key</span> emphasis.</p>
+            </div>
+        `
+    },
+    {
+        title: "Semantic HTML Introduction",
+        content: `
+            <p>Semantic HTML uses tags like &lt;header&gt; or &lt;article&gt; to describe content purpose, improving clarity. These tags replace generic &lt;div&gt;, aiding screen readers and search engines. For example, &lt;nav&gt; marks navigation, while &lt;footer&gt; defines contact areas. Semantic code is easier to maintain and boosts SEO. Non-semantic tags, like &lt;b&gt;, focus on appearance, not meaning. HTML5 introduced many semantic elements for modern web needs. Proper use enhances accessibility and user experience. Semantic tags convey structure, reducing ambiguity. This lesson introduces semantic HTML, building on &lt;div&gt; and &lt;span&gt;. It prepares you for specific semantic tags.</p>
+            <pre><code>
+&lt;header&gt;
+    &lt;h1&gt;Site Title&lt;/h1&gt;
+&lt;/header&gt;
+&lt;main&gt;
+    &lt;article&gt;Content&lt;/article&gt;
+&lt;/main&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header style="background: #eee; padding: 10px;">
+                    <h1>Site Title</h1>
+                </header>
+                <main>
+                    <article>Content</article>
+                </main>
+            </div>
+        `
+    },
+    {
+        title: "Header and Footer Tags",
+        content: `
+            <p>The &lt;header&gt; tag defines introductory content, like logos or titles, typically at the page top. The &lt;footer&gt; tag marks concluding content, such as contact info or links. Both are semantic, clarifying page structure for users and machines. They’re block-level, often containing &lt;nav&gt; or &lt;p&gt; tags. The &lt;header&gt; can appear in &lt;article&gt; or &lt;section&gt;, not just page-wide. The &lt;footer&gt; supports accessibility by grouping end-of-page data. Misusing them for non-semantic purposes reduces clarity. These tags replace generic &lt;div&gt; for better organization. This lesson covers &lt;header&gt; and &lt;footer&gt;, building on semantic HTML. It prepares you for navigation elements.</p>
+            <pre><code>
+&lt;header&gt;
+    &lt;h1&gt;Welcome&lt;/h1&gt;
+&lt;/header&gt;
+&lt;footer&gt;
+    &lt;p&gt;Contact us&lt;/p&gt;
+&lt;/footer&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header style="background: #eee; padding: 10px;">
+                    <h1>Welcome</h1>
+                </header>
+                <footer style="background: #eee; padding: 10px;">
+                    <p>Contact us</p>
+                </footer>
+            </div>
+        `
+    },
+    {
+        title: "Navigation with Nav Tag",
+        content: `
+            <p>The &lt;nav&gt; tag defines navigation links, like menus or breadcrumbs, enhancing accessibility. It’s semantic, signaling navigation areas to screen readers and search engines. The &lt;nav&gt; tag is block-level, often containing &lt;ul&gt; with &lt;a&gt; tags for links. Multiple &lt;nav&gt; tags can exist, like for primary and secondary menus. The role="navigation" attribute adds ARIA support for inclusivity. Misusing &lt;nav&gt; for non-navigation links reduces semantic value. It’s commonly nested in &lt;header&gt; or &lt;footer&gt;. The &lt;nav&gt; tag improves site usability and SEO. This lesson covers &lt;nav&gt;, building on semantic tags. It prepares you for main and article tags.</p>
+            <pre><code>
+&lt;nav role="navigation"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+            </code></pre>
+            <div class="demo-box">
+                <nav role="navigation">
+                    <ul>
+                        <li><a href="#" onclick="return false;">Home</a></li>
+                        <li><a href="#" onclick="return false;">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        `
+    },
+    {
+        title: "Main and Article Tags",
+        content: `
+            <p>The &lt;main&gt; tag defines the primary content of a page, excluding headers or footers, used once per page. The &lt;article&gt; tag marks standalone content, like blog posts, that can exist independently. Both are semantic, improving accessibility and SEO. The &lt;main&gt; tag is block-level, often wrapping &lt;article&gt; or &lt;section&gt; tags. The &lt;article&gt; tag can include &lt;header&gt; or &lt;footer&gt; for context. Misusing &lt;main&gt; for sidebars reduces clarity, so specificity matters. These tags replace generic &lt;div&gt;, streamlining structure. They enhance content focus for users and crawlers. This lesson covers &lt;main&gt; and &lt;article&gt;, building on navigation. It prepares you for section tags.</p>
+            <pre><code>
+&lt;main&gt;
+    &lt;article&gt;
+        &lt;h2&gt;Post Title&lt;/h2&gt;
+        &lt;p&gt;Content here.&lt;/p&gt;
+    &lt;/article&gt;
+&lt;/main&gt;
+            </code></pre>
+            <div class="demo-box">
+                <main>
+                    <article>
+                        <h2>Post Title</h2>
+                        <p>Content here.</p>
+                    </article>
+                </main>
+            </div>
+        `
+    },
+    {
+        title: "Section and Aside Tags",
+        content: `
+            <p>The &lt;section&gt; tag groups related content, like chapters or tabs, with a thematic purpose. The &lt;aside&gt; tag marks tangential content, like sidebars or ads, related but not central. Both are semantic, enhancing document structure for accessibility. The &lt;section&gt; tag is block-level, often containing &lt;h2&gt; or &lt;article&gt;. The &lt;aside&gt; tag can appear in &lt;main&gt; or standalone, providing supplementary info. Misusing &lt;section&gt; for styling divs reduces meaning. These tags improve content organization and SEO. They’re flexible, supporting nested elements like &lt;p&gt; or &lt;ul&gt;. This lesson covers &lt;section&gt; and &lt;aside&gt;, building on article tags. It prepares you for comments in HTML.</p>
+            <pre><code>
+&lt;section&gt;
+    &lt;h2&gt;Topic&lt;/h2&gt;
+    &lt;p&gt;Details&lt;/p&gt;
+&lt;/section&gt;
+&lt;aside&gt;
+    &lt;p&gt;Related info&lt;/p&gt;
+&lt;/aside&gt;
+            </code></pre>
+            <div class="demo-box">
+                <section>
+                    <h2>Topic</h2>
+                    <p>Details</p>
+                </section>
+                <aside style="background: #f9f9f9; padding: 10px;">
+                    <p>Related info</p>
+                </aside>
+            </div>
+        `
+    },
+    {
+        title: "HTML Comments",
+        content: `
+            <p>HTML comments, written as &lt;!-- Comment --&gt;, are invisible to users, used for developer notes. They clarify code, mark sections, or disable elements during testing. Comments don’t affect page performance but should be concise to avoid clutter. They’re essential for team collaboration, explaining complex structures. Misplaced comments can cause parsing errors, so syntax matters. Comments can span multiple lines, enclosing large code blocks. They’re ignored by browsers, ensuring clean output. The &lt;!-- --&gt; syntax is unique to HTML, distinct from other languages. This lesson covers comments, building on semantic structure. It prepares you for text formatting tags.</p>
+            <pre><code>
+&lt;!-- Page section --&gt;
+&lt;p&gt;Visible text&lt;/p&gt;
+&lt;!-- &lt;p&gt;Hidden text&lt;/p&gt; --&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>Visible text</p>
+            </div>
+        `
+    },
+    {
+        title: "Strong and Emphasis Tags",
+        content: `
+            <p>The &lt;strong&gt; tag marks important text, typically bold, signaling priority to users and search engines. The &lt;em&gt; tag indicates emphasized text, usually italic, adding stress to phrases. Both are semantic, conveying meaning beyond appearance, unlike &lt;b&gt; or &lt;i&gt;. They’re inline, fitting within &lt;p&gt; or &lt;span&gt; seamlessly. The &lt;strong&gt; tag suits key terms, while &lt;em&gt; enhances tone or focus. Screen readers interpret them, improving accessibility. Overusing them dilutes impact, so apply selectively. These tags enhance readability and SEO. This lesson covers &lt;strong&gt; and &lt;em&gt;, building on comments. It prepares you for more text formatting.</p>
+            <pre><code>
+&lt;p&gt;This is &lt;strong&gt;important&lt;/strong&gt; and &lt;em&gt;emphasized&lt;/em&gt; text.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>This is <strong>important</strong> and <em>emphasized</em> text.</p>
+            </div>
+        `
+    },
+    {
+        title: "Line Breaks and Horizontal Rules",
+        content: `
+            <p>The &lt;br&gt; tag inserts a single line break, ideal for addresses or poems, without starting a new paragraph. The &lt;hr&gt; tag adds a horizontal rule, visually separating sections. Both are self-closing, requiring no end tags. The &lt;br&gt; tag is inline, fitting within text, while &lt;hr&gt; is block-level. Overusing &lt;br&gt; disrupts structure, so use &lt;p&gt; for paragraphs. The &lt;hr&gt; tag suits thematic breaks, like chapter divisions. These tags enhance layout control without styling. They’re simple but effective for content flow. This lesson covers &lt;br&gt; and &lt;hr&gt;, building on text formatting. It prepares you for quotations.</p>
+            <pre><code>
+&lt;p&gt;Line one&lt;br&gt;Line two&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;New section&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>Line one<br>Line two</p>
+                <hr>
+                <p>New section</p>
+            </div>
+        `
+    },
+    {
+        title: "Blockquote and Quote Tags",
+        content: `
+            <p>The &lt;blockquote&gt; tag defines long quotations, often indented, with a cite attribute for source URLs. The &lt;q&gt; tag marks short, inline quotes, typically with quotation marks. Both are semantic, distinguishing quoted content from regular text. The &lt;blockquote&gt; is block-level, while &lt;q&gt; is inline, fitting in sentences. They’re ideal for articles or testimonials, adding credibility. The cite attribute enhances traceability, though it’s optional. Misusing &lt;blockquote&gt; for indentation reduces meaning. These tags improve accessibility and context. This lesson covers &lt;blockquote&gt; and &lt;q&gt;, building on line breaks. It prepares you for citations.</p>
+            <pre><code>
+&lt;blockquote cite="https://example.com"&gt;
+    A notable quote.
+&lt;/blockquote&gt;
+&lt;p&gt;As &lt;q&gt;Author&lt;/q&gt; said.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <blockquote>A notable quote.</blockquote>
+                <p>As <q>Author</q> said.</p>
+            </div>
+        `
+    },
+    {
+        title: "Cite Tag for References",
+        content: `
+            <p>The &lt;cite&gt; tag references sources, like books or articles, adding credibility to content. It’s semantic, marking citations for screen readers and SEO. The &lt;cite&gt; tag is inline, often used with &lt;blockquote&gt; or &lt;q&gt;. It can denote titles, authors, or URLs, depending on context. Browsers typically italicize &lt;cite&gt;, but styling is secondary to meaning. Misusing it for non-references reduces semantic value. The tag supports academic or professional pages. It’s subtle but enhances content integrity. This lesson covers &lt;cite&gt;, building on quotations. It prepares you for abbreviations.</p>
+            <pre><code>
+&lt;p&gt;From &lt;cite&gt;Tech Book&lt;/cite&gt; by Author.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>From <cite>Tech Book</cite> by Author.</p>
+            </div>
+        `
+    },
+    {
+        title: "Abbreviation Tag",
+        content: `
+            <p>The &lt;abbr&gt; tag marks abbreviations, like HTML, with a title attribute explaining the full term on hover. It’s semantic, aiding accessibility for users unfamiliar with terms. The &lt;abbr&gt; tag is inline, fitting in text without disruption. It’s ideal for technical or educational content, clarifying acronyms. The title attribute is optional but recommended for clarity. Screen readers announce the title, enhancing inclusivity. Overusing &lt;abbr&gt; for common terms can clutter code. The tag ensures precise communication in complex texts. This lesson covers &lt;abbr&gt;, building on citations. It prepares you for definition tags.</p>
+            <pre><code>
+&lt;p&gt;&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt; is key.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p><abbr title="HyperText Markup Language">HTML</abbr> is key.</p>
+            </div>
+        `
+    },
+    {
+        title: "Definition Tag",
+        content: `
+            <p>The &lt;dfn&gt; tag highlights a term’s definition when introduced, clarifying its meaning. It’s semantic, signaling the term’s importance to users and machines. The &lt;dfn&gt; tag is inline, often used in technical or educational texts. The title attribute can provide additional context, like pronunciation. Screen readers emphasize &lt;dfn&gt;, aiding accessibility. It’s typically used once per term per page for clarity. Misusing &lt;dfn&gt; for non-definitions reduces its value. The tag enhances precision in content delivery. This lesson covers &lt;dfn&gt;, building on abbreviations. It prepares you for address tags.</p>
+            <pre><code>
+&lt;p&gt;&lt;dfn&gt;Semantic&lt;/dfn&gt; means meaningful structure.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p><dfn>Semantic</dfn> means meaningful structure.</p>
+            </div>
+        `
+    },
+    {
+        title: "Address Tag",
+        content: `
+            <p>The &lt;address&gt; tag defines contact information, like emails or physical addresses, often italicized by default. It’s semantic, used in &lt;footer&gt; for site-wide details, not general text. Screen readers recognize &lt;address&gt;, improving accessibility for navigation. The tag is block-level, containing inline elements like &lt;br&gt; or &lt;a&gt;. Misusing it for non-contact data reduces semantic clarity. It’s ideal for business or personal pages, ensuring professional presentation. The &lt;address&gt; tag can include phone numbers or social media links. It’s simple but vital for contact sections. This lesson covers &lt;address&gt;, building on definitions. It prepares you for code display tags.</p>
+            <pre><code>
+&lt;address&gt;
+    123 Main St&lt;br&gt;
+    Email: info@example.com
+&lt;/address&gt;
+            </code></pre>
+            <div class="demo-box">
+                <address>
+                    123 Main St<br>
+                    Email: info@example.com
+                </address>
+            </div>
+        `
+    },
+    {
+        title: "Code Tag for Inline Code",
+        content: `
+            <p>The &lt;code&gt; tag displays inline code snippets, like variables, in a monospace font for clarity. It’s semantic, distinguishing technical text from regular content. The &lt;code&gt; tag is inline, fitting within &lt;p&gt; or &lt;span&gt;. It’s ideal for tutorials or documentation, highlighting syntax. Combining &lt;code&gt; with &lt;pre&gt; shows larger code blocks, but &lt;code&gt; alone suits small fragments. Screen readers announce &lt;code&gt;, aiding accessibility. Misusing it for non-code text reduces meaning. The tag ensures precise technical communication. This lesson covers &lt;code&gt;, building on address tags. It prepares you for preformatted text.</p>
+            <pre><code>
+&lt;p&gt;Use &lt;code&gt;x = 10&lt;/code&gt; in scripts.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>Use <code>x = 10</code> in scripts.</p>
+            </div>
+        `
+    },
+    {
+        title: "Preformatted Text with Pre Tag",
+        content: `
+            <p>The &lt;pre&gt; tag preserves formatting for code or text, maintaining spaces and line breaks. It’s block-level, displaying content in a monospace font for alignment. The &lt;pre&gt; tag is ideal for code blocks, poems, or ASCII art. Combining &lt;pre&gt; with &lt;code&gt; ensures semantic code display. It’s used in tutorials to show exact syntax. Misusing &lt;pre&gt; for regular text disrupts layout. The tag supports accessibility by preserving structure. It’s essential for technical documentation. This lesson covers &lt;pre&gt;, building on code tags. It prepares you for keyboard input tags.</p>
+            <pre><code>
+&lt;pre&gt;
+    &lt;code&gt;
+x = 10;
+    &lt;/code&gt;
+&lt;/pre&gt;
+            </code></pre>
+            <div class="demo-box">
+                <pre><code>
+x = 10;
+                </code></pre>
+            </div>
+        `
+    },
+    {
+        title: "Keyboard Input Tag",
+        content: `
+            <p>The &lt;kbd&gt; tag represents user input, like keyboard shortcuts, in a monospace font. It’s semantic, clarifying instructions for technical guides or tutorials. The &lt;kbd&gt; tag is inline, fitting within &lt;p&gt; or &lt;code&gt;. It’s ideal for documenting commands, like &lt;kbd&gt;Ctrl+S&lt;/kbd&gt;. Screen readers emphasize &lt;kbd&gt;, aiding accessibility. Nesting &lt;kbd&gt; in &lt;code&gt; enhances clarity for code-related inputs. Misusing it for non-input text reduces meaning. The tag improves precision in user guides. This lesson covers &lt;kbd&gt;, building on preformatted text. It prepares you for sample output tags.</p>
+            <pre><code>
+&lt;p&gt;Press &lt;kbd&gt;Ctrl+S&lt;/kbd&gt; to save.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>Press <kbd>Ctrl+S</kbd> to save.</p>
+            </div>
+        `
+    },
+    {
+        title: "Sample Output Tag",
+        content: `
+            <p>The &lt;samp&gt; tag shows program output, like error messages, in a monospace font. It’s semantic, distinguishing output from regular text in tutorials. The &lt;samp&gt; tag is inline, used within &lt;p&gt; or &lt;pre&gt;. It’s ideal for documenting script results, like &lt;samp&gt;Saved&lt;/samp&gt;. Screen readers announce &lt;samp&gt;, improving accessibility. Combining &lt;samp&gt; with &lt;code&gt; clarifies technical contexts. Misusing it for non-output text reduces clarity. The tag enhances technical documentation precision. This lesson covers &lt;samp&gt;, building on keyboard tags. It prepares you for marked text.</p>
+            <pre><code>
+&lt;p&gt;Output: &lt;samp&gt;Saved&lt;/samp&gt;&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>Output: <samp>Saved</samp></p>
+            </div>
+        `
+    },
+    {
+        title: "Mark Tag for Highlights",
+        content: `
+            <p>The &lt;mark&gt; tag highlights text, typically with a yellow background, to emphasize key points. It’s semantic, indicating relevance, unlike styled spans. The &lt;mark&gt; tag is inline, fitting in &lt;p&gt; or &lt;article&gt;. It’s ideal for search results or critical notes in tutorials. Screen readers can emphasize &lt;mark&gt;, aiding accessibility. Overusing it dilutes its impact, so apply selectively. The tag enhances engagement with important content. It’s native, requiring no scripting for effect. This lesson covers &lt;mark&gt;, building on sample tags. It prepares you for time tags.</p>
+            <pre><code>
+&lt;p&gt;This is &lt;mark&gt;critical&lt;/mark&gt; information.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>This is <mark>critical</mark> information.</p>
+            </div>
+        `
+    },
+    {
+        title: "Time Tag for Dates",
+        content: `
+            <p>The &lt;time&gt; tag marks dates or times, adding semantic value for machines and accessibility tools. The datetime attribute, like datetime="2025-04-19", provides a machine-readable format. The &lt;time&gt; tag is inline, fitting in &lt;p&gt; or &lt;article&gt;. It’s ideal for event schedules or blog posts. Search engines use &lt;time&gt; to index temporal data, boosting SEO. The tag supports various formats, like hours or years. Misformatting datetime reduces utility, so precision matters. The &lt;time&gt; tag enhances structured content. This lesson covers &lt;time&gt;, building on marked text. It prepares you for subscript and superscript.</p>
+            <pre><code>
+&lt;p&gt;Event on &lt;time datetime="2025-04-19"&gt;April 19, 2025&lt;/time&gt;.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>Event on <time datetime="2025-04-19">April 19, 2025</time>.</p>
+            </div>
+        `
+    },
+    {
+        title: "Subscript and Superscript Tags",
+        content: `
+            <p>The &lt;sub&gt; tag creates subscript text, like H&lt;sub&gt;2&lt;/sub&gt;O, for formulas or footnotes. The &lt;sup&gt; tag creates superscript text, like x&lt;sup&gt;2&lt;/sup&gt;, for exponents. Both are inline, fitting in &lt;p&gt; or &lt;span&gt;. They’re semantic, conveying specific meanings for scientific or mathematical content. Screen readers interpret them, aiding accessibility. Misusing them for styling disrupts clarity. The tags are essential for academic or technical pages. They’re compact, enhancing readability without extra markup. This lesson covers &lt;sub&gt; and &lt;sup&gt;, building on time tags. It prepares you for HTML entities.</p>
+            <pre><code>
+&lt;p&gt;H&lt;sub&gt;2&lt;/sub&gt;O and x&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>H<sub>2</sub>O and x<sup>2</sup></p>
+            </div>
+        `
+    },
+    {
+        title: "HTML Entities",
+        content: `
+            <p>HTML entities display special characters using codes, like &amp;lt; for &lt; or &amp;gt; for &gt;. They prevent syntax errors when showing code or symbols. Common entities include &amp;nbsp; for non-breaking spaces and &amp;copy; for ©. Entities like &amp;euro; or &amp;#9733; support global symbols. They’re inline, fitting in any text element. Entities ensure consistent rendering across browsers, vital for internationalization. Using &amp;quot; for quotes avoids parsing issues. The &amp;amp; entity displays the ampersand itself. This lesson covers entities, building on subscripts. It prepares you for meta tags.</p>
+            <pre><code>
+&lt;p&gt;Use &amp;lt; for &lt; and &amp;gt; for &gt;.&lt;/p&gt;
+&lt;p&gt;Copyright &amp;copy; 2025&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>Use < for < and > for >.</p>
+                <p>Copyright © 2025</p>
+            </div>
+        `
+    },
+    {
+        title: "Meta Tags in Head",
+        content: `
+            <p>Meta tags, placed in &lt;head&gt;, provide metadata about a page, invisible to users. The &lt;meta charset="UTF-8"&gt; ensures proper character encoding for global languages. The &lt;meta name="description"&gt; summarizes content for search engines, aiding SEO. The &lt;meta name="viewport"&gt; enables responsive design for mobile devices. Meta tags control caching, keywords, or social media previews. They’re self-closing, requiring no end tags. Incorrect meta tags can harm visibility or performance. The &lt;meta&gt; tag is critical for discoverability. This lesson covers meta tags, building on entities. It prepares you for title tags.</p>
+            <pre><code>
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="description" content="HTML Course"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;/head&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Meta tags affect page behavior, not visible.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Title Tag",
+        content: `
+            <p>The &lt;title&gt; tag, in &lt;head&gt;, sets the page’s name, displayed in browser tabs. It’s critical for SEO, as search engines use it in results. The &lt;title&gt; tag is text-only, with no nested tags. It should be concise, under 60 characters, for clarity. Unique titles per page improve indexing and user navigation. Misusing &lt;title&gt; for styling reduces its value. The tag is required in valid HTML5 documents. It’s the first user-facing metadata, shaping impressions. This lesson covers &lt;title&gt;, building on meta tags. It prepares you for base tags.</p>
+            <pre><code>
+&lt;head&gt;
+    &lt;title&gt;My Page&lt;/title&gt;
+&lt;/head&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Title appears in browser tab.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Base Tag for URLs",
+        content: `
+            <p>The &lt;base&gt; tag, in &lt;head&gt;, sets a default URL for relative links, simplifying paths. The href attribute defines the base, like &lt;base href="https://example.com/"&gt;. The target attribute, like "_blank", controls link behavior. Used once per page, it streamlines navigation. Misconfigured &lt;base&gt; tags break links, so testing is vital. The tag is self-closing, requiring no end tag. It’s rare but useful for consistent linking. The &lt;base&gt; tag reduces repetitive code in large sites. This lesson covers &lt;base&gt;, building on title tags. It prepares you for link tags.</p>
+            <pre><code>
+&lt;head&gt;
+    &lt;base href="https://example.com/"&gt;
+&lt;/head&gt;
+&lt;a href="page.html"&gt;Link&lt;/a&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Base tag affects all links.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Link Tag for Resources",
+        content: `
+            <p>The &lt;link&gt; tag, in &lt;head&gt;, connects external resources, like stylesheets or favicons. The href attribute specifies the file, and rel, like "stylesheet", defines the relationship. The &lt;link&gt; tag is self-closing, ensuring clean integration. The type attribute, like "text/css", is optional in HTML5. It’s used for icons, feeds, or preloading assets. Mislinked resources break functionality, so paths matter. The &lt;link&gt; tag enhances page features without visible content. It’s essential for professional web design. This lesson covers &lt;link&gt;, building on base tags. It prepares you for noscript tags.</p>
+            <pre><code>
+&lt;head&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+    &lt;link rel="icon" href="favicon.ico"&gt;
+&lt;/head&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Link tags affect styles or icons.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Noscript Tag for Fallback",
+        content: `
+            <p>The &lt;noscript&gt; tag displays content when JavaScript is disabled, ensuring accessibility. Placed in &lt;body&gt; or &lt;head&gt;, it offers fallback text or links. It’s semantic, supporting users with restricted browsers. The &lt;noscript&gt; tag is block-level, containing &lt;p&gt; or &lt;a&gt;. Misusing it for unrelated content reduces clarity. It’s vital for inclusive design, covering edge cases. The tag requires no attributes, simplifying use. Testing ensures fallback functionality. This lesson covers &lt;noscript&gt;, building on link tags. It prepares you for tables.</p>
+            <pre><code>
+&lt;noscript&gt;
+    &lt;p&gt;Enable JavaScript for full features.&lt;/p&gt;
+&lt;/noscript&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Disable JavaScript to see noscript.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Tables for Data",
+        content: `
+            <p>The &lt;table&gt; tag displays structured data in rows and columns, ideal for schedules or comparisons. The &lt;tr&gt; tag defines rows, &lt;th&gt; creates headers, and &lt;td&gt; holds data cells. Semantic tags like &lt;thead&gt; and &lt;tbody&gt; clarify structure. The border attribute adds visible lines, though styling is separate. The scope attribute in &lt;th&gt; aids screen readers. Tables shouldn’t be used for layouts, as they’re data-specific. Proper structure ensures accessibility and clarity. The &lt;table&gt; tag is block-level, aligning neatly. This lesson covers tables, building on noscript. It prepares you for table captions.</p>
+            <pre><code>
+&lt;table border="1"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Age&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Alice&lt;/td&gt;
+            &lt;td&gt;25&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+            </code></pre>
+            <div class="demo-box">
+                <table border="1">
+                    <thead>
+                        <tr><th>Name</th><th>Age</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Alice</td><td>25</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        `
+    },
+    {
+        title: "Table Captions",
+        content: `
+            <p>The &lt;caption&gt; tag provides a title for a &lt;table&gt;, describing its purpose. Placed immediately after &lt;table&gt;, it’s block-level, appearing above the table. The &lt;caption&gt; tag is semantic, aiding accessibility by summarizing data. It supports inline elements, like &lt;strong&gt; or &lt;a&gt;. Screen readers announce &lt;caption&gt;, improving navigation. Omitting it for complex tables reduces clarity. The tag is optional but recommended for data tables. It enhances user understanding of tabular content. This lesson covers &lt;caption&gt;, building on tables. It prepares you for table headers.</p>
+            <pre><code>
+&lt;table border="1"&gt;
+    &lt;caption&gt;User Data&lt;/caption&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;td&gt;Bob&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+            </code></pre>
+            <div class="demo-box">
+                <table border="1">
+                    <caption>User Data</caption>
+                    <tr>
+                        <th>Name</th>
+                        <td>Bob</td>
+                    </tr>
+                </table>
+            </div>
+        `
+    },
+    {
+        title: "Table Headers with Scope",
+        content: `
+            <p>The &lt;th&gt; tag defines table headers, typically bold and centered, with a scope attribute for accessibility. The scope attribute, like scope="col" or scope="row", clarifies header relationships. The &lt;th&gt; tag is used in &lt;thead&gt; or &lt;tr&gt;, distinguishing headers from &lt;td&gt;. It’s semantic, aiding screen readers in table navigation. Multiple &lt;th&gt; tags create complex headers for large datasets. Omitting scope reduces inclusivity, so it’s recommended. The tag supports inline content, like &lt;abbr&gt;. It’s essential for clear data presentation. This lesson covers &lt;th&gt; with scope, building on captions. It prepares you for table grouping.</p>
+            <pre><code>
+&lt;table border="1"&gt;
+    &lt;tr&gt;
+        &lt;th scope="col"&gt;Name&lt;/th&gt;
+        &lt;th scope="col"&gt;Age&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Clara&lt;/td&gt;
+        &lt;td&gt;30&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+            </code></pre>
+            <div class="demo-box">
+                <table border="1">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                    </tr>
+                    <tr>
+                        <td>Clara</td>
+                        <td>30</td>
+                    </tr>
+                </table>
+            </div>
+        `
+    },
+    {
+        title: "Table Grouping with Thead, Tbody, Tfoot",
+        content: `
+            <p>The &lt;thead&gt;, &lt;tbody&gt;, and &lt;tfoot&gt; tags group table rows for clarity and accessibility. The &lt;thead&gt; tag contains header rows, &lt;tbody&gt; holds main data, and &lt;tfoot&gt; includes summaries, like totals. These tags are semantic, aiding screen readers and SEO. The &lt;tfoot&gt; tag can appear before &lt;tbody&gt; for rendering efficiency. Each is block-level, containing &lt;tr&gt; tags. Omitting them in complex tables reduces structure. They’re optional but recommended for large datasets. The tags enhance table organization and maintenance. This lesson covers table grouping, building on headers. It prepares you for forms.</p>
+            <pre><code>
+&lt;table border="1"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;&lt;th&gt;Item&lt;/th&gt;&lt;th&gt;Cost&lt;/th&gt;&lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;&lt;td&gt;Pen&lt;/td&gt;&lt;td&gt;$2&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;&lt;td&gt;Total&lt;/td&gt;&lt;td&gt;$2&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+            </code></pre>
+            <div class="demo-box">
+                <table border="1">
+                    <thead>
+                        <tr><th>Item</th><th>Cost</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Pen</td><td>$2</td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr><td>Total</td><td>$2</td></tr>
+                    </tfoot>
+                </table>
+            </div>
+        `
+    },
+    {
+        title: "Introduction to HTML Forms",
+        content: `
+            <p>HTML forms collect user input using the &lt;form&gt; tag, wrapping elements like &lt;input&gt; or &lt;button&gt;. The action attribute specifies the submission URL, while method, like "post", defines data handling. Forms are essential for logins, searches, or surveys. The &lt;form&gt; tag is block-level, containing various input types. Semantic structure ensures data integrity and accessibility. The &lt;label&gt; tag, linked via for, improves usability. Forms support validation, reducing errors. They’re the gateway to interactive web features. This lesson introduces &lt;form&gt;, building on tables. It prepares you for input types.</p>
+            <pre><code>
+&lt;form action="/submit" method="post"&gt;
+    &lt;label for="name"&gt;Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name"&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+            </code></pre>
+            <div class="demo-box">
+                <form action="#" onsubmit="return false;">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        `
+    },
+    {
+        title: "Input Types",
+        content: `
+            <p>The &lt;input&gt; tag supports multiple types, like text, email, or checkbox, tailoring user input. Types like date or color provide visual controls, enhancing usability. The email type validates formats, reducing errors. The password type obscures text for security. Each type serves specific form needs, like number for quantities. The &lt;input&gt; tag is inline, requiring no end tag. HTML5 expanded input types for modern forms. Proper type selection improves data quality. This lesson covers input types, building on forms. It prepares you for input attributes.</p>
+            <pre><code>
+&lt;input type="email" placeholder="Enter email"&gt;
+&lt;input type="date"&gt;
+&lt;input type="checkbox"&gt;
+            </code></pre>
+            <div class="demo-box">
+                <input type="email" placeholder="Enter email">
+                <input type="date">
+                <input type="checkbox">
+            </div>
+        `
+    },
+    {
+        title: "Input Attributes",
+        content: `
+            <p>Input attributes, like required or placeholder, enhance &lt;input&gt; functionality. The required attribute enforces input before submission, improving data collection. The placeholder attribute suggests expected input, guiding users. Attributes like maxlength limit character count for precision. The pattern attribute uses regex for custom validation, like phone numbers. The disabled attribute blocks input, useful for restricted fields. Proper attributes reduce errors and enhance usability. The &lt;input&gt; tag’s versatility comes from its attributes. This lesson covers input attributes, building on input types. It prepares you for labels.</p>
+            <pre><code>
+&lt;input type="text" placeholder="Name" required maxlength="50"&gt;
+&lt;input type="tel" pattern="[0-9]{10}"&gt;
+            </code></pre>
+            <div class="demo-box">
+                <input type="text" placeholder="Name" required maxlength="50">
+                <input type="tel" pattern="[0-9]{10}">
+            </div>
+        `
+    },
+    {
+        title: "Label Tag for Forms",
+        content: `
+            <p>The &lt;label&gt; tag connects text to form inputs, improving accessibility and usability. The for attribute links &lt;label&gt; to an input’s id, enabling click-to-focus. The &lt;label&gt; tag is inline, fitting in &lt;form&gt; or &lt;fieldset&gt;. It’s semantic, aiding screen readers in form navigation. Omitting labels reduces inclusivity, so they’re essential. The tag can wrap &lt;input&gt; directly, skipping for. Clear labels enhance user experience in complex forms. The &lt;label&gt; tag is vital for intuitive forms. This lesson covers &lt;label&gt;, building on input attributes. It prepares you for fieldsets.</p>
+            <pre><code>
+&lt;label for="email"&gt;Email:&lt;/label&gt;
+&lt;input type="email" id="email"&gt;
+            </code></pre>
+            <div class="demo-box">
+                <label for="email">Email:</label>
+                <input type="email" id="email">
+            </div>
+        `
+    },
+    {
+        title: "Fieldset and Legend Tags",
+        content: `
+            <p>The &lt;fieldset&gt; tag groups related form inputs, like personal details, for clarity. The &lt;legend&gt; tag provides a title for the &lt;fieldset&gt;, describing its purpose. Both are semantic, organizing complex forms for accessibility. The &lt;fieldset&gt; is block-level, containing &lt;input&gt; or &lt;label&gt;. The disabled attribute locks &lt;fieldset&gt;, preventing input. Screen readers use &lt;legend&gt; to announce groups, aiding navigation. Omitting &lt;legend&gt; reduces clarity in large forms. These tags enhance form structure and usability. This lesson covers &lt;fieldset&gt; and &lt;legend&gt;, building on labels. It prepares you for select menus.</p>
+            <pre><code>
+&lt;fieldset&gt;
+    &lt;legend&gt;User Info&lt;/legend&gt;
+    &lt;label for="name"&gt;Name:&lt;/label&gt;
+    &lt;input type="text" id="name"&gt;
+&lt;/fieldset&gt;
+            </code></pre>
+            <div class="demo-box">
+                <fieldset>
+                    <legend>User Info</legend>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name">
+                </fieldset>
+            </div>
+        `
+    },
+    {
+        title: "Select Menus",
+        content: `
+            <p>The &lt;select&gt; tag creates dropdown menus, with &lt;option&gt; tags defining choices. The multiple attribute allows selecting multiple items, useful for surveys. The &lt;optgroup&gt; tag groups options, like categories, for clarity. The &lt;select&gt; tag is inline, compact for fixed-choice forms. It’s semantic, supporting accessibility across devices. The name attribute ensures data submission. Omitting &lt;option&gt; values breaks form functionality. The &lt;select&gt; tag enhances form efficiency. This lesson covers &lt;select&gt;, building on fieldsets. It prepares you for textareas.</p>
+            <pre><code>
+&lt;select name="city"&gt;
+    &lt;optgroup label="Europe"&gt;
+        &lt;option value="paris"&gt;Paris&lt;/option&gt;
+        &lt;option value="rome"&gt;Rome&lt;/option&gt;
+    &lt;/optgroup&gt;
+&lt;/select&gt;
+            </code></pre>
+            <div class="demo-box">
+                <select name="city">
+                    <optgroup label="Europe">
+                        <option value="paris">Paris</option>
+                        <option value="rome">Rome</option>
+                    </optgroup>
+                </select>
+            </div>
+        `
+    },
+    {
+        title: "Textarea for Multi-line Input",
+        content: `
+            <p>The &lt;textarea&gt; tag enables multi-line text input, ideal for comments or bios. Attributes like rows and cols set its size, while maxlength limits characters. The &lt;textarea&gt; tag is block-level, resizable by default for usability. The placeholder attribute guides input with example text. It’s semantic, distinguishing long input from &lt;input&gt;. The name attribute ensures data submission. Omitting validation risks insecure data. The &lt;textarea&gt; tag enhances form flexibility. This lesson covers &lt;textarea&gt;, building on select menus. It prepares you for buttons.</p>
+            <pre><code>
+&lt;textarea rows="5" cols="40" placeholder="Enter comments..."&gt;&lt;/textarea&gt;
+            </code></pre>
+            <div class="demo-box">
+                <textarea rows="5" cols="40" placeholder="Enter comments..."></textarea>
+            </div>
+        `
+    },
+    {
+        title: "Button Types in Forms",
+        content: `
+            <p>The &lt;button&gt; tag supports types like submit, reset, or button, controlling form actions. The submit type sends data, reset clears inputs, and button triggers custom actions. The disabled attribute blocks interaction, useful for conditional forms. The &lt;button&gt; tag is inline, supporting text or images. It’s semantic, clarifying its role in forms. The type attribute is required to avoid defaults. Clear buttons enhance form usability. The &lt;button&gt; tag is versatile for user interaction. This lesson covers &lt;button&gt;, building on textareas. It prepares you for datalists.</p>
+            <pre><code>
+&lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;button type="reset"&gt;Reset&lt;/button&gt;
+&lt;button type="button"&gt;Click&lt;/button&gt;
+            </code></pre>
+            <div class="demo-box">
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+                <button type="button">Click</button>
+            </div>
+        `
+    },
+    {
+        title: "Datalist for Autocomplete",
+        content: `
+            <p>The &lt;datalist&gt; tag provides autocomplete suggestions for &lt;input&gt; fields, linked via the list attribute. It’s semantic, offering options like &lt;option value="Canada"&gt;. The &lt;datalist&gt; tag is invisible, only showing suggestions when typing. It’s ideal for forms with predictable inputs, like countries. Users can type or select, blending flexibility and speed. The &lt;datalist&gt; tag requires no scripting, enhancing usability. Proper option values ensure relevant suggestions. The tag streamlines form input efficiently. This lesson covers &lt;datalist&gt;, building on buttons. It prepares you for form validation.</p>
+            <pre><code>
+&lt;input list="countries"&gt;
+&lt;datalist id="countries"&gt;
+    &lt;option value="Canada"&gt;
+    &lt;option value="Japan"&gt;
+&lt;/datalist&gt;
+            </code></pre>
+            <div class="demo-box">
+                <input list="countries">
+                <datalist id="countries">
+                    <option value="Canada">
+                    <option value="Japan">
+                </datalist>
+            </div>
+        `
+    },
+    {
+        title: "Form Validation",
+        content: `
+            <p>HTML5 form validation enforces correct input using attributes like required or pattern. The type attribute, like email, validates formats automatically. The pattern attribute uses regex for custom rules, like phone numbers. The minlength and maxlength attributes control text length. The &lt;input&gt; tag’s validation reduces server errors. The novalidate attribute skips validation for custom checks. Clear error messages improve user feedback. Validation enhances form reliability and security. This lesson covers validation, building on datalists. It prepares you for audio embedding.</p>
+            <pre><code>
+&lt;form&gt;
+    &lt;label for="phone"&gt;Phone:&lt;/label&gt;
+    &lt;input type="tel" id="phone" pattern="[0-9]{10}" required&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+            </code></pre>
+            <div class="demo-box">
+                <form action="#" onsubmit="return false;">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" pattern="[0-9]{10}" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        `
+    },
+    {
+        title: "Embedding Audio",
+        content: `
+            <p>The &lt;audio&gt; tag embeds sound files, like podcasts, with controls for playback. The src attribute points to the file, and &lt;source&gt; tags support multiple formats, like MP3. The controls attribute adds a play/pause interface. The &lt;audio&gt; tag is block-level, requiring fallback text for unsupported browsers. It’s semantic, enhancing multimedia pages. The preload attribute optimizes loading. Proper file formats ensure compatibility. The &lt;audio&gt; tag boosts user engagement when optimized. This lesson covers &lt;audio&gt;, building on validation. It prepares you for video embedding.</p>
+            <pre><code>
+&lt;audio controls&gt;
+    &lt;source src="sound.mp3" type="audio/mpeg"&gt;
+    Audio not supported.
+&lt;/audio&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Audio requires a real file.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Embedding Video",
+        content: `
+            <p>The &lt;video&gt; tag embeds video content, such as tutorials or promotional clips, enhancing webpage engagement. It supports formats like MP4 or WebM, specified via the src attribute or nested &lt;source&gt; tags. The controls attribute adds play, pause, and volume options for user interaction. Attributes like autoplay or loop automate playback, though they require careful use to avoid annoyance. The poster attribute sets a preview image, improving visual appeal before playback. The &lt;video&gt; tag is block-level, requiring fallback text for unsupported browsers. Semantic use ensures accessibility, with alt text in fallbacks for screen readers. Proper file optimization reduces load times, critical for performance. The &lt;video&gt; tag is a cornerstone of modern multimedia pages. This lesson builds on audio embedding, preparing you for figure elements.</p>
+            <pre><code>
+&lt;video controls poster=&quot;preview.jpg&quot;&gt;
+    &lt;source src=&quot;clip.mp4&quot; type=&quot;video/mp4&quot;&gt;
+    Video not supported.
+&lt;/video&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Video requires a real file.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Figure and Figcaption Tags",
+        content: `
+            <p>The &lt;figure&gt; tag groups media, like images or videos, with a related &lt;figcaption&gt; for descriptions. It’s semantic, clarifying the relationship between content and caption for accessibility. The &lt;figure&gt; tag is block-level, often containing &lt;img&gt; or &lt;video&gt;. The &lt;figcaption&gt; tag provides context, like photo credits or explanations, enhancing user understanding. Screen readers use &lt;figure&gt; to announce media, improving inclusivity. Misusing &lt;figure&gt; for unrelated content reduces semantic value. It’s ideal for articles, galleries, or educational pages. The &lt;figure&gt; tag supports SEO by structuring media clearly. This lesson builds on video embedding, focusing on media presentation. It prepares you for picture tags.</p>
+            <pre><code>
+&lt;figure&gt;
+    &lt;img src=&quot;photo.jpg&quot; alt=&quot;Landscape&quot;&gt;
+    &lt;figcaption&gt;Scenic view of mountains.&lt;/figcaption&gt;
+&lt;/figure&gt;
+            </code></pre>
+            <div class="demo-box">
+                <figure>
+                    <img src="https://via.placeholder.com/200" alt="Landscape">
+                    <figcaption>Scenic view of mountains.</figcaption>
+                </figure>
+            </div>
+        `
+    },
+    {
+        title: "Picture Tag for Responsive Images",
+        content: `
+            <p>The &lt;picture&gt; tag provides responsive images, adapting to device sizes or resolutions. It contains &lt;source&gt; tags with media queries, selecting images based on screen conditions. The &lt;img&gt; tag inside &lt;picture&gt; acts as a fallback for unsupported browsers. The &lt;source&gt; tag uses attributes like srcset or media for flexibility. This tag is semantic, optimizing performance by loading appropriate images. It’s ideal for mobile-friendly sites, reducing bandwidth usage. Proper configuration prevents layout shifts, enhancing user experience. The &lt;picture&gt; tag is advanced, building on &lt;img&gt; knowledge. This lesson extends figure tags, focusing on adaptability. It prepares you for canvas tags.</p>
+            <pre><code>
+&lt;picture&gt;
+    &lt;source media=&quot;(max-width: 600px)&quot; srcset=&quot;small.jpg&quot;&gt;
+    &lt;img src=&quot;default.jpg&quot; alt=&quot;View&quot;&gt;
+&lt;/picture&gt;
+            </code></pre>
+            <div class="demo-box">
+                <img src="https://via.placeholder.com/200" alt="View">
+            </div>
+        `
+    },
+    {
+        title: "Canvas Tag Overview",
+        content: `
+            <p>The &lt;canvas&gt; tag creates a drawing area for graphics, though in HTML it’s a placeholder for scripting. It’s block-level, defined by width and height attributes for size. The &lt;canvas&gt; tag is semantic, marking a graphics container for accessibility. Fallback content, like text, appears if scripting is disabled. It’s used in games or data visualizations, relying on external code for rendering. The id attribute targets &lt;canvas&gt; for dynamic updates. Misusing it for static images reduces clarity. The &lt;canvas&gt; tag is powerful for interactive sites. This lesson introduces &lt;canvas&gt;, building on picture tags. It prepares you for SVG embedding.</p>
+            <pre><code>
+&lt;canvas id=&quot;draw&quot; width=&quot;200&quot; height=&quot;200&quot;&gt;
+    Canvas not supported.
+&lt;/canvas&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Canvas requires scripting.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Embedding SVG",
+        content: `
+            <p>The &lt;svg&gt; tag embeds scalable vector graphics, ideal for logos or icons that resize without quality loss. It’s block-level, containing shapes like &lt;circle&gt; or &lt;path&gt; for custom designs. The width and height attributes control display size, ensuring adaptability. The &lt;svg&gt; tag is semantic, supporting accessibility with &lt;title&gt; for descriptions. It’s lightweight, reducing load times compared to images. Inline SVG allows direct HTML integration, unlike external files. Proper nesting avoids rendering errors, critical for complex graphics. The &lt;svg&gt; tag enhances visual flexibility. This lesson covers SVG, building on canvas. It prepares you for object tags.</p>
+            <pre><code>
+&lt;svg width=&quot;100&quot; height=&quot;100&quot;&gt;
+    &lt;circle cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;40&quot; fill=&quot;blue&quot;&gt;
+    &lt;title&gt;Blue Circle&lt;/title&gt;
+    &lt;/circle&gt;
+&lt;/svg&gt;
+            </code></pre>
+            <div class="demo-box">
+                <svg width="100" height="100">
+                    <circle cx="50" cy="50" r="40" fill="blue">
+                        <title>Blue Circle</title>
+                    </circle>
+                </svg>
+            </div>
+        `
+    },
+    {
+        title: "Object Tag for External Content",
+        content: `
+            <p>The &lt;object&gt; tag embeds external content, like PDFs or multimedia, using the data attribute for file paths. It’s block-level, with width and height attributes for sizing. The type attribute specifies MIME types, ensuring correct rendering. Fallback content appears if the file fails to load, aiding accessibility. The &lt;object&gt; tag is semantic, marking embedded resources clearly. It’s less common than &lt;img&gt; or &lt;video&gt; but versatile for niche files. Proper file paths prevent broken embeds, critical for usability. The &lt;object&gt; tag supports legacy content integration. This lesson covers &lt;object&gt;, building on SVG. It prepares you for embed tags.</p>
+            <pre><code>
+&lt;object data=&quot;doc.pdf&quot; type=&quot;application/pdf&quot; width=&quot;300&quot; height=&quot;200&quot;&gt;
+    PDF not supported.
+&lt;/object&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Object requires a real file.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Embed Tag for Plugins",
+        content: `
+            <p>The &lt;embed&gt; tag integrates external content, like Flash or media, without fallback options. It’s self-closing, using src for file paths and type for MIME types. The &lt;embed&gt; tag is block-level, with width and height for sizing. It’s less semantic than &lt;object&gt;, used for legacy plugins. Modern sites prefer &lt;video&gt; or &lt;audio&gt; for compatibility. The &lt;embed&gt; tag requires no nested tags, simplifying code. Incorrect MIME types break rendering, so precision matters. The &lt;embed&gt; tag is niche but historically relevant. This lesson covers &lt;embed&gt;, building on object tags. It prepares you for iframes.</p>
+            <pre><code>
+&lt;embed src=&quot;media.swf&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;300&quot; height=&quot;200&quot;&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Embed requires a real file.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Iframe for Embedded Pages",
+        content: `
+            <p>The &lt;iframe&gt; tag embeds external webpages or content, like maps or videos, within a frame. The src attribute specifies the URL, while width and height control size. The &lt;iframe&gt; tag is block-level, with fallback text for unsupported browsers. Attributes like allowfullscreen enable video expansion, enhancing functionality. It’s semantic, marking embedded content for accessibility. The sandbox attribute restricts content for security, critical for untrusted sources. Proper sizing prevents layout issues, ensuring seamless integration. The &lt;iframe&gt; tag boosts interactivity without scripting. This lesson covers &lt;iframe&gt;, building on embed tags. It prepares you for accessibility.</p>
+            <pre><code>
+&lt;iframe src=&quot;https://example.com&quot; width=&quot;300&quot; height=&quot;200&quot;&gt;
+    Iframe not supported.
+&lt;/iframe&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Iframe requires a real URL.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Introduction to ARIA Roles",
+        content: `
+            <p>ARIA roles, like role=&quot;navigation&quot;, enhance accessibility by defining element purposes for screen readers. They’re attributes added to tags like &lt;nav&gt; or &lt;button&gt;, clarifying functionality. The &lt;div&gt; tag with role=&quot;main&quot; acts as a primary content area. ARIA roles are semantic, bridging gaps in HTML’s native accessibility. They’re essential for dynamic or complex pages, ensuring inclusivity. Misused roles confuse assistive tools, so specificity matters. The aria-label attribute adds descriptions, like for icon-only buttons. ARIA roles don’t alter visuals, focusing purely on meaning. This lesson introduces ARIA, building on iframes. It prepares you for specific ARIA attributes.</p>
+            <pre><code>
+&lt;nav role=&quot;navigation&quot;&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+            </code></pre>
+            <div class="demo-box">
+                <nav role="navigation">
+                    <ul><li><a href="#" onclick="return false;">Home</a></li></ul>
+                </nav>
+            </div>
+        `
+    },
+    {
+        title: "ARIA Labels and Descriptions",
+        content: `
+            <p>ARIA attributes like aria-label and aria-describedby provide text for assistive technologies, enhancing accessibility. The aria-label attribute defines an element’s purpose, like labeling a search button. The aria-describedby attribute links to a description, like instructions for a form field. These attributes are semantic, ensuring screen readers convey context. They’re critical for elements lacking visible text, like icons. Misaligned IDs in aria-describedby break functionality, so accuracy is key. The attributes support complex interfaces, improving inclusivity. They’re invisible to visual users, focusing on assistive tools. This lesson covers ARIA labels, building on roles. It prepares you for ARIA states.</p>
+            <pre><code>
+&lt;button aria-label=&quot;Search&quot;&gt;&lt;img src=&quot;search.png&quot; alt=&quot;&quot;&gt;&lt;/button&gt;
+&lt;input aria-describedby=&quot;help&quot;&gt;
+&lt;p id=&quot;help&quot;&gt;Enter text.&lt;/p&gt;
+            </code></pre>
+            <div class="demo-box">
+                <button aria-label="Search"><img src="https://via.placeholder.com/20" alt=""></button>
+                <input aria-describedby="help">
+                <p id="help">Enter text.</p>
+            </div>
+        `
+    },
+    {
+        title: "ARIA States and Properties",
+        content: `
+            <p>ARIA states and properties, like aria-checked or aria-hidden, describe dynamic element states for accessibility. The aria-checked attribute indicates toggle states, like checkboxes. The aria-hidden attribute hides elements from screen readers, useful for decorative content. These attributes are semantic, updating assistive tools in real time. They’re essential for interactive forms or collapsible menus. Incorrect states confuse users, so synchronization matters. The aria-expanded attribute shows if content is visible, like accordions. These properties enhance complex interfaces without visual changes. This lesson covers ARIA states, building on labels. It prepares you for microdata.</p>
+            <pre><code>
+&lt;input type=&quot;checkbox&quot; aria-checked=&quot;false&quot;&gt;
+&lt;div aria-hidden=&quot;true&quot;&gt;Hidden content&lt;/div&gt;
+            </code></pre>
+            <div class="demo-box">
+                <input type="checkbox">
+                <p>(ARIA states affect accessibility.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Microdata for SEO",
+        content: `
+            <p>Microdata adds machine-readable metadata to HTML, using attributes like itemscope and itemprop for SEO. The itemtype attribute, like &quot;http://schema.org/Product&quot;, defines data types, such as products or events. The &lt;div&gt; or &lt;article&gt; tag with itemscope groups related data. The itemprop attribute labels properties, like &quot;price&quot; or &quot;name&quot;. Microdata is semantic, helping search engines index content accurately. It’s invisible to users but critical for visibility. Incorrect schemas reduce effectiveness, so validation is key. Microdata enhances structured data for rich snippets. This lesson covers microdata, building on ARIA. It prepares you for custom attributes.</p>
+            <pre><code>
+&lt;article itemscope itemtype=&quot;http://schema.org/Product&quot;&gt;
+    &lt;h2 itemprop=&quot;name&quot;&gt;Gadget&lt;/h2&gt;
+    &lt;p itemprop=&quot;price&quot;&gt;$99&lt;/p&gt;
+&lt;/article&gt;
+            </code></pre>
+            <div class="demo-box">
+                <article>
+                    <h2>Gadget</h2>
+                    <p>$99</p>
+                </article>
+            </div>
+        `
+    },
+    {
+        title: "Custom Data Attributes",
+        content: `
+            <p>Custom data attributes, like data-info, store private data in HTML elements for scripting or logic. They start with &quot;data-&quot; followed by a custom name, like data-product-id. These attributes are semantic, avoiding non-standard hacks for data storage. They’re accessible via scripting, enabling dynamic features without clutter. The &lt;div&gt; or &lt;button&gt; tag often uses data attributes for flexibility. Invalid names break conventions, so hyphens are preferred. Custom attributes are invisible to users, focusing on functionality. They’re widely used in modern web development. This lesson covers data attributes, building on microdata. It prepares you for progress bars.</p>
+            <pre><code>
+&lt;div data-product-id=&quot;123&quot;&gt;Item&lt;/div&gt;
+&lt;button data-action=&quot;delete&quot;&gt;Remove&lt;/button&gt;
+            </code></pre>
+            <div class="demo-box">
+                <div>Item</div>
+                <button>Remove</button>
+            </div>
+        `
+    },
+    {
+        title: "Progress and Meter Tags",
+        content: `
+            <p>The &lt;progress&gt; tag shows task completion, like downloads, with value and max attributes. The &lt;meter&gt; tag displays a scalar value, like ratings, within a range. Both are semantic, providing visual feedback for accessibility. The &lt;progress&gt; tag is inline, updating dynamically via scripting. The &lt;meter&gt; tag uses attributes like low or high for thresholds. They’re ideal for forms or dashboards, enhancing user feedback. Misused ranges confuse users, so accuracy matters. These tags are HTML5 innovations for interactivity. This lesson covers &lt;progress&gt; and &lt;meter&gt;, building on custom attributes. It prepares you for details tags.</p>
+            <pre><code>
+&lt;progress value=&quot;50&quot; max=&quot;100&quot;&gt;50%&lt;/progress&gt;
+&lt;meter value=&quot;75&quot; min=&quot;0&quot; max=&quot;100&quot;&gt;75&lt;/meter&gt;
+            </code></pre>
+            <div class="demo-box">
+                <progress value="50" max="100">50%</progress>
+                <meter value="75" min="0" max="100">75</meter>
+            </div>
+        `
+    },
+    {
+        title: "Details and Summary Tags",
+        content: `
+            <p>The &lt;details&gt; tag creates collapsible sections, revealing content when clicked, with &lt;summary&gt; as the visible trigger. The open attribute expands &lt;details&gt; by default, controlling visibility. These tags are semantic, ideal for FAQs or expandable menus. The &lt;details&gt; tag is block-level, containing any HTML content. Screen readers announce state changes, ensuring accessibility. The &lt;summary&gt; tag supports inline elements, like &lt;strong&gt;. Misusing &lt;details&gt; for non-collapsible content reduces clarity. These tags enhance interactivity without scripting. This lesson covers &lt;details&gt; and &lt;summary&gt;, building on progress tags. It prepares you for dialog tags.</p>
+            <pre><code>
+&lt;details&gt;
+    &lt;summary&gt;Click to expand&lt;/summary&gt;
+    &lt;p&gt;Hidden content here.&lt;/p&gt;
+&lt;/details&gt;
+            </code></pre>
+            <div class="demo-box">
+                <details>
+                    <summary>Click to expand</summary>
+                    <p>Hidden content here.</p>
+                </details>
+            </div>
+        `
+    },
+    {
+        title: "Dialog Tag for Modals",
+        content: `
+            <p>The &lt;dialog&gt; tag creates modal or popup windows, typically for alerts or forms. The open attribute displays the &lt;dialog&gt;, controlled via scripting in practice. It’s block-level, containing any HTML, like &lt;form&gt; or &lt;p&gt;. The &lt;dialog&gt; tag is semantic, marking interactive content for accessibility. Screen readers recognize its role, improving navigation. The method=&quot;dialog&quot; attribute in forms integrates seamlessly. Misusing &lt;dialog&gt; for static content reduces meaning. The tag is an HTML5 feature for user interaction. This lesson covers &lt;dialog&gt;, building on details tags. It prepares you for template tags.</p>
+            <pre><code>
+&lt;dialog open&gt;
+    &lt;p&gt;This is a modal.&lt;/p&gt;
+    &lt;form method=&quot;dialog&quot;&gt;
+        &lt;button&gt;Close&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/dialog&gt;
+            </code></pre>
+            <div class="demo-box">
+                <dialog open>
+                    <p>This is a modal.</p>
+                    <form method="dialog">
+                        <button>Close</button>
+                    </form>
+                </dialog>
+            </div>
+        `
+    },
+    {
+        title: "Template Tag for Reusable Content",
+        content: `
+            <p>The &lt;template&gt; tag stores reusable HTML content, like list items, activated via scripting. It’s invisible until cloned, preventing premature rendering. The &lt;template&gt; tag is block-level, containing any valid HTML. It’s semantic, marking content for future use, aiding maintainability. The id attribute targets &lt;template&gt; for scripting access. Misusing it for visible content breaks functionality. The tag is ideal for dynamic lists or forms, reducing redundancy. It’s an HTML5 feature for efficient coding. This lesson covers &lt;template&gt;, building on dialog tags. It prepares you for slot tags.</p>
+            <pre><code>
+&lt;template id=&quot;item&quot;&gt;
+    &lt;li&gt;List item&lt;/li&gt;
+&lt;/template&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Template content is hidden.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Slot Tag for Web Components",
+        content: `
+            <p>The &lt;slot&gt; tag, used in web components, acts as a placeholder for external content in custom elements. It’s part of the Shadow DOM, enabled via scripting, not standalone HTML. The name attribute assigns specific slots, like &quot;header&quot;. The &lt;slot&gt; tag is semantic, defining insertion points for flexibility. It’s inline, fitting within custom tags like &lt;my-component&gt;. Misusing &lt;slot&gt; outside components breaks functionality. The tag supports reusable, modular code. It’s advanced, relying on external frameworks for full use. This lesson covers &lt;slot&gt;, building on templates. It prepares you for global attributes.</p>
+            <pre><code>
+&lt;template id=&quot;component&quot;&gt;
+    &lt;slot name=&quot;header&quot;&gt;Default&lt;/slot&gt;
+&lt;/template&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Slot requires web components.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Global Attributes",
+        content: `
+            <p>Global attributes, like id, class, or title, apply to all HTML elements, enhancing functionality. The id attribute provides unique identifiers, like &quot;nav&quot;, for targeting. The class attribute groups elements for shared purposes, like &quot;highlight&quot;. The title attribute adds hover text, aiding accessibility. The lang attribute sets language, like &quot;en&quot;, for screen readers. The dir attribute controls text direction, like &quot;rtl&quot;. The hidden attribute conceals elements, useful for conditional display. These attributes are semantic, improving structure and usability. This lesson covers global attributes, building on slots. It prepares you for event attributes.</p>
+            <pre><code>
+&lt;div id=&quot;main&quot; class=&quot;content&quot; title=&quot;Info&quot; lang=&quot;en&quot; hidden&gt;
+    Hidden content
+&lt;/div&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Hidden attribute conceals content.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Event Attributes",
+        content: `
+            <p>Event attributes, like onclick or onsubmit, trigger actions via scripting, like form submissions. They’re global, applicable to tags like &lt;button&gt; or &lt;input&gt;. The onclick attribute activates on user clicks, common for buttons. The onsubmit attribute handles form submissions, validating data. These attributes are semantic, linking user actions to functionality. They require scripting to work, but HTML defines their role. Misused attributes clutter code, so specificity matters. Event attributes enable interactivity in dynamic pages. This lesson covers event attributes, building on global attributes. It prepares you for advanced validation.</p>
+            <pre><code>
+&lt;button onclick=&quot;handleClick()&quot;&gt;Click&lt;/button&gt;
+&lt;form onsubmit=&quot;validateForm()&quot;&gt;
+    &lt;input type=&quot;text&quot;&gt;
+&lt;/form&gt;
+            </code></pre>
+            <div class="demo-box">
+                <button>Click</button>
+                <form action="#" onsubmit="return false;">
+                    <input type="text">
+                </form>
+            </div>
+        `
+    },
+    {
+        title: "Advanced Form Validation",
+        content: `
+            <p>Advanced form validation combines attributes like pattern, required, and custom error messages for robust input checks. The pattern attribute uses regex, like &quot;[A-Za-z]+&quot;, for precise rules. The required attribute ensures fields aren’t empty, enforcing completion. The setCustomValidity method, though script-based, ties to HTML’s validation. The &lt;input&gt; tag’s type, like url, adds built-in checks. The novalidate attribute skips browser validation for custom logic. Semantic validation improves data quality and user feedback. Proper error handling enhances form reliability. This lesson covers advanced validation, building on event attributes. It prepares you for contenteditable.</p>
+            <pre><code>
+&lt;form novalidate&gt;
+    &lt;label for=&quot;username&quot;&gt;Username:&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;username&quot; pattern=&quot;[A-Za-z]{3,}&quot; required&gt;
+    &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+            </code></pre>
+            <div class="demo-box">
+                <form action="#" onsubmit="return false;">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" pattern="[A-Za-z]{3,}" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        `
+    },
+    {
+        title: "Contenteditable Attribute",
+        content: `
+            <p>The contenteditable attribute makes elements, like &lt;div&gt; or &lt;p&gt;, editable by users, enabling inline text changes. Set to &quot;true&quot;, it allows direct typing, like in note-taking apps. It’s global, applicable to most tags, enhancing interactivity. The attribute is semantic, signaling editable areas to assistive tools. The spellcheck attribute pairs with it, catching typos. Misusing contenteditable for non-editable content confuses users. It’s ideal for collaborative or dynamic pages. The attribute requires scripting for saving edits. This lesson covers contenteditable, building on validation. It prepares you for advanced semantics.</p>
+            <pre><code>
+&lt;div contenteditable=&quot;true&quot; spellcheck=&quot;true&quot;&gt;
+    Edit this text.
+&lt;/div&gt;
+            </code></pre>
+            <div class="demo-box">
+                <div contenteditable="true" spellcheck="true">
+                    Edit this text.
+                </div>
+            </div>
+        `
+    },
+    {
+        title: "Advanced Semantic Structures",
+        content: `
+            <p>Advanced semantic structures combine tags like &lt;main&gt;, &lt;article&gt;, and &lt;section&gt; for complex layouts. The &lt;main&gt; tag focuses primary content, used once per page. The &lt;article&gt; tag groups standalone content, like posts, for syndication. The &lt;section&gt; tag divides thematic areas, like chapters. These tags are semantic, enhancing accessibility and SEO. Nested semantics, like &lt;article&gt; in &lt;main&gt;, clarify hierarchy. Misusing generic &lt;div&gt; reduces meaning, so specificity matters. The structure supports screen readers and search engines. This lesson covers advanced semantics, building on contenteditable. It prepares you for real-world examples.</p>
+            <pre><code>
+&lt;main&gt;
+    &lt;article&gt;
+        &lt;section&gt;
+            &lt;h2&gt;Topic&lt;/h2&gt;
+            &lt;p&gt;Content&lt;/p&gt;
+        &lt;/section&gt;
+    &lt;/article&gt;
+&lt;/main&gt;
+            </code></pre>
+            <div class="demo-box">
+                <main>
+                    <article>
+                        <section>
+                            <h2>Topic</h2>
+                            <p>Content</p>
+                        </section>
+                    </article>
+                </main>
+            </div>
+        `
+    },
+    {
+        title: "Custom Data Attributes",
+        content: `
+            <p>Custom data attributes, prefixed with data-, store private data in HTML elements, like data-user-id for user tracking. They’re global, applicable to any tag, enhancing flexibility without cluttering markup. The data-* syntax, such as data-product-type, follows a hyphenated naming convention. These attributes are semantic, providing metadata for scripting or logic. The &lt;div&gt; or &lt;button&gt; tag often uses them for dynamic features, like sorting items. Incorrect naming, like data_user, breaks standards, so precision matters. They’re invisible to users, focusing on functionality. Screen readers ignore them, ensuring no accessibility conflicts. This lesson covers data attributes, building on microdata. It prepares you for advanced form validation.</p>
+            <pre><code>
+&lt;div data-product-id="123"&gt;Item&lt;/div&gt;
+&lt;button data-action="delete"&gt;Remove&lt;/button&gt;
+            </code></pre>
+            <div class="demo-box">
+                <div>Item</div>
+                <button>Remove</button>
+            </div>
+        `
+    },
+    {
+        title: "Advanced Form Validation",
+        content: `
+            <p>Advanced form validation uses attributes like pattern, required, and minlength for robust input checks. The pattern attribute, like pattern="[A-Za-z]{3,}", enforces regex-based rules, such as letters only. The required attribute ensures fields aren’t empty, preventing incomplete submissions. The minlength attribute sets minimum character counts, like minlength="5". These attributes are semantic, improving data quality and user feedback. The &lt;input&gt; tag’s type, like email, adds built-in validation. The novalidate attribute disables browser validation for custom logic. Incorrect patterns confuse users, so testing is critical. This lesson covers validation, building on data attributes. It prepares you for contenteditable.</p>
+            <pre><code>
+&lt;form novalidate&gt;
+    &lt;label for="username"&gt;Username:&lt;/label&gt;
+    &lt;input type="text" id="username" pattern="[A-Za-z]{3,}" required&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+            </code></pre>
+            <div class="demo-box">
+                <form action="#" onsubmit="return false;">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" pattern="[A-Za-z]{3,}" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        `
+    },
+    {
+        title: "Contenteditable Attribute",
+        content: `
+            <p>The contenteditable attribute allows users to edit content in elements like &lt;div&gt; or &lt;p&gt;, enabling inline text changes. Set to "true", it makes elements editable, ideal for note-taking apps. It’s global, applicable to most tags, enhancing interactivity. The attribute is semantic, signaling editable areas to assistive tools. The spellcheck attribute pairs with it, catching typos during editing. Misusing contenteditable for non-editable content confuses users. It’s often used in collaborative platforms, requiring scripting for saving changes. The &lt;section&gt; tag can wrap editable areas for structure. This lesson covers contenteditable, building on validation. It prepares you for drag-and-drop.</p>
+            <pre><code>
+&lt;div contenteditable="true" spellcheck="true"&gt;
+    Edit this text.
+&lt;/div&gt;
+            </code></pre>
+            <div class="demo-box">
+                <div contenteditable="true" spellcheck="true">
+                    Edit this text.
+                </div>
+            </div>
+        `
+    },
+    {
+        title: "Drag and Drop Attributes",
+        content: `
+            <p>The draggable attribute enables drag-and-drop functionality for elements like &lt;div&gt; or &lt;img&gt;, enhancing interactivity. Set to "true", draggable marks an element as movable by users. Event attributes like ondragstart, ondragover, and ondrop coordinate the process, though they rely on scripting. The ondragstart attribute captures data when dragging begins, like an item’s ID. The ondragover attribute allows elements to accept drops, preventing default browser behavior. The ondrop attribute handles the drop event, updating the page. These attributes are semantic, signaling interactive zones to assistive tools. Misusing them without scripting breaks functionality. This lesson covers drag-and-drop, building on contenteditable. It prepares you for spellcheck.</p>
+            <pre><code>
+&lt;section&gt;
+    &lt;div draggable="true" ondragstart="drag(event)"&gt;Drag me&lt;/div&gt;
+    &lt;div ondragover="allowDrop(event)" ondrop="drop(event)"&gt;Drop here&lt;/div&gt;
+&lt;/section&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Drag-and-drop requires scripting.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Spellcheck and Lang Attributes",
+        content: `
+            <p>The spellcheck attribute, set to "true" or "false", controls browser spellchecking for editable elements like &lt;input&gt; or &lt;div contenteditable&gt;. The lang attribute, like lang="en", specifies the content’s language, aiding spellcheckers and screen readers. Both are global attributes, applicable to any tag, enhancing accessibility. The spellcheck attribute is semantic, signaling editable text to browsers. The lang attribute supports multilingual sites, ensuring proper pronunciation. Incorrect lang codes, like "eng", break functionality, so standards matter. Combining these attributes improves input quality in forms or editors. They’re critical for user-friendly, global pages. This lesson covers spellcheck and lang, building on drag-and-drop. It prepares you for hidden attributes.</p>
+            <pre><code>
+&lt;div contenteditable="true" spellcheck="true" lang="en"&gt;
+    Type here.
+&lt;/div&gt;
+&lt;input type="text" spellcheck="true" lang="en"&gt;
+            </code></pre>
+            <div class="demo-box">
+                <div contenteditable="true" spellcheck="true" lang="en">
+                    Type here.
+                </div>
+                <input type="text" spellcheck="true" lang="en">
+            </div>
+        `
+    },
+    {
+        title: "Hidden Attribute",
+        content: `
+            <p>The hidden attribute conceals elements, like &lt;div&gt; or &lt;p&gt;, from display, useful for conditional content. It’s a global attribute, applicable to any tag, with a boolean value. When set, hidden removes the element from the visual and accessibility tree, unlike CSS display properties. It’s semantic, signaling non-visible content to screen readers. The attribute is ideal for temporarily hiding forms or sections without scripting. Misusing it for visible content confuses users and assistive tools. The &lt;section&gt; tag can wrap hidden elements for structure. It’s often paired with scripting to toggle visibility. This lesson covers hidden, building on spellcheck. It prepares you for dir attribute.</p>
+            <pre><code>
+&lt;div hidden&gt;
+    This is hidden.
+&lt;/div&gt;
+            </code></pre>
+            <div class="demo-box">
+                <p>(Content is hidden.)</p>
+            </div>
+        `
+    },
+    {
+        title: "Dir Attribute for Text Direction",
+        content: `
+            <p>The dir attribute, set to "ltr" or "rtl", controls text direction for elements, like &lt;p&gt; or &lt;div&gt;, supporting multilingual sites. It’s a global attribute, ensuring proper rendering of languages like Arabic or Hebrew. The value "ltr" sets left-to-right text, while "rtl" sets right-to-left. The attribute is semantic, aiding screen readers in pronouncing content correctly. It’s often used with the lang attribute, like lang="ar", for consistency. Misusing dir, like setting "rtl" for English, confuses users. The &lt;bdi&gt; tag complements dir for isolated text direction. It’s critical for accessibility in global applications. This lesson covers dir, building on hidden. It prepares you for accesskey.</p>
+            <pre><code>
+&lt;div dir="rtl" lang="ar"&gt;
+    مرحبا بالعالم
+&lt;/div&gt;
+            </code></pre>
+            <div class="demo-box">
+                <div dir="rtl" lang="ar">
+                    مرحبا بالعالم
+                </div>
+            </div>
+        `
+    },
+    {
+        title: "Accesskey Attribute",
+        content: `
+            <p>The accesskey attribute assigns keyboard shortcuts to elements, like &lt;button&gt; or &lt;a&gt;, improving navigation. It takes a single character, like accesskey="s", activated with keys like Alt+S. It’s a global attribute, enhancing accessibility for keyboard users. The attribute is semantic, signaling interactive elements to assistive tools. Multiple accesskeys on a page must be unique to avoid conflicts. Misusing accesskey with common shortcuts, like Ctrl+C, disrupts browser behavior. The &lt;label&gt; tag often pairs with it for form inputs. It’s ideal for power users and accessible apps. This lesson covers accesskey, building on dir. It prepares you for semantic structures.</p>
+            <pre><code>
+&lt;button accesskey="s"&gt;Save&lt;/button&gt;
+&lt;a href="#top" accesskey="t"&gt;Top&lt;/a&gt;
+            </code></pre>
+            <div class="demo-box">
+                <button accesskey="s">Save</button>
+                <a href="#" onclick="return false;" accesskey="t">Top</a>
+            </div>
+        `
+    },
+    {
+        title: "Advanced Semantic Structures",
+        content: `
+            <p>Advanced semantic structures combine tags like &lt;main&gt;, &lt;article&gt;, and &lt;section&gt; for meaningful layouts. The &lt;main&gt; tag defines the primary content, used once per page for focus. The &lt;article&gt; tag groups standalone content, like posts, for syndication. The &lt;section&gt; tag divides thematic areas, such as chapters, enhancing clarity. These tags are semantic, improving SEO and accessibility. Nested semantics, like &lt;section&gt; in &lt;article&gt;, clarify hierarchy. Misusing &lt;div&gt; instead of semantic tags reduces meaning. The &lt;header&gt; and &lt;footer&gt; tags complete the structure. This lesson covers semantics, building on accesskey. It prepares you for real-world examples.</p>
+            <pre><code>
+&lt;main&gt;
+    &lt;article&gt;
+        &lt;header&gt;
+            &lt;h2&gt;Post Title&lt;/h2&gt;
+        &lt;/header&gt;
+        &lt;section&gt;
+            &lt;p&gt;Content here.&lt;/p&gt;
+        &lt;/section&gt;
+    &lt;/article&gt;
+&lt;/main&gt;
+            </code></pre>
+            <div class="demo-box">
+                <main>
+                    <article>
+                        <header>
+                            <h2>Post Title</h2>
+                        </header>
+                        <section>
+                            <p>Content here.</p>
+                        </section>
+                    </article>
+                </main>
+            </div>
+        `
+    },
+    {
+        title: "Personal Portfolio Page",
+        content: `
+            <p>A personal portfolio page uses &lt;header&gt; for branding and &lt;section&gt; for projects, ensuring semantic clarity. The &lt;nav&gt; tag organizes links to sections like skills, with role="navigation" for accessibility. The &lt;article&gt; tag highlights projects, paired with &lt;figure&gt; for images. The &lt;figcaption&gt; tag adds context, like project descriptions. Microdata, like itemtype="Person", boosts SEO for visibility. The &lt;main&gt; tag groups core content, focusing attention. The &lt;footer&gt; tag includes &lt;address&gt; for contact, enabling inquiries. ARIA attributes, like aria-label, enhance screen reader support. This real-world example applies Lessons 6–90 for a professional site. It introduces practical applications, starting with portfolios.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Portfolio&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Jane Doe&lt;/h1&gt;
+        &lt;nav role="navigation"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#projects" aria-label="View projects"&gt;Projects&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section id="projects" itemscope itemtype="http://schema.org/Person"&gt;
+            &lt;h2&gt;Projects&lt;/h2&gt;
+            &lt;article&gt;
+                &lt;figure&gt;
+                    &lt;img src="project.jpg" alt="App"&gt;
+                    &lt;figcaption&gt;Mobile App&lt;/figcaption&gt;
+                &lt;/figure&gt;
+                &lt;p itemprop="description"&gt;Built a mobile app.&lt;/p&gt;
+            &lt;/article&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;address&gt;jane@example.com&lt;/address&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header>
+                    <h1>Jane Doe</h1>
+                    <nav role="navigation">
+                        <ul><li><a href="#" onclick="return false;">Projects</a></li></ul>
+                    </nav>
+                </header>
+                <main>
+                    <section>
+                        <h2>Projects</h2>
+                        <article>
+                            <figure>
+                                <img src="https://via.placeholder.com/200" alt="App">
+                                <figcaption>Mobile App</figcaption>
+                            </figure>
+                            <p>Built a mobile app.</p>
+                        </article>
+                    </section>
+                </main>
+                <footer>
+                    <address>jane@example.com</address>
+                </footer>
+            </div>
+        `
+    },
+    {
+        title: "E-commerce Product Page",
+        content: `
+            <p>An e-commerce product page uses &lt;section&gt; for listings, with &lt;figure&gt; for images and &lt;figcaption&gt; for captions. The &lt;header&gt; includes &lt;nav&gt; for categories, ensuring navigation ease. The &lt;form&gt; tag enables size selection via &lt;select&gt;, with &lt;button&gt; for cart actions. Microdata, like itemtype="Product", enhances SEO. The &lt;dl&gt; tag lists specs, like price, semantically. ARIA roles, like role="navigation", support accessibility. The &lt;footer&gt; provides &lt;address&gt; for support. The &lt;main&gt; tag focuses product details. This real-world example applies Lessons 6–90 for a sales-driven page. It showcases e-commerce, building on portfolios.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Gadget Store&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Gadget Store&lt;/h1&gt;
+        &lt;nav role="navigation"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#electronics"&gt;Electronics&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section itemscope itemtype="http://schema.org/Product"&gt;
+            &lt;h2 itemprop="name"&gt;Smartphone&lt;/h2&gt;
+            &lt;figure&gt;
+                &lt;img src="phone.jpg" alt="Smartphone"&gt;
+                &lt;figcaption&gt;Latest Model&lt;/figcaption&gt;
+            &lt;/figure&gt;
+            &lt;dl&gt;
+                &lt;dt&gt;Price&lt;/dt&gt;
+                &lt;dd itemprop="price"&gt;$599&lt;/dd&gt;
+            &lt;/dl&gt;
+            &lt;form&gt;
+                &lt;label for="size"&gt;Size:&lt;/label&gt;
+                &lt;select id="size" name="size"&gt;
+                    &lt;option value="64GB"&gt;64GB&lt;/option&gt;
+                &lt;/select&gt;
+                &lt;button type="submit"&gt;Add to Cart&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;address&gt;support@gadgetstore.com&lt;/address&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header>
+                    <h1>Gadget Store</h1>
+                    <nav role="navigation">
+                        <ul><li><a href="#" onclick="return false;">Electronics</a></li></ul>
+                    </nav>
+                </header>
+                <main>
+                    <section>
+                        <h2>Smartphone</h2>
+                        <figure>
+                            <img src="https://via.placeholder.com/200" alt="Smartphone">
+                            <figcaption>Latest Model</figcaption>
+                        </figure>
+                        <dl>
+                            <dt>Price</dt>
+                            <dd>$599</dd>
+                        </dl>
+                        <form action="#" onsubmit="return false;">
+                            <label for="size">Size:</label>
+                            <select id="size" name="size">
+                                <option value="64GB">64GB</option>
+                            </select>
+                            <button type="submit">Add to Cart</button>
+                        </form>
+                    </section>
+                </main>
+                <footer>
+                    <address>support@gadgetstore.com</address>
+                </footer>
+            </div>
+        `
+    },
+    {
+        title: "Blog Page with Comments",
+        content: `
+            <p>A blog page uses &lt;article&gt; for posts, with &lt;header&gt; for titles and &lt;time&gt; for dates. The &lt;nav&gt; tag links to other posts, using &lt;ul&gt; for organization. The &lt;section&gt; tag for comments includes a &lt;form&gt; with &lt;textarea&gt;. Microdata, like itemtype="BlogPosting", boosts SEO. The &lt;figure&gt; tag embeds images with &lt;figcaption&gt;. ARIA roles, like role="navigation", ensure accessibility. The &lt;footer&gt; provides contact via &lt;a&gt;. The &lt;main&gt; tag groups content. This real-world example applies Lessons 6–90 for an engaging page. It showcases blogs, building on e-commerce.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Tech Blog&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Tech Blog&lt;/h1&gt;
+        &lt;nav role="navigation"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#posts"&gt;Posts&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;article itemscope itemtype="http://schema.org/BlogPosting"&gt;
+            &lt;header&gt;
+                &lt;h2 itemprop="headline"&gt;AI Trends&lt;/h2&gt;
+                &lt;p&gt;Posted on &lt;time datetime="2025-04-19" itemprop="datePublished"&gt;April 19, 2025&lt;/time&gt;&lt;/p&gt;
+            &lt;/header&gt;
+            &lt;figure&gt;
+                &lt;img src="ai.jpg" alt="AI tech" itemprop="image"&gt;
+                &lt;figcaption&gt;AI Innovation&lt;/figcaption&gt;
+            &lt;/figure&gt;
+            &lt;p itemprop="articleBody"&gt;AI evolves globally.&lt;/p&gt;
+        &lt;/article&gt;
+        &lt;section id="comments"&gt;
+            &lt;h2&gt;Comments&lt;/h2&gt;
+            &lt;form action="#" method="post"&gt;
+                &lt;label for="comment"&gt;Add Comment:&lt;/label&gt;
+                &lt;textarea id="comment" name="comment" rows="4" required&gt;&lt;/textarea&gt;
+                &lt;button type="submit"&gt;Post&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;p&gt;Contact: &lt;a href="mailto:blog@tech.com"&gt;blog@tech.com&lt;/a&gt;&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header>
+                    <h1>Tech Blog</h1>
+                    <nav role="navigation">
+                        <ul><li><a href="#" onclick="return false;">Posts</a></li></ul>
+                    </nav>
+                </header>
+                <main>
+                    <article>
+                        <header>
+                            <h2>AI Trends</h2>
+                            <p>Posted on <time datetime="2025-04-19">April 19, 2025</time></p>
+                        </header>
+                        <figure>
+                            <img src="https://via.placeholder.com/200" alt="AI tech">
+                            <figcaption>AI Innovation</figcaption>
+                        </figure>
+                        <p>AI evolves globally.</p>
+                    </article>
+                    <section id="comments">
+                        <h2>Comments</h2>
+                        <form action="#" onsubmit="return false;">
+                            <label for="comment">Add Comment:</label>
+                            <textarea id="comment" name="comment" rows="4" required></textarea>
+                            <button type="submit">Post</button>
+                        </form>
+                    </section>
+                </main>
+                <footer>
+                    <p>Contact: <a href="mailto:blog@tech.com">blog@tech.com</a></p>
+                </footer>
+            </div>
+        `
+    },
+    {
+        title: "Event Landing Page",
+        content: `
+            <p>An event landing page uses &lt;header&gt; for branding and &lt;section&gt; for details, like schedules. The &lt;nav&gt; links to sections, like FAQs, with role="navigation". The &lt;time&gt; tag with datetime ensures machine-readable dates. Microdata, like itemtype="Event", boosts SEO. The &lt;form&gt; tag enables RSVPs, using &lt;input&gt;. The &lt;figure&gt; tag displays posters with &lt;figcaption&gt;. The &lt;footer&gt; includes &lt;address&gt; for organizers. The &lt;main&gt; tag focuses content. This real-world example applies Lessons 6–90 for an engaging page. It showcases events, building on blogs.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Tech Conference&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Tech Conference 2025&lt;/h1&gt;
+        &lt;nav role="navigation"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#schedule"&gt;Schedule&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section itemscope itemtype="http://schema.org/Event"&gt;
+            &lt;h2 itemprop="name"&gt;Keynote&lt;/h2&gt;
+            &lt;p&gt;&lt;time datetime="2025-06-01T09:00" itemprop="startDate"&gt;June 1, 2025, 9 AM&lt;/time&gt;&lt;/p&gt;
+            &lt;figure&gt;
+                &lt;img src="poster.jpg" alt="Event poster"&gt;
+                &lt;figcaption&gt;Conference Poster&lt;/figcaption&gt;
+            &lt;/figure&gt;
+            &lt;form&gt;
+                &lt;label for="name"&gt;Name:&lt;/label&gt;
+                &lt;input type="text" id="name" required&gt;
+                &lt;button type="submit"&gt;RSVP&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;address&gt;events@tech.com&lt;/address&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header>
+                    <h1>Tech Conference 2025</h1>
+                    <nav role="navigation">
+                        <ul><li><a href="#" onclick="return false;">Schedule</a></li></ul>
+                    </nav>
+                </header>
+                <main>
+                    <section>
+                        <h2>Keynote</h2>
+                        <p><time datetime="2025-06-01T09:00">June 1, 2025, 9 AM</time></p>
+                        <figure>
+                            <img src="https://via.placeholder.com/200" alt="Event poster">
+                            <figcaption>Conference Poster</figcaption>
+                        </figure>
+                        <form action="#" onsubmit="return false;">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" required>
+                            <button type="submit">RSVP</button>
+                        </form>
+                    </section>
+                </main>
+                <footer>
+                    <address>events@tech.com</address>
+                </footer>
+            </div>
+        `
+    },
+    {
+        title: "Restaurant Menu Page",
+        content: `
+            <p>A restaurant menu page uses &lt;section&gt; for dish categories, with &lt;dl&gt; for items and prices. The &lt;header&gt; includes &lt;nav&gt; for sections, like appetizers. The &lt;figure&gt; tag showcases dishes with &lt;figcaption&gt;. Microdata, like itemtype="MenuItem", enhances SEO. The &lt;form&gt; tag allows reservations, using &lt;input&gt;. ARIA roles, like role="navigation", ensure accessibility. The &lt;footer&gt; provides &lt;address&gt; for contact. The &lt;main&gt; tag organizes content. This real-world example applies Lessons 6–90 for a functional page. It showcases menus, building on events.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Cafe Menu&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Cafe Delight&lt;/h1&gt;
+        &lt;nav role="navigation"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#mains"&gt;Mains&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section id="mains"&gt;
+            &lt;h2&gt;Main Courses&lt;/h2&gt;
+            &lt;dl itemscope itemtype="http://schema.org/MenuItem"&gt;
+                &lt;dt itemprop="name"&gt;Pasta&lt;/dt&gt;
+                &lt;dd itemprop="offers"&gt;$12&lt;/dd&gt;
+            &lt;/dl&gt;
+            &lt;figure&gt;
+                &lt;img src="pasta.jpg" alt="Pasta dish"&gt;
+                &lt;figcaption&gt;Fresh Pasta&lt;/figcaption&gt;
+            &lt;/figure&gt;
+            &lt;form&gt;
+                &lt;label for="date"&gt;Reservation:&lt;/label&gt;
+                &lt;input type="date" id="date"&gt;
+                &lt;button type="submit"&gt;Book&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;address&gt;cafe@delight.com&lt;/address&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header>
+                    <h1>Cafe Delight</h1>
+                    <nav role="navigation">
+                        <ul><li><a href="#" onclick="return false;">Mains</a></li></ul>
+                    </nav>
+                </header>
+                <main>
+                    <section>
+                        <h2>Main Courses</h2>
+                        <dl>
+                            <dt>Pasta</dt>
+                            <dd>$12</dd>
+                        </dl>
+                        <figure>
+                            <img src="https://via.placeholder.com/200" alt="Pasta dish">
+                            <figcaption>Fresh Pasta</figcaption>
+                        </figure>
+                        <form action="#" onsubmit="return false;">
+                            <label for="date">Reservation:</label>
+                            <input type="date" id="date">
+                            <button type="submit">Book</button>
+                        </form>
+                    </section>
+                </main>
+                <footer>
+                    <address>cafe@delight.com</address>
+                </footer>
+            </div>
+        `
+    },
+    {
+        title: "Nonprofit Donation Page",
+        content: `
+            <p>A nonprofit donation page uses &lt;header&gt; for mission statements and &lt;section&gt; for donation forms. The &lt;nav&gt; links to campaigns, with role="navigation". The &lt;form&gt; includes &lt;input&gt; for amounts and &lt;button&gt; for submissions. Microdata, like itemtype="Organization", enhances credibility. The &lt;figure&gt; shows impact images with &lt;figcaption&gt;. The &lt;footer&gt; uses &lt;address&gt; for contact. The &lt;progress&gt; tag tracks fundraising goals. ARIA attributes improve accessibility. This real-world example applies Lessons 6–90 for a persuasive page. It showcases nonprofits, building on menus.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Charity Fund&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Charity Fund&lt;/h1&gt;
+        &lt;nav role="navigation"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#donate"&gt;Donate&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section id="donate" itemscope itemtype="http://schema.org/Organization"&gt;
+            &lt;h2&gt;Support Us&lt;/h2&gt;
+            &lt;figure&gt;
+                &lt;img src="impact.jpg" alt="Community"&gt;
+                &lt;figcaption&gt;Our Impact&lt;/figcaption&gt;
+            &lt;/figure&gt;
+            &lt;progress value="5000" max="10000"&gt;50%&lt;/progress&gt;
+            &lt;form&gt;
+                &lt;label for="amount"&gt;Amount:&lt;/label&gt;
+                &lt;input type="number" id="amount" required&gt;
+                &lt;button type="submit"&gt;Donate&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;address&gt;info@charity.org&lt;/address&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header>
+                    <h1>Charity Fund</h1>
+                    <nav role="navigation">
+                        <ul><li><a href="#" onclick="return false;">Donate</a></li></ul>
+                    </nav>
+                </header>
+                <main>
+                    <section>
+                        <h2>Support Us</h2>
+                        <figure>
+                            <img src="https://via.placeholder.com/200" alt="Community">
+                            <figcaption>Our Impact</figcaption>
+                        </figure>
+                        <progress value="5000" max="10000">50%</progress>
+                        <form action="#" onsubmit="return false;">
+                            <label for="amount">Amount:</label>
+                            <input type="number" id="amount" required>
+                            <button type="submit">Donate</button>
+                        </form>
+                    </section>
+                </main>
+                <footer>
+                    <address>info@charity.org</address>
+                </footer>
+            </div>
+        `
+    },
+    {
+        title: "Online Course Page",
+        content: `
+            <p>An online course page uses &lt;header&gt; for titles and &lt;section&gt; for lesson lists. The &lt;nav&gt; links to modules, with role="navigation". The &lt;article&gt; details lessons, using &lt;time&gt; for durations. Microdata, like itemtype="Course", boosts discoverability. The &lt;form&gt; enables enrollments, with &lt;input&gt;. The &lt;figure&gt; shows previews with &lt;figcaption&gt;. The &lt;footer&gt; includes &lt;address&gt; for support. The &lt;main&gt; organizes content. This real-world example applies Lessons 6–90 for an educational page. It showcases courses, building on nonprofits.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Learn HTML&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;HTML Course&lt;/h1&gt;
+        &lt;nav role="navigation"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#modules"&gt;Modules&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section id="modules" itemscope itemtype="http://schema.org/Course"&gt;
+            &lt;h2&gt;Modules&lt;/h2&gt;
+            &lt;article&gt;
+                &lt;h3 itemprop="name"&gt;Basics&lt;/h3&gt;
+                &lt;p&gt;&lt;time datetime="PT2H"&gt;2 hours&lt;/time&gt;&lt;/p&gt;
+                &lt;figure&gt;
+                    &lt;img src="lesson.jpg" alt="Lesson"&gt;
+                    &lt;figcaption&gt;Introduction&lt;/figcaption&gt;
+                &lt;/figure&gt;
+            &lt;/article&gt;
+            &lt;form&gt;
+                &lt;label for="email"&gt;Email:&lt;/label&gt;
+                &lt;input type="email" id="email" required&gt;
+                &lt;button type="submit"&gt;Enroll&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;address&gt;support@learn.com&lt;/address&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header>
+                    <h1>HTML Course</h1>
+                    <nav role="navigation">
+                        <ul><li><a href="#" onclick="return false;">Modules</a></li></ul>
+                    </nav>
+                </header>
+                <main>
+                    <section>
+                        <h2>Modules</h2>
+                        <article>
+                            <h3>Basics</h3>
+                            <p><time datetime="PT2H">2 hours</time></p>
+                            <figure>
+                                <img src="https://via.placeholder.com/200" alt="Lesson">
+                                <figcaption>Introduction</figcaption>
+                            </figure>
+                        </article>
+                        <form action="#" onsubmit="return false;">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" required>
+                            <button type="submit">Enroll</button>
+                        </form>
+                    </section>
+                </main>
+                <footer>
+                    <address>support@learn.com</address>
+                </footer>
+            </div>
+        `
+    },
+    {
+        title: "News Article Page",
+        content: `
+            <p>A news article page uses &lt;article&gt; for stories, with &lt;header&gt; for headlines and &lt;time&gt; for dates. The &lt;nav&gt; links to categories, with role="navigation". The &lt;figure&gt; embeds images with &lt;figcaption&gt;. Microdata, like itemtype="NewsArticle", enhances SEO. The &lt;section&gt; for related stories uses &lt;ul&gt;. The &lt;footer&gt; includes &lt;address&gt; for editors. The &lt;blockquote&gt; tag highlights quotes. The &lt;main&gt; organizes content. This real-world example applies Lessons 6–90 for a journalistic page. It showcases news, building on courses.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Daily News&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Daily News&lt;/h1&gt;
+        &lt;nav role="navigation"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#tech"&gt;Tech&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;article itemscope itemtype="http://schema.org/NewsArticle"&gt;
+            &lt;header&gt;
+                &lt;h2 itemprop="headline"&gt;Tech Breakthrough&lt;/h2&gt;
+                &lt;p&gt;&lt;time datetime="2025-04-19" itemprop="datePublished"&gt;April 19, 2025&lt;/time&gt;&lt;/p&gt;
+            &lt;/header&gt;
+            &lt;figure&gt;
+                &lt;img src="tech.jpg" alt="Innovation" itemprop="image"&gt;
+                &lt;figcaption&gt;New Device&lt;/figcaption&gt;
+            &lt;/figure&gt;
+            &lt;blockquote&gt;Game-changer!&lt;/blockquote&gt;
+            &lt;p itemprop="articleBody"&gt;New tech unveiled.&lt;/p&gt;
+        &lt;/article&gt;
+        &lt;section&gt;
+            &lt;h2&gt;Related&lt;/h2&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#"&gt;More Tech&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;address&gt;editor@news.com&lt;/address&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header>
+                    <h1>Daily News</h1>
+                    <nav role="navigation">
+                        <ul><li><a href="#" onclick="return false;">Tech</a></li></ul>
+                    </nav>
+                </header>
+                <main>
+                    <article>
+                        <header>
+                            <h2>Tech Breakthrough</h2>
+                            <p><time datetime="2025-04-19">April 19, 2025</time></p>
+                        </header>
+                        <figure>
+                            <img src="https://via.placeholder.com/200" alt="Innovation">
+                            <figcaption>New Device</figcaption>
+                        </figure>
+                        <blockquote>Game-changer!</blockquote>
+                        <p>New tech unveiled.</p>
+                    </article>
+                    <section>
+                        <h2>Related</h2>
+                        <ul>
+                            <li><a href="#" onclick="return false;">More Tech</a></li>
+                        </ul>
+                    </section>
+                </main>
+                <footer>
+                    <address>editor@news.com</address>
+                </footer>
+            </div>
+        `
+    },
+    {
+        title: "Photography Gallery Page",
+        content: `
+            <p>A photography gallery page uses &lt;section&gt; for image grids, with &lt;figure&gt; for photos and &lt;figcaption&gt; for titles. The &lt;header&gt; includes &lt;nav&gt; for categories, like landscapes. The &lt;picture&gt; tag provides responsive images via &lt;source&gt;. Microdata, like itemtype="ImageObject", boosts SEO. The &lt;form&gt; allows print orders, with &lt;select&gt;. ARIA roles, like role="navigation", enhance accessibility. The &lt;footer&gt; uses &lt;address&gt; for contact. The &lt;main&gt; organizes content. This real-world example applies Lessons 6–90 for a visual page. It showcases galleries, building on news.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Photo Gallery&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Photo Gallery&lt;/h1&gt;
+        &lt;nav role="navigation"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#landscapes"&gt;Landscapes&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section id="landscapes"&gt;
+            &lt;h2&gt;Landscapes&lt;/h2&gt;
+            &lt;figure itemscope itemtype="http://schema.org/ImageObject"&gt;
+                &lt;picture&gt;
+                    &lt;source media="(max-width: 600px)" srcset="small.jpg"&gt;
+                    &lt;img src="landscape.jpg" alt="Mountains" itemprop="contentUrl"&gt;
+                &lt;/picture&gt;
+                &lt;figcaption itemprop="caption"&gt;Mountain View&lt;/figcaption&gt;
+            &lt;/figure&gt;
+            &lt;form&gt;
+                &lt;label for="size"&gt;Print Size:&lt;/label&gt;
+                &lt;select id="size"&gt;
+                    &lt;option value="small"&gt;Small&lt;/option&gt;
+                &lt;/select&gt;
+                &lt;button type="submit"&gt;Order&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;address&gt;photos@gallery.com&lt;/address&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header>
+                    <h1>Photo Gallery</h1>
+                    <nav role="navigation">
+                        <ul><li><a href="#" onclick="return false;">Landscapes</a></li></ul>
+                    </nav>
+                </header>
+                <main>
+                    <section>
+                        <h2>Landscapes</h2>
+                        <figure>
+                            <img src="https://via.placeholder.com/200" alt="Mountains">
+                            <figcaption>Mountain View</figcaption>
+                        </figure>
+                        <form action="#" onsubmit="return false;">
+                            <label for="size">Print Size:</label>
+                            <select id="size">
+                                <option value="small">Small</option>
+                            </select>
+                            <button type="submit">Order</button>
+                        </form>
+                    </section>
+                </main>
+                <footer>
+                    <address>photos@gallery.com</address>
+                </footer>
+            </div>
+        `
+    },
+    {
+        title: "Job Board Page",
+        content: `
+            <p>A job board page uses &lt;section&gt; for listings, with &lt;article&gt; for job posts. The &lt;header&gt; includes &lt;nav&gt; for categories, like tech. The &lt;dl&gt; tag details specs, like salary. Microdata, like itemtype="JobPosting", improves SEO. The &lt;form&gt; filters jobs, using &lt;input&gt;. ARIA roles, like role="navigation", ensure accessibility. The &lt;footer&gt; uses &lt;address&gt; for HR contact. The &lt;time&gt; tag marks posting dates. This real-world example applies Lessons 6–90 for a professional page. It showcases job boards, building on galleries.</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Job Board&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Job Board&lt;/h1&gt;
+        &lt;nav role="navigation"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#tech"&gt;Tech&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section id="tech"&gt;
+            &lt;h2&gt;Tech Jobs&lt;/h2&gt;
+            &lt;article itemscope itemtype="http://schema.org/JobPosting"&gt;
+                &lt;h3 itemprop="title"&gt;Developer&lt;/h3&gt;
+                &lt;dl&gt;
+                    &lt;dt&gt;Salary&lt;/dt&gt;
+                    &lt;dd itemprop="baseSalary"&gt;$80,000&lt;/dd&gt;
+                &lt;/dl&gt;
+                &lt;p&gt;&lt;time datetime="2025-04-19" itemprop="datePosted"&gt;April 19, 2025&lt;/time&gt;&lt;/p&gt;
+            &lt;/article&gt;
+            &lt;form&gt;
+                &lt;label for="search"&gt;Search:&lt;/label&gt;
+                &lt;input type="text" id="search"&gt;
+                &lt;button type="submit"&gt;Find&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;address&gt;hr@jobs.com&lt;/address&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+            <div class="demo-box">
+                <header>
+                    <h1>Job Board</h1>
+                    <nav role="navigation">
+                        <ul><li><a href="#" onclick="return false;">Tech</a></li></ul>
+                    </nav>
+                </header>
+                <main>
+                    <section>
+                        <h2>Tech Jobs</h2>
+                        <article>
+                            <h3>Developer</h3>
+                            <dl>
+                                <dt>Salary</dt>
+                                <dd>$80,000</dd>
+                            </dl>
+                            <p><time datetime="2025-04-19">April 19, 2025</time></p>
+                        </article>
+                        <form action="#" onsubmit="return false;">
+                            <label for="search">Search:</label>
+                            <input type="text" id="search">
+                            <button type="submit">Find</button>
+                        </form>
+                    </section>
+                </main>
+                <footer>
+                    <address>hr@jobs.com</address>
+                </footer>
+            </div>
+        `
+    }
+];
+
+        const testQuestions = [
+    {
+        question: "What does the &lt;title&gt; tag define?",
+        options: ["The page’s main heading", "The browser tab text", "A paragraph", "A link destination"],
+        correct: 1
+    },
+    {
+        question: "Which tag creates a numbered list?",
+        options: ["&lt;ul&gt;", "&lt;li&gt;", "&lt;ol&gt;", "&lt;dl&gt;"],
+        correct: 2
+    },
+    {
+        question: "What attribute makes an &lt;input&gt; field mandatory?",
+        options: ["required", "mandatory", "validate", "must"],
+        correct: 0
+    },
+    {
+        question: "Which tag embeds an image?",
+        options: ["&lt;img&gt;", "&lt;picture&gt;", "&lt;source&gt;", "&lt;figure&gt;"],
+        correct: 0
+    },
+    {
+        question: "What does &lt;meta charset=\"UTF-8\"&gt; do?",
+        options: ["Sets the page title", "Enables responsive design", "Defines character encoding", "Links CSS"],
+        correct: 2
+    },
+    {
+        question: "Which tag is used for a page footer?",
+        options: ["&lt;bottom&gt;", "&lt;footer&gt;", "&lt;section&gt;", "&lt;base&gt;"],
+        correct: 1
+    },
+    {
+        question: "What attribute specifies a link’s destination?",
+        options: ["src", "href", "url", "link"],
+        correct: 1
+    },
+    {
+        question: "Which tag groups form inputs logically?",
+        options: ["&lt;group&gt;", "&lt;form&gt;", "&lt;fieldset&gt;", "&lt;label&gt;"],
+        correct: 2
+    },
+    {
+        question: "What does the &lt;canvas&gt; tag do?",
+        options: ["Embeds video", "Draws graphics", "Creates forms", "Styles text"],
+        correct: 1
+    },
+    {
+        question: "Which attribute improves accessibility for images?",
+        options: ["alt", "title", "src", "width"],
+        correct: 0
+    },
+    {
+        question: "What is the purpose of the &lt;head&gt; tag?",
+        options: ["Defines the main content", "Contains metadata", "Creates a heading", "Groups navigation links"],
+        correct: 1
+    },
+    {
+        question: "Which tag creates a hyperlink?",
+        options: ["&lt;link&gt;", "&lt;a&gt;", "&lt;href&gt;", "&lt;nav&gt;"],
+        correct: 1
+    },
+    {
+        question: "What does the &lt;DOCTYPE html&gt; declaration do?",
+        options: ["Links a stylesheet", "Sets the language", "Defines HTML5 standard", "Creates a title"],
+        correct: 2
+    },
+    {
+        question: "Which tag defines a paragraph?",
+        options: ["&lt;p&gt;", "&lt;div&gt;", "&lt;span&gt;", "&lt;article&gt;"],
+        correct: 0
+    },
+    {
+        question: "What attribute sets the language of a page?",
+        options: ["lang", "dir", "charset", "locale"],
+        correct: 0
+    },
+    {
+        question: "Which tag creates an unordered list?",
+        options: ["&lt;ol&gt;", "&lt;ul&gt;", "&lt;dl&gt;", "&lt;li&gt;"],
+        correct: 1
+    },
+    {
+        question: "What does the &lt;form&gt; tag do?",
+        options: ["Embeds media", "Groups input fields", "Defines a section", "Creates a table"],
+        correct: 1
+    },
+    {
+        question: "Which tag defines a table row?",
+        options: ["&lt;td&gt;", "&lt;tr&gt;", "&lt;th&gt;", "&lt;table&gt;"],
+        correct: 1
+    },
+    {
+        question: "What attribute specifies an image’s source?",
+        options: ["href", "src", "alt", "link"],
+        correct: 1
+    },
+    {
+        question: "Which tag is used for semantic content division?",
+        options: ["&lt;div&gt;", "&lt;section&gt;", "&lt;span&gt;", "&lt;block&gt;"],
+        correct: 1
+    },
+    {
+        question: "What does the &lt;header&gt; tag represent?",
+        options: ["A page footer", "Introductory content", "A sidebar", "Main content"],
+        correct: 1
+    },
+    {
+        question: "Which tag embeds a video?",
+        options: ["&lt;video&gt;", "&lt;media&gt;", "&lt;iframe&gt;", "&lt;embed&gt;"],
+        correct: 0
+    },
+    {
+        question: "What attribute defines a form’s submission method?",
+        options: ["action", "method", "type", "submit"],
+        correct: 1
+    },
+    {
+        question: "Which tag creates a table header cell?",
+        options: ["&lt;td&gt;", "&lt;tr&gt;", "&lt;th&gt;", "&lt;table&gt;"],
+        correct: 2
+    },
+    {
+        question: "What does the &lt;nav&gt; tag do?",
+        options: ["Defines a paragraph", "Groups navigation links", "Embeds audio", "Creates a form"],
+        correct: 1
+    },
+    {
+        question: "Which attribute sets a form field’s default value?",
+        options: ["value", "default", "placeholder", "text"],
+        correct: 0
+    },
+    {
+        question: "What is the role of the &lt;main&gt; tag?",
+        options: ["Defines navigation", "Groups footer content", "Holds primary content", "Embeds images"],
+        correct: 2
+    },
+    {
+        question: "Which tag defines a description list?",
+        options: ["&lt;ul&gt;", "&lt;dl&gt;", "&lt;ol&gt;", "&lt;li&gt;"],
+        correct: 1
+    },
+    {
+        question: "What does the &lt;figure&gt; tag do?",
+        options: ["Creates a form", "Groups media with a caption", "Defines a section", "Embeds audio"],
+        correct: 1
+    },
+    {
+        question: "Which attribute specifies a keyboard shortcut?",
+        options: ["accesskey", "shortcut", "key", "hotkey"],
+        correct: 0
+    },
+    {
+        question: "What does the &lt;article&gt; tag represent?",
+        options: ["A navigation menu", "Standalone content", "A footer", "A sidebar"],
+        correct: 1
+    },
+    {
+        question: "Which tag is used for inline text emphasis?",
+        options: ["&lt;em&gt;", "&lt;strong&gt;", "&lt;b&gt;", "&lt;i&gt;"],
+        correct: 0
+    },
+    {
+        question: "What attribute stores custom data in an element?",
+        options: ["data-*", "custom", "meta", "id"],
+        correct: 0
+    },
+    {
+        question: "Which tag allows text editing in an element?",
+        options: ["&lt;edit&gt;", "&lt;contenteditable&gt;", "&lt;textarea&gt;", "&lt;input&gt;"],
+        correct: 2
+    },
+    {
+        question: "What attribute enables drag-and-drop functionality?",
+        options: ["drag", "draggable", "move", "drop"],
+        correct: 1
+    },
+    {
+        question: "Which attribute controls browser spellchecking?",
+        options: ["spellcheck", "grammar", "check", "validate"],
+        correct: 0
+    },
+    {
+        question: "What does the &lt;time&gt; tag do?",
+        options: ["Defines a timer", "Marks a date or time", "Sets a duration", "Creates a clock"],
+        correct: 1
+    },
+    {
+        question: "Which attribute hides an element from display?",
+        options: ["hidden", "display", "visible", "none"],
+        correct: 0
+    },
+    {
+        question: "What attribute sets text direction?",
+        options: ["lang", "dir", "align", "flow"],
+        correct: 1
+    },
+    {
+        question: "Which tag is used in a blog page for comments?",
+        options: ["&lt;comment&gt;", "&lt;section&gt;", "&lt;aside&gt;", "&lt;form&gt;"],
+        correct: 1
+    },
+    {
+        question: "What does the &lt;progress&gt; tag represent?",
+        options: ["A navigation bar", "Task completion", "A form input", "A video player"],
+        correct: 1
+    },
+    {
+        question: "Which tag is used for a product image caption?",
+        options: ["&lt;caption&gt;", "&lt;figcaption&gt;", "&lt;label&gt;", "&lt;alt&gt;"],
+        correct: 1
+    },
+    {
+        question: "What attribute enhances SEO with structured data?",
+        options: ["itemscope", "meta", "data", "schema"],
+        correct: 0
+    },
+    {
+        question: "Which tag groups related articles in a news page?",
+        options: ["&lt;section&gt;", "&lt;div&gt;", "&lt;group&gt;", "&lt;main&gt;"],
+        correct: 0
+    },
+    {
+        question: "What does the &lt;picture&gt; tag do?",
+        options: ["Embeds videos", "Provides responsive images", "Creates captions", "Groups forms"],
+        correct: 1
+    },
+    {
+        question: "Which tag is used for job posting details?",
+        options: ["&lt;article&gt;", "&lt;section&gt;", "&lt;details&gt;", "&lt;dl&gt;"],
+        correct: 0
+    },
+    {
+        question: "What attribute validates an &lt;input&gt; with regex?",
+        options: ["pattern", "regex", "validate", "rule"],
+        correct: 0
+    },
+    {
+        question: "Which tag is used for a portfolio project?",
+        options: ["&lt;project&gt;", "&lt;article&gt;", "&lt;section&gt;", "&lt;figure&gt;"],
+        correct: 1
+    },
+    {
+        question: "What does the &lt;address&gt; tag define?",
+        options: ["A hyperlink", "Contact information", "A location map", "A form field"],
+        correct: 1
+    },
+    {
+        question: "Which tag enhances accessibility in navigation?",
+        options: ["&lt;nav&gt;", "&lt;ul&gt;", "&lt;role&gt;", "&lt;aria&gt;"],
+        correct: 0
+    }
+];
+
+        const library = [
+            { tag: "&lt;a&gt;", description: "Creates a hyperlink, using href for the destination." },
+            { tag: "&lt;abbr&gt;", description: "Marks an abbreviation, with title for expansion." },
+            { tag: "&lt;address&gt;", description: "Defines contact information, often italicized." },
+            { tag: "&lt;area&gt;", description: "Defines a clickable region in an image map." },
+            { tag: "&lt;article&gt;", description: "Represents standalone content, like a blog post." },
+            { tag: "&lt;aside&gt;", description: "Marks content indirectly related to the main content." },
+            { tag: "&lt;audio&gt;", description: "Embeds sound, with controls for playback." },
+            { tag: "&lt;b&gt;", description: "Bolds text without semantic meaning (use &lt;strong&gt; instead)." },
+            { tag: "&lt;base&gt;", description: "Sets a default URL for relative links." },
+            { tag: "&lt;bdi&gt;", description: "Isolates bidirectional text, like Arabic in English." },
+            { tag: "&lt;bdo&gt;", description: "Overrides text direction, like right-to-left." },
+            { tag: "&lt;blockquote&gt;", description: "Marks a long quotation, often indented." },
+            { tag: "&lt;body&gt;", description: "Contains the visible content of a webpage." },
+            { tag: "&lt;br&gt;", description: "Inserts a line break within text." },
+            { tag: "&lt;button&gt;", description: "Creates a clickable button, with types like submit." },
+            { tag: "&lt;canvas&gt;", description: "Draws graphics via JavaScript, like animations." },
+            { tag: "&lt;caption&gt;", description: "Titles a table, placed after &lt;table&gt;." },
+            { tag: "&lt;cite&gt;", description: "References a source, like a book title." },
+            { tag: "&lt;code&gt;", description: "Displays inline code, in monospace font." },
+            { tag: "&lt;col&gt;", description: "Defines column properties in a table." },
+            { tag: "&lt;colgroup&gt;", description: "Groups columns for table styling." },
+            { tag: "&lt;data&gt;", description: "Links text to a machine-readable value." },
+            { tag: "&lt;datalist&gt;", description: "Provides autocomplete options for inputs." },
+            { tag: "&lt;dd&gt;", description: "Describes a term in a description list." },
+            { tag: "&lt;del&gt;", description: "Marks deleted text, often struck through." },
+            { tag: "&lt;details&gt;", description: "Creates a collapsible section, toggled by &lt;summary&gt;." },
+            { tag: "&lt;dfn&gt;", description: "Marks a term’s definition when introduced." },
+            { tag: "&lt;div&gt;", description: "A block-level container for grouping content." },
+            { tag: "&lt;dl&gt;", description: "Creates a description list of terms and details." },
+            { tag: "&lt;dt&gt;", description: "Defines a term in a description list." },
+            { tag: "&lt;em&gt;", description: "Emphasizes text, typically italicized." },
+            { tag: "&lt;embed&gt;", description: "Inserts external media, like plugins." },
+            { tag: "&lt;fieldset&gt;", description: "Groups related form inputs, with &lt;legend&gt;." },
+            { tag: "&lt;figcaption&gt;", description: "Captions a &lt;figure&gt;, like an image." },
+            { tag: "&lt;figure&gt;", description: "Groups media with an optional caption." },
+            { tag: "&lt;footer&gt;", description: "Defines a page or section footer." },
+            { tag: "&lt;form&gt;", description: "Creates a form for user input, with action and method attributes." },
+            { tag: "&lt;h1&gt; to &lt;h6&gt;", description: "Defines headings, from most important (&lt;h1&gt;) to least (&lt;h6&gt;)." },
+            { tag: "&lt;head&gt;", description: "Contains metadata, like title and meta tags, about the document." },
+            { tag: "&lt;header&gt;", description: "Represents introductory content or navigational aids." },
+            { tag: "&lt;hr&gt;", description: "Creates a horizontal rule to separate content." },
+            { tag: "&lt;html&gt;", description: "The root element of an HTML page, with lang attribute for language." },
+            { tag: "&lt;i&gt;", description: "Italicizes text without semantic emphasis (use &lt;em&gt; instead)." },
+            { tag: "&lt;iframe&gt;", description: "Embeds external content, like videos, within a page." },
+            { tag: "&lt;img&gt;", description: "Embeds images, using src and alt attributes." },
+            { tag: "&lt;input&gt;", description: "Creates form input fields, with types like text or checkbox." },
+            { tag: "&lt;ins&gt;", description: "Marks inserted text, often underlined." },
+            { tag: "&lt;kbd&gt;", description: "Represents keyboard input, styled in monospace." },
+            { tag: "&lt;label&gt;", description: "Labels form inputs, linked via for attribute." },
+            { tag: "&lt;legend&gt;", description: "Captions a fieldset in forms." },
+            { tag: "&lt;li&gt;", description: "Defines a list item in ordered or unordered lists." },
+            { tag: "&lt;link&gt;", description: "Links external resources, like CSS, in the head." },
+            { tag: "&lt;main&gt;", description: "Contains the main content of a document." },
+            { tag: "&lt;map&gt;", description: "Defines an image map with clickable areas." },
+            { tag: "&lt;mark&gt;", description: "Highlights text for reference, typically with a yellow background." },
+            { tag: "&lt;meta&gt;", description: "Provides metadata, like charset or viewport, in the head." },
+            { tag: "&lt;meter&gt;", description: "Displays a scalar value within a range, like a gauge." },
+            { tag: "&lt;nav&gt;", description: "Contains navigation links for the site or section." },
+            { tag: "&lt;noscript&gt;", description: "Shows content if JavaScript is disabled." },
+            { tag: "&lt;object&gt;", description: "Embeds external resources, like PDFs or Flash." },
+            { tag: "&lt;ol&gt;", description: "Creates an ordered (numbered) list." },
+            { tag: "&lt;optgroup&gt;", description: "Groups options in a select dropdown." },
+            { tag: "&lt;option&gt;", description: "Defines an item in a select or datalist." },
+            { tag: "&lt;output&gt;", description: "Shows the result of a form calculation." },
+            { tag: "&lt;p&gt;", description: "Defines a paragraph of text." },
+            { tag: "&lt;picture&gt;", description: "Provides responsive images with multiple sources." },
+            { tag: "&lt;pre&gt;", description: "Preserves whitespace and formatting for code or text." },
+            { tag: "&lt;progress&gt;", description: "Shows task completion, like a progress bar." },
+            { tag: "&lt;q&gt;", description: "Marks short, inline quotations." },
+            { tag: "&lt;rp&gt;", description: "Provides fallback for ruby annotations." },
+            { tag: "&lt;rt&gt;", description: "Gives pronunciation for ruby annotations." },
+            { tag: "&lt;ruby&gt;", description: "Marks text with pronunciation annotations, common in East Asian scripts." },
+            { tag: "&lt;s&gt;", description: "Marks text that is no longer accurate, often struck through." },
+            { tag: "&lt;samp&gt;", description: "Shows sample output from a program, in monospace." },
+            { tag: "&lt;script&gt;", description: "Embeds or links to JavaScript code." },
+            { tag: "&lt;section&gt;", description: "Groups related content, often with a heading." },
+            { tag: "&lt;select&gt;", description: "Creates a dropdown menu for form inputs." },
+            { tag: "&lt;slot&gt;", description: "Placeholder for content in Web Components." },
+            { tag: "&lt;small&gt;", description: "Represents fine print or side comments." },
+            { tag: "&lt;source&gt;", description: "Specifies media sources for picture, audio, or video." },
+            { tag: "&lt;span&gt;", description: "An inline container for styling or scripting." },
+            { tag: "&lt;strong&gt;", description: "Indicates important text, typically bold." },
+            { tag: "&lt;style&gt;", description: "Embeds CSS styles within the document." },
+            { tag: "&lt;sub&gt;", description: "Creates subscript text, like in chemical formulas." },
+            { tag: "&lt;summary&gt;", description: "Defines a toggle for details element content." },
+            { tag: "&lt;sup&gt;", description: "Creates superscript text, like in exponents." },
+            { tag: "&lt;table&gt;", description: "Creates a table for data in rows and columns." },
+            { tag: "&lt;tbody&gt;", description: "Groups body content in a table." },
+            { tag: "&lt;td&gt;", description: "Defines a table data cell." },
+            { tag: "&lt;template&gt;", description: "Holds reusable HTML content, invisible until scripted." },
+            { tag: "&lt;textarea&gt;", description: "Creates a multi-line text input for forms." },
+            { tag: "&lt;tfoot&gt;", description: "Groups footer content in a table." },
+            { tag: "&lt;th&gt;", description: "Defines a table header cell." },
+            { tag: "&lt;thead&gt;", description: "Groups header content in a table." },
+            { tag: "&lt;time&gt;", description: "Marks a specific date or time, with datetime attribute." },
+            { tag: "&lt;title&gt;", description: "Sets the page title, shown in the browser tab." },
+            { tag: "&lt;tr&gt;", description: "Defines a table row." },
+            { tag: "&lt;track&gt;", description: "Adds subtitles or captions to video or audio." },
+            { tag: "&lt;u&gt;", description: "Underlines text without semantic meaning (use CSS instead)." },
+            { tag: "&lt;ul&gt;", description: "Creates an unordered (bulleted) list." },
+            { tag: "&lt;var&gt;", description: "Marks a variable, often in math or programming contexts." },
+            { tag: "&lt;video&gt;", description: "Embeds video content, with controls for playback." },
+            { tag: "&lt;wbr&gt;", description: "Suggests a word break opportunity for long text." }
+        ];
+
+        let currentLesson = 0;
+        let currentTestPage = 0;
+        const questionsPerPage = 5;
+        let userAnswers = new Array(testQuestions.length).fill(null);
+        let testSubmitted = false;
+
+        function displayLesson(index) {
+            const lesson = lessons[index];
+            document.getElementById('lesson-title').textContent = lesson.title;
+            document.getElementById('lesson-content').innerHTML = lesson.content;
+            document.getElementById('prev-lesson').disabled = index === 0;
+            document.getElementById('next-lesson').disabled = index === lessons.length - 1;
+            updateLessonLinks(index);
+        }
+
+        function updateLessonLinks(activeIndex) {
+            const linksContainer = document.querySelector('.lesson-links');
+            linksContainer.innerHTML = '';
+            lessons.forEach((_, i) => {
+                const btn = document.createElement('button');
+                btn.textContent = i + 1;
+                btn.className = i === activeIndex ? 'active' : '';
+                btn.setAttribute('aria-label', `Go to lesson ${i + 1}`);
+                btn.addEventListener('click', () => {
+                    currentLesson = i;
+                    displayLesson(i);
+                });
+                linksContainer.appendChild(btn);
+            });
+        }
+
+        function displayTestPage(page) {
+            const start = page * questionsPerPage;
+            const end = Math.min(start + questionsPerPage, testQuestions.length);
+            const content = document.getElementById('test-content');
+            content.innerHTML = '';
+            for (let i = start; i < end; i++) {
+                const q = testQuestions[i];
+                const questionDiv = document.createElement('div');
+                questionDiv.innerHTML = `
+                    <p>${i + 1}. ${q.question}</p>
+                    <form id="q${i}">
+                        ${q.options.map((opt, j) => `
+                            <label>
+                                <input type="radio" name="q${i}" value="${j}" ${userAnswers[i] == j ? 'checked' : ''} ${testSubmitted ? 'disabled' : ''}>
+                                ${opt}
+                            </label>
+                        `).join('')}
+                        <div id="feedback${i}" class="feedback"></div>
+                    </form>
+                `;
+                content.appendChild(questionDiv);
+                if (!testSubmitted) {
+                    document.getElementById(`q${i}`).addEventListener('change', (e) => {
+                        userAnswers[i] = parseInt(e.target.value);
+                    });
+                }
+            }
+            document.getElementById('test-progress').textContent = `Questions ${start + 1}-${end} of ${testQuestions.length}`;
+            document.getElementById('prev-test').disabled = page === 0;
+            document.getElementById('next-test').disabled = end === testQuestions.length;
+            if (end === testQuestions.length && !testSubmitted) {
+                const submitBtn = document.createElement('button');
+                submitBtn.textContent = 'Submit Test';
+                submitBtn.className = 'nav-btn';
+                submitBtn.addEventListener('click', submitTest);
+                content.appendChild(submitBtn);
+            }
+            if (testSubmitted) {
+                showTestFeedback(start, end);
+            }
+        }
+
+        function showTestFeedback(start, end) {
+            for (let i = start; i < end; i++) {
+                const feedbackDiv = document.getElementById(`feedback${i}`);
+                if (userAnswers[i] == null) {
+                    feedbackDiv.textContent = 'Not answered.';
+                    feedbackDiv.className = 'feedback incorrect';
+                } else if (userAnswers[i] === testQuestions[i].correct) {
+                    feedbackDiv.textContent = 'Correct!';
+                    feedbackDiv.className = 'feedback correct';
+                } else {
+                    feedbackDiv.textContent = `Incorrect. Correct answer: ${testQuestions[i].options[testQuestions[i].correct]}.`;
+                    feedbackDiv.className = 'feedback incorrect';
+                }
+            }
+        }
+
+        function submitTest() {
+            testSubmitted = true;
+            let score = 0;
+            userAnswers.forEach((answer, i) => {
+                if (answer === testQuestions[i].correct) score++;
+            });
+            const summary = document.getElementById('test-summary');
+            summary.innerHTML = `
+                <h3>Test Results</h3>
+                <p>You scored ${score} out of ${testQuestions.length} (${Math.round((score / testQuestions.length) * 100)}%).</p>
+                ${score === testQuestions.length ? '<p>Perfect score! Great job!</p>' : '<p>Review incorrect answers below.</p>'}
+            `;
+            displayTestPage(currentTestPage);
+        }
+
+        function displayLibrary() {
+            const content = document.getElementById('library-content');
+            const search = document.getElementById('library-search').value.toLowerCase();
+            content.innerHTML = library
+                .filter(item => item.tag.toLowerCase().includes(search) || item.description.toLowerCase().includes(search))
+                .map(item => `
+                    <details>
+                        <summary>${item.tag}</summary>
+                        <p>${item.description}</p>
+                    </details>
+                `).join('');
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+                if (btn.dataset.tab === 'lessons') {
+                    displayLesson(currentLesson);
+                } else if (btn.dataset.tab === 'test') {
+                    displayTestPage(currentTestPage);
+                } else if (btn.dataset.tab === 'library') {
+                    displayLibrary();
+                }
+            });
+        });
+
+        document.getElementById('prev-lesson').addEventListener('click', () => {
+            if (currentLesson > 0) {
+                currentLesson--;
+                displayLesson(currentLesson);
+            }
+        });
+
+        document.getElementById('next-lesson').addEventListener('click', () => {
+            if (currentLesson < lessons.length - 1) {
+                currentLesson++;
+                displayLesson(currentLesson);
+            }
+        });
+
+        document.getElementById('prev-test').addEventListener('click', () => {
+            if (currentTestPage > 0) {
+                currentTestPage--;
+                displayTestPage(currentTestPage);
+            }
+        });
+
+        document.getElementById('next-test').addEventListener('click', () => {
+            if (currentTestPage < Math.ceil(testQuestions.length / questionsPerPage) - 1) {
+                currentTestPage++;
+                displayTestPage(currentTestPage);
+            }
+        });
+
+        document.getElementById('library-search').addEventListener('input', displayLibrary);
+
+        // Initialize
+        displayLesson(currentLesson);
+        displayLibrary();
+    </script>
+</body>
+</html>
