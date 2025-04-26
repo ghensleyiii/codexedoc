@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico"> <!-- Browser tab favicon -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png"> <!-- iOS home screen icon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="apple-touch-icon.png"> <!-- Android home screen icon -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <title>CODEXEDOC</title>
+    <style>
+      #portfolio {
+  padding: 60px 20px;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #333;
+}
+p {
+  font-size: 1.1em;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  color: #555;
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 280px); /* Four fixed-width columns */
+  gap: 25px;
+  justify-content: center; /* Center the grid within the container */
+  margin-bottom: 40px;
+}
+.portfolio-item {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  width: 280px; /* Fixed width for consistency */
+  box-sizing: border-box;
+}
+.portfolio-item:hover {
+  transform: translateY(-5px);
+}
+.portfolio-item h3 {
+  font-size: 1.5em;
+  margin: 10px 0;
+  color: #333;
+}
+.portfolio-item p {
+  font-size: 1em;
+  margin: 0 0 15px;
+  color: #666;
+}
+.portfolio-item a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.portfolio-item a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 280px); /* Three columns */
+  }
+}
+@media (max-width: 900px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 280px); /* Two columns */
+  }
+}
+@media (max-width: 600px) {
+  .portfolio-grid {
+    grid-template-columns: 280px; /* One column */
+  }
+}
+</style>
+  </head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
+        </div>
+    </header>
+<section id="portfolio">
+  <div class="container">
+    <h2>Portfolio</h2>
+    <p>Welcome to my portfolio! Discover a collection of projects I’ve crafted, showcasing my skills in creating engaging and innovative digital creations.</p>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <h3>Project Name</h3>
+        <p>A responsive e-commerce site built with React and Node.js.</p>
+        <a href="https://project-link.com" target="_blank">Visit Site</a>
+      </div>
+      <div class="portfolio-item">
+        <h3>Project Name</h3>
+        <p>A personal blog with a custom CMS, using PHP and MySQL.</p>
+        <a href="https://project-link.com" target="_blank">Visit Site</a>
+      </div>
+      <!-- Add more projects as needed -->
+    </div>
+  </div>
+</section>
+<footer>
+        <p><span class="footer-logo">CODE<span><a class="bible" href="codex.html">X</a></span>EDOC</span></p>
+        <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
+        <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+    </footer>
+</body>
+</html>
