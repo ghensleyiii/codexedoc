@@ -23,7 +23,7 @@
             line-height: 1.6;
         }
 
-        .psalms {
+        .codex {
             margin: 20px; 
             text-align: center; 
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
@@ -31,15 +31,17 @@
             border-radius: 5px;
         }
 
-        .psalms p {
-            color: #333333;
-        }
-
-        .psalms h2 {
+        .codex h2 {
+            font-size: 40px;
             color: #1e90ff;
+			font-family: 'Audiowide', arial, sans-serif;
         }
 
-        .tracker-section, .backup-section {
+        .codex .backup-restore-buttons {
+            margin-top: 15px;
+        }
+
+        .tracker-section {
             margin: 20px;
             background-color: #eeeeee;
             border-radius: 5px;
@@ -459,23 +461,14 @@
         </div>
     </header>
 
-    <div class="psalms">
-        <h2>Psalms 1:1-6</h2>
-        <p>"Happy is the man who does not walk according to the advice of the wicked And does not stand on the path of sinners And does not sit in the seat of scoffers. But his delight is in the law of Jehovah, And he reads His law in an undertone day and night. He will be like a tree planted by streams of water, A tree that produces fruit in its season, The foliage of which does not wither. And everything he does will succeed. The wicked are not like that; They are like the chaff that the wind blows away. That is why the wicked will not remain standing in the judgment; Nor will sinners remain in the assembly of the righteous. For Jehovah is aware of the way of the righteous, But the way of the wicked will perish."</p>
-    </div>
-
-    <div class="backup-section">
+    <div class="codex">
+        <h2>CODEX</h2>
         <div class="backup-restore-buttons">
             <button id="backupBtn">Backup Data</button>
             <button id="restoreBtn">Restore Data</button>
             <input type="file" id="restoreInput" accept=".codex,.json" style="display: none;">
         </div>
-        <div class="backup-container">
-            <h3>Backup and Restore</h3>
-            <p>Click "Backup Data" to save your progress, notes, and plans to a .codex file. Use "Restore Data" to upload a previously saved .codex or .json file and restore your data.</p>
-        </div>
     </div>
-
     <div class="tracker-section">
         <div class="tracker-container">
             <button id="trackerToggle">Bible Reading Tracker
@@ -540,7 +533,7 @@
             { name: "Nehemiah", chapters: 13 },
             { name: "Esther", chapters: 10 },
             { name: "Job", chapters: 42 },
-            { name: "Psalms", chapters: 150 },
+            { name: "codex", chapters: 150 },
             { name: "Proverbs", chapters: 31 },
             { name: "Ecclesiastes", chapters: 12 },
             { name: "Song of Solomon", chapters: 8 },
@@ -989,13 +982,13 @@
                 "Esther 1-3", "Esther 4-6", "Esther 7-10", "Job 1-3", "Job 4-6",
                 "Job 7-9", "Job 10-12", "Job 13-15", "Job 16-18", "Job 19-21",
                 "Job 22-24", "Job 25-27", "Job 28-30", "Job 31-33", "Job 34-36",
-                "Job 37-39", "Job 40-42", "Psalms 1-5", "Psalms 6-10", "Psalms 11-15",
-                "Psalms 16-20", "Psalms 21-25", "Psalms 26-30", "Psalms 31-35", "Psalms 36-40",
-                "Psalms 41-45", "Psalms 46-50", "Psalms 51-55", "Psalms 56-60", "Psalms 61-65",
-                "Psalms 66-70", "Psalms 71-75", "Psalms 76-80", "Psalms 81-85", "Psalms 86-90",
-                "Psalms 91-95", "Psalms 96-100", "Psalms 101-105", "Psalms 106-110", "Psalms 111-115",
-                "Psalms 116-120", "Psalms 121-125", "Psalms 126-130", "Psalms 131-135", "Psalms 136-140",
-                "Psalms 141-145", "Psalms 146-150", "Proverbs 1-3", "Proverbs 4-6", "Proverbs 7-9",
+                "Job 37-39", "Job 40-42", "codex 1-5", "codex 6-10", "codex 11-15",
+                "codex 16-20", "codex 21-25", "codex 26-30", "codex 31-35", "codex 36-40",
+                "codex 41-45", "codex 46-50", "codex 51-55", "codex 56-60", "codex 61-65",
+                "codex 66-70", "codex 71-75", "codex 76-80", "codex 81-85", "codex 86-90",
+                "codex 91-95", "codex 96-100", "codex 101-105", "codex 106-110", "codex 111-115",
+                "codex 116-120", "codex 121-125", "codex 126-130", "codex 131-135", "codex 136-140",
+                "codex 141-145", "codex 146-150", "Proverbs 1-3", "Proverbs 4-6", "Proverbs 7-9",
                 "Proverbs 10-12", "Proverbs 13-15", "Proverbs 16-18", "Proverbs 19-21", "Proverbs 22-24",
                 "Proverbs 25-27", "Proverbs 28-31", "Ecclesiastes 1-4", "Ecclesiastes 5-8", "Ecclesiastes 9-12",
                 "Song of Solomon 1-4", "Song of Solomon 5-8", "Isaiah 1-3", "Isaiah 4-6", "Isaiah 7-9",
