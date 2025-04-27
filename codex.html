@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODEX</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #eeeeee;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .psalms {
+            margin: 20px; 
+            text-align: center; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .psalms p {
+            color: #333333;
+        }
+
+        .psalms h2 {
+            color: #1e90ff;
+        }
+
+        .tracker-section, .backup-section {
+            margin: 20px;
+            background-color: #eeeeee;
+            border-radius: 5px;
+            transition: border 0.3s ease, background-color 0.3s ease;
+            border: none;
+        }
+
+        .tracker-section.active, .backup-section.active {
+            border: 2px solid #333333;
+            background-color: #eeeeee;
+        }
+
+        .tracker-container, .backup-container {
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        #trackerToggle {
+            display: inline-block;
+            padding: 10px 60px 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #1e90ff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            position: relative;
+            width: auto;
+            min-width: 200px;
+            text-align: left;
+            margin: 10px;
+        }
+
+        #notesToggle, #plansToggle, #backupBtn, #restoreBtn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #1e90ff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            position: relative;
+            width: auto;
+            min-width: 200px;
+            text-align: center;
+            margin: 10px;
+        }
+
+        #trackerToggle:hover, #notesToggle:hover, #plansToggle:hover, #backupBtn:hover, #restoreBtn:hover {
+            background-color: #333333;
+            transform: scale(1.05);
+        }
+
+        .progress-circle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+        }
+
+        .progress-circle svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .progress-circle .circle-bg {
+            fill: none;
+            stroke: #eee;
+            stroke-width: 3;
+        }
+
+        .progress-circle .circle-fg {
+            fill: none;
+            stroke: #1e90ff;
+            stroke-width: 3;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .progress-circle .percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .dropdown-content {
+            display: none;
+            padding: 20px;
+            border-radius: 0 0 5px 5px;
+            background-color: #eeeeee;
+            max-height: 70vh;
+            overflow-y: auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 300px);
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .book {
+            border: 1px solid #1e90ff;
+            padding: 0;
+            border-radius: 5px;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .book-title {
+            margin: 0;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #1e90ff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            position: relative;
+            color: #eeeeee;
+            min-width: 300px;
+            display: block;
+        }
+
+        .book-title:hover {
+            background-color: #1e90ff;
+            color: #eeeeee;
+            transform: scale(1.02);
+        }
+
+        .book-title.completed {
+            background-color: #333333;
+            color: #eeeeee;
+        }
+
+        .book-progress {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+        }
+
+        .book-progress svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .book-progress .circle-bg {
+            fill: none;
+            stroke: #eee;
+            stroke-width: 2;
+        }
+
+        .book-progress .circle-fg {
+            fill: none;
+            stroke: #1e90ff;
+            stroke-width: 2;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .book-progress .percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .chapter-list {
+            display: none;
+            max-height: 150px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #eeeeee;
+        }
+
+        .chapter {
+            display: inline-block;
+            margin: 2px;
+        }
+
+        .chapter span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            border: 1px solid #333;
+            border-radius: 3px;
+            background-color: #eee;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .chapter span.completed {
+            background-color: #1e90ff;
+            color: white;
+            border-color: #1e90ff;
+        }
+
+        #resetTracker, .delete-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #333333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: auto;
+            min-width: 150px;
+            text-align: left;
+            position: relative;
+        }
+
+        #resetTracker:hover, .delete-btn:hover {
+            background-color: #333333;
+            transform: scale(1.05);
+        }
+
+        #resetTracker.active, .delete-btn.active {
+            background-color: #1e90ff;
+        }
+
+        #resetTracker input[type="checkbox"], .delete-btn input[type="checkbox"] {
+            margin-left: 20px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+
+        .reset-container {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        #titleInput, #notesInput, #searchInput {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #333;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #notesInput {
+            resize: vertical;
+        }
+
+        #saveBtn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #eeeeee;
+            background-color: #1e90ff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #saveBtn:hover {
+            background-color: #333333;
+        }
+
+        .search-section {
+            margin-bottom: 20px;
+        }
+
+        .article {
+            border: 1px solid #1e90ff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background-color: #eeeeee;
+            position: relative;
+        }
+
+        .article h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #1e90ff;
+        }
+
+        .delete-btn-container {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        .notes-preview {
+            margin-bottom: 10px;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .article-footer small {
+            color: #333333;
+        }
+
+        .edit-link, .open-link {
+            color: #1e90ff;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .edit-link:hover, .open-link:hover {
+            text-decoration: underline;
+        }
+
+        .highlight {
+            background-color: #1e90ff;
+        }
+
+        .plan-details {
+            display: none;
+            padding: 20px;
+            background-color: #eeeeee;
+            border-radius: 5px;
+            max-height: 60vh;
+            overflow-y: auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+
+        .plan-details ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .plan-details li {
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid #333;
+            color: #333;
+        }
+
+        .plan-details li:last-child {
+            border-bottom: none;
+        }
+
+        .plan-details input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 2px solid #333;
+            border-radius: 3px;
+            background-color: #eee;
+            transition: background-color 0.3s ease;
+        }
+
+        .plan-details input[type="checkbox"]:checked {
+            background-color: #1e90ff;
+            border-color: #1e90ff;
+            position: relative;
+        }
+
+        .plan-details input[type="checkbox"]:checked::after {
+            content: '\2713';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #eee;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="code.html">CODE</a><a href="index.html"><span>X</span></a><a href="edoc.html">EDOC</a>
+        </div>
+    </header>
+
+    <div class="psalms">
+        <h2>Psalms 1:1-6</h2>
+        <p>"Happy is the man who does not walk according to the advice of the wicked And does not stand on the path of sinners And does not sit in the seat of scoffers. But his delight is in the law of Jehovah, And he reads His law in an undertone day and night. He will be like a tree planted by streams of water, A tree that produces fruit in its season, The foliage of which does not wither. And everything he does will succeed. The wicked are not like that; They are like the chaff that the wind blows away. That is why the wicked will not remain standing in the judgment; Nor will sinners remain in the assembly of the righteous. For Jehovah is aware of the way of the righteous, But the way of the wicked will perish."</p>
+    </div>
+
+    <div class="backup-section">
+        <div class="backup-restore-buttons">
+            <button id="backupBtn">Backup Data</button>
+            <button id="restoreBtn">Restore Data</button>
+            <input type="file" id="restoreInput" accept=".codex,.json" style="display: none;">
+        </div>
+        <div class="backup-container">
+            <h3>Backup and Restore</h3>
+            <p>Click "Backup Data" to save your progress, notes, and plans to a .codex file. Use "Restore Data" to upload a previously saved .codex or .json file and restore your data.</p>
+        </div>
+    </div>
+
+    <div class="tracker-section">
+        <div class="tracker-container">
+            <button id="trackerToggle">Bible Reading Tracker
+                <div class="progress-circle" id="overallProgress">
+                    <svg>
+                        <circle class="circle-bg" cx="20" cy="20" r="17"></circle>
+                        <circle class="circle-fg" cx="20" cy="20" r="17" stroke-dasharray="0 106.81"></circle>
+                    </svg>
+                    <div class="percentage">0%</div>
+                </div>
+            </button>
+            <button id="notesToggle">Bible Reading Notes</button>
+            <button id="plansToggle">Bible Reading Plans</button>
+        </div>
+        <div id="bookList" class="dropdown-content">
+            <div class="reset-container">
+                <button id="resetTracker">Reset Tracker
+                    <input type="checkbox" id="resetCheckbox">
+                </button>
+            </div>
+        </div>
+        <div id="notesContent" class="dropdown-content">
+            <div class="input-section">
+                <input type="text" id="titleInput" placeholder="Enter article title">
+                <textarea id="notesInput" rows="10" placeholder="Enter your notes"></textarea>
+                <button id="saveBtn" class="btn-study">Save Article</button>
+            </div>
+            <div class="search-section">
+                <input type="text" id="searchInput" placeholder="Search articles..." onkeyup="searchArticles()">
+            </div>
+            <div id="articlesContainer"></div>
+        </div>
+        <div id="plansContent" class="dropdown-content">
+            <div id="plansList" class="book-list"></div>
+            <div id="planDetails" class="plan-details"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p><span class="footer-logo">CODE<span>X</span>EDOC</span></p>
+        <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
+        <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+    </footer>
+
+    <script>
+        const bibleBooks = [
+            { name: "Genesis", chapters: 50 },
+            { name: "Exodus", chapters: 40 },
+            { name: "Leviticus", chapters: 27 },
+            { name: "Numbers", chapters: 36 },
+            { name: "Deuteronomy", chapters: 34 },
+            { name: "Joshua", chapters: 24 },
+            { name: "Judges", chapters: 21 },
+            { name: "Ruth", chapters: 4 },
+            { name: "1 Samuel", chapters: 31 },
+            { name: "2 Samuel", chapters: 24 },
+            { name: "1 Kings", chapters: 22 },
+            { name: "2 Kings", chapters: 25 },
+            { name: "1 Chronicles", chapters: 29 },
+            { name: "2 Chronicles", chapters: 36 },
+            { name: "Ezra", chapters: 10 },
+            { name: "Nehemiah", chapters: 13 },
+            { name: "Esther", chapters: 10 },
+            { name: "Job", chapters: 42 },
+            { name: "Psalms", chapters: 150 },
+            { name: "Proverbs", chapters: 31 },
+            { name: "Ecclesiastes", chapters: 12 },
+            { name: "Song of Solomon", chapters: 8 },
+            { name: "Isaiah", chapters: 66 },
+            { name: "Jeremiah", chapters: 52 },
+            { name: "Lamentations", chapters: 5 },
+            { name: "Ezekiel", chapters: 48 },
+            { name: "Daniel", chapters: 12 },
+            { name: "Hosea", chapters: 14 },
+            { name: "Joel", chapters: 3 },
+            { name: "Amos", chapters: 9 },
+            { name: "Obadiah", chapters: 1 },
+            { name: "Jonah", chapters: 4 },
+            { name: "Micah", chapters: 7 },
+            { name: "Nahum", chapters: 3 },
+            { name: "Habakkuk", chapters: 3 },
+            { name: "Zephaniah", chapters: 3 },
+            { name: "Haggai", chapters: 2 },
+            { name: "Zechariah", chapters: 14 },
+            { name: "Malachi", chapters: 4 },
+            { name: "Matthew", chapters: 28 },
+            { name: "Mark", chapters: 16 },
+            { name: "Luke", chapters: 24 },
+            { name: "John", chapters: 21 },
+            { name: "Acts", chapters: 28 },
+            { name: "Romans", chapters: 16 },
+            { name: "1 Corinthians", chapters: 16 },
+            { name: "2 Corinthians", chapters: 13 },
+            { name: "Galatians", chapters: 6 },
+            { name: "Ephesians", chapters: 6 },
+            { name: "Philippians", chapters: 4 },
+            { name: "Colossians", chapters: 4 },
+            { name: "1 Thessalonians", chapters: 5 },
+            { name: "2 Thessalonians", chapters: 3 },
+            { name: "1 Timothy", chapters: 6 },
+            { name: "2 Timothy", chapters: 4 },
+            { name: "Titus", chapters: 3 },
+            { name: "Philemon", chapters: 1 },
+            { name: "Hebrews", chapters: 13 },
+            { name: "James", chapters: 5 },
+            { name: "1 Peter", chapters: 5 },
+            { name: "2 Peter", chapters: 3 },
+            { name: "1 John", chapters: 5 },
+            { name: "2 John", chapters: 1 },
+            { name: "3 John", chapters: 1 },
+            { name: "Jude", chapters: 1 },
+            { name: "Revelation", chapters: 22 }
+        ];
+
+        const totalChapters = bibleBooks.reduce((sum, book) => sum + book.chapters, 0);
+        let progress = JSON.parse(localStorage.getItem('bibleProgress')) || {};
+        let planProgress = JSON.parse(localStorage.getItem('planProgress')) || {};
+
+        function saveProgress() {
+            localStorage.setItem('bibleProgress', JSON.stringify(progress));
+            updateProgress();
+        }
+
+        function savePlanProgress() {
+            localStorage.setItem('planProgress', JSON.stringify(planProgress));
+        }
+
+        function updateProgress() {
+            let overallCompleted = 0;
+            
+            document.querySelectorAll('.book').forEach(bookDiv => {
+                const bookName = bookDiv.dataset.book;
+                const chapters = bookDiv.querySelectorAll('.chapter span');
+                const bookTitle = bookDiv.querySelector('.book-title');
+                const bookCircle = bookDiv.querySelector('.book-progress .circle-fg');
+                const bookPercentage = bookDiv.querySelector('.book-progress .percentage');
+
+                // Skip if critical elements are missing
+                if (!bookName || !chapters || !bookTitle || !bookCircle || !bookPercentage) {
+                    console.warn(`Missing DOM elements for book: ${bookName || 'unknown'}`);
+                    return;
+                }
+
+                const completed = Array.from(chapters).filter(ch => ch.classList.contains('completed')).length;
+                const total = chapters.length;
+                
+                overallCompleted += completed;
+                
+                const bookPercent = Math.round((completed / total) * 100);
+                const circumference = 2 * Math.PI * 13;
+                const bookOffset = circumference * (1 - completed / total);
+                
+                bookCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+                bookCircle.style.strokeDashoffset = bookOffset;
+                bookPercentage.textContent = `${bookPercent}%`;
+                
+                if (completed === total) {
+                    bookTitle.classList.add('completed');
+                } else {
+                    bookTitle.classList.remove('completed');
+                }
+            });
+
+            const overallCircle = document.querySelector('#overallProgress .circle-fg');
+            const overallPercentage = document.querySelector('#overallProgress .percentage');
+            if (!overallCircle || !overallPercentage) {
+                console.warn('Missing overall progress DOM elements');
+                return;
+            }
+
+            const overallPercent = Math.round((overallCompleted / totalChapters) * 100);
+            const overallCircumference = 2 * Math.PI * 17;
+            const overallOffset = overallCircumference * (1 - overallCompleted / totalChapters);
+            
+            overallCircle.style.strokeDasharray = `${overallCircumference} ${overallCircumference}`;
+            overallCircle.style.strokeDashoffset = overallOffset;
+            overallPercentage.textContent = `${overallPercent}%`;
+        }
+
+        const bookList = document.getElementById('bookList');
+        const resetContainer = bookList.querySelector('.reset-container');
+        
+        bibleBooks.forEach(book => {
+            const bookDiv = document.createElement('div');
+            bookDiv.className = 'book';
+            bookDiv.dataset.book = book.name;
+
+            const bookTitle = document.createElement('h3');
+            bookTitle.className = 'book-title';
+            bookTitle.textContent = book.name;
+            bookDiv.appendChild(bookTitle);
+
+            const bookProgress = document.createElement('div');
+            bookProgress.className = 'book-progress';
+            bookProgress.innerHTML = `
+                <svg>
+                    <circle class="circle-bg" cx="15" cy="15" r="13"></circle>
+                    <circle class="circle-fg" cx="15" cy="15" r="13"></circle>
+                </svg>
+                <div class="percentage">0%</div>
+            `;
+            bookTitle.appendChild(bookProgress);
+
+            const chapterList = document.createElement('div');
+            chapterList.className = 'chapter-list';
+
+            for (let i = 1; i <= book.chapters; i++) {
+                const chapterDiv = document.createElement('div');
+                chapterDiv.className = 'chapter';
+
+                const chapterSpan = document.createElement('span');
+                chapterSpan.textContent = i;
+                chapterSpan.dataset.chapter = i; // Add data attribute for reliable selection
+                if (progress[`${book.name}-${i}`]) {
+                    chapterSpan.classList.add('completed');
+                }
+
+                chapterSpan.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    chapterSpan.classList.toggle('completed');
+                    progress[`${book.name}-${i}`] = chapterSpan.classList.contains('completed');
+                    saveProgress();
+                });
+
+                chapterDiv.appendChild(chapterSpan);
+                chapterList.appendChild(chapterDiv);
+            }
+
+            bookDiv.appendChild(chapterList);
+            bookList.insertBefore(bookDiv, resetContainer);
+
+            bookTitle.addEventListener('click', () => {
+                const chapterList = bookDiv.querySelector('.chapter-list');
+                chapterList.style.display = chapterList.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        updateProgress();
+
+        const trackerToggle = document.getElementById('trackerToggle');
+        const notesToggle = document.getElementById('notesToggle');
+        const plansToggle = document.getElementById('plansToggle');
+        const bookListContent = document.getElementById('bookList');
+        const notesContent = document.getElementById('notesContent');
+        const plansContent = document.getElementById('plansContent');
+        const trackerSection = document.querySelector('.tracker-section');
+
+        function toggleSection(content, otherContents) {
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                trackerSection.classList.remove('active');
+            } else {
+                content.style.display = 'block';
+                otherContents.forEach(other => other.style.display = 'none');
+                trackerSection.classList.add('active');
+            }
+        }
+
+        trackerToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSection(bookListContent, [notesContent, plansContent]);
+        });
+
+        notesToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSection(notesContent, [bookListContent, plansContent]);
+        });
+
+        plansToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSection(plansContent, [bookListContent, notesContent]);
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!trackerSection.contains(event.target)) {
+                bookListContent.style.display = 'none';
+                notesContent.style.display = 'none';
+                plansContent.style.display = 'none';
+                trackerSection.classList.remove('active');
+            }
+        });
+
+        const resetTracker = document.getElementById('resetTracker');
+        const resetCheckbox = document.getElementById('resetCheckbox');
+
+        resetCheckbox.addEventListener('click', (e) => {
+            e.stopPropagation();
+            resetTracker.classList.toggle('active');
+        });
+
+        resetTracker.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (resetCheckbox.checked) {
+                progress = {};
+                planProgress = {};
+                localStorage.setItem('bibleProgress', JSON.stringify(progress));
+                localStorage.setItem('planProgress', JSON.stringify(planProgress));
+                document.querySelectorAll('.chapter span').forEach(span => {
+                    span.classList.remove('completed');
+                });
+                document.querySelectorAll('.plan-details input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateProgress();
+                resetCheckbox.checked = false;
+                resetTracker.classList.remove('active');
+            }
+        });
+
+        let articles = JSON.parse(localStorage.getItem('articles')) || [];
+        let editingArticleId = null;
+        let openArticles = new Set();
+        displayArticles(articles);
+
+        function saveOrUpdateArticle() {
+            const title = document.getElementById('titleInput').value;
+            const notes = document.getElementById('notesInput').value;
+            const saveBtn = document.getElementById('saveBtn');
+            
+            if (title && notes) {
+                if (editingArticleId) {
+                    const articleIndex = articles.findIndex(a => a.id === editingArticleId);
+                    articles[articleIndex] = {
+                        ...articles[articleIndex],
+                        title: title,
+                        notes: notes,
+                        date: new Date().toLocaleString()
+                    };
+                    editingArticleId = null;
+                    saveBtn.textContent = 'Save Article';
+                    saveBtn.style.backgroundColor = '#1e90ff';
+                } else {
+                    const article = {
+                        id: Date.now(),
+                        title: title,
+                        notes: notes,
+                        date: new Date().toLocaleString()
+                    };
+                    articles.push(article);
+                }
+                
+                localStorage.setItem('articles', JSON.stringify(articles));
+                document.getElementById('titleInput').value = '';
+                document.getElementById('notesInput').value = '';
+                displayArticles(articles);
+            }
+        }
+
+        function editArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (article) {
+                document.getElementById('titleInput').value = article.title;
+                document.getElementById('notesInput').value = article.notes;
+                editingArticleId = id;
+                const saveBtn = document.getElementById('saveBtn');
+                saveBtn.textContent = 'Update Article';
+                saveBtn.style.backgroundColor = '#ffe868';
+            }
+        }
+
+        function deleteArticle(id) {
+            const deleteBtn = document.querySelector(`.delete-btn[data-id="${id}"]`);
+            const checkbox = deleteBtn.querySelector('input[type="checkbox"]');
+            if (checkbox.checked) {
+                articles = articles.filter(article => article.id !== id);
+                openArticles.delete(id);
+                localStorage.setItem('articles', JSON.stringify(articles));
+                displayArticles(articles);
+            }
+        }
+
+        function toggleArticle(id) {
+            if (openArticles.has(id)) {
+                openArticles.delete(id);
+            } else {
+                openArticles.add(id);
+            }
+            displayArticles(articles);
+        }
+
+        function highlightText(text, searchTerm) {
+            if (!searchTerm) return text;
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function formatNotes(notes) {
+            return notes.replace(/\n/g, '<br>');
+        }
+
+        function getPreviewText(notes, searchTerm, isOpen) {
+            const maxPreviewLength = 85;
+            const contextLength = 30;
+
+            let formattedNotes = formatNotes(notes);
+
+            if (isOpen) {
+                return highlightText(formattedNotes, searchTerm);
+            }
+
+            if (searchTerm) {
+                const lowerNotes = notes.toLowerCase();
+                const lowerSearch = searchTerm.toLowerCase();
+                const index = lowerNotes.indexOf(lowerSearch);
+                if (index !== -1) {
+                    const start = Math.max(0, index - contextLength);
+                    const end = Math.min(notes.length, index + searchTerm.length + contextLength);
+                    let preview = notes.substring(start, end);
+                    if (start > 0) preview = '...' + preview;
+                    if (end < notes.length) preview += '...';
+                    return highlightText(formatNotes(preview), searchTerm);
+                }
+            }
+
+            return notes.length > maxPreviewLength 
+                ? highlightText(formatNotes(notes.substring(0, maxPreviewLength)) + '...', searchTerm) 
+                : highlightText(formattedNotes, searchTerm);
+        }
+
+        function displayArticles(articlesToShow) {
+            const container = document.getElementById('articlesContainer');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            container.innerHTML = '';
+            
+            const sortedArticles = [...articlesToShow].sort((a, b) => 
+                a.title.localeCompare(b.title)
+            );
+            
+            sortedArticles.forEach(article => {
+                const isOpen = openArticles.has(article.id);
+                const articleDiv = document.createElement('div');
+                articleDiv.className = 'article';
+                const highlightedTitle = highlightText(article.title, searchTerm);
+                const previewNotes = getPreviewText(article.notes, searchTerm, isOpen);
+                const showOpenLink = article.notes.length > 85 || (searchTerm && !isOpen);
+
+                articleDiv.innerHTML = `
+                    <h2>${highlightedTitle}</h2>
+                    <div class="delete-btn-container">
+                        <button class="delete-btn" data-id="${article.id}">Delete
+                            <input type="checkbox" class="delete-checkbox">
+                        </button>
+                    </div>
+                    <p class="notes-preview">${previewNotes}</p>
+                    <div class="article-footer">
+                        <small>Created: ${article.date}</small>
+                        <div>
+                            ${showOpenLink ? `<span class="open-link" onclick="toggleArticle(${article.id})">${isOpen ? 'Close' : 'Open'}</span>` : ''}
+                            <span class="edit-link" onclick="editArticle(${article.id})">Edit</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(articleDiv);
+
+                const deleteBtn = articleDiv.querySelector('.delete-btn');
+                const checkbox = deleteBtn.querySelector('.delete-checkbox');
+                
+                checkbox.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteBtn.classList.toggle('active');
+                });
+
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteArticle(article.id);
+                });
+            });
+        }
+
+        function searchArticles() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredArticles = articles.filter(article => 
+                article.title.toLowerCase().includes(searchTerm) || 
+                article.notes.toLowerCase().includes(searchTerm)
+            );
+            displayArticles(filteredArticles);
+        }
+
+        document.getElementById('saveBtn').addEventListener('click', saveOrUpdateArticle);
+
+        const readingPlans = {
+            "Canonical Order One Year": [
+                "Genesis 1-3", "Genesis 4-6", "Genesis 7-9", "Genesis 10-12", "Genesis 13-15",
+                "Genesis 16-18", "Genesis 19-21", "Genesis 22-24", "Genesis 25-27", "Genesis 28-30",
+                "Genesis 31-33", "Genesis 34-36", "Genesis 37-39", "Genesis 40-42", "Genesis 43-45",
+                "Genesis 46-48", "Genesis 49-50", "Exodus 1-3", "Exodus 4-6", "Exodus 7-9",
+                "Exodus 10-12", "Exodus 13-15", "Exodus 16-18", "Exodus 19-21", "Exodus 22-24",
+                "Exodus 25-27", "Exodus 28-30", "Exodus 31-33", "Exodus 34-36", "Exodus 37-40",
+                "Leviticus 1-3", "Leviticus 4-6", "Leviticus 7-9", "Leviticus 10-12", "Leviticus 13-15",
+                "Leviticus 16-18", "Leviticus 19-21", "Leviticus 22-24", "Leviticus 25-27", "Numbers 1-3",
+                "Numbers 4-6", "Numbers 7-9", "Numbers 10-12", "Numbers 13-15", "Numbers 16-18",
+                "Numbers 19-21", "Numbers 22-24", "Numbers 25-27", "Numbers 28-30", "Numbers 31-33",
+                "Numbers 34-36", "Deuteronomy 1-3", "Deuteronomy 4-6", "Deuteronomy 7-9", "Deuteronomy 10-12",
+                "Deuteronomy 13-15", "Deuteronomy 16-18", "Deuteronomy 19-21", "Deuteronomy 22-24", "Deuteronomy 25-27",
+                "Deuteronomy 28-30", "Deuteronomy 31-34", "Joshua 1-3", "Joshua 4-6", "Joshua 7-9",
+                "Joshua 10-12", "Joshua 13-15", "Joshua 16-18", "Joshua 19-21", "Joshua 22-24",
+                "Judges 1-3", "Judges 4-6", "Judges 7-9", "Judges 10-12", "Judges 13-15",
+                "Judges 16-18", "Judges 19-21", "Ruth 1-4", "1 Samuel 1-3", "1 Samuel 4-6",
+                "1 Samuel 7-9", "1 Samuel 10-12", "1 Samuel 13-15", "1 Samuel 16-18", "1 Samuel 19-21",
+                "1 Samuel 22-24", "1 Samuel 25-27", "1 Samuel 28-31", "2 Samuel 1-3", "2 Samuel 4-6",
+                "2 Samuel 7-9", "2 Samuel 10-12", "2 Samuel 13-15", "2 Samuel 16-18", "2 Samuel 19-21",
+                "2 Samuel 22-24", "1 Kings 1-3", "1 Kings 4-6", "1 Kings 7-9", "1 Kings 10-12",
+                "1 Kings 13-15", "1 Kings 16-18", "1 Kings 19-22", "2 Kings 1-3", "2 Kings 4-6",
+                "2 Kings 7-9", "2 Kings 10-12", "2 Kings 13-15", "2 Kings 16-18", "2 Kings 19-21",
+                "2 Kings 22-25", "1 Chronicles 1-3", "1 Chronicles 4-6", "1 Chronicles 7-9", "1 Chronicles 10-12",
+                "1 Chronicles 13-15", "1 Chronicles 16-18", "1 Chronicles 19-21", "1 Chronicles 22-24", "1 Chronicles 25-27",
+                "1 Chronicles 28-29", "2 Chronicles 1-3", "2 Chronicles 4-6", "2 Chronicles 7-9", "2 Chronicles 10-12",
+                "2 Chronicles 13-15", "2 Chronicles 16-18", "2 Chronicles 19-21", "2 Chronicles 22-24", "2 Chronicles 25-27",
+                "2 Chronicles 28-30", "2 Chronicles 31-33", "2 Chronicles 34-36", "Ezra 1-3", "Ezra 4-6",
+                "Ezra 7-10", "Nehemiah 1-3", "Nehemiah 4-6", "Nehemiah 7-9", "Nehemiah 10-13",
+                "Esther 1-3", "Esther 4-6", "Esther 7-10", "Job 1-3", "Job 4-6",
+                "Job 7-9", "Job 10-12", "Job 13-15", "Job 16-18", "Job 19-21",
+                "Job 22-24", "Job 25-27", "Job 28-30", "Job 31-33", "Job 34-36",
+                "Job 37-39", "Job 40-42", "Psalms 1-5", "Psalms 6-10", "Psalms 11-15",
+                "Psalms 16-20", "Psalms 21-25", "Psalms 26-30", "Psalms 31-35", "Psalms 36-40",
+                "Psalms 41-45", "Psalms 46-50", "Psalms 51-55", "Psalms 56-60", "Psalms 61-65",
+                "Psalms 66-70", "Psalms 71-75", "Psalms 76-80", "Psalms 81-85", "Psalms 86-90",
+                "Psalms 91-95", "Psalms 96-100", "Psalms 101-105", "Psalms 106-110", "Psalms 111-115",
+                "Psalms 116-120", "Psalms 121-125", "Psalms 126-130", "Psalms 131-135", "Psalms 136-140",
+                "Psalms 141-145", "Psalms 146-150", "Proverbs 1-3", "Proverbs 4-6", "Proverbs 7-9",
+                "Proverbs 10-12", "Proverbs 13-15", "Proverbs 16-18", "Proverbs 19-21", "Proverbs 22-24",
+                "Proverbs 25-27", "Proverbs 28-31", "Ecclesiastes 1-4", "Ecclesiastes 5-8", "Ecclesiastes 9-12",
+                "Song of Solomon 1-4", "Song of Solomon 5-8", "Isaiah 1-3", "Isaiah 4-6", "Isaiah 7-9",
+                "Isaiah 10-12", "Isaiah 13-15", "Isaiah 16-18", "Isaiah 19-21", "Isaiah 22-24",
+                "Isaiah 25-27", "Isaiah 28-30", "Isaiah 31-33", "Isaiah 34-36", "Isaiah 37-39",
+                "Isaiah 40-42", "Isaiah 43-45", "Isaiah 46-48", "Isaiah 49-51", "Isaiah 52-54",
+                "Isaiah 55-57", "Isaiah 58-60", "Isaiah 61-63", "Isaiah 64-66", "Jeremiah 1-3",
+                "Jeremiah 4-6", "Jeremiah 7-9", "Jeremiah 10-12", "Jeremiah 13-15", "Jeremiah 16-18",
+                "Jeremiah 19-21", "Jeremiah 22-24", "Jeremiah 25-27", "Jeremiah 28-30", "Jeremiah 31-33",
+                "Jeremiah 34-36", "Jeremiah 37-39", "Jeremiah 40-42", "Jeremiah 43-45", "Jeremiah 46-48",
+                "Jeremiah 49-52", "Lamentations 1-5", "Ezekiel 1-3", "Ezekiel 4-6", "Ezekiel 7-9",
+                "Ezekiel 10-12", "Ezekiel 13-15", "Ezekiel 16-18", "Ezekiel 19-21", "Ezekiel 22-24",
+                "Ezekiel 25-27", "Ezekiel 28-30", "Ezekiel 31-33", "Ezekiel 34-36", "Ezekiel 37-39",
+                "Ezekiel 40-42", "Ezekiel 43-45", "Ezekiel 46-48", "Daniel 1-3", "Daniel 4-6",
+                "Daniel 7-9", "Daniel 10-12", "Hosea 1-4", "Hosea 5-8", "Hosea 9-11",
+                "Hosea 12-14", "Joel 1-3", "Amos 1-3", "Amos 4-6", "Amos 7-9",
+                "Obadiah 1; Jonah 1-2", "Jonah 3-4; Micah 1-2", "Micah 3-5", "Micah 6-7", "Nahum 1-3",
+                "Habakkuk 1-3", "Zephaniah 1-3", "Haggai 1-2", "Zechariah 1-3", "Zechariah 4-6",
+                "Zechariah 7-9", "Zechariah 10-12", "Zechariah 13-14", "Malachi 1-4", "Matthew 1-3",
+                "Matthew 4-6", "Matthew 7-9", "Matthew 10-12", "Matthew 13-15", "Matthew 16-18",
+                "Matthew 19-21", "Matthew 22-24", "Matthew 25-28", "Mark 1-3", "Mark 4-6",
+                "Mark 7-9", "Mark 10-12", "Mark 13-16", "Luke 1-3", "Luke 4-6",
+                "Luke 7-9", "Luke 10-12", "Luke 13-15", "Luke 16-18", "Luke 19-21",
+                "Luke 22-24", "John 1-3", "John 4-6", "John 7-9", "John 10-12",
+                "John 13-15", "John 16-18", "John 19-21", "Acts 1-3", "Acts 4-6",
+                "Acts 7-9", "Acts 10-12", "Acts 13-15", "Acts 16-18", "Acts 19-21",
+                "Acts 22-24", "Acts 25-28", "Romans 1-4", "Romans 5-8", "Romans 9-12",
+                "Romans 13-16", "1 Corinthians 1-4", "1 Corinthians 5-8", "1 Corinthians 9-12", "1 Corinthians 13-16",
+                "2 Corinthians 1-4", "2 Corinthians 5-8", "2 Corinthians 9-13", "Galatians 1-3", "Galatians 4-6",
+                "Ephesians 1-3", "Ephesians 4-6", "Philippians 1-4", "Colossians 1-4", "1 Thessalonians 1-5",
+                "2 Thessalonians 1-3", "1 Timothy 1-3", "1 Timothy 4-6", "2 Timothy 1-4", "Titus 1-3",
+                "Philemon 1; Hebrews 1-2", "Hebrews 3-6", "Hebrews 7-10", "Hebrews 11-13", "James 1-5",
+                "1 Peter 1-5", "2 Peter 1-3", "1 John 1-5", "2 John 1; 3 John 1; Jude 1", "Revelation 1-4",
+                "Revelation 5-8", "Revelation 9-12", "Revelation 13-16", "Revelation 17-19", "Revelation 20-22"
+            ],
+            "Chronological Order One Year": [],
+            "Canonical Order Two Years": [],
+            "Chronological Order Two Years": [],
+            "Canonical Order Three Years": [],
+            "Chronological Order Three Years": []
+        };
+
+        const plansList = document.getElementById('plansList');
+        const planDetails = document.getElementById('planDetails');
+
+        function parseReading(reading) {
+            const readings = reading.split('; ').map(r => r.trim());
+            const result = [];
+
+            for (const r of readings) {
+                const match = r.match(/^([\w\s]+?)\s*(\d+(?:-\d+)?)?$/);
+                if (!match) continue;
+
+                const book = match[1].trim();
+                const range = match[2] || '1';
+
+                let chapters = [];
+                if (range.includes('-')) {
+                    const [start, end] = range.split('-').map(Number);
+                    for (let i = start; i <= end; i++) {
+                        chapters.push(i);
+                    }
+                } else {
+                    chapters.push(Number(range));
+                }
+
+                result.push({ book, chapters });
+            }
+
+            return result;
+        }
+
+        function updateTrackerFromPlan(planName, dayIndex, isChecked) {
+            const reading = readingPlans[planName][dayIndex];
+            const parsedReadings = parseReading(reading);
+
+            parsedReadings.forEach(({ book, chapters }) => {
+                chapters.forEach(chapter => {
+                    const key = `${book}-${chapter}`;
+                    progress[key] = isChecked;
+
+                    const chapterSpan = document.querySelector(
+                        `.book[data-book="${book}"] .chapter span[data-chapter="${chapter}"]`
+                    );
+                    if (chapterSpan) {
+                        chapterSpan.classList.toggle('completed', isChecked);
+                    }
+                });
+            });
+
+            saveProgress();
+        }
+
+        Object.keys(readingPlans).forEach(planName => {
+            const planDiv = document.createElement('div');
+            planDiv.className = 'book';
+
+            const planTitle = document.createElement('h3');
+            planTitle.className = 'book-title';
+            planTitle.textContent = planName;
+            planDiv.appendChild(planTitle);
+
+            planTitle.addEventListener('click', () => {
+                const ul = document.createElement('ul');
+                readingPlans[planName].forEach((reading, index) => {
+                    const li = document.createElement('li');
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = planProgress[`${planName}-${index}`] || false;
+                    checkbox.addEventListener('change', () => {
+                        planProgress[`${planName}-${index}`] = checkbox.checked;
+                        savePlanProgress();
+                        updateTrackerFromPlan(planName, index, checkbox.checked);
+                    });
+                    li.appendChild(checkbox);
+                    li.appendChild(document.createTextNode(reading));
+                    ul.appendChild(li);
+                });
+                planDetails.innerHTML = '';
+                planDetails.appendChild(ul);
+                planDetails.style.display = 'block';
+                // Apply restored planProgress after rendering
+                applyPlanProgress();
+            });
+
+            plansList.appendChild(planDiv);
+        });
+
+        function backupData() {
+            const data = {
+                bibleProgress: JSON.parse(localStorage.getItem('bibleProgress')) || {},
+                planProgress: JSON.parse(localStorage.getItem('planProgress')) || {},
+                articles: JSON.parse(localStorage.getItem('articles')) || []
+            };
+            
+            const codexContent = `CODEX-EDOC-BACKUP-v1\n${JSON.stringify(data, null, 2)}`;
+            const blob = new Blob([codexContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `codexedoc_backup_${new Date().toISOString().split('T')[0]}.codex`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function isPlainObject(obj) {
+            return obj !== null && typeof obj === 'object' && Object.getPrototypeOf(obj) === Object.prototype;
+        }
+
+        function applyPlanProgress() {
+            // Apply planProgress to checkboxes in the open plan
+            document.querySelectorAll('.plan-details input[type="checkbox"]').forEach(checkbox => {
+                const planNameElement = document.querySelector('#plansList .book-title');
+                if (!planNameElement) {
+                    console.warn('No plan title element found');
+                    return;
+                }
+                const planName = planNameElement.textContent;
+                const index = Array.from(checkbox.parentElement.parentElement.children).indexOf(checkbox.parentElement);
+                const key = `${planName}-${index}`;
+                if (planProgress[key] !== undefined) {
+                    checkbox.checked = !!planProgress[key];
+                    console.log(`Applied planProgress: ${key} = ${planProgress[key]}`);
+                }
+            });
+        }
+
+        function restoreData(event) {
+            const file = event.target.files[0];
+            const restoreInput = document.getElementById('restoreInput');
+            
+            if (!file) {
+                alert('Error: No file selected');
+                console.error('No file selected');
+                restoreInput.value = '';
+                return;
+            }
+
+            // Validate file type and size
+            try {
+                const validExtensions = ['.codex', '.json'];
+                const fileExtension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+                if (!validExtensions.includes(fileExtension)) {
+                    alert('Error: Invalid file type. Please select a .codex or .json file.');
+                    console.error('Invalid file extension:', fileExtension);
+                    restoreInput.value = '';
+                    return;
+                }
+                if (file.size === 0) {
+                    alert('Error: File is empty');
+                    console.error('Empty file detected');
+                    restoreInput.value = '';
+                    return;
+                }
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('Error: File is too large (max 10MB)');
+                    console.error('File size too large:', file.size);
+                    restoreInput.value = '';
+                    return;
+                }
+            } catch (error) {
+                alert('Error: Failed to validate file properties');
+                console.error('File validation error:', error.message, error.stack);
+                restoreInput.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    let content = e.target.result;
+                    console.log('Raw file content:', content);
+
+                    // Remove BOM and trim whitespace
+                    content = content.replace(/^\uFEFF/, '').trim();
+                    if (!content) {
+                        alert('Error: File is empty or contains only whitespace');
+                        console.error('Empty or whitespace-only content');
+                        restoreInput.value = '';
+                        return;
+                    }
+
+                    let data;
+                    const isCodex = content.startsWith('CODEX-EDOC-BACKUP-v1');
+                    let jsonContent;
+
+                    if (isCodex) {
+                        const lines = content.split('\n');
+                        if (lines[0].trim() !== 'CODEX-EDOC-BACKUP-v1') {
+                            throw new Error('Invalid .codex file header');
+                        }
+                        jsonContent = lines.slice(1).join('\n').trim();
+                        if (!jsonContent) {
+                            throw new Error('No JSON data found after header');
+                        }
+                    } else {
+                        jsonContent = content;
+                    }
+
+                    // Basic JSON syntax check before parsing
+                    if (!jsonContent.startsWith('{') && !jsonContent.startsWith('[')) {
+                        throw new Error('Invalid JSON: Content must start with an object or array');
+                    }
+
+                    try {
+                        data = JSON.parse(jsonContent);
+                    } catch (parseError) {
+                        const match = parseError.message.match(/at position (\d+)/);
+                        const position = match ? parseInt(match[1]) : -1;
+                        let errorContext = '';
+                        if (position >= 0) {
+                            const start = Math.max(0, position - 20);
+                            const end = Math.min(jsonContent.length, position + 20);
+                            errorContext = ` near "${jsonContent.slice(start, end)}"`;
+                        }
+                        throw new Error(`Invalid JSON format: ${parseError.message}${errorContext}`);
+                    }
+
+                    console.log('Parsed data:', data);
+
+                    // Validate data structure
+                    if (!isPlainObject(data)) {
+                        throw new Error('Invalid data structure: Root must be an object');
+                    }
+
+                    const bibleProgress = isPlainObject(data.bibleProgress) ? data.bibleProgress : {};
+                    const planProgressData = isPlainObject(data.planProgress) ? data.planProgress : {};
+                    const articlesData = Array.isArray(data.articles) ? data.articles : [];
+
+                    // Validate articles
+                    const validArticles = articlesData.filter(article => {
+                        return isPlainObject(article) &&
+                               typeof article.id === 'number' &&
+                               typeof article.title === 'string' &&
+                               typeof article.notes === 'string' &&
+                               typeof article.date === 'string';
+                    });
+                    if (validArticles.length !== articlesData.length) {
+                        console.warn('Some articles were invalid and filtered out:', articlesData);
+                    }
+
+                    // Validate bibleProgress keys
+                    const validBibleProgress = {};
+                    const invalidBibleKeys = [];
+                    Object.keys(bibleProgress).forEach(key => {
+                        const match = key.match(/^(.+?)-(\d+)$/);
+                        if (!match) {
+                            invalidBibleKeys.push(key);
+                            console.warn(`Invalid bibleProgress key format: ${key}`);
+                            return;
+                        }
+
+                        const [_, book, chapter] = match;
+                        const chapterNum = parseInt(chapter);
+                        const bookEntry = bibleBooks.find(b => b.name === book);
+
+                        if (!bookEntry) {
+                            invalidBibleKeys.push(key);
+                            console.warn(`Invalid book in bibleProgress: ${book}`);
+                            return;
+                        }
+                        if (isNaN(chapterNum) || chapterNum < 1 || chapterNum > bookEntry.chapters) {
+                            invalidBibleKeys.push(key);
+                            console.warn(`Invalid chapter in bibleProgress: ${key} (chapter: ${chapterNum}, max: ${bookEntry.chapters})`);
+                            return;
+                        }
+
+                        validBibleProgress[key] = bibleProgress[key];
+                    });
+
+                    if (invalidBibleKeys.length > 0) {
+                        console.warn('Filtered out invalid bibleProgress keys:', invalidBibleKeys);
+                    }
+
+                    // Validate planProgress keys
+                    const validPlanProgress = {};
+                    const invalidPlanKeys = [];
+                    Object.keys(planProgressData).forEach(key => {
+                        const match = key.match(/^(.+?)-(\d+)$/);
+                        if (!match) {
+                            invalidPlanKeys.push(key);
+                            console.warn(`Invalid planProgress key format: ${key}`);
+                            return;
+                        }
+
+                        const [_, planName, index] = match;
+                        const indexNum = parseInt(index);
+
+                        if (!(planName in readingPlans)) {
+                            invalidPlanKeys.push(key);
+                            console.warn(`Invalid plan name in planProgress: ${planName}`);
+                            return;
+                        }
+                        if (isNaN(indexNum) || indexNum < 0 || indexNum >= readingPlans[planName].length) {
+                            invalidPlanKeys.push(key);
+                            console.warn(`Invalid index in planProgress: ${key} (index: ${indexNum}, max: ${readingPlans[planName].length - 1})`);
+                            return;
+                        }
+
+                        validPlanProgress[key] = planProgressData[key];
+                    });
+
+                    if (invalidPlanKeys.length > 0) {
+                        console.warn('Filtered out invalid planProgress keys:', invalidPlanKeys);
+                    }
+
+                    console.log('Validated data:', { bibleProgress: validBibleProgress, planProgress: validPlanProgress, articles: validArticles });
+
+                    // Apply bibleProgress
+                    try {
+                        localStorage.setItem('bibleProgress', JSON.stringify(validBibleProgress));
+                        progress = validBibleProgress;
+
+                        console.log('Number of book elements:', document.querySelectorAll('.book').length);
+                        console.log('Number of chapter spans:', document.querySelectorAll('.chapter span').length);
+
+                        // Reset all chapter spans
+                        document.querySelectorAll('.chapter span').forEach(span => {
+                            span.classList.remove('completed');
+                        });
+
+                        // Apply progress for each valid key
+                        if (Object.keys(validBibleProgress).length === 0) {
+                            console.warn('No valid bibleProgress keys to apply');
+                        }
+
+                        Object.keys(validBibleProgress).forEach(key => {
+                            const [book, chapter] = key.split('-');
+                            console.log(`Processing bibleProgress key: ${key} (value: ${validBibleProgress[key]})`);
+                            // Use data-chapter attribute for reliable selection
+                            const chapterSpan = document.querySelector(
+                                `.book[data-book="${book}"] .chapter span[data-chapter="${chapter}"]`
+                            );
+                            if (chapterSpan) {
+                                if (validBibleProgress[key]) {
+                                    chapterSpan.classList.add('completed');
+                                    console.log(`Marked ${key} as completed`);
+                                } else {
+                                    chapterSpan.classList.remove('completed');
+                                    console.log(`Unmarked ${key}`);
+                                }
+                            } else {
+                                console.warn(`No DOM element found for bibleProgress key: ${key}`);
+                            }
+                        });
+
+                        try {
+                            updateProgress();
+                        } catch (progressError) {
+                            throw new Error(`Failed to update progress UI: ${progressError.message}`);
+                        }
+                    } catch (error) {
+                        throw new Error(`Failed to apply bibleProgress: ${error.message}`);
+                    }
+
+                    // Apply planProgress
+                    try {
+                        localStorage.setItem('planProgress', JSON.stringify(validPlanProgress));
+                        planProgress = validPlanProgress;
+
+                        if (Object.keys(validPlanProgress).length === 0) {
+                            console.warn('No valid planProgress keys to apply');
+                        }
+
+                        // Plan progress will be applied when a plan is opened
+                        console.log('Stored planProgress for later application:', validPlanProgress);
+                    } catch (error) {
+                        throw new Error(`Failed to apply planProgress: ${error.message}`);
+                    }
+
+                    // Apply articles
+                    try {
+                        console.log('Applying articles:', validArticles);
+                        localStorage.setItem('articles', JSON.stringify(validArticles));
+                        articles.length = 0;
+                        articles.push(...validArticles);
+                        openArticles.clear();
+                        displayArticles(articles);
+                        console.log('Articles applied successfully:', articles);
+                    } catch (error) {
+                        throw new Error(`Failed to apply articles: ${error.message}`);
+                    }
+
+                    const invalidKeys = [...invalidBibleKeys, ...invalidPlanKeys];
+                    if (invalidKeys.length > 0) {
+                        alert(`Data restored successfully, but some invalid entries were ignored: ${invalidKeys.join(', ')}`);
+                    } else {
+                        alert('Data restored successfully! Open a reading plan to see restored plan progress.');
+                    }
+                } catch (error) {
+                    let errorMessage = 'Error restoring data: ';
+                    if (error.message.includes('codex file header')) {
+                        errorMessage += 'Invalid .codex file header. File must start with "CODEX-EDOC-BACKUP-v1".';
+                    } else if (error.message.includes('JSON data found')) {
+                        errorMessage += 'No JSON data found in .codex file after header.';
+                    } else if (error.message.includes('Invalid JSON')) {
+                        errorMessage += `File contains invalid JSON: ${error.message}`;
+                    } else if (error.message.includes('data structure')) {
+                        errorMessage += 'Invalid data format. Expected objects for bibleProgress and planProgress.';
+                    } else if (error.message.includes('apply bibleProgress')) {
+                        errorMessage += `Failed to update reading tracker: ${error.message}`;
+                    } else if (error.message.includes('apply planProgress')) {
+                        errorMessage += `Failed to update reading plans: ${error.message}`;
+                    } else if (error.message.includes('apply articles')) {
+                        errorMessage += `Failed to update notes: ${error.message}`;
+                    } else {
+                        errorMessage += `Unexpected error: ${error.message}`;
+                    }
+                    alert(errorMessage);
+                    console.error('Restore error:', error.message, error.stack);
+                }
+                restoreInput.value = '';
+            };
+            reader.onerror = function() {
+                alert('Error: Failed to read file');
+                console.error('FileReader error');
+                restoreInput.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const backupBtn = document.getElementById('backupBtn');
+    const restoreBtn = document.getElementById('restoreBtn');
+    const restoreInput = document.getElementById('restoreInput');
+
+    backupBtn.addEventListener('click', backupData);
+    restoreBtn.addEventListener('click', () => restoreInput.click());
+    restoreInput.addEventListener('change', restoreData);
+
+    // Ensure planProgress is applied when a plan is opened
+    plansList.addEventListener('click', () => {
+        setTimeout(applyPlanProgress, 0); // Defer to ensure DOM is updated
+    });
+});
+    </script>
+</body>
+</html>
