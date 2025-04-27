@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magazine</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Anton%7CBaskervville%7CRaleway&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    />
+    <style>
+      *,
+      ::before,
+      ::after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 62.5%;
+      }
+
+      body {
+        font-family: 'Baskervville', serif;
+        color: #333333;
+        background-color: #eeeeee;
+      }
+
+      h1 {
+        font-family: 'Anton', sans-serif;
+      }
+
+      h2, h3, h4, h5, h6 {
+        font-family: 'Raleway', sans-serif;
+      }
+
+      a {
+        text-decoration: none;
+        color: #333333;
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: minmax(2rem, 1fr) minmax(min-content, 94rem) minmax(2rem, 1fr);
+        row-gap: 3rem;
+      }
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+
+      hr {
+        margin: 1.5rem 0;
+        border: 1px solid rgba(120, 120, 120, 0.6);
+      }
+
+      .heading {
+        grid-column: 2 / 3;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 1.5rem;
+      }
+
+      .text {
+        grid-column: 2 / 3;
+        font-size: 1.8rem;
+        letter-spacing: 0.6px;
+        column-width: 25rem;
+        text-align: justify;
+      }
+
+      .hero {
+        grid-column: 1 / -1;
+        position: relative;
+      }
+
+      .hero-title {
+        text-align: center;
+        color: #1e90ff;
+        font-size: 8rem;
+      }
+
+      .hero-subtitle {
+        font-size: 2.4rem;
+        color: #1e90ff;
+        text-align: center;
+      }
+
+      .author {
+        font-size: 2rem;
+        font-family: "Raleway", sans-serif;
+      }
+
+      .author-name a:hover {
+        background-color: #306203;
+      }
+
+      .publish-date {
+        color: rgba(0, 0, 0, 0.5);
+      }
+
+      .social-icons {
+        display: grid;
+        font-size: 3rem;
+        grid-template-columns: repeat(5, 1fr);
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        align-items: center;
+      }
+
+      .first-paragraph::first-letter {
+        font-size: 6rem;
+        color: #1e90ff;
+        float: left;
+        margin-right: 1rem;
+      }
+
+      .quote {
+        color: #1e90ff;
+        font-size: 2.4rem;
+        text-align: center;
+        font-family: "Raleway", sans-serif;
+      }
+
+      .quote::before {
+        content: '" ';
+      }
+
+      .quote::after {
+        content: ' "';
+      }
+
+      .text-with-images {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        column-gap: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .lists {
+        list-style-type: none;
+        margin-top: 2rem;
+      }
+
+      .lists li {
+        margin-bottom: 1.5rem;
+      }
+
+      .list-title, .list-subtitle {
+        color: #1e90ff;
+      }
+
+      .image-wrapper {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: repeat(2, min-content);
+        gap: 2rem;
+        place-items: center;
+      }
+
+      .image-1 {
+        grid-column: 1 / -1;
+      }
+
+      @media only screen and (max-width: 720px) {
+        .image-wrapper {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media only screen and (max-width: 600px) {
+        .text-with-images {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media only screen and (max-width: 550px) {
+        .hero-title {
+          font-size: 6rem;
+        }
+        
+        .hero-subtitle,
+        .author,
+        .quote,
+        .list-title {
+          font-size: 1.8rem;
+        }
+        
+        .social-icons {
+          font-size: 2rem;
+        }
+
+        .text {
+          font-size: 1.6rem;
+        } 
+      }
+
+      @media only screen and (max-width: 420px) {
+        .hero-title {
+          font-size: 4.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="heading">
+        <header class="hero">
+          <img
+            src="pangolin_hero_image.jpg"
+            alt="pangolin curled in a ball in a forest"
+            loading="lazy"
+            class="hero-img"
+          />
+          <h1 class="hero-title">SAVING THE PANGOLIN</h1>
+          <p class="hero-subtitle">
+            Global efforts to protect the world's most trafficked mammal
+          </p>
+        </header>
+        <div class="author">
+          <p class="author-name">
+            By
+            <a href="https://codexedoc.com" target="_blank" rel="noreferrer"
+              >CODEXEDOC</a
+            >
+          </p>
+          <p class="publish-date">April 27, 2025</p>
+        </div>
+        <div class="social-icons">
+          <a href="https://codexedoc.com">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://codexedoc.com">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://codexedoc.com">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://codexedoc.com">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://codexedoc.com">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </section>
+      <section class="text">
+        <p class="first-paragraph">
+          Pangolins, the only mammals with scales, are facing extinction due to illegal trafficking. Conservationists are now focusing on community-driven protection programs, habitat restoration, and stricter anti-poaching laws. Instead of isolated efforts, these initiatives work step-by-step to ensure pangolin survival. We're not altering the core mission to save pangolins; we're enhancing the strategies to make them more effective.
+        </p>
+        <p>
+          After years of studying pangolin decline, conservationists faced two major challenges: habitat loss and illegal trade. One day, while observing pangolins in the wild, a researcher had an epiphany: integrated conservation projects could address both issues simultaneously. This vision became the blueprint for modern pangolin protection.
+        </p>
+        <p>
+          It wasn’t a dramatic moment, just a quiet realization during a field study. The insight: all conservation efforts should be project-based, with clear, testable goals. Each project includes specific milestones—like securing a habitat or dismantling a poaching ring—giving teams just enough guidance to succeed. (And resources are available if more help is needed.)
+        </p>
+        <blockquote>
+          <hr />
+          <p class="quote">
+            All conservation efforts should be a series of projects
+          </p>
+          <hr />
+        </blockquote>
+        <p>
+          No more scattered plans or vague objectives. Just one goal at a time, as teams build toward pangolin recovery. Over the course of completing hundreds of milestones, conservationists create safe habitats and strengthen local laws. There’s no gap between planning and action, because the plans are embedded in the projects. Repetition in tasks, like monitoring populations, reinforces success, mirroring real-world conservation work.
+        </p>
+        <p>
+          The challenge is condensing complex strategies into clear, actionable steps. Each project involves dozens of milestones, keeping teams focused. Conservationists stay in “action mode,” moving from one task to the next without wading through lengthy reports.
+        </p>
+        <p>
+          Instead of disjointed efforts, teams progress through milestones, quickly building momentum. This creates a flow state, similar to the urgency felt during critical rescue operations. With this approach, pangolin conservation becomes a smoother, more impactful process.
+        </p>
+      </section>
+      <section class="text text-with-images">
+        <article class="brief-history">
+          <h3 class="list-title">A Brief History</h3>
+          <p>Of Pangolin Conservation</p>
+          <ul class="lists">
+            <li>
+              <h4 class="list-subtitle">1970s</h4>
+              <p>
+                Pangolins first recognized as vulnerable due to habitat loss in
+                Asia and Africa.
+              </p>
+            </li>
+            <li>
+              <h4 class="list-subtitle">1990s</h4>
+              <p>Illegal trade in pangolin scales begins to surge.</p>
+            </li>
+            <li>
+              <h4 class="list-subtitle">2000s</h4>
+              <p>
+                CITES lists all pangolin species under Appendix II, restricting
+                trade.
+              </p>
+            </li>
+            <li>
+              <h4 class="list-subtitle">2016</h4>
+              <p>
+                Pangolins upgraded to Appendix I, banning all commercial trade.
+                Community-based conservation programs emerge.
+              </p>
+            </li>
+            <li>
+              <h4 class="list-subtitle">2020</h4>
+              <p>Global pangolin conservation strategies formalized.</p>
+            </li>
+            <li>
+              <h4 class="list-subtitle">2024</h4>
+              <p>
+                New projects launched, integrating technology like GPS tracking
+                and AI to monitor pangolin populations.
+              </p>
+            </li>
+          </ul>
+        </article>
+        <aside class="image-wrapper">
+          <img
+            src="pangolin_image1.jpg"
+            alt="pangolin walking on forest floor"
+            loading="lazy"
+            class="image-1"
+            width="600"
+            height="400"
+          />
+          <img
+            src="pangolin_image2.jpg"
+            alt="pangolin eating ants"
+            loading="lazy"
+            class="image-2"
+            width="400"
+            height="400"
+          />
+          <blockquote class="image-quote">
+            <hr />
+            <p class="quote">
+              Millions of pangolins will have a better chance at survival thanks
+              to these focused conservation efforts.
+            </p>
+            <hr />
+          </blockquote>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>
