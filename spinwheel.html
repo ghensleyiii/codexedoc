@@ -122,7 +122,13 @@
     <script>
         const inputs = [];
         const canvas = document.getElementById('wheel');
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = 300 * dpr;
+        canvas.height = 300 * dpr;
+        canvas.style.width = '300px';
+        canvas.style.height = '300px';
         const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
         const spinButton = document.getElementById('spinButton');
         const resultDiv = document.getElementById('result');
         const jsConfetti = new JSConfetti();
@@ -156,30 +162,42 @@
         }
 
         function drawWheel() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const offscreenCanvas = document.createElement('canvas');
+            offscreenCanvas.width = canvas.width;
+            offscreenCanvas.height = canvas.height;
+            const offscreenCtx = offscreenCanvas.getContext('2d');
+            offscreenCtx.scale(dpr, dpr);
             const numSegments = inputs.length;
             const anglePerSegment = (2 * Math.PI) / numSegments;
-            const radius = canvas.width / 2;
+            const radius = canvas.width / (2 * dpr);
 
             for (let i = 0; i < numSegments; i++) {
-                ctx.beginPath();
-                ctx.moveTo(radius, radius);
-                ctx.arc(radius, radius, radius, i * anglePerSegment, (i + 1) * anglePerSegment);
-                ctx.fillStyle = '#eeeeee';
-                ctx.fill();
-                ctx.strokeStyle = '#1e90ff';
-                ctx.lineWidth = 2;
-                ctx.stroke();
+                offscreenCtx.beginPath();
+                offscreenCtx.moveTo(radius, radius);
+                offscreenCtx.arc(radius, radius, radius, i * anglePerSegment, (i + 1) * anglePerSegment);
+                offscreenCtx.fillStyle = '#eeeeee';
+                offscreenCtx.fill();
+                offscreenCtx.strokeStyle = '#1e90ff';
+                offscreenCtx.lineWidth = 2;
+                offscreenCtx.stroke();
 
-                ctx.save();
-                ctx.translate(radius, radius);
-                ctx.rotate(i * anglePerSegment + anglePerSegment / 2);
-                ctx.fillStyle = '#333333';
-                ctx.font = '14px Arial';
-                ctx.textAlign = 'right';
-                ctx.fillText(inputs[i] || '', radius - 10, 0);
-                ctx.restore();
+                offscreenCtx.save();
+                offscreenCtx.translate(radius, radius);
+                offscreenCtx.rotate(i * anglePerSegment + anglePerSegment / 2);
+                offscreenCtx.fillStyle = '#333333';
+                offscreenCtx.font = '18px Arial';
+                offscreenCtx.textAlign = 'right';
+                offscreenCtx.fillText(inputs[i] || '', radius - 20, 0);
+                offscreenCtx.restore();
             }
+
+            ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
+            ctx.save();
+            ctx.translate(canvas.width / (2 * dpr), canvas.height / (2 * dpr));
+            ctx.rotate(currentAngle);
+            ctx.translate(-canvas.width / (2 * dpr), -canvas.height / (2 * dpr));
+            ctx.drawImage(offscreenCanvas, 0, 0, canvas.width / dpr, canvas.height / dpr);
+            ctx.restore();
         }
 
         function spinWheel() {
@@ -189,8 +207,8 @@
             spinButton.disabled = true;
             resultDiv.textContent = '';
 
-            const spinDuration = 15000;
-            const maxSpeed = 0.5; 
+            const spinDuration = 20000;
+            const maxSpeed = 0.3;
             let startTime = null;
 
             function animate(time) {
@@ -199,20 +217,13 @@
                 const progress = elapsed / spinDuration;
 
                 if (progress < 0.5) {
-                    // Accelerate
                     currentAngle += maxSpeed * (progress / 0.5);
                 } else {
-                    // Decelerate
                     currentAngle += maxSpeed * ((1 - progress) / 0.5);
                 }
 
                 currentAngle %= 2 * Math.PI;
-                ctx.save();
-                ctx.translate(canvas.width / 2, canvas.height / 2);
-                ctx.rotate(currentAngle);
-                ctx.translate(-canvas.width / 2, -canvas.height / 2);
                 drawWheel();
-                ctx.restore();
 
                 if (elapsed < spinDuration) {
                     requestAnimationFrame(animate);
