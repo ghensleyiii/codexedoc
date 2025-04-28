@@ -592,7 +592,7 @@ const lastNames = ["Abbey", "Abel", "Abell", "Abernathy", "Ables", "Abney", "Abr
 "Zander", "Zapata", "Zaragoza", "Zavala", "Zeller", "Zellers", "Zepeda", "Ziegler", "Zielinski", "Zimmerman",
 "Zinn", "Zook", "Zorn", "Zuber", "Zuniga"
 ];
-    function getRandomElement(arr) {
+        function getRandomElement(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
 
@@ -605,9 +605,8 @@ const lastNames = ["Abbey", "Abel", "Abell", "Abernathy", "Ables", "Abney", "Abr
       const names = [];
       for (let i = 0; i < 10; i++) {
         const first = getRandomElement(firstNames);
-        const middle = getRandomElement(firstNames);
         const last = getRandomElement(lastNames);
-        names.push(`${first} ${middle} ${last}`);
+        names.push(`${first} ${last}`);
       }
 
       const ul = document.createElement('ul');
