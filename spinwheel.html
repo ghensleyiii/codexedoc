@@ -165,7 +165,7 @@
                 ctx.beginPath();
                 ctx.moveTo(radius, radius);
                 ctx.arc(radius, radius, radius, i * anglePerSegment, (i + 1) * anglePerSegment);
-                ctx.fillStyle = '#333333';
+                ctx.fillStyle = '#eeeeee';
                 ctx.fill();
                 ctx.strokeStyle = '#1e90ff';
                 ctx.lineWidth = 2;
@@ -174,7 +174,7 @@
                 ctx.save();
                 ctx.translate(radius, radius);
                 ctx.rotate(i * anglePerSegment + anglePerSegment / 2);
-                ctx.fillStyle = '#eeeeee';
+                ctx.fillStyle = '#333333';
                 ctx.font = '14px Arial';
                 ctx.textAlign = 'right';
                 ctx.fillText(inputs[i] || '', radius - 10, 0);
