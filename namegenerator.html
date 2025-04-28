@@ -4,40 +4,104 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Name Generator</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .male-symbol::before {
+    :root {
+      --blue: #1e90ff;
+      --pink: #ff1e9e;
+    }
+    body {
+      background-color: #eeeeee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: arial, sans-serif;
+    }
+    .container {
+      background-color: #eeeeee;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 28rem;
+    }
+    .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .label {
+      display: block;
+      color: #333333;
+      margin-bottom: 0.5rem;
+    }
+    .gender-options {
+      display: flex;
+      gap: 1rem;
+    }
+    .gender-label {
+      display: flex;
+      align-items: center;
+    }
+    .gender-input {
+      margin-right: 0.5rem;
+    }
+    [data-gender="male"]::before {
       content: '\2642';
-      color: #1e90ff;
+      color: var(--blue);
       font-size: 1.2em;
       margin-right: 0.5em;
     }
-    .female-symbol::before {
+    [data-gender="female"]::before {
       content: '\2640';
-      color: #ff1e98;
+      color: var(--pink);
       font-size: 1.2em;
       margin-right: 0.5em;
+    }
+    .generate-btn {
+      width: 100%;
+      background-color: var(--blue);
+      font-weight: bold;
+      color: #ffffff;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      border: none;
+    }
+    .generate-btn:hover {
+      background-color: var(--pink);
+    }
+
+    .name-list {
+      margin-top: 1rem;
+    }
+    .name-list ul {
+      list-style-type: disc;
+      padding-left: 1.25rem;
+    }
+    .name-list li {
+      padding: 0.25rem 0;
     }
   </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-    <h1 class="text-2xl font-bold mb-4 text-center">Random Name Generator</h1>
-    <div class="mb-4">
-      <label class="block text-gray-700 mb-2">Select Gender:</label>
-      <div class="flex space-x-4">
-        <label class="flex items-center">
-          <input type="radio" name="gender" value="male" class="mr-2" checked>
-          <span class="male-symbol">Male</span>
+<body>
+  <div class="container">
+    <h1 class="title">Random Name Generator</h1>
+    <div style="margin-bottom: 1rem;">
+      <label class="label">Select Gender:</label>
+      <div class="gender-options">
+        <label class="gender-label">
+          <input type="radio" name="gender" value="male" class="gender-input" checked>
+          <span data-gender="male">Male</span>
         </label>
-        <label class="flex items-center">
-          <input type="radio" name="gender" value="female" class="mr-2">
-          <span class="female-symbol">Female</span>
+        <label class="gender-label">
+          <input type="radio" name="gender" value="female" class="gender-input">
+          <span data-gender="female">Female</span>
         </label>
       </div>
     </div>
-    <button id="generateBtn" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">Generate Names</button>
-    <div id="nameList" class="mt-4"></div>
+    <button id="generateBtn" class="generate-btn">Generate Names</button>
+    <div id="nameList" class="name-list"></div>
   </div>
 
   <script>
@@ -592,7 +656,8 @@ const lastNames = ["Abbey", "Abel", "Abell", "Abernathy", "Ables", "Abney", "Abr
 "Zander", "Zapata", "Zaragoza", "Zavala", "Zeller", "Zellers", "Zepeda", "Ziegler", "Zielinski", "Zimmerman",
 "Zinn", "Zook", "Zorn", "Zuber", "Zuniga"
 ];
-        function getRandomElement(arr) {
+
+    function getRandomElement(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
 
@@ -609,12 +674,13 @@ const lastNames = ["Abbey", "Abel", "Abell", "Abernathy", "Ables", "Abney", "Abr
         names.push(`${first} ${last}`);
       }
 
+      // Sort names alphabetically
+      names.sort();
+
       const ul = document.createElement('ul');
-      ul.className = 'list-disc pl-5';
       names.forEach(name => {
         const li = document.createElement('li');
         li.textContent = name;
-        li.className = 'py-1';
         ul.appendChild(li);
       });
       nameList.appendChild(ul);
