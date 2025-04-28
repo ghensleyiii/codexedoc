@@ -148,6 +148,13 @@
             }
         }
 
+        // Enter key event listener
+        document.getElementById('inputBox').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                addInput();
+            }
+        });
+
         function updateInputList() {
             const inputList = document.getElementById('inputList');
             inputList.innerHTML = inputs.map((item, index) => `<li>${item} <button onclick="removeInput(${index})" class="remove-button">Remove</button></li>`).join('');
