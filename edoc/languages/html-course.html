@@ -3019,7 +3019,7 @@ const showCertificateModal = () => {
 
   const modalContent = document.createElement('div');
   modalContent.style.cssText = `
-    background: #eeeeee; padding: 50px !important; border-radius: 5px; max-width: 500px; width: 90%;
+    background: #eeeeee; padding: 30px !important; border-radius: 5px; max-width: 500px; width: 90%;
     text-align: center; color: #333; font-family: Arial, sans-serif;
   `;
   modalContent.innerHTML = `
@@ -3034,7 +3034,7 @@ const showCertificateModal = () => {
       </label>
       <input type="text" id="nameInput" style="
         padding: 8px; width: 250px; height: 30px; border: 1px solid #909090; border-radius: 4px;
-        background: #eee; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;
+        background: #eee; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; margin-bottom="5px";
       " oninput="restrictToLetters(this)">
       <div id="nameError" style="color: red; font-size: 0.9rem; margin-top: 5px; display: none;">
         Please enter only letters and spaces.
