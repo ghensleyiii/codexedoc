@@ -2868,7 +2868,7 @@ document.getElementById('library-search').addEventListener('input', displayLibra
 // Initialize
 displayLesson(currentLesson);
 displayLibrary();*/
-	    // Track current lesson, test page, and user answers
+// Track current lesson, test page, and user answers
 let currentLesson = 0;
 let currentTestPage = 0;
 const QUESTIONS_PER_PAGE = 10;
@@ -3098,6 +3098,10 @@ const generateCertificate = () => {
       format: 'letter',
     });
 
+    // Set background color to #eeeeee
+    doc.setFillColor(238, 238, 238); // RGB for #eeeeee
+    doc.rect(0, 0, 792, 612, 'F'); // Fill entire page
+
     doc.setLineWidth(4);
     doc.setDrawColor(30, 144, 255);
     doc.rect(30, 30, 732, 552);
@@ -3133,32 +3137,20 @@ const generateCertificate = () => {
     doc.text(`Date Issued: ${issueDate}`, 60, 540, { align: 'left' });
     doc.text(`Expires: ${expirationDate}`, 742, 540, { align: 'right' });
 
-    doc.setFont('arial', 'normal');
-    doc.setFontSize(30);
-    doc.setTextColor(51, 51, 51);
-    doc.setFont('arial', 'bold');
-    const centerX = 396;
-    const codeWidth = doc.getTextWidth('CODE ');
-    const edocWidth = doc.getTextWidth(' EDOC');
-    const xWidth = doc.getTextWidth('X');
-    doc.text('CODE ', centerX - (codeWidth + xWidth / 2), 540);
-
-    doc.setFont('arial', 'normal');
-    doc.setFontSize(30);
-    doc.setTextColor(51, 51, 51);
-    doc.setFont('arial', 'bold');
-    doc.text(' EDOC', centerX + (xWidth / 2), 540);
-
-    doc.setFont('arial', 'normal');
-    doc.setFontSize(45);
-    doc.setTextColor(30, 144, 255);
-    doc.setFont('arial', 'bold');
-    doc.text('X', centerX - (doc.getTextWidth('X') / 2), 540);
+    // Add CODEXEDOC logo image
+    const logoPath = './codexedoc.png'; // Relative path; ensure this is accessible
+    // Alternative: Use a base64 string if the relative path doesn't work
+    // const logoPath = 'data:image/png;base64,iVBORw0KGgo...'; // Replace with your base64 string
+    const imgWidth = 170; // Width in points
+    const imgHeight = 60; // Height in points
+    const centerX = 396 - imgWidth / 2; // Center horizontally
+    const yPosition = 540 - imgHeight; // Align top of image to original text position
+    doc.addImage(logoPath, 'PNG', centerX, yPosition, imgWidth, imgHeight);
 
     doc.save(`${nameInput}_certificate.pdf`);
     closeModal();
   } catch (error) {
-    alert('An error occurred while generating the certificate. Please try again.');
+    alert('An error occurred while generating the certificate. Please try again. If the image failed to load, ensure codexedoc.png is in the correct directory or use a base64 string.');
     console.error(error);
   }
 };
