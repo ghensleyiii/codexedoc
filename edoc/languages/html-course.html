@@ -9,277 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
     <title>HTML</title>
-    <!--<style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            padding: 0px;
-            background-color: #eee;
-        }
-	/*LOGO HEADER*/
-	.headerlogo {
- 	 background-color: #eeeeee;
-  	 padding: 20px;
-  	 text-align: center;
-  position: sticky;
-  top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-  z-index: 100;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #333333;
-  display: inline-block;
-  font-family: 'Audiowide', cursive, sans-serif;
-}
-
-.headerlogo .logo a,
-.headerlogo .logo a:link,
-.headerlogo .logo a:visited,
-.headerlogo .logo a:active {
-  color: #333333 !important;
-  text-decoration: none;
-  transition: color 0.3s;
-  font-family: 'Audiowide', cursive, sans-serif;
-}
-
-.headerlogo .logo a:hover {
-  color: #1e90ff !important;
-}
-
-.logo span {
-  font-family: 'Audiowide', cursive, sans-serif;
-  color: #1e90ff !important;
-  font-size: 4rem; /* 1rem larger than .logo */
-  vertical-align: baseline; /* Aligns baseline of X with CODE and EDOC */
-  position: relative; /* Allows fine-tuning with top */
-  top: 0.30rem; /* Increased to lower the X a tiny bit more */
-}
-
-.footerlogo {
-  background-color: #333333;
-  color: #1e90ff;
-  text-align: center;
-  padding: 20px;
-  font-size: 0.9rem;
-  margin-top: 20px;
-}
-
-.footerlogo a {
-  color: #eeeeee;
-  text-decoration: none;
-}
-
-.footerlogo a:hover {
-  text-decoration: underline;
-}
-
-.footer-logo {
-  font-size: 0.9rem;
-  color: #eeeeee;
-  font-weight: bold;
-}
-
-.footer-logo span {
-  color: #1e90ff;
-}
-
-/*END OF HEADER LOGO*/
-        .hero {
-            text-align: center;
-            margin-bottom: 20px;
-	    padding: 20px;
-        }
-        .headone {
-            font-size: 2em;
-            color: #333;
-	    margin-top: 20px;
-	    color: #1e90ff;
-	    font-style: bold;
-	    font-family: 'Audiowide', cursive, sans-serif;
-        }
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .tab-btn {
-            padding: 10px 20px;
-            background: #1e90ff;
-            color: #eee;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .tab-btn.active {
-            background: #333;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        .lesson-nav, .test-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .nav-btn {
-            padding: 8px 16px;
-            background: #1e90ff;
-            color: #eee;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-	    margin-left: 20px;
-	    margin-right: 20px
-        }
-        .nav-btn:disabled {
-            background: #eee;
-            cursor: not-allowed;
-        }
-        .lesson-body, .test-content {
-            background: #eee;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-	#lesson-title {
-            text-align: center;
-        }
-	    
-        .lesson-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 20px;
-	    margin-left: 20px;
-	    margin-right: 20px;
-            justify-content: center;
-        }
-        .lesson-links button {
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            background: #1e90ff;
-            color: #eee;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .lesson-links button:hover {
-            background: #333;
-        }
-        .lesson-links button.active {
-            background: #333;
-        }
-        .demo-box {
-            border-top: 3px solid #1e90ff;
-            padding: 10px;
-            border-radius: 4px;
-            background: #eee;
-			margin-top: 20px;
-        }
-        pre {
-            background: #eee;
-            padding: 10px;
-            border-radius: 4px;
-            overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
-	    border: 1px solid #1e90ff;
-            margin-top: 20px;
-        }
-        code {
-            font-family: 'Courier New', Courier, monospace;
-            background: #eee;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-        pre code {
-            background: none;
-            padding: 0;
-        }
-        .test-content form {
-            margin-bottom: 20px;
-        }
-        .test-content label {
-            display: block;
-            margin: 5px 0;
-        }
-        .test-summary {
-            margin-top: 20px;
-            background: #eee;
-            padding: 20px;
-            border-radius: 8px;
-        }
-	    
-        #library-search {
-            padding: 10px;
-   	    margin: 0 auto 20px; /* Centers horizontally and keeps bottom margin */
-    	    border: 1px solid #1e90ff;
-   	    border-radius: 4px;
-   	    display: flex;
-            justify-content: center; /* Centers content inside the flex container */
-            width: 80%; /* Keeps the width at 80% */
-}
-	    
-        #library-content details {
-            margin-bottom: 10px;
-	    margin-left: 20px;
-	    margin-right: 20px;
-        }
-
-        #library-content summary {
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .feedback {
-            margin-top: 5px;
-        }
-        .feedback.correct {
-            color: #1e90ff;
-        }
-        .feedback.incorrect {
-            color: #333;
-        }
-
-	@media (max-width: 768px) {
-            .logo {
-                 font-size: 2rem;
-            }
-
-            .logo span {
-                 font-size: 3rem; /* 1rem larger than .logo */
-                 vertical-align: baseline; /* Aligns baseline */
-                 position: relative; /* Fine-tuning */
-                 top: 0.30rem; /* Increased to lower the X a tiny bit more */
-             }
-
-	     
-         }
-    </style>-->
 </head>
-   <header class="headerlogo">
+<body>
+    <header class="headerlogo">
         <div class="logo">
             <a href="../../../code/code.html">CODE</a><a href="../../../index.html"><span>X</span></a><a href="../edoc.html">EDOC</a>
         </div>
     </header>
-<body>
     <div class="hero">
         <h1 class="headone">HYPERTEXT MARKUP LANGUAGE</h1>
         <nav class="tabs">
@@ -288,7 +24,6 @@
             <button class="tab-btn" data-tab="library" aria-label="View HTML tag library">Library</button>
         </nav>
     </div>
-
     <main>
         <section id="lessons" class="tab-content active">
             <div class="lesson-nav">
@@ -2946,7 +2681,7 @@ x = 10;
     { tag: "&lt;wbr&gt;", description: "Suggests a word break opportunity for long text." }
 ];
 
-        let currentLesson = 0;
+        /*let currentLesson = 0;
         let currentTestPage = 0;
         const questionsPerPage = 10;
         let userAnswers = new Array(testQuestions.length).fill(null);
@@ -3111,7 +2846,195 @@ x = 10;
 
         // Initialize
         displayLesson(currentLesson);
-        displayLibrary();
+        displayLibrary();*/
+	let currentLesson = 0;
+let currentTestPage = 0;
+const questionsPerPage = 10;
+let userAnswers = new Array(testQuestions.length).fill(null);
+let testSubmitted = false;
+let shuffledQuestions = [];
+
+// Fisher-Yates shuffle algorithm
+function shuffleArray(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+}
+
+// Initialize shuffled questions when test tab is first loaded
+function initializeTest() {
+    if (shuffledQuestions.length === 0) {
+        shuffledQuestions = shuffleArray(testQuestions);
+        userAnswers = new Array(testQuestions.length).fill(null);
+        testSubmitted = false;
+        currentTestPage = 0;
+    }
+}
+
+function displayLesson(index) {
+    const lesson = lessons[index];
+    document.getElementById('lesson-title').textContent = lesson.title;
+    document.getElementById('lesson-content').innerHTML = lesson.content;
+    document.getElementById('prev-lesson').disabled = index === 0;
+    document.getElementById('next-lesson').disabled = index === lessons.length - 1;
+    updateLessonLinks(index);
+}
+
+function updateLessonLinks(activeIndex) {
+    const linksContainer = document.querySelector('.lesson-links');
+    linksContainer.innerHTML = '';
+    lessons.forEach((_, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = i + 1;
+        btn.className = i === activeIndex ? 'active' : '';
+        btn.setAttribute('aria-label', `Go to lesson ${i + 1}`);
+        btn.addEventListener('click', () => {
+            currentLesson = i;
+            displayLesson(i);
+        });
+        linksContainer.appendChild(btn);
+    });
+}
+
+function displayTestPage(page) {
+    initializeTest();
+    const start = page * questionsPerPage;
+    const end = Math.min(start + questionsPerPage, shuffledQuestions.length);
+    const content = document.getElementById('test-content');
+    content.innerHTML = '';
+    for (let i = start; i < end; i++) {
+        const q = shuffledQuestions[i];
+        const questionDiv = document.createElement('div');
+        questionDiv.innerHTML = `
+            <p>${i + 1}. ${q.question}</p>
+            <form id="q${i}">
+                ${q.options.map((opt, j) => `
+                    <label>
+                        <input type="radio" name="q${i}" value="${j}" ${userAnswers[i] == j ? 'checked' : ''} ${testSubmitted ? 'disabled' : ''}>
+                        ${opt}
+                    </label>
+                `).join('')}
+                <div id="feedback${i}" class="feedback"></div>
+            </form>
+        `;
+        content.appendChild(questionDiv);
+        if (!testSubmitted) {
+            document.getElementById(`q${i}`).addEventListener('change', (e) => {
+                userAnswers[i] = parseInt(e.target.value);
+            });
+        }
+    }
+    document.getElementById('test-progress').textContent = `Questions ${start + 1}-${end} of ${shuffledQuestions.length}`;
+    document.getElementById('prev-test').disabled = page === 0;
+    document.getElementById('next-test').disabled = end === shuffledQuestions.length;
+    if (end === shuffledQuestions.length && !testSubmitted) {
+        const submitBtn = document.createElement('button');
+        submitBtn.textContent = 'Submit Test';
+        submitBtn.className = 'nav-btn';
+        submitBtn.addEventListener('click', submitTest);
+        content.appendChild(submitBtn);
+    }
+    if (testSubmitted) {
+        showTestFeedback(start, end);
+    }
+}
+
+function showTestFeedback(start, end) {
+    for (let i = start; i < end; i++) {
+        const feedbackDiv = document.getElementById(`feedback${i}`);
+        if (userAnswers[i] == null) {
+            feedbackDiv.textContent = 'Not answered.';
+            feedbackDiv.className = 'feedback incorrect';
+        } else if (userAnswers[i] === shuffledQuestions[i].correct) {
+            feedbackDiv.textContent = 'Correct!';
+            feedbackDiv.className = 'feedback correct';
+        } else {
+            feedbackDiv.textContent = `Incorrect. Correct answer: ${shuffledQuestions[i].options[shuffledQuestions[i].correct]}.`;
+            feedbackDiv.className = 'feedback incorrect';
+        }
+    }
+}
+
+function submitTest() {
+    testSubmitted = true;
+    let score = 0;
+    userAnswers.forEach((answer, i) => {
+        if (answer === shuffledQuestions[i].correct) score++;
+    });
+    const summary = document.getElementById('test-summary');
+    summary.innerHTML = `
+        <h3>Test Results</h3>
+        <p>You scored ${score} out of ${shuffledQuestions.length} (${Math.round((score / shuffledQuestions.length) * 100)}%).</p>
+        ${score === shuffledQuestions.length ? '<p>Perfect score! Great job!</p>' : '<p>Review incorrect answers below.</p>'}
+    `;
+    displayTestPage(currentTestPage);
+}
+
+function displayLibrary() {
+    const content = document.getElementById('library-content');
+    const search = document.getElementById('library-search').value.toLowerCase();
+    content.innerHTML = library
+        .filter(item => item.tag.toLowerCase().includes(search) || item.description.toLowerCase().includes(search))
+        .map(item => `
+            <details>
+                <summary>${item.tag}</summary>
+                <p>${item.description}</p>
+            </details>
+        `).join('');
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+        if (btn.dataset.tab === 'lessons') {
+            displayLesson(currentLesson);
+        } else if (btn.dataset.tab === 'test') {
+            displayTestPage(currentTestPage);
+        } else if (btn.dataset.tab === 'library') {
+            displayLibrary();
+        }
+    });
+});
+
+document.getElementById('prev-lesson').addEventListener('click', () => {
+    if (currentLesson > 0) {
+        currentLesson--;
+        displayLesson(currentLesson);
+    }
+});
+
+document.getElementById('next-lesson').addEventListener('click', () => {
+    if (currentLesson < lessons.length - 1) {
+        currentLesson++;
+        displayLesson(currentLesson);
+    }
+});
+
+document.getElementById('prev-test').addEventListener('click', () => {
+    if (currentTestPage > 0) {
+        currentTestPage--;
+        displayTestPage(currentTestPage);
+    }
+});
+
+document.getElementById('next-test').addEventListener('click', () => {
+    if (currentTestPage < Math.ceil(shuffledQuestions.length / questionsPerPage) - 1) {
+        currentTestPage++;
+        displayTestPage(currentTestPage);
+    }
+});
+
+document.getElementById('library-search').addEventListener('input', displayLibrary);
+
+// Initialize
+displayLesson(currentLesson);
+displayLibrary();
     </script>
 </body>
 </html>
