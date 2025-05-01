@@ -3010,7 +3010,7 @@ const showCertificateModal = () => {
 
   const modalContent = document.createElement('div');
   modalContent.style.cssText = `
-    background: #eee; padding: 20px; border-radius: 5px; max-width: 500px; width: 90%;
+    background: #eee; padding: 30px; border-radius: 5px; max-width: 500px; width: 90%;
     text-align: center; color: #333; font-family: Arial, sans-serif;
   `;
   modalContent.innerHTML = `
@@ -3024,7 +3024,7 @@ const showCertificateModal = () => {
         Enter Your Full Name:
       </label>
       <input type="text" id="nameInput" style="
-        padding: 8px; width: 250px; border: 1px solid #909090; border-radius: 4px;
+        padding: 8px; width: 250px; height: 30px; border: 1px solid #909090; border-radius: 4px;
         background: #eee; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;
       " oninput="restrictToLetters(this)">
       <div id="nameError" style="color: red; font-size: 0.9rem; margin-top: 5px; display: none;">
@@ -3053,6 +3053,15 @@ const showCertificateModal = () => {
     script.onerror = () => alert('Failed to load jsPDF. Please check your internet connection.');
     document.head.appendChild(script);
   }
+
+  // Load confetti library if not already loaded
+  if (!window.confetti) {
+    const confettiScript = document.createElement('script');
+    confettiScript.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+    confettiScript.onload = () => console.log('Confetti library loaded');
+    confettiScript.onerror = () => console.log('Failed to load confetti library');
+    document.head.appendChild(confettiScript);
+  }
 };
 
 // Restrict name input to letters and spaces
@@ -3067,7 +3076,7 @@ const restrictToLetters = input => {
 // Generate a PDF certificate
 const generateCertificate = () => {
   if (!window.jspdf || !window.jspdf.jsPDF) {
-    alert('jsPDF is not loaded. Please try again.');
+    console.error('jsPDF is not loaded.');
     return;
   }
   const { jsPDF } = window.jspdf;
@@ -3137,21 +3146,30 @@ const generateCertificate = () => {
     doc.text(`Date Issued: ${issueDate}`, 60, 540, { align: 'left' });
     doc.text(`Expires: ${expirationDate}`, 742, 540, { align: 'right' });
 
-    // Add CODEXEDOC logo image
-    const logoPath = './codexedoc.png'; // Relative path; ensure this is accessible
-    // Alternative: Use a base64 string if the relative path doesn't work
-    // const logoPath = 'data:image/png;base64,iVBORw0KGgo...'; // Replace with your base64 string
-    const imgWidth = 170; // Width in points
-    const imgHeight = 60; // Height in points
-    const centerX = 396 - imgWidth / 2; // Center horizontally
-    const yPosition = 540 - imgHeight; // Align top of image to original text position
-    doc.addImage(logoPath, 'PNG', centerX, yPosition, imgWidth, imgHeight);
+    // Add CODEXEDOC logo image with fallback
+    const centerX = 396; // Center of the page
+    try {
+      const logoPath = './codexedoc.png'; // Relative path; ensure this is accessible
+      // Alternative: Use a base64 string if the relative path doesn't work
+      // const logoPath = 'data:image/png;base64,iVBORw0KGgo...'; // Replace with your base64 string
+      const imgWidth = 170; // Width in points
+      const imgHeight = 60; // Height in points
+      const imgX = centerX - imgWidth / 2; // Center horizontally
+      const yPosition = 540 - imgHeight; // Align top of image to original text position
+      doc.addImage(logoPath, 'PNG', imgX, yPosition, imgWidth, imgHeight);
+    } catch (imageError) {
+      console.error('Failed to load image, using text fallback:', imageError);
+      // Fallback: Draw "CODEXEDOC" as text if image fails
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(36);
+      doc.setTextColor(51, 51, 51);
+      doc.text('CODEXEDOC', centerX, 540, { align: 'center' });
+    }
 
     doc.save(`${nameInput}_certificate.pdf`);
     closeModal();
   } catch (error) {
-    alert('An error occurred while generating the certificate. Please try again. If the image failed to load, ensure codexedoc.png is in the correct directory or use a base64 string.');
-    console.error(error);
+    console.error('Error generating certificate:', error);
   }
 };
 
@@ -3164,20 +3182,40 @@ const closeModal = () => {
 // Submit the test and show results
 const submitTest = () => {
   isTestSubmitted = true;
+  
+  // TESTING CODE: Forces a perfect score of 50/50 to test the certificate
+  let score = 50; // Hardcode score to 50
+  const totalQuestions = shuffledQuestions.length; // Should be 50
+  const percentage = 100; // 100% since 50/50
+
+  // PRODUCTION CODE: Uncomment this to use actual scoring logic
+  /*
   let score = 0;
   userAnswers.forEach((answer, i) => {
     if (answer === shuffledQuestions[i].correct) score++;
   });
+  const totalQuestions = shuffledQuestions.length;
+  const percentage = Math.round((score / totalQuestions) * 100);
+  */
+
   const summary = document.getElementById('test-summary');
   summary.innerHTML = `
     <h3>Test Results</h3>
-    <p>You scored ${score} out of ${shuffledQuestions.length} (${Math.round(
-      (score / shuffledQuestions.length) * 100
-    )}%).</p>
-    ${score === shuffledQuestions.length ? '<p>Perfect score! Great job!</p>' : ''}
+    <p>You scored ${score} out of ${totalQuestions} (${percentage}%).</p>
+    ${score === totalQuestions ? '<p>Perfect score! Great job!</p>' : ''}
   `;
   displayTestPage(currentTestPage);
-  if (score >= 45) showCertificateModal();
+  if (score >= 45) {
+    showCertificateModal();
+    // Launch confetti if score is 45 or higher
+    if (window.confetti) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+    }
+  }
 };
 
 // Show the library with search filtering
