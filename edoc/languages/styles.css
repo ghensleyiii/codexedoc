@@ -1,0 +1,262 @@
+* {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 0px;
+            background-color: #eee;
+        }
+	/*LOGO HEADER*/
+	.headerlogo {
+ 	 background-color: #eeeeee;
+  	 padding: 20px;
+  	 text-align: center;
+  position: sticky;
+  top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333333;
+  display: inline-block;
+  font-family: 'Audiowide', cursive, sans-serif;
+}
+
+.headerlogo .logo a,
+.headerlogo .logo a:link,
+.headerlogo .logo a:visited,
+.headerlogo .logo a:active {
+  color: #333333 !important;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-family: 'Audiowide', cursive, sans-serif;
+}
+
+.headerlogo .logo a:hover {
+  color: #1e90ff !important;
+}
+
+.logo span {
+  font-family: 'Audiowide', cursive, sans-serif;
+  color: #1e90ff !important;
+  font-size: 4rem; /* 1rem larger than .logo */
+  vertical-align: baseline; /* Aligns baseline of X with CODE and EDOC */
+  position: relative; /* Allows fine-tuning with top */
+  top: 0.30rem; /* Increased to lower the X a tiny bit more */
+}
+
+.footerlogo {
+  background-color: #333333;
+  color: #1e90ff;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
+
+.footerlogo a {
+  color: #eeeeee;
+  text-decoration: none;
+}
+
+.footerlogo a:hover {
+  text-decoration: underline;
+}
+
+.footer-logo {
+  font-size: 0.9rem;
+  color: #eeeeee;
+  font-weight: bold;
+}
+
+.footer-logo span {
+  color: #1e90ff;
+}
+
+/*END OF HEADER LOGO*/
+        .hero {
+            text-align: center;
+            margin-bottom: 20px;
+	    padding: 20px;
+        }
+        .headone {
+            font-size: 2em;
+            color: #333;
+	    margin-top: 20px;
+	    color: #1e90ff;
+	    font-style: bold;
+	    font-family: 'Audiowide', cursive, sans-serif;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .tab-btn {
+            padding: 10px 20px;
+            background: #1e90ff;
+            color: #eee;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tab-btn.active {
+            background: #333;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .lesson-nav, .test-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .nav-btn {
+            padding: 8px 16px;
+            background: #1e90ff;
+            color: #eee;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+	    margin-left: 20px;
+	    margin-right: 20px
+        }
+        .nav-btn:disabled {
+            background: #eee;
+            cursor: not-allowed;
+        }
+        .lesson-body, .test-content {
+            background: #eee;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+	#lesson-title {
+            text-align: center;
+        }
+	    
+        .lesson-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+	    margin-left: 20px;
+	    margin-right: 20px;
+            justify-content: center;
+        }
+        .lesson-links button {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: #1e90ff;
+            color: #eee;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .lesson-links button:hover {
+            background: #333;
+        }
+        .lesson-links button.active {
+            background: #333;
+        }
+        .demo-box {
+            border-top: 3px solid #1e90ff;
+            padding: 10px;
+            border-radius: 4px;
+            background: #eee;
+			margin-top: 20px;
+        }
+        pre {
+            background: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+	    border: 1px solid #1e90ff;
+            margin-top: 20px;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background: #eee;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .test-content form {
+            margin-bottom: 20px;
+        }
+        .test-content label {
+            display: block;
+            margin: 5px 0;
+        }
+        .test-summary {
+            margin-top: 20px;
+            background: #eee;
+            padding: 20px;
+            border-radius: 8px;
+        }
+	    
+        #library-search {
+            padding: 10px;
+   	    margin: 0 auto 20px; /* Centers horizontally and keeps bottom margin */
+    	    border: 1px solid #1e90ff;
+   	    border-radius: 4px;
+   	    display: flex;
+            justify-content: center; /* Centers content inside the flex container */
+            width: 80%; /* Keeps the width at 80% */
+}
+	    
+        #library-content details {
+            margin-bottom: 10px;
+	    margin-left: 20px;
+	    margin-right: 20px;
+        }
+
+        #library-content summary {
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .feedback {
+            margin-top: 5px;
+        }
+        .feedback.correct {
+            color: #1e90ff;
+        }
+        .feedback.incorrect {
+            color: #333;
+        }
+
+	@media (max-width: 768px) {
+            .logo {
+                 font-size: 2rem;
+            }
+
+            .logo span {
+                 font-size: 3rem; /* 1rem larger than .logo */
+                 vertical-align: baseline; /* Aligns baseline */
+                 position: relative; /* Fine-tuning */
+                 top: 0.30rem; /* Increased to lower the X a tiny bit more */
+             }
+
+	     
+         }
