@@ -2869,6 +2869,16 @@ document.getElementById('library-search').addEventListener('input', displayLibra
 displayLesson(currentLesson);
 displayLibrary();*/
 // Track current lesson, test page, and user answers
+// Load confetti library at the start to ensure it’s ready
+if (!window.confetti) {
+  const confettiScript = document.createElement('script');
+  confettiScript.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+  confettiScript.onload = () => console.log('Confetti library loaded');
+  confettiScript.onerror = () => console.log('Failed to load confetti library');
+  document.head.appendChild(confettiScript);
+}
+
+// Track current lesson, test page, and user answers
 let currentLesson = 0;
 let currentTestPage = 0;
 const QUESTIONS_PER_PAGE = 10;
@@ -3032,11 +3042,11 @@ const showCertificateModal = () => {
       </div>
     </div>
     <button onclick="generateCertificate()" style="
-      padding: 10px 20px; background: #1e90ff; color: #eee; border: none; border-radius: 4px;
+      padding: 15px 25px; background: #1e90ff; color: #eee; border: none; border-radius: 4px;
       cursor: pointer; font-size: 16px; margin: 10px;
     ">Download Certificate</button>
     <button onclick="closeModal()" style="
-      padding: 10px 20px; background: #333; color: #eee; border: none; border-radius: 4px;
+      padding: 15px 25px; background: #333; color: #eee; border: none; border-radius: 4px;
       cursor: pointer; font-size: 16px; margin: 10px;
     ">Close</button>
   `;
@@ -3052,15 +3062,6 @@ const showCertificateModal = () => {
     script.onload = () => console.log('jsPDF loaded');
     script.onerror = () => alert('Failed to load jsPDF. Please check your internet connection.');
     document.head.appendChild(script);
-  }
-
-  // Load confetti library if not already loaded
-  if (!window.confetti) {
-    const confettiScript = document.createElement('script');
-    confettiScript.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
-    confettiScript.onload = () => console.log('Confetti library loaded');
-    confettiScript.onerror = () => console.log('Failed to load confetti library');
-    document.head.appendChild(confettiScript);
   }
 };
 
@@ -3107,8 +3108,8 @@ const generateCertificate = () => {
       format: 'letter',
     });
 
-    // Set background color to #eeeeee
-    doc.setFillColor(238, 238, 238); // RGB for #eeeeee
+    // Set background color to #f0f0f0 (slightly lighter than #eeeeee)
+    doc.setFillColor(240, 240, 240); // RGB for #f0f0f0
     doc.rect(0, 0, 792, 612, 'F'); // Fill entire page
 
     doc.setLineWidth(4);
@@ -3146,22 +3147,22 @@ const generateCertificate = () => {
     doc.text(`Date Issued: ${issueDate}`, 60, 540, { align: 'left' });
     doc.text(`Expires: ${expirationDate}`, 742, 540, { align: 'right' });
 
-    // Add CODEXEDOC logo image with fallback
+    // Add CODEXEDOC logo image with fallback (doubled size)
     const centerX = 396; // Center of the page
     try {
       const logoPath = './codexedoc.png'; // Relative path; ensure this is accessible
       // Alternative: Use a base64 string if the relative path doesn't work
       // const logoPath = 'data:image/png;base64,iVBORw0KGgo...'; // Replace with your base64 string
-      const imgWidth = 170; // Width in points
-      const imgHeight = 60; // Height in points
+      const imgWidth = 340; // Doubled from 170
+      const imgHeight = 120; // Doubled from 60
       const imgX = centerX - imgWidth / 2; // Center horizontally
-      const yPosition = 540 - imgHeight; // Align top of image to original text position
+      const yPosition = 540 - imgHeight; // Align top of image to adjusted position
       doc.addImage(logoPath, 'PNG', imgX, yPosition, imgWidth, imgHeight);
     } catch (imageError) {
       console.error('Failed to load image, using text fallback:', imageError);
-      // Fallback: Draw "CODEXEDOC" as text if image fails
+      // Fallback: Draw "CODEXEDOC" as text if image fails (doubled font size)
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(36);
+      doc.setFontSize(72); // Doubled from 36
       doc.setTextColor(51, 51, 51);
       doc.text('CODEXEDOC', centerX, 540, { align: 'center' });
     }
@@ -3214,6 +3215,8 @@ const submitTest = () => {
         spread: 70,
         origin: { y: 0.6 },
       });
+    } else {
+      console.log('Confetti not available; library may have failed to load.');
     }
   }
 };
