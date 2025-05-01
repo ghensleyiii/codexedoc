@@ -3019,7 +3019,7 @@ const showCertificateModal = () => {
 
   const modalContent = document.createElement('div');
   modalContent.style.cssText = `
-    background: #eeeeee; padding: 50px; border-radius: 5px; max-width: 500px; width: 90%;
+    background: #eeeeee; padding: 50px !important; border-radius: 5px; max-width: 500px; width: 90%;
     text-align: center; color: #333; font-family: Arial, sans-serif;
   `;
   modalContent.innerHTML = `
@@ -3041,11 +3041,11 @@ const showCertificateModal = () => {
       </div>
     </div>
     <button onclick="generateCertificate()" style="
-      padding: 30px; background: #1e90ff; color: #eee; border: none; border-radius: 4px;
+      padding: 10px !important; background: #1e90ff; color: #eee; border: none; border-radius: 4px;
       cursor: pointer; font-size: 16px; margin: 10px;
     ">Download Certificate</button>
     <button onclick="closeModal()" style="
-      padding: 30px; background: #333333; color: #eeeeee; border: none; border-radius: 4px;
+      padding: 10px !important; background: #333333; color: #eeeeee; border: none; border-radius: 4px;
       cursor: pointer; font-size: 16px; margin: 10px;
     ">Close</button>
   `;
