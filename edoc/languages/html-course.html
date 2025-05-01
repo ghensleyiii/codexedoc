@@ -2868,7 +2868,6 @@ document.getElementById('library-search').addEventListener('input', displayLibra
 // Initialize
 displayLesson(currentLesson);
 displayLibrary();*/
-// Track current lesson, test page, and user answers
 // Load confetti library at the start to ensure it’s ready
 if (!window.confetti) {
   const confettiScript = document.createElement('script');
@@ -3042,11 +3041,11 @@ const showCertificateModal = () => {
       </div>
     </div>
     <button onclick="generateCertificate()" style="
-      padding: 15px 25px; background: #1e90ff; color: #eee; border: none; border-radius: 4px;
+      padding: 20px 30px; background: #1e90ff; color: #eee; border: none; border-radius: 4px;
       cursor: pointer; font-size: 16px; margin: 10px;
     ">Download Certificate</button>
     <button onclick="closeModal()" style="
-      padding: 15px 25px; background: #333; color: #eee; border: none; border-radius: 4px;
+      padding: 20px 30px; background: #333; color: #eee; border: none; border-radius: 4px;
       cursor: pointer; font-size: 16px; margin: 10px;
     ">Close</button>
   `;
@@ -3108,8 +3107,8 @@ const generateCertificate = () => {
       format: 'letter',
     });
 
-    // Set background color to #f0f0f0 (slightly lighter than #eeeeee)
-    doc.setFillColor(240, 240, 240); // RGB for #f0f0f0
+    // Set background color to #eeeeee
+    doc.setFillColor(238, 238, 238); // RGB for #eeeeee
     doc.rect(0, 0, 792, 612, 'F'); // Fill entire page
 
     doc.setLineWidth(4);
@@ -3147,25 +3146,12 @@ const generateCertificate = () => {
     doc.text(`Date Issued: ${issueDate}`, 60, 540, { align: 'left' });
     doc.text(`Expires: ${expirationDate}`, 742, 540, { align: 'right' });
 
-    // Add CODEXEDOC logo image with fallback (doubled size)
+    // Draw "CODEXEDOC" text in times font, #1e90ff color
     const centerX = 396; // Center of the page
-    try {
-      const logoPath = './codexedoc.png'; // Relative path; ensure this is accessible
-      // Alternative: Use a base64 string if the relative path doesn't work
-      // const logoPath = 'data:image/png;base64,iVBORw0KGgo...'; // Replace with your base64 string
-      const imgWidth = 340; // Doubled from 170
-      const imgHeight = 120; // Doubled from 60
-      const imgX = centerX - imgWidth / 2; // Center horizontally
-      const yPosition = 540 - imgHeight; // Align top of image to adjusted position
-      doc.addImage(logoPath, 'PNG', imgX, yPosition, imgWidth, imgHeight);
-    } catch (imageError) {
-      console.error('Failed to load image, using text fallback:', imageError);
-      // Fallback: Draw "CODEXEDOC" as text if image fails (doubled font size)
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(72); // Doubled from 36
-      doc.setTextColor(51, 51, 51);
-      doc.text('CODEXEDOC', centerX, 540, { align: 'center' });
-    }
+    doc.setFont('times', 'bold');
+    doc.setFontSize(72); // Same size as previous fallback
+    doc.setTextColor(30, 144, 255); // #1e90ff
+    doc.text('CODEXEDOC', centerX, 540, { align: 'center' });
 
     doc.save(`${nameInput}_certificate.pdf`);
     closeModal();
