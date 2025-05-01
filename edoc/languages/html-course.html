@@ -3019,7 +3019,7 @@ const showCertificateModal = () => {
 
   const modalContent = document.createElement('div');
   modalContent.style.cssText = `
-    background: #eee; padding: 30px; border-radius: 5px; max-width: 500px; width: 90%;
+    background: #eeeeee; padding: 50px; border-radius: 5px; max-width: 500px; width: 90%;
     text-align: center; color: #333; font-family: Arial, sans-serif;
   `;
   modalContent.innerHTML = `
@@ -3041,11 +3041,11 @@ const showCertificateModal = () => {
       </div>
     </div>
     <button onclick="generateCertificate()" style="
-      padding: 20px 30px; background: #1e90ff; color: #eee; border: none; border-radius: 4px;
+      padding: 30px; background: #1e90ff; color: #eee; border: none; border-radius: 4px;
       cursor: pointer; font-size: 16px; margin: 10px;
     ">Download Certificate</button>
     <button onclick="closeModal()" style="
-      padding: 20px 30px; background: #333; color: #eee; border: none; border-radius: 4px;
+      padding: 30px; background: #333333; color: #eeeeee; border: none; border-radius: 4px;
       cursor: pointer; font-size: 16px; margin: 10px;
     ">Close</button>
   `;
@@ -3149,7 +3149,7 @@ const generateCertificate = () => {
     // Draw "CODEXEDOC" text in times font, #1e90ff color
     const centerX = 396; // Center of the page
     doc.setFont('times', 'bold');
-    doc.setFontSize(72); // Same size as previous fallback
+    doc.setFontSize(40); // Same size as previous fallback
     doc.setTextColor(30, 144, 255); // #1e90ff
     doc.text('CODEXEDOC', centerX, 540, { align: 'center' });
 
