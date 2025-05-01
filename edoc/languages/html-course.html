@@ -3171,20 +3171,18 @@ const submitTest = () => {
   isTestSubmitted = true;
   
   // TESTING CODE: Forces a perfect score of 50/50 to test the certificate
-  let score = 50; // Hardcode score to 50
+  /*let score = 50; // Hardcode score to 50
   const totalQuestions = shuffledQuestions.length; // Should be 50
-  const percentage = 100; // 100% since 50/50
+  const percentage = 100; // 100% since 50/50*/
 
   // PRODUCTION CODE: Uncomment this to use actual scoring logic
-  /*
   let score = 0;
   userAnswers.forEach((answer, i) => {
     if (answer === shuffledQuestions[i].correct) score++;
   });
   const totalQuestions = shuffledQuestions.length;
   const percentage = Math.round((score / totalQuestions) * 100);
-  */
-
+  // END OF PRODUCTION CODE
   const summary = document.getElementById('test-summary');
   summary.innerHTML = `
     <h3>Test Results</h3>
