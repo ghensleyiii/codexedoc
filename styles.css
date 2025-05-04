@@ -102,7 +102,7 @@
 
         .nav-menu-right {
             right: 20px;
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel));
+            background: linear-gradient(90deg, var(--steel), var(--dark-steel));
             text-align: right;
         }
 
