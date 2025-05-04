@@ -183,6 +183,7 @@
         .modal-content .generate-btn {
             background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
             color: white !important;
+            border-radius: 5px !important;
         }
 
         .modal-content .close-btn {
