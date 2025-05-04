@@ -61,6 +61,49 @@
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+/* Left hamburger: unchanged */
+.hamburger-left.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-left.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-left.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Right hamburger: same animation direction as left */
+.hamburger-right.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-right.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-right.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+        /*.hamburger-left, .hamburger-right {
+    display: block;
+    cursor: pointer;
+    padding: 5px;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.hamburger-left span, .hamburger-right span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 5px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
 .hamburger-left.active span:nth-child(1), .hamburger-right.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -71,7 +114,7 @@
 
 .hamburger-left.active span:nth-child(3), .hamburger-right.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -7px);
-}
+}*/
 
 .nav-menu-left, .nav-menu-right {
     display: none;
