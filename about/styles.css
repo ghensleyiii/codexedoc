@@ -58,6 +58,10 @@ main {
     text-align: center !important;
 }
 
+h2 {
+    color: var(--blue) !important;
+}
+
 footer {
     background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
     text-align: center !important;
