@@ -1,6 +1,7 @@
 :root {
-    --blue: #4169e1;
-    --green: #41E169;
+    --dark-steel: #295d8a;
+    --steel: #4a7fb2;
+	--light-steel: #B0C4DE;
     --white: #f0f2f0;
     --black: #333333;
 }
@@ -19,7 +20,7 @@ body {
 }
 
 header {
-    background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
+    background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
     padding: 20px !important;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
     position: sticky !important;
@@ -52,7 +53,7 @@ main {
 }
 
 .intro {
-    background: linear-gradient(90deg, #A3BFFA, #c8e6c9, #A3bffa) !important;
+    background: linear-gradient(90deg, var(--light-steel) !important;
     padding: 20px !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
     text-align: center !important;
@@ -61,11 +62,11 @@ main {
 
 h2 {
     font-family: 'Audiowide', sans-serif !important;
-    color: var(--blue) !important;
+    color: var(--dark-steel) !important;
 }
 
 footer {
-    background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
+    background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
     text-align: center !important;
     padding: 20px !important;
     color: #fff !important;
