@@ -1284,15 +1284,15 @@ const renderSqlQuestions = () => {
                 doc.setFillColor(255, 255, 255); // white
                 doc.rect(0, 0, 792, 612, 'F');
                 doc.setLineWidth(4);
-                doc.setDrawColor(65, 105, 225); // royal blue
+                doc.setDrawColor(41, 93, 138); // dark steel
                 doc.rect(30, 30, 732, 552);
                 doc.setLineWidth(2);
-                doc.setDrawColor(65, 225, 105); // emerald green
+                doc.setDrawColor(74, 127, 178); // steel
                 doc.rect(40, 40, 712, 532);
 
                 doc.setFont('times', 'bold');
                 doc.setFontSize(50);
-                doc.setTextColor(65, 105, 225); // royal blue
+                doc.setTextColor(41, 93, 138); // dark steel
                 doc.text('CERTIFICATE', 396, 150, { align: 'center' });
 
                 doc.setFontSize(30);
