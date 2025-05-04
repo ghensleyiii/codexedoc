@@ -1339,7 +1339,7 @@ const renderSqlQuestions = () => {
             modalContent.className = 'modal-content';
             modalContent.innerHTML = `
                 <h2>Congratulations!</h2>
-                <p>You scored: ${score}! Enter your name to generate a certificate.</p>
+                <p>You have successfully met all requirements to complete this test. Please enter your name to generate your certificate.</p>
                 <input type="text" id="nameInput" placeholder="Your Name">
                 <div id="nameError">Only letters and spaces are allowed.</div>
                 <button class="generate-btn">Generate Certificate</button>
