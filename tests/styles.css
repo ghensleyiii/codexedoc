@@ -1,9 +1,10 @@
 :root {
-            --blue: #4169e1;
-            --green: #41E169;
-            --white: #f0f2f0;
-            --black: #333333;
-        }
+    --dark-steel: #295d8a !important;
+    --steel: #4a7fb2 !important;
+    --light-steel: #B0C4DE !important;
+    --white: #f0f2f0 !important;
+    --black: #333333 !important;
+}
 
         * {
             box-sizing: border-box !important;
@@ -19,7 +20,7 @@
         }
 
         header {
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
             padding: 20px !important;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
             position: sticky !important;
@@ -52,7 +53,7 @@
         }
 
         .intro {
-            background: linear-gradient(90deg, #A3BFFA, #c8e6c9, #a3bffa) !important;
+            background: linear-gradient(90deg, var(--light-steel)) !important;
             padding: 20px !important;
             margin-bottom: 30px !important;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
@@ -71,7 +72,7 @@
             width: 100% !important;
             padding: 15px !important;
             font-family: 'Audiowide', sans-serif !important;
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
             border: none !important;
             color: #fff !important;
             text-align: center !important;
@@ -81,24 +82,24 @@
         }
 
         .item-button:hover {
-            background: linear-gradient(90deg, #2F4B9F, #2F9F4B, #2f4b9f) !important;
+            background: linear-gradient(90deg, var(--steel)) !important;
         }
 
         .item-content {
             padding: 20px !important;
-            background: linear-gradient(90deg, #A3BFFA, #c8e6c9, #a3bffa) !important;
+            background: linear-gradient(90deg, var(--light-steel)) !important;
             border-radius: 0 0 5px 5px !important;
             text-align: left !important;
         }
 
         .item-content h2 {
             font-family: 'Audiowide', sans-serif !important;
-            color: var(--blue) !important;
+            color: var(--dark-steel) !important;
             margin-bottom: 10px !important;
         }
 
         footer {
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
             text-align: center !important;
             padding: 20px !important;
             color: #fff !important;
@@ -125,7 +126,7 @@
 
         .submit-btn {
             padding: 10px 20px !important;
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
             color: var(--white) !important;
             border: none !important;
             cursor: pointer !important;
@@ -134,7 +135,7 @@
         }
 
         .submit-btn:hover {
-            background: linear-gradient(90deg, #2F4B9F, #2F9F4B, #2f4b9f) !important;
+            background: linear-gradient(90deg, var(--steel)) !important;
         }
 
         .results {
@@ -180,7 +181,7 @@
         }
 
         .modal-content .generate-btn {
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
             color: white !important;
         }
 
