@@ -1,9 +1,10 @@
 :root {
-            --blue: #295d8a /*#4169e1*/;
-            --green: #4a7fb2 /*#41E169*/;
-            --white: #f0f2f0;
-            --black: #333333;
-        }
+    --dark-steel: #295d8a !important;
+    --steel: #4a7fb2 !important;
+    --light-steel: #B0C4DE !important;
+    --white: #f0f2f0 !important;
+    --black: #333333 !important;
+}
 
         * {
             box-sizing: border-box;
@@ -19,7 +20,7 @@
         }
 
         header {
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue));
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
             padding: 20px;
             display: flex;
             justify-content: space-between;
@@ -96,12 +97,12 @@
 
         .nav-menu-left {
             left: 20px;
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue));
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
         }
 
         .nav-menu-right {
             right: 20px;
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue));
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
             text-align: right;
         }
 
@@ -139,7 +140,7 @@
 
         .categories-container h2 {
             font-family: 'Audiowide', sans-serif;
-            color: var(--blue);
+            color: var(--dark-steel);
             text-align: center;
             margin-bottom: 20px;
         }
@@ -174,7 +175,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue));
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
         }
 
         .category:hover {
@@ -216,7 +217,7 @@
             width: 100%;
             padding: 15px;
             font-family: 'Audiowide', sans-serif;
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
             border: none;
             color: #fff;
             text-align: center;
@@ -226,12 +227,12 @@
         }
 
         .item-button:hover {
-            background: linear-gradient(90deg, #2F4B9F, #2F9F4B, #2f4b9f);
+            background: linear-gradient(90deg, var(--steel));
         }
 
         .item-content {
             padding: 20px;
-            background: #e8f5e9;
+            background: var(--white);
             border-radius: 0 0 5px 5px;
             text-align: center;
         }
@@ -242,13 +243,13 @@
             margin-left: 0;
             margin-right: 0;
             font-family: 'Audiowide', sans-serif !important;
-            color: var(--blue);
+            color: var(--dark-steel);
             font-size: 1.5em;
             text-transform: uppercase;
         }
 
         footer {
-            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
             text-align: center;
             padding: 20px;
             color: #fff;
