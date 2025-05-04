@@ -19,7 +19,7 @@
         }
 
         header {
-            background: linear-gradient(135deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
             padding: 20px !important;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
             position: sticky !important;
@@ -71,7 +71,7 @@
             width: 100% !important;
             padding: 15px !important;
             font-family: 'Audiowide', sans-serif !important;
-            background: linear-gradient(135deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
             border: none !important;
             color: #fff !important;
             text-align: center !important;
@@ -98,7 +98,7 @@
         }
 
         footer {
-            background: linear-gradient(135deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
             text-align: center !important;
             padding: 20px !important;
             color: #fff !important;
@@ -180,7 +180,7 @@
         }
 
         .modal-content .generate-btn {
-            background: linear-gradient(135deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
             color: white !important;
         }
 
