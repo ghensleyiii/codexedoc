@@ -1908,4 +1908,4 @@ const handleSqlSubmit = (event) => {
 	    document.getElementById('csharpQuizForm').addEventListener('submit', handleCsharpSubmit);
 	    document.getElementById('rQuizForm').addEventListener('submit', handleRSubmit);
 	    document.getElementById('sqlQuizForm').addEventListener('submit', handleSqlSubmit);
-            showCertificateModal('Ruby');
+            showCertificateModal('HTML');
