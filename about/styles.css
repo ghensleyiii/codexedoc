@@ -60,6 +60,7 @@ main {
 }
 
 h2 {
+    font-family: 'Audiowide', sans-serif !important;
     color: var(--blue) !important;
 }
 
