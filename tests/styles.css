@@ -125,11 +125,12 @@
 
         .submit-btn {
             padding: 10px 20px !important;
-            background: linear-gradient(135deg, var(--blue), var(--green), var(--blue)) !important;
+            background: linear-gradient(90deg, var(--blue), var(--green), var(--blue)) !important;
             color: var(--white) !important;
             border: none !important;
             cursor: pointer !important;
             font-size: 16px !important;
+            border-radius: 5px !important;
         }
 
         .submit-btn:hover {
