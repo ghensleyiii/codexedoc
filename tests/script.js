@@ -1320,7 +1320,7 @@ const renderSqlQuestions = () => {
 
                 doc.setFont('times', 'bold');
                 doc.setFontSize(30);
-                doc.setTextColor(65, 105, 225); // royal blue
+                doc.setTextColor(41, 93, 138); // dark steel
                 doc.text('CODEXEDOC', 396, 540, { align: 'center' });
 
                 doc.save(`${nameInput}_${quizType}_certificate.pdf`);
