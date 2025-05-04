@@ -97,12 +97,12 @@
 
         .nav-menu-left {
             left: 20px;
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel));
         }
 
         .nav-menu-right {
             right: 20px;
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel));
             text-align: right;
         }
 
