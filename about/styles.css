@@ -53,7 +53,7 @@ main {
 }
 
 .intro {
-    background: linear-gradient(90deg, var(--light-steel) !important;
+    background: linear-gradient(90deg, var(--light-steel)) !important;
     padding: 20px !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
     text-align: center !important;
