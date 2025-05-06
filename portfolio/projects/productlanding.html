@@ -3,6 +3,14 @@
   <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <style>
+      :root {
+            --dark-steel: #295d8a;
+            --steel: #4a7fb2;
+            --light-steel: #B0C4DE;
+            --white: #f0f2f0;
+            --black: #333333;
+        }
+      
       * {
   margin: 0;
   padding: 0;
@@ -10,7 +18,7 @@
 }
 
 body {
-  background-color: #eee;
+  background-color: var(--white);
   font-family: arial, sans-serif;
 }
 
@@ -23,7 +31,7 @@ li {
 }
 
 a {
-  color: #333;
+  color: var(--black);
   text-decoration: none;
 }
 
@@ -41,7 +49,7 @@ a {
   font-size: 1em;
   font-weight: 900;
   text-transform: uppercase;
-  border: 3px #333 solid;
+  border: 3px var(--black) solid;
   border-radius: 2px;
   background: transparent;
   cursor: pointer;
@@ -59,7 +67,7 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #eee;
+  background-color: var(--steel);
 }
 
 @media (max-width: 600px) {
@@ -156,12 +164,12 @@ nav > ul {
   height: 30px;
   margin: 15px 0;
   border: 0;
-  background-color: #00ff00;
+  background-color: var(--steel);
   text-align: center;
 }
 
 #hero input[type='submit']:hover {
-  background-color: #1e90ff;
+  background-color: var(--light-steel);
   transition: background-color 1s;
 }
 
@@ -181,7 +189,7 @@ nav > ul {
   justify-content: center;
   height: 125px;
   width: 20vw;
-  color: #1e90ff;
+  color: var(--dark-steel);
 }
 
 @media (max-width: 550px) {
@@ -239,13 +247,13 @@ nav > ul {
   text-align: center;
   width: calc(100% / 3);
   margin: 10px;
-  border: 1px solid #333;
+  border: 1px solid var(--black);
   border-radius: 3px;
 }
 
 .product > .level {
-  background-color: #ddd;
-  color: #333;
+  background-color: var(--light-steel);
+  color: var(--black);
   padding: 15px 0;
   width: 100%;
   text-transform: uppercase;
@@ -267,12 +275,12 @@ nav > ul {
 .product > button {
   border: 0;
   margin: 15px 0;
-  background-color: #00ff00;
+  background-color: var(--steel);
   font-weight: 400;
 }
 
 .product > button:hover {
-  background-color: #1e90ff;
+  background-color: var(--steel);
   transition: background-color 1s;
 }
 
@@ -290,7 +298,7 @@ nav > ul {
 
 footer {
   margin-top: 30px;
-  background-color: #ddd;
+  background-color: var(--dark-steel);
   padding: 20px;
 }
 
@@ -308,7 +316,7 @@ footer > span {
   display: flex;
   justify-content: center;
   font-size: 0.9em;
-  color: #333;
+  color: var(--white);
 }
 
     </style>
