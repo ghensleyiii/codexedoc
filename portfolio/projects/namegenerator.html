@@ -6,6 +6,96 @@
   <title>Random Name Generator</title>
   <style>
     :root {
+      --dark-steel: #295d8a !important;
+      --steel: #4a7fb2 !important;
+      --light-steel: #B0C4DE !important;
+      --white: #f0f2f0 !important;
+      --black: #333333 !important;
+      --pink: #ff1e9e;
+    }
+    body {
+      background-color: var(--dark-steel);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: arial, sans-serif;
+    }
+    .container {
+      background-color: var(--light-steel);
+      padding: 20px;
+      border-radius: 10px;
+      border: 2px solid var(--steel);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 28rem;
+    }
+    .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: var(--black);
+    }
+    .label {
+      display: block;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .gender-options {
+      display: flex;
+      gap: 1rem;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+    .gender-label {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--black);
+    }
+    .gender-input {
+      margin-right: 0.5rem;
+    }
+    [data-gender="male"]::before {
+      content: '\2642';
+      color: var(--steel);
+      font-size: 1.2em;
+      margin-right: 0.5em;
+    }
+    [data-gender="female"]::before {
+      content: '\2640';
+      color: var(--pink);
+      font-size: 1.2em;
+      margin-right: 0.5em;
+    }
+    .generate-btn {
+      width: 100%;
+      background-color: var(--steel);
+      font-weight: bold;
+      color: var(--white);
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      border: none;
+      cursor: pointer;
+    }
+    .generate-btn:hover {
+      background-color: var(--black);
+    }
+    .name-list {
+      margin-top: 1rem;
+    }
+    .name-list ul {
+      list-style-type: disc;
+      padding-left: 1.25rem;
+    }
+    .name-list li {
+      padding: 0.25rem 0;
+      color: var(--black);
+    }
+    /*:root {
       --blue: #1e90ff;
       --pink: #ff1e9e;
     }
@@ -86,7 +176,7 @@
     }
     .name-list li {
       padding: 0.25rem 0;
-    }
+    }*/
   </style>
 </head>
 <body>
