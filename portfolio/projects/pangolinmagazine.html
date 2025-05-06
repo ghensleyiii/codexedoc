@@ -13,6 +13,14 @@
       href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
     />
     <style>
+      :root {
+            --dark-steel: #295d8a;
+            --steel: #4a7fb2;
+            --light-steel: #B0C4DE;
+            --white: #f0f2f0;
+            --black: #333333;
+      }
+      
       *,
       ::before,
       ::after {
@@ -27,8 +35,8 @@
 
       body {
         font-family: 'Baskervville', serif;
-        color: #333333;
-        background-color: #eeeeee;
+        color: var(--black);
+        background-color: var(--white);
       }
 
       h1 {
@@ -41,7 +49,7 @@
 
       a {
         text-decoration: none;
-        color: #333333;
+        color: var(--black);
       }
 
       main {
@@ -82,13 +90,13 @@
 
       .hero-title {
         text-align: center;
-        color: #1e90ff;
+        color: var(--dark-steel);
         font-size: 8rem;
       }
 
       .hero-subtitle {
         font-size: 2.4rem;
-        color: #1e90ff;
+        color: var(--dark-steel);
         text-align: center;
       }
 
@@ -116,13 +124,13 @@
 
       .first-paragraph::first-letter {
         font-size: 6rem;
-        color: #1e90ff;
+        color: var(--dark-steel);
         float: left;
         margin-right: 1rem;
       }
 
       .quote {
-        color: #1e90ff;
+        color: var(--steel);
         font-size: 2.4rem;
         text-align: center;
         font-family: "Raleway", sans-serif;
@@ -153,7 +161,7 @@
       }
 
       .list-title, .list-subtitle {
-        color: #1e90ff;
+        color: var(--steel);
       }
 
       .image-wrapper {
