@@ -68,6 +68,7 @@
             background-color: var(--steel);
             color: var(--light-steel);
             cursor: pointer;
+            font-weight: bold;
         }
         .spin-button:hover {
             background-color: var(--black);
@@ -152,7 +153,7 @@
                 inputBox.value = '';
                 updateInputList();
                 drawWheel();
-                spinButton.style.backgroundColor = inputs.length < 2 ? 'var(--light-steel)' : 'var(--steel)';
+                spinButton.style.backgroundColor = inputs.length < 2 ? '#B0C4DE' : '#4a7fb2';
                 spinButton.disabled = inputs.length < 2;
             }
         }
@@ -173,7 +174,7 @@
             inputs.splice(index, 1);
             updateInputList();
             drawWheel();
-            spinButton.style.backgroundColor = inputs.length < 2 ? 'var(--light-steel)' : 'var(--steel)';
+            spinButton.style.backgroundColor = inputs.length < 2 ? '#B0C4DE' : '#4a7fb2';
             spinButton.disabled = inputs.length < 2;
         }
 
@@ -191,16 +192,16 @@
                 offscreenCtx.beginPath();
                 offscreenCtx.moveTo(radius, radius);
                 offscreenCtx.arc(radius, radius, radius, i * anglePerSegment, (i + 1) * anglePerSegment);
-                offscreenCtx.fillStyle = 'var(--light-steel)';
+                offscreenCtx.fillStyle = '#B0C4DE';
                 offscreenCtx.fill();
-                offscreenCtx.strokeStyle = 'var(--steel)';
+                offscreenCtx.strokeStyle = '#4a7fb2';
                 offscreenCtx.lineWidth = 2;
                 offscreenCtx.stroke();
 
                 offscreenCtx.save();
                 offscreenCtx.translate(radius, radius);
                 offscreenCtx.rotate(i * anglePerSegment + anglePerSegment / 2);
-                offscreenCtx.fillStyle = 'var(--white)';
+                offscreenCtx.fillStyle = '#333333';
                 offscreenCtx.font = '18px Arial';
                 offscreenCtx.textAlign = 'right';
                 offscreenCtx.fillText(inputs[i] || '', radius - 20, 0);
@@ -219,7 +220,7 @@
         function spinWheel() {
             if (isSpinning || inputs.length < 2) return;
             isSpinning = true;
-            spinButton.style.backgroundColor = 'var(--steel)';
+            spinButton.style.backgroundColor = '#4a7fb2';
             spinButton.disabled = true;
             resultDiv.textContent = '';
 
@@ -245,7 +246,7 @@
                     requestAnimationFrame(animate);
                 } else {
                     isSpinning = false;
-                    spinButton.style.backgroundColor = 'var(--steel)';
+                    spinButton.style.backgroundColor = '#4a7fb2';
                     spinButton.disabled = false;
                     selectWinner();
                 }
