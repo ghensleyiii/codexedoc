@@ -11,37 +11,29 @@ const MAX_LINES = 9999;
 // Handle Tab key to insert two spaces
 textarea.addEventListener('keydown', (e) => {
     if (e.key === 'Tab') {
-        e.preventDefault(); // Prevent default tab behavior
+        e.preventDefault();
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
-
-        // Insert two spaces at the cursor position
         textarea.value = textarea.value.substring(0, start) + '  ' + textarea.value.substring(end);
-        textarea.selectionStart = textarea.selectionEnd = start + 2; // Move cursor after spaces
+        textarea.selectionStart = textarea.selectionEnd = start + 2;
         updateLineNumbers();
     }
 });
 
-// Handle Enter key to maintain two-space indentation
+// Handle Enter key to maintain indentation
 textarea.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-        e.preventDefault(); // Prevent default enter behavior
+        e.preventDefault();
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
         const value = textarea.value;
-
-        // Get the current line's indentation
         const lineStart = value.lastIndexOf('\n', start - 1) + 1;
         const currentLine = value.substring(lineStart, start);
         const indentMatch = currentLine.match(/^\s*/);
         let indent = indentMatch ? indentMatch[0] : '';
-
-        // If the line ends with a colon (e.g., for Python), increase indentation
         if (currentLine.trim().endsWith(':')) {
-            indent += '  '; // Add two spaces for nested block
+            indent += '  ';
         }
-
-        // Insert newline and maintain indentation
         textarea.value = value.substring(0, start) + '\n' + indent + value.substring(end);
         textarea.selectionStart = textarea.selectionEnd = start + indent.length + 1;
         updateLineNumbers();
@@ -96,7 +88,7 @@ function removeComments(code, language) {
             line = line.replace(/<!--[\s\S]*?-->/g, '');
             result.push(line);
         }
-    } else if (['javascript', 'java', 'cpp'].includes(language)) {
+    } else if (['javascript', 'java', 'cpp', 'rust', 'go', 'swift', 'kotlin', 'typescript', 'csharp'].includes(language)) {
         for (let line of lines) {
             let newLine = '';
             let i = 0;
@@ -133,12 +125,10 @@ function removeComments(code, language) {
             }
             result.push(newLine);
         }
-    } else if (language === 'python') {
+    } else if (['python', 'ruby', 'r'].includes(language)) {
         for (let line of lines) {
             let newLine = '';
             let i = 0;
-            inString = false;
-            stringChar = '';
             while (i < line.length) {
                 if (inString) {
                     newLine += line[i];
@@ -165,197 +155,149 @@ function removeComments(code, language) {
             line = line.replace(/\/\*[\s\S]*?\*\//g, '');
             result.push(line);
         }
+    } else if (language === 'php') {
+        for (let line of lines) {
+            let newLine = '';
+            let i = 0;
+            while (i < line.length) {
+                if (inString) {
+                    newLine += line[i];
+                    if (line[i] === stringChar && line[i - 1] !== '\\') {
+                        inString = false;
+                    }
+                    i++;
+                } else if (inMultiLineComment) {
+                    if (i + 1 < line.length && line[i] === '*' && line[i + 1] === '/') {
+                        inMultiLineComment = false;
+                        i += 2;
+                    } else {
+                        i++;
+                    }
+                } else {
+                    if (line[i] === '"' || line[i] === "'") {
+                        inString = true;
+                        stringChar = line[i];
+                        newLine += line[i];
+                        i++;
+                    } else if (i + 1 < line.length && line[i] === '/' && line[i + 1] === '*') {
+                        inMultiLineComment = true;
+                        i += 2;
+                    } else if (i + 1 < line.length && line[i] === '/' && line[i + 1] === '/') {
+                        break;
+                    } else if (line[i] === '#') {
+                        break;
+                    } else {
+                        newLine += line[i];
+                        i++;
+                    }
+                }
+            }
+            result.push(newLine);
+        }
+    } else if (language === 'sql') {
+        for (let line of lines) {
+            line = line.replace(/--.*$/gm, '');
+            result.push(line);
+        }
     }
     return result.join('\n');
 }
 
 const languageValidators = {
-    javascript: (code) => {
-        const errors = [];
-        const cleanCode = removeComments(code, 'javascript');
-        const lines = cleanCode.split('\n');
-
-        try {
-            new Function(cleanCode);
-        } catch (e) {
-            const match = e.message.match(/line (\d+)/i);
-            const lineNum = match ? parseInt(match[1]) : null;
-            errors.push({
-                message: `A syntax error occurred: ${e.message}. Please check your code for correct syntax, such as proper punctuation or matching brackets.`,
-                line: lineNum
-            });
-        }
-
-        lines.forEach((line, i) => {
-            const trimmed = line.trim();
-            if (trimmed.startsWith('function ') && !trimmed.includes('(')) {
-                errors.push({
-                    message: `The function declaration is missing parentheses after the function name. Ensure the function is defined with '()' after the name (e.g., 'function sayHello()').`,
-                    line: i + 1
-                });
-            }
-        });
-
-        const varRegex = /\b(let|const|var)\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\b/g;
-        const declaredVars = new Set();
-        let match;
-        while ((match = varRegex.exec(cleanCode)) !== null) {
-            declaredVars.add(match[2]);
-        }
-
-        lines.forEach((line, i) => {
-            const trimmed = line.trim();
-            if (trimmed.match(/for\s*\(\s*[a-zA-Z_$][a-zA-Z0-9_$]*\s*=/)) {
-                const loopVarMatch = trimmed.match(/for\s*\(\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=/);
-                if (loopVarMatch && !declaredVars.has(loopVarMatch[1]) && !trimmed.match(/\b(let|const|var)\s+[a-zA-Z_$][a-zA-Z0-9_$]*\s*=/)) {
-                    errors.push({
-                        message: `The variable '${loopVarMatch[1]}' in the for loop is not declared. Use 'let', 'const', or 'var' to declare it (e.g., 'let ${loopVarMatch[1]}').`,
-                        line: i + 1
-                    });
-                }
-            }
-        });
-
-        return errors;
-    },
-    python: (code) => {
-        const errors = [];
-        const cleanCode = removeComments(code, 'python');
-        const lines = cleanCode.split('\n');
-        let indentStack = [0];
-
-        lines.forEach((line, i) => {
-            if (!line.trim()) return;
-            const indent = line.match(/^\s*/)[0].length;
-            const trimmed = line.trim();
-
-            if (indent % 2 !== 0 && indent > 0) {
-                errors.push({
-                    message: `The indentation is incorrect. Expected indentation to use exactly 2 spaces for each level.`,
-                    line: i + 1
-                });
-                return;
-            }
-
-            if (trimmed.match(/^(if|elif|else|for|while|def|class|try|except|with)/)) {
-                if (!trimmed.endsWith(':')) {
-                    errors.push({
-                        message: `The statement '${trimmed.split(' ')[0]}' requires a colon (:) at the end to indicate the start of a block.`,
-                        line: i + 1
-                    });
-                } else if (i + 1 < lines.length) {
-                    const nextIndent = lines[i + 1].match(/^\s*/)[0].length;
-                    if (nextIndent <= indent && lines[i + 1].trim()) {
-                        errors.push({
-                            message: `An indented block is expected after '${trimmed.split(' ')[0]}' to define the scope of the statement.`,
-                            line: i + 2
-                        });
-                    } else if (nextIndent > indent) {
-                        indentStack.push(nextIndent);
-                    }
-                }
-            }
-
-            if (indent < indentStack[indentStack.length - 1]) {
-                while (indentStack.length > 1 && indent < indentStack[indentStack.length - 1]) {
-                    indentStack.pop();
-                }
-                if (indent !== indentStack[indentStack.length - 1]) {
-                    errors.push({
-                        message: `The indentation level does not align with any previous indentation level. Ensure consistent use of 2 spaces.`,
-                        line: i + 1
-                    });
-                }
-            }
-        });
-
-        return errors;
-    },
     html: (code) => {
+        console.log('Validating HTML');
         const errors = [];
         const cleanCode = removeComments(code, 'html');
-        const lines = cleanCode.split('\n');
 
         if (!cleanCode.match(/^<!DOCTYPE\s+html>/i)) {
-            errors.push({
-                message: `The HTML document is missing a DOCTYPE declaration, which should be the first line (e.g., <!DOCTYPE html>) to define the document type.`,
-                line: 1
+            errors.push({ message: 'Missing DOCTYPE declaration', line: 1 });
+        }
+
+        const voidElements = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
+        const stack = [];
+        let lineNum = 1;
+        let inScript = false;
+        let inStyle = false;
+        let i = 0;
+
+        const lines = cleanCode.split('\n');
+        let currentLineContent = '';
+        let lineIndex = 0;
+
+        while (i < cleanCode.length) {
+            if (cleanCode[i] === '\n') {
+                lineNum++;
+                lineIndex++;
+                currentLineContent = lines[lineIndex] || '';
+                i++;
+                continue;
+            }
+
+            currentLineContent = currentLineContent || lines[lineIndex] || '';
+            const remainingCode = cleanCode.slice(i);
+            const tagMatch = remainingCode.match(/^<(\/)?([a-z][a-z0-9]*)\b[^>]*?(\/)?>/i);
+
+            if (tagMatch) {
+                const isClosing = !!tagMatch[1];
+                const tagName = tagMatch[2].toLowerCase();
+                const isSelfClosing = !!tagMatch[3] || voidElements.includes(tagName);
+                const matchLength = tagMatch[0].length;
+
+                if (tagName === 'script') {
+                    inScript = isClosing ? false : true;
+                    i += matchLength;
+                    continue;
+                }
+                if (tagName === 'style') {
+                    inStyle = isClosing ? false : true;
+                    i += matchLength;
+                    continue;
+                }
+                if (inScript || inStyle) {
+                    i++;
+                    continue;
+                }
+
+                if (!isClosing) {
+                    if (!isSelfClosing) {
+                        stack.push({ name: tagName, line: lineNum });
+                    }
+                } else {
+                    if (stack.length === 0) {
+                        errors.push({
+                            message: `Unexpected closing tag </${tagName}> with no matching opening tag`,
+                            line: lineNum
+                        });
+                    } else {
+                        const lastTag = stack[stack.length - 1];
+                        if (lastTag.name === tagName) {
+                            stack.pop();
+                        } else {
+                            errors.push({
+                                message: `Mismatched closing tag: expected </${lastTag.name}>, found </${tagName}>`,
+                                line: lineNum
+                            });
+                            stack.length = 0; // Reset stack to prevent cascading errors
+                            break;
+                        }
+                    }
+                }
+                i += matchLength;
+            } else {
+                i++;
+            }
+        }
+
+        if (stack.length > 0) {
+            stack.forEach(tag => {
+                errors.push({
+                    message: `Unclosed tag <${tag.name}>`,
+                    line: tag.line
+                });
             });
         }
 
-        const stack = [];
-        const voidElements = ['br', 'img', 'hr', 'input', 'meta', 'link'];
-        let inScript = false;
-        let inStyle = false;
-        let lineNum = 0;
-
-        const tagRegex = /<[^>]+>/g;
-        let match;
-        let currentLine = 0;
-
-        while ((match = tagRegex.exec(cleanCode)) !== null) {
-            while (match.index >= (lines.slice(0, currentLine + 1).join('\n').length + currentLine + 1)) {
-                currentLine++;
-            }
-            lineNum = currentLine + 1;
-
-            const tag = match[0];
-            const isClosing = tag.startsWith('</');
-            const tagNameMatch = tag.match(/<\/?([a-z][a-z0-9]*)/i);
-
-            if (!tagNameMatch) continue;
-
-            const tagName = tagNameMatch[1].toLowerCase();
-
-            if (tagName === 'script') {
-                if (!isClosing) {
-                    inScript = true;
-                } else {
-                    inScript = false;
-                }
-                continue;
-            }
-            if (tagName === 'style') {
-                if (!isClosing) {
-                    inStyle = true;
-                } else {
-                    inStyle = false;
-                }
-                continue;
-            }
-            if (inScript || inStyle) continue;
-
-            if (!isClosing) {
-                if (!voidElements.includes(tagName) && !tag.endsWith('/>')) {
-                    stack.push({ name: tagName, line: lineNum });
-                }
-            } else if (stack.length) {
-                const lastTag = stack[stack.length - 1];
-                if (lastTag.name === tagName) {
-                    stack.pop();
-                } else {
-                    errors.push({
-                        message: `A mismatched closing tag was found: expected </${lastTag.name}> to close the open tag, but found </${tagName}>.`,
-                        line: lineNum
-                    });
-                }
-            } else {
-                errors.push({
-                    message: `An unexpected closing tag </${tagName}> was found with no matching opening tag.`,
-                    line: lineNum
-                });
-            }
-        }
-
-        stack.forEach(tag => {
-            if (['html', 'body', 'head'].includes(tag.name)) {
-                errors.push({
-                    message: `The tag <${tag.name}> is not closed. Please add a corresponding </${tag.name}> to properly close it.`,
-                    line: tag.line
-                });
-            }
-        });
-
+        console.log('HTML errors:', errors);
         return errors;
     },
     css: (code) => {
@@ -366,25 +308,56 @@ const languageValidators = {
 
         lines.forEach((line, i) => {
             if (!line.trim()) return;
-            const trimmed = line.trim();
-
-            if (trimmed.includes('{')) {
-                braceCount++;
-            } else if (trimmed.includes('}')) {
-                braceCount--;
-                if (braceCount < 0) {
-                    errors.push({
-                        message: `An extra closing brace was found, which does not match any opening brace.`,
-                        line: i + 1
-                    });
-                }
+            braceCount += (line.match(/{/g) || []).length;
+            braceCount -= (line.match(/}/g) || []).length;
+            if (braceCount < 0) {
+                errors.push({
+                    message: 'Extra closing brace',
+                    line: i + 1
+                });
+                braceCount = 0;
             }
         });
 
         if (braceCount > 0) {
             errors.push({
-                message: `There are ${braceCount} unclosed opening brace(s) in the CSS code. Please add the missing closing brace(s).`,
+                message: `Missing ${braceCount} closing brace(s)`,
                 line: lines.length
+            });
+        }
+
+        return errors;
+    },
+    python: (code) => {
+        const errors = [];
+        const cleanCode = removeComments(code, 'python');
+        const lines = cleanCode.split('\n');
+
+        lines.forEach((line, i) => {
+            if (!line.trim()) return;
+            const trimmed = line.trim();
+            if (trimmed.match(/^(if|elif|else|for|while|def|class|try|except|with)/) && !trimmed.endsWith(':')) {
+                errors.push({
+                    message: `Missing colon after ${trimmed.split(' ')[0]} statement`,
+                    line: i + 1
+                });
+            }
+        });
+
+        return errors;
+    },
+    javascript: (code) => {
+        const errors = [];
+        const cleanCode = removeComments(code, 'javascript');
+
+        try {
+            new Function(cleanCode);
+        } catch (e) {
+            const match = e.message.match(/line (\d+)/i);
+            const lineNum = match ? parseInt(match[1]) : null;
+            errors.push({
+                message: `Syntax error: ${e.message}`,
+                line: lineNum
             });
         }
 
@@ -394,24 +367,24 @@ const languageValidators = {
         const errors = [];
         const cleanCode = removeComments(code, 'java');
         const lines = cleanCode.split('\n');
-
-        if (!cleanCode.match(/public\s+class\s+\w+/)) {
-            errors.push({
-                message: `The Java code is missing a public class declaration, which is required to define the main class (e.g., public class Main).`,
-                line: 1
-            });
-        }
-
         let braceCount = 0;
+
         lines.forEach((line, i) => {
             if (!line.trim()) return;
             braceCount += (line.match(/{/g) || []).length;
             braceCount -= (line.match(/}/g) || []).length;
+            if (braceCount < 0) {
+                errors.push({
+                    message: 'Extra closing brace',
+                    line: i + 1
+                });
+                braceCount = 0;
+            }
         });
 
-        if (braceCount !== 0) {
+        if (braceCount > 0) {
             errors.push({
-                message: `The code has unmatched braces: ${braceCount > 0 ? 'missing ' + braceCount + ' closing brace(s)' : 'extra ' + -braceCount + ' opening brace(s)'}. Please ensure all braces are properly paired.`,
+                message: `Missing ${braceCount} closing brace(s)`,
                 line: lines.length
             });
         }
@@ -422,27 +395,312 @@ const languageValidators = {
         const errors = [];
         const cleanCode = removeComments(code, 'cpp');
         const lines = cleanCode.split('\n');
-
-        if (!cleanCode.includes('int main') && !cleanCode.includes('void main')) {
-            errors.push({
-                message: `The C++ code is missing a main function, which is required as the entry point of the program (e.g., int main() or void main()).`,
-                line: 1
-            });
-        }
-
         let braceCount = 0;
+
         lines.forEach((line, i) => {
             if (!line.trim()) return;
             braceCount += (line.match(/{/g) || []).length;
             braceCount -= (line.match(/}/g) || []).length;
+            if (braceCount < 0) {
+                errors.push({
+                    message: 'Extra closing brace',
+                    line: i + 1
+                });
+                braceCount = 0;
+            }
         });
 
-        if (braceCount !== 0) {
+        if (braceCount > 0) {
             errors.push({
-                message: `The code has unmatched braces: ${braceCount > 0 ? 'missing ' + braceCount + ' closing brace(s)' : 'extra ' + -braceCount + ' opening brace(s)'}. Please ensure all braces are properly paired.`,
+                message: `Missing ${braceCount} closing brace(s)`,
                 line: lines.length
             });
         }
+
+        return errors;
+    },
+    rust: (code) => {
+        const errors = [];
+        const cleanCode = removeComments(code, 'rust');
+        const lines = cleanCode.split('\n');
+        let braceCount = 0;
+
+        lines.forEach((line, i) => {
+            if (!line.trim()) return;
+            braceCount += (line.match(/{/g) || []).length;
+            braceCount -= (line.match(/}/g) || []).length;
+            if (braceCount < 0) {
+                errors.push({
+                    message: 'Extra closing brace',
+                    line: i + 1
+                });
+                braceCount = 0;
+            }
+        });
+
+        if (braceCount > 0) {
+            errors.push({
+                message: `Missing ${braceCount} closing brace(s)`,
+                line: lines.length
+            });
+        }
+
+        return errors;
+    },
+    go: (code) => {
+        const errors = [];
+        const cleanCode = removeComments(code, 'go');
+        const lines = cleanCode.split('\n');
+        let braceCount = 0;
+
+        lines.forEach((line, i) => {
+            if (!line.trim()) return;
+            const trimmed = line.trim();
+            if (trimmed.match(/^func\s+\w+\s*\(/) && !trimmed.endsWith('{')) {
+                errors.push({
+                    message: 'Missing opening brace after func declaration',
+                    line: i + 1
+                });
+            }
+            braceCount += (line.match(/{/g) || []).length;
+            braceCount -= (line.match(/}/g) || []).length;
+            if (braceCount < 0) {
+                errors.push({
+                    message: 'Extra closing brace',
+                    line: i + 1
+                });
+                braceCount = 0;
+            }
+        });
+
+        if (braceCount > 0) {
+            errors.push({
+                message: `Missing ${braceCount} closing brace(s)`,
+                line: lines.length
+            });
+        }
+
+        return errors;
+    },
+    ruby: (code) => {
+        console.log('Validating Ruby');
+        const errors = [];
+        const cleanCode = removeComments(code, 'ruby');
+        const lines = cleanCode.split('\n');
+        let blockCount = 0;
+
+        lines.forEach((line, i) => {
+            if (!line.trim()) return;
+            const trimmed = line.trim();
+            if (trimmed.match(/^(def|class|module|do|if|unless|while|until|for|begin)\b/)) {
+                blockCount++;
+            }
+            if (trimmed === 'end') {
+                blockCount--;
+                if (blockCount < 0) {
+                    errors.push({
+                        message: 'Extra end keyword',
+                        line: i + 1
+                    });
+                    blockCount = 0;
+                }
+            }
+        });
+
+        if (blockCount > 0) {
+            errors.push({
+                message: `Missing ${blockCount} end keyword(s)`,
+                line: lines.length
+            });
+        }
+
+        console.log('Ruby errors:', errors);
+        return errors;
+    },
+    php: (code) => {
+        const errors = [];
+        const cleanCode = removeComments(code, 'php');
+        const lines = cleanCode.split('\n');
+        let braceCount = 0;
+
+        lines.forEach((line, i) => {
+            if (!line.trim()) return;
+            braceCount += (line.match(/{/g) || []).length;
+            braceCount -= (line.match(/}/g) || []).length;
+            if (braceCount < 0) {
+                errors.push({
+                    message: 'Extra closing brace',
+                    line: i + 1
+                });
+                braceCount = 0;
+            }
+        });
+
+        if (braceCount > 0) {
+            errors.push({
+                message: `Missing ${braceCount} closing brace(s)`,
+                line: lines.length
+            });
+        }
+
+        return errors;
+    },
+    swift: (code) => {
+        const errors = [];
+        const cleanCode = removeComments(code, 'swift');
+        const lines = cleanCode.split('\n');
+        let braceCount = 0;
+
+        lines.forEach((line, i) => {
+            if (!line.trim()) return;
+            braceCount += (line.match(/{/g) || []).length;
+            braceCount -= (line.match(/}/g) || []).length;
+            if (braceCount < 0) {
+                errors.push({
+                    message: 'Extra closing brace',
+                    line: i + 1
+                });
+                braceCount = 0;
+            }
+        });
+
+        if (braceCount > 0) {
+            errors.push({
+                message: `Missing ${braceCount} closing brace(s)`,
+                line: lines.length
+            });
+        }
+
+        return errors;
+    },
+    kotlin: (code) => {
+        const errors = [];
+        const cleanCode = removeComments(code, 'kotlin');
+        const lines = cleanCode.split('\n');
+        let braceCount = 0;
+
+        lines.forEach((line, i) => {
+            if (!line.trim()) return;
+            braceCount += (line.match(/{/g) || []).length;
+            braceCount -= (line.match(/}/g) || []).length;
+            if (braceCount < 0) {
+                errors.push({
+                    message: 'Extra closing brace',
+                    line: i + 1
+                });
+                braceCount = 0;
+            }
+        });
+
+        if (braceCount > 0) {
+            errors.push({
+                message: `Missing ${braceCount} closing brace(s)`,
+                line: lines.length
+            });
+        }
+
+        return errors;
+    },
+    typescript: (code) => {
+        console.log('Validating TypeScript');
+        const errors = [];
+        const cleanCode = removeComments(code, 'typescript');
+        let jsCode = cleanCode
+            .replace(/:\s*[^=>,\);{}\n]*?(?=[,\);}]|\s|$)/g, '')
+            .replace(/\binterface\s+\w+\s*{[^}]*}/g, '')
+            .replace(/\btype\s+\w+\s*=[^;]*;/g, '')
+            .replace(/<[^>]*>/g, '')
+            .replace(/\b(as|implements|extends)\s+[^,\);{}]*/g, '')
+            .replace(/\?\s*/g, '')
+            .replace(/:\s*void\b/g, '');
+
+        console.log('Transformed TypeScript to JS:', jsCode);
+
+        try {
+            new Function(jsCode);
+        } catch (e) {
+            const match = e.message.match(/line (\d+)/i);
+            const lineNum = match ? parseInt(match[1]) : null;
+            errors.push({
+                message: `Syntax error: ${e.message}`,
+                line: lineNum
+            });
+        }
+
+        console.log('TypeScript errors:', errors);
+        return errors;
+    },
+    csharp: (code) => {
+        const errors = [];
+        const cleanCode = removeComments(code, 'csharp');
+        const lines = cleanCode.split('\n');
+        let braceCount = 0;
+
+        lines.forEach((line, i) => {
+            if (!line.trim()) return;
+            braceCount += (line.match(/{/g) || []).length;
+            braceCount -= (line.match(/}/g) || []).length;
+            if (braceCount < 0) {
+                errors.push({
+                    message: 'Extra closing brace',
+                    line: i + 1
+                });
+                braceCount = 0;
+            }
+        });
+
+        if (braceCount > 0) {
+            errors.push({
+                message: `Missing ${braceCount} closing brace(s)`,
+                line: lines.length
+            });
+        }
+
+        return errors;
+    },
+    r: (code) => {
+        const errors = [];
+        const cleanCode = removeComments(code, 'r');
+        const lines = cleanCode.split('\n');
+        let parenCount = 0;
+
+        lines.forEach((line, i) => {
+            if (!line.trim()) return;
+            parenCount += (line.match(/\(/g) || []).length;
+            parenCount -= (line.match(/\)/g) || []).length;
+            if (parenCount < 0) {
+                errors.push({
+                    message: 'Extra closing parenthesis',
+                    line: i + 1
+                });
+                parenCount = 0;
+            }
+        });
+
+        if (parenCount > 0) {
+            errors.push({
+                message: `Missing ${parenCount} closing parenthesis`,
+                line: lines.length
+            });
+        }
+
+        return errors;
+    },
+    sql: (code) => {
+        const errors = [];
+        const cleanCode = removeComments(code, 'sql');
+        const lines = cleanCode.split('\n');
+
+        lines.forEach((line, i) => {
+            if (!line.trim()) return;
+            const trimmed = line.trim();
+            if (trimmed.match(/^(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP)/i) && !trimmed.endsWith(';')) {
+                errors.push({
+                    message: 'Missing semicolon at the end of SQL statement',
+                    line: i + 1
+                });
+            }
+        });
 
         return errors;
     }
@@ -450,24 +708,22 @@ const languageValidators = {
 
 function detectLanguage(code) {
     code = code.trim().toLowerCase();
-    if (code.startsWith('<!doctype') || code.includes('<html') || code.includes('</')) {
-        return 'html';
-    }
-    if (code.includes('{') && code.includes('}') && code.includes(':') && code.includes(';') && !code.includes('function')) {
-        return 'css';
-    }
-    if (code.includes('def ') || code.includes('print(') || code.includes('import ') || code.match(/^[ \t]*if.*:/)) {
-        return 'python';
-    }
-    if (code.includes('public class') && code.includes('public static void main')) {
-        return 'java';
-    }
-    if (code.includes('#include') || code.includes('int main') || code.includes('void main')) {
-        return 'cpp';
-    }
-    if (code.includes('function') || code.includes('let ') || code.includes('const ') || code.includes('=>')) {
-        return 'javascript';
-    }
+    if (/^<!doctype|<html/i.test(code)) return 'html';
+    if (/\b(def\s+\w+\s*\([^)]*\))/i.test(code)) return 'ruby';
+    if (/\binterface |type |: \w+/.test(code) && /\b(function|let |const )/.test(code)) return 'typescript';
+    if (/\{.*:.*;\}/.test(code) && !/function/.test(code)) return 'css';
+    if (/\b(def |import |print\()/i.test(code) || /^[ \t]*if.*:/i.test(code)) return 'python';
+    if (/\b(function|let |const |=>)/i.test(code)) return 'javascript';
+    if (/\bpublic\s+class\b/.test(code) && /\bmain\b/.test(code)) return 'java';
+    if (/#include|int main|void main/.test(code)) return 'cpp';
+    if (/\b(fn |let |mut |struct |impl )/.test(code)) return 'rust';
+    if (/\b(func |package |import ")/.test(code)) return 'go';
+    if (/<\?php|\$\w+/.test(code)) return 'php';
+    if (/\b(func |struct |var |let )/.test(code) && !/\b(fn )/.test(code)) return 'swift';
+    if (/\b(fun |val |var |class )/.test(code)) return 'kotlin';
+    if (/\b(class |public static void Main)/.test(code)) return 'csharp';
+    if (/\b(<-|data.frame|ggplot)/.test(code)) return 'r';
+    if (/\b(SELECT |INSERT |UPDATE |DELETE |CREATE |ALTER |DROP )/i.test(code)) return 'sql';
     return 'html';
 }
 
@@ -483,6 +739,7 @@ function validateCode() {
     }
 
     const language = detectLanguage(code);
+    console.log('Detected language:', language);
     const errors = languageValidators[language](code);
 
     if (errors.length > 0) {
@@ -493,7 +750,7 @@ function validateCode() {
             .join('<br>');
         errorDiv.style.color = 'red';
     } else {
-        errorDiv.innerHTML = 'No Errors Detected';
+        errorDiv.innerHTML = 'No syntax errors detected';
         errorDiv.style.color = 'red';
         setTimeout(() => {
             errorDiv.innerHTML = '';
@@ -533,7 +790,7 @@ function executeCode() {
             }
         }
 
-        errorDiv.innerHTML = 'No Errors Detected';
+        errorDiv.innerHTML = 'No syntax errors detected';
         errorDiv.style.color = 'red';
         setTimeout(() => {
             errorDiv.innerHTML = '';
@@ -614,6 +871,36 @@ function saveCode() {
             case 'c':
             case 'h':
                 mimeType = 'text/x-c++src';
+                break;
+            case 'rs':
+                mimeType = 'text/x-rust';
+                break;
+            case 'go':
+                mimeType = 'text/x-go';
+                break;
+            case 'rb':
+                mimeType = 'text/x-ruby';
+                break;
+            case 'php':
+                mimeType = 'application/x-php';
+                break;
+            case 'swift':
+                mimeType = 'text/x-swift';
+                break;
+            case 'kt':
+                mimeType = 'text/x-kotlin';
+                break;
+            case 'ts':
+                mimeType = 'application/typescript';
+                break;
+            case 'cs':
+                mimeType = 'text/x-csharp';
+                break;
+            case 'r':
+                mimeType = 'text/x-r';
+                break;
+            case 'sql':
+                mimeType = 'text/x-sql';
                 break;
         }
 
