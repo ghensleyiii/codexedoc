@@ -177,35 +177,41 @@
             margin-right: auto !important;
         }
 
-        .save-file-container {
-            margin: 10px auto;
-            display: none; /* Removed !important */
-            justify-content: center !important;
-            gap: 10px;
-            max-width: 600px;
-        }
+.save-file-container {
+    margin: 10px auto !important;
+    display: none; /* Hidden by default */
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+    max-width: 600px !important;
+    width: 100% !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+}
 
-        .save-file-input {
-            padding: 8px !important;
-            font-size: 16px !important;
-            border: 2px solid var(--black) !important;
-            border-radius: 5px !important;
-            width: 300px !important;
-            background-color: var(--white) !important;
-            color: var(--black) !important;
-        }
+.save-file-input {
+    padding: 8px !important;
+    font-size: 16px !important;
+    border: 2px solid var(--black) !important;
+    border-radius: 5px !important;
+    flex: 0 1 300px !important; /* Allow input to shrink/grow up to 300px */
+    background-color: var(--white) !important;
+    color: var(--black) !important;
+    box-sizing: border-box !important;
+}
 
-        .save-file-btn {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-            color: #fff !important;
-            border: 2px solid var(--black) !important;
-            padding: 8px 20px !important;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
-            border-radius: 5px !important;
-            font-weight: bold !important;
-            cursor: pointer !important;
-            transition: background-color 0.3s !important;
-        }
+.save-file-btn {
+    background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
+    color: #fff !important;
+    border: 2px solid var(--black) !important;
+    padding: 8px 20px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 5px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s !important;
+    flex: 0 0 auto !important; /* Prevent button from stretching */
+}
 
         .save-file-btn:hover {
             background: linear-gradient(90deg, var(--steel)) !important;
