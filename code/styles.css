@@ -180,7 +180,7 @@
         .save-file-container {
             margin: 10px auto;
             display: none; /* Removed !important */
-            justify-content: center;
+            justify-content: center !important;
             gap: 10px;
             max-width: 600px;
         }
