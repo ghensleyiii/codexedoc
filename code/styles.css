@@ -1,162 +1,162 @@
+
         :root {
-            --dark-steel: #295d8a !important;
-            --steel: #4a7fb2 !important;
-	    --light-steel: #B0C4DE !important;
-            --white: #f0f2f0 !important;
-            --black: #333333 !important;
+            --dark-steel: #295d8a;
+            --steel: #4a7fb2;
+            --light-steel: #B0C4DE;
+            --white: #eeeeee;
+            --black: #333333;
         }
 
         * {
-            box-sizing: border-box !important;
-            margin: 0 !important;
-            padding: 0 !important;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: Arial, sans-serif !important;
-            background-color: var(--white) !important;
-            color: var(--black) !important;
-            line-height: 1.6 !important;
+            font-family: Arial, sans-serif;
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.6;
         }
 
         header {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-            padding: 20px !important;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-            position: sticky !important;
-            top: 0 !important;
-            z-index: 100 !important;
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            text-align: center !important;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         .logo h1 {
-            font-family: 'Audiowide', sans-serif !important;
-            color: #fff !important;
-            font-size: 36px !important;
-            margin: 0 !important;
-            text-align: center !important;
+            font-family: 'Audiowide', sans-serif;
+            color: var(--white);
+            font-size: 36px;
+            margin: 0;
+            text-align: center;
         }
 
         .logo a {
-            text-decoration: none !important;
-            color: #fff !important;
-            text-align: center !important;
+            text-decoration: none;
+            color: var(--white);
+            text-align: center;
         }
 
         footer {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-            text-align: center !important;
-            padding: 20px !important;
-            color: #fff !important;
-            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
-            width: 100% !important;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+            text-align: center;
+            padding: 20px;
+            color: var(--white);
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
         }
 
-        /* CODE CSS */
         .main-section {
-            background-color: var(--white) !important;
-            padding: 50px 20px !important;
-            text-align: center !important;
-            color: #fff !important;
+            background-color: var(--white);
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--black);
         }
 
         .code-editor {
-            position: relative !important;
-            width: 100% !important;
-            margin: 0 auto 20px auto !important;
+            position: relative;
+            width: 100%;
+            margin: 0 auto 20px auto;
             background-color: var(--white);
-            padding: 5px !important;
-            border-radius: 5px !important;
+            padding: 5px;
+            border-radius: 5px;
         }
 
         .line-numbers {
-            width: 48px !important;
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-            color: #fff !important;
-            font-family: 'Courier New', Courier, 'Lucida Console', monospace !important;
-            font-size: 16px !important;
-            text-align: right !important;
-            user-select: none !important;
-            line-height: 20px !important;
-            position: absolute !important;
-            top: 7px !important;
-            left: 7px !important;
-            height: calc(100% - 21.5px) !important;
-            padding: 10px 5px 10px 0 !important;
-            overflow: hidden !important;
-            z-index: 10 !important;
+            width: 48px;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+            color: #fff;
+            font-family: 'Courier New', Courier, 'Lucida Console', monospace;
+            font-size: 16px;
+            text-align: right;
+            user-select: none;
+            line-height: 20px;
+            position: absolute;
+            top: 7px;
+            left: 7px;
+            height: calc(100% - 21.5px);
+            padding: 10px 5px 10px 0;
+            overflow: hidden;
+            z-index: 10;
         }
 
         .line-numbers pre {
-            margin: 0 !important;
-            padding: 0 !important;
-            line-height: 20px !important;
-            font-family: 'Courier New', Courier, 'Lucida Console', monospace !important;
-            font-size: 16px !important;
-            display: block !important;
+            margin: 0;
+            padding: 0;
+            line-height: 20px;
+            font-family: 'Courier New', Courier, 'Lucida Console', monospace;
+            font-size: 16px;
+            display: block;
         }
 
         .code-editor textarea {
-            width: 100% !important;
-            height: 600px !important;
-            background: var(--white) !important;
-            color: var(--black) !important;
-            font-family: 'Courier New', Courier, 'Lucida Console', monospace !important;
-            font-size: 16px !important;
-            padding: 10px 15px 10px 60px !important;
-            border: 2px solid var(--black) !important;
-            border-radius: 5px !important;
-            resize: none !important;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
-            line-height: 20px !important;
-            position: relative !important;
-            z-index: 0 !important;
+            width: 100%;
+            height: 600px;
+            background: var(--white);
+            color: var(--black);
+            font-family: 'Courier New', Courier, 'Lucida Console', monospace;
+            font-size: 16px;
+            padding: 10px 15px 10px 60px;
+            border: 2px solid var(--black);
+            border-radius: 5px;
+            resize: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            line-height: 20px;
+            position: relative;
+            z-index: 0;
         }
 
         .code-editor textarea::placeholder {
-            color: #fff !important;
+            color: var(--light-steel);
         }
 
         .buttons {
-            margin: 20px auto !important;
-            display: flex !important;
-            justify-content: center !important;
-            gap: 15px !important;
-            max-width: 600px !important;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            max-width: 600px;
         }
 
         .validate-btn {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-            color: #fff !important;
-            border: 2px solid var(--black) !important;
-            padding: 10px 20px !important;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
-            border-radius: 5px !important;
-            font-weight: bold !important;
-            cursor: pointer !important;
-            transition: background-color 0.3s !important;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+            color: var(--white);
+            border: 2px solid var(--black);
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .test-btn {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-            color: #fff !important;
-            border: 2px solid var(--black) !important;
-            padding: 10px 20px !important;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
-            border-radius: 5px !important;
-            font-weight: bold !important;
-            cursor: pointer !important;
-            transition: background-color 0.3s !important;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+            color: var(--white);
+            border: 2px solid var(--black);
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .document-btn {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-            color: #fff;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+            color: var(--white);
             border: 2px solid var(--black);
-            padding: 10px 20px !important;
+            padding: 10px 20px;
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
@@ -165,165 +165,165 @@
         }
 
         .validate-btn:hover, .test-btn:hover, .document-btn:hover {
-            background: linear-gradient(90deg, var(--steel)) !important;
+            background: linear-gradient(90deg, var(--steel));
         }
 
         .error-messages {
-            color: red !important; /* Changed to red for visibility */
-            margin-top: 10px !important;
-            text-align: center !important;
-            max-width: 600px !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-.save-file-container {
-    margin: 10px auto !important;
-    display: none; /* Hidden by default */
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 10px !important;
-    max-width: 600px !important;
-    width: 100% !important;
-    text-align: center !important;
-    box-sizing: border-box !important;
-}
+        .save-file-container {
+            margin: 10px auto;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
 
-.save-file-input {
-    padding: 8px !important;
-    font-size: 16px !important;
-    border: 2px solid var(--black) !important;
-    border-radius: 5px !important;
-    flex: 0 1 300px !important; /* Allow input to shrink/grow up to 300px */
-    background-color: var(--white) !important;
-    color: var(--black) !important;
-    box-sizing: border-box !important;
-}
+        .save-file-input {
+            padding: 8px;
+            font-size: 16px;
+            border: 2px solid var(--black);
+            border-radius: 5px;
+            flex: 0 1 300px;
+            background-color: var(--white);
+            color: var(--black);
+            box-sizing: border-box;
+        }
 
-.save-file-btn {
-    background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-    color: #fff !important;
-    border: 2px solid var(--black) !important;
-    padding: 8px 20px !important;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
-    border-radius: 5px !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-    transition: background-color 0.3s !important;
-    flex: 0 0 auto !important; /* Prevent button from stretching */
-}
+        .save-file-btn {
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+            color: var(--white);
+            border: 2px solid var(--black);
+            padding: 8px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 0 0 auto;
+        }
 
         .save-file-btn:hover {
-            background: linear-gradient(90deg, var(--steel)) !important;
+            background: linear-gradient(90deg, var(--steel));
         }
 
         .output-section {
-            background-color: var(--white) !important;
-            padding: 5px !important;
-            margin-top: 20px !important;
+            background-color: var(--white);
+            padding: 5px;
+            margin-top: 20px;
             display: none;
         }
 
         .output-container {
-            width: 100% !important;
-            margin: 0 auto !important;
-            background-color: var(--white) !important;
-            border-radius: 0px !important;
-            overflow: hidden !important;
-            border: 2px solid var(--black) !important;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+            width: 100%;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 0px;
+            overflow: hidden;
+            border: 2px solid var(--black);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .output-header {
-            color: #fff !important;
-            padding: 10px !important;
-            font-size: 1rem !important;
-            font-weight: bold !important;
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+            color: var(--white);
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         hr {
-            border: 1px solid var(--black) !important;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+            border: 1px solid var(--black);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         #outputFrame {
-            width: 100% !important;
-            height: 600px !important;
-            border: none !important;
-            background-color: #e0e0e0 !important;
+            width: 100%;
+            height: 600px;
+            border: none;
+            background-color: var(--white);
         }
 
         @media (max-width: 768px) {
             .code-editor textarea {
-                height: 400px !important;
+                height: 400px;
             }
 
             .buttons {
-                flex-direction: row !important;
-                gap: 10px !important;
-                max-width: 400px !important;
+                flex-direction: row;
+                gap: 10px;
+                max-width: 400px;
             }
 
             .validate-btn, .test-btn, .document-btn {
-                padding: 8px 15px !important;
-                font-size: 0.9rem !important;
+                padding: 8px 15px;
+                font-size: 0.9rem;
             }
 
             .save-file-input {
-                width: 200px !important;
+                width: 200px;
             }
 
             #outputFrame {
-                height: 400px !important;
+                height: 400px;
             }
 
             .output-section {
-                padding: 5px !important;
+                padding: 5px;
             }
         }
 
         @media (max-width: 480px) {
             .code-editor textarea {
-                height: 300px !important;
-                font-size: 14px !important;
-                line-height: 18px !important;
-                padding: 10px 15px 10px 50px !important;
+                height: 300px;
+                font-size: 14px;
+                line-height: 18px;
+                padding: 10px 15px 10px 50px;
             }
 
             .line-numbers {
-                font-size: 14px !important;
-                line-height: 18px !important;
-                width: 38px !important;
-                top: 7px !important;
-                left: 7px !important;
-                height: calc(100% - 21.5px) !important;
-                padding: 10px 3px 10px 0 !important;
-                background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-                z-index: 10 !important;
+                font-size: 14px;
+                line-height: 18px;
+                width: 38px;
+                top: 7px;
+                left: 7px;
+                height: calc(100% - 21.5px);
+                padding: 10px 3px 10px 0;
+                background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+                z-index: 10;
             }
 
             .line-numbers pre {
-                font-size: 14px !important;
-                line-height: 18px !important;
+                font-size: 14px;
+                line-height: 18px;
             }
 
             .buttons {
-                max-width: 300px !important;
+                max-width: 300px;
             }
 
             .save-file-input {
-                width: 150px !important;
-                font-size: 14px !important;
+                width: 150px;
+                font-size: 14px;
             }
 
             .save-file-btn {
-                padding: 6px 15px !important;
-                font-size: 0.9rem !important;
+                padding: 6px 15px;
+                font-size: 0.9rem;
             }
 
             #outputFrame {
-                height: 300px !important;
+                height: 300px;
             }
         }
