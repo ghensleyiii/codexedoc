@@ -1,3 +1,4 @@
+
 const textarea = document.getElementById('codeInput');
 const errorDiv = document.getElementById('errorMessages');
 const outputFrame = document.getElementById('outputFrame');
