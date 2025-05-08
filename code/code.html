@@ -228,14 +228,14 @@
             background: linear-gradient(90deg, var(--steel));
         }
 
-        .output-section, .console-section {
+        .output-section {
             background-color: var(--white);
             padding: 5px;
             margin-top: 20px;
             display: none;
         }
 
-        .output-container, .console-container {
+        .output-container {
             width: 100%;
             margin: 0 auto;
             background-color: var(--white);
@@ -245,7 +245,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .output-header, .console-header {
+        .output-header {
             color: #fff;
             padding: 10px;
             font-size: 1rem;
@@ -263,19 +263,7 @@
             width: 100%;
             height: 600px;
             border: none;
-            background-color: var(--white);
-        }
-
-        #consoleOutput {
-            width: 100%;
-            height: 200px;
-            background-color: var(--black);
-            color: #ffffff;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 14px;
-            padding: 10px;
-            white-space: pre-wrap;
-            overflow-y: auto;
+            background-color: #e0e0e0;
         }
 
         @media (max-width: 768px) {
@@ -302,11 +290,7 @@
                 height: 400px;
             }
 
-            #consoleOutput {
-                height: 150px;
-            }
-
-            .output-section, .console-section {
+            .output-section {
                 padding: 5px;
             }
         }
@@ -353,10 +337,6 @@
             #outputFrame {
                 height: 300px;
             }
-
-            #consoleOutput {
-                height: 100px;
-            }
         }
 </style>
 </head>
@@ -389,17 +369,10 @@
                 <iframe id="outputFrame"></iframe>
             </div>
         </div>
-        <div class="console-section" id="consoleSection">
-            <div class="console-container">
-                <div class="console-header">CONSOLE</div>
-                <hr>
-                <pre id="consoleOutput"></pre>
-            </div>
-        </div>
     </section>
 
     <footer>
-        <p>© 2025 CODEXEDOC. All rights reserved. Version 1.6</p>
+        <p>© 2025 CODEXEDOC. All rights reserved. Version 1.4</p>
     </footer>
 
     <script>
@@ -407,8 +380,6 @@ const textarea = document.getElementById('codeInput');
 const errorDiv = document.getElementById('errorMessages');
 const outputFrame = document.getElementById('outputFrame');
 const outputSection = document.getElementById('outputSection');
-const consoleSection = document.getElementById('consoleSection');
-const consoleOutput = document.getElementById('consoleOutput');
 const lineNumbers = document.getElementById('lineNumbers');
 const lineNumbersPre = lineNumbers.querySelector('pre');
 const saveFileContainer = document.getElementById('saveFileContainer');
@@ -501,7 +472,7 @@ function removeComments(code, language) {
             let i = 0;
             while (i < line.length) {
                 if (inString) {
- Derivatives:  newLine += line[i];
+                    newLine += line[i];
                     if (line[i] === stringChar && line[i - 1] !== '\\') {
                         inString = false;
                     }
@@ -684,7 +655,7 @@ const languageValidators = {
                                 message: `Mismatched closing tag: expected </${lastTag.name}>, found </${tagName}>`,
                                 line: lineNum
                             });
-                            stack.length = 0;
+                            stack.length = 0; // Reset stack to prevent cascading errors
                             break;
                         }
                     }
@@ -1114,58 +1085,24 @@ const languageValidators = {
 };
 
 function detectLanguage(code) {
-    code = code.trim();
-    const lowerCode = code.toLowerCase();
-
-    // JavaScript/TypeScript
-    if (/\b(function|let|const|=>|console\.log)/i.test(code)) {
-        if (/\binterface|type|: \w+/.test(code)) return 'typescript';
-        return 'javascript';
-    }
-
-    // Ruby
-    if (/\b(def\s+\w+\s*\([^)]*\)|puts|end)/i.test(code)) return 'ruby';
-
-    // Python
-    if (/\b(def |import |print\(|if.*:)/i.test(code)) return 'python';
-
-    // CSS
-    if (/\{.*:.*;\}/.test(code) && !/function/.test(lowerCode)) return 'css';
-
-    // Java
-    if (/\bpublic\s+class\b|\bmain\b|\bSystem\.out\.println\b/i.test(code)) return 'java';
-
-    // C++
-    if (/#include|int main|void main|std::cout/i.test(code)) return 'cpp';
-
-    // Rust
-    if (/\b(fn |let |mut |struct |impl |println!)/i.test(code)) return 'rust';
-
-    // Go
-    if (/\b(func |package |import "|fmt\.Println)/i.test(code)) return 'go';
-
-    // PHP
-    if (/<\?php|\$\w+|echo\b/i.test(code)) return 'php';
-
-    // Swift
-    if (/\b(func |struct |var |let |print\()/.test(code) && !/\b(fn )/.test(lowerCode)) return 'swift';
-
-    // Kotlin
-    if (/\b(fun |val |var |class |println\()/.test(code)) return 'kotlin';
-
-    // C#
-    if (/\b(class |public static void Main|Console\.WriteLine)/i.test(code)) return 'csharp';
-
-    // R
-    if (/\b(<-|data\.frame|ggplot|print\()/.test(code)) return 'r';
-
-    // SQL
+    code = code.trim().toLowerCase();
+    if (/^<!doctype|<html/i.test(code)) return 'html';
+    if (/\b(def\s+\w+\s*\([^)]*\))/i.test(code)) return 'ruby';
+    if (/\binterface |type |: \w+/.test(code) && /\b(function|let |const )/.test(code)) return 'typescript';
+    if (/\{.*:.*;\}/.test(code) && !/function/.test(code)) return 'css';
+    if (/\b(def |import |print\()/i.test(code) || /^[ \t]*if.*:/i.test(code)) return 'python';
+    if (/\b(function|let |const |=>)/i.test(code)) return 'javascript';
+    if (/\bpublic\s+class\b/.test(code) && /\bmain\b/.test(code)) return 'java';
+    if (/#include|int main|void main/.test(code)) return 'cpp';
+    if (/\b(fn |let |mut |struct |impl )/.test(code)) return 'rust';
+    if (/\b(func |package |import ")/.test(code)) return 'go';
+    if (/<\?php|\$\w+/.test(code)) return 'php';
+    if (/\b(func |struct |var |let )/.test(code) && !/\b(fn )/.test(code)) return 'swift';
+    if (/\b(fun |val |var |class )/.test(code)) return 'kotlin';
+    if (/\b(class |public static void Main)/.test(code)) return 'csharp';
+    if (/\b(<-|data.frame|ggplot)/.test(code)) return 'r';
     if (/\b(SELECT |INSERT |UPDATE |DELETE |CREATE |ALTER |DROP )/i.test(code)) return 'sql';
-
-    // HTML (last resort)
-    if (/^<!DOCTYPE\s+html>|^<html/i.test(code)) return 'html';
-
-    return 'javascript'; // Default to JavaScript for ambiguous cases
+    return 'html';
 }
 
 function validateCode() {
@@ -1176,7 +1113,6 @@ function validateCode() {
     if (!code) {
         errorDiv.innerHTML = 'No code entered';
         outputSection.style.display = 'none';
-        consoleSection.style.display = 'none';
         return;
     }
 
@@ -1201,120 +1137,6 @@ function validateCode() {
     }
 }
 
-function simulateConsoleOutput(code, language) {
-    const lines = code.split('\n');
-    let output = [];
-
-    if (language === 'javascript' || language === 'typescript') {
-        let consoleLog = [];
-        const originalConsoleLog = console.log;
-        console.log = (...args) => consoleLog.push(args.join(' '));
-        try {
-            let jsCode = language === 'typescript' ?
-                code
-                    .replace(/:\s*[^=>,\);{}\n]*?(?=[,\);}]|\s|$)/g, '')
-                    .replace(/\binterface\s+\w+\s*{[^}]*}/g, '')
-                    .replace(/\btype\s+\w+\s*=[^;]*;/g, '')
-                    .replace(/<[^>]*>/g, '')
-                    .replace(/\b(as|implements|extends)\s+[^,\);{}]*/g, '')
-                    .replace(/\?\s*/g, '')
-                    .replace(/:\s*void\b/g, '') :
-                code;
-            new Function(jsCode)();
-            output = consoleLog;
-        } catch (e) {
-            output.push(`Error: ${e.message}`);
-        }
-        console.log = originalConsoleLog;
-    } else if (language === 'python') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*print\s*\((.*?)\)/);
-            if (match) {
-                output.push(match[1].replace(/['"]/g, ''));
-            }
-        });
-    } else if (language === 'ruby') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*puts\s+(.+)/);
-            if (match) {
-                output.push(match[1].replace(/['"]/g, ''));
-            }
-        });
-    } else if (language === 'java') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*System\.out\.println\s*\((.*?)\)/);
-            if (match) {
-                output.push(match[1].replace(/['"]/g, ''));
-            }
-        });
-    } else if (language === 'cpp') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*std::cout\s*<<\s*(.*?)\s*<<\s*std::endl/);
-            if (match) {
-                output.push(match[1].replace(/['"]/g, ''));
-            }
-        });
-    } else if (language === 'rust') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*println!\s*\((.*?)\)/);
-            if (match) {
-                output.push(match[1].replace(/['"]/g, ''));
-            }
-        });
-    } else if (language === 'go') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*fmt\.Println\s*\((.*?)\)/);
-            if (match) {
-                output.push(match[1].replace(/['"]/g, ''));
-            }
-        });
-    } else if (language === 'php') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*(echo|print)\s+(.+);/);
-            if (match) {
-                output.push(match[2].replace(/['"]/g, ''));
-            }
-        });
-    } else if (language === 'swift') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*print\s*\((.*?)\)/);
-            if (match) {
-                output.push(match[1].replace(/['"]/g, ''));
-            }
-        });
-    } else if (language === 'kotlin') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*println\s*\((.*?)\)/);
-            if (match) {
-                output.push(match[1].replace(/['"]/g, ''));
-            }
-        });
-    } else if (language === 'csharp') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*Console\.WriteLine\s*\((.*?)\)/);
-            if (match) {
-                output.push(match[1].replace(/['"]/g, ''));
-            }
-        });
-    } else if (language === 'r') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*print\s*\((.*?)\)/);
-            if (match) {
-                output.push(match[1].replace(/['"]/g, ''));
-            }
-        });
-    } else if (language === 'sql') {
-        lines.forEach(line => {
-            const match = line.match(/^\s*SELECT\s+(.+)\s+FROM\s+(\w+)/i);
-            if (match) {
-                output.push(`Query result: ${match[1]} from ${match[2]}`);
-            }
-        });
-    }
-
-    return output.length > 0 ? output.join('\n') : 'No console output';
-}
-
 function executeCode() {
     const code = textarea.value.trim();
 
@@ -1324,41 +1146,29 @@ function executeCode() {
             errorDiv.style.color = 'red';
             outputFrame.srcdoc = '';
             outputSection.style.display = 'none';
-            consoleSection.style.display = 'none';
             return;
         }
 
         const language = detectLanguage(code);
-        console.log('Executing language:', language);
 
-        outputSection.style.display = 'none';
-        consoleSection.style.display = 'none';
-        consoleOutput.textContent = '';
-
-        if (language === 'html' || language === 'css') {
-            outputFrame.srcdoc = language === 'html' ? code : `<style>${code}</style>`;
+        if (language === 'html') {
+            outputFrame.srcdoc = code;
             outputSection.style.display = 'block';
-            consoleOutput.textContent = 'No console output for HTML/CSS';
-            consoleSection.style.display = 'block';
         } else {
-            const hasHtmlTags = /<[a-zA-Z][^>]*>/i.test(code);
+            const hasHtmlTags = /<[a-z][\s\S]*>/i.test(code);
             if (hasHtmlTags) {
                 outputFrame.srcdoc = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Output</title></head><body>${code}</body></html>`;
                 outputSection.style.display = 'block';
-            }
-
-            const consoleText = simulateConsoleOutput(code, language);
-            consoleOutput.textContent = consoleText;
-            consoleSection.style.display = 'block';
-
-            if (!hasHtmlTags && consoleText === 'No console output') {
-                errorDiv.innerHTML = 'No visible output for this code. Only HTML content or console output is displayed.';
+            } else {
+                outputFrame.srcdoc = '';
+                outputSection.style.display = 'none';
+                errorDiv.innerHTML = 'No visible output for this code. Only HTML content is displayed in the output section.';
                 errorDiv.style.color = 'red';
                 return;
             }
         }
 
-        errorDiv.innerHTML = 'Code executed successfully';
+        errorDiv.innerHTML = 'No syntax errors detected';
         errorDiv.style.color = 'red';
         setTimeout(() => {
             errorDiv.innerHTML = '';
@@ -1366,12 +1176,10 @@ function executeCode() {
         }, 3000);
 
     } catch (e) {
-        errorDiv.innerHTML = `Execution error: ${e.message}`;
+        errorDiv.innerHTML = 'Execution error';
         errorDiv.style.color = 'red';
         outputFrame.srcdoc = '';
         outputSection.style.display = 'none';
-        consoleSection.style.display = 'block';
-        consoleOutput.textContent = `Error: ${e.message}`;
     }
 }
 
@@ -1383,7 +1191,6 @@ function showSaveFileInput() {
             errorDiv.innerHTML = 'Please enter some code to save';
             errorDiv.style.color = 'red';
             outputSection.style.display = 'none';
-            consoleSection.style.display = 'none';
             setTimeout(() => {
                 errorDiv.innerHTML = '';
                 errorDiv.style.color = 'red';
