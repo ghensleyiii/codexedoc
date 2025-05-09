@@ -323,6 +323,10 @@ footer p {
     margin: 10px 0 0 !important;
 }
 
+footer a {
+    color: var(--white) !important;
+}
+
 @media (max-width: 600px) {
     .input-section, .search-section, .article, .backup-restore-buttons {
         max-width: 90% !important;
