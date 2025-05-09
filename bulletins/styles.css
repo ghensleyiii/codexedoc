@@ -283,7 +283,7 @@ input, textarea {
     width: 100% !important;
     max-width: 200px !important;
     margin: 10px auto !important;
-    display: none;
+    display: none !important;
     font-family: 'Audiowide', sans-serif !important;
 }
 
