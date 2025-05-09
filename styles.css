@@ -261,6 +261,15 @@
             margin: 10px 0 0;
         }
 
-        footer a {
-            color: var(--white) !important;
-        }
+footer a {
+    color: var(--white) !important;
+    text-decoration: none; /* Optional: Remove underline */
+}
+
+footer a:visited {
+    color: var(--white) !important; /* Ensure visited links stay white */
+}
+
+footer a:hover {
+    color: var(--light-steel) !important; /* Optional: Change color on hover */
+}
