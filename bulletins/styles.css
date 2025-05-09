@@ -2,7 +2,7 @@
     --dark-steel: #295d8a !important;
     --steel: #4a7fb2 !important;
     --light-steel: #B0C4DE !important;
-    --white: #f0f2f0 !important;
+    --white: #eeeeee !important;
     --black: #333333 !important;
 }
 
@@ -33,14 +33,14 @@ header {
 
 .logo h1 {
     font-family: 'Audiowide', sans-serif !important;
-    color: #fff !important;
+    color: var(--white) !important;
     font-size: 45px !important;
     margin: 0 !important;
 }
 
 .logo a {
     text-decoration: none !important;
-    color: #fff !important;
+    color: var(--white) !important;
 }
 
 main {
@@ -106,19 +106,19 @@ main {
 
 .category i {
     font-size: 24px !important;
-    color: #fff !important;
+    color: var(--white) !important;
     margin-bottom: 10px !important;
 }
 
 .category h3 {
     font-family: 'Audiowide', sans-serif !important;
-    color: #fff !important;
+    color: var(--white) !important;
     margin-bottom: 10px !important;
 }
 
 .category p {
     font-size: 14px !important;
-    color: #f0f0f0 !important;
+    color: var(--white) !important;
 }
 
 .item {
@@ -135,7 +135,7 @@ main {
     font-family: 'Audiowide', sans-serif !important;
     background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
     border: none !important;
-    color: #fff !important;
+    color: var(--white) !important;
     text-align: center !important;
     cursor: pointer !important;
     border-radius: 5px !important;
@@ -257,7 +257,7 @@ input, textarea {
 
 .btn-study#saveBtn, .btn-study#backupBtn, .btn-study#restoreBtn {
     background: linear-gradient(90deg, var(--dark-steel), var(--steel)) !important;
-    color: #fff !important;
+    color: var(--white) !important;
     padding: 8px 16px !important;
     border: none !important;
     border-radius: 4px !important;
@@ -274,8 +274,8 @@ input, textarea {
 }
 
 .btn-study#deleteBtn {
-    background: linear-gradient(90deg, #ff4d4d, #cc0000) !important;
-    color: #fff !important;
+    background: linear-gradient(90deg, #ff4d4d, #cc0000, #ff4d4d) !important;
+    color: var(--white) !important;
     padding: 8px 16px !important;
     border: none !important;
     border-radius: 4px !important;
@@ -314,7 +314,7 @@ footer {
     background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
     text-align: center !important;
     padding: 20px !important;
-    color: #fff !important;
+    color: var(--white) !important;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
     width: 100% !important;
 }
