@@ -2,7 +2,7 @@
     --dark-steel: #295d8a !important;
     --steel: #4a7fb2 !important;
     --light-steel: #B0C4DE !important;
-    --white: #f0f2f0 !important;
+    --white: #eeeeee !important;
     --black: #333333 !important;
 }
 
@@ -35,7 +35,7 @@ header {
 
 .logo h1 {
     font-family: 'Audiowide', sans-serif !important;
-    color: #fff !important;
+    color: var(--white) !important;
     font-size: 36px !important;
     margin: 0 !important;
     text-align: center !important;
@@ -43,7 +43,7 @@ header {
 
 .logo a {
     text-decoration: none !important;
-    color: #fff !important;
+    color: var(--white) !important;
     text-align: center !important;
 }
 
@@ -75,7 +75,7 @@ main {
     font-family: 'Audiowide', sans-serif !important;
     background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
     border: none !important;
-    color: #fff !important;
+    color: var(--white) !important;
     text-align: center !important;
     cursor: pointer !important;
     border-radius: 5px !important;
@@ -100,7 +100,7 @@ main {
 }
 
 .item-content pre {
-    background: #f4f4f4 !important;
+    background: var(--white) !important;
     padding: 10px !important;
     border-radius: 5px !important;
     overflow-x: auto !important;
@@ -117,7 +117,7 @@ footer {
     background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
     text-align: center !important;
     padding: 20px !important;
-    color: #fff !important;
+    color: var(--white) !important;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
     width: 100% !important;
 }
