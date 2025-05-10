@@ -283,7 +283,7 @@ input, textarea {
     width: 100% !important;
     max-width: 200px !important;
     margin: 10px auto !important;
-    display: none !important;
+    display: none;
     font-family: 'Audiowide', sans-serif !important;
 }
 
@@ -348,4 +348,16 @@ footer a {
     .btn-study#saveBtn, .btn-study#deleteBtn, .btn-study#backupBtn, .btn-study#restoreBtn {
         padding: 6px 12px !important;
     }
+}
+
+/* Added styles for clickable links in notes */
+.notes-preview a {
+    color: var(--steel) !important;
+    text-decoration: underline !important;
+    cursor: pointer !important;
+}
+
+.notes-preview a:hover {
+    color: var(--dark-steel) !important;
+    text-decoration: none !important;
 }
