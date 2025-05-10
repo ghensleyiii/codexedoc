@@ -1,9 +1,9 @@
-
+      
       let articles = JSON.parse(localStorage.getItem('articles')) || [];
       let editingArticleId = null;
       let openArticles = new Set();
       let isDeleteConfirmed = false;
-      displayArticles(articles);
+      // Removed direct displayArticles(articles) call to prevent premature execution
 
       function saveOrUpdateArticle() {
           const title = document.getElementById('titleInput').value;
@@ -113,7 +113,16 @@
       }
 
       function formatNotes(notes) {
-          return notes.replace(/\n/g, '<br>');
+          // Convert URLs to clickable links
+          const urlRegex = /(https?:\/\/[^\s<>"']+)/g;
+          let formatted = notes.replace(urlRegex, function(url) {
+              // Ensure URL has protocol, default to https if none
+              const safeUrl = url.startsWith('http') ? url : `https://${url}`;
+              return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--steel); text-decoration: underline;">${url}</a>`;
+          });
+          // Replace newlines with <br> tags
+          formatted = formatted.replace(/\n/g, '<br>');
+          return formatted;
       }
 
       function getPreviewText(notes, searchTerm, isOpen) {
@@ -365,5 +374,14 @@
           backupBtn.addEventListener('click', backupData);
           restoreBtn.addEventListener('click', () => restoreInput.click());
           restoreInput.addEventListener('change', restoreData);
+
+          // Initialize display of articles after DOM is loaded
+          // displayArticles(articles); // Commented out to avoid premature call
       });
     
+    </script>
+    <script>
+      // Added to ensure displayArticles is called after all functions are defined
+      window.addEventListener('load', () => {
+          displayArticles(articles);
+      });
