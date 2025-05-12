@@ -295,7 +295,7 @@ input, textarea {
     width: 100% !important;
     max-width: 200px !important;
     margin: 10px auto !important;
-    display: none;
+    display: none; /* Removed !important */
     font-family: 'Audiowide', sans-serif !important;
 }
 
@@ -373,6 +373,42 @@ footer a {
     color: var(--dark-steel) !important;
     text-decoration: none !important;
 }
+
+/* Styles for formatting toolbar */
+.formatting-toolbar {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    margin: 10px 0 !important;
+    flex-wrap: wrap !important;
+}
+
+.format-btn {
+    width: 40px !important;
+    height: 40px !important;
+    border: 1px solid var(--black) !important;
+    border-radius: 4px !important;
+    background: linear-gradient(90deg, var(--dark-steel), var(--steel)) !important;
+    color: var(--white) !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: background 0.3s !important;
+}
+
+.format-btn:hover {
+    background: linear-gradient(90deg, var(--steel)) !important;
+}
+
+@media (max-width: 600px) {
+    .format-btn {
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 14px !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -391,6 +427,15 @@ footer a {
     <div class="input-section">
         <input type="text" id="titleInput" placeholder="Enter article title">
         <input type="number" id="orderInput" placeholder="Enter article order" min="0" step="1">
+        <div class="formatting-toolbar">
+            <button class="format-btn" onclick="formatText('bold')" title="Bold"><b>B</b></button>
+            <button class="format-btn" onclick="formatText('italic')" title="Italic"><i>I</i></button>
+            <button class="format-btn" onclick="formatText('underline')" title="Underline"><b>U</b></button>
+            <button class="format-btn" onclick="formatText('strike')" title="Strikethrough"><s>S</s></button>
+            <button class="format-btn" onclick="formatText('hr')" title="Horizontal Line">―</button>
+            <button class="format-btn" onclick="formatText('color')" title="Text Color (Dark Steel)"><b>T</b></button>
+            <button class="format-btn" onclick="formatText('highlight')" title="Highlight (Light Steel)"><b>H</b></button>
+        </div>
         <textarea id="notesInput" rows="15" placeholder="Enter your notes"></textarea>
         <button id="saveBtn" class="btn-study" onclick="saveOrUpdateArticle()">Save Article</button>
         <button id="deleteBtn" class="btn-study" onclick="deleteArticle()">Delete</button>
@@ -438,6 +483,68 @@ footer a {
        * @type {boolean} isDeleteConfirmed - Flag indicating if the user has confirmed deletion of an article.
        */
       let isDeleteConfirmed = false;
+
+      /**
+       * Formats the selected text in the notes textarea based on the specified type.
+       * @param {string} type - The type of formatting ('bold', 'italic', 'underline', 'strike', 'hr', 'color', 'highlight').
+       */
+      function formatText(type) {
+          const textarea = document.getElementById('notesInput');
+          const start = textarea.selectionStart;
+          const end = textarea.selectionEnd;
+          const selectedText = textarea.value.substring(start, end);
+          let newText = '';
+
+          if (type === 'hr') {
+              // Insert horizontal line marker
+              newText = '\n---\n';
+              if (start === end) {
+                  // No selection, insert at cursor
+                  textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
+                  textarea.selectionStart = textarea.selectionEnd = start + newText.length;
+              } else {
+                  // Replace selection with horizontal line
+                  textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
+                  textarea.selectionStart = textarea.selectionEnd = start + newText.length;
+              }
+          } else {
+              // Handle text formatting
+              if (start === end && selectedText === '') {
+                  // No selection, do nothing
+                  return;
+              }
+
+              switch (type) {
+                  case 'bold':
+                      newText = `**${selectedText}**`;
+                      break;
+                  case 'italic':
+                      newText = `*${selectedText}*`;
+                      break;
+                  case 'underline':
+                      newText = `__${selectedText}__`;
+                      break;
+                  case 'strike':
+                      newText = `~~${selectedText}~~`;
+                      break;
+                  case 'color':
+                      newText = `##${selectedText}##`;
+                      break;
+                  case 'highlight':
+                      newText = `^^${selectedText}^^`;
+                      break;
+                  default:
+                      return;
+              }
+
+              // Replace selected text with formatted text
+              textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
+              textarea.selectionStart = start;
+              textarea.selectionEnd = start + newText.length;
+          }
+
+          textarea.focus();
+      }
 
       /**
        * Saves a new article or updates an existing one based on the editing state.
@@ -497,6 +604,7 @@ footer a {
        * @param {number} id - The ID of the article to edit.
        */
       function editArticle(id) {
+          console.log('editArticle called with id:', id); // Debug log
           const article = articles.find(a => a.id === id);
           if (article) {
               // Populate input fields with article data
@@ -507,11 +615,18 @@ footer a {
               // Update UI to reflect editing mode
               const saveBtn = document.getElementById('saveBtn');
               const deleteBtn = document.getElementById('deleteBtn');
+              if (!deleteBtn) {
+                  console.error('deleteBtn not found in DOM');
+                  return;
+              }
+              console.log('Setting deleteBtn display to block'); // Debug log
               saveBtn.textContent = 'Update Article';
               deleteBtn.style.display = 'block';
               isDeleteConfirmed = false;
               deleteBtn.textContent = 'Delete';
               deleteBtn.classList.remove('confirm');
+          } else {
+              console.warn('Article not found for id:', id);
           }
       }
 
@@ -586,19 +701,33 @@ footer a {
       }
 
       /**
-       * Formats notes by converting URLs to clickable links and newlines to <br> tags.
+       * Formats notes by converting URLs to clickable links, newlines to <br> tags,
+       * and Markdown-like syntax to HTML for rendering.
        * @param {string} notes - The raw notes text.
        * @returns {string} The formatted notes as HTML.
        */
       function formatNotes(notes) {
-          // Convert URLs to clickable links with proper attributes for security
+          let formatted = notes;
+
+          // Convert URLs to clickable links
           const urlRegex = /(https?:\/\/[^\s<>"']+)/g;
-          let formatted = notes.replace(urlRegex, function(url) {
+          formatted = formatted.replace(urlRegex, function(url) {
               const safeUrl = url.startsWith('http') ? url : `https://${url}`;
               return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--steel); text-decoration: underline;">${url}</a>`;
           });
+
+          // Convert Markdown-like syntax to HTML
+          formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); // Bold
+          formatted = formatted.replace(/\*(.*?)\*/g, '<i>$1</i>'); // Italic
+          formatted = formatted.replace(/__(.*?)__/g, '<u>$1</u>'); // Underline
+          formatted = formatted.replace(/~~(.*?)~~/g, '<s>$1</s>'); // Strikethrough
+          formatted = formatted.replace(/##(.*?)##/g, '<span style="color: #295d8a">$1</span>'); // Text Color
+          formatted = formatted.replace(/\^\^(.*?)\^\^/g, '<span style="background-color: #B0C4DE">$1</span>'); // Highlight
+          formatted = formatted.replace(/---/g, '<hr>'); // Horizontal line
+
           // Replace newlines with HTML line breaks
           formatted = formatted.replace(/\n/g, '<br>');
+
           return formatted;
       }
 
@@ -898,6 +1027,13 @@ footer a {
           const backupBtn = document.getElementById('backupBtn');
           const restoreBtn = document.getElementById('restoreBtn');
           const restoreInput = document.getElementById('restoreInput');
+          const deleteBtn = document.getElementById('deleteBtn');
+
+          if (!deleteBtn) {
+              console.error('deleteBtn not found on page load');
+          } else {
+              console.log('deleteBtn found on page load');
+          }
 
           // Attach event listeners for backup and restore functionality
           backupBtn.addEventListener('click', backupData);
