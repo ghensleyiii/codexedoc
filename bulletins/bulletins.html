@@ -385,7 +385,7 @@ footer a {
     <div class="backup-restore-buttons">
         <button id="backupBtn" class="btn-study">Backup Data</button>
         <button id="restoreBtn" class="btn-study">Restore Data</button>
-        <input type="file" id="restoreInput" accept=".codex,.json,.codexexedoc" style="display: none;">
+        <input type="file" id="restoreInput" accept=".codex,.json,.txt,text/plain,application/json,application/octet-stream" style="display: none;">
     </div>
 
     <div class="input-section">
@@ -407,22 +407,55 @@ footer a {
     </footer>
 
     <script>
-      
-      let articles = JSON.parse(localStorage.getItem('articles')) || [];
-      let editingArticleId = null;
-      let openArticles = new Set();
-      let isDeleteConfirmed = false;
-      // Removed direct displayArticles(articles) call to prevent premature execution
+      /**
+       * @fileoverview Bulletins Application Script
+       * @description This script manages a web-based article management system with features to create, edit,
+       *              delete, and search articles. It also supports backing up articles to a text file and restoring
+       *              them from a file. Articles are stored in localStorage for persistence.
+       * @author [Your Name]
+       * @version 1.0.0
+       * @date 2025-05-12
+       */
 
+      // Global Variables
+      /**
+       * @type {Array<Object>} articles - Array of article objects loaded from localStorage or initialized as empty.
+       * Each article has properties: id (number), title (string), notes (string), order (number), date (string).
+       */
+      let articles = JSON.parse(localStorage.getItem('articles')) || [];
+
+      /**
+       * @type {number|null} editingArticleId - ID of the article currently being edited, or null if not editing.
+       */
+      let editingArticleId = null;
+
+      /**
+       * @type {Set<number>} openArticles - Set of article IDs whose notes are currently expanded.
+       */
+      let openArticles = new Set();
+
+      /**
+       * @type {boolean} isDeleteConfirmed - Flag indicating if the user has confirmed deletion of an article.
+       */
+      let isDeleteConfirmed = false;
+
+      /**
+       * Saves a new article or updates an existing one based on the editing state.
+       * Retrieves title, notes, and order from input fields, validates them, and updates the articles array.
+       * Persists changes to localStorage and refreshes the display.
+       */
       function saveOrUpdateArticle() {
+          // Get input values from the DOM
           const title = document.getElementById('titleInput').value;
           const notes = document.getElementById('notesInput').value;
           const order = parseInt(document.getElementById('orderInput').value) || 0;
           const saveBtn = document.getElementById('saveBtn');
           const deleteBtn = document.getElementById('deleteBtn');
           
+          // Validate that both title and notes are provided
           if (title && notes) {
               if (editingArticleId) {
+                  // Update existing article
                   const articleIndex = articles.findIndex(a => a.id === editingArticleId);
                   articles[articleIndex] = {
                       ...articles[articleIndex],
@@ -431,6 +464,7 @@ footer a {
                       order: order,
                       date: new Date().toLocaleString()
                   };
+                  // Reset editing state
                   editingArticleId = null;
                   saveBtn.textContent = 'Save Article';
                   deleteBtn.style.display = 'none';
@@ -438,6 +472,7 @@ footer a {
                   deleteBtn.textContent = 'Delete';
                   deleteBtn.classList.remove('confirm');
               } else {
+                  // Create new article
                   const article = {
                       id: Date.now(),
                       title: title,
@@ -448,6 +483,7 @@ footer a {
                   articles.push(article);
               }
               
+              // Persist articles to localStorage and clear input fields
               localStorage.setItem('articles', JSON.stringify(articles));
               document.getElementById('titleInput').value = '';
               document.getElementById('orderInput').value = '';
@@ -456,13 +492,19 @@ footer a {
           }
       }
 
+      /**
+       * Prepares an article for editing by populating the input fields with its data.
+       * @param {number} id - The ID of the article to edit.
+       */
       function editArticle(id) {
           const article = articles.find(a => a.id === id);
           if (article) {
+              // Populate input fields with article data
               document.getElementById('titleInput').value = article.title;
               document.getElementById('orderInput').value = article.order;
               document.getElementById('notesInput').value = article.notes;
               editingArticleId = id;
+              // Update UI to reflect editing mode
               const saveBtn = document.getElementById('saveBtn');
               const deleteBtn = document.getElementById('deleteBtn');
               saveBtn.textContent = 'Update Article';
@@ -473,16 +515,23 @@ footer a {
           }
       }
 
+      /**
+       * Deletes the currently edited article after user confirmation.
+       * Requires two clicks: first to confirm, second to delete.
+       */
       function deleteArticle() {
           const deleteBtn = document.getElementById('deleteBtn');
           if (!isDeleteConfirmed) {
+              // First click: prompt for confirmation
               isDeleteConfirmed = true;
               deleteBtn.textContent = 'Confirm Delete';
               deleteBtn.classList.add('confirm');
           } else {
+              // Second click: delete the article
               if (editingArticleId) {
                   articles = articles.filter(a => a.id !== editingArticleId);
                   localStorage.setItem('articles', JSON.stringify(articles));
+                  // Reset editing state and UI
                   editingArticleId = null;
                   isDeleteConfirmed = false;
                   deleteBtn.textContent = 'Delete';
@@ -497,6 +546,11 @@ footer a {
           }
       }
 
+      /**
+       * Updates the order of an article and persists the change.
+       * @param {number} id - The ID of the article to update.
+       * @param {string} newOrder - The new order value as a string.
+       */
       function updateOrder(id, newOrder) {
           const articleIndex = articles.findIndex(a => a.id === id);
           if (articleIndex !== -1) {
@@ -506,6 +560,10 @@ footer a {
           }
       }
 
+      /**
+       * Toggles the expanded state of an article's notes.
+       * @param {number} id - The ID of the article to toggle.
+       */
       function toggleArticle(id) {
           if (openArticles.has(id)) {
               openArticles.delete(id);
@@ -515,25 +573,42 @@ footer a {
           displayArticles(articles);
       }
 
+      /**
+       * Highlights occurrences of a search term in text by wrapping them in a span.
+       * @param {string} text - The text to search within.
+       * @param {string} searchTerm - The term to highlight.
+       * @returns {string} The text with highlighted search terms.
+       */
       function highlightText(text, searchTerm) {
           if (!searchTerm) return text;
           const regex = new RegExp(`(${searchTerm})`, 'gi');
           return text.replace(regex, '<span class="highlight">$1</span>');
       }
 
+      /**
+       * Formats notes by converting URLs to clickable links and newlines to <br> tags.
+       * @param {string} notes - The raw notes text.
+       * @returns {string} The formatted notes as HTML.
+       */
       function formatNotes(notes) {
-          // Convert URLs to clickable links
+          // Convert URLs to clickable links with proper attributes for security
           const urlRegex = /(https?:\/\/[^\s<>"']+)/g;
           let formatted = notes.replace(urlRegex, function(url) {
-              // Ensure URL has protocol, default to https if none
               const safeUrl = url.startsWith('http') ? url : `https://${url}`;
               return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--steel); text-decoration: underline;">${url}</a>`;
           });
-          // Replace newlines with <br> tags
+          // Replace newlines with HTML line breaks
           formatted = formatted.replace(/\n/g, '<br>');
           return formatted;
       }
 
+      /**
+       * Generates a preview of notes text, either truncated or expanded, with search term highlighting.
+       * @param {string} notes - The full notes text.
+       * @param {string} searchTerm - The term to highlight in the preview.
+       * @param {boolean} isOpen - Whether the notes are expanded.
+       * @returns {string} The formatted preview text.
+       */
       function getPreviewText(notes, searchTerm, isOpen) {
           const maxPreviewLength = 85;
           const contextLength = 30;
@@ -549,6 +624,7 @@ footer a {
               const lowerSearch = searchTerm.toLowerCase();
               const index = lowerNotes.indexOf(lowerSearch);
               if (index !== -1) {
+                  // Show context around the search term
                   const start = Math.max(0, index - contextLength);
                   const end = Math.min(notes.length, index + searchTerm.length + contextLength);
                   let preview = notes.substring(start, end);
@@ -558,16 +634,22 @@ footer a {
               }
           }
 
+          // Truncate notes if too long, adding ellipsis
           return notes.length > maxPreviewLength 
               ? highlightText(formatNotes(notes.substring(0, maxPreviewLength)) + '...', searchTerm) 
               : highlightText(formattedNotes, searchTerm);
       }
 
+      /**
+       * Displays a list of articles in the DOM, sorted by order and title, with search highlighting.
+       * @param {Array<Object>} articlesToShow - The articles to display (filtered or full list).
+       */
       function displayArticles(articlesToShow) {
           const container = document.getElementById('articlesContainer');
           const searchTerm = document.getElementById('searchInput').value.toLowerCase();
           container.innerHTML = '';
           
+          // Sort articles by order, then by title
           const sortedArticles = [...articlesToShow].sort((a, b) => {
               if (a.order === b.order) {
                   return a.title.localeCompare(b.title);
@@ -575,6 +657,7 @@ footer a {
               return a.order - b.order;
           });
           
+          // Render each article as a DOM element
           sortedArticles.forEach(article => {
               const isOpen = openArticles.has(article.id);
               const articleDiv = document.createElement('div');
@@ -600,6 +683,9 @@ footer a {
           });
       }
 
+      /**
+       * Filters articles based on a search term and updates the display.
+       */
       function searchArticles() {
           const searchTerm = document.getElementById('searchInput').value.toLowerCase();
           const filteredArticles = articles.filter(article => 
@@ -609,29 +695,44 @@ footer a {
           displayArticles(filteredArticles);
       }
 
+      /**
+       * Creates a backup file containing all articles and triggers a download.
+       * The file format includes a custom header followed by JSON data.
+       */
       function backupData() {
           const data = {
               articles: JSON.parse(localStorage.getItem('articles')) || []
           };
           
+          // Format the backup content with a header and indented JSON
           const codexContent = `CODEX-EDOC-BACKUP-v1\n${JSON.stringify(data, null, 2)}`;
           const blob = new Blob([codexContent], { type: 'text/plain' });
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
-          a.download = `bulletins_backup_${new Date().toISOString().split('T')[0]}.codexexedoc`;
+          a.download = `bulletins_backup_${new Date().toISOString().split('T')[0]}.txt`;
           a.click();
           URL.revokeObjectURL(url);
       }
 
+      /**
+       * Checks if an object is a plain JavaScript object (not an array or null).
+       * @param {any} obj - The object to check.
+       * @returns {boolean} True if the object is plain, false otherwise.
+       */
       function isPlainObject(obj) {
           return obj !== null && typeof obj === 'object' && Object.getPrototypeOf(obj) === Object.prototype;
       }
 
+      /**
+       * Restores articles from a backup file, validates the file, and updates localStorage.
+       * @param {Event} event - The file input change event containing the selected file.
+       */
       function restoreData(event) {
           const file = event.target.files[0];
           const restoreInput = document.getElementById('restoreInput');
           
+          // Validate file existence
           if (!file) {
               alert('Error: No file selected');
               console.error('No file selected');
@@ -640,22 +741,27 @@ footer a {
           }
 
           try {
-              const validExtensions = ['.codex', '.json', '.codexexedoc'];
+              // Validate file extension
+              const validExtensions = ['.codex', '.json', '.txt'];
               const fileExtension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
               if (!validExtensions.includes(fileExtension)) {
-                  alert('Error: Invalid file type. Please select a .codex, .json, or .codexexedoc file.');
+                  alert('Error: Invalid file type. Please select a .codex, .json, or .txt file.');
                   console.error('Invalid file extension:', fileExtension);
                   restoreInput.value = '';
                   return;
               }
+
+              // Check for empty file
               if (file.size === 0) {
                   alert('Error: File is empty');
                   console.error('Empty file detected');
                   restoreInput.value = '';
                   return;
               }
-              if (file.size > 10 * 1024 * 1024) {
-                  alert('Error: File is too large (max 10MB)');
+
+              // Enforce file size limit (25MB)
+              if (file.size > 25 * 1024 * 1024) {
+                  alert('Error: File is too large (max 25MB)');
                   console.error('File size too large:', file.size);
                   restoreInput.value = '';
                   return;
@@ -667,10 +773,12 @@ footer a {
               return;
           }
 
+          // Read the file content
           const reader = new FileReader();
           reader.onload = function(e) {
               try {
                   let content = e.target.result;
+                  // Remove BOM (Byte Order Mark) and trim whitespace
                   content = content.replace(/^\uFEFF/, '').trim();
                   if (!content) {
                       alert('Error: File is empty or contains only whitespace');
@@ -683,6 +791,7 @@ footer a {
                   const isCodex = content.startsWith('CODEX-EDOC-BACKUP-v1');
                   let jsonContent;
 
+                  // Parse content based on file format
                   if (isCodex) {
                       const lines = content.split('\n');
                       if (lines[0].trim() !== 'CODEX-EDOC-BACKUP-v1') {
@@ -696,10 +805,12 @@ footer a {
                       jsonContent = content;
                   }
 
+                  // Validate JSON structure
                   if (!jsonContent.startsWith('{') && !jsonContent.startsWith('[')) {
                       throw new Error('Invalid JSON: Content must start with an object or array');
                   }
 
+                  // Parse JSON content
                   try {
                       data = JSON.parse(jsonContent);
                   } catch (parseError) {
@@ -714,10 +825,12 @@ footer a {
                       throw new Error(`Invalid JSON format: ${parseError.message}${errorContext}`);
                   }
 
+                  // Validate data structure
                   if (!isPlainObject(data)) {
                       throw new Error('Invalid data structure: Root must be an object');
                   }
 
+                  // Validate articles array and filter invalid entries
                   const articlesData = Array.isArray(data.articles) ? data.articles : [];
                   const validArticles = articlesData.filter(article => {
                       return isPlainObject(article) &&
@@ -732,6 +845,7 @@ footer a {
                       console.warn('Some articles were invalid and filtered out:', articlesData);
                   }
 
+                  // Update localStorage and refresh display
                   try {
                       localStorage.setItem('articles', JSON.stringify(validArticles));
                       articles.length = 0;
@@ -742,12 +856,14 @@ footer a {
                       throw new Error(`Failed to apply articles: ${error.message}`);
                   }
 
+                  // Notify user of success, with a warning if some articles were ignored
                   if (validArticles.length !== articlesData.length) {
                       alert('Data restored successfully, but some invalid articles were ignored.');
                   } else {
                       alert('Data restored successfully!');
                   }
               } catch (error) {
+                  // Construct detailed error message based on failure reason
                   let errorMessage = 'Error restoring data: ';
                   if (error.message.includes('codex file header')) {
                       errorMessage += 'Invalid .codex file header. File must start with "CODEX-EDOC-BACKUP-v1".';
@@ -775,22 +891,25 @@ footer a {
           reader.readAsText(file);
       }
 
+      /**
+       * Initializes event listeners for the application when the DOM is fully loaded.
+       */
       document.addEventListener('DOMContentLoaded', () => {
           const backupBtn = document.getElementById('backupBtn');
           const restoreBtn = document.getElementById('restoreBtn');
           const restoreInput = document.getElementById('restoreInput');
 
+          // Attach event listeners for backup and restore functionality
           backupBtn.addEventListener('click', backupData);
           restoreBtn.addEventListener('click', () => restoreInput.click());
           restoreInput.addEventListener('change', restoreData);
-
-          // Initialize display of articles after DOM is loaded
-          // displayArticles(articles); // Commented out to avoid premature call
       });
-    
     </script>
     <script>
-      // Added to ensure displayArticles is called after all functions are defined
+      /**
+       * Ensures articles are displayed after all scripts are loaded.
+       * Uses the window.load event to delay rendering until all resources are ready.
+       */
       window.addEventListener('load', () => {
           displayArticles(articles);
       });
