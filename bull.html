@@ -295,7 +295,7 @@ input, textarea {
     width: 100% !important;
     max-width: 200px !important;
     margin: 10px auto !important;
-    display: none !important;
+    display: none; /* Removed !important */
     font-family: 'Audiowide', sans-serif !important;
 }
 
@@ -377,6 +377,7 @@ footer a {
 /* Styles for formatting toolbar */
 .formatting-toolbar {
     display: flex !important;
+    justify-content: center !important;
     gap: 5px !important;
     margin: 10px 0 !important;
     flex-wrap: wrap !important;
@@ -401,15 +402,8 @@ footer a {
     background: linear-gradient(90deg, var(--steel)) !important;
 }
 
-.color-btn {
-    width: 40px !important;
-    height: 40px !important;
-    border: 1px solid var(--black) !important;
-    padding: 0 !important;
-}
-
 @media (max-width: 600px) {
-    .format-btn, .color-btn {
+    .format-btn {
         width: 35px !important;
         height: 35px !important;
         font-size: 14px !important;
@@ -436,11 +430,11 @@ footer a {
         <div class="formatting-toolbar">
             <button class="format-btn" onclick="formatText('bold')" title="Bold"><b>B</b></button>
             <button class="format-btn" onclick="formatText('italic')" title="Italic"><i>I</i></button>
-            <button class="format-btn" onclick="formatText('underline')" title="Underline"><u>U</u></button>
+            <button class="format-btn" onclick="formatText('underline')" title="Underline"><b>U</b></button>
             <button class="format-btn" onclick="formatText('strike')" title="Strikethrough"><s>S</s></button>
             <button class="format-btn" onclick="formatText('hr')" title="Horizontal Line">―</button>
-            <button class="format-btn color-btn" onclick="formatText('color', '#295d8a')" title="Text Color (Dark Steel)" style="background-color: var(--dark-steel);"></button>
-            <button class="format-btn color-btn" onclick="formatText('highlight', '#B0C4DE')" title="Highlight (Light Steel)" style="background-color: var(--light-steel);"></button>
+            <button class="format-btn" onclick="formatText('color')" title="Text Color (Dark Steel)"><b>T</b></button>
+            <button class="format-btn" onclick="formatText('highlight')" title="Highlight (Light Steel)"><b>H</b></button>
         </div>
         <textarea id="notesInput" rows="15" placeholder="Enter your notes"></textarea>
         <button id="saveBtn" class="btn-study" onclick="saveOrUpdateArticle()">Save Article</button>
@@ -493,9 +487,8 @@ footer a {
       /**
        * Formats the selected text in the notes textarea based on the specified type.
        * @param {string} type - The type of formatting ('bold', 'italic', 'underline', 'strike', 'hr', 'color', 'highlight').
-       * @param {string} [value] - Optional value for color or highlight (e.g., hex code).
        */
-      function formatText(type, value) {
+      function formatText(type) {
           const textarea = document.getElementById('notesInput');
           const start = textarea.selectionStart;
           const end = textarea.selectionEnd;
@@ -529,16 +522,16 @@ footer a {
                       newText = `*${selectedText}*`;
                       break;
                   case 'underline':
-                      newText = `<u>${selectedText}</u>`;
+                      newText = `__${selectedText}__`;
                       break;
                   case 'strike':
                       newText = `~~${selectedText}~~`;
                       break;
                   case 'color':
-                      newText = `<span style="color: ${value}">${selectedText}</span>`;
+                      newText = `##${selectedText}##`;
                       break;
                   case 'highlight':
-                      newText = `<span style="background-color: ${value}">${selectedText}</span>`;
+                      newText = `^^${selectedText}^^`;
                       break;
                   default:
                       return;
@@ -611,6 +604,7 @@ footer a {
        * @param {number} id - The ID of the article to edit.
        */
       function editArticle(id) {
+          console.log('editArticle called with id:', id); // Debug log
           const article = articles.find(a => a.id === id);
           if (article) {
               // Populate input fields with article data
@@ -621,11 +615,18 @@ footer a {
               // Update UI to reflect editing mode
               const saveBtn = document.getElementById('saveBtn');
               const deleteBtn = document.getElementById('deleteBtn');
+              if (!deleteBtn) {
+                  console.error('deleteBtn not found in DOM');
+                  return;
+              }
+              console.log('Setting deleteBtn display to block'); // Debug log
               saveBtn.textContent = 'Update Article';
               deleteBtn.style.display = 'block';
               isDeleteConfirmed = false;
               deleteBtn.textContent = 'Delete';
               deleteBtn.classList.remove('confirm');
+          } else {
+              console.warn('Article not found for id:', id);
           }
       }
 
@@ -701,7 +702,7 @@ footer a {
 
       /**
        * Formats notes by converting URLs to clickable links, newlines to <br> tags,
-       * Markdown-like syntax to HTML, and rendering horizontal lines.
+       * and Markdown-like syntax to HTML for rendering.
        * @param {string} notes - The raw notes text.
        * @returns {string} The formatted notes as HTML.
        */
@@ -718,11 +719,11 @@ footer a {
           // Convert Markdown-like syntax to HTML
           formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); // Bold
           formatted = formatted.replace(/\*(.*?)\*/g, '<i>$1</i>'); // Italic
+          formatted = formatted.replace(/__(.*?)__/g, '<u>$1</u>'); // Underline
           formatted = formatted.replace(/~~(.*?)~~/g, '<s>$1</s>'); // Strikethrough
+          formatted = formatted.replace(/##(.*?)##/g, '<span style="color: #295d8a">$1</span>'); // Text Color
+          formatted = formatted.replace(/\^\^(.*?)\^\^/g, '<span style="background-color: #B0C4DE">$1</span>'); // Highlight
           formatted = formatted.replace(/---/g, '<hr>'); // Horizontal line
-
-          // Preserve HTML tags for underline, color, and highlight
-          // (Assuming they are already in the correct format from formatText)
 
           // Replace newlines with HTML line breaks
           formatted = formatted.replace(/\n/g, '<br>');
@@ -803,7 +804,7 @@ footer a {
                           <input type="number" class="order-input" value="${article.order || 0}" 
                               onchange="updateOrder(${article.id}, this.value)">
                           ${showOpenLink ? `<span class="open-link" onclick="toggleArticle(${article.id})">${isOpen ? 'Close' : 'Open'}</span>` : ''}
-                          <span class="edit-link" onclick="editArticle(${article.id})">Edit</ farewell>
+                          <span class="edit-link" onclick="editArticle(${article.id})">Edit</span>
                       </div>
                   </div>
               `;
@@ -824,7 +825,7 @@ footer a {
       }
 
       /**
-       * Creates a backup file containing all articles Yardımcı olur mu?triggers a download.
+       * Creates a backup file containing all articles and triggers a download.
        * The file format includes a custom header followed by JSON data.
        */
       function backupData() {
@@ -1026,6 +1027,13 @@ footer a {
           const backupBtn = document.getElementById('backupBtn');
           const restoreBtn = document.getElementById('restoreBtn');
           const restoreInput = document.getElementById('restoreInput');
+          const deleteBtn = document.getElementById('deleteBtn');
+
+          if (!deleteBtn) {
+              console.error('deleteBtn not found on page load');
+          } else {
+              console.log('deleteBtn found on page load');
+          }
 
           // Attach event listeners for backup and restore functionality
           backupBtn.addEventListener('click', backupData);
