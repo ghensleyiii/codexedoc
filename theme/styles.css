@@ -1,0 +1,48 @@
+:root {
+    --dark-steel: #295d8a !important;
+    --steel: #4a7fb2 !important;
+    --light-steel: #B0C4DE !important;
+    --white: #eeeeee !important;
+    --black: #333333 !important;
+}
+
+[data-theme="dark"] {
+    --white: #333333 !important;
+    --black: #eeeeee !important;
+}
+
+body {
+    background-color: var(--white);
+    color: var(--black);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.item-content {
+    background: var(--white);
+    transition: background-color 0.3s;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: var(--white);
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.theme-toggle i {
+    transition: transform 0.3s;
+}
+
+.theme-toggle:hover i {
+    transform: scale(1.2);
+}
+
+.theme-toggle span {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 16px;
+}
