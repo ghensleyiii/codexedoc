@@ -7,7 +7,7 @@
 }
 
 [data-theme="dark"] {
-    --white: #000000;
+    --white: #000000 !important;
     --black: #ffffff;
 }
 
