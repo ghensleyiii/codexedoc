@@ -33,7 +33,7 @@ body {
     justify-content: center !important;
     align-items: center !important;
     gap: 10px;
-    width: 100%
+    width: 100%;
 }
 
 .theme-toggle i {
