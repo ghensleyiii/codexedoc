@@ -58,6 +58,7 @@
             margin-bottom: 30px !important;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
             text-align: center !important;
+            color: var(--black) !important;
         }
 
         .item {
@@ -90,6 +91,7 @@
             background: linear-gradient(90deg, var(--light-steel)) !important;
             border-radius: 0 0 5px 5px !important;
             text-align: left !important;
+            color: var(--black) !important;
         }
 
         .item-content h2 {
