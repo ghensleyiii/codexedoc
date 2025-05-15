@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             document.documentElement.setAttribute('data-theme', 'dark');
             themeIcon.classList.replace('fa-sun', 'fa-moon');
-            themeText.textContent = 'Night';
+            themeText.textContent = 'NIGHT';
             localStorage.setItem('theme', 'dark');
         }
     });
