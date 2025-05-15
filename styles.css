@@ -263,7 +263,6 @@
 
 footer a {
     color: var(--white) !important;
-    text-decoration: none; /* Optional: Remove underline */
 }
 
 footer a:visited {
