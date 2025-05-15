@@ -1,7 +1,7 @@
        :root {
             --dark-steel: #295d8a;
             --steel: #4a7fb2;
-            --light-steel: #B0C4DE;
+            --light-steel: #4a7fb2/*#B0C4DE;*/
             --white: #ffffff;
             --black: #000000;
               }
