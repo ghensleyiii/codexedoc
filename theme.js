@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.setAttribute('data-theme', savedTheme);
         if (savedTheme === 'dark') {
             themeIcon.classList.replace('fa-sun', 'fa-moon');
-            themeText.textContent = 'Night';
+            themeText.textContent = 'NIGHT';
         }
     }
 
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentTheme === 'dark') {
             document.documentElement.removeAttribute('data-theme');
             themeIcon.classList.replace('fa-moon', 'fa-sun');
-            themeText.textContent = 'Day';
+            themeText.textContent = 'DAY';
             localStorage.setItem('theme', 'light');
         } else {
             document.documentElement.setAttribute('data-theme', 'dark');
