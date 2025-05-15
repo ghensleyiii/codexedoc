@@ -30,7 +30,7 @@ body {
     color: var(--white);
     margin: 10px auto;
     display: flex;
-    text-align: center !important;
+    justify-content: center !important;
     align-items: center !important;
     gap: 10px;
 }
