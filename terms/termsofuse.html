@@ -8,13 +8,14 @@
     <link rel="icon" type="image/png" sizes="192x192" href="../icons/apple-touch-icon.png">
     <title>Terms of Use</title>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="../theme.css" rel="stylesheet">
     <style>
         :root {
             --dark-steel: #295d8a;
             --steel: #4a7fb2;
-            --light-steel: #B0C4DE;
-            --white: #eeeeee;
-            --black: #333333;
+            --white: #ffffff;
+            --black: #000000;
         }
 
         * {
@@ -64,7 +65,7 @@
         }
 
         .intro {
-            background: linear-gradient(90deg, var(--light-steel)) !important;
+            background: linear-gradient(90deg, var(--steel)) !important;
             padding: 20px !important;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
             text-align: left !important;
@@ -179,7 +180,13 @@
         </section>
     </main>
     <footer>
-        <p>© 2025 CODEXEDOC. All rights reserved.</p>
+        <button class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-sun"></i>
+            <span>DAY</span>
+        </button>
+        <p>© 2025 CODEXEDOC. All rights reserved.<br>
+        <a href="../terms/termsofuse.html">TERMS OF USE</a></p>
     </footer>
+    <script src="../theme.js"></script>
 </body>
 </html>
