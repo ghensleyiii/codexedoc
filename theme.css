@@ -7,8 +7,8 @@
 }
 
 [data-theme="dark"] {
-    --white: #000000 !important;
-    --black: #ffffff !important;
+    --white: #000000;
+    --black: #ffffff;
 }
 
 body {
