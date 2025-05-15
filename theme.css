@@ -2,13 +2,13 @@
     --dark-steel: #295d8a !important;
     --steel: #4a7fb2 !important;
     --light-steel: #B0C4DE !important;
-    --white: #eeeeee !important;
-    --black: #333333 !important;
+    --white: #ffffff !important;
+    --black: #000000 !important;
 }
 
 [data-theme="dark"] {
-    --white: #333333 !important;
-    --black: #eeeeee !important;
+    --white: #ffffff !important;
+    --black: #000000 !important;
 }
 
 body {
