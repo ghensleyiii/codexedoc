@@ -1,333 +1,345 @@
+:root {
+  --dark-steel: #295d8a;
+  --steel: #4a7fb2;
+  --white: #ffffff;
+  --black: #000000;
+}
 
-        :root {
-            --dark-steel: #295d8a;
-            --steel: #4a7fb2;
-            --light-steel: #B0C4DE;
-            --white: #eeeeee;
-            --black: #333333;
-        }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: var(--white);
-            color: var(--black);
-            line-height: 1.6;
-        }
+header {
+  background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-        header {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+.logo h1 {
+  font-family: 'Audiowide', sans-serif;
+  color: var(--white);
+  font-size: 36px;
+  margin: 0;
+  text-align: center;
+}
 
-        .logo h1 {
-            font-family: 'Audiowide', sans-serif;
-            color: var(--white);
-            font-size: 36px;
-            margin: 0;
-            text-align: center;
-        }
+.logo a {
+  text-decoration: none;
+  color: var(--white);
+  text-align: center;
+}
 
-        .logo a {
-            text-decoration: none;
-            color: var(--white);
-            text-align: center;
-        }
+footer {
+  background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+  text-align: center;
+  padding: 20px;
+  color: var(--white);
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
 
-        footer {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
-            text-align: center;
-            padding: 20px;
-            color: var(--white);
-            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-        }
+.main-section {
+  background-color: var(--white);
+  padding: 50px 20px;
+  text-align: center;
+  color: var(--black);
+}
 
-        footer a {
-            color: var(--white) !important;
-        }
+.code-editor {
+  position: relative;
+  width: 100%;
+  margin: 0 auto 20px auto;
+  background-color: var(--white);
+  padding: 5px;
+  border-radius: 5px;
+}
 
-        .main-section {
-            background-color: var(--white);
-            padding: 50px 20px;
-            text-align: center;
-            color: var(--black);
-        }
+.line-numbers {
+  width: 48px;
+  background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+  color: var(--white);
+  font-family: 'Courier New', Courier, 'Lucida Console', monospace;
+  font-size: 16px;
+  text-align: right;
+  user-select: none;
+  line-height: 20px;
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  height: calc(100% - 21.5px);
+  padding: 10px 5px 10px 0;
+  overflow: hidden;
+  z-index: 10;
+}
 
-        .code-editor {
-            position: relative;
-            width: 100%;
-            margin: 0 auto 20px auto;
-            background-color: var(--white);
-            padding: 5px;
-            border-radius: 5px;
-        }
+.line-numbers pre {
+  margin: 0;
+  padding: 0;
+  line-height: 20px;
+  font-family: 'Courier New', Courier, 'Lucida Console', monospace;
+  font-size: 16px;
+  display: block;
+}
 
-        .line-numbers {
-            width: 48px;
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
-            color: var(--white) !important;
-            font-family: 'Courier New', Courier, 'Lucida Console', monospace;
-            font-size: 16px;
-            text-align: right;
-            user-select: none;
-            line-height: 20px;
-            position: absolute;
-            top: 7px;
-            left: 7px;
-            height: calc(100% - 21.5px);
-            padding: 10px 5px 10px 0;
-            overflow: hidden;
-            z-index: 10;
-        }
+.code-editor textarea {
+  width: 100%;
+  height: 600px;
+  background: var(--white);
+  color: var(--black);
+  font-family: 'Courier New', Courier, 'Lucida Console', monospace;
+  font-size: 16px;
+  padding: 10px 15px 10px 60px;
+  border: 2px solid var(--black);
+  border-radius: 5px;
+  resize: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  line-height: 20px;
+  position: relative;
+  z-index: 0;
+}
 
-        .line-numbers pre {
-            margin: 0;
-            padding: 0;
-            line-height: 20px;
-            font-family: 'Courier New', Courier, 'Lucida Console', monospace;
-            font-size: 16px;
-            display: block;
-        }
+.code-editor textarea::placeholder {
+  color: var(--steel);
+}
 
-        .code-editor textarea {
-            width: 100%;
-            height: 600px;
-            background: var(--white);
-            color: var(--black);
-            font-family: 'Courier New', Courier, 'Lucida Console', monospace;
-            font-size: 16px;
-            padding: 10px 15px 10px 60px;
-            border: 2px solid var(--black);
-            border-radius: 5px;
-            resize: none;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            line-height: 20px;
-            position: relative;
-            z-index: 0;
-        }
+.buttons {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  max-width: 600px;
+}
 
-        .code-editor textarea::placeholder {
-            color: var(--light-steel);
-        }
+.validate-btn {
+  background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+  color: var(--white);
+  border: 2px solid var(--black);
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-        .buttons {
-            margin: 20px auto;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            max-width: 600px;
-        }
+.test-btn {
+  background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+  color: var(--white);
+  border: 2px solid var(--black);
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border耗: pointer;
+  transition: background-color 0.3s;
+}
 
-        .validate-btn {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
-            color: var(--white);
-            border: 2px solid var(--black);
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+.document-btn {
+  background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+  color: var(--white);
+  border: 2px solid var(--black);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 0;
+  position: relative;
+}
 
-        .test-btn {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
-            color: var(--white);
-            border: 2px solid var(--black);
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+.validate-btn:hover, .test-btn:hover, .document-btn:hover {
+  background: linear-gradient(90deg, var(--steel));
+}
 
-        .document-btn {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
-            color: var(--white);
-            border: 2px solid var(--black);
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 0;
-            position: relative;
-        }
+.error-messages {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-        .validate-btn:hover, .test-btn:hover, .document-btn:hover {
-            background: linear-gradient(90deg, var(--steel));
-        }
+.save-file-container {
+  margin: 10px auto;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
 
-        .error-messages {
-            color: red;
-            margin-top: 10px;
-            text-align: center;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+.save-file-input {
+  padding: 8px;
+  font-size: 16px;
+  border: 2px solid var(--black);
+  border-radius: 5px;
+  flex: 0 1 300px;
+  background-color: var(--white);
+  color: var(--black);
+  box-sizing: border-box;
+}
 
-        .save-file-container {
-            margin: 10px auto;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-            box-sizing: border-box;
-        }
+.save-file-btn {
+  background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+  color: var(--white);
+  border: 2px solid var(--black);
+  padding: 8px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  flex: 0 0 auto;
+}
 
-        .save-file-input {
-            padding: 8px;
-            font-size: 16px;
-            border: 2px solid var(--black);
-            border-radius: 5px;
-            flex: 0 1 300px;
-            background-color: var(--white);
-            color: var(--black);
-            box-sizing: border-box;
-        }
+.save-file-btn:hover {
+  background: linear-gradient(90deg, var(--steel));
+}
 
-        .save-file-btn {
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
-            color: var(--white);
-            border: 2px solid var(--black);
-            padding: 8px 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            flex: 0 0 auto;
-        }
+.output-section, .console-section {
+  background-color: var(--white);
+  padding: 5px;
+  margin-top: 20px;
+  display: none;
+}
 
-        .save-file-btn:hover {
-            background: linear-gradient(90deg, var(--steel));
-        }
+.output-container, .console-container {
+  width: 100%;
+  margin: 0 auto;
+  background-color: var(--white);
+  border-radius: 0px;
+  overflow: hidden;
+  border: 2px solid var(--black);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-        .output-section {
-            background-color: var(--white);
-            padding: 5px;
-            margin-top: 20px;
-            display: none;
-        }
+.output-header, .console-header {
+  color: var(--white);
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-        .output-container {
-            width: 100%;
-            margin: 0 auto;
-            background-color: var(--white);
-            border-radius: 0px;
-            overflow: hidden;
-            border: 2px solid var(--black);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+hr {
+  border: 1px solid var(--black);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-        .output-header {
-            color: var(--white);
-            padding: 10px;
-            font-size: 1rem;
-            font-weight: bold;
-            background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+#outputFrame {
+  width: 100%;
+  height: 600px;
+  border: none;
+  background-color: var(--white);
+}
 
-        hr {
-            border: 1px solid var(--black);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+#consoleOutput {
+  width: 100%;
+  height: 200px;
+  background-color: var(--black);
+  color: var(--white);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  padding: 10px;
+  white-space: pre-wrap;
+  overflow-y: auto;
+}
 
-        #outputFrame {
-            width: 100%;
-            height: 600px;
-            border: none;
-            background-color: var(--white);
-        }
+@media (max-width: 768px) {
+  .code-editor textarea {
+    height: 400px;
+  }
 
-        @media (max-width: 768px) {
-            .code-editor textarea {
-                height: 400px;
-            }
+  .buttons {
+    flex-direction: row;
+    gap: 10px;
+    max-width: 400px;
+  }
 
-            .buttons {
-                flex-direction: row;
-                gap: 10px;
-                max-width: 400px;
-            }
+  .validate-btn, .test-btn, .document-btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
 
-            .validate-btn, .test-btn, .document-btn {
-                padding: 8px 15px;
-                font-size: 0.9rem;
-            }
+  .save-file-input {
+    width: 200px;
+  }
 
-            .save-file-input {
-                width: 200px;
-            }
+  #outputFrame {
+    height: 400px;
+  }
 
-            #outputFrame {
-                height: 400px;
-            }
+  #consoleOutput {
+    height: 150px;
+  }
 
-            .output-section {
-                padding: 5px;
-            }
-        }
+  .output-section, .console-section {
+    padding: 5px;
+  }
+}
 
-        @media (max-width: 480px) {
-            .code-editor textarea {
-                height: 300px;
-                font-size: 14px;
-                line-height: 18px;
-                padding: 10px 15px 10px 50px;
-            }
+@media (max-width: 480px) {
+  .code-editor textarea {
+    height: 300px;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 10px 15px 10px 50px;
+  }
 
-            .line-numbers {
-                font-size: 14px;
-                line-height: 18px;
-                width: 38px;
-                top: 7px;
-                left: 7px;
-                height: calc(100% - 21.5px);
-                padding: 10px 3px 10px 0;
-                background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
-                z-index: 10;
-            }
+  .line-numbers {
+    font-size: 14px;
+    line-height: 18px;
+    width: 38px;
+    top: 7px;
+    left: 7px;
+    height: calc(100% - 21.5px);
+    padding: 10px 3px 10px 0;
+    background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+    z-index: 10;
+  }
 
-            .line-numbers pre {
-                font-size: 14px;
-                line-height: 18px;
-            }
+  .line-numbers pre {
+    font-size: 14px;
+    line-height: 18px;
+  }
 
-            .buttons {
-                max-width: 300px;
-            }
+  .buttons {
+    max-width: 300px;
+  }
 
-            .save-file-input {
-                width: 150px;
-                font-size: 14px;
-            }
+  .save-file-input {
+    width: 150px;
+    font-size: 14px;
+  }
 
-            .save-file-btn {
-                padding: 6px 15px;
-                font-size: 0.9rem;
-            }
+  .save-file-btn {
+    padding: 6px 15px;
+    font-size: 0.9rem;
+  }
 
-            #outputFrame {
-                height: 300px;
-            }
-        }
+  #outputFrame {
+    height: 300px;
+  }
+
+  #consoleOutput {
+    height: 100px;
+  }
+}
