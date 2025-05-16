@@ -68,7 +68,7 @@ main {
 
 .intro h2 {
     font-family: 'Audiowide', sans-serif;
-    color: var(--white);
+    color: var(--dark-steel);
     margin-bottom: 10px;
     font-size: 40px;
 }
