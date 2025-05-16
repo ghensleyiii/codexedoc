@@ -1,9 +1,8 @@
 :root {
     --dark-steel: #295d8a;
     --steel: #4a7fb2;
-    --light-steel: #B0C4DE;
-    --white: #eeeeee;
-    --black: #333333;
+    --white: #ffffff;
+    --black: #000000;
 }
 
 * {
@@ -53,7 +52,7 @@ main {
 }
 
 .intro {
-    background: linear-gradient(90deg, var(--light-steel)) !important;
+    background: linear-gradient(90deg, var(--steel)) !important;
     padding: 20px !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
     text-align: center !important;
@@ -62,7 +61,7 @@ main {
 
 h2 {
     font-family: 'Audiowide', sans-serif !important;
-    color: var(--dark-steel) !important;
+    color: var(--black) !important;
 }
 
 footer {
@@ -72,4 +71,8 @@ footer {
     color: var(--white) !important;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
     width: 100% !important;
+}
+
+footer a {
+  color: var(--white) !important;
 }
