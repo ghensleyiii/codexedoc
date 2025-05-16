@@ -1,9 +1,8 @@
 :root {
-    --dark-steel: #295d8a !important;
-    --steel: #4a7fb2 !important;
-    --light-steel: #B0C4DE !important;
-    --white: #eeeeee !important;
-    --black: #333333 !important;
+    --dark-steel: #295d8a;
+    --steel: #4a7fb2;
+    --white: #ffffff;
+    --black: #000000;
 }
 
 * {
@@ -53,7 +52,7 @@ main {
 }
 
 .intro {
-    background: linear-gradient(90deg, var(--light-steel)) !important;
+    background: linear-gradient(90deg, var(--steel)) !important;
     padding: 20px !important;
     margin-bottom: 30px !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
@@ -88,14 +87,14 @@ main {
 
 .item-content {
     padding: 20px !important;
-    background: linear-gradient(90deg, var(--light-steel)) !important;
+    background: linear-gradient(90deg, var(--steel)) !important;
     border-radius: 0 0 5px 5px !important;
     text-align: center !important;
 }
 
 .item-content h2 {
     font-family: 'Audiowide', sans-serif !important;
-    color: var(--dark-steel) !important;
+    color: var(--black) !important;
     margin: 15px 0px !important;
     text-align: center !important;
 }
