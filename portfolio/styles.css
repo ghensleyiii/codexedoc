@@ -1,8 +1,8 @@
 :root {
-    --dark-steel: #295d8a !important;
-    --steel: #4a7fb2 !important;
-    --white: #ffffff !important;
-    --black: #000000 !important;
+    --dark-steel: #295d8a;
+    --steel: #4a7fb2;
+    --white: #ffffff;
+    --black: #000000;
 }
 
 * {
@@ -68,7 +68,7 @@ main {
 
 .intro h2 {
     font-family: 'Audiowide', sans-serif;
-    color: var(--black);
+    color: var(--white);
     margin-bottom: 10px;
     font-size: 40px;
 }
