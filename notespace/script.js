@@ -320,7 +320,7 @@
           formatted = formatted.replace(/__(.*?)__/g, '<u>$1</u>'); // Underline
           formatted = formatted.replace(/~~(.*?)~~/g, '<s>$1</s>'); // Strikethrough
           formatted = formatted.replace(/##(.*?)##/g, '<span style="color: #295d8a">$1</span>'); // Text Color
-          formatted = formatted.replace(/\^\^(.*?)\^\^/g, '<span style="background-color: #B0C4DE">$1</span>'); // Highlight
+          formatted = formatted.replace(/\^\^(.*?)\^\^/g, '<span style="background-color: #4A7FB2">$1</span>'); // Highlight
           formatted = formatted.replace(/---/g, '<hr>'); // Horizontal line
 
           // Replace newlines with HTML line breaks
