@@ -105,7 +105,7 @@ footer {
   font-family: 'Courier New', Courier, 'Lucida Console', monospace;
   font-size: 16px;
   padding: 10px 15px 10px 60px;
-  border: 2px solid var(--black);
+  border: 2px solid var(--dark-steel);
   border-radius: 5px;
   resize: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
