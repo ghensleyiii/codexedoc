@@ -14,7 +14,7 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: var(--black);
+  background-color: var(--black) !important;
   color: var(--white);
   line-height: 1.6;
 }
