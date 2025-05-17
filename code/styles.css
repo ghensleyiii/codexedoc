@@ -73,7 +73,7 @@ footer {
 .line-numbers {
   width: 48px;
   background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
-  color: var(--white);
+  color: var(--black);
   font-family: 'Courier New', Courier, 'Lucida Console', monospace;
   font-size: 16px;
   text-align: right;
