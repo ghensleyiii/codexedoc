@@ -43,8 +43,3 @@ body {
 .theme-toggle:hover i {
     transform: scale(1.2);
 }
-
-.theme-toggle span {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 16px;
-}
