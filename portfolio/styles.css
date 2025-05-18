@@ -19,30 +19,27 @@ body {
 }
 
 header {
-    background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .logo h1 {
-    font-family: 'Audiowide', sans-serif;
-    color: var(--black) !important;
-    font-size: 36px;
-    margin: 0;
-    text-align: center;
+  font-family: 'Audiowide', sans-serif;
+  color: var(--black) !important;
+  font-size: 45px;
+  margin: 0;
 }
 
 .logo a {
-    text-decoration: none;
-    color: var(--black) !important;
-    text-align: center;
+  text-decoration: none;
+  color: var(--black) !important;
 }
 
 main {
