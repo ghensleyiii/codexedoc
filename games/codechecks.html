@@ -137,6 +137,7 @@
         font-size: 20px !important;
         color: var(--black) !important;
         font-weight: bold !important;
+        transition: transform 0.5s ease !important;
       }
 
       .piece.king::after {
@@ -304,6 +305,8 @@
               piece.classList.add('piece');
               piece.textContent = board[row][col] === 1 || board[row][col] === 2 ? '1' : '0';
               if (board[row][col] === 2 || board[row][col] === -2) piece.classList.add('king');
+              // Keep piece text upright
+              piece.style.transform = currentPlayer === 1 ? 'rotate(180deg)' : 'rotate(0deg)';
               cell.appendChild(piece);
             }
             if (selectedPiece && selectedPiece.row === row && selectedPiece.col === col) {
@@ -320,7 +323,9 @@
 
       function rotateBoard() {
         const boardContainer = document.getElementById('board-container');
-        boardContainer.style.transform = currentPlayer === 1 ? 'rotate(0deg)' : 'rotate(180deg)';
+        // Player 1: rotate 180deg so rows 0-2 (their pieces) are at the bottom
+        // Player 2: rotate 0deg so rows 5-7 (their pieces) are at the bottom
+        boardContainer.style.transform = currentPlayer === 1 ? 'rotate(180deg)' : 'rotate(0deg)';
       }
 
       function updateStatus() {
@@ -435,6 +440,7 @@
         rotateBoard();
         checkGameOver();
         updateStatus();
+        renderBoard(); // Ensure board is re-rendered after rotation
       }
 
       function checkGameOver() {
