@@ -13,8 +13,8 @@
 
 body {
     font-family: Arial, sans-serif !important;
-    background-color: var(--white) !important;
-    color: var(--black) !important;
+    background-color: var(--black) !important;
+    color: var(--white) !important;
     line-height: 1.6 !important;
 }
 
@@ -32,14 +32,14 @@ header {
 
 .logo h1 {
     font-family: 'Audiowide', sans-serif !important;
-    color: var(--white) !important;
+    color: var(--black) !important;
     font-size: 45px !important;
     margin: 0 !important;
 }
 
 .logo a {
     text-decoration: none !important;
-    color: var(--white) !important;
+    color: var(--black) !important;
 }
 
 .input-section {
@@ -53,10 +53,10 @@ input, textarea {
     width: 100% !important;
     margin: 10px 0 !important;
     padding: 8px !important;
-    border: 1px solid var(--black) !important;
+    border: 1px solid var(--white) !important;
     border-radius: 4px !important;
-    background-color: var(--white) !important;
-    color: var(--black) !important;
+    background-color: var(--black) !important;
+    color: var(--white) !important;
 }
 
 .search-section {
@@ -82,7 +82,7 @@ input, textarea {
     margin: 0 auto 2rem auto !important;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
     padding: 1rem !important;
-    background: var(--white) !important;
+    background: var(--black) !important;
 }
 
 .note h2 {
@@ -93,7 +93,7 @@ input, textarea {
 }
 
 .note .notes-preview {
-    color: var(--black) !important;
+    color: var(--white) !important;
     margin: 0 0 0.5rem 0 !important;
 }
 
@@ -136,7 +136,7 @@ input, textarea {
 
 .btn-study#saveBtn, .btn-study#backupBtn, .btn-study#restoreBtn {
     background: linear-gradient(90deg, var(--dark-steel), var(--steel)) !important;
-    color: var(--white) !important;
+    color: var(--black) !important;
     padding: 8px 16px !important;
     border: none !important;
     border-radius: 4px !important;
@@ -154,7 +154,7 @@ input, textarea {
 
 .btn-study#deleteBtn {
     background: linear-gradient(90deg, #ff4d4d, #cc0000, #ff4d4d) !important;
-    color: var(--white) !important;
+    color: var(--black) !important;
     padding: 8px 16px !important;
     border: none !important;
     border-radius: 4px !important;
@@ -193,7 +193,7 @@ footer {
     background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
     text-align: center !important;
     padding: 20px !important;
-    color: var(--white) !important;
+    color: var(--black) !important;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
     width: 100% !important;
 }
@@ -224,10 +224,10 @@ footer p {
 .format-btn {
     width: 40px !important;
     height: 40px !important;
-    border: 1px solid var(--black) !important;
+    border: 1px solid var(--white) !important;
     border-radius: 4px !important;
     background: linear-gradient(90deg, var(--dark-steel), var(--steel)) !important;
-    color: var(--white) !important;
+    color: var(--black) !important;
     font-size: 16px !important;
     cursor: pointer !important;
     display: flex !important;
@@ -274,7 +274,7 @@ footer a {
 }
 
 footer a:visited {
-    color: var(--white) !important; /* Ensure visited links stay white */
+    color: var(--white) !important; /* Ensure visited links stay black */
 }
 
 footer a:hover {
