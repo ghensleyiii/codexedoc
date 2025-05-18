@@ -120,11 +120,3 @@ footer {
 footer a {
   color: var(--black) !important;
 }
-
-footer a:visited {
-  color: var(--black) !important;
-}
-
-footer a:hover {
-  color: var(--steel) !important;
-}
