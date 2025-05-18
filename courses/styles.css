@@ -1,7 +1,6 @@
 :root {
     --dark-steel: #295d8a !important;
     --steel: #4a7fb2 !important;
-    --light-steel: #B0C4DE !important;
     --white: #ffffff !important;
     --black: #000000 !important;
 }
@@ -113,14 +112,26 @@ main {
 }
 
 footer {
-    background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-    text-align: center !important;
-    padding: 20px !important;
-    color: var(--black) !important;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
-    width: 100% !important;
+  background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
+  text-align: center;
+  padding: 20px;
+  color: var(--black) !important;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+footer p {
+  margin: 10px 0 0;
 }
 
 footer a {
-    color: var(--black) !important;
+  color: var(--black) !important;
+}
+
+footer a:visited {
+  color: var(--black) !important;
+}
+
+footer a:hover {
+  color: var(--steel) !important;
 }
