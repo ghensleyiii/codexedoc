@@ -21,28 +21,25 @@ body {
 header {
     background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
     padding: 20px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
     position: sticky !important;
     top: 0 !important;
     z-index: 100 !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
 }
 
 .logo h1 {
     font-family: 'Audiowide', sans-serif !important;
     color: var(--black) !important;
-    font-size: 36px !important;
+    font-size: 45px !important;
     margin: 0 !important;
-    text-align: center !important;
 }
 
 .logo a {
     text-decoration: none !important;
     color: var(--black) !important;
-    text-align: center !important;
 }
 
 main {
