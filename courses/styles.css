@@ -113,11 +113,11 @@ main {
 
 footer {
   background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-  text-align: center;
-  padding: 20px;
+  text-align: center !important;
+  padding: 20px !important;
   color: var(--black) !important;
-  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
+  width: 100% !important;
 }
 
 footer a {
