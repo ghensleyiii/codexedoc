@@ -125,6 +125,7 @@ footer p {
 }
 
 footer a {
+  margin-top: 0;
   color: var(--black) !important;
 }
 
