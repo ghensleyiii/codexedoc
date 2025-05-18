@@ -270,11 +270,11 @@ footer p {
 }
 
 footer a {
-    color: var(--white) !important;
+    color: var(--black) !important;
 }
 
 footer a:visited {
-    color: var(--white) !important; /* Ensure visited links stay black */
+    color: var(--black) !important; /* Ensure visited links stay black */
 }
 
 footer a:hover {
