@@ -13,8 +13,8 @@
 
 body {
   font-family: Arial, sans-serif !important;
-  background-color: var(--white) !important;
-  color: var(--black) !important;
+  background-color: var(--black) !important;
+  color: var(--white) !important;
   line-height: 1.6 !important;
 }
 
@@ -33,7 +33,7 @@ header {
 
 .logo h1 {
   font-family: 'Audiowide', sans-serif !important;
-  color: var(--white) !important;
+  color: var(--black) !important;
   font-size: 36px !important;
   margin: 0 !important;
   text-align: center !important;
@@ -41,7 +41,7 @@ header {
 
 .logo a {
   text-decoration: none !important;
-  color: var(--white) !important;
+  color: var(--black) !important;
   text-align: center !important;
 }
 
@@ -73,7 +73,7 @@ main {
   font-family: 'Audiowide', sans-serif !important;
   background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
   border: none !important;
-  color: var(--white) !important;
+  color: var(--black) !important;
   text-align: center !important;
   cursor: pointer !important;
   border-radius: 5px !important;
@@ -93,7 +93,7 @@ main {
 
 .item-content h2 {
   font-family: 'Audiowide', sans-serif !important;
-  color: var(--black) !important;
+  color: var(--white) !important;
   margin-bottom: 10px !important;
 }
 
@@ -101,7 +101,7 @@ footer {
   background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
   text-align: center !important;
   padding: 20px !important;
-  color: var(--white) !important;
+  color: var(--black) !important;
   box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
   width: 100% !important;
 }
@@ -126,7 +126,7 @@ footer {
 .submit-btn {
   padding: 10px 20px !important;
   background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-  color: var(--white) !important;
+  color: var(--black) !important;
   border: none !important;
   cursor: pointer !important;
   font-size: 16px !important;
@@ -140,7 +140,7 @@ footer {
 .results {
   margin-top: 20px !important;
   padding: 10px !important;
-  border: 1px solid var(--black) !important;
+  border: 1px solid var(--white) !important;
 }
 
 #certificateModal {
@@ -157,7 +157,7 @@ footer {
 }
 
 .modal-content {
-  background: var(--white) !important;
+  background: var(--black) !important;
   padding: 20px !important;
   border-radius: 5px !important;
   max-width: 400px !important;
@@ -169,7 +169,7 @@ footer {
   width: 100% !important;
   padding: 10px !important;
   margin: 10px 0 !important;
-  border: 1px solid var(--black) !important;
+  border: 1px solid var(--white) !important;
 }
 
 .modal-content button {
@@ -181,12 +181,12 @@ footer {
 
 .modal-content .generate-btn {
   background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-  color: white !important;
+  color: var(--black) !important;
   border-radius: 5px !important;
 }
 
 .modal-content .close-btn {
-  background-color: var(--white) !important;
+  background-color: var(--black) !important;
 }
 
 #nameError {
@@ -196,5 +196,5 @@ footer {
 }
 
 footer a {
-  color: var(--white) !important;
+  color: var(--black) !important;
 }
