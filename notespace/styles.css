@@ -272,11 +272,3 @@ footer p {
 footer a {
     color: var(--black) !important;
 }
-
-footer a:visited {
-    color: var(--black) !important; /* Ensure visited links stay black */
-}
-
-footer a:hover {
-    color: var(--steel) !important; /* Optional: Change color on hover */
-}
