@@ -13,8 +13,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--white);
-    color: var(--black);
+    background-color: var(--black);
+    color: var(--white);
     line-height: 1.6;
 }
 
@@ -33,7 +33,7 @@ header {
 
 .logo h1 {
     font-family: 'Audiowide', sans-serif;
-    color: var(--white) !important;
+    color: var(--black) !important;
     font-size: 36px;
     margin: 0;
     text-align: center;
@@ -41,7 +41,7 @@ header {
 
 .logo a {
     text-decoration: none;
-    color: var(--white) !important;
+    color: var(--black) !important;
     text-align: center;
 }
 
@@ -121,24 +121,24 @@ main {
 
 .category a {
     text-decoration: none;
-    color: var(--black);
+    color: var(--white);
 }
 
 .category i {
     font-size: 24px;
-    color: var(--white) !important;
+    color: var(--black) !important;
     margin-bottom: 10px;
 }
 
 .category h3 {
     font-family: 'Audiowide', sans-serif;
-    color: var(--white) !important;
+    color: var(--black) !important;
     margin-bottom: 10px;
 }
 
 .category p {
     font-size: 14px;
-    color: var(--white) !important;
+    color: var(--black) !important;
 }
 
 .item {
@@ -155,7 +155,7 @@ main {
     font-family: 'Audiowide', sans-serif;
     background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
     border: none;
-    color: var(--white) !important;
+    color: var(--black) !important;
     text-align: center;
     cursor: pointer;
     border-radius: 5px;
@@ -168,7 +168,7 @@ main {
 
 .item-content {
     padding: 20px;
-    background: var(--white);
+    background: var(--black);
     border-radius: 0 0 5px 5px;
     text-align: center;
 }
@@ -179,7 +179,7 @@ main {
     margin-left: 0;
     margin-right: 0;
     font-family: 'Audiowide', sans-serif;
-    color: var(-black);
+    color: var(--white);
     font-size: 1.5em;
     text-transform: uppercase;
 }
@@ -188,7 +188,7 @@ footer {
     background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
     text-align: center;
     padding: 20px;
-    color: var(--white) !important;
+    color: var(--black) !important;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
 }
@@ -198,5 +198,5 @@ footer p {
 }
 
 footer a {
-    color: var(--white) !important;
+    color: var(--black) !important;
 }
