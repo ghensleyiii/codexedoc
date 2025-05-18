@@ -254,10 +254,6 @@ footer {
   width: 100%;
 }
 
-footer p {
-  margin: 10px 0 0;
-}
-
 footer a {
   color: var(--black) !important;
 }
