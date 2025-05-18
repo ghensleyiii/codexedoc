@@ -259,14 +259,5 @@ footer p {
 }
 
 footer a {
-  color: var(--black) !Mark as read
   color: var(--black) !important;
-}
-
-footer a:visited {
-  color: var(--black) !important;
-}
-
-footer a:hover {
-  color: var(--steel) !important;
 }
