@@ -137,7 +137,6 @@
         font-size: 20px !important;
         color: var(--black) !important;
         font-weight: bold !important;
-        transition: transform 0.5s ease !important;
       }
 
       .piece.king::after {
@@ -305,8 +304,6 @@
               piece.classList.add('piece');
               piece.textContent = board[row][col] === 1 || board[row][col] === 2 ? '1' : '0';
               if (board[row][col] === 2 || board[row][col] === -2) piece.classList.add('king');
-              // Keep piece text upright
-              piece.style.transform = currentPlayer === 1 ? 'rotate(180deg)' : 'rotate(0deg)';
               cell.appendChild(piece);
             }
             if (selectedPiece && selectedPiece.row === row && selectedPiece.col === col) {
@@ -323,8 +320,8 @@
 
       function rotateBoard() {
         const boardContainer = document.getElementById('board-container');
-        // Player 1: rotate 180deg so rows 0-2 (their pieces) are at the bottom
-        // Player 2: rotate 0deg so rows 5-7 (their pieces) are at the bottom
+        // Player 1: rotate 180deg so rows 0-2 are at the bottom
+        // Player 2: rotate 0deg so rows 5-7 are at the bottom
         boardContainer.style.transform = currentPlayer === 1 ? 'rotate(180deg)' : 'rotate(0deg)';
       }
 
@@ -338,9 +335,11 @@
 
       function handleCellClick(row, col) {
         if (gameOver) return;
+        console.log(`Clicked cell: row=${row}, col=${col}, currentPlayer=${currentPlayer}`);
         if (selectedPiece) {
           const move = validMoves.find(m => m.row === row && m.col === col);
           if (move) {
+            console.log(`Making move from (${selectedPiece.row}, ${selectedPiece.col}) to (${move.row}, ${move.col})`);
             makeMove(selectedPiece, move);
             selectedPiece = null;
             validMoves = [];
@@ -364,21 +363,28 @@
       }
 
       function selectPiece(row, col) {
-        if (board[row][col] === 0 || (board[row][col] > 0 && currentPlayer === -1) || (board[row][col] < 0 && currentPlayer === 1)) return;
+        if (board[row][col] === 0 || (board[row][col] > 0 && currentPlayer === -1) || (board[row][col] < 0 && currentPlayer === 1)) {
+          console.log(`Cannot select piece at (${row}, ${col}): invalid or wrong player`);
+          return;
+        }
         selectedPiece = { row, col };
         validMoves = getValidMoves(row, col);
+        console.log(`Selected piece at (${row}, ${col}), valid moves:`, validMoves);
         renderBoard();
       }
 
       function getValidMoves(row, col) {
         const moves = [];
         const isKing = Math.abs(board[row][col]) === 2;
+        // Adjust directions based on board rotation
+        // Player 1 (bottom at row 0, moves "up" toward row 7 visually, which is -row internally)
+        // Player 2 (bottom at row 7, moves "up" toward row 0 visually, which is +row internally)
         const directions = isKing ? [
           [-1, -1], [-1, 1], [1, -1], [1, 1]
         ] : currentPlayer === 1 ? [
-          [-1, -1], [-1, 1]
+          [1, -1], [1, 1] // Move toward higher rows (visual "up" when rotated 180deg)
         ] : [
-          [1, -1], [1, 1]
+          [-1, -1], [-1, 1] // Move toward lower rows (visual "up" when at 0deg)
         ];
 
         // Check for jumps (mandatory)
@@ -432,7 +438,7 @@
         }
 
         // Promote to king
-        if ((currentPlayer === 1 && to.row === 0) || (currentPlayer === -1 && to.row === ROWS - 1)) {
+        if ((currentPlayer === 1 && to.row === ROWS - 1) || (currentPlayer === -1 && to.row === 0)) {
           board[to.row][to.col] = currentPlayer === 1 ? 2 : -2;
         }
 
@@ -440,7 +446,7 @@
         rotateBoard();
         checkGameOver();
         updateStatus();
-        renderBoard(); // Ensure board is re-rendered after rotation
+        renderBoard();
       }
 
       function checkGameOver() {
@@ -463,7 +469,6 @@
 
       function computerMove() {
         if (gameOver) return;
-        // Simple AI: Prioritize jumps, otherwise random move
         let allMoves = [];
         for (let row = 0; row < ROWS; row++) {
           for (let col = 0; col < COLS; col++) {
@@ -480,7 +485,6 @@
           updateStatus();
           return;
         }
-        // Prefer jumps
         const jumpMoves = allMoves.filter(m => m.moves.some(move => move.isJump));
         const chosen = jumpMoves.length > 0 ? jumpMoves : allMoves;
         const { from, moves } = chosen[Math.floor(Math.random() * chosen.length)];
