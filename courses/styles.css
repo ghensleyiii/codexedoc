@@ -120,12 +120,7 @@ footer {
   width: 100%;
 }
 
-footer p {
-  margin: 10px 0 0;
-}
-
 footer a {
-  margin-top: 0;
   color: var(--black) !important;
 }
 
