@@ -13,8 +13,8 @@
 
 body {
   font-family: Arial, sans-serif !important;
-  background-color: var(--white) !important;
-  color: var(--black) !important;
+  background-color: var(--black) !important;
+  color: var(--white) !important;
   line-height: 1.6 !important;
 }
 
@@ -33,7 +33,7 @@ header {
 
 .logo h1 {
   font-family: 'Audiowide', sans-serif !important;
-  color: var(--white) !important;
+  color: var(--black) !important;
   font-size: 36px !important;
   margin: 0 !important;
   text-align: center !important;
@@ -41,7 +41,7 @@ header {
 
 .logo a {
   text-decoration: none !important;
-  color: var(--white) !important;
+  color: var(--black) !important;
   text-align: center !important;
 }
 
@@ -57,7 +57,7 @@ main {
   margin-bottom: 30px !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
   text-align: center !important;
-  color: var(--black) !important;
+  color: var(--white) !important;
 }
 
 .item {
@@ -74,7 +74,7 @@ main {
   font-family: 'Audiowide', sans-serif !important;
   background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
   border: none !important;
-  color: var(--white) !important;
+  color: var(--black) !important;
   text-align: center !important;
   cursor: pointer !important;
   border-radius: 5px !important;
@@ -90,17 +90,17 @@ main {
   background: linear-gradient(90deg, var(--steel)) !important;
   border-radius: 0 0 5px 5px !important;
   text-align: left !important;
-  color: var(--black) !important;
+  color: var(--white) !important;
 }
 
 .item-content h2 {
   font-family: 'Audiowide', sans-serif !important;
-  color: var(--black) !important;
-  margin-bottom: 10。。px !important;
+  color: var(--white) !important;
+  margin-bottom: 10px !important;
 }
 
 .item-content pre {
-  background: var(--white) !important;
+  background: var(--black) !important;
   padding: 10px !important;
   border-radius: 5px !important;
   overflow-x: auto !important;
@@ -109,7 +109,7 @@ main {
 .example {
   margin-top: 10px !important;
   padding: 10px !important;
-  border-top: 1px solid var(--black) !important;
+  border-top: 1px solid var(--white) !important;
   border-radius: 5px !important;
 }
 
@@ -117,11 +117,11 @@ footer {
   background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
   text-align: center !important;
   padding: 20px !important;
-  color: var(--white) !important;
+  color: var(--black) !important;
   box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
   width: 100% !important;
 }
 
 footer a {
-  color: var(--white) !important;
+  color: var(--black) !important;
 }
