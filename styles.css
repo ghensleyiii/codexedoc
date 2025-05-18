@@ -1,7 +1,6 @@
 :root {
   --dark-steel: #295d8a;
   --steel: #4a7fb2;
-  --light-steel: #B0C4DE;
   --white: #ffffff;
   --black: #000000;
 }
@@ -269,5 +268,5 @@ footer a:visited {
 }
 
 footer a:hover {
-  color: var(--light-steel) !important;
+  color: var(--steel) !important;
 }
