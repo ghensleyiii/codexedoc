@@ -139,11 +139,8 @@
         font-weight: bold !important;
       }
 
-      .piece.king::after {
-        content: 'K' !important;
-        position: absolute !important;
-        color: var(--emerald-green) !important;
-        font-size: 14px !important;
+      .piece.king {
+        background-color: var(--dark-steel) !important;
       }
 
       .selected {
@@ -233,7 +230,7 @@
     <main>
       <section class="intro">
         <div id="game-description">
-          <p>In Code Checks, players take turns moving pieces ("1" or "0") diagonally on an 8x8 board. Click a piece to select it, then click a highlighted square to move or jump. Jumps are mandatory if available. Pieces reaching the opponent's back row become kings, moving diagonally in any direction. Play in two-player mode (same screen) or against the computer. The board rotates so your pieces ("1" at bottom first) are always at the bottom. Win by capturing all opponent pieces or blocking their moves.</p>
+          <p>In Code Checks, players take turns moving pieces ("1" or "0") diagonally on an 8x8 board. Click a piece to select it, then click a highlighted square to move or jump. Jumps are mandatory if available. Pieces reaching the opponent's back row become kings, changing to a darker color and moving diagonally in any direction. Play in two-player mode (same screen) or against the computer. The board rotates so your pieces ("1" at bottom first) are always at the bottom. Win by capturing all opponent pieces or blocking their moves.</p>
         </div>
       </section>
       <div id="game-container">
@@ -376,11 +373,8 @@
       function getValidMoves(row, col) {
         const moves = [];
         const isKing = Math.abs(board[row][col]) === 2;
-        // Adjust directions based on board rotation
-        // Player 1 (bottom at row 0, moves "up" toward row 7 visually, which is -row internally)
-        // Player 2 (bottom at row 7, moves "up" toward row 0 visually, which is +row internally)
         const directions = isKing ? [
-          [-1, -1], [-1, 1], [1, -1], [1, 1]
+          [-1, -1], [-1, 1], [1, -1], [1, /formatted_code_block
         ] : currentPlayer === 1 ? [
           [1, -1], [1, 1] // Move toward higher rows (visual "up" when rotated 180deg)
         ] : [
