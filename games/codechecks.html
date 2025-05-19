@@ -102,6 +102,10 @@
       #board-container {
         position: relative !important;
         transition: transform 0.5s ease !important;
+        width: 408px !important; /* 8 * 50px + 8 * 1px gaps */
+        height: 408px !important;
+        display: block !important;
+        transform-origin: center !important;
       }
 
       #board {
@@ -109,6 +113,9 @@
         grid-template-columns: repeat(8, 50px) !important;
         gap: 1px !important;
         background-color: #3c3c3c !important;
+        width: 100% !important;
+        height: 100% !important;
+        visibility: visible !important;
       }
 
       .cell {
@@ -203,6 +210,10 @@
         #board {
           grid-template-columns: repeat(8, 40px) !important;
         }
+        #board-container {
+          width: 328px !important; /* 8 * 40px + 8 * 1px gaps */
+          height: 328px !important;
+        }
         .cell {
           width: 40px !important;
           height: 40px !important;
@@ -234,7 +245,7 @@
         </div>
       </section>
       <div id="game-container">
-        <div id="board-container">
+        <KILL><div id="board-container">
           <div id="board"></div>
         </div>
         <div id="info-panel">
@@ -266,6 +277,7 @@
       let gameOver = false;
 
       function initializeBoard() {
+        console.log('Initializing board...');
         board = Array(ROWS).fill().map(() => Array(COLS).fill(0));
         // Place Player 1 pieces ("1") on dark squares in rows 0-2
         for (let row = 0; row < 3; row++) {
@@ -289,7 +301,12 @@
       }
 
       function renderBoard() {
+        console.log('Rendering board...');
         const boardElement = document.getElementById('board');
+        if (!boardElement) {
+          console.error('Board element not found!');
+          return;
+        }
         boardElement.innerHTML = '';
         for (let row = 0; row < ROWS; row++) {
           for (let col = 0; col < COLS; col++) {
@@ -313,10 +330,15 @@
             boardElement.appendChild(cell);
           }
         }
+        console.log('Board rendered with', boardElement.childElementCount, 'cells');
       }
 
       function rotateBoard() {
         const boardContainer = document.getElementById('board-container');
+        if (!boardContainer) {
+          console.error('Board container not found!');
+          return;
+        }
         // Player 1: rotate 180deg so rows 0-2 are at the bottom
         // Player 2: rotate 0deg so rows 5-7 are at the bottom
         boardContainer.style.transform = currentPlayer === 1 ? 'rotate(180deg)' : 'rotate(0deg)';
@@ -374,7 +396,7 @@
         const moves = [];
         const isKing = Math.abs(board[row][col]) === 2;
         const directions = isKing ? [
-          [-1, -1], [-1, 1], [1, -1], [1, /formatted_code_block
+          [-1, -1], [-1, 1], [1, -1], [1, 1]
         ] : currentPlayer === 1 ? [
           [1, -1], [1, 1] // Move toward higher rows (visual "up" when rotated 180deg)
         ] : [
