@@ -57,7 +57,7 @@
 
       .intro {
         background: linear-gradient(90deg, var(--steel)) !important;
-        padding: 20px 20px 0 !important;
+        padding: 20px !important;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
         text-align: center !important;
         width: 100vw !important;
@@ -234,7 +234,7 @@
     <main>
       <section class="intro">
         <div id="game-description">
-          <p>In Code Connect, compile your code by aligning four binary tokens ("1" or "0") in a row, column, or diagonal on a 7x6 terminal grid. Players take turns dropping a token into a column, where it stacks from the bottom. Click a column to input your token. Play in two-player mode (same screen) or against the AI. Win by connecting four tokens or achieve a draw if the grid fills. Debug your strategy to outsmart your opponent!</p>
+          <p>In Code Connect, build your code by aligning four binary tokens ("1" or "0") in a row, column, or diagonal on a 7x6 terminal grid. Players take turns dropping a token into a column, where it stacks from the bottom. Click a column to input your token. Play in Two Player mode (same screen) or against the AI in Programmer vs AI mode. Win by connecting four tokens or achieve a draw if the grid fills. Use the undo button to revert your last move. Debug your strategy to outsmart your opponent!</p>
         </div>
       </section>
       <div id="game-container">
@@ -245,15 +245,16 @@
           <div id="status">Programmer 1's turn (1)</div>
         </div>
         <div id="controls">
-          <button onclick="startTwoPlayerGame()">Two-Player Compile</button>
-          <button onclick="startComputerGame()">Compile vs AI</button>
+          <button onclick="startTwoPlayerGame()">Two Player</button>
+          <button onclick="startComputerGame()">Programmer vs AI</button>
           <button onclick="resetGame()">Reset Code</button>
+          <button onclick="undoMove()"><i class="fas fa-undo"></i> Undo</button>
         </div>
       </div>
     </main>
     <footer>
       <p>© 2025 CODEXEDOC. All rights reserved.<br>
-      <a href="../terms/termsofuse.html">TERMS OF USE</a></p>
+      <a-Me href="../terms/termsofuse.html">TERMS OF USE</a></p>
     </footer>
 
     <script>
@@ -263,12 +264,14 @@
       let currentPlayer = 1; // 1 for Programmer 1 ("1"), -1 for Programmer 2 ("0")
       let gameMode = 'twoPlayer'; // 'twoPlayer' or 'computer'
       let gameOver = false;
+      let moveHistory = []; // Stores moves for undo
 
       function initializeBoard() {
         console.log('Initializing terminal grid...');
         board = Array(ROWS).fill().map(() => Array(COLS).fill(0));
         currentPlayer = 1;
         gameOver = false;
+        moveHistory = [];
         updateStatus();
         renderBoard();
       }
@@ -334,6 +337,8 @@
           console.log('Column is full');
           return;
         }
+        // Save move to history before making it
+        moveHistory.push({ row, col, player: currentPlayer });
         board[row][col] = currentPlayer;
         renderBoard();
         if (checkWin(row, col)) {
@@ -451,6 +456,24 @@
         return true;
       }
 
+      function undoMove() {
+        if (gameOver || moveHistory.length === 0) return;
+        console.log('Undoing last move...');
+        const lastMove = moveHistory.pop();
+        board[lastMove.row][lastMove.col] = 0;
+        currentPlayer = lastMove.player;
+        renderBoard();
+        updateStatus();
+        // If in computer mode and it's AI's turn, undo its move as well
+        if (gameMode === 'computer' && moveHistory.length > 0 && currentPlayer === -1) {
+          const aiMove = moveHistory.pop();
+          board[aiMove.row][aiMove.col] = 0;
+          currentPlayer = aiMove.player;
+          renderBoard();
+          updateStatus();
+        }
+      }
+
       function computerMove() {
         if (gameOver) return;
         const validCols = [];
@@ -464,6 +487,7 @@
         }
         const col = validCols[Math.floor(Math.random() * validCols.length)];
         const row = getLowestEmptyRow(col);
+        moveHistory.push({ row, col, player: currentPlayer });
         board[row][col] = currentPlayer;
         renderBoard();
         if (checkWin(row, col)) {
