@@ -99,7 +99,7 @@ header {
 
 .nav-menu-right {
   right: 20px;
-  background: linear-gradient(90deg, var(--steel), var(--dark-steel));
+  background: linear-gradient(90deg, var(--steel), var(---dark-steel));
   text-align: right;
 }
 
@@ -191,15 +191,20 @@ main {
 
 .categories-container {
   margin: 20px 0;
-  padding: 0 20px;
+  padding: 0;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .categories-container.expanded {
   max-height: 1000px;
   margin: 20px 0;
+  padding: 20px 0;
 }
 
 .categories {
@@ -207,7 +212,10 @@ main {
   grid-template-columns: 1fr;
   gap: 20px;
   max-width: 1400px;
+  width: 100%;
   margin: 0 auto;
+  justify-content: center;
+  justify-items: center;
 }
 
 @media (min-width: 768px) {
@@ -232,7 +240,10 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel));
+  width: 100%;
+  max-width: 300px; /* Ensures consistent card size */
 }
 
 .category:hover {
