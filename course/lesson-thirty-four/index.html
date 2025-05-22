@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Build an e-commerce API with Express and MongoDB in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="e-commerce API, Express, MongoDB, backend, CODEXEDOC">
+    <title>CODEXEDOC - Backend Project: E-commerce API</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Backend Development</div>
+            <div class="lesson">Backend Project: E-commerce API</div>
+            <div id="content">
+                <h2>Backend Project: E-commerce API</h2>
+                <p>Welcome to Lesson 34 of CODEXEDOC’s Full-Stack Development Course! In this project, you’ll build a complete e-commerce API using Express and MongoDB, supporting CRUD operations for products and integrating with your frontend cart. This project consolidates your backend skills, creating a robust API for your e-commerce app.</p>
+
+                <h3>What is an E-commerce API?</h3>
+                <p>An e-commerce API provides endpoints to manage products, carts, or orders, serving data to the frontend. This project focuses on product management, with a MongoDB backend for persistent storage.</p>
+
+                <h3>Why Build This Project?</h3>
+                <p>This project applies your Node.js, Express, and MongoDB skills to create a real-world API, simulating professional backend development. It prepares you for full-stack integration and advanced features like user authentication.</p>
+
+                <h3>Key Project Components</h3>
+                <p>Your API will include:</p>
+                <ul>
+                    <li><strong>Product CRUD</strong>: Endpoints for creating, reading, updating, and deleting products.</li>
+                    <li><strong>Error Handling</strong>: Robust error responses for invalid requests.</li>
+                    <li><strong>MongoDB Integration</strong>: Persistent storage with Mongoose.</li>
+                    <li><strong>Frontend Compatibility</strong>: Endpoints that work with your Lesson 31 cart.</li>
+                </ul>
+
+                <h3>Building the API</h3>
+                <p>Follow these steps to create the API:</p>
+                <ol>
+                    <li><strong>Set Up Project</strong>: Initialize Node.js and install Express/Mongoose.</li>
+                    <li><strong>Configure MongoDB</strong>: Connect to a local or cloud database.</li>
+                    <li><strong>Define Routes</strong>: Create RESTful endpoints for products.</li>
+                    <li><strong>Test API</strong>: Use Postman to verify functionality.</li>
+                </ol>
+
+                <h3>Code Example: E-commerce API</h3>
+                <p>Here’s a complete e-commerce API (update your Lesson 31 frontend to use it):</p>
+                <pre>
+// server.js
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+mongoose.connect("mongodb://localhost:27017/ecommerce", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log("Connected to MongoDB"));
+
+const productSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    price: { type: Number, required: true },
+    stock: { type: Number, default: 0 }
+});
+
+const Product = mongoose.model("Product", productSchema);
+
+// Get all products
+app.get("/api/products", async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.json(products);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// Get product by ID
+app.get("/api/products/:id", async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) return res.status(404).json({ message: "Product not found" });
+        res.json(product);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// Create product
+app.post("/api/products", async (req, res) => {
+    try {
+        const product = new Product(req.body);
+        await product.save();
+        res.status(201).json(product);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+// Update product
+app.put("/api/products/:id", async (req, res) => {
+    try {
+        const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        });
+        if (!product) return res.status(404).json({ message: "Product not found" });
+        res.json(product);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+// Delete product
+app.delete("/api/products/:id", async (req, res) => {
+    try {
+        const product = await Product.findByIdAndDelete(req.params.id);
+        if (!product) return res.status(404).json({ message: "Product not found" });
+        res.json({ message: "Product deleted" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+app.listen(3000, () => {
+    console.log("Server running at http://localhost:3000/");
+});
+                </pre>
+                <p>Install dependencies: <code>npm install express mongoose cors</code>. Test with Postman and connect to your Lesson 31 frontend.</p>
+
+                <h3>Practical Applications</h3>
+                <p>E-commerce APIs power platforms like Shopify, managing product data and orders. This project gives you a professional-grade API, ready for frontend integration and future features like authentication.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To build a great API:</p>
+                <ul>
+                    <li><strong>Add Validation</strong>: Ensure required fields and valid data types.</li>
+                    <li><strong>Test Extensively</strong>: Verify all endpoints with Postman.</li>
+                    <li><strong>Secure CORS</strong>: Restrict origins in production.</li>
+                    <li><strong>Document API</strong>: Create a guide for frontend developers.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>You’ve built a complete e-commerce API with Express and MongoDB, supporting full CRUD operations. This project marks a major milestone in your full-stack journey. In the next lesson, you’ll explore advanced backend topics or enhance your project. Great work!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-thirty-three/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-thirty-five/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-thirty-three/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-thirty-five/';
+        });
+    </script>
+</body>
+</html>
