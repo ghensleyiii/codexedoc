@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn JavaScript events and DOM manipulation with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="JavaScript, events, DOM, web development, CODEXEDOC">
+    <title>CODEXEDOC - JavaScript Events and DOM Manipulation</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">JavaScript</div>
+            <div class="lesson">JavaScript Events and DOM Manipulation</div>
+            <div id="content">
+                <h2>JavaScript Events and DOM Manipulation</h2>
+                <p>Welcome to Lesson 22 of CODEXEDOC’s Full-Stack Development Course! Events and DOM manipulation allow JavaScript to respond to user actions and update web pages dynamically. In this lesson, you’ll learn how to handle events like clicks and manipulate the Document Object Model (DOM) to create interactive sites.</p>
+
+                <h3>What are Events?</h3>
+                <p>Events are user actions, like clicking a button or typing, that JavaScript can detect and respond to. Event listeners attach functions to these actions, enabling interactivity. In 2025, event-driven programming is central to web development.</p>
+
+                <h3>What is DOM Manipulation?</h3>
+                <p>The DOM is a tree-like representation of an HTML document. JavaScript manipulates the DOM to change content, styles, or structure dynamically, such as updating text or adding elements. DOM manipulation is key to creating responsive user interfaces.</p>
+
+                <h3>Key Event and DOM Concepts</h3>
+                <p>Focus on these techniques:</p>
+                <ul>
+                    <li><strong>Event Listeners</strong>: Use <code>addEventListener</code> to handle events (e.g., <code>click</code>, <code>input</code>).</li>
+                    <li><strong>Selecting Elements</strong>: Use <code>querySelector</code> to target DOM elements.</li>
+                    <li><strong>Modifying Elements</strong>: Change text with <code>textContent</code> or styles with <code>style</code>.</li>
+                    <li><strong>Creating Elements</strong>: Use <code>createElement</code> to add new DOM nodes.</li>
+                </ul>
+
+                <h3>Handling Events and DOM</h3>
+                <p>Follow these steps to add interactivity:</p>
+                <ol>
+                    <li><strong>Add an Event Listener</strong>: Attach a function to an element’s event.</li>
+                    <li><strong>Select DOM Elements</strong>: Use <code>querySelector</code> or <code>getElementById</code>.</li>
+                    <li><strong>Update the DOM</strong>: Modify content, attributes, or styles dynamically.</li>
+                </ol>
+
+                <h3>Code Example: Event Handling and DOM Manipulation</h3>
+                <p>Here’s a page that updates text on button click:</p>
+                <pre>
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Page</title>
+    <style>
+        body { font-family: 'Roboto Mono', monospace; }
+        button { padding: 10px 20px; background: navy; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <h1>Counter</h1>
+    <p id="counter">Count: 0</p>
+    <button id="increment">Increment</button>
+    <script>
+        const button = document.querySelector("#increment");
+        const counter = document.querySelector("#counter");
+        let count = 0;
+        button.addEventListener("click", () => {
+            count++;
+            counter.textContent = `Count: ${count}`;
+        });
+    </script>
+</body>
+</html>
+                </pre>
+                <p>This example increments a counter when a button is clicked, updating the DOM with the new value.</p>
+
+                <h3>Practical Applications</h3>
+                <p>Events and DOM manipulation power features like form submissions, interactive menus, and live updates. For example, an e-commerce site uses them to update a cart when users add items. In this course, you’ll apply these skills to enhance your e-commerce product page.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To master events and DOM manipulation:</p>
+                <ul>
+                    <li><strong>Use addEventListener</strong>: Prefer it over inline events (e.g., <code>onclick</code>) for flexibility.</li>
+                    <li><strong>Debug with Console</strong>: Log events to ensure listeners work correctly.</li>
+                    <li><strong>Optimize Selectors</strong>: Use specific selectors to improve performance.</li>
+                    <li><strong>Test Interactions</strong>: Verify functionality across browsers.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>Events and DOM manipulation enable you to create interactive web pages by responding to user actions and updating content dynamically. By mastering event listeners and DOM methods, you’re ready for complex features. In the next lesson, you’ll explore arrays and loops to handle collections of data. Keep practicing DOM manipulation!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-one/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-three/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-one/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-three/';
+        });
+    </script>
+</body>
+</html>
