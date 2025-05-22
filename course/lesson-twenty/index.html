@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn JavaScript variables and data types with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="JavaScript, variables, data types, web development, CODEXEDOC">
+    <title>CODEXEDOC - JavaScript Variables and Data Types</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">JavaScript</div>
+            <div class="lesson">JavaScript Variables and Data Types</div>
+            <div id="content">
+                <h2>JavaScript Variables and Data Types</h2>
+                <p>Welcome to Lesson 20 of CODEXEDOC’s Full-Stack Development Course! Variables and data types are the building blocks of JavaScript programming. In this lesson, you’ll learn how to store data using variables and understand the different data types JavaScript supports, enabling you to manipulate information effectively.</p>
+
+                <h3>What are Variables?</h3>
+                <p>Variables are containers for storing data, like numbers or text, that can be used and modified in your code. JavaScript uses keywords like <code>let</code>, <code>const</code>, and <code>var</code> to declare variables. In 2025, <code>let</code> and <code>const</code> are preferred for modern coding.</p>
+
+                <h3>Why Use Variables?</h3>
+                <p>Variables allow you to store user input, calculations, or state, making your code dynamic. For example, you can store a user’s name or a product’s price and update them as needed. Understanding variables is crucial for writing flexible JavaScript programs.</p>
+
+                <h3>Key Data Types</h3>
+                <p>JavaScript supports these main data types:</p>
+                <ul>
+                    <li><strong>Number</strong>: Integers or decimals (e.g., <code>42</code>, <code>3.14</code>).</li>
+                    <li><strong>String</strong>: Text enclosed in quotes (e.g., <code>"Hello"</code>).</li>
+                    <li><strong>Boolean</strong>: True or false values (<code>true</code>, <code>false</code>).</li>
+                    <li><strong>Object</strong>: Complex data structures (e.g., <code>{ name: "John" }</code>).</li>
+                    <li><strong>Undefined</strong>: A variable with no value (<code>undefined</code>).</li>
+                </ul>
+
+                <h3>Working with Variables</h3>
+                <p>Follow these steps to use variables:</p>
+                <ol>
+                    <li><strong>Declare Variables</strong>: Use <code>let</code> or <code>const</code> (e.g., <code>let age = 25;</code>).</li>
+                    <li><strong>Assign Values</strong>: Update variables with new data (e.g., <code>age = 26;</code>).</li>
+                    <li><strong>Check Types</strong>: Use <code>typeof</code> to inspect a variable’s data type.</li>
+                </ol>
+
+                <h3>Code Example: Variables and Data Types</h3>
+                <p>Here’s a page demonstrating variables and data types:</p>
+                <pre>
+&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Variables Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;User Info&lt;/h1&gt;
+    &lt;p id="output"&gt;&lt;/p&gt;
+    &lt;script&gt;
+        let name = "Alice";
+        const age = 30;
+        let isStudent = true;
+        let person = { name: name, age: age };
+        document.getElementById("output").textContent = 
+            `Name: ${name}, Age: ${age}, Student: ${isStudent}, Type: ${typeof person}`;
+        console.log("Person object:", person);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+                <p>This example declares variables with different data types, displays them on the page, and logs an object to the console.</p>
+
+                <h3>Practical Applications</h3>
+                <p>Variables store data for calculations, user input, or state management. For example, an e-commerce site uses variables to track cart items or prices. In this course, you’ll use variables to manage product quantities in your e-commerce project.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To work with variables:</p>
+                <ul>
+                    <li><strong>Use const for Constants</strong>: Prefer <code>const</code> for values that won’t change.</li>
+                    <li><strong>Choose Clear Names</strong>: Use descriptive names like <code>userName</code> for readability.</li>
+                    <li><strong>Check Types</strong>: Use <code>typeof</code> to debug unexpected values.</li>
+                    <li><strong>Avoid var</strong>: Use <code>let</code> or <code>const</code> for modern scoping.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>Variables and data types are essential for storing and manipulating data in JavaScript. By mastering <code>let</code>, <code>const</code>, and common data types, you’re ready to build dynamic features. In the next lesson, you’ll learn about functions and scope to organize your code. Keep practicing variables!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-nineteen/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-one/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-nineteen/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-one/';
+        });
+    </script>
+</body>
+</html>
