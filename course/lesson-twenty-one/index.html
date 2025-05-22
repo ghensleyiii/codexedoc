@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn JavaScript functions and scope with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="JavaScript, functions, scope, web development, CODEXEDOC">
+    <title>CODEXEDOC - JavaScript Functions and Scope</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">JavaScript</div>
+            <div class="lesson">JavaScript Functions and Scope</div>
+            <div id="content">
+                <h2>JavaScript Functions and Scope</h2>
+                <p>Welcome to Lesson 21 of CODEXEDOC’s Full-Stack Development Course! Functions are reusable blocks of code that perform specific tasks, and scope determines where variables are accessible. In this lesson, you’ll learn how to create functions and manage scope to write organized JavaScript code.</p>
+
+                <h3>What are Functions?</h3>
+                <p>Functions are blocks of code designed to execute a task when called. They can take inputs (parameters) and return outputs. JavaScript supports function declarations, expressions, and arrow functions, making them versatile for web development in 2025.</p>
+
+                <h3>What is Scope?</h3>
+                <p>Scope defines where variables can be accessed. JavaScript has global scope (accessible everywhere) and local scope (limited to a function or block). Understanding scope prevents errors and ensures clean code.</p>
+
+                <h3>Key Function and Scope Concepts</h3>
+                <p>Focus on these concepts:</p>
+                <ul>
+                    <li><strong>Function Declaration</strong>: Define with <code>function name() {}</code>.</li>
+                    <li><strong>Parameters</strong>: Inputs passed to functions (e.g., <code>function add(a, b)</code>).</li>
+                    <li><strong>Block Scope</strong>: Variables declared with <code>let</code> or <code>const</code> are limited to their block.</li>
+                    <li><strong>Return</strong>: Outputs a value from a function using <code>return</code>.</li>
+                </ul>
+
+                <h3>Writing Functions</h3>
+                <p>Follow these steps to create functions:</p>
+                <ol>
+                    <li><strong>Declare a Function</strong>: Use <code>function</code> or arrow syntax (e.g., <code>const add = (a, b) => a + b;</code>).</li>
+                    <li><strong>Call the Function</strong>: Execute it with arguments (e.g., <code>add(2, 3)</code>).</li>
+                    <li><strong>Manage Scope</strong>: Use <code>let</code> or <code>const</code> inside functions to avoid global variables.</li>
+                </ol>
+
+                <h3>Code Example: Functions and Scope</h3>
+                <p>Here’s a page using functions and scope:</p>
+                <pre>
+&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Functions Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Calculator&lt;/h1&gt;
+    &lt;button onclick="calculate()"&gt;Add Numbers&lt;/button&gt;
+    &lt;p id="result"&gt;&lt;/p&gt;
+    &lt;script&gt;
+        function calculate() {
+            let num1 = 5;
+            const num2 = 10;
+            const sum = add(num1, num2);
+            document.getElementById("result").textContent = `Sum: ${sum}`;
+        }
+        function add(a, b) {
+            let result = a + b;
+            return result;
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+                <p>This example defines a function to add numbers, uses local scope for variables, and displays the result on the page.</p>
+
+                <h3>Practical Applications</h3>
+                <p>Functions handle tasks like form validation or calculations. For example, an e-commerce site uses functions to compute totals or apply discounts. In this course, you’ll use functions to manage user interactions in your e-commerce project.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To master functions and scope:</p>
+                <ul>
+                    <li><strong>Keep Functions Small</strong>: Write focused functions for single tasks.</li>
+                    <li><strong>Avoid Global Variables</strong>: Use local scope to prevent conflicts.</li>
+                    <li><strong>Test Returns</strong>: Log return values to ensure functions work as expected.</li>
+                    <li><strong>Use Arrow Functions</strong>: Simplify syntax for short functions.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>Functions and scope help you write reusable, organized JavaScript code. By mastering function declarations and block scope, you can manage complex logic. In the next lesson, you’ll learn about events and DOM manipulation to make your sites interactive. Keep practicing functions!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-two/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-two/';
+        });
+    </script>
+</body>
+</html>
