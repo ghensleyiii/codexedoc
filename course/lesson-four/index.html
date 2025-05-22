@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn the command line and browser developer tools with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="command line, developer tools, programming, CODEXEDOC">
+    <title>CODEXEDOC - Introduction to Command Line and Developer Tools</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Introduction</div>
+            <div class="lesson">Introduction to Command Line and Developer Tools</div>
+            <div id="content">
+                <h2>Mastering the Command Line and Developer Tools</h2>
+                <p>Congratulations on setting up your development environment in CODEXEDOC’s Full-Stack Development Course! Now, it’s time to learn how to navigate and control that environment using the command line and browser developer tools. These tools are essential for managing files, running scripts, and debugging web applications. In this article, we’ll introduce the command line interface (CLI), explore basic commands, and show you how to use browser developer tools to inspect and debug your code.</p>
+
+                <h3>What is the Command Line?</h3>
+                <p>The command line interface (CLI) is a text-based tool for interacting with your computer’s operating system. Unlike graphical interfaces with buttons and menus, the CLI lets you execute commands by typing them into a terminal (e.g., Terminal on macOS, Command Prompt or PowerShell on Windows, or Bash on Linux). For developers, the CLI is indispensable for tasks like navigating folders, managing Git repositories, and running development servers.</p>
+
+                <h3>Why Use the Command Line?</h3>
+                <p>The CLI is fast, powerful, and gives you precise control over your system. It’s used for installing packages (e.g., with npm), running scripts, and automating tasks. In 2025, most development workflows rely on CLI tools like Git, npm, and Docker. Learning the command line builds confidence and efficiency, making you a more effective developer.</p>
+
+                <h3>Basic Command Line Commands</h3>
+                <p>Here are essential commands for navigating and managing files (examples use Bash syntax, common on macOS/Linux and available on Windows via Git Bash):</p>
+                <ul>
+                    <li><code>pwd</code>: Prints the current working directory (e.g., <code>/home/user/projects</code>).</li>
+                    <li><code>ls</code> (or <code>dir</code> on Windows): Lists files and folders in the current directory.</li>
+                    <li><code>cd folder-name</code>: Changes to the specified folder (e.g., <code>cd my-project</code>).</li>
+                    <li><code>mkdir folder-name</code>: Creates a new folder.</li>
+                    <li><code>touch file-name</code>: Creates a new file (e.g., <code>touch index.html</code>).</li>
+                    <li><code>rm file-name</code>: Deletes a file (use with caution).</li>
+                </ul>
+
+                <h3>Browser Developer Tools</h3>
+                <p>Browser developer tools, built into browsers like Chrome, Firefox, and Edge, let you inspect, debug, and optimize web pages. Accessible by pressing F12 or right-clicking and selecting “Inspect,” these tools include:</p>
+                <ul>
+                    <li><strong>Elements Tab</strong>: Shows the HTML and CSS of a page, letting you edit styles live.</li>
+                    <li><strong>Console Tab</strong>: Displays JavaScript errors and logs, useful for debugging.</li>
+                    <li><strong>Network Tab</strong>: Monitors resource loading (e.g., images, scripts), helping optimize performance.</li>
+                    <li><strong>Sources Tab</strong>: Allows debugging JavaScript with breakpoints.</li>
+                </ul>
+
+                <h3>Code Example: Using the Command Line</h3>
+                <p>Let’s create a project folder and inspect it with developer tools:</p>
+                <pre>
+# Print current directory
+pwd
+
+# Create a project folder
+mkdir web-project
+cd web-project
+
+# Create an HTML file
+touch index.html
+
+# Add basic HTML
+echo "<!DOCTYPE html><html><body><h1>My Site</h1></body></html>" > index.html
+
+# List files
+ls
+                </pre>
+                <p>After running these commands, open <code>index.html</code> in a browser, press F12, and use the Elements tab to inspect the <code><h1></code> tag. Try changing its text in the developer tools to see live updates.</p>
+
+                <h3>Practical Applications</h3>
+                <p>The command line and developer tools are used daily in web development. For example, you’ll run <code>npm start</code> to launch a Node.js server or use the Console tab to debug JavaScript errors. In this course, you’ll use the CLI to manage Git repositories and the developer tools to style your portfolio project. These skills are foundational for building and troubleshooting web applications.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To master these tools:</p>
+                <ul>
+                    <li><strong>Practice Commands</strong>: Run each command in your terminal to build muscle memory.</li>
+                    <li><strong>Explore Developer Tools</strong>: Experiment with the Elements and Console tabs on any website to understand their features.</li>
+                    <li><strong>Use Autocomplete</strong>: Press Tab in the terminal to autocomplete folder or file names.</li>
+                    <li><strong>Learn Shortcuts</strong>: Use <code>Ctrl + T</code> (new tab) or <code>Ctrl + C</code> (stop command) in the terminal.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>The command line and browser developer tools are powerful allies in web development, enabling you to manage projects and debug code efficiently. By learning commands like <code>cd</code> and <code>ls</code> and exploring browser tools, you’re ready to tackle your first project. In the next section, you’ll build a portfolio landing page, applying these skills to create your first web page!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-three/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/project-introduction/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-three/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/project-introduction/';
+        });
+    </script>
+</body>
+</html>
