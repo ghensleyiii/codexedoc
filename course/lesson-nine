@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn to automate workflows with GitHub Actions in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="GitHub Actions, automation, CI/CD, CODEXEDOC">
+    <title>CODEXEDOC - Automating Workflows with GitHub Actions</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Git and Version Control</div>
+            <div class="lesson">Automating Workflows with GitHub Actions</div>
+            <div id="content">
+                <h2>Automating Workflows with GitHub Actions</h2>
+                <p>Welcome to Lesson 9 of CODEXEDOC’s Full-Stack Development Course! With Git, GitHub, and branching strategies mastered, it’s time to automate repetitive tasks using GitHub Actions. This lesson introduces GitHub Actions, a powerful tool for continuous integration and continuous deployment (CI/CD). You’ll learn how to create workflows to automate testing, building, and deploying your code.</p>
+
+                <h3>What are GitHub Actions?</h3>
+                <p>GitHub Actions is a CI/CD platform integrated into GitHub, allowing you to automate workflows based on repository events (e.g., pushing code or creating pull requests). Workflows are defined in YAML files, enabling tasks like running tests, linting code, or deploying apps. In 2025, GitHub Actions is a standard tool for automating development pipelines.</p>
+
+                <h3>Key Concepts</h3>
+                <p>Understand these components of GitHub Actions:</p>
+                <ul>
+                    <li><strong>Workflow</strong>: A set of automated tasks defined in a YAML file in <code>.github/workflows/</code>.</li>
+                    <li><strong>Job</strong>: A group of steps executed on a single runner (virtual machine).</li>
+                    <li><strong>Step</strong>: An individual task, such as running a command or using an action.</li>
+                    <li><strong>Action</strong>: A reusable script or command, often from the GitHub Marketplace.</li>
+                </ul>
+
+                <h3>Step-by-Step Guide to GitHub Actions</h3>
+                <p>Create a basic workflow to test a Node.js app (learn more at <pre>&lt;a href=&quot;https://docs.github.com/en/actions&quot;&gt;docs.github.com&lt;/a&gt;</pre>):</p>
+                <ol>
+                    <li><strong>Create a Workflow File</strong>: Add a file named <code>.github/workflows/ci.yml</code> in your repository.</li>
+                    <li><strong>Define Triggers</strong>: Specify events like <code>push</code> or <code>pull_request</code> to run the workflow.</li>
+                    <li><strong>Add Jobs and Steps</strong>: Include steps to set up Node.js, install dependencies, and run tests.</li>
+                    <li><strong>Push to GitHub</strong>: Commit and push the workflow file to trigger the automation.</li>
+                </ol>
+
+                <h3>Code Example: GitHub Actions Workflow</h3>
+                <p>Here’s a workflow to test a Node.js app:</p>
+                <pre>
+# .github/workflows/ci.yml
+name: CI Pipeline
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: npm install
+      - run: npm test
+                </pre>
+                <p>This workflow runs on every push or pull request to <code>main</code>, checks out the code, sets up Node.js, installs dependencies, and runs tests.</p>
+
+                <h3>Practical Applications</h3>
+                <p>GitHub Actions automates critical tasks in web development. For example, you can use it to run tests on a React app before merging a pull request or deploy a Node.js API to a cloud platform. In this course, you’ll use GitHub Actions in the to-do list app project to automate testing, ensuring code quality.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To master GitHub Actions:</p>
+                <ul>
+                    <li><strong>Start Simple</strong>: Begin with basic workflows, like linting or testing, before adding complex steps.</li>
+                    <li><strong>Use Marketplace Actions</strong>: Leverage pre-built actions for common tasks like deployment.</li>
+                    <li><strong>Monitor Logs</strong>: Check the Actions tab on GitHub to debug failed workflows.</li>
+                    <li><strong>Secure Secrets</strong>: Store API keys in GitHub Secrets to keep them safe.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>GitHub Actions streamlines development by automating tasks like testing and deployment. By creating workflows, you can save time and ensure consistent code quality. In the next section, you’ll work on a team-based GitHub project, applying all your Git skills. Keep experimenting with GitHub Actions to automate your workflows!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-eight/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/project-todo-app/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-eight/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/project-todo-app/';
+        });
+    </script>
+</body>
+</html>
