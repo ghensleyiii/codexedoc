@@ -238,14 +238,14 @@ header nav a:hover {
 .save-file-btn {
   background-color: var(--light-blue);
   color: var(--gold);
-  border: 2px solid var(--gold);
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 0 0 auto;
+  border: 2px solid var(--gold) !important;
+  padding: 20px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 5px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  flex: 0 0 auto !important;
 }
 
 .save-file-btn:hover {
