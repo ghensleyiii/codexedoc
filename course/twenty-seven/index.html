@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Build an interactive e-commerce cart with JavaScript in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="JavaScript, e-commerce, cart, web development, CODEXEDOC">
+    <title>CODEXEDOC - JavaScript Project: Interactive E-commerce Cart</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">JavaScript</div>
+            <div class="lesson">JavaScript Project: Interactive E-commerce Cart</div>
+            <div id="content">
+                <h2>JavaScript Project: Interactive E-commerce Cart</h2>
+                <p>Welcome to Lesson 27 of CODEXEDOC’s Full-Stack Development Course! In this project, you’ll apply your JavaScript skills to build an interactive e-commerce cart. You’ll use arrays, objects, DOM manipulation, and error handling to create a functional cart that adds and removes items, calculates totals, and fetches product data asynchronously.</p>
+
+                <h3>What is an E-commerce Cart?</h3>
+                <p>An e-commerce cart is a feature that allows users to add products, view their selections, and see the total cost. This project combines HTML, CSS (via Tailwind), and JavaScript to create a dynamic, user-friendly cart, a core component of online stores in 2025.</p>
+
+                <h3>Why Build This Project?</h3>
+                <p>This project consolidates your JavaScript knowledge, teaching you to manage state, handle user interactions, and integrate async data. It simulates real-world development, preparing you for building full-stack applications.</p>
+
+                <h3>Key Project Components</h3>
+                <p>Your cart will include:</p>
+                <ul>
+                    <li><strong>Product List</strong>: Display products using arrays and loops.</li>
+                    <li><strong>Cart State</strong>: Manage items with an array of objects.</li>
+                    <li><strong>DOM Updates</strong>: Dynamically render the cart with event listeners.</li>
+                    <li><strong>Async Data</strong>: Fetch products from an API with error handling.</li>
+                </ul>
+
+                <h3>Building the Cart</h3>
+                <p>Follow these steps to create the cart:</p>
+                <ol>
+                    <li><strong>Structure with HTML</strong>: Create a product list and cart display.</li>
+                    <li><strong>Style with Tailwind</strong>: Use utility classes for a responsive design.</li>
+                    <li><strong>Add JavaScript</strong>: Implement cart logic with arrays, objects, and async fetches.</li>
+                    <li><strong>Handle Errors</strong>: Use <code>try/catch</code> for robust async operations.</li>
+                </ol>
+
+                <h3>Code Example: Interactive E-commerce Cart</h3>
+                <p>Here’s a sample cart implementation:</p>
+                <pre>
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <header class="bg-blue-600 text-white p-4">
+        <h1 class="text-2xl font-bold">Store Cart</h1>
+    </header>
+    <main class="container mx-auto p-4">
+        <h2 class="text-xl font-bold mb-4">Products</h2>
+        <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        <h2 class="text-xl font-bold mt-8 mb-4">Cart</h2>
+        <ul id="cart-list" class="bg-white p-4 rounded shadow"></ul>
+        <p id="total" class="mt-4 font-semibold">Total: $0.00</p>
+    </main>
+    <script>
+        const cart = [];
+        const productList = document.querySelector("#product-list");
+        const cartList = document.querySelector("#cart-list");
+        const totalDisplay = document.querySelector("#total");
+
+        async function fetchProducts() {
+            try {
+                const response = await fetch("https://jsonplaceholder.typicode.com/photos?_limit=3");
+                const data = await response.json();
+                const products = data.map(item => ({
+                    id: item.id,
+                    name: item.title.slice(0, 20),
+                    price: (Math.random() * 100 + 50).toFixed(2)
+                }));
+                renderProducts(products);
+            } catch (error) {
+                console.error("Failed to fetch products:", error);
+                productList.innerHTML = "<p>Error loading products</p>";
+            }
+        }
+
+        function renderProducts(products) {
+            products.forEach(product => {
+                const div = document.createElement("div");
+                div.className = "bg-white p-4 rounded shadow";
+                div.innerHTML = `
+                    <h3 class="font-bold">${product.name}</h3>
+                    <p>$${product.price}</p>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Add to Cart</button>
+                `;
+                productList.appendChild(div);
+            });
+        }
+
+        function addToCart(id, name, price) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity++;
+            } else {
+                cart.push({ id, name, price: parseFloat(price), quantity: 1 });
+            }
+            renderCart();
+        }
+
+        function renderCart() {
+            cartList.innerHTML = "";
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                const li = document.createElement("li");
+                li.className = "flex justify-between py-2";
+                li.innerHTML = `
+                    <span>${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}</span>
+                    <button class="text-red-600" onclick="removeFromCart(${item.id})">Remove</button>
+                `;
+                cartList.appendChild(li);
+            });
+            totalDisplay.textContent = `Total: $${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(id) {
+            const index = cart.findIndex(item => item.id === id);
+            if (index !== -1) {
+                cart.splice(index, 1);
+                renderCart();
+            }
+        }
+
+        fetchProducts();
+    </script>
+</body>
+</html>
+                </pre>
+                <p>This example fetches products, allows users to add/remove items, and updates the cart and total dynamically, with error handling for the API call.</p>
+
+                <h3>Practical Applications</h3>
+                <p>E-commerce carts are used by retailers like Amazon to manage user purchases. This project teaches you to build dynamic, interactive features, preparing you for full-stack development. You can extend this cart with backend integration in later lessons.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To build a great cart:</p>
+                <ul>
+                    <li><strong>Validate Inputs</strong>: Check quantities and prices to prevent errors.</li>
+                    <li><strong>Test Responsiveness</strong>: Ensure the cart works on mobile and desktop.</li>
+                    <li><strong>Debug Thoroughly</strong>: Use DevTools to trace cart updates.</li>
+                    <li><strong>Enhance UI</strong>: Add animations or modals for a polished experience.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>This project combines your JavaScript skills to create a functional e-commerce cart, using arrays, objects, DOM manipulation, and async code. You’ve built a real-world feature, ready for professional applications. In the next lesson, you’ll explore advanced topics or start a new section. Great work!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-six/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-eight/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-six/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-eight/';
+        });
+    </script>
+</body>
+</html>
