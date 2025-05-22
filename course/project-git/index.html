@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Collaborate on a team-based GitHub repository to build a to-do list app with CODEXEDOC.">
+    <meta name="keywords" content="Git, GitHub, collaboration, to-do list, CODEXEDOC">
+    <title>CODEXEDOC - Project: Team-Based GitHub To-Do List App</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Git and Version Control</div>
+            <div class="lesson">Project: Collaborate on a Team-Based GitHub To-Do List App</div>
+            <div id="content">
+                <h2>Collaborating on a To-Do List App with GitHub</h2>
+                <p>In this project, you’ll apply your Git skills to collaborate on a team-based GitHub repository, building a simple to-do list application. This hands-on exercise simulates real-world development, where multiple developers work together using version control. You’ll use Git commands, GitHub workflows, and HTML/CSS to create a functional app, reinforcing the concepts you’ve learned in the Git section.</p>
+                
+                <h3>Project Overview</h3>
+                <p>Your goal is to contribute to a shared GitHub repository to build a to-do list app. The app will allow users to add, view, and delete tasks, styled with basic HTML and CSS. You’ll work in a team (or simulate one using multiple branches), using Git branches, commits, and pull requests to manage contributions. This project introduces you to collaborative workflows used in professional development teams.</p>
+                
+                <h3>Step-by-Step Guide</h3>
+                <p>Follow these steps to complete the project:</p>
+                <ol>
+                    <li><strong>Set Up the Repository</strong>: Fork the project repository on GitHub and clone it to your local machine using <code>git clone</code>. Create a new branch for your feature (e.g., <code>git branch add-task</code>).</li>
+                    <li><strong>Build the HTML Structure</strong>: Create an <code>index.html</code> file with a form to add tasks and a list to display them. Use semantic tags like <code>&lt;ul&gt;</code> for the task list.</li>
+                    <li><strong>Style with CSS</strong>: Add styles to make the app user-friendly. Use CSS to align the form and list, and add hover effects for interactivity.</li>
+                    <li><strong>Commit and Push Changes</strong>: Stage your changes with <code>git add .</code>, commit them with <code>git commit -m "Add task form and styles"</code>, and push to your branch with <code>git push origin add-task</code>.</li>
+                    <li><strong>Create a Pull Request</strong>: On GitHub, create a pull request to merge your branch into the main repository. Review another teammate’s pull request to practice collaboration.</li>
+                    <li><strong>Test the App</strong>: Open the app in a browser to ensure the form and list display correctly. Check for responsiveness on mobile devices.</li>
+                </ol>
+                
+                <h3>Code Example: To-Do List Structure</h3>
+                <p>Here’s a sample HTML and CSS for the to-do list app:</p>
+                <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;To-Do List&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Roboto, sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+        input { padding: 10px; width: 80%; }
+        button { padding: 10px; }
+        ul { list-style: none; padding: 0; }
+        li { padding: 10px; background: #f9f9f9; margin: 5px 0; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;To-Do List&lt;/h1&gt;
+    &lt;form&gt;
+        &lt;input type="text" placeholder="Add a task"&gt;
+        &lt;button type="submit"&gt;Add&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Learn Git&lt;/li&gt;
+        &lt;li&gt;Build project&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+                <p>This code creates a simple to-do list interface. Later in the course, you’ll add JavaScript to make it interactive. For now, focus on using Git to manage your contributions.</p>
+                
+                <h3>Tips for Collaboration</h3>
+                <p>To succeed in this collaborative project:</p>
+                <ul>
+                    <li><strong>Use Descriptive Commits</strong>: Write clear commit messages (e.g., “Add task input form”) to help teammates understand your changes.</li>
+                    <li><strong>Communicate</strong>: If working with others, discuss branch names and responsibilities to avoid conflicts.</li>
+                    <li><strong>Review Pull Requests</strong>: Provide constructive feedback on teammates’ code to practice code review skills.</li>
+                    <li><strong>Test Before Pushing</strong>: Ensure your changes work locally before pushing to GitHub.</li>
+                </ul>
+                
+                <h3>Why This Project Matters</h3>
+                <p>Collaboration is a core skill in software development. Most projects involve multiple developers using Git and GitHub to manage code. This project prepares you for team workflows by teaching you to create branches, commit changes, and merge via pull requests. The to-do list app is a practical starting point, and you’ll enhance it with JavaScript later in the course.</p>
+                
+                <h3>Summary</h3>
+                <p>In this project, you’ve used Git and GitHub to collaborate on a to-do list app, practicing branching, committing, and pull requests. These skills are essential for working in development teams. Save your repository link for your portfolio, and prepare for the Git assessment to test your version control knowledge!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-nine/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/assessment-git/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-nine/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/assessment-git/';
+        });
+    </script>
+</body>
+</html>
