@@ -190,17 +190,17 @@ header nav a:hover {
   background-color: var(--light-blue);
   color: var(--gold);
   border: 2px solid var(--gold);
-  padding: 10px 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px 20px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 5px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 .validate-btn:hover, .test-btn:hover, .document-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
 }
 
 .error-messages {
