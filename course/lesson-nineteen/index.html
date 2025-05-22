@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn the basics of JavaScript with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="JavaScript, web development, CODEXEDOC">
+    <title>CODEXEDOC - Introduction to JavaScript</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">JavaScript</div>
+            <div class="lesson">Introduction to JavaScript</div>
+            <div id="content">
+                <h2>Introduction to JavaScript</h2>
+                <p>Welcome to Lesson 19 of CODEXEDOC’s Full-Stack Development Course! JavaScript is the programming language that adds interactivity to websites. In this lesson, you’ll learn what JavaScript is, how it works in the browser, and how to write your first script, setting the foundation for dynamic web development.</p>
+
+                <h3>What is JavaScript?</h3>
+                <p>JavaScript, created in 1995 by Brendan Eich, is a versatile programming language used to make web pages interactive. It runs in browsers to manipulate HTML and CSS, handle user input, and communicate with servers. In 2025, JavaScript is essential for web and full-stack development.</p>
+
+                <h3>Why Use JavaScript?</h3>
+                <p>JavaScript enables dynamic features like form validation, animations, and real-time updates. It’s the backbone of modern web applications, from simple sites to complex platforms like Google Maps. Learning JavaScript prepares you for frameworks like React and Node.js.</p>
+
+                <h3>Key JavaScript Concepts</h3>
+                <p>Start with these fundamentals:</p>
+                <ul>
+                    <li><strong>Scripts</strong>: JavaScript code runs in <code>&lt;script&gt;</code> tags or external <code>.js</code> files.</li>
+                    <li><strong>Console</strong>: Use <code>console.log()</code> to output messages for debugging.</li>
+                    <li><strong>DOM</strong>: The Document Object Model allows JavaScript to interact with HTML elements.</li>
+                    <li><strong>Events</strong>: JavaScript responds to user actions like clicks or keypresses.</li>
+                </ul>
+
+                <h3>Writing JavaScript</h3>
+                <p>Follow these steps to add JavaScript:</p>
+                <ol>
+                    <li><strong>Add a Script</strong>: Place code in a <code>&lt;script&gt;</code> tag or link an external file.</li>
+                    <li><strong>Test in Console</strong>: Use browser developer tools (F12) to run JavaScript.</li>
+                    <li><strong>Manipulate HTML</strong>: Use methods like <code>document.querySelector()</code> to access elements.</li>
+                </ol>
+
+                <h3>Code Example: Basic JavaScript</h3>
+                <p>Here’s a page with a simple JavaScript script:</p>
+                <pre>
+&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;JavaScript Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome&lt;/h1&gt;
+    &lt;button onclick="greet()"&gt;Click Me&lt;/button&gt;
+    &lt;script&gt;
+        function greet() {
+            alert('Hello, World!');
+            console.log('Button clicked!');
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+                <p>This example displays an alert and logs a message to the console when the button is clicked.</p>
+
+                <h3>Practical Applications</h3>
+                <p>JavaScript powers interactive features like dropdown menus, form submissions, and live search. In this course, you’ll use JavaScript to add interactivity to your e-commerce product page, such as updating a cart counter. JavaScript is a stepping stone to advanced frameworks.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To get started with JavaScript:</p>
+                <ul>
+                    <li><strong>Use the Console</strong>: Test code snippets in the browser’s developer tools.</li>
+                    <li><strong>Start Small</strong>: Write simple scripts before tackling complex logic.</li>
+                    <li><strong>Debug Early</strong>: Check the console for errors to fix issues quickly.</li>
+                    <li><strong>Practice Regularly</strong>: Experiment with small projects to build confidence.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>JavaScript is the key to interactive web development. By understanding scripts, the console, and the DOM, you’re ready to add dynamic features to your sites. In the next lesson, you’ll explore JavaScript variables and data types to store and manipulate data. Keep practicing JavaScript!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-eighteen/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-eighteen/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty/';
+        });
+    </script>
+</body>
+</html>
