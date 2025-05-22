@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn backend development and Node.js with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="backend, Node.js, web development, CODEXEDOC">
+    <title>CODEXEDOC - Introduction to Backend Development and Node.js</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Backend Development</div>
+            <div class="lesson">Introduction to Backend Development and Node.js</div>
+            <div id="content">
+                <h2>Introduction to Backend Development and Node.js</h2>
+                <p>Welcome to Lesson 28 of CODEXEDOC’s Full-Stack Development Course! Backend development powers the server-side logic of web applications, handling data, APIs, and business rules. In this lesson, you’ll learn the basics of backend development and set up Node.js, a JavaScript runtime for server-side programming, to enhance your e-commerce project.</p>
+
+                <h3>What is Backend Development?</h3>
+                <p>Backend development involves creating the server, database, and application logic that power a website’s functionality, like processing orders or user authentication. Unlike frontend (HTML/CSS/JS), the backend operates behind the scenes, delivering data to the client.</p>
+
+                <h3>What is Node.js?</h3>
+                <p>Node.js is a JavaScript runtime built on Chrome’s V8 engine, allowing you to run JavaScript outside the browser. Introduced in 2009, it’s widely used in 2025 for building fast, scalable backends, perfect for full-stack JavaScript development.</p>
+
+                <h3>Key Backend and Node.js Concepts</h3>
+                <p>Focus on these techniques:</p>
+                <ul>
+                    <li><strong>Node.js Installation</strong>: Install Node.js and npm (Node Package Manager).</li>
+                    <li><strong>Modules</strong>: Use <code>require</code> or ES modules (<code>import</code>) to organize code.</li>
+                    <li><strong>File System</strong>: Interact with files using Node’s <code>fs</code> module.</li>
+                    <li><strong>HTTP Server</strong>: Create a basic server with Node’s <code>http</code> module.</li>
+                </ul>
+
+                <h3>Setting Up Node.js</h3>
+                <p>Follow these steps to start with Node.js:</p>
+                <ol>
+                    <li><strong>Install Node.js</strong>: Download from nodejs.org (LTS version recommended).</li>
+                    <li><strong>Verify Installation</strong>: Run <code>node -v</code> and <code>npm -v</code> in your terminal.</li>
+                    <li><strong>Create a Project</strong>: Initialize with <code>npm init -y</code>.</li>
+                    <li><strong>Run a Script</strong>: Execute a JavaScript file with <code>node filename.js</code>.</li>
+                </ol>
+
+                <h3>Code Example: Basic Node.js Server</h3>
+                <p>Here’s a simple Node.js server:</p>
+                <pre>
+// server.js
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("Hello from Node.js!");
+});
+
+server.listen(3000, () => {
+    console.log("Server running at http://localhost:3000/");
+});
+                </pre>
+                <p>Run this with <code>node server.js</code> and visit <code>http://localhost:3000</code> to see the response.</p>
+
+                <h3>Practical Applications</h3>
+                <p>Node.js powers backend services like APIs for e-commerce sites, handling product data or user logins. In this course, you’ll use Node.js to build an API for your e-commerce project, connecting it to your frontend cart.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To master Node.js:</p>
+                <ul>
+                    <li><strong>Use LTS Version</strong>: Ensure compatibility with most packages.</li>
+                    <li><strong>Organize Code</strong>: Split logic into modules for clarity.</li>
+                    <li><strong>Check Logs</strong>: Use <code>console.log</code> to debug server issues.</li>
+                    <li><strong>Explore npm</strong>: Install packages like <code>nodemon</code> for auto-restart.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>Backend development with Node.js enables you to create server-side logic using JavaScript. By setting up Node.js, you’re ready to build APIs and manage data. In the next lesson, you’ll learn about Express.js to simplify server creation. Keep exploring Node.js!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-seven/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-nine/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-seven/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-nine/';
+        });
+    </script>
+</body>
+</html>
