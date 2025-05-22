@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn collaborative development with GitHub in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="GitHub, collaboration, version control, CODEXEDOC">
+    <title>CODEXEDOC - Collaborative Development with GitHub</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Git and Version Control</div>
+            <div class="lesson">Collaborative Development with GitHub</div>
+            <div id="content">
+                <h2>Collaborative Development with GitHub</h2>
+                <p>Welcome to Lesson 6 of CODEXEDOC’s Full-Stack Development Course! Building on your Git knowledge, this lesson explores GitHub, a platform for hosting Git repositories and enabling team collaboration. You’ll learn how to push local repositories to GitHub, clone remote repositories, and collaborate using pull requests. By the end, you’ll be ready to work on team projects like a professional developer.</p>
+
+                <h3>What is GitHub?</h3>
+                <p>GitHub is a cloud-based platform for hosting Git repositories, collaboration, and project management. It allows multiple developers to work on the same codebase, track issues, and review changes. In 2025, GitHub is the leading choice for open-source and private projects, used by companies like Microsoft and startups alike.</p>
+
+                <h3>Key GitHub Concepts</h3>
+                <p>Here are the essential components for collaboration on GitHub:</p>
+                <ul>
+                    <li><strong>Remote Repository</strong>: A Git repository hosted on GitHub, accessible via HTTPS or SSH.</li>
+                    <li><strong>Clone</strong>: Copying a remote repository to your local machine using <code>git clone</code>.</li>
+                    <li><strong>Push/Pull</strong>: Sending local commits to a remote repository (<code>git push</code>) or fetching updates (<code>git pull</code>).</li>
+                    <li><strong>Pull Request (PR)</strong>: A request to merge changes from one branch into another, often accompanied by code reviews.</li>
+                </ul>
+
+                <h3>Step-by-Step Guide to GitHub Collaboration</h3>
+                <p>Follow these steps to collaborate using GitHub (you’ll need a GitHub account from <pre>&lt;a href=&quot;https://github.com&quot;&gt;github.com&lt;/a&gt;</pre>):</p>
+                <ol>
+                    <li><strong>Create a Repository</strong>: On GitHub, click “New Repository,” name it (e.g., <code>my-project</code>), and initialize it with a README.</li>
+                    <li><strong>Clone the Repository</strong>: Copy the repository URL and run <code>git clone &lt;url&gt;</code> in your terminal.</li>
+                    <li><strong>Make Changes</strong>: Add or edit files, then stage and commit using <code>git add .</code> and <code>git commit -m "message"</code>.</li>
+                    <li><strong>Push Changes</strong>: Send commits to GitHub with <code>git push origin main</code>.</li>
+                    <li><strong>Create a Pull Request</strong>: On GitHub, create a PR to propose merging your changes into the main branch.</li>
+                </ol>
+
+                <h3>Code Example: Collaborating on GitHub</h3>
+                <p>Here’s how to set up a repository and collaborate:</p>
+                <pre>
+# Clone a repository
+git clone https://github.com/username/my-project.git
+cd my-project
+
+# Create a new branch
+git checkout -b feature/add-readme
+
+# Edit a file
+echo "# My Project" &gt; README.md
+
+# Stage and commit
+git add README.md
+git commit -m "Add README file"
+
+# Push to GitHub
+git push origin feature/add-readme
+                </pre>
+                <p>After pushing, go to GitHub, create a pull request for the <code>feature/add-readme</code> branch, and request a review from a teammate.</p>
+
+                <h3>Practical Applications</h3>
+                <p>GitHub is used in real-world projects to manage codebases and coordinate teams. For example, when building a web app, you might use a branch to add a login feature, submit a PR, and get feedback before merging. In this course, you’ll use GitHub to collaborate on a team-based to-do list app project, practicing these workflows.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To excel at GitHub collaboration:</p>
+                <ul>
+                    <li><strong>Use Descriptive PRs</strong>: Include clear descriptions in pull requests to explain your changes.</li>
+                    <li><strong>Sync Regularly</strong>: Run <code>git pull</code> to stay updated with the remote repository.</li>
+                    <li><strong>Explore GitHub Features</strong>: Use issues and projects to track tasks and bugs.</li>
+                    <li><strong>Secure Your Account</strong>: Enable two-factor authentication on GitHub for safety.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>GitHub transforms Git into a collaborative powerhouse, enabling teams to work together seamlessly. By mastering cloning, pushing, and pull requests, you’re ready to contribute to projects. In the next lesson, you’ll explore advanced branching strategies to manage complex workflows. Keep practicing with GitHub to build your collaboration skills!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-five/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-seven/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-five/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-seven/';
+        });
+    </script>
+</body>
+</html>
