@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn CSS preprocessors like SASS/SCSS with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="SASS, SCSS, CSS preprocessors, web development, CODEXEDOC">
+    <title>CODEXEDOC - CSS Preprocessors (SASS/SCSS)</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">HTML & CSS</div>
+            <div class="lesson">CSS Preprocessors (SASS/SCSS)</div>
+            <div id="content">
+                <h2>CSS Preprocessors (SASS/SCSS)</h2>
+                <p>Welcome to Lesson 15 of CODEXEDOC’s Full-Stack Development Course! CSS preprocessors like SASS (Syntactically Awesome Style Sheets) enhance CSS with features like variables, nesting, and mixins, making your stylesheets more efficient and maintainable. In this lesson, you’ll learn how to use SCSS (a SASS syntax) to streamline your CSS workflow.</p>
+
+                <h3>What is a CSS Preprocessor?</h3>
+                <p>A CSS preprocessor is a scripting language that extends CSS and compiles into standard CSS. SASS, introduced in 2006, is one of the most popular preprocessors. It simplifies complex styling tasks and is widely used in 2025 for large-scale web projects.</p>
+
+                <h3>Why Use SASS/SCSS?</h3>
+                <p>SCSS (Sassy CSS) offers advanced features that make CSS more programmable. It reduces repetition, improves readability, and supports modular styling, making it ideal for team projects and frameworks like React.</p>
+
+                <h3>Key SCSS Features</h3>
+                <p>SCSS introduces:</p>
+                <ul>
+                    <li><strong>Variables</strong>: Store reusable values (e.g., colors) with <code>$variable</code>.</li>
+                    <li><strong>Nesting</strong>: Write CSS rules hierarchically to match HTML structure.</li>
+                    <li><strong>Mixins</strong>: Reusable style blocks, defined with <code>@mixin</code> and included with <code>@include</code>.</li>
+                    <li><strong>Partials</strong>: Modular files (e.g., <code>_base.scss</code>) imported with <code>@import</code>.</li>
+                </ul>
+
+                <h3>Setting Up SCSS</h3>
+                <p>Install SASS and compile SCSS to CSS (learn more at <pre><a href="https://sass-lang.com/">sass-lang.com</a></pre>):</p>
+                <ol>
+                    <li><strong>Install SASS</strong>: Run <code>npm install -g sass</code> to install globally.</li>
+                    <li><strong>Create SCSS Files</strong>: Write styles in a <code>.scss</code> file.</li>
+                    <li><strong>Compile to CSS</strong>: Use <code>sass input.scss output.css</code> to generate CSS.</li>
+                </ol>
+
+                <h3>Code Example: SCSS Styling</h3>
+                <p>Here’s an SCSS file with variables and nesting:</p>
+                <pre>
+<!-- index.html -->
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;SCSS Page&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;My Site&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+<!-- styles.scss -->
+$primary-color: navy;
+$font-stack: 'Roboto Mono', monospace;
+
+header {
+    background: $primary-color;
+    color: white;
+    padding: 10px;
+    h1 {
+        font-family: $font-stack;
+    }
+    nav {
+        ul {
+            list-style: none;
+            li {
+                display: inline;
+                a {
+                    color: white;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+                </pre>
+                <p>Compile <code>styles.scss</code> to <code>styles.css</code> and link it to the HTML. The SCSS uses variables and nesting for concise styling.</p>
+
+                <h3>Practical Applications</h3>
+                <p>SCSS is used in large projects to manage complex stylesheets. For example, a web app uses SCSS variables for consistent theming and mixins for reusable button styles. In this course, you’ll apply SCSS to style your e-commerce product page efficiently.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To master SCSS:</p>
+                <ul>
+                    <li><strong>Use Partials</strong>: Split styles into files like <code>_variables.scss</code> for modularity.</li>
+                    <li><strong>Watch Compilation</strong>: Use <code>sass --watch input.scss:output.css</code> for live updates.</li>
+                    <li><strong>Keep It Simple</strong>: Avoid overly complex nesting to maintain readability.</li>
+                    <li><strong>Learn Mixins</strong>: Create mixins for repetitive styles like flexbox setups.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>SCSS enhances CSS with variables, nesting, and mixins, making your stylesheets efficient and maintainable. By mastering preprocessors, you can streamline your workflow. In the next lesson, you’ll learn accessibility best practices to ensure your sites are inclusive. Keep practicing SCSS!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-fourteen/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-sixteen/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-fourteen/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-sixteen/';
+        });
+    </script>
+</body>
+</html>
