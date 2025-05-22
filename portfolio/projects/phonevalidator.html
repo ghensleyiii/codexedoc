@@ -151,7 +151,7 @@
           alert('Please provide a phone number');
           return;
         }
-        const phnRegex = /^(1\s?)?(\([0-9]{3}\)|[0-9]{3})[\s\-]?[0-9]{3}[\s\-]?[0-9]{4}$/;
+        const phnRegex = /^(1\s?)?(\([0-9]{3}\)|[0-9]{3})[\s\-]?[0-9]{3}[\s\-]?[0-9]{4}$|^911$/;
         
         const parTag = document.createElement('p');
         parTag.className = 'results-text';
