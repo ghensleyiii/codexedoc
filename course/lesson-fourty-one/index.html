@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn React basics in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="React, frontend, JavaScript, web development, CODEXEDOC">
+    <title>CODEXEDOC - Introduction to React</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Frontend Development</div>
+            <div class="lesson">Introduction to React</div>
+            <div id="content">
+                <h2>Introduction to React</h2>
+                <p>Welcome to Lesson 41 of CODEXEDOC’s Full-Stack Development Course! React is a powerful JavaScript library for building dynamic user interfaces. In this lesson, you’ll learn React basics and create a simple component for your e-commerce app, transitioning from vanilla JavaScript.</p>
+
+                <h3>What is React?</h3>
+                <p>React is a component-based library for creating reusable UI elements. In 2025, it’s a leading choice for modern web apps due to its efficiency and ecosystem.</p>
+
+                <h3>Why Use React?</h3>
+                <p>React simplifies frontend development with reusable components and a virtual DOM, improving performance. For your e-commerce app, React enhances the cart and login UI.</p>
+
+                <h3>Key React Concepts</h3>
+                <p>Focus on these techniques:</p>
+                <ul>
+                    <li><strong>Components</strong>: Build reusable UI blocks with JSX.</li>
+                    <li><strong>Props</strong>: Pass data to components.</li>
+                    <li><strong>State</strong>: Manage dynamic data with <code>useState</code>.</li>
+                    <li><strong>Setup</strong>: Use Vite for a modern React project.</li>
+                </ul>
+
+                <h3>Setting Up React</h3>
+                <p>Follow these steps:</p>
+                <ol>
+                    <li><strong>Install Node.js</strong>: Ensure Node.js is installed.</li>
+                    <li><strong>Create Project</strong>: Use Vite to set up a React app.</li>
+                    <li><strong>Build Component</strong>: Create a product card component.</li>
+                    <li><strong>Test Locally</strong>: Run the app with <code>npm run dev</code>.</li>
+                </ol>
+
+                <h3>Code Example: React Component</h3>
+                <p>Here’s a simple React app with a product card:</p>
+                <pre>
+&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;E-commerce React&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id="root"&gt;&lt;/div&gt;
+    &lt;script type="module" src="/src/main.jsx"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+&lt;!-- src/main.jsx --&gt;
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    &lt;React.StrictMode&gt;
+        &lt;App /&gt;
+    &lt;/React.StrictMode&gt;
+);
+
+&lt;!-- src/App.jsx --&gt;
+import { useState } from 'react';
+
+function App() {
+    const [products] = useState([
+        { id: 1, name: 'Laptop', price: 999.99 }
+    ]);
+
+    return (
+        &lt;div className="p-4"&gt;
+            &lt;h1 className="text-2xl font-bold"&gt;Store&lt;/h1&gt;
+            {products.map(product => (
+                &lt;div key={product.id} className="bg-white p-4 rounded shadow mt-4"&gt;
+                    &lt;h2 className="font-bold"&gt;{product.name}&lt;/h2&gt;
+                    &lt;p&gt;${product.price.toFixed(2)}&lt;/p&gt;
+                &lt;/div&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+
+export default App;
+
+&lt;!-- src/index.css --&gt;
+@import 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css';
+                </pre>
+                <p>Create a project: <code>npm create vite@latest ecommerce -- --template react</code>. Install dependencies: <code>npm install</code>. Run: <code>npm run dev</code>. Visit <code>http://localhost:5173</code>.</p>
+
+                <h3>Practical Applications</h3>
+                <p>React powers dynamic e-commerce frontends, replacing Lesson 31’s vanilla JavaScript. This component is the foundation for your app’s UI.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To master React:</p>
+                <ul>
+                    <li><strong>Use JSX</strong>: Write HTML-like code in JavaScript.</li>
+                    <li><strong>Keep Components Small</strong>: Break UI into reusable parts.</li>
+                    <li><strong>Learn Hooks</strong>: Start with <code>useState</code> and <code>useEffect</code>.</li>
+                    <li><strong>Test Locally</strong>: Use Vite’s hot reload for development.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>React simplifies frontend development with components. By building a product card, you’ve started modernizing your e-commerce app. In the next lesson, you’ll build a full React frontend. Keep practicing React!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-forty/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-forty-two/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-forty/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-forty-two/';
+        });
+    </script>
+</body>
+</html>
