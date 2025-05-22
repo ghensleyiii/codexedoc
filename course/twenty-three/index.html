@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn JavaScript arrays and loops with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="JavaScript, arrays, loops, web development, CODEXEDOC">
+    <title>CODEXEDOC - JavaScript Arrays and Loops</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">JavaScript</div>
+            <div class="lesson">JavaScript Arrays and Loops</div>
+            <div id="content">
+                <h2>JavaScript Arrays and Loops</h2>
+                <p>Welcome to Lesson 23 of CODEXEDOC’s Full-Stack Development Course! Arrays and loops are essential for handling collections of data in JavaScript. In this lesson, you’ll learn how to store multiple items in arrays and use loops to process them, enabling you to manage lists like product inventories or user inputs.</p>
+
+                <h3>What are Arrays?</h3>
+                <p>Arrays are ordered lists that store multiple values in a single variable. Each value has an index (starting at 0), allowing you to access or modify items. Arrays are widely used in 2025 for tasks like displaying product lists or managing user data.</p>
+
+                <h3>What are Loops?</h3>
+                <p>Loops execute code repeatedly, ideal for processing array elements. JavaScript offers loops like <code>for</code>, <code>while</code>, and <code>forEach</code>, making it easy to iterate over data and perform operations like filtering or summing.</p>
+
+                <h3>Key Array and Loop Concepts</h3>
+                <p>Focus on these techniques:</p>
+                <ul>
+                    <li><strong>Array Creation</strong>: Define arrays with square brackets (e.g., <code>let items = ["apple", "banana"];</code>).</li>
+                    <li><strong>Array Methods</strong>: Use methods like <code>push</code>, <code>pop</code>, or <code>map</code> to manipulate arrays.</li>
+                    <li><strong>For Loop</strong>: Iterate with <code>for (let i = 0; i &lt; length; i++)</code>.</li>
+                    <li><strong>forEach</strong>: Apply a function to each element with <code>array.forEach()</code>.</li>
+                </ul>
+
+                <h3>Working with Arrays and Loops</h3>
+                <p>Follow these steps to use arrays and loops:</p>
+                <ol>
+                    <li><strong>Create an Array</strong>: Store data in an array variable.</li>
+                    <li><strong>Access Elements</strong>: Use indices (e.g., <code>items[0]</code>) or methods.</li>
+                    <li><strong>Loop Through Arrays</strong>: Use <code>for</code> or <code>forEach</code> to process elements.</li>
+                </ol>
+
+                <h3>Code Example: Arrays and Loops</h3>
+                <p>Here’s a page that displays a list of products using arrays and loops:</p>
+                <pre>
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <style>
+        body { font-family: 'Roboto Mono', monospace; }
+        ul { list-style: none; padding: 0; }
+        li { padding: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Products</h1>
+    <ul id="product-list"></ul>
+    <script>
+        const products = ["Laptop", "Phone", "Tablet"];
+        const list = document.querySelector("#product-list");
+        products.forEach((product, index) => {
+            const li = document.createElement("li");
+            li.textContent = `${index + 1}. ${product}`;
+            list.appendChild(li);
+        });
+    </script>
+</body>
+</html>
+                </pre>
+                <p>This example uses an array to store products and a <code>forEach</code> loop to create and append list items to the DOM.</p>
+
+                <h3>Practical Applications</h3>
+                <p>Arrays and loops are used to display product catalogs, filter search results, or process form data. For example, an e-commerce site loops through an array to render product cards. In this course, you’ll use arrays to manage items in your e-commerce project.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To master arrays and loops:</p>
+                <ul>
+                    <li><strong>Use forEach for Simplicity</strong>: Prefer <code>forEach</code> for straightforward iteration.</li>
+                    <li><strong>Learn Array Methods</strong>: Practice <code>map</code>, <code>filter</code>, and <code>reduce</code>.</li>
+                    <li><strong>Avoid Infinite Loops</strong>: Ensure loop conditions terminate.</li>
+                    <li><strong>Debug with Console</strong>: Log array contents to verify data.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>Arrays and loops enable you to manage and process collections of data efficiently. By mastering array methods and loop types, you can handle complex data tasks. In the next lesson, you’ll learn about objects and methods to structure data more effectively. Keep practicing arrays and loops!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-two/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-four/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-two/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-four/';
+        });
+    </script>
+</body>
+</html>
