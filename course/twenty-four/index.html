@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn JavaScript objects and methods with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="JavaScript, objects, methods, web development, CODEXEDOC">
+    <title>CODEXEDOC - JavaScript Objects and Methods</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">JavaScript</div>
+            <div class="lesson">JavaScript Objects and Methods</div>
+            <div id="content">
+                <h2>JavaScript Objects and Methods</h2>
+                <p>Welcome to Lesson 24 of CODEXEDOC’s Full-Stack Development Course! Objects are powerful data structures in JavaScript that store key-value pairs, and methods are functions attached to objects. In this lesson, you’ll learn how to create and use objects and methods to organize complex data, like product details or user profiles.</p>
+
+                <h3>What are Objects?</h3>
+                <p>Objects are collections of properties, where each property is a key-value pair. Keys are strings (or symbols), and values can be any data type, including functions. Objects are ideal for modeling real-world entities in web development in 2025.</p>
+
+                <h3>What are Methods?</h3>
+                <p>Methods are functions stored as object properties, allowing objects to perform actions. For example, an object representing a product might have a method to calculate a discounted price.</p>
+
+                <h3>Key Object and Method Concepts</h3>
+                <p>Focus on these techniques:</p>
+                <ul>
+                    <li><strong>Object Creation</strong>: Define objects with curly braces (e.g., <code>let product = { name: "Laptop" };</code>).</li>
+                    <li><strong>Accessing Properties</strong>: Use dot notation (<code>product.name</code>) or bracket notation (<code>product["name"]</code>).</li>
+                    <li><strong>Defining Methods</strong>: Add functions to objects (e.g., <code>discount: function() {}</code>).</li>
+                    <li><strong>this Keyword</strong>: Refers to the object in methods (e.g., <code>this.name</code>).</li>
+                </ul>
+
+                <h3>Working with Objects and Methods</h3>
+                <p>Follow these steps to use objects:</p>
+                <ol>
+                    <li><strong>Create an Object</strong>: Define properties and methods.</li>
+                    <li><strong>Access Properties</strong>: Retrieve or update values using dot or bracket notation.</li>
+                    <li><strong>Call Methods</strong>: Execute object functions to perform tasks.</li>
+                </ol>
+
+                <h3>Code Example: Objects and Methods</h3>
+                <p>Here’s a page displaying a product object with a method:</p>
+                <pre>
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+        body { font-family: 'Roboto Mono', monospace; }
+    </style>
+</head>
+<body>
+    <h1>Product</h1>
+    <p id="output"></p>
+    <script>
+        const product = {
+            name: "Laptop",
+            price: 999.99,
+            discount: function(percentage) {
+                return (this.price * (1 - percentage / 100)).toFixed(2);
+            }
+        };
+        document.querySelector("#output").textContent = 
+            `${product.name}: $${product.discount(10)} (10% off)`;
+    </script>
+</body>
+</html>
+                </pre>
+                <p>This example creates a product object with a method to calculate a discounted price and displays the result.</p>
+
+                <h3>Practical Applications</h3>
+                <p>Objects model entities like users or products in web apps. For example, an e-commerce site uses objects to store product details and methods to compute totals. In this course, you’ll use objects to manage product data in your e-commerce project.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To master objects and methods:</p>
+                <ul>
+                    <li><strong>Use Descriptive Keys</strong>: Choose clear property names like <code>price</code>.</li>
+                    <li><strong>Simplify Methods</strong>: Keep method logic focused and reusable.</li>
+                    <li><strong>Test this</strong>: Log <code>this</code> to ensure it refers to the correct object.</li>
+                    <li><strong>Explore Object Methods</strong>: Use built-in methods like <code>Object.keys()</code>.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>Objects and methods allow you to structure and manipulate complex data effectively. By mastering object creation and method usage, you can model real-world entities. In the next lesson, you’ll learn about asynchronous JavaScript to handle time-based operations. Keep practicing objects!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-three/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-five/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-three/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-five/';
+        });
+    </script>
+</body>
+</html>
