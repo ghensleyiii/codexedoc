@@ -8,46 +8,46 @@
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body {
   background-color: var(--dark-blue);
   color: var(--white);
-  font-family: 'Roboto Mono', monospace;
-  min-height: 100vh;
+  font-family: 'Roboto Mono', monospace !important;
+  min-height: 100vh !important;
   display: flex;
-  flex-direction: column;
-  margin: 0;
-  line-height: 1.6;
+  flex-direction: column !important;
+  margin: 0 !important;
+  line-height: 1.6 !important;
 }
 
 /* Header and Navigation */
 header {
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem !important;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between !important;
+  align-items: center !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 header .logo-container {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  align-items: center !important;
+  gap: 0.75rem !important;
 }
 
 header .logo-container img {
-  width: 35px;
-  height: auto;
-  object-fit: contain;
+  width: 35px !important;
+  height: auto !important;
+  object-fit: contain !important;
 }
 
 header .logo-container div {
-  font-size: 1.5rem;
-  font-weight: normal;
+  font-size: 1.5rem !important;
+  font-weight: normal !important;
   color: var(--gold);
 }
 
@@ -57,19 +57,19 @@ header nav {
 
 header nav ul {
   display: flex;
-  gap: 1.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  gap: 1.5rem !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 header nav a {
   color: var(--white);
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 header nav a:hover {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 /* Hamburger Menu */
@@ -79,9 +79,9 @@ header nav a:hover {
 
 .hamburger {
   display: none;
-  cursor: pointer;
-  position: relative;
-  z-index: 100;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 100 !important;
 }
 
 .hamburger input {
@@ -90,88 +90,88 @@ header nav a:hover {
 
 .hamburger .lines {
   display: inline-block;
-  transform-origin: center;
-  transition: transform 0.3s ease;
+  transform-origin: center !important;
+  transition: transform 0.3s ease !important;
 }
 
 .hamburger span {
   display: block;
-  width: 1.5rem;
-  height: 0.2rem;
+  width: 1.5rem !important;
+  height: 0.2rem !important;
   background: var(--white);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.3rem !important;
 }
 
 .hamburger span:last-child {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 
 #hamburger-toggle:checked + .hamburger .lines {
-  transform: rotate(90deg);
+  transform: rotate(90deg) !important;
 }
 
 #hamburger-toggle:checked ~ nav {
-  transform: translateY(0);
-  visibility: visible;
+  transform: translateY(0) !important;
+  visibility: visible !important;
 }
 
 /* Code Editor Interface */
 .main-section {
-  flex-grow: 1;
-  padding: 50px 20px;
+  flex-grow: 1 !important;
+  padding: 50px 20px !important;
   background-color: var(--dark-blue);
-  text-align: center;
+  text-align: center !important;
 }
 
 .code-editor {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto 20px auto;
+  position: relative !important;
+  width: 100% !important;
+  max-width: 800px !important;
+  margin: 0 auto 20px auto !important;
   background-color: var(--dark-blue);
-  padding: 5px;
-  border-radius: 5px;
+  padding: 5px !important;
+  border-radius: 5px !important;
 }
 
 .line-numbers {
-  width: 48px;
+  width: 48px !important;
   background-color: var(--light-blue);
   color: var(--gold);
-  font-family: 'Roboto Mono', monospace;
-  font-size: 16px;
-  text-align: right;
-  user-select: none;
-  line-height: 20px;
-  position: absolute;
-  top: 7px;
-  left: 7px;
-  height: calc(100% - 21.5px);
-  padding: 10px 5px 10px 0;
-  overflow: hidden;
-  z-index: 10;
+  font-family: 'Roboto Mono', monospace !important;
+  font-size: 16px !important;
+  text-align: right !important;
+  user-select: none !important;
+  line-height: 20px !important;
+  position: absolute !important;
+  top: 7px !important;
+  left: 7px !important;
+  height: calc(100% - 21.5px) !important;
+  padding: 10px 5px 10px 0 !important;
+  overflow: hidden !important;
+  z-index: 10 !important;
 }
 
 .line-numbers pre {
-  margin: 0;
-  padding: 0;
-  line-height: 20px;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 16px;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 20px !important;
+  font-family: 'Roboto Mono', monospace !important;
+  font-size: 16px !important;
 }
 
 .code-editor textarea {
-  width: 100%;
-  height: 600px;
+  width: 100% !important;
+  height: 600px !important;
   background: var(--light-blue);
   color: var(--white);
-  font-family: 'Roboto Mono', monospace;
-  font-size: 16px;
-  padding: 10px 15px 10px 60px;
+  font-family: 'Roboto Mono', monospace !important;
+  font-size: 16px !important;
+  padding: 10px 15px 10px 60px !important;
   border: 2px solid var(--gold);
-  border-radius: 5px;
-  resize: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  line-height: 20px;
+  border-radius: 5px !important;
+  resize: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  line-height: 20px !important;
 }
 
 .code-editor textarea::placeholder {
@@ -179,11 +179,11 @@ header nav a:hover {
 }
 
 .buttons {
-  margin: 20px auto;
+  margin: 20px auto !important;
   display: flex;
-  justify-content: center;
-  gap: 15px;
-  max-width: 600px;
+  justify-content: center !important;
+  gap: 15px !important;
+  max-width: 600px !important;
 }
 
 .validate-btn, .test-btn, .document-btn {
@@ -205,34 +205,34 @@ header nav a:hover {
 
 .error-messages {
   color: red;
-  margin-top: 10px;
-  text-align: center;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 10px !important;
+  text-align: center !important;
+  max-width: 600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .save-file-container {
-  margin: 10px auto;
+  margin: 10px auto !important;
   display: none;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  max-width: 600px;
-  width: 100%;
-  text-align: center;
-  box-sizing: border-box;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 10px !important;
+  max-width: 600px !important;
+  width: 100% !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
 }
 
 .save-file-input {
-  padding: 8px;
-  font-size: 16px;
+  padding: 8px !important;
+  font-size: 16px !important;
   border: 2px solid var(--gold);
-  border-radius: 5px;
-  flex: 0 1 300px;
+  border-radius: 5px !important;
+  flex: 0 1 300px !important;
   background-color: var(--dark-blue);
   color: var(--white);
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 .save-file-btn {
@@ -255,96 +255,96 @@ header nav a:hover {
 
 .output-section, .console-section {
   background-color: var(--dark-blue);
-  padding: 5px;
-  margin-top: 20px;
+  padding: 5px !important;
+  margin-top: 20px !important;
   display: none;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 800px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .output-container, .console-container {
-  width: 100%;
+  width: 100% !important;
   background-color: var(--dark-blue);
-  border-radius: 5px;
-  overflow: hidden;
+  border-radius: 5px !important;
+  overflow: hidden !important;
   border: 2px solid var(--gold);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
 .output-header, .console-header {
   color: var(--white);
-  padding: 10px;
-  font-size: 1rem;
-  font-weight: bold;
+  padding: 10px !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
   background-color: var(--light-blue);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
 hr {
   border: 1px solid var(--gold);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
 #outputFrame {
-  width: 100%;
-  height: 600px;
+  width: 100% !important;
+  height: 600px !important;
   border: none;
   background-color: var(--dark-blue);
 }
 
 #consoleOutput {
-  width: 100%;
-  height: 200px;
+  width: 100% !important;
+  height: 200px !important;
   background-color: var(--dark-blue);
   color: var(--white);
-  font-family: 'Roboto Mono', monospace;
-  font-size: 14px;
-  padding: 10px;
-  white-space: pre-wrap;
-  overflow-y: auto;
+  font-family: 'Roboto Mono', monospace !important;
+  font-size: 14px !important;
+  padding: 10px !important;
+  white-space: pre-wrap !important;
+  overflow-y: auto !important;
 }
 
 /* Landing Page Hero Section */
 .hero {
-  flex-grow: 1;
+  flex-grow: 1 !important;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
   background-color: var(--dark-blue);
 }
 
 .hero-content {
-  text-align: center;
-  max-width: 32rem;
+  text-align: center !important;
+  max-width: 32rem !important;
 }
 
 .hero-content img {
-  margin: 0 auto 1.5rem;
-  max-width: 100%;
-  height: auto;
+  margin: 0 auto 1.5rem !important;
+  max-width: 100% !important;
+  height: auto !important;
 }
 
 .hero-content h1 {
-  font-size: 2.25rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+  font-size: 2.25rem !important;
+  font-weight: bold !important;
+  margin-bottom: 1rem !important;
   color: var(--gold);
 }
 
 .hero-content p {
-  font-size: 1.125rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.125rem !important;
+  margin-bottom: 1.5rem !important;
 }
 
 .hero-content a {
   background-color: var(--white);
   color: var(--dark-blue);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  text-decoration: none;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
 }
 
 .hero-content a:hover {
@@ -353,188 +353,188 @@ hr {
 
 /* Landing Page Image Section */
 .image-section {
-  flex-grow: 1;
+  flex-grow: 1 !important;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 0 20px 20px;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 0 20px 20px !important;
   background-color: var(--dark-blue);
-  height: 300px;
+  height: 300px !important;
 }
 
 .image-section img {
-  max-width: 100%;
-  max-height: 100%;
-  height: auto;
-  object-fit: contain;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
   display: block;
 }
 
 /* How It Works Section */
 .how-it-works {
-  padding: 20px;
+  padding: 20px !important;
   background-color: var(--light-blue);
 }
 
 .how-it-works h2 {
-  font-size: 2.25rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 1.5rem;
+  font-size: 2.25rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  margin-bottom: 1.5rem !important;
   color: var(--gold);
 }
 
 .how-it-works-content {
-  max-width: 80rem;
-  margin: 0 auto;
-  text-align: center;
+  max-width: 80rem !important;
+  margin: 0 auto !important;
+  text-align: center !important;
 }
 
 .how-it-works-content p.intro {
-  font-size: 1.125rem;
+  font-size: 1.125rem !important;
   color: var(--white);
-  margin-bottom: 2rem;
-  max-width: 48rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 2rem !important;
+  max-width: 48rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .how-it-works-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  max-width: 80rem;
-  margin: 0 auto;
+  grid-template-columns: 1fr !important;
+  gap: 2rem !important;
+  max-width: 80rem !important;
+  margin: 0 auto !important;
 }
 
 .how-it-works-item {
-  padding: 2rem;
+  padding: 2rem !important;
   background-color: var(--light-blue);
-  border-radius: 0.75rem;
+  border-radius: 0.75rem !important;
 }
 
 .how-it-works-item i {
-  font-size: 2.5rem;
+  font-size: 2.5rem !important;
   color: var(--gold);
-  margin-bottom: 1rem;
+  margin-bottom: 1rem !important;
 }
 
 .how-it-works-item h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.75rem !important;
   color: var(--white);
 }
 
 .how-it-works-item p {
-  font-size: 1rem;
+  font-size: 1rem !important;
   color: var(--white);
 }
 
 /* Curriculum Section */
 .curriculum {
-  padding: 4rem 1.5rem;
+  padding: 4rem 1.5rem !important;
   background-color: var(--dark-blue);
 }
 
 .curriculum h2 {
-  font-size: 2.25rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 3rem;
+  font-size: 2.25rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  margin-bottom: 3rem !important;
   color: var(--gold);
 }
 
 .curriculum-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  max-width: 80rem;
-  margin: 0 auto;
+  grid-template-columns: 1fr !important;
+  gap: 2rem !important;
+  max-width: 80rem !important;
+  margin: 0 auto !important;
 }
 
 .curriculum-item {
-  padding: 2rem;
+  padding: 2rem !important;
   background-color: var(--light-blue);
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-radius: 0.75rem !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
 .curriculum-item:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
 }
 
 .curriculum-item h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 1rem !important;
   color: var(--gold);
-  text-align: center;
+  text-align: center !important;
 }
 
 .curriculum-item p {
-  font-size: 1rem;
+  font-size: 1rem !important;
   color: var(--white);
-  margin-bottom: 1.5rem;
-  text-align: center;
+  margin-bottom: 1.5rem !important;
+  text-align: center !important;
 }
 
 /* Course Section */
 .course-section {
-  padding: 4rem 1.5rem;
+  padding: 4rem 1.5rem !important;
   background-color: var(--dark-blue);
-  flex-grow: 1;
+  flex-grow: 1 !important;
 }
 
 .course-container {
-  max-width: 80rem;
-  margin: 0 auto;
+  max-width: 80rem !important;
+  margin: 0 auto !important;
 }
 
 .course-section h1 {
-  font-size: 2.25rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 1rem;
+  font-size: 2.25rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  margin-bottom: 1rem !important;
   color: var(--gold);
 }
 
 .course-section p {
-  font-size: 1.125rem;
+  font-size: 1.125rem !important;
   color: var(--white);
-  text-align: center;
-  margin-bottom: 3rem;
-  max-width: 48rem;
-  margin-left: auto;
-  margin-right: auto;
+  text-align: center !important;
+  margin-bottom: 3rem !important;
+  max-width: 48rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .course-section .section {
   background: var(--light-blue);
-  margin: 10px 0;
-  padding: 15px;
-  border-radius: 0.75rem;
+  margin: 10px 0 !important;
+  padding: 15px !important;
+  border-radius: 0.75rem !important;
 }
 
 .course-section .section h2 {
   color: var(--gold);
-  margin-top: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
+  margin-top: 0 !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
 }
 
 .course-section .lesson {
-  margin: 5px 0;
-  padding: 10px;
+  margin: 5px 0 !important;
+  padding: 10px !important;
   background: var(--dark-blue);
   border-left: 4px solid var(--gold);
   display: flex;
-  align-items: center;
-  border-radius: 0.375rem;
+  align-items: center !important;
+  border-radius: 0.375rem !important;
 }
 
 .course-section .lesson i {
-  margin-right: 10px;
+  margin-right: 10px !important;
   color: var(--gold);
 }
 
@@ -544,55 +544,55 @@ hr {
 
 .course-section .lesson a {
   color: var(--gold);
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .course-section .lesson a:hover {
   color: var(--dark-gold);
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 /* Article Section */
 .article-section {
-  padding: 4rem 1.5rem;
+  padding: 4rem 1.5rem !important;
   background-color: var(--dark-blue);
-  flex-grow: 1;
-  position: relative;
+  flex-grow: 1 !important;
+  position: relative !important;
 }
 
 .article-container {
-  max-width: 80rem;
-  margin: 0 auto;
-  position: relative;
+  max-width: 80rem !important;
+  margin: 0 auto !important;
+  position: relative !important;
 }
 
 .article-container h1 {
-  font-size: 2.25rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 1rem;
+  font-size: 2.25rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  margin-bottom: 1rem !important;
   color: var(--gold);
 }
 
 .article-container .course-section {
-  font-size: 30px;
+  font-size: 30px !important;
   color: var(--gold);
-  text-align: center;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
+  text-align: center !important;
+  margin-bottom: 0.5rem !important;
+  font-weight: bold !important;
 }
 
 .article-container .lesson {
-  font-size: 20px;
+  font-size: 20px !important;
   color: var(--white);
-  text-align: center;
-  margin-bottom: 2rem;
-  font-style: italic;
+  text-align: center !important;
+  margin-bottom: 2rem !important;
+  font-style: italic !important;
 }
 
 .article-container #content {
-  max-width: 48rem;
-  margin: 0 auto;
+  max-width: 48rem !important;
+  margin: 0 auto !important;
   color: var(--white);
 }
 
@@ -600,80 +600,80 @@ hr {
 .article-container #content h2,
 .article-container #content h3 {
   color: var(--gold);
-  margin: 1.5rem 0 1rem;
+  margin: 1.5rem 0 1rem !important;
 }
 
 .article-container #content h1 {
-  font-size: 2rem;
+  font-size: 2rem !important;
 }
 
 .article-container #content h2 {
-  font-size: 1.5rem;
+  font-size: 1.5rem !important;
 }
 
 .article-container #content h3 {
-  font-size: 1.25rem;
+  font-size: 1.25rem !important;
 }
 
 .article-container #content p {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  line-height: 1.8;
+  font-size: 1rem !important;
+  margin-bottom: 1rem !important;
+  line-height: 1.8 !important;
 }
 
 .article-container #content ul,
 .article-container #content ol {
-  margin: 1rem 0;
-  padding-left: 2rem;
+  margin: 1rem 0 !important;
+  padding-left: 2rem !important;
 }
 
 .article-container #content li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem !important;
 }
 
 .article-container #content img {
-  max-width: 100%;
-  height: auto;
+  max-width: 100% !important;
+  height: auto !important;
   display: block;
-  margin: 1rem auto;
-  border-radius: 0.5rem;
+  margin: 1rem auto !important;
+  border-radius: 0.5rem !important;
 }
 
 .article-container #content blockquote {
   border-left: 4px solid var(--gold);
-  padding: 1rem;
-  margin: 1rem 0;
+  padding: 1rem !important;
+  margin: 1rem 0 !important;
   background: var(--light-blue);
-  font-style: italic;
+  font-style: italic !important;
 }
 
 .article-container #content code {
   background: var(--light-blue);
-  padding: 0.2rem 0.4rem;
-  border-radius: 0.25rem;
-  font-size: 0.9rem;
+  padding: 0.2rem 0.4rem !important;
+  border-radius: 0.25rem !important;
+  font-size: 0.9rem !important;
 }
 
 .article-container #content pre {
   background: var(--light-blue);
-  padding: 1rem;
-  border-radius: 0.5rem;
-  overflow-x: auto;
+  padding: 1rem !important;
+  border-radius: 0.5rem !important;
+  overflow-x: auto !important;
 }
 
 .article-container .error-message {
   color: var(--gold);
-  text-align: center;
-  font-style: italic;
+  text-align: center !important;
+  font-style: italic !important;
 }
 
 /* Arrow Navigation */
 .arrow-nav-container {
   display: flex;
-  justify-content: space-between;
-  max-width: 48rem;
-  margin: 2rem auto 0;
-  padding: 0 1rem;
+  justify-content: space-between !important;
+  max-width: 48rem !important;
+  margin: 2rem auto 0 !important;
+  padding: 0 1rem !important;
 }
 
 .arrow-nav {
@@ -694,49 +694,49 @@ hr {
 
 /* Footer */
 footer {
-  padding: 1.5rem 1.5rem;
+  padding: 1.5rem 1.5rem !important;
   background-color: var(--dark-blue);
   border-top: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .footer-content {
-  max-width: 64rem;
-  margin: 0 auto;
+  max-width: 64rem !important;
+  margin: 0 auto !important;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.5rem;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 0.5rem !important;
 }
 
 .footer-logo-container {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
 }
 
 .footer-logo-container img {
-  width: 35px;
-  height: auto;
-  object-fit: contain;
-  vertical-align: middle;
+  width: 35px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  vertical-align: middle !important;
 }
 
 .footer-logo-container div {
-  font-size: 1rem;
+  font-size: 1rem !important;
   color: var(--gold);
-  line-height: 1;
+  line-height: 1 !important;
 }
 
 .footer-content p {
-  font-size: 1rem;
-  font-style: italic;
-  margin: 0;
+  font-size: 1rem !important;
+  font-style: italic !important;
+  margin: 0 !important;
 }
 
 .footer-content div:last-child {
-  font-size: 1rem;
+  font-size: 1rem !important;
   color: var(--white);
 }
 
@@ -747,142 +747,158 @@ footer {
   }
 
   header nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 50%;
-    max-width: 12rem;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 50% !important;
+    max-width: 12rem !important;
     background-color: var(--light-blue);
-    transform: translateY(-100%);
-    transition: transform 0.3s ease, visibility 0.3s ease;
-    visibility: hidden;
-    padding: 1.5rem;
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    z-index: 99;
+    transform: translateY(-100%) !important;
+    transition: transform 0.3s ease, visibility 0.3s ease !important;
+    visibility: hidden !important;
+    padding: 1.5rem !important;
+    border-bottom-left-radius: 0.5rem !important;
+    border-bottom-right-radius: 0.5rem !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+    z-index: 99 !important;
   }
 
   header nav ul {
-    flex-direction: column;
-    gap: 1rem;
+    flex-direction: column !important;
+    gap: 1rem !important;
   }
 
   .code-editor textarea {
-    height: 400px;
+    height: 400px !important;
   }
 
   .buttons {
-    flex-direction: row;
-    gap: 10px;
-    max-width: 400px;
+    flex-direction: row !important;
+    gap: 10px !important;
+    max-width: 400px !important;
   }
 
   .validate-btn, .test-btn, .document-btn {
     padding: 8px 15px;
     font-size: 0.9rem;
+    background-color: var(--light-blue);
+    color: var(--gold);
+    border: 2px solid var(--gold);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .save-file-input {
-    width: 200px;
+    width: 200px !important;
   }
 
   .output-section, .console-section {
-    padding: 5px;
+    padding: 5px !important;
   }
 
   #outputFrame {
-    height: 400px;
+    height: 400px !important;
   }
 
   #consoleOutput {
-    height: 150px;
+    height: 150px !important;
   }
 }
 
 @media (max-width: 480px) {
   .code-editor textarea {
-    height: 300px;
-    font-size: 14px;
-    line-height: 18px;
-    padding: 10px 15px 10px 50px;
+    height: 300px !important;
+    font-size: 14px !important;
+    line-height: 18px !important;
+    padding: 10px 15px 10px 50px !important;
   }
 
   .line-numbers {
-    font-size: 14px;
-    line-height: 18px;
-    width: 38px;
-    top: 7px;
-    left: 7px;
-    height: calc(100% - 21.5px);
-    padding: 10px 3px 10px 0;
-    z-index: 10;
+    font-size: 14px !important;
+    line-height: 18px !important;
+    width: 38px !important;
+    top: 7px !important;
+    left: 7px !important;
+    height: calc(100% - 21.5px) !important;
+    padding: 10px 3px 10px 0 !important;
+    z-index: 10 !important;
   }
 
   .line-numbers pre {
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 14px !important;
+    line-height: 18px !important;
   }
 
   .buttons {
-    max-width: 300px;
+    max-width: 300px !important;
   }
 
   .save-file-input {
-    width: 150px;
-    font-size: 14px;
+    width: 150px !important;
+    font-size: 14px !important;
   }
 
   .save-file-btn {
     padding: 6px 15px;
     font-size: 0.9rem;
+    background-color: var(--light-blue);
+    color: var(--gold);
+    border: 2px solid var(--gold);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   #outputFrame {
-    height: 300px;
+    height: 300px !important;
   }
 
   #consoleOutput {
-    height: 100px;
+    height: 100px !important;
   }
 }
 
 @media (min-width: 768px) {
   .how-it-works-grid, .curriculum-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 
   .hero-content h1 {
-    font-size: 3rem;
+    font-size: 3rem !important;
   }
 
   .course-section h1 {
-    font-size: 3rem;
+    font-size: 3rem !important;
   }
 
   .article-container h1 {
-    font-size: 3rem;
+    font-size: 3rem !important;
   }
 }
 
 @media (min-width: 1024px) {
   .hero-content {
-    max-width: 800px;
+    max-width: 800px !important;
   }
 
   .how-it-works h2, .curriculum h2, .course-section h1 {
-    font-size: 2.5rem;
+    font-size: 2.5rem !important;
   }
 
   .course-container {
-    max-width: 800px;
+    max-width: 800px !important;
   }
 
   .article-container {
-    max-width: 800px;
+    max-width: 800px !important;
   }
 
   .article-container h1 {
-    font-size: 2.5rem;
+    font-size: 2.5rem !important;
   }
 }
