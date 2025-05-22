@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn MongoDB for backend databases with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="MongoDB, databases, backend, web development, CODEXEDOC">
+    <title>CODEXEDOC - Introduction to Databases with MongoDB</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Backend Development</div>
+            <div class="lesson">Introduction to Databases with MongoDB</div>
+            <div id="content">
+                <h2>Introduction to Databases with MongoDB</h2>
+                <p>Welcome to Lesson 32 of CODEXEDOC’s Full-Stack Development Course! Databases store and manage data for web applications, like products or user profiles. In this lesson, you’ll learn about MongoDB, a NoSQL database, and set it up to persist data for your e-commerce API.</p>
+
+                <h3>What is MongoDB?</h3>
+                <p>MongoDB is a NoSQL database that stores data in flexible, JSON-like documents. Unlike SQL databases, it uses collections and documents, making it ideal for scalable, modern apps in 2025, especially with JavaScript-based backends.</p>
+
+                <h3>Why Use MongoDB?</h3>
+                <p>MongoDB’s document model aligns with JavaScript objects, simplifying integration with Node.js and Express. It’s perfect for e-commerce apps needing to store dynamic product data or user information.</p>
+
+                <h3>Key MongoDB Concepts</h3>
+                <p>Focus on these techniques:</p>
+                <ul>
+                    <li><strong>Collections</strong>: Groups of documents, similar to tables in SQL.</li>
+                    <li><strong>Documents</strong>: JSON-like records, e.g., <code>{ "name": "Laptop", "price": 999.99 }</code>.</li>
+                    <li><strong>Mongoose</strong>: An ODM (Object Data Modeling) library for MongoDB and Node.js.</li>
+                    <li><strong>Connection</strong>: Connect to MongoDB using a URI (local or cloud).</li>
+                </ul>
+
+                <h3>Setting Up MongoDB</h3>
+                <p>Follow these steps to use MongoDB:</p>
+                <ol>
+                    <li><strong>Install MongoDB</strong>: Use MongoDB Community or MongoDB Atlas (cloud).</li>
+                    <li><strong>Install Mongoose</strong>: Run <code>npm install mongoose</code>.</li>
+                    <li><strong>Connect to MongoDB</strong>: Configure a connection in your Express app.</li>
+                    <li><strong>Test Connection</strong>: Verify with a simple document insertion.</li>
+                </ol>
+
+                <h3>Code Example: MongoDB Setup</h3>
+                <p>Here’s an Express app connected to MongoDB:</p>
+                <pre>
+// server.js
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+
+app.use(express.json());
+
+mongoose.connect("mongodb://localhost:27017/ecommerce", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log("Connected to MongoDB");
+}).catch(err => {
+    console.error("MongoDB connection error:", err);
+});
+
+const productSchema = new mongoose.Schema({
+    name: String,
+    price: Number
+});
+
+const Product = mongoose.model("Product", productSchema);
+
+app.get("/api/products", async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.json(products);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+app.listen(3000, () => {
+    console.log("Server running at http://localhost:3000/");
+});
+                </pre>
+                <p>Run MongoDB locally, then <code>node server.js</code>. This connects to a local MongoDB instance and fetches products.</p>
+
+                <h3>Practical Applications</h3>
+                <p>MongoDB stores product catalogs, user data, or order histories in e-commerce apps. In this course, you’ll use MongoDB to persist products, making your API fully functional.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To master MongoDB:</p>
+                <ul>
+                    <li><strong>Use Atlas for Simplicity</strong>: Try MongoDB Atlas for cloud hosting.</li>
+                    <li><strong>Validate Schemas</strong>: Define strict schemas with Mongoose.</li>
+                    <li><strong>Handle Errors</strong>: Catch connection and query errors.</li>
+                    <li><strong>Test Locally</strong>: Use MongoDB Compass to inspect data.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>MongoDB provides a flexible, scalable database for your backend. By setting up MongoDB, you’re ready to store data persistently. In the next lesson, you’ll learn CRUD operations to manage data. Keep exploring MongoDB!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-thirty-one/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-thirty-three/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-thirty-one/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-thirty-three/';
+        });
+    </script>
+</body>
+</html>
