@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn asynchronous JavaScript with Promises and async/await in CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="JavaScript, asynchronous, Promises, async/await, web development, CODEXEDOC">
-    <title>CODEXEDOC - Asynchronous JavaScript (Promises and Async/Await)</title>
+    <meta name="description" content="Learn state management with Redux or Context API in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="React, Redux, Context API, state management, web development, CODEXEDOC">
+    <title>CODEXEDOC - State Management with Redux or Context API</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -42,85 +42,84 @@
     <section class="article-section">
         <div class="article-container">
             <div class="course-section">JavaScript</div>
-            <div class="lesson">Asynchronous JavaScript (Promises and Async/Await)</div>
+            <div class="lesson">State Management with Redux or Context API</div>
             <div id="content">
-                <h2>Asynchronous JavaScript (Promises and Async/Await)</h2>
-                <p>Welcome to Lesson 25 of CODEXEDOC’s Full-Stack Development Course! Asynchronous JavaScript handles operations that take time, like fetching data from a server. In this lesson, you’ll learn how to use Promises and async/await to manage asynchronous tasks, enabling smooth, non-blocking web applications.</p>
+                <h2>Mastering State Management with Redux or Context API</h2>
+                <p>Welcome to Lesson 25 of CODEXEDOC’s Full-Stack Development Course! State management in React ensures data flows efficiently across components. In this lesson, you’ll learn to use the Context API for lightweight state management and Redux for complex apps.</p>
 
-                <h3>What is Asynchronous JavaScript?</h3>
-                <p>JavaScript is single-threaded, but asynchronous programming allows tasks like API calls to run without blocking the main thread. Introduced with ES6 (2015), Promises and async/await are standard in 2025 for handling async operations cleanly.</p>
+                <h3>What is State Management?</h3>
+                <p>State management handles data shared across React components, like user settings or app state. The Context API, built into React, and Redux, a third-party library, are popular solutions in 2025 for managing global state.</p>
 
-                <h3>Why Use Promises and Async/Await?</h3>
-                <p>Asynchronous code prevents web pages from freezing during long tasks, improving user experience. For example, fetching product data from an API requires asynchronous handling to display results without delay. These tools are essential for modern web apps.</p>
-
-                <h3>Key Asynchronous Concepts</h3>
+                <h3>Key State Management Concepts</h3>
                 <p>Focus on these techniques:</p>
                 <ul>
-                    <li><strong>Promises</strong>: Objects representing eventual completion (or failure) of an async task, with <code>then</code> and <code>catch</code>.</li>
-                    <li><strong>Async/Await</strong>: Syntax sugar for Promises, using <code>async</code> functions and <code>await</code> to pause execution.</li>
-                    <li><strong>Error Handling</strong>: Use <code>try/catch</code> with async/await or <code>catch</code> with Promises.</li>
-                    <li><strong>Fetch API</strong>: Built-in method to make HTTP requests asynchronously.</li>
+                    <li><strong>Context API</strong>: Provides a way to share state without prop drilling.</li>
+                    <li><strong>Redux</strong>: Uses a single store, actions, and reducers for predictable state updates.</li>
+                    <li><strong>Hooks</strong>: Use <code>useContext</code> for Context or <code>useSelector</code> for Redux.</li>
+                    <li><strong>Actions</strong>: Define state changes in Redux (e.g., <code>{ type: 'ADD' }</code>).</li>
                 </ul>
 
-                <h3>Working with Asynchronous Code</h3>
-                <p>Follow these steps to handle async tasks:</p>
-                <ol>
-                    <li><strong>Create a Promise</strong>: Use <code>new Promise</code> or functions like <code>fetch</code>.</li>
-                    <li><strong>Handle Results</strong>: Use <code>then</code> or <code>await</code> to process data.</li>
-                    <li><strong>Manage Errors</strong>: Catch errors to prevent crashes.</li>
-                </ol>
-
-                <h3>Code Example: Fetching Data Asynchronously</h3>
-                <p>Here’s a page that fetches and displays data using async/await:</p>
+                <h3>Code Example: Context API</h3>
+                <p>Here’s a Context API example:</p>
                 <pre>
-<!-- index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Async Data</title>
-    <style>
-        body { font-family: 'Roboto Mono', monospace; }
-        button { padding: 10px 20px; background: navy; color: white; border: none; }
-    </style>
-</head>
-<body>
-    <h1>Data Fetch</h1>
-    <button id="fetch-data">Load Data</button>
-    <p id="output">No data yet</p>
-    <script>
-        document.querySelector("#fetch-data").addEventListener("click", async () => {
-            const output = document.querySelector("#output");
-            try {
-                const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
-                const data = await response.json();
-                output.textContent = `Title: ${data.title}`;
-            } catch (error) {
-                output.textContent = "Error fetching data";
-                console.error(error);
-            }
-        });
-    </script>
-</body>
-</html>
+&lt;!-- index.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+    &lt;title>Context API Example&lt;/title>
+&lt;/head>
+&lt;body>
+    &lt;div id="root">&lt;/div>
+    &lt;script src="app.js">&lt;/script>
+&lt;/body>
+&lt;/html>
+
+&lt;!-- App.tsx -->
+import React, { createContext, useContext, useState } from 'react';
+import ReactDOM from 'react-dom';
+
+const ThemeContext = createContext({ theme: 'light', toggleTheme: () => {} });
+
+const App: React.FC = () => {
+    const [theme, setTheme] = useState('light');
+    const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+    return (
+        &lt;ThemeContext.Provider value={{ theme, toggleTheme }}>
+            &lt;Child />
+        &lt;/ThemeContext.Provider>
+    );
+};
+
+const Child: React.FC = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
+    return (
+        &lt;div>
+            &lt;h1>Theme: {theme}&lt;/h1>
+            &lt;button onClick={toggleTheme}>Toggle Theme&lt;/button>
+        &lt;/div>
+    );
+};
+
+ReactDOM.render(&lt;App />, document.getElementById('root'));
                 </pre>
-                <p>This example fetches a post title from a public API and displays it, handling errors with try/catch.</p>
+                <p>This code uses Context API to manage theme state across components.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Asynchronous JavaScript powers real-time features like live search, data fetching, or chat apps. For example, an e-commerce site fetches product data asynchronously to update the catalog. In this course, you’ll use async code to enhance your e-commerce project with dynamic data.</p>
+                <p>Context API is ideal for small apps, while Redux suits large-scale apps. In your task manager project, you’ll use Context API to manage task data across components.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master asynchronous JavaScript:</p>
+                <p>To master state management:</p>
                 <ul>
-                    <li><strong>Use Async/Await</strong>: Prefer it over <code>then</code> for readability.</li>
-                    <li><strong>Handle Errors</strong>: Always include error handling to avoid silent failures.</li>
-                    <li><strong>Test APIs</strong>: Use public APIs like JSONPlaceholder for practice.</li>
-                    <li><strong>Avoid Blocking</strong>: Ensure async tasks don’t freeze the UI.</li>
+                    <li><strong>Use Context for Simplicity</strong>: Avoid Redux for small apps.</li>
+                    <li><strong>Plan State Structure</strong>: Define state needs before coding.</li>
+                    <li><strong>Debug with Tools</strong>: Use Redux DevTools for state tracking.</li>
+                    <li><strong>Keep Actions Clear</strong>: Use descriptive action types in Redux.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Promises and async/await enable you to handle time-based operations smoothly, keeping your web apps responsive. By mastering asynchronous JavaScript, you’re ready for dynamic features. In the next lesson, you’ll learn about error handling and debugging to build robust code. Keep practicing async code!</p>
+                <p>State management with Context API or Redux ensures efficient data flow in React apps. By mastering these tools, you’re ready for complex UIs. In the next lesson, you’ll learn JavaScript testing with Jest. Keep practicing state management!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-four/"></a></button>
