@@ -41,17 +41,17 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">JavaScript Development</div>
+            <div class="course-section">Full-Stack Development</div>
             <div class="lesson">JavaScript Fundamentals</div>
             <div id="content">
                 <h2>JavaScript Fundamentals</h2>
-                <p>Welcome to Lesson 18 of CODEXEDOC’s Full-Stack Development Course! JavaScript powers dynamic web apps. In this lesson, you’ll learn the basics of JavaScript, building a foundation for your Task Manager App.</p>
+                <p>Welcome to Lesson 18 of CODEXEDOC’s Full-Stack Development Course! JavaScript powers dynamic web apps. In this lesson, you’ll learn the basics to start building your Task Manager App, with applications to e-commerce.</p>
 
                 <h3>What is JavaScript?</h3>
-                <p>JavaScript is a versatile language for adding interactivity to websites. In 2025, it’s essential for both frontend and backend development.</p>
+                <p>JavaScript is a versatile language for adding interactivity to websites, essential for modern web development in 2025.</p>
 
                 <h3>Why Learn JavaScript?</h3>
-                <p>JavaScript enables dynamic features like task creation in your Task Manager App or cart updates in an e-commerce store.</p>
+                <p>JavaScript enables task creation in your Task Manager App or cart updates in an e-commerce store, making apps dynamic.</p>
 
                 <h3>Key JavaScript Concepts</h3>
                 <p>Focus on these fundamentals:</p>
@@ -65,34 +65,34 @@
                 <h3>Getting Started</h3>
                 <p>Follow these steps:</p>
                 <ol>
-                    <li><strong>Write JavaScript</strong>: Add a script to HTML.</li>
-                    <li><strong>Create Variables</strong>: Store task data.</li>
-                    <li><strong>Define Functions</strong>: Add tasks dynamically.</li>
-                    <li><strong>Test in Browser</strong>: Use console.log to debug.</li>
+                    <li><strong>Add JavaScript</strong>: Include a script in HTML.</li>
+                    <li><strong>Store Tasks</strong>: Use arrays for task data.</li>
+                    <li><strong>Create Functions</strong>: Add tasks dynamically.</li>
+                    <li><strong>Test in Browser</strong>: Use console to debug.</li>
                 </ol>
 
-                <h3>Code Example: Task List</h3>
-                <p>Here’s a simple task list manager:</p>
+                <h3>Code Example: Basic Task List</h3>
+                <p>Here’s a simple task list for your app:</p>
                 <pre>
-<!-- index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="p-4">
-    <h1 class="text-2xl font-bold">Task Manager</h1>
-    <input id="taskInput" class="border p-2" placeholder="Add task">
-    <button onclick="addTask()" class="bg-blue-600 text-white px-4 py-2 rounded">Add</button>
-    <ul id="taskList" class="mt-4"></ul>
-    <script src="script.js"></script>
-</body>
-</html>
+&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Task Manager&lt;/title&gt;
+    &lt;link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"&gt;
+&lt;/head&gt;
+&lt;body class="p-4"&gt;
+    &lt;h1 class="text-2xl font-bold"&gt;Task Manager&lt;/h1&gt;
+    &lt;input id="taskInput" class="border p-2" placeholder="Add task"&gt;
+    &lt;button onclick="addTask()" class="bg-blue-600 text-white px-4 py-2 rounded"&gt;Add&lt;/button&gt;
+    &lt;ul id="taskList" class="mt-4"&gt;&lt;/ul&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 
-<!-- script.js -->
+&lt;!-- script.js --&gt;
 const tasks = [];
 
 function addTask() {
@@ -108,7 +108,7 @@ function addTask() {
 function displayTasks() {
     const taskList = document.getElementById('taskList');
     taskList.innerHTML = '';
-    tasks.forEach((task, index) => {
+    tasks.forEach(task => {
         const li = document.createElement('li');
         li.textContent = task;
         li.className = 'py-2';
@@ -116,22 +116,22 @@ function displayTasks() {
     });
 }
                 </pre>
-                <p>Save as <code>index.html</code> and <code>script.js</code>, open in a browser, and test adding tasks.</p>
+                <p>Save files, open <code>index.html</code> in a browser, and test adding tasks. This logic applies to e-commerce product lists.</p>
 
                 <h3>Practical Applications</h3>
-                <p>These fundamentals enable task management in your app or product listing in an e-commerce store, setting the stage for dynamic features.</p>
+                <p>JavaScript fundamentals enable task management or product catalog updates, forming the core of interactive web apps.</p>
 
                 <h3>Tips for Success</h3>
                 <p>To master JavaScript basics:</p>
                 <ul>
-                    <li><strong>Use const</strong>: Prefer <code>const</code> for non-reassigned variables.</li>
-                    <li><strong>Debug with Console</strong>: Use <code>console.log</code> to inspect values.</li>
-                    <li><strong>Practice Arrays</strong>: Store tasks or products in arrays.</li>
-                    <li><strong>Test Small</strong>: Write and test small code snippets.</li>
+                    <li><strong>Prefer const</strong>: Use for non-reassigned variables.</li>
+                    <li><strong>Debug with Console</strong>: Log values with <code>console.log</code>.</li>
+                    <li><strong>Practice Arrays</strong>: Store tasks or products.</li>
+                    <li><strong>Test Incrementally</strong>: Build and test small pieces.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>You’ve learned JavaScript basics, creating a simple task list. In the next lesson, you’ll explore modern ES6+ features. Keep practicing JavaScript!</p>
+                <p>You’ve built a basic task list with JavaScript. In the next lesson, you’ll explore modern ES6+ features. Keep practicing fundamentals!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/assessment-html-css/"></a></button>
