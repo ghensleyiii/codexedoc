@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn to optimize and deploy web apps for performance and scalability using Netlify or Vercel.">
+    <meta name="keywords" content="optimization, deployment, Netlify, Vercel, full-stack development">
+    <title>CODEXEDOC - Optimizing and Deploying Web Apps</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Career Preparation</div>
+            <div class="lesson">Optimizing and Deploying Web Apps</div>
+            <div id="content">
+                <h2>Optimizing and Deploying Web Apps</h2>
+                <p>Welcome to Lesson 27! You’ll learn to optimize and deploy web apps for performance. By the end, you’ll deploy an optimized app to Netlify.</p>
+
+                <h3>Introduction</h3>
+                <p>Optimization is like a shepherd refining wool for market, ensuring apps are fast and scalable. This lesson covers minification, lazy loading, and deployment to Netlify or Vercel.</p>
+
+                <h3>Key Concepts</h3>
+                <p>Focus areas include:</p>
+                <ul>
+                    <li><strong>Optimization</strong>: Minify CSS/JS, compress images, use lazy loading.</li>
+                    <li><strong>Deployment</strong>: Host on Netlify or Vercel for scalability.</li>
+                    <li><strong>Performance Testing</strong>: Use tools like Lighthouse.</li>
+                </ul>
+
+                <h3>Code Example</h3>
+                <p>Here’s an optimized webpage with lazy-loaded images.</p>
+                <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Optimized App&lt;/title&gt;
+    &lt;style&gt;
+        img { max-width: 100%; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Optimized Web App&lt;/h1&gt;
+    &lt;img src="placeholder.jpg" data-src="sheep.jpg" alt="Sheep" loading="lazy"&gt;
+    &lt;script&gt;
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+            img.src = img.dataset.src;
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+                <p>Minify CSS/JS with tools like UglifyJS, push to a GitHub repository, and deploy via Netlify.</p>
+
+                <h3>Practical Applications</h3>
+                <p>Optimization powers apps like Netflix for fast loading. Netlify hosts scalable portfolios or e-commerce sites. These skills are essential for production-ready apps.</p>
+
+                <h3>Tips for Success</h3>
+                <p>Optimize and deploy with these tips:</p>
+                <ul>
+                    <li>Run Lighthouse audits for performance scores.</li>
+                    <li>Use CDNs for static assets.</li>
+                    <li>Monitor app performance post-deployment.</li>
+                </ul>
+
+                <h3>Shearing Tip</h3>
+                <p>Optimization shears away sluggishness, making apps fast and sleek, like a shepherd refining wool.</p>
+
+                <h3>Quick Check</h3>
+                <p>Test your knowledge:</p>
+                <div class="quick-check-container" id="quick-check">
+                    <p><strong>Question:</strong> What does lazy loading improve?</p>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-a" value="A">
+                        <label for="option-a">A) Database queries</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-b" value="B">
+                        <label for="option-b">B) Page load speed</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-c" value="C">
+                        <label for="option-c">C) API security</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-d" value="D">
+                        <label for="option-d">D) Code readability</label>
+                    </div>
+                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
+                    <div class="quick-check-response" id="quick-check-response"></div>
+                </div>
+
+                <h3>Summary</h3>
+                <p>You’ve learned to optimize and deploy web apps, completing your full-stack journey. Congratulations!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-five/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-seven/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CODEXEDOC</h3>
+                <p>CODEXEDOC provides hands-on full-stack development training with a focus on job-ready skills.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                    <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                    <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+                <p>Follow us: <a href="https://www.linkedin.com/company/codexedoc">LinkedIn</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CODEXEDOC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const jsConfetti = new JSConfetti();
+        function submitQuiz() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const responseDiv = document.getElementById('quick-check-response');
+            if (!selected) {
+                responseDiv.innerHTML = 'Please select an answer!';
+                return;
+            }
+            const answer = selected.value;
+            if (answer === 'B') {
+                responseDiv.innerHTML = 'Correct! Lazy loading improves page load speed by deferring images.';
+                jsConfetti.addConfetti();
+            } else {
+                responseDiv.innerHTML = 'Incorrect. The correct answer is B) Page load speed, by deferring images.';
+            }
+        }
+        const leftArrow = document.querySelector('.arrow-left a');
+        const rightArrow = document.querySelector('.arrow-right a');
+        leftArrow.href = 'https://www.codexedoc.com/course/lesson-twenty-five/';
+        rightArrow.href = 'https://www.codexedoc.com/course/lesson-twenty-seven/';
+    </script>
+</body>
+</html>
