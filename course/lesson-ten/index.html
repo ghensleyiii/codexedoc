@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn CSS basics to style HTML pages with colors, fonts, and layouts for visually appealing web applications.">
+    <meta name="keywords" content="CSS, styling, selectors, properties, full-stack development">
+    <title>CODEXEDOC - CSS Basics and Styling</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">HTML & CSS</div>
+            <div class="lesson">CSS Basics and Styling</div>
+            <div id="content">
+                <h2>CSS Basics and Styling</h2>
+                <p>Welcome to Lesson 10 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn CSS basics to style HTML pages. By the end, you’ll be able to apply colors, fonts, and layouts to create visually appealing web pages.</p>
+
+                <h3>Introduction</h3>
+                <p>CSS is like a shepherd’s dye, transforming plain wool (HTML) into vibrant, styled pages. It controls the look and feel of a website, from colors to fonts. This lesson introduces CSS selectors, properties, and methods to style your HTML content effectively.</p>
+
+                <h3>Key Concepts</h3>
+                <p>This lesson covers CSS fundamentals:</p>
+                <ul>
+                    <li><strong>Selectors</strong>: Target elements using tags (e.g., <code>h1</code>), classes (<code>.class</code>), or IDs (<code>#id</code>).</li>
+                    <li><strong>Properties</strong>: Style elements with properties like <code>color</code>, <code>font-size</code>, and <code>background</code>.</li>
+                    <li><strong>CSS Methods</strong>: Apply styles via inline, internal (in <code>&lt;style&gt;</code>), or external (separate <code>.css</code> file) methods.</li>
+                </ul>
+
+                <h3>Code Example</h3>
+                <p>Below is an example of styling a semantic HTML page with an external CSS file.</p>
+                <pre>
+&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;title&gt;Styled Page&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1 class="title"&gt;Welcome&lt;/h1&gt;
+    &lt;p&gt;This is a styled paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+&lt;!-- styles.css --&gt;
+.title {
+    color: blue;
+    font-size: 24px;
+}
+p {
+    background: lightgray;
+    padding: 10px;
+}
+                </pre>
+
+                <h3>Practical Applications</h3>
+                <p>CSS is essential for creating professional, user-friendly websites, like those of Amazon or The New York Times. For example, in a blog app, CSS styles headers to grab attention and paragraphs to ensure readability. Mastering CSS allows you to enhance user experience in full-stack applications.</p>
+
+                <h3>Tips for Success</h3>
+                <p>Here are tips to master CSS styling:</p>
+                <ul>
+                    <li>Use external stylesheets: Keep CSS in a separate file for maintainability.</li>
+                    <li>Test styles in dev tools: Use Chrome’s inspector to experiment with properties.</li>
+                    <li>Keep it simple: Avoid overly complex selectors to maintain clean code.</li>
+                </ul>
+
+                <h3>Shearing Tip</h3>
+                <p>CSS shears away bland pages with vibrant styles, just as a shepherd dyes wool for beauty. With CSS, you transform plain HTML into engaging web experiences.</p>
+
+                <h3>Quick Check</h3>
+                <p>Test your understanding with this interactive quiz:</p>
+                <div class="quick-check-container" id="quick-check">
+                    <p><strong>Question:</strong> Which CSS method uses a separate file?</p>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-a" value="A">
+                        <label for="option-a">A) Inline</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-b" value="B">
+                        <label for="option-b">B) Internal</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-c" value="C">
+                        <label for="option-c">C) External</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-d" value="D">
+                        <label for="option-d">D) Embedded</label>
+                    </div>
+                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
+                    <div class="quick-check-response" id="quick-check-response"></div>
+                </div>
+
+                <h3>Summary</h3>
+                <p>In this lesson, you learned CSS basics to style HTML pages with selectors and properties. These skills enhance your front-end development. Next, in Lesson 11, you’ll explore CSS layouts and the box model for structured designs.</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-nine/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-eleven/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        const jsConfetti = new JSConfetti();
+        function submitQuiz() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const responseDiv = document.getElementById('quick-check-response');
+            if (!selected) {
+                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
+                responseDiv.style.display = 'block';
+                responseDiv.className = 'quick-check-response incorrect';
+                return;
+            }
+            const answer = selected.value;
+            const correctAnswer = 'C';
+            if (answer === correctAnswer) {
+                responseDiv.innerHTML = '<pre>Correct! C) External, using a linked .css file for maintainability.</pre>';
+                responseDiv.className = 'quick-check-response correct';
+                jsConfetti.addConfetti();
+            } else {
+                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is C) External, using a linked .css file for maintainability.</pre>';
+                responseDiv.className = 'quick-check-response incorrect';
+            }
+            responseDiv.style.display = 'block';
+        }
+
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-nine/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-eleven/';
+        });
+    </script>
+</body>
+</html>
