@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript functions and scope with CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="JavaScript, functions, scope, web development, CODEXEDOC">
-    <title>CODEXEDOC - JavaScript Functions and Scope</title>
+    <meta name="description" content="Learn asynchronous JavaScript with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="JavaScript, async, promises, web development, CODEXEDOC">
+    <title>CODEXEDOC - Asynchronous JavaScript</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -42,80 +42,68 @@
     <section class="article-section">
         <div class="article-container">
             <div class="course-section">JavaScript</div>
-            <div class="lesson">JavaScript Functions and Scope</div>
+            <div class="lesson">Asynchronous JavaScript</div>
             <div id="content">
-                <h2>JavaScript Functions and Scope</h2>
-                <p>Welcome to Lesson 21 of CODEXEDOC’s Full-Stack Development Course! Functions are reusable blocks of code that perform specific tasks, and scope determines where variables are accessible. In this lesson, you’ll learn how to create functions and manage scope to write organized JavaScript code.</p>
+                <h2>Mastering Asynchronous JavaScript</h2>
+                <p>Welcome to Lesson 21 of CODEXEDOC’s Full-Stack Development Course! Asynchronous JavaScript allows your code to handle tasks like API calls without blocking the main thread. In this lesson, you’ll learn about promises, async/await, and handling asynchronous operations.</p>
 
-                <h3>What are Functions?</h3>
-                <p>Functions are blocks of code designed to execute a task when called. They can take inputs (parameters) and return outputs. JavaScript supports function declarations, expressions, and arrow functions, making them versatile for web development in 2025.</p>
+                <h3>What is Asynchronous JavaScript?</h3>
+                <p>JavaScript is single-threaded, but asynchronous programming enables non-blocking operations. Features like promises and async/await, introduced in ES6/ES8, simplify handling delayed tasks like fetching data.</p>
 
-                <h3>What is Scope?</h3>
-                <p>Scope defines where variables can be accessed. JavaScript has global scope (accessible everywhere) and local scope (limited to a function or block). Understanding scope prevents errors and ensures clean code.</p>
-
-                <h3>Key Function and Scope Concepts</h3>
-                <p>Focus on these concepts:</p>
+                <h3>Key Async Concepts</h3>
+                <p>Focus on these techniques:</p>
                 <ul>
-                    <li><strong>Function Declaration</strong>: Define with <code>function name() {}</code>.</li>
-                    <li><strong>Parameters</strong>: Inputs passed to functions (e.g., <code>function add(a, b)</code>).</li>
-                    <li><strong>Block Scope</strong>: Variables declared with <code>let</code> or <code>const</code> are limited to their block.</li>
-                    <li><strong>Return</strong>: Outputs a value from a function using <code>return</code>.</li>
+                    <li><strong>Promises</strong>: Objects representing eventual completion (e.g., <code>Promise.resolve()</code>).</li>
+                    <li><strong>Async/Await</strong>: Syntactic sugar for promises (e.g., <code>async function</code>).</li>
+                    <li><strong>Fetch API</strong>: Built-in method for HTTP requests.</li>
+                    <li><strong>Error Handling</strong>: Use <code>try/catch</code> with async code.</li>
                 </ul>
 
-                <h3>Writing Functions</h3>
-                <p>Follow these steps to create functions:</p>
-                <ol>
-                    <li><strong>Declare a Function</strong>: Use <code>function</code> or arrow syntax (e.g., <code>const add = (a, b) => a + b;</code>).</li>
-                    <li><strong>Call the Function</strong>: Execute it with arguments (e.g., <code>add(2, 3)</code>).</li>
-                    <li><strong>Manage Scope</strong>: Use <code>let</code> or <code>const</code> inside functions to avoid global variables.</li>
-                </ol>
-
-                <h3>Code Example: Functions and Scope</h3>
-                <p>Here’s a page using functions and scope:</p>
+                <h3>Code Example: Async JavaScript</h3>
+                <p>Here’s an example of fetching data:</p>
                 <pre>
-&lt;!-- index.html --&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Functions Page&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;Calculator&lt;/h1&gt;
-    &lt;button onclick="calculate()"&gt;Add Numbers&lt;/button&gt;
-    &lt;p id="result"&gt;&lt;/p&gt;
-    &lt;script&gt;
-        function calculate() {
-            let num1 = 5;
-            const num2 = 10;
-            const sum = add(num1, num2);
-            document.getElementById("result").textContent = `Sum: ${sum}`;
-        }
-        function add(a, b) {
-            let result = a + b;
-            return result;
-        }
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+&lt;!-- index.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+    &lt;title>Async Example&lt;/title>
+&lt;/head>
+&lt;body>
+    &lt;p id="output">Loading...&lt;/p>
+    &lt;script src="script.js">&lt;/script>
+&lt;/body>
+&lt;/html>
+
+&lt;!-- script.js -->
+async function fetchData() {
+    try {
+        const response = await fetch('data.json');
+        const data = await response.json();
+        document.querySelector('#output').textContent = data.message;
+    } catch (error) {
+        document.querySelector('#output').textContent = 'Error!';
+    }
+}
+fetchData();
                 </pre>
-                <p>This example defines a function to add numbers, uses local scope for variables, and displays the result on the page.</p>
+                <p>This code fetches data and updates the DOM, handling errors with try/catch.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Functions handle tasks like form validation or calculations. For example, an e-commerce site uses functions to compute totals or apply discounts. In this course, you’ll use functions to manage user interactions in your e-commerce project.</p>
+                <p>Async JavaScript is used for API calls in apps like weather dashboards. In your task manager project, you’ll use async code to save tasks to a mock API.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master functions and scope:</p>
+                <p>To master async JavaScript:</p>
                 <ul>
-                    <li><strong>Keep Functions Small</strong>: Write focused functions for single tasks.</li>
-                    <li><strong>Avoid Global Variables</strong>: Use local scope to prevent conflicts.</li>
-                    <li><strong>Test Returns</strong>: Log return values to ensure functions work as expected.</li>
-                    <li><strong>Use Arrow Functions</strong>: Simplify syntax for short functions.</li>
+                    <li><strong>Use Async/Await</strong>: Prefer it over raw promises for readability.</li>
+                    <li><strong>Handle Errors</strong>: Always include try/catch in async functions.</li>
+                    <li><strong>Test APIs</strong>: Use mock APIs to practice fetching data.</li>
+                    <li><strong>Understand Promises</strong>: Learn how promises resolve/reject.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Functions and scope help you write reusable, organized JavaScript code. By mastering function declarations and block scope, you can manage complex logic. In the next lesson, you’ll learn about events and DOM manipulation to make your sites interactive. Keep practicing functions!</p>
+                <p>Asynchronous JavaScript enables efficient handling of delayed tasks. By mastering promises and async/await, you’re ready for data-driven apps. In the next lesson, you’ll explore functional programming in JavaScript. Keep practicing async code!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty/"></a></button>
