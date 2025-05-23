@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn the essentials of full-stack development with CODEXEDOC’s course, starting with understanding the role and layers of full-stack development.">
+    <meta name="keywords" content="full-stack development, web development, CODEXEDOC">
+    <title>CODEXEDOC - Understanding Full-Stack Development</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Introduction to Full-Stack Development</div>
+            <div class="lesson">Understanding Full-Stack Development</div>
+            <div id="content">
+                <h2>Understanding Full-Stack Development</h2>
+                <p>Welcome to Lesson 1 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn what full-stack development is and how its components work together to create modern web applications. By the end, you’ll be able to describe the role of a full-stack developer and identify the three key layers of a web app: front-end, back-end, and database.</p>
+
+                <h3>Introduction</h3>
+                <p>Imagine you’re browsing a to-do list app like Todoist. The interface you see (buttons, colors, text) is the front-end, built with HTML, CSS, and JavaScript. When you add a task, the app sends that data to a server, which processes it—that’s the back-end, often powered by Node.js. The task is then saved in a database using SQL, ready to be retrieved later. Full-stack development is the art of building all these layers to create a seamless user experience. As a full-stack developer, you’re like a “sheep farmer” managing the entire process: designing the wool display (front-end), shearing the wool (back-end), and storing it safely (database). This lesson will break down these layers and show you why they matter.</p>
+
+                <h3>Key Concepts</h3>
+                <p>Here are the main ideas you’ll master in this lesson:</p>
+                <ul>
+                    <li><strong>Full-Stack Definition</strong>: A full-stack developer builds both the front-end (user interface) and back-end (server logic) of a web app, often integrating with a database.</li>
+                    <li><strong>Front-End</strong>: The part users interact with, created using HTML for structure, CSS for styling, and JavaScript for interactivity.</li>
+                    <li><strong>Back-End</strong>: The server-side logic that processes requests, manages data, and communicates with the database, typically using Node.js in this course.</li>
+                    <li><strong>Database</strong>: A system to store and retrieve data, like user profiles or tasks, using SQL for structured queries.</li>
+                </ul>
+
+                <h3>Code Example</h3>
+                <p>Let’s visualize how these layers connect in a simple to-do list app. Below is a diagram (represented as text for now) showing the flow of a user adding a task:</p>
+                <pre>
+[User clicks "Add Task" button]
+   ↓ (Front-End: HTML/CSS/JS)
+Sends task data to server
+   ↓ (Back-End: Node.js)
+Processes task and saves to database
+   ↓ (Database: SQL)
+Stores task data
+                </pre>
+                <p>This diagram shows how a user’s action (front-end) triggers server processing (back-end) and data storage (database). You’ll build each part in later lessons!</p>
+
+                <h3>Practical Applications</h3>
+                <p>Full-stack development powers apps you use daily, like social media platforms, e-commerce sites, or productivity tools. For example, in a job at a tech company, you might:
+                    <ul>
+                        <li>Design a sleek user interface for a shopping cart (front-end).</li>
+                        <li>Build an API to process payments securely (back-end).</li>
+                        <li>Store customer orders in a database for quick retrieval (database).</li>
+                    </ul>
+                    Understanding these layers helps you create apps that are functional, user-friendly, and scalable, making you a valuable asset in the tech industry.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To get the most out of this lesson:</p>
+                <ul>
+                    <li>Sketch the layers of an app you use (e.g., a music streaming service) to see how front-end, back-end, and database interact.</li>
+                    <li>Read about full-stack job descriptions on sites like LinkedIn to understand employer expectations.</li>
+                    <li>Keep a notebook for key terms like “front-end” and “back-end” to build your tech vocabulary.</li>
+                </ul>
+
+                <h3>Shearing Tip</h3>
+                <p>Full-stack development shears away complexity by organizing app development into clear layers, just like a sheep farmer neatly manages wool production from pasture to storage.</p>
+
+                <h3>Quick Check</h3>
+                <p>Test your understanding with this question:</p>
+                <p><strong>Question:</strong> What does the back-end handle in a web application?</p>
+                <ul>
+                    <li>A) User interface</li>
+                    <li>B) Server logic and data processing</li>
+                    <li>C) Styling and layouts</li>
+                    <li>D) Browser rendering</li>
+                </ul>
+                <p><strong>Answer:</strong> B) Server logic and data processing. The back-end manages server-side operations like processing user requests and interacting with databases, leaving the user interface to the front-end.</p>
+
+                <h3>Summary</h3>
+                <p>In this lesson, you learned that full-stack development involves building the front-end (user interface), back-end (server logic), and database layers of a web app. These layers work together like a well-run sheep farm, ensuring a smooth user experience. Next up, in Lesson 2, you’ll explore the history of web development to understand how modern tools evolved to make your coding journey easier.</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/curriculum/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-two/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/curriculum/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-two/';
+        });
+    </script>
+</body>
+</html>
