@@ -12,6 +12,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <style>
+        .quiz-container { margin: 20px 0; }
+        .quiz-option { margin: 10px 0; }
+        .quiz-option input { margin-right: 10px; }
+        .quiz-submit { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        .quiz-submit:hover { background: #45a049; }
+        .quiz-response { display: none; margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .quiz-response.correct { border-color: #4CAF50; background: #e8f5e9; }
+        .quiz-response.correct::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #4CAF50; margin-right: 10px; }
+        .quiz-response.incorrect { border-color: #f44336; background: #ffebee; }
+        .quiz-response.incorrect::before { content: "\f00d"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #f44336; margin-right: 10px; }
+    </style>
 </head>
 <body>
     <header>
@@ -93,15 +106,28 @@ Stores task data
                 <p>Full-stack development shears away complexity by organizing app development into clear layers, just like a sheep farmer neatly manages wool production from pasture to storage.</p>
 
                 <h3>Quick Check</h3>
-                <p>Test your understanding with this question:</p>
-                <p><strong>Question:</strong> What does the back-end handle in a web application?</p>
-                <ul>
-                    <li>A) User interface</li>
-                    <li>B) Server logic and data processing</li>
-                    <li>C) Styling and layouts</li>
-                    <li>D) Browser rendering</li>
-                </ul>
-                <p><strong>Answer:</strong> B) Server logic and data processing. The back-end manages server-side operations like processing user requests and interacting with databases, leaving the user interface to the front-end.</p>
+                <p>Test your understanding with this interactive quiz:</p>
+                <div class="quiz-container" id="quiz">
+                    <p><strong>Question:</strong> What does the back-end handle in a web application?</p>
+                    <div class="quiz-option">
+                        <input type="radio" name="answer" id="option-a" value="A">
+                        <label for="option-a">A) User interface</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" name="answer" id="option-b" value="B">
+                        <label for="option-b">B) Server logic and data processing</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" name="answer" id="option-c" value="C">
+                        <label for="option-c">C) Styling and layouts</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" name="answer" id="option-d" value="D">
+                        <label for="option-d">D) Browser rendering</label>
+                    </div>
+                    <button class="quiz-submit" onclick="submitQuiz()">Submit</button>
+                    <div class="quiz-response" id="quiz-response"></div>
+                </div>
 
                 <h3>Summary</h3>
                 <p>In this lesson, you learned that full-stack development involves building the front-end (user interface), back-end (server logic), and database layers of a web app. These layers work together like a well-run sheep farm, ensuring a smooth user experience. Next up, in Lesson 2, you’ll explore the history of web development to understand how modern tools evolved to make your coding journey easier.</p>
@@ -125,6 +151,29 @@ Stores task data
     </footer>
 
     <script>
+        const jsConfetti = new JSConfetti();
+        function submitQuiz() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const responseDiv = document.getElementById('quiz-response');
+            if (!selected) {
+                responseDiv.textContent = 'Please select an answer!';
+                responseDiv.style.display = 'block';
+                responseDiv.className = 'quiz-response incorrect';
+                return;
+            }
+            const answer = selected.value;
+            const correctAnswer = 'B';
+            if (answer === correctAnswer) {
+                responseDiv.textContent = 'Correct! B) Server logic and data processing. The back-end manages server-side operations like processing user requests and interacting with databases, leaving the user interface to the front-end.';
+                responseDiv.className = 'quiz-response correct';
+                jsConfetti.addConfetti();
+            } else {
+                responseDiv.textContent = 'Incorrect. The correct answer is B) Server logic and data processing. The back-end manages server-side operations like processing user requests and interacting with databases, leaving the user interface to the front-end.';
+                responseDiv.className = 'quiz-response incorrect';
+            }
+            responseDiv.style.display = 'block';
+        }
+
         document.querySelector('.arrow-left').addEventListener('click', () => {
             window.location.href = 'https://www.codexedoc.com/curriculum/';
         });
