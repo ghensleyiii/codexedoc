@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn to create RESTful APIs with Express.js in CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="RESTful APIs, Express.js, backend, web development, CODEXEDOC">
-    <title>CODEXEDOC - Creating RESTful APIs</title>
+    <meta name="description" content="Learn REST and GraphQL API design with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Node.js, Express, REST, GraphQL, API, web development, CODEXEDOC">
+    <title>CODEXEDOC - Advanced API Design (REST vs. GraphQL)</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -41,93 +41,81 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">Backend Development</div>
-            <div class="lesson">Creating RESTful APIs</div>
+            <div class="course-section">Node.js & Back End Development</div>
+            <div class="lesson">Advanced API Design (REST vs. GraphQL)</div>
             <div id="content">
-                <h2>Creating RESTful APIs</h2>
-                <p>Welcome to Lesson 30 of CODEXEDOC’s Full-Stack Development Course! RESTful APIs enable communication between frontend and backend using standard HTTP methods. In this lesson, you’ll learn to create a RESTful API with Express.js to manage products for your e-commerce project.</p>
+                <h2>Mastering REST and GraphQL API Design</h2>
+                <p>Welcome to Lesson 30! REST and GraphQL are popular API paradigms. In this lesson, you’ll learn to design RESTful APIs with Express and explore GraphQL for flexible data querying.</p>
 
-                <h3>What is a RESTful API?</h3>
-                <p>REST (Representational State Transfer) is an architectural style for designing APIs. RESTful APIs use HTTP methods (GET, POST, PUT, DELETE) to perform CRUD operations (Create, Read, Update, Delete) on resources, like products or users.</p>
+                <h3>REST vs. GraphQL</h3>
+                <p>REST uses HTTP methods and endpoints (e.g., <code>GET /posts</code>) for structured data access. GraphQL, introduced by Facebook in 2015, uses a single endpoint with queries for precise data retrieval. In 2025, both are widely used.</p>
 
-                <h3>Why Build RESTful APIs?</h3>
-                <p>RESTful APIs provide a standardized way for your frontend to interact with the backend, enabling dynamic data updates. They’re widely used in 2025 for scalable web applications, including e-commerce platforms.</p>
-
-                <h3>Key RESTful API Concepts</h3>
+                <h3>Key Concepts</h3>
                 <p>Focus on these techniques:</p>
                 <ul>
-                    <li><strong>HTTP Methods</strong>: Use GET (read), POST (create), PUT (update), DELETE (delete).</li>
-                    <li><strong>Routes</strong>: Define endpoints like <code>/products</code> or <code>/products/:id</code>.</li>
-                    <li><strong>Status Codes</strong>: Return codes like 200 (OK), 404 (Not Found), or 201 (Created).</li>
-                    <li><strong>Request/Response</strong>: Handle JSON data with <code>req.body</code> and <code>res.json</code>.</li>
+                    <li><strong>REST Principles</strong>: Use HTTP methods, status codes, and resource-based URLs.</li>
+                    <li><strong>GraphQL Queries</strong>: Define schemas and resolvers for queries/mutations.</li>
+                    <li><strong>API Versioning</strong>: Manage changes in REST APIs.</li>
+                    <li><strong>Error Handling</strong>: Standardize error responses.</li>
                 </ul>
 
-                <h3>Creating a RESTful API</h3>
-                <p>Follow these steps to build an API:</p>
-                <ol>
-                    <li><strong>Set Up Express</strong>: Ensure Express is installed and configured.</li>
-                    <li><strong>Define Routes</strong>: Create endpoints for CRUD operations.</li>
-                    <li><strong>Handle Requests</strong>: Process input and return JSON responses.</li>
-                    <li><strong>Test API</strong>: Use Postman to verify endpoints.</li>
-                </ol>
-
-                <h3>Code Example: RESTful Product API</h3>
-                <p>Here’s an Express API for managing products:</p>
+                <h3>Code Example: REST and GraphQL</h3>
+                <p>Here’s a REST endpoint and GraphQL server:</p>
                 <pre>
-// server.js
-const express = require("express");
+<!-- rest-server.js -->
+const express = require('express');
 const app = express();
 
 app.use(express.json());
 
-let products = [
-    { id: 1, name: "Laptop", price: 999.99 },
-    { id: 2, name: "Phone", price: 499.99 }
-];
-
-// Get all products
-app.get("/api/products", (req, res) => {
-    res.json(products);
-});
-
-// Get product by ID
-app.get("/api/products/:id", (req, res) => {
-    const product = products.find(p => p.id === parseInt(req.params.id));
-    if (!product) return res.status(404).json({ message: "Product not found" });
-    res.json(product);
-});
-
-// Create product
-app.post("/api/products", (req, res) => {
-    const product = {
-        id: products.length + 1,
-        name: req.body.name,
-        price: req.body.price
-    };
-    products.push(product);
-    res.status(201).json(product);
+app.get('/api/posts', (req, res) => {
+    res.json([{ id: 1, title: 'Post 1' }]);
 });
 
 app.listen(3000, () => {
-    console.log("Server running at http://localhost:3000/");
+    console.log('REST server on port 3000');
+});
+
+<!-- graphql-server.js -->
+const { ApolloServer, gql } = require('apollo-server');
+
+const typeDefs = gql`
+    type Post {
+        id: Int
+        title: String
+    }
+    type Query {
+        posts: [Post]
+    }
+`;
+
+const resolvers = {
+    Query: {
+        posts: () => [{ id: 1, title: 'Post 1' }],
+    },
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+server.listen(4000).then(() => {
+    console.log('GraphQL server on port 4000');
 });
                 </pre>
-                <p>Test with Postman: GET <code>http://localhost:3000/api/products</code> or POST to <code>/api/products</code> with JSON like <code>{ "name": "Tablet", "price": 299.99 }</code>.</p>
+                <p>The REST server uses Express, while the GraphQL server uses Apollo.</p>
 
                 <h3>Practical Applications</h3>
-                <p>RESTful APIs power e-commerce backends, serving product data or processing orders. In this course, you’ll use this API to fetch products for your frontend cart, enabling real-time updates.</p>
+                <p>REST is used for simple APIs, while GraphQL suits complex data needs. In your blog API project, you’ll design REST endpoints for posts and comments.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master RESTful APIs:</p>
+                <p>To master API design:</p>
                 <ul>
-                    <li><strong>Use Clear Endpoints</strong>: Follow REST conventions (e.g., <code>/api/products</code>).</li>
-                    <li><strong>Validate Input</strong>: Check <code>req.body</code> to prevent errors.</li>
-                    <li><strong>Return Status Codes</strong>: Use appropriate codes for success and errors.</li>
-                    <li><strong>Test Thoroughly</strong>: Verify all endpoints with Postman.</li>
+                    <li><strong>Follow REST Standards</strong>: Use consistent URLs and status codes.</li>
+                    <li><strong>Learn GraphQL Schemas</strong>: Define clear types and resolvers.</li>
+                    <li><strong>Test Queries</strong>: Use GraphiQL or Postman.</li>
+                    <li><strong>Document APIs</strong>: Provide clear endpoint/query docs.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>RESTful APIs enable seamless frontend-backend communication. By building a product API, you’re ready to connect your e-commerce frontend. In the next lesson, you’ll integrate your frontend with this backend. Keep practicing API development!</p>
+                <p>REST and GraphQL offer distinct API design approaches. By mastering both, you’re ready for flexible backends. Next, you’ll learn environment configuration and security. Keep designing APIs!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-nine/"></a></button>
