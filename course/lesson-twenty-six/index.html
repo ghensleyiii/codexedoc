@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Prepare for full-stack technical interviews with coding challenges and behavioral questions.">
+    <meta name="keywords" content="technical interview, coding challenges, FizzBuzz, full-stack development">
+    <title>CODEXEDOC - Technical Interview Preparation</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Career Preparation</div>
+            <div class="lesson">Technical Interview Preparation</div>
+            <div id="content">
+                <h2>Technical Interview Preparation</h2>
+                <p>Welcome to Lesson 26! You’ll prepare for technical interviews with coding challenges and behavioral questions. By the end, you’ll solve a FizzBuzz problem.</p>
+
+                <h3>Introduction</h3>
+                <p>Technical interviews are like a shepherd proving their skill to a buyer. They test coding, problem-solving, and communication. This lesson covers common algorithms and interview strategies.</p>
+
+                <h3>Key Concepts</h3>
+                <p>Focus areas include:</p>
+                <ul>
+                    <li><strong>Coding Challenges</strong>: Solve problems like FizzBuzz or array manipulation.</li>
+                    <li><strong>Behavioral Questions</strong>: Explain projects or teamwork.</li>
+                    <li><strong>Strategies</strong>: Practice whiteboarding and time management.</li>
+                </ul>
+
+                <h3>Code Example</h3>
+                <p>Here’s a JavaScript solution for FizzBuzz, a common interview question.</p>
+                <pre>
+function fizzBuzz(n) {
+    for (let i = 1; i &lt;= n; i++) {
+        if (i % 3 === 0 &amp;&amp; i % 5 === 0) {
+            console.log('FizzBuzz');
+        } else if (i % 3 === 0) {
+            console.log('Fizz');
+        } else if (i % 5 === 0) {
+            console.log('Buzz');
+        } else {
+            console.log(i);
+        }
+    }
+}
+
+fizzBuzz(15);
+                </pre>
+                <p>Run in a Node.js environment or browser console. Explain your logic during interviews.</p>
+
+                <h3>Practical Applications</h3>
+                <p>Interview skills secure roles at companies like Microsoft. FizzBuzz tests logic, while behavioral questions assess teamwork. These skills are critical for full-stack job offers.</p>
+
+                <h3>Tips for Success</h3>
+                <p>Ace interviews with these tips:</p>
+                <ul>
+                    <li>Practice on platforms like LeetCode.</li>
+                    <li>Explain your thought process clearly.</li>
+                    <li>Prepare stories for behavioral questions.</li>
+                </ul>
+
+                <h3>Shearing Tip</h3>
+                <p>Interview prep shears away uncertainty by building confidence, like a shepherd readying for market.</p>
+
+                <h3>Quick Check</h3>
+                <p>Test your knowledge:</p>
+                <div class="quick-check-container" id="quick-check">
+                    <p><strong>Question:</strong> What does FizzBuzz print for multiples of both 3 and 5?</p>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-a" value="A">
+                        <label for="option-a">A) Fizz</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-b" value="B">
+                        <label for="option-b">B) Buzz</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-c" value="C">
+                        <label for="option-c">C) FizzBuzz</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-d" value="D">
+                        <label for="option-d">D) Number</label>
+                    </div>
+                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
+                    <div class="quick-check-response" id="quick-check-response"></div>
+                </div>
+
+                <h3>Summary</h3>
+                <p>You’ve prepared for technical interviews. Next, Lesson 27 covers optimizing and deploying web apps.</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-five/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-seven/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CODEXEDOC</h3>
+                <p>CODEXEDOC provides hands-on full-stack development training with a focus on job-ready skills.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                    <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                    <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+                <p>Follow us: <a href="https://www.linkedin.com/company/codexedoc">LinkedIn</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CODEXEDOC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const jsConfetti = new JSConfetti();
+        function submitQuiz() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const responseDiv = document.getElementById('quick-check-response');
+            if (!selected) {
+                responseDiv.innerHTML = 'Please select an answer!';
+                return;
+            }
+            const answer = selected.value;
+            if (answer === 'C') {
+                responseDiv.innerHTML = 'Correct! FizzBuzz prints "FizzBuzz" for multiples of both 3 and 5.';
+                jsConfetti.addConfetti();
+            } else {
+                responseDiv.innerHTML = 'Incorrect. The correct answer is C) FizzBuzz, for multiples of both 3 and 5.';
+            }
+        }
+        const leftArrow = document.querySelector('.arrow-left a');
+        const rightArrow = document.querySelector('.arrow-right a');
+        leftArrow.href = 'https://www.codexedoc.com/course/lesson-twenty-five/';
+        rightArrow.href = 'https://www.codexedoc.com/course/lesson-twenty-seven/';
+    </script>
+</body>
+</html>
