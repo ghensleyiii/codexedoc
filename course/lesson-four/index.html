@@ -144,11 +144,11 @@ touch index.html
             const answer = selected.value;
             const correctAnswer = 'C';
             if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! C) Network, used to monitor API calls and resource loading.</pre>';
+                responseDiv.innerHTML = 'Correct! C) Network, used to monitor API calls and resource loading.';
                 responseDiv.className = 'quick-check-response correct';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is C) Network, used to monitor API calls and resource loading.</pre>';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is C) Network, used to monitor API calls and resource loading.';
                 responseDiv.className = 'quick-check-response incorrect';
             }
             responseDiv.style.display = 'block';
