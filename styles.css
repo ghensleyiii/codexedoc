@@ -669,54 +669,46 @@ hr {
 
 /* Quick Check */
 .quick-check-container {
-  margin: 20px 0 !important;
+    margin: 20px 0 !important;
 }
-
 .quick-check-option {
-  margin: 10px 0 !important;
+    margin: 10px 0 !important;
 }
-
 .quick-check-option input {
-  margin-right: 10px !important;
+    margin-right: 10px !important;
 }
-
 .quick-check {
-  background: var(--light-blue);
-  color: var(--gold);
-  padding: 10px 20px !important;
-  border: none !important;
-  cursor: pointer !important;
+    background: white;
+    color: #002966;
+    padding: 10px 20px !important;
+    border: none !important;
+    cursor: pointer !important;
 }
-
 .quick-check:hover {
-  background: var(--dark-blue);
+    background: white;
 }
-
 .quick-check-response {
-  display: none;
-  margin-top: 20px !important;
+    display: none;
+    margin-top: 20px !important;
 }
-
 .quick-check-response pre {
-  margin: 0 !important;
-  white-space: pre-wrap !important;
-  font-family: 'Roboto Mono', monospace !important;
+    margin: 0 !important;
+    white-space: pre-wrap !important;
+    font-family: 'Roboto Mono', monospace !important;
 }
-
 .quick-check-response.correct::before {
-  content: "\f00c" !important;
-  font-family: "Font Awesome 6 Free" !important;
-  font-weight: 900 !important;
-  color: #4CAF50;
-  margin-right: 10px !important;
+    content: "\f00c" !important;
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    color: #4CAF50;
+    margin-right: 10px !important;
 }
-
 .quick-check-response.incorrect::before {
-  content: "\f00d" !important;
-  font-family: "Font Awesome 6 Free" !important;
-  font-weight: 900 !important;
-  color: #f44336;
-  margin-right: 10px !important;
+    content: "\f00d" !important;
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    color: #f44336;
+    margin-right: 10px !important;
 }
 
 /* Arrow Navigation */
