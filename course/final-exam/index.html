@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Earn your full-stack development certification with CODEXEDOC’s final exam.">
+    <meta name="keywords" content="full-stack, certification, React, Django, Node.js, databases, CODEXEDOC">
+    <title>CODEXEDOC - Final Exam: Full-Stack Development Certification</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Full-Stack Integration and Career Prep</div>
+            <div class="lesson">Final Exam: Full-Stack Development Certification</div>
+            <div id="content">
+                <h2>Earning Your Full-Stack Certification</h2>
+                <p>You’ve completed Lessons 1–48, mastering full-stack development. This final exam tests your ability to build a secure booking system API and frontend, integrating all skills from HTML to deployment, to earn CODEXEDOC’s Full-Stack Development Certification.</p>
+
+                <h3>Why This Exam Matters</h3>
+                <p>Booking systems are common in industries like travel and events, requiring robust full-stack skills. This exam ensures you’re job-ready, validating your expertise for employers in 2025.</p>
+
+                <h3>Exam Overview</h3>
+                <p>You’ll create a REST API and frontend for a booking system, using React, Node.js/Express or Django, PostgreSQL for bookings, and MongoDB for logs. Requirements include:</p>
+                <ul>
+                    <li><strong>Frontend</strong>: Build a React UI for browsing and booking.</li>
+                    <li><strong>REST API</strong>: Create endpoints for bookings and users.</li>
+                    <li><strong>Databases</strong>: Use PostgreSQL for bookings, MongoDB for logs.</li>
+                    <li><strong>Authentication</strong>: Secure endpoints with JWT.</li>
+                    <li><strong>Optimization</strong>: Cache queries, optimize SQL/MongoDB.</li>
+                    <li><strong>Testing</strong>: Write Jest or Pytest tests for API and frontend.</li>
+                    <li><strong>Deployment</strong>: Deploy to Heroku or AWS.</li>
+                </ul>
+
+                <h3>Sample Task: Building the Booking API</h3>
+                <p><strong>Task</strong>: Create a REST API with CRUD endpoints for bookings, using PostgreSQL and MongoDB, protected by JWT. Include a React frontend, optimized queries, and a test.</p>
+                <p><strong>Sample Solution (Django-based)</strong>:</p>
+                <pre>
+# backend/models.py (PostgreSQL)
+from django.db import models
+
+class Booking(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    event = models.CharField(max_length=100)
+    date = models.DateTimeField()
+    status = models.CharField(max_length=20, default='pending')
+
+# backend/serializers.py
+from rest_framework import serializers
+from .models import Booking
+
+class BookingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ['id', 'user', 'event', 'date', 'status']
+
+# backend/views.py
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from .models import Booking
+from .serializers import BookingSerializer
+
+class BookingViewSet(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+
+# backend/urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from . import views
+
+router = DefaultRouter()
+router.register(r'bookings', views.BookingViewSet)
+
+urlpatterns = [
+    path('api/', include(router.urls)),
+]
+
+# backend/log_bookings.py (MongoDB)
+from pymongo import MongoClient
+
+client = MongoClient('mongodb://localhost/bookings')
+db = client['bookings']
+
+def log_booking(booking_id, action):
+    db.booking_logs.insert_one({
+        'booking_id': booking_id,
+        'action': action,
+        'timestamp': datetime.now()
+    })
+
+# backend/create_index.sql (PostgreSQL)
+CREATE INDEX idx_booking_date ON bookings(date);
+
+// frontend/src/App.jsx (React)
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import './App.css';
+
+function App() {
+    const [bookings, setBookings] = useState([]);
+
+    useEffect(() => {
+        axios.get('/api/bookings/', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+            .then(res => setBookings(res.data))
+            .catch(err => console.error(err));
+    }, []);
+
+    return (
+        <div className="container">
+            <h1>Booking System</h1>
+            <ul>
+                {bookings.map(booking => (
+                    <li key={booking.id}>{booking.event} - {booking.date}</li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+export default App;
+
+// frontend/src/App.css
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+# backend/test_api.py (Pytest)
+import pytest
+from rest_framework.test import APIClient
+from django.contrib.auth.models import User
+from .models import Booking
+
+@pytest.fixture
+def client():
+    return APIClient()
+
+@pytest.fixture
+def user():
+    return User.objects.create_user(username='testuser', password='testpass')
+
+def test_create_booking(client, user):
+    client.force_authenticate(user=user)
+    response = client.post('/api/bookings/', {'event': 'Concert', 'date': '2025-06-01T10:00:00Z', 'status': 'pending'})
+    assert response.status_code == 201
+    assert response.data['event'] == 'Concert'
+                </pre>
+                <p>This includes a secure API, MongoDB logging, React frontend, optimized query, and test. Add full CRUD, UI, and deployment for completion.</p>
+
+                <h3>How to Prepare</h3>
+                <p>To succeed:</p>
+                <ul>
+                    <li><strong>Review All Lessons</strong>: Revisit HTML, JavaScript, Node.js, Python, databases, and optimization (Lessons 1–48).</li>
+                    <li><strong>Practice Full-Stack</strong>: Build small apps with React, Django/Express, and databases.</li>
+                    <li><strong>Test Thoroughly</strong>: Write Jest/Pytest tests for all components.</li>
+                    <li><strong>Optimize Code</strong>: Use caching, indexes, and minification.</li>
+                    <li><strong>Mock Deployments</strong>: Practice Heroku/Docker deployment locally.</li>
+                </ul>
+
+                <h3>Taking the Exam</h3>
+                <p>Hosted on CODEXEDOC’s platform. Submit source code, tests, deployment URL, and a 3-minute demo video within 180 minutes. Evaluation criteria:</p>
+                <ul>
+                    <li><strong>Correctness</strong>: Functional booking system with CRUD.</li>
+                    <li><strong>Security</strong>: JWT, input validation, environment variables.</li>
+                    <li><strong>Optimization</strong>: Efficient queries and asset delivery.</li>
+                    <li><strong>Testing</strong>: Comprehensive test coverage.</li>
+                    <li><strong>Code Quality</strong>: Clean, modular, documented code.</li>
+                    <li><strong>Deployment</strong>: Accessible, stable deployed app.</li>
+                </ul>
+                <p>A passing score (80% or higher) earns the Full-Stack Development Certification, shareable on LinkedIn. Retake after 48 hours if needed.</p>
+
+                <h3>Summary</h3>
+                <p>This exam tests your ability to build a production-ready booking system, validating your full-stack expertise. By passing, you’re ready for a developer career. Keep building and congratulations on your journey!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/capstone-project/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/curriculum/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/capstone-project/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/curriculum/';
+        });
+    </script>
+</body>
+</html>
