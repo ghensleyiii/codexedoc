@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Build an e-commerce API with Express and MongoDB in CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="e-commerce API, Express, MongoDB, backend, CODEXEDOC">
-    <title>CODEXEDOC - Backend Project: E-commerce API</title>
+    <meta name="description" content="Learn Python fundamentals for web development with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Python, web development, backend, CODEXEDOC">
+    <title>CODEXEDOC - Python Fundamentals for Web Development</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -41,141 +41,59 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">Backend Development</div>
-            <div class="lesson">Backend Project: E-commerce API</div>
+            <div class="course-section">Python & Back End Development</div>
+            <div class="lesson">Python Fundamentals for Web Development</div>
             <div id="content">
-                <h2>Backend Project: E-commerce API</h2>
-                <p>Welcome to Lesson 34 of CODEXEDOC’s Full-Stack Development Course! In this project, you’ll build a complete e-commerce API using Express and MongoDB, supporting CRUD operations for products and integrating with your frontend cart. This project consolidates your backend skills, creating a robust API for your e-commerce app.</p>
+                <h2>Mastering Python Fundamentals</h2>
+                <p>Welcome to Lesson 34 of CODEXEDOC’s Full-Stack Development Course! Python is a versatile language for web development. In this lesson, you’ll learn Python basics, including data structures, functions, and modules, tailored for backend development.</p>
 
-                <h3>What is an E-commerce API?</h3>
-                <p>An e-commerce API provides endpoints to manage products, carts, or orders, serving data to the frontend. This project focuses on product management, with a MongoDB backend for persistent storage.</p>
+                <h3>What is Python?</h3>
+                <p>Python, created by Guido van Rossum in 1991, is a high-level, readable language. In 2025, Python 3.x powers web frameworks like Flask and Django, making it ideal for APIs and backends.</p>
 
-                <h3>Why Build This Project?</h3>
-                <p>This project applies your Node.js, Express, and MongoDB skills to create a real-world API, simulating professional backend development. It prepares you for full-stack integration and advanced features like user authentication.</p>
-
-                <h3>Key Project Components</h3>
-                <p>Your API will include:</p>
+                <h3>Key Python Concepts</h3>
+                <p>Focus on these features:</p>
                 <ul>
-                    <li><strong>Product CRUD</strong>: Endpoints for creating, reading, updating, and deleting products.</li>
-                    <li><strong>Error Handling</strong>: Robust error responses for invalid requests.</li>
-                    <li><strong>MongoDB Integration</strong>: Persistent storage with Mongoose.</li>
-                    <li><strong>Frontend Compatibility</strong>: Endpoints that work with your Lesson 31 cart.</li>
+                    <li><strong>Data Structures</strong>: Lists, dictionaries, and sets.</li>
+                    <li><strong>Functions</strong>: Define reusable code with <code>def</code>.</li>
+                    <li><strong>Modules</strong>: Import libraries like <code>json</code> or <code>os</code>.</li>
+                    <li><strong>Async Programming</strong>: Use <code>asyncio</code> for non-blocking tasks.</li>
                 </ul>
 
-                <h3>Building the API</h3>
-                <p>Follow these steps to create the API:</p>
-                <ol>
-                    <li><strong>Set Up Project</strong>: Initialize Node.js and install Express/Mongoose.</li>
-                    <li><strong>Configure MongoDB</strong>: Connect to a local or cloud database.</li>
-                    <li><strong>Define Routes</strong>: Create RESTful endpoints for products.</li>
-                    <li><strong>Test API</strong>: Use Postman to verify functionality.</li>
-                </ol>
-
-                <h3>Code Example: E-commerce API</h3>
-                <p>Here’s a complete e-commerce API (update your Lesson 31 frontend to use it):</p>
+                <h3>Code Example: Python Basics</h3>
+                <p>Here’s a Python script for processing user data:</p>
                 <pre>
-// server.js
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const app = express();
+# users.py
+def process_users(users):
+    return [user for user in users if user['age'] > 18]
 
-app.use(cors());
-app.use(express.json());
+users = [
+    {'name': 'Alice', 'age': 25},
+    {'name': 'Bob', 'age': 17},
+    {'name': 'Charlie', 'age': 30}
+]
 
-mongoose.connect("mongodb://localhost:27017/ecommerce", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log("Connected to MongoDB"));
-
-const productSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    price: { type: Number, required: true },
-    stock: { type: Number, default: 0 }
-});
-
-const Product = mongoose.model("Product", productSchema);
-
-// Get all products
-app.get("/api/products", async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.json(products);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-// Get product by ID
-app.get("/api/products/:id", async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
-        if (!product) return res.status(404).json({ message: "Product not found" });
-        res.json(product);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-// Create product
-app.post("/api/products", async (req, res) => {
-    try {
-        const product = new Product(req.body);
-        await product.save();
-        res.status(201).json(product);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-});
-
-// Update product
-app.put("/api/products/:id", async (req, res) => {
-    try {
-        const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
-        if (!product) return res.status(404).json({ message: "Product not found" });
-        res.json(product);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-});
-
-// Delete product
-app.delete("/api/products/:id", async (req, res) => {
-    try {
-        const product = await Product.findByIdAndDelete(req.params.id);
-        if (!product) return res.status(404).json({ message: "Product not found" });
-        res.json({ message: "Product deleted" });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-app.listen(3000, () => {
-    console.log("Server running at http://localhost:3000/");
-});
+filtered_users = process_users(users)
+print(filtered_users)  # [{'name': 'Alice', 'age': 25}, {'name': 'Charlie', 'age': 30}]
                 </pre>
-                <p>Install dependencies: <code>npm install express mongoose cors</code>. Test with Postman and connect to your Lesson 31 frontend.</p>
+                <p>This script filters users by age using a list comprehension.</p>
 
                 <h3>Practical Applications</h3>
-                <p>E-commerce APIs power platforms like Shopify, managing product data and orders. This project gives you a professional-grade API, ready for frontend integration and future features like authentication.</p>
+                <p>Python is used for APIs, data processing, and scripting. In your social media dashboard project, you’ll use Python to handle user data and API logic.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To build a great API:</p>
+                <p>To master Python:</p>
                 <ul>
-                    <li><strong>Add Validation</strong>: Ensure required fields and valid data types.</li>
-                    <li><strong>Test Extensively</strong>: Verify all endpoints with Postman.</li>
-                    <li><strong>Secure CORS</strong>: Restrict origins in production.</li>
-                    <li><strong>Document API</strong>: Create a guide for frontend developers.</li>
+                    <li><strong>Install Python</strong>: Use Python 3.11+ (2025 standard).</li>
+                    <li><strong>Use Virtual Environments</strong>: Run <code>python -m venv env</code>.</li>
+                    <li><strong>Practice Data Structures</strong>: Experiment with lists and dictionaries.</li>
+                    <li><strong>Debug with Print</strong>: Log outputs to trace logic.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>You’ve built a complete e-commerce API with Express and MongoDB, supporting full CRUD operations. This project marks a major milestone in your full-stack journey. In the next lesson, you’ll explore advanced backend topics or enhance your project. Great work!</p>
+                <p>Python’s simplicity enables powerful backends. By mastering its fundamentals, you’re ready for web development. Next, you’ll build APIs with Flask. Keep coding in Python!</p>
             </div>
             <div class="arrow-nav-container">
-                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-thirty-three/"></a></button>
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/assessment-nodejs/"></a></button>
                 <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-thirty-five/"></a></button>
             </div>
         </div>
@@ -194,7 +112,7 @@ app.listen(3000, () => {
 
     <script>
         document.querySelector('.arrow-left').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-thirty-three/';
+            window.location.href = 'https://www.codexedoc.com/course/assessment-nodejs/';
         });
         document.querySelector('.arrow-right').addEventListener('click', () => {
             window.location.href = 'https://www.codexedoc.com/course/lesson-thirty-five/';
