@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn CSS layouts and the box model to create structured, flexible designs for full-stack web applications.">
+    <meta name="keywords" content="CSS, box model, Flexbox, layouts, full-stack development">
+    <title>CODEXEDOC - CSS Layouts and Box Model</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">HTML & CSS</div>
+            <div class="lesson">CSS Layouts and Box Model</div>
+            <div id="content">
+                <h2>CSS Layouts and Box Model</h2>
+                <p>Welcome to Lesson 11 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn the CSS box model and Flexbox for creating structured layouts. By the end, you’ll be able to build a three-column layout using Flexbox.</p>
+
+                <h3>Introduction</h3>
+                <p>The CSS box model and layouts are like a shepherd’s pen, organizing sheep (content) into neat, aligned spaces. The box model defines how elements are sized, while Flexbox arranges them flexibly. This lesson teaches you to create professional, structured web designs.</p>
+
+                <h3>Key Concepts</h3>
+                <p>This lesson covers layout essentials:</p>
+                <ul>
+                    <li><strong>Box Model</strong>: Every element is a box with content, padding, border, and margin.</li>
+                    <li><strong>Flexbox</strong>: Use <code>display: flex</code>, <code>justify-content</code>, and <code>align-items</code> for flexible layouts.</li>
+                    <li><strong>Box Sizing</strong>: Use <code>box-sizing: border-box</code> to include padding and border in element width.</li>
+                </ul>
+
+                <h3>Code Example</h3>
+                <p>Below is an example of a three-column Flexbox layout with the box model applied.</p>
+                <pre>
+&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;title&gt;Flexbox Layout&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="column"&gt;Column 1&lt;/div&gt;
+        &lt;div class="column"&gt;Column 2&lt;/div&gt;
+        &lt;div class="column"&gt;Column 3&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+&lt;!-- styles.css --&gt;
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+.column {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+                </pre>
+
+                <h3>Practical Applications</h3>
+                <p>The box model and Flexbox are used in modern websites like Airbnb or Spotify to create clean, organized layouts. For example, a dashboard app uses Flexbox to align widgets and the box model to ensure consistent spacing. These skills are crucial for building user-friendly interfaces in full-stack development.</p>
+
+                <h3>Tips for Success</h3>
+                <p>Here are tips to master layouts:</p>
+                <ul>
+                    <li>Always use box-sizing: Set <code>box-sizing: border-box</code> globally for predictable sizing.</li>
+                    <li>Practice Flexbox: Experiment with <code>justify-content</code> and <code>align-items</code> in dev tools.</li>
+                    <li>Plan your layout: Sketch your design before coding to save time.</li>
+                </ul>
+
+                <h3>Shearing Tip</h3>
+                <p>Flexbox shears away layout struggles with easy alignment, just as a shepherd arranges a flock neatly. The box model ensures every element fits perfectly in your design.</p>
+
+                <h3>Quick Check</h3>
+                <p>Test your understanding with this interactive quiz:</p>
+                <div class="quick-check-container" id="quick-check">
+                    <p><strong>Question:</strong> What CSS property includes padding and border in an element’s width?</p>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-a" value="A">
+                        <label for="option-a">A) box-sizing: border-box</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-b" value="B">
+                        <label for="option-b">B) display: flex</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-c" value="C">
+                        <label for="option-c">C) margin: auto</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-d" value="D">
+                        <label for="option-d">D) padding: 10px</label>
+                    </div>
+                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
+                    <div class="quick-check-response" id="quick-check-response"></div>
+                </div>
+
+                <h3>Summary</h3>
+                <p>In this lesson, you learned the CSS box model and Flexbox to create structured layouts. These skills enhance your front-end designs. Next, in Lesson 12, you’ll explore responsive web design to make pages device-friendly.</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-ten/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twelve/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        const jsConfetti = new JSConfetti();
+        function submitQuiz() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const responseDiv = document.getElementById('quick-check-response');
+            if (!selected) {
+                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
+                responseDiv.style.display = 'block';
+                responseDiv.className = 'quick-check-response incorrect';
+                return;
+            }
+            const answer = selected.value;
+            const correctAnswer = 'A';
+            if (answer === correctAnswer) {
+                responseDiv.innerHTML = '<pre>Correct! A) box-sizing: border-box, simplifying size calculations.</pre>';
+                responseDiv.className = 'quick-check-response correct';
+                jsConfetti.addConfetti();
+            } else {
+                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is A) box-sizing: border-box, simplifying size calculations.</pre>';
+                responseDiv.className = 'quick-check-response incorrect';
+            }
+            responseDiv.style.display = 'block';
+        }
+
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-ten/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twelve/';
+        });
+    </script>
+</body>
+</html>
