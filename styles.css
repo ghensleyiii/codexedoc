@@ -186,7 +186,7 @@ header nav a:hover {
   max-width: 600px !important;
 }
 
-.validate-btn, .test-btn, .document-btn, .quick-check {
+.validate-btn, .test-btn, .document-btn, {
   background-color: var(--light-blue);
   color: var(--gold);
   border: 2px solid var(--gold);
@@ -665,6 +665,65 @@ hr {
   color: var(--gold);
   text-align: center !important;
   font-style: italic !important;
+}
+
+/* Quick Check */
+.quick-check-container {
+  margin: 20px 0;
+}
+
+.quick-check-option {
+  margin: 10px 0;
+}
+
+.quick-check-option input {
+  margin-right: 10px;
+}
+
+.quick-check {
+  background-color: var(--light-blue);
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  padding: 10px 20px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 5px !important;
+  font-family: 'Roboto Mono', monospace !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.quick-check:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
+  background-color: var(--dark-blue);
+}
+
+.quick-check-response {
+  display: none;
+  margin-top: 20px;
+}
+
+.quick-check-response pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.quick-check-response.correct::before {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  color: #4CAF50;
+  margin-right: 10px;
+}
+
+.quick-check-response.incorrect::before {
+  content: "\f00d";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  color: #f44336;
+  margin-right: 10px;
 }
 
 /* Arrow Navigation */
