@@ -17,13 +17,11 @@
         .quiz-container { margin: 20px 0; }
         .quiz-option { margin: 10px 0; }
         .quiz-option input { margin-right: 10px; }
-        .quiz-submit { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
-        .quiz-submit:hover { background: #45a049; }
-        .quiz-response { display: none; margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .quick-check { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        .quick-check:hover { background: #45a049; }
+        .quiz-response { display: none; margin-top: 20px; }
         .quiz-response pre { margin: 0; white-space: pre-wrap; font-family: 'Roboto Mono', monospace; }
-        .quiz-response.correct { border-color: #4CAF50; background: #e8f5e9; }
         .quiz-response.correct::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #4CAF50; margin-right: 10px; }
-        .quiz-response.incorrect { border-color: #f44336; background: #ffebee; }
         .quiz-response.incorrect::before { content: "\f00d"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #f44336; margin-right: 10px; }
     </style>
 </head>
@@ -126,7 +124,7 @@ Stores task data
                         <input type="radio" name="answer" id="option-d" value="D">
                         <label for="option-d">D) User interface</label>
                     </div>
-                    <button class="quiz-submit" onclick="submitQuiz()">Submit</button>
+                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
                     <div class="quiz-response" id="quiz-response"></div>
                 </div>
 
