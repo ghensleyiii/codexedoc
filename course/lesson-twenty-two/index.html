@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript asynchronous programming with promises and async/await for non-blocking web applications.">
-    <meta name="keywords" content="JavaScript, asynchronous, promises, async await, full-stack development">
-    <title>CODEXEDOC - Asynchronous Programming</title>
+    <meta name="description" content="Learn SQL and relational database concepts to organize and manage data effectively.">
+    <meta name="keywords" content="SQL, relational databases, tables, full-stack development">
+    <title>CODEXEDOC - SQL and Relational Databases</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -42,92 +42,80 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">JavaScript</div>
-            <div class="lesson">Asynchronous Programming</div>
+            <div class="course-section">SQL and Databases</div>
+            <div class="lesson">SQL and Relational Databases</div>
             <div id="content">
-                <h2>Asynchronous Programming</h2>
-                <p>Welcome to Lesson 22 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn JavaScript asynchronous programming with promises and async/await. By the end, you’ll be able to fetch and display data with non-blocking code.</p>
+                <h2>SQL and Relational Databases</h2>
+                <p>Welcome to Lesson 22! You’ll learn SQL and relational database basics. By the end, you’ll create a users table.</p>
 
                 <h3>Introduction</h3>
-                <p>Asynchronous programming is like a shepherd sending a dog to fetch a stray sheep while continuing other tasks. JavaScript’s promises and async/await handle time-consuming operations without freezing the app. This lesson teaches you to manage async tasks effectively.</p>
+                <p>SQL is like a shepherd organizing wool into neat bundles. Relational databases store data in structured tables, and SQL manages them. This lesson covers core SQL commands and database concepts.</p>
 
                 <h3>Key Concepts</h3>
-                <p>This lesson covers asynchronous programming essentials:</p>
+                <p>Focus areas include:</p>
                 <ul>
-                    <li><strong>Promises</strong>: Use <code>new Promise</code> or <code>.then</code> for async results.</li>
-                    <li><strong>Async/Await</strong>: Use <code>async</code> functions and <code>await</code> for cleaner async code.</li>
-                    <li><strong>Error Handling</strong>: Combine try-catch with async/await for robust error management.</li>
+                    <li><strong>Tables</strong>: Store data in rows and columns.</li>
+                    <li><strong>Primary Keys</strong>: Uniquely identify rows.</li>
+                    <li><strong>SQL Commands</strong>: CREATE, INSERT, SELECT, UPDATE, DELETE.</li>
                 </ul>
 
                 <h3>Code Example</h3>
-                <p>Below is an example of fetching mock data with async/await and displaying it.</p>
+                <p>Here’s how to create and populate a users table.</p>
                 <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;title&gt;Async Data&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;button onclick="fetchData()"&gt;Fetch Data&lt;/button&gt;
-    &lt;p id="result"&gt;&lt;/p&gt;
-    &lt;script&gt;
-        async function fetchData() {
-            const result = document.getElementById('result');
-            try {
-                // Mock API call
-                const response = await new Promise(resolve => {
-                    setTimeout(() => resolve('Data received!'), 1000);
-                });
-                result.textContent = response;
-            } catch (error) {
-                result.textContent = `Error: ${error.message}`;
-            }
-        }
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+
+INSERT INTO users (username, email) VALUES
+    ('Shepherd', 'shepherd@example.com'),
+    ('Flock', 'flock@example.com');
+
+SELECT * FROM users;
                 </pre>
+                <p>Run in a database like MySQL or PostgreSQL.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Asynchronous programming is used in apps like Twitter or Netflix to load posts or videos without blocking the UI. For example, a weather app fetches data async to update forecasts. These skills are essential for full-stack developers to create responsive apps.</p>
+                <p>SQL powers apps like Amazon for storing user data. Tables manage orders or profiles. These skills are essential for full-stack developers handling data.</p>
 
                 <h3>Tips for Success</h3>
-                <p>Here are tips to master asynchronous programming:</p>
+                <p>Master SQL with these tips:</p>
                 <ul>
-                    <li>Use async/await over .then: It’s more readable for complex flows.</li>
-                    <li>Handle errors: Always include try-catch in async functions.</li>
-                    <li>Test async delays: Use setTimeout to simulate network latency.</li>
+                    <li>Use clear column names for readability.</li>
+                    <li>Always define primary keys.</li>
+                    <li>Test queries in a database client like phpMyAdmin.</li>
                 </ul>
 
                 <h3>Shearing Tip</h3>
-                <p>Asynchronous programming shears away app freezes with non-blocking tasks, just as a shepherd multitasks to keep the flock moving. Promises and async/await keep your apps smooth.</p>
+                <p>SQL shears away data chaos with structured tables, like a shepherd organizing the flock.</p>
 
                 <h3>Quick Check</h3>
-                <p>Test your understanding with this interactive quiz:</p>
+                <p>Test your knowledge:</p>
                 <div class="quick-check-container" id="quick-check">
-                    <p><strong>Question:</strong> Which keyword makes a function asynchronous?</p>
+                    <p><strong>Question:</strong> What SQL command adds data to a table?</p>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-a" value="A">
-                        <label for="option-a">A) await</label>
+                        <label for="option-a">A) SELECT</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-b" value="B">
-                        <label for="option-b">B) async</label>
+                        <label for="option-b">B) INSERT</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-c" value="C">
-                        <label for="option-c">C) then</label>
+                        <label for="option-c">C) UPDATE</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-d" value="D">
-                        <label for="option-d">D) promise</label>
+                        <label for="option-d">D) DELETE</label>
                     </div>
                     <button class="quick-check" onclick="submitQuiz()">Submit</button>
                     <div class="quick-check-response" id="quick-check-response"></div>
                 </div>
 
                 <h3>Summary</h3>
-                <p>In this lesson, you learned asynchronous programming with promises and async/await. These skills enable responsive apps. Next, in Lesson 23, you’ll explore fetching data from APIs to integrate external services.</p>
+                <p>You’ve learned SQL basics. Next, Lesson 23 covers writing effective SQL queries.</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-one/"></a></button>
@@ -138,12 +126,26 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo-container">
-                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
-                <div>CODEXEDOC</div>
+            <div class="footer-section">
+                <h3>About CODEXEDOC</h3>
+                <p>CODEXEDOC provides hands-on full-stack development training with a focus on job-ready skills.</p>
             </div>
-            <p>Shearing Away the Complexity of Coding!</p>
-            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                    <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                    <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+                <p>Follow us: <a href="https://www.linkedin.com/company/codexedoc">LinkedIn</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 CODEXEDOC. All rights reserved.</p>
         </div>
     </footer>
 
@@ -153,30 +155,21 @@
             const selected = document.querySelector('input[name="answer"]:checked');
             const responseDiv = document.getElementById('quick-check-response');
             if (!selected) {
-                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
-                responseDiv.style.display = 'block';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Please select an answer!';
                 return;
             }
             const answer = selected.value;
-            const correctAnswer = 'B';
-            if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! B) async, marking a function as asynchronous.</pre>';
-                responseDiv.className = 'quick-check-response correct';
+            if (answer === 'B') {
+                responseDiv.innerHTML = 'Correct! INSERT adds new rows to a table.';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) async, marking a function as asynchronous.</pre>';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is B) INSERT, adding new rows to a table.';
             }
-            responseDiv.style.display = 'block';
         }
-
-        document.querySelector('.arrow-left').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-one/';
-        });
-        document.querySelector('.arrow-right').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-three/';
-        });
+        const leftArrow = document.querySelector('.arrow-left a');
+        const rightArrow = document.querySelector('.arrow-right a');
+        leftArrow.href = 'https://www.codexedoc.com/course/lesson-twenty-one/';
+        rightArrow.href = 'https://www.codexedoc.com/course/lesson-twenty-three/';
     </script>
 </body>
 </html>
