@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript functions and scope to write reusable, organized code for web applications.">
-    <meta name="keywords" content="JavaScript, functions, scope, closure, full-stack development">
-    <title>CODEXEDOC - Functions and Scope</title>
+    <meta name="description" content="Learn to build RESTful APIs with Express for efficient server-side applications.">
+    <meta name="keywords" content="Express, Node.js, APIs, REST, full-stack development">
+    <title>CODEXEDOC - Building APIs with Express</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -42,96 +42,89 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">JavaScript</div>
-            <div class="lesson">Functions and Scope</div>
+            <div class="course-section">Node.js and Back-End Development</div>
+            <div class="lesson">Building APIs with Express</div>
             <div id="content">
-                <h2>Functions and Scope</h2>
-                <p>Welcome to Lesson 19 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn JavaScript functions and scope to write reusable, organized code. By the end, you’ll be able to create a calculator function that operates within a defined scope.</p>
+                <h2>Building APIs with Express</h2>
+                <p>Welcome to Lesson 19! You’ll learn to build RESTful APIs with Express. By the end, you’ll create a to-do list API.</p>
 
                 <h3>Introduction</h3>
-                <p>Functions are like a shepherd’s trained dog, performing specific tasks on command. Scope defines where variables are accessible, keeping code organized. This lesson teaches you to create functions and manage scope for clean, maintainable scripts.</p>
+                <p>Express is like a shepherd’s path, simplifying server routes. This lesson covers setting up Express and creating RESTful endpoints for data management.</p>
 
                 <h3>Key Concepts</h3>
-                <p>This lesson covers function and scope essentials:</p>
+                <p>Focus areas include:</p>
                 <ul>
-                    <li><strong>Functions</strong>: Define with <code>function</code> or arrow syntax, accepting parameters and returning values.</li>
-                    <li><strong>Scope</strong>: Understand global, function, and block scope with <code>let</code> and <code>const</code>.</li>
-                    <li><strong>Closures</strong>: Functions that retain access to their outer scope’s variables.</li>
+                    <li><strong>Express Setup</strong>: Install and configure Express.</li>
+                    <li><strong>Routes</strong>: Handle GET, POST, PUT, DELETE requests.</li>
+                    <li><strong>Middleware</strong>: Process JSON data.</li>
                 </ul>
 
                 <h3>Code Example</h3>
-                <p>Below is an example of a calculator function using closures to maintain a running total.</p>
+                <p>Here’s a simple to-do list API.</p>
                 <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;title&gt;Calculator&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;input type="number" id="number" placeholder="Enter number"&gt;
-    &lt;button onclick="add()"&gt;Add&lt;/button&gt;
-    &lt;p id="result"&gt;Total: 0&lt;/p&gt;
-    &lt;script&gt;
-        function createCalculator() {
-            let total = 0;
-            return function(number) {
-                total += number;
-                return total;
-            };
-        }
-        const addNumber = createCalculator();
-        function add() {
-            const number = parseFloat(document.getElementById('number').value);
-            const result = document.getElementById('result');
-            if (!isNaN(number)) {
-                result.textContent = `Total: ${addNumber(number)}`;
-            }
-        }
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+let todos = [];
+
+app.get('/todos', (req, res) => {
+    res.json(todos);
+});
+
+app.post('/todos', (req, res) => {
+    const todo = { id: todos.length + 1, task: req.body.task };
+    todos.push(todo);
+    res.status(201).json(todo);
+});
+
+app.listen(3000, () => {
+    console.log('Server running at http://localhost:3000');
+});
                 </pre>
+                <p>Run with <code>node app.js</code> after <code>npm install express</code>. Test with tools like Postman.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Functions and scope are used in apps like Google Maps or Trello to manage tasks like distance calculations or card updates. For example, a budget app uses functions to compute totals within a secure scope. These skills are critical for full-stack developers to write modular code.</p>
+                <p>Express powers APIs for apps like Spotify. It’s used for task management or e-commerce back-ends. These skills are essential for back-end development.</p>
 
                 <h3>Tips for Success</h3>
-                <p>Here are tips to master functions and scope:</p>
+                <p>Master Express with these tips:</p>
                 <ul>
-                    <li>Keep functions focused: Each function should do one task well.</li>
-                    <li>Use block scope: Prefer <code>let</code> and <code>const</code> over <code>var</code> for clarity.</li>
-                    <li>Leverage closures: Use them for private variables, like in counters or modules.</li>
+                    <li>Use <code>express.json()</code> for JSON payloads.</li>
+                    <li>Organize routes clearly for scalability.</li>
+                    <li>Test endpoints with curl or Postman.</li>
                 </ul>
 
                 <h3>Shearing Tip</h3>
-                <p>Functions shear away code repetition with reusable logic, just as a shepherd’s dog handles tasks efficiently. Scope keeps your variables tidy and secure.</p>
+                <p>Express shears away server complexity with simple routes, like a shepherd guiding the flock.</p>
 
                 <h3>Quick Check</h3>
-                <p>Test your understanding with this interactive quiz:</p>
+                <p>Test your knowledge:</p>
                 <div class="quick-check-container" id="quick-check">
-                    <p><strong>Question:</strong> What defines a variable’s accessibility in JavaScript?</p>
+                    <p><strong>Question:</strong> Which Express method handles a GET request?</p>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-a" value="A">
-                        <label for="option-a">A) Function</label>
+                        <label for="option-a">A) app.post()</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-b" value="B">
-                        <label for="option-b">B) Scope</label>
+                        <label for="option-b">B) app.get()</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-c" value="C">
-                        <label for="option-c">C) Event</label>
+                        <label for="option-c">C) app.use()</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-d" value="D">
-                        <label for="option-d">D) Closure</label>
+                        <label for="option-d">D) app.delete()</label>
                     </div>
                     <button class="quick-check" onclick="submitQuiz()">Submit</button>
                     <div class="quick-check-response" id="quick-check-response"></div>
                 </div>
 
                 <h3>Summary</h3>
-                <p>In this lesson, you learned functions and scope to write reusable, organized JavaScript code. These skills enhance modularity. Next, in Lesson 20, you’ll explore arrays and objects to manage complex data in your scripts.</p>
+                <p>You’ve built an API with Express. Next, Lesson 20 covers authentication and security.</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-eighteen/"></a></button>
@@ -142,12 +135,26 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo-container">
-                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
-                <div>CODEXEDOC</div>
+            <div class="footer-section">
+                <h3>About CODEXEDOC</h3>
+                <p>CODEXEDOC provides hands-on full-stack development training with a focus on job-ready skills.</p>
             </div>
-            <p>Shearing Away the Complexity of Coding!</p>
-            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                    <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                    <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+                <p>Follow us: <a href="https://www.linkedin.com/company/codexedoc">LinkedIn</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CODEXEDOC. All rights reserved.</p>
         </div>
     </footer>
 
@@ -157,30 +164,21 @@
             const selected = document.querySelector('input[name="answer"]:checked');
             const responseDiv = document.getElementById('quick-check-response');
             if (!selected) {
-                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
-                responseDiv.style.display = 'block';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Please select an answer!';
                 return;
             }
             const answer = selected.value;
-            const correctAnswer = 'B';
-            if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! B) Scope, defining where variables are accessible.</pre>';
-                responseDiv.className = 'quick-check-response correct';
+            if (answer === 'B') {
+                responseDiv.innerHTML = 'Correct! app.get() defines a GET endpoint.';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) Scope, defining where variables are accessible.</pre>';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is B) app.get(), defining a GET endpoint.';
             }
-            responseDiv.style.display = 'block';
         }
-
-        document.querySelector('.arrow-left').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-eighteen/';
-        });
-        document.querySelector('.arrow-right').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty/';
-        });
+        const leftArrow = document.querySelector('.arrow-left a');
+        const rightArrow = document.querySelector('.arrow-right a');
+        leftArrow.href = 'https://www.codexedoc.com/course/lesson-eighteen/';
+        rightArrow.href = 'https://www.codexedoc.com/course/lesson-twenty/';
     </script>
 </body>
 </html>
