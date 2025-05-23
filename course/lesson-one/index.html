@@ -13,17 +13,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../styles.css">
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-    <style>
-        .quiz-container { margin: 20px 0; }
-        .quiz-option { margin: 10px 0; }
-        .quiz-option input { margin-right: 10px; }
-        .quick-check { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
-        .quick-check:hover { background: #45a049; }
-        .quiz-response { display: none; margin-top: 20px; }
-        .quiz-response pre { margin: 0; white-space: pre-wrap; font-family: 'Roboto Mono', monospace; }
-        .quiz-response.correct::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #4CAF50; margin-right: 10px; }
-        .quiz-response.incorrect::before { content: "\f00d"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #f44336; margin-right: 10px; }
-    </style>
 </head>
 <body>
     <header>
@@ -106,26 +95,26 @@ Stores task data
 
                 <h3>Quick Check</h3>
                 <p>Test your understanding with this interactive quiz:</p>
-                <div class="quiz-container" id="quiz">
+                <div class="quick-check-container" id="quick-check">
                     <p><strong>Question:</strong> What does the back-end handle in a web application?</p>
-                    <div class="quiz-option">
+                    <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-a" value="A">
                         <label for="option-a">A) Styling and layouts</label>
                     </div>
-                    <div class="quiz-option">
+                    <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-b" value="B">
                         <label for="option-b">B) Browser rendering</label>
                     </div>
-                    <div class="quiz-option">
+                    <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-c" value="C">
                         <label for="option-c">C) Server logic and data processing</label>
                     </div>
-                    <div class="quiz-option">
+                    <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-d" value="D">
                         <label for="option-d">D) User interface</label>
                     </div>
-                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
-                    <div class="quiz-response" id="quiz-response"></div>
+                    <button class="quick-check-check" onclick="submitQuiz()">Submit</button>
+                    <div class="quick-check-response" id="quick-check-response"></div>
                 </div>
 
                 <h3>Summary</h3>
@@ -153,22 +142,22 @@ Stores task data
         const jsConfetti = new JSConfetti();
         function submitQuiz() {
             const selected = document.querySelector('input[name="answer"]:checked');
-            const responseDiv = document.getElementById('quiz-response');
+            const responseDiv = document.getElementById('quick-check-response');
             if (!selected) {
                 responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
                 responseDiv.style.display = 'block';
-                responseDiv.className = 'quiz-response incorrect';
+                responseDiv.className = 'quick-check incorrect';
                 return;
             }
             const answer = selected.value;
             const correctAnswer = 'C';
             if (answer === correctAnswer) {
                 responseDiv.innerHTML = '<pre>Correct! C) Server logic and data processing\nThe back-end manages server-side operations like processing user requests and interacting with databases, leaving the user interface to the front-end.</pre>';
-                responseDiv.className = 'quiz-response correct';
+                responseDiv.className = 'quick-check correct';
                 jsConfetti.addConfetti();
             } else {
                 responseDiv.innerHTML = '<pre>Incorrect. The correct answer is C) Server logic and data processing\nThe back-end manages server-side operations like processing user requests and interacting with databases, leaving the user interface to the front-end.</pre>';
-                responseDiv.className = 'quiz-response incorrect';
+                responseDiv.className = 'quick-check incorrect';
             }
             responseDiv.style.display = 'block';
         }
