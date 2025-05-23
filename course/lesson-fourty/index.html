@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Build a full-stack e-commerce app in CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="full-stack, e-commerce, integration, web development, CODEXEDOC">
-    <title>CODEXEDOC - Full-Stack Integration Project</title>
+    <meta name="description" content="Learn to test Python applications with Pytest in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Python, Pytest, testing, Flask, Django, web development, CODEXEDOC">
+    <title>CODEXEDOC - Testing Python Applications (Pytest)</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -41,189 +41,71 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">Full-Stack Development</div>
-            <div class="lesson">Full-Stack Integration Project</div>
+            <div class="course-section">Python & Back End Development</div>
+            <div class="lesson">Testing Python Applications (Pytest)</div>
             <div id="content">
-                <h2>Full-Stack Integration Project</h2>
-                <p>Welcome to Lesson 40 of CODEXEDOC’s Full-Stack Development Course! This project integrates your frontend and backend to create a complete e-commerce app, combining authentication, product management, and file uploads. You’ll build a fully functional store with user login and cart features.</p>
+                <h2>Mastering Testing with Pytest</h2>
+                <p>Welcome to Lesson 40! Testing ensures reliable Python apps. In this lesson, you’ll learn to use Pytest to test Flask and Django APIs, similar to Supertest for Node.js.</p>
 
-                <h3>What is Full-Stack Integration?</h3>
-                <p>Full-stack integration connects a frontend (HTML/CSS/JS) with a backend (Express/MongoDB) to create a cohesive application. In 2025, this is the backbone of modern web development.</p>
+                <h3>What is Pytest?</h3>
+                <p>Pytest is a Python testing framework for unit and integration tests. In 2025, it’s the go-to tool for testing Flask and Django apps, offering simple syntax and powerful features.</p>
 
-                <h3>Why Build This Project?</h3>
-                <p>This project consolidates your skills, simulating real-world development. You’ll create a production-ready e-commerce app, preparing you for professional full-stack roles.</p>
-
-                <h3>Key Project Components</h3>
-                <p>Your app will include:</p>
+                <h3>Key Pytest Concepts</h3>
+                <p>Focus on these techniques:</p>
                 <ul>
-                    <li><strong>Frontend</strong>: User login and product cart with Tailwind CSS.</li>
-                    <li><strong>Backend</strong>: Secure API with JWT and file uploads.</li>
-                    <li><strong>Database</strong>: MongoDB for users and products.</li>
-                    <li><strong>Integration</strong>: Seamless API calls with error handling.</li>
+                    <li><strong>Assertions</strong>: Use <code>assert</code> for test conditions.</li>
+                    <li><strong>Fixtures</strong>: Setup test data or clients.</li>
+                    <li><strong>API Testing</strong>: Test Flask/Django endpoints.</li>
+                    <li><strong>Mocks</strong>: Simulate database or external calls.</li>
                 </ul>
 
-                <h3>Building the Project</h3>
-                <p>Follow these steps:</p>
-                <ol>
-                    <li><strong>Update Backend</strong>: Combine Lessons 35–37 for authentication and uploads.</li>
-                    <li><strong>Enhance Frontend</strong>: Add login and image display to Lesson 31’s cart.</li>
-                    <li><strong>Connect Components</strong>: Use Fetch API for all interactions.</li>
-                    <li><strong>Test Locally</strong>: Verify functionality before deployment.</li>
-                </ol>
-
-                <h3>Code Example: Full-Stack App</h3>
-                <p>Here’s a simplified frontend with login and product display (requires Lesson 37’s backend):</p>
+                <h3>Code Example: Pytest for Flask</h3>
+                <p>Here’s a test for a Flask API:</p>
                 <pre>
-&lt;!-- index.html --&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;E-commerce Store&lt;/title&gt;
-    &lt;link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"&gt;
-&lt;/head&gt;
-&lt;body class="bg-gray-100"&gt;
-    &lt;header class="bg-blue-600 text-white p-4"&gt;
-        &lt;div class="flex justify-between"&gt;
-            &lt;h1 class="text-2xl font-bold"&gt;Store&lt;/h1&gt;
-            &lt;button id="login-btn" class="bg-white text-blue-600 px-4 py-2 rounded"&gt;Login&lt;/button&gt;
-        &lt;/div&gt;
-    &lt;/header&gt;
-    &lt;main class="container mx-auto p-4"&gt;
-        &lt;div id="login-form" class="hidden bg-white p-4 rounded shadow mb-4"&gt;
-            &lt;h2 class="text-xl font-bold"&gt;Login&lt;/h2&gt;
-            &lt;input id="email" type="email" placeholder="Email" class="border p-2 w-full mb-2"&gt;
-            &lt;input id="password" type="password" placeholder="Password" class="border p-2 w-full mb-2"&gt;
-            &lt;button id="submit-login" class="bg-blue-600 text-white px-4 py-2 rounded"&gt;Submit&lt;/button&gt;
-        &lt;/div&gt;
-        &lt;h2 class="text-xl font-bold mb-4"&gt;Products&lt;/h2&gt;
-        &lt;div id="product-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"&gt;&lt;/div&gt;
-        &lt;h2 class="text-xl font-bold mt-8 mb-4"&gt;Cart&lt;/h2&gt;
-        &lt;ul id="cart-list" class="bg-white p-4 rounded shadow"&gt;&lt;/ul&gt;
-        &lt;p id="total" class="mt-4 font-semibold"&gt;Total: $0.00&lt;/p&gt;
-    &lt;/main&gt;
-    &lt;script&gt;
-        let token = null;
-        const cart = [];
-        const productList = document.querySelector(&quot;#product-list&quot;);
-        const cartList = document.querySelector(&quot;#cart-list&quot;);
-        const totalDisplay = document.querySelector(&quot;#total&quot;);
-        const loginForm = document.querySelector(&quot;#login-form&quot;);
-        const loginBtn = document.querySelector(&quot;#login-btn&quot;);
-        const submitLogin = document.querySelector(&quot;#submit-login&quot;);
+# app.py
+from flask import Flask, jsonify
 
-        loginBtn.addEventListener(&quot;click&quot;, () =&gt; {
-            loginForm.classList.toggle(&quot;hidden&quot;);
-        });
+app = Flask(__name__)
 
-        submitLogin.addEventListener(&quot;click&quot;, async () =&gt; {
-            try {
-                const email = document.querySelector(&quot;#email&quot;).value;
-                const password = document.querySelector(&quot;#password&quot;).value;
-                const res = await fetch(&quot;http://localhost:3000/api/auth/login&quot;, {
-                    method: &quot;POST&quot;,
-                    headers: { &quot;Content-Type&quot;: &quot;application/json&quot; },
-                    body: JSON.stringify({ email, password })
-                });
-                if (!res.ok) throw new Error(&quot;Login failed&quot;);
-                const data = await res.json();
-                token = data.token;
-                loginForm.classList.add(&quot;hidden&quot;);
-                loginBtn.textContent = &quot;Logout&quot;;
-                fetchProducts();
-            } catch (err) {
-                alert(&quot;Login error: &quot; + err.message);
-            }
-        });
+@app.route('/api/posts', methods=['GET'])
+def get_posts():
+    return jsonify([{'id': 1, 'title': 'Post 1'}])
 
-        async function fetchProducts() {
-            try {
-                const res = await fetch(&quot;http://localhost:3000/api/products&quot;, {
-                    headers: token ? { &quot;Authorization&quot;: `Bearer ${token}` } : {}
-                });
-                if (!res.ok) throw new Error(&quot;Failed to fetch products&quot;);
-                const products = await res.json();
-                renderProducts(products);
-            } catch (err) {
-                productList.innerHTML = &quot;&lt;p class='text-red-600'&gt;Error loading products&lt;/p&gt;&quot;;
-            }
-        }
+# test_app.py
+import pytest
+from app import app
 
-        function renderProducts(products) {
-            productList.innerHTML = &quot;&quot;;
-            products.forEach(product =&gt; {
-                const div = document.createElement(&quot;div&quot;);
-                div.className = &quot;bg-white p-4 rounded shadow&quot;;
-                div.innerHTML = `
-                    &lt;img src=&quot;${product.image || ''}&quot; alt=&quot;${product.name}&quot; class=&quot;w-full h-32 object-cover mb-2&quot; onerror=&quot;this.src='fallback.jpg';&quot;&gt;
-                    &lt;h3 class=&quot;font-bold&quot;&gt;${product.name}&lt;/h3&gt;
-                    &lt;p&gt;$${product.price.toFixed(2)}&lt;/p&gt;
-                    &lt;button class=&quot;bg-blue-600 text-white px-4 py-2 rounded&quot; onclick=&quot;addToCart(${product.id}, '${product.name}', ${product.price})&quot;&gt;Add to Cart&lt;/button&gt;
-                `;
-                productList.appendChild(div);
-            });
-        }
+@pytest.fixture
+def client():
+    app.config['TESTING'] = True
+    with app.test_client() as client:
+        yield client
 
-        function addToCart(id, name, price) {
-            const item = cart.find(item =&gt; item.id === id);
-            if (item) {
-                item.quantity++;
-            } else {
-                cart.push({ id, name, price: parseFloat(price), quantity: 1 });
-            }
-            renderCart();
-        }
-
-        function renderCart() {
-            cartList.innerHTML = &quot;&quot;;
-            let total = 0;
-            cart.forEach(item =&gt; {
-                total += item.price * item.quantity;
-                const li = document.createElement(&quot;li&quot;);
-                li.className = &quot;flex justify-between py-2&quot;;
-                li.innerHTML = `
-                    &lt;span&gt;${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}&lt;/span&gt;
-                    &lt;button class=&quot;text-red-600&quot; onclick=&quot;removeFromCart(${item.id})&quot;&gt;Remove&lt;/button&gt;
-                `;
-                cartList.appendChild(li);
-            });
-            totalDisplay.textContent = `Total: $${total.toFixed(2)}`;
-        }
-
-        function removeFromCart(id) {
-            const index = cart.findIndex(item =&gt; item.id === id);
-            if (index !== -1) {
-                cart.splice(index, 1);
-                renderCart();
-            }
-        }
-
-        fetchProducts();
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+def test_get_posts(client):
+    response = client.get('/api/posts')
+    assert response.status_code == 200
+    assert response.json == [{'id': 1, 'title': 'Post 1'}]
                 </pre>
-                <p>Use Lesson 37’s backend with authentication from Lesson 35. Serve <code>index.html</code> with <code>npx http-server</code>. Test login and product display locally.</p>
+                <p>Run <code>pytest</code> to test the <code>/api/posts</code> endpoint.</p>
 
                 <h3>Practical Applications</h3>
-                <p>This project mirrors real e-commerce platforms, integrating user authentication, product management, and visuals. It prepares you for building professional web apps.</p>
+                <p>Pytest ensures API reliability. In your social media dashboard project, you’ll test endpoints for posts and users.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To build a great app:</p>
+                <p>To master Pytest:</p>
                 <ul>
-                    <li><strong>Test Integration</strong>: Verify all API calls work.</li>
-                    <li><strong>Handle Errors</strong>: Display user-friendly messages.</li>
-                    <li><strong>Secure Routes</strong>: Protect sensitive endpoints.</li>
-                    <li><strong>Optimize UI</strong>: Enhance UX with Tailwind styles.</li>
+                    <li><strong>Install Pytest</strong>: Use <code>pip install pytest</code>.</li>
+                    <li><strong>Use Fixtures</strong>: Setup reusable test clients.</li>
+                    <li><strong>Test Edge Cases</strong>: Cover invalid inputs.</li>
+                    <li><strong>Run Tests</strong>: Use <code>pytest -v</code> for verbose output.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>You’ve built a full-stack e-commerce app, integrating frontend and backend. This project showcases your full-stack skills. In the next lesson, you’ll explore advanced topics or refine your app. Great work!</p>
+                <p>Pytest ensures robust Python apps through testing. By mastering it, you’re ready for production backends. Next, you’ll build a social media dashboard project. Keep testing with Pytest!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-thirty-nine/"></a></button>
-                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-forty-one/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/project-python/"></a></button>
             </div>
         </div>
     </section>
@@ -244,7 +126,7 @@
             window.location.href = 'https://www.codexedoc.com/course/lesson-thirty-nine/';
         });
         document.querySelector('.arrow-right').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-forty-one/';
+            window.location.href = 'https://www.codexedoc.com/course/project-python/';
         });
     </script>
 </body>
