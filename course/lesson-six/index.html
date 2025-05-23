@@ -149,11 +149,11 @@ git push origin main
             const answer = selected.value;
             const correctAnswer = 'C';
             if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! C) Request team review of changes, ensuring code quality.</pre>';
+                responseDiv.innerHTML = 'Correct! C) Request team review of changes, ensuring code quality.';
                 responseDiv.className = 'quick-check-response correct';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is C) Request team review of changes, ensuring code quality.</pre>';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is C) Request team review of changes, ensuring code quality.';
                 responseDiv.className = 'quick-check-response incorrect';
             }
             responseDiv.style.display = 'block';
