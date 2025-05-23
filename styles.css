@@ -198,7 +198,7 @@ header nav a:hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 
-.validate-btn:hover, .test-btn:hover, .document-btn:hover, .quick-check:hover {
+.validate-btn:hover, .test-btn:hover, .document-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
 }
