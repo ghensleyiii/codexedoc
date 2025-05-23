@@ -113,7 +113,7 @@ Stores task data
                         <input type="radio" name="answer" id="option-d" value="D">
                         <label for="option-d">D) User interface</label>
                     </div>
-                    <button class="quick-check-check" onclick="submitQuiz()">Submit</button>
+                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
                     <div class="quick-check-response" id="quick-check-response"></div>
                 </div>
 
@@ -146,18 +146,18 @@ Stores task data
             if (!selected) {
                 responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
                 responseDiv.style.display = 'block';
-                responseDiv.className = 'quick-check incorrect';
+                responseDiv.className = 'quick-check-response incorrect';
                 return;
             }
             const answer = selected.value;
             const correctAnswer = 'C';
             if (answer === correctAnswer) {
                 responseDiv.innerHTML = '<pre>Correct! C) Server logic and data processing\nThe back-end manages server-side operations like processing user requests and interacting with databases, leaving the user interface to the front-end.</pre>';
-                responseDiv.className = 'quick-check correct';
+                responseDiv.className = 'quick-check-response correct';
                 jsConfetti.addConfetti();
             } else {
                 responseDiv.innerHTML = '<pre>Incorrect. The correct answer is C) Server logic and data processing\nThe back-end manages server-side operations like processing user requests and interacting with databases, leaving the user interface to the front-end.</pre>';
-                responseDiv.className = 'quick-check incorrect';
+                responseDiv.className = 'quick-check-response incorrect';
             }
             responseDiv.style.display = 'block';
         }
