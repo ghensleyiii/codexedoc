@@ -186,7 +186,7 @@ header nav a:hover {
   max-width: 600px !important;
 }
 
-.validate-btn, .test-btn, .document-btn {
+.validate-btn, .test-btn, .document-btn, .quick-check {
   background-color: var(--light-blue);
   color: var(--gold);
   border: 2px solid var(--gold);
@@ -198,7 +198,7 @@ header nav a:hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 
-.validate-btn:hover, .test-btn:hover, .document-btn:hover {
+.validate-btn:hover, .test-btn:hover, .document-btn:hover, .quick-check:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
 }
