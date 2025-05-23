@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript arrays and loops with CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="JavaScript, arrays, loops, web development, CODEXEDOC">
-    <title>CODEXEDOC - JavaScript Arrays and Loops</title>
+    <meta name="description" content="Learn TypeScript basics with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="TypeScript, types, interfaces, web development, CODEXEDOC">
+    <title>CODEXEDOC - TypeScript Basics</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -42,81 +42,66 @@
     <section class="article-section">
         <div class="article-container">
             <div class="course-section">JavaScript</div>
-            <div class="lesson">JavaScript Arrays and Loops</div>
+            <div class="lesson">TypeScript Basics</div>
             <div id="content">
-                <h2>JavaScript Arrays and Loops</h2>
-                <p>Welcome to Lesson 23 of CODEXEDOC’s Full-Stack Development Course! Arrays and loops are essential for handling collections of data in JavaScript. In this lesson, you’ll learn how to store multiple items in arrays and use loops to process them, enabling you to manage lists like product inventories or user inputs.</p>
+                <h2>Mastering TypeScript Basics</h2>
+                <p>Welcome to Lesson 23 of CODEXEDOC’s Full-Stack Development Course! TypeScript is a superset of JavaScript that adds static types, improving code reliability. In this lesson, you’ll learn TypeScript basics, including types, interfaces, and type annotations.</p>
 
-                <h3>What are Arrays?</h3>
-                <p>Arrays are ordered lists that store multiple values in a single variable. Each value has an index (starting at 0), allowing you to access or modify items. Arrays are widely used in 2025 for tasks like displaying product lists or managing user data.</p>
+                <h3>What is TypeScript?</h3>
+                <p>TypeScript, developed by Microsoft in 2012, compiles to JavaScript and adds type safety. It’s widely used in 2025 for large-scale apps, especially with frameworks like React, to catch errors early.</p>
 
-                <h3>What are Loops?</h3>
-                <p>Loops execute code repeatedly, ideal for processing array elements. JavaScript offers loops like <code>for</code>, <code>while</code>, and <code>forEach</code>, making it easy to iterate over data and perform operations like filtering or summing.</p>
-
-                <h3>Key Array and Loop Concepts</h3>
-                <p>Focus on these techniques:</p>
+                <h3>Key TypeScript Concepts</h3>
+                <p>Focus on these features:</p>
                 <ul>
-                    <li><strong>Array Creation</strong>: Define arrays with square brackets (e.g., <code>let items = ["apple", "banana"];</code>).</li>
-                    <li><strong>Array Methods</strong>: Use methods like <code>push</code>, <code>pop</code>, or <code>map</code> to manipulate arrays.</li>
-                    <li><strong>For Loop</strong>: Iterate with <code>for (let i = 0; i &lt; length; i++)</code>.</li>
-                    <li><strong>forEach</strong>: Apply a function to each element with <code>array.forEach()</code>.</li>
+                    <li><strong>Types</strong>: Define variable types (e.g., <code>number</code>, <code>string</code>).</li>
+                    <li><strong>Interfaces</strong>: Define object shapes (e.g., <code>interface User</code>).</li>
+                    <li><strong>Type Annotations</strong>: Specify types for variables/functions (e.g., <code>let age: number</code>).</li>
+                    <li><strong>Union Types</strong>: Allow multiple types (e.g., <code>string | number</code>).</li>
                 </ul>
 
-                <h3>Working with Arrays and Loops</h3>
-                <p>Follow these steps to use arrays and loops:</p>
-                <ol>
-                    <li><strong>Create an Array</strong>: Store data in an array variable.</li>
-                    <li><strong>Access Elements</strong>: Use indices (e.g., <code>items[0]</code>) or methods.</li>
-                    <li><strong>Loop Through Arrays</strong>: Use <code>for</code> or <code>forEach</code> to process elements.</li>
-                </ol>
-
-                <h3>Code Example: Arrays and Loops</h3>
-                <p>Here’s a page that displays a list of products using arrays and loops:</p>
+                <h3>Code Example: TypeScript Basics</h3>
+                <p>Here’s a TypeScript example:</p>
                 <pre>
-<!-- index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product List</title>
-    <style>
-        body { font-family: 'Roboto Mono', monospace; }
-        ul { list-style: none; padding: 0; }
-        li { padding: 5px; }
-    </style>
-</head>
-<body>
-    <h1>Products</h1>
-    <ul id="product-list"></ul>
-    <script>
-        const products = ["Laptop", "Phone", "Tablet"];
-        const list = document.querySelector("#product-list");
-        products.forEach((product, index) => {
-            const li = document.createElement("li");
-            li.textContent = `${index + 1}. ${product}`;
-            list.appendChild(li);
-        });
-    </script>
-</body>
-</html>
+&lt;!-- index.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+    &lt;title>TypeScript Example&lt;/title>
+&lt;/head>
+&lt;body>
+    &lt;script src="script.js">&lt;/script>
+&lt;/body>
+&lt;/html>
+
+&lt;!-- script.ts -->
+interface User {
+    name: string;
+    age: number;
+}
+const user: User = { name: "Alice", age: 25 };
+function greet(person: string): string {
+    return `Hello, ${person}!`;
+}
+console.log(greet(user.name)); // Output: Hello, Alice!
                 </pre>
-                <p>This example uses an array to store products and a <code>forEach</code> loop to create and append list items to the DOM.</p>
+                <p>Compile <code>script.ts</code> to <code>script.js</code>. This code uses interfaces and type annotations.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Arrays and loops are used to display product catalogs, filter search results, or process form data. For example, an e-commerce site loops through an array to render product cards. In this course, you’ll use arrays to manage items in your e-commerce project.</p>
+                <p>TypeScript ensures type safety in React apps. In your task manager project, you’ll use TypeScript to define task data structures, reducing runtime errors.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master arrays and loops:</p>
+                <p>To master TypeScript:</p>
                 <ul>
-                    <li><strong>Use forEach for Simplicity</strong>: Prefer <code>forEach</code> for straightforward iteration.</li>
-                    <li><strong>Learn Array Methods</strong>: Practice <code>map</code>, <code>filter</code>, and <code>reduce</code>.</li>
-                    <li><strong>Avoid Infinite Loops</strong>: Ensure loop conditions terminate.</li>
-                    <li><strong>Debug with Console</strong>: Log array contents to verify data.</li>
+                    <li><strong>Start with Types</strong>: Add types to variables and functions gradually.</li>
+                    <li><strong>Use Interfaces</strong>: Define reusable object shapes.</li>
+                    <li><strong>Install TypeScript</strong>: Use <code>npm install -g typescript</code> and <code>tsc</code> to compile.</li>
+                    <li><strong>Check Errors</strong>: Use VS Code for real-time type checking.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Arrays and loops enable you to manage and process collections of data efficiently. By mastering array methods and loop types, you can handle complex data tasks. In the next lesson, you’ll learn about objects and methods to structure data more effectively. Keep practicing arrays and loops!</p>
+                <p>TypeScript adds type safety to JavaScript, improving code reliability. By mastering types and interfaces, you’re ready for typed apps. In the next lesson, you’ll learn React for building UI components. Keep practicing TypeScript!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-two/"></a></button>
