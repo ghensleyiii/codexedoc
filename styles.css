@@ -688,7 +688,7 @@ hr {
     cursor: pointer !important;
 }
 .quick-check:hover {
-    background: white;
+    background: var(--dark-blue);
 }
 .quick-check-response {
     display: none;
