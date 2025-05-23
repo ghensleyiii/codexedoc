@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn JavaScript loops to automate repetitive tasks in your web applications.">
+    <meta name="keywords" content="JavaScript, loops, for loop, while loop, full-stack development">
+    <title>CODEXEDOC - Loops</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">JavaScript</div>
+            <div class="lesson">Loops</div>
+            <div id="content">
+                <h2>Loops</h2>
+                <p>Welcome to Lesson 18 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn JavaScript loops to automate repetitive tasks. By the end, you’ll be able to create a list of items dynamically using a loop.</p>
+
+                <h3>Introduction</h3>
+                <p>Loops are like a shepherd counting sheep one by one, repeating tasks efficiently. JavaScript loops let you iterate over data or perform actions multiple times. This lesson teaches you to use <code>for</code> and <code>while</code> loops for automation.</p>
+
+                <h3>Key Concepts</h3>
+                <p>This lesson covers loop essentials:</p>
+                <ul>
+                    <li><strong>For Loop</strong>: Use <code>for (let i = 0; i < n; i++)</code> for a fixed number of iterations.</li>
+                    <li><strong>While Loop</strong>: Use <code>while (condition)</code> for unknown iteration counts.</li>
+                    <li><strong>Break and Continue</strong>: Use <code>break</code> to exit a loop or <code>continue</code> to skip an iteration.</li>
+                </ul>
+
+                <h3>Code Example</h3>
+                <p>Below is an example of a <code>for</code> loop that dynamically creates a list of numbers.</p>
+                <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;title&gt;Dynamic List&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;ul id="list"&gt;&lt;/ul&gt;
+    &lt;button onclick="createList()"&gt;Generate List&lt;/button&gt;
+    &lt;script&gt;
+        function createList() {
+            const list = document.getElementById('list');
+            list.innerHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                const item = document.createElement('li');
+                item.textContent = `Item ${i}`;
+                list.appendChild(item);
+            }
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+
+                <h3>Practical Applications</h3>
+                <p>Loops are used in apps like Amazon or Reddit to display product lists or comments. For example, a gallery app uses a loop to render thumbnails from an array. These skills are vital for full-stack developers to handle repetitive tasks efficiently.</p>
+
+                <h3>Tips for Success</h3>
+                <p>Here are tips to master loops:</p>
+                <ul>
+                    <li>Avoid infinite loops: Ensure <code>while</code> conditions will eventually be false.</li>
+                    <li>Use <code>for</code> for known counts: Reserve <code>while</code> for dynamic conditions.</li>
+                    <li>Debug with logs: Add <code>console.log(i)</code> to track loop progress.</li>
+                </ul>
+
+                <h3>Shearing Tip</h3>
+                <p>Loops shear away manual repetition with automation, just as a shepherd counts a flock efficiently. For and while loops streamline your code for scalability.</p>
+
+                <h3>Quick Check</h3>
+                <p>Test your understanding with this interactive quiz:</p>
+                <div class="quick-check-container" id="quick-check">
+                    <p><strong>Question:</strong> Which statement exits a loop immediately?</p>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-a" value="A">
+                        <label for="option-a">A) continue</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-b" value="B">
+                        <label for="option-b">B) break</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-c" value="C">
+                        <label for="option-c">C) return</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-d" value="D">
+                        <label for="option-d">D) for</label>
+                    </div>
+                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
+                    <div class="quick-check-response" id="quick-check-response"></div>
+                </div>
+
+                <h3>Summary</h3>
+                <p>In this lesson, you learned loops to automate repetitive tasks in JavaScript. These skills optimize your scripts. Next, in Lesson 19, you’ll explore functions and scope to write reusable, organized code.</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-seventeen/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-nineteen/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        const jsConfetti = new JSConfetti();
+        function submitQuiz() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const responseDiv = document.getElementById('quick-check-response');
+            if (!selected) {
+                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
+                responseDiv.style.display = 'block';
+                responseDiv.className = 'quick-check-response incorrect';
+                return;
+            }
+            const answer = selected.value;
+            const correctAnswer = 'B';
+            if (answer === correctAnswer) {
+                responseDiv.innerHTML = '<pre>Correct! B) break, exiting the loop immediately.</pre>';
+                responseDiv.className = 'quick-check-response correct';
+                jsConfetti.addConfetti();
+            } else {
+                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) break, exiting the loop immediately.</pre>';
+                responseDiv.className = 'quick-check-response incorrect';
+            }
+            responseDiv.style.display = 'block';
+        }
+
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-seventeen/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-nineteen/';
+        });
+    </script>
+</body>
+</html>
