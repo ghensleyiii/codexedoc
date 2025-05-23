@@ -186,7 +186,7 @@ header nav a:hover {
   max-width: 600px !important;
 }
 
-.validate-btn, .test-btn, .document-btn, {
+.validate-btn, .test-btn, .document-btn {
   background-color: var(--light-blue);
   color: var(--gold);
   border: 2px solid var(--gold);
@@ -678,8 +678,8 @@ hr {
     margin-right: 10px !important;
 }
 .quick-check {
-    background: white;
-    color: #002966;
+    background-color: var(--light-blue);
+    color: var(--gold);
     border: 2px solid var(--gold);
     padding: 10px 20px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
