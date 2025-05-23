@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Build a RESTful blog API with authentication in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Node.js, Express, REST API, authentication, project, CODEXEDOC">
+    <title>CODEXEDOC - Project: Build a RESTful Blog API with Authentication</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Node.js & Back End Development</div>
+            <div class="lesson">Project: Build a RESTful Blog API with Authentication</div>
+            <div id="content">
+                <h2>Building a RESTful Blog API</h2>
+                <p>You’ve completed Lessons 27–33, mastering Node.js, Express, authentication, API design, security, testing, and deployment. In this project, you’ll build a RESTful blog API with user authentication, a portfolio-worthy backend showcasing your skills.</p>
+
+                <h3>Why This Project Matters</h3>
+                <p>Blog APIs power content platforms, requiring secure, scalable endpoints. This project simulates a professional task, preparing you for backend development roles and demonstrating your Node.js expertise.</p>
+
+                <h3>Project Overview</h3>
+                <p>You’ll create a REST API for a blog with endpoints for users and posts, using Express, JWT authentication, MongoDB (or a mock database), and Supertest for testing. Requirements include:</p>
+                <ul>
+                    <li><strong>REST Endpoints</strong>: Create routes for user registration, login, and CRUD operations for posts.</li>
+                    <li><strong>Authentication</strong>: Secure post creation with JWT.</li>
+                    <li><strong>Database</strong>: Store users and posts in MongoDB or a mock store.</li>
+                    <li><strong>Security</strong>: Use environment variables and input validation.</li>
+                    <li><strong>Testing</strong>: Write Supertest tests for all endpoints.</li>
+                    <li><strong>Deployment</strong>: Deploy to a cloud platform like Heroku.</li>
+                </ul>
+
+                <h3>Sample Implementation</h3>
+                <p>Here’s a simplified blog API:</p>
+                <pre>
+<!-- server.js -->
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+const app = express();
+
+dotenv.config();
+app.use(express.json());
+
+const posts = [];
+const SECRET_KEY = process.env.SECRET_KEY || 'your-secret-key';
+
+const authMiddleware = (req, res, next) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) return res.status(401).json({ message: 'No token' });
+    try {
+        const decoded = jwt.verify(token, SECRET_KEY);
+        req.user = decoded;
+        next();
+    } catch (error) {
+        res.status(401).json({ message: 'Invalid token' });
+    }
+};
+
+app.post('/api/posts', authMiddleware, (req, res) => {
+    const { title, content } = req.body;
+    const post = { id: posts.length + 1, title, content, author: req.user.username };
+    posts.push(post);
+    res.status(201).json(post);
+});
+
+app.get('/api/posts', (req, res) => {
+    res.json(posts);
+});
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
+
+<!-- server.test.js -->
+const request = require('supertest');
+const app = require('./server');
+
+describe('Blog API', () => {
+    it('should get all posts', async () => {
+        const res = await request(app)
+            .get('/api/posts')
+            .expect(200);
+        expect(Array.isArray(res.body)).toBe(true);
+    });
+});
+                </pre>
+                <p>This API includes a protected <code>POST /api/posts</code> endpoint and a Supertest test. Add user routes, MongoDB, and deployment for the full project.</p>
+
+                <h3>How to Approach the Project</h3>
+                <p>Follow these steps:</p>
+                <ul>
+                    <li><strong>Setup</strong>: Initialize with <code>npm init</code> and install Express, JWT, dotenv, and MongoDB.</li>
+                    <li><strong>Routes</strong>: Create <code>/api/users</code> and <code>/api/posts</code> endpoints.</li>
+                    <li><strong>Authentication</strong>: Implement JWT for protected routes.</li>
+                    <li><strong>Database</strong>: Use MongoDB or a mock array for data.</li>
+                    <li><strong>Security</strong>: Add <code>helmet</code> and input validation.</li>
+                    <li><strong>Testing</strong>: Write Supertest tests for all endpoints.</li>
+                    <li><strong>Deploy</strong>: Push to Heroku with environment variables.</li>
+                </ul>
+
+                <h3>Tips for Success</h3>
+                <p>To excel:</p>
+                <ul>
+                    <li><strong>Plan Endpoints</strong>: Define REST routes before coding.</li>
+                    <li><strong>Secure Tokens</strong>: Store JWT secrets in <code>.env</code>.</li>
+                    <li><strong>Test Thoroughly</strong>: Cover success and error cases.</li>
+                    <li><strong>Document</strong>: Include a README with API usage.</li>
+                    <li><strong>Monitor Deployment</strong>: Check logs on the cloud platform.</li>
+                </ul>
+
+                <h3>Submitting the Project</h3>
+                <p>Submit your project via CODEXEDOC’s platform, including source code, tests, and deployment URL. A passing grade (80% or higher) earns a project badge. Feedback will be provided within 48 hours.</p>
+
+                <h3>Summary</h3>
+                <p>This project builds a secure, tested blog API, showcasing your backend skills. By completing it, you’re ready for the Node.js assessment and full-stack development. Keep refining your API!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-thirty-three/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/assessment-nodejs/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-thirty-three/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/assessment-nodejs/';
+        });
+    </script>
+</body>
+</html>
