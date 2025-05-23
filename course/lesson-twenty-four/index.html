@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript modules to organize and reuse code in web applications.">
-    <meta name="keywords" content="JavaScript, modules, import, export, full-stack development">
-    <title>CODEXEDOC - JavaScript Modules</title>
+    <meta name="description" content="Learn to connect SQL databases to Node.js applications using mysql2 or pg.">
+    <meta name="keywords" content="SQL, Node.js, database integration, mysql2, pg, full-stack development">
+    <title>CODEXEDOC - Integrating Databases with Applications</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -42,93 +42,92 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">JavaScript</div>
-            <div class="lesson">JavaScript Modules</div>
+            <div class="course-section">SQL and Databases</div>
+            <div class="lesson">Integrating Databases with Applications</div>
             <div id="content">
-                <h2>JavaScript Modules</h2>
-                <p>Welcome to Lesson 24 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn JavaScript modules to organize and reuse code. By the end, you’ll be able to split a counter app into modules.</p>
+                <h2>Integrating Databases with Applications</h2>
+                <p>Welcome to Lesson 24! You’ll learn to connect SQL databases to Node.js apps. By the end, you’ll build an API to retrieve user data.</p>
 
                 <h3>Introduction</h3>
-                <p>Modules are like a shepherd’s toolbox, keeping tools organized and reusable. JavaScript modules split code into files, using <code>import</code> and <code>export</code> for modularity. This lesson teaches you to structure code for scalability.</p>
+                <p>Database integration is like a shepherd linking wool to the flock’s records. This lesson covers using mysql2 or pg to execute SQL queries from Express routes.</p>
 
                 <h3>Key Concepts</h3>
-                <p>This lesson covers module essentials:</p>
+                <p>Focus areas include:</p>
                 <ul>
-                    <li><strong>Export</strong>: Use <code>export</code> to share functions or variables from a module.</li>
-                    <li><strong>Import</strong>: Use <code>import</code> to access exported items in other files.</li>
-                    <li><strong>Module Scope</strong>: Variables are private by default, avoiding global pollution.</li>
+                    <li><strong>Database Drivers</strong>: Use mysql2 for MySQL or pg for PostgreSQL.</li>
+                    <li><strong>Queries in Node.js</strong>: Execute SQL from Express.</li>
+                    <li><strong>Security</strong>: Prevent SQL injection.</li>
                 </ul>
 
                 <h3>Code Example</h3>
-                <p>Below is an example of a counter app using modules. Note: This assumes a local server (e.g., <code>Live Server</code>) to handle module imports.</p>
+                <p>Here’s an Express API retrieving user data.</p>
                 <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;title&gt;Counter App&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;Count: &lt;span id="count"&gt;0&lt;/span&gt;&lt;/h1&gt;
-    &lt;button onclick="increment()"&gt;Increment&lt;/button&gt;
-    &lt;script type="module"&gt;
-        import { increment, getCount } from './counter.js';
-        window.increment = increment;
-        document.getElementById('count').textContent = getCount();
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+const express = require('express');
+const mysql = require('mysql2/promise');
+const app = express();
 
-&lt;!-- counter.js --&gt;
-let count = 0;
-export function increment() {
-    count++;
-    document.getElementById('count').textContent = count;
-}
-export function getCount() {
-    return count;
-}
+app.use(express.json());
+
+const db = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: 'your-password',
+    database: 'app_db'
+});
+
+app.get('/users', async (req, res) => {
+    try {
+        const [rows] = await db.query('SELECT * FROM users');
+        res.json(rows);
+    } catch (error) {
+        res.status(500).json({ error: 'Database error' });
+    }
+});
+
+app.listen(3000, () => console.log('Server running at http://localhost:3000'));
                 </pre>
+                <p>Install: <code>npm install express mysql2</code>. Use parameterized queries to avoid SQL injection.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Modules are used in apps like VS Code or Notion to organize complex codebases. For example, a dashboard app uses modules to separate UI and data logic. These skills are vital for full-stack developers to maintain large projects.</p>
+                <p>Integration powers apps like LinkedIn, fetching user profiles. APIs serve data for dashboards or e-commerce. These skills are critical for full-stack development.</p>
 
                 <h3>Tips for Success</h3>
-                <p>Here are tips to master modules:</p>
+                <p>Master integration with these tips:</p>
                 <ul>
-                    <li>Use a local server: Modules require HTTP for imports to work in browsers.</li>
-                    <li>Keep modules focused: Each module should handle a single responsibility.</li>
-                    <li>Name exports clearly: Use descriptive names for imported functions.</li>
+                    <li>Use connection pools for performance.</li>
+                    <li>Secure credentials in environment variables.</li>
+                    <li>Test queries in a database client first.</li>
                 </ul>
 
                 <h3>Shearing Tip</h3>
-                <p>Modules shear away code chaos with organized files, just as a shepherd keeps tools in order. Import and export make your codebase clean and reusable.</p>
+                <p>Integration shears away disconnects between apps and data, like a shepherd uniting flock records.</p>
 
                 <h3>Quick Check</h3>
-                <p>Test your understanding with this interactive quiz:</p>
+                <p>Test your knowledge:</p>
                 <div class="quick-check-container" id="quick-check">
-                    <p><strong>Question:</strong> Which keyword shares a function from a module?</p>
+                    <p><strong>Question:</strong> What Node.js package connects to PostgreSQL?</p>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-a" value="A">
-                        <label for="option-a">A) import</label>
+                        <label for="option-a">A) mysql2</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-b" value="B">
-                        <label for="option-b">B) export</label>
+                        <label for="option-b">B) pg</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-c" value="C">
-                        <label for="option-c">C) module</label>
+                        <label for="option-c">C) sqlite3</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-d" value="D">
-                        <label for="option-d">D) require</label>
+                        <label for="option-d">D) mongoose</label>
                     </div>
                     <button class="quick-check" onclick="submitQuiz()">Submit</button>
                     <div class="quick-check-response" id="quick-check-response"></div>
                 </div>
 
                 <h3>Summary</h3>
-                <p>In this lesson, you learned JavaScript modules to organize and reuse code. These skills enhance scalability. Next, in Lesson 25, you’ll explore local storage to persist data in the browser.</p>
+                <p>You’ve integrated databases with apps. Next, Lesson 25 covers building a professional portfolio.</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-three/"></a></button>
@@ -139,12 +138,26 @@ export function getCount() {
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo-container">
-                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
-                <div>CODEXEDOC</div>
+            <div class="footer-section">
+                <h3>About CODEXEDOC</h3>
+                <p>CODEXEDOC provides hands-on full-stack development training with a focus on job-ready skills.</p>
             </div>
-            <p>Shearing Away the Complexity of Coding!</p>
-            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                    <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                    <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+                <p>Follow us: <a href="https://www.linkedin.com/company/codexedoc">LinkedIn</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 CODEXEDOC. All rights reserved.</p>
         </div>
     </footer>
 
@@ -154,30 +167,21 @@ export function getCount() {
             const selected = document.querySelector('input[name="answer"]:checked');
             const responseDiv = document.getElementById('quick-check-response');
             if (!selected) {
-                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
-                responseDiv.style.display = 'block';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Please select an answer!';
                 return;
             }
             const answer = selected.value;
-            const correctAnswer = 'B';
-            if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! B) export, sharing functions or variables from a module.</pre>';
-                responseDiv.className = 'quick-check-response correct';
+            if (answer === 'B') {
+                responseDiv.innerHTML = 'Correct! pg connects to PostgreSQL databases.';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) export, sharing functions or variables from a module.</pre>';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is B) pg, used for PostgreSQL databases.';
             }
-            responseDiv.style.display = 'block';
         }
-
-        document.querySelector('.arrow-left').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-three/';
-        });
-        document.querySelector('.arrow-right').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-five/';
-        });
+        const leftArrow = document.querySelector('.arrow-left a');
+        const rightArrow = document.querySelector('.arrow-right a');
+        leftArrow.href = 'https://www.codexedoc.com/course/lesson-twenty-three/';
+        rightArrow.href = 'https://www.codexedoc.com/course/lesson-twenty-five/';
     </script>
 </body>
 </html>
