@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript variables and data types with CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="JavaScript, variables, data types, web development, CODEXEDOC">
-    <title>CODEXEDOC - JavaScript Variables and Data Types</title>
+    <meta name="description" content="Learn DOM manipulation and event handling with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="JavaScript, DOM, events, web development, CODEXEDOC">
+    <title>CODEXEDOC - DOM Manipulation and Event Handling</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -42,77 +42,68 @@
     <section class="article-section">
         <div class="article-container">
             <div class="course-section">JavaScript</div>
-            <div class="lesson">JavaScript Variables and Data Types</div>
+            <div class="lesson">DOM Manipulation and Event Handling</div>
             <div id="content">
-                <h2>JavaScript Variables and Data Types</h2>
-                <p>Welcome to Lesson 20 of CODEXEDOC’s Full-Stack Development Course! Variables and data types are the building blocks of JavaScript programming. In this lesson, you’ll learn how to store data using variables and understand the different data types JavaScript supports, enabling you to manipulate information effectively.</p>
+                <h2>Mastering DOM Manipulation and Event Handling</h2>
+                <p>Welcome to Lesson 20 of CODEXEDOC’s Full-Stack Development Course! The Document Object Model (DOM) allows JavaScript to interact with HTML and CSS, enabling dynamic web pages. In this lesson, you’ll learn how to manipulate the DOM and handle events like clicks and inputs.</p>
 
-                <h3>What are Variables?</h3>
-                <p>Variables are containers for storing data, like numbers or text, that can be used and modified in your code. JavaScript uses keywords like <code>let</code>, <code>const</code>, and <code>var</code> to declare variables. In 2025, <code>let</code> and <code>const</code> are preferred for modern coding.</p>
+                <h3>What is the DOM?</h3>
+                <p>The DOM is a tree-like representation of a web page’s structure, where each element is a node. JavaScript uses the DOM to update content, styles, and structure dynamically. Event handling lets you respond to user actions like clicks or keypresses.</p>
 
-                <h3>Why Use Variables?</h3>
-                <p>Variables allow you to store user input, calculations, or state, making your code dynamic. For example, you can store a user’s name or a product’s price and update them as needed. Understanding variables is crucial for writing flexible JavaScript programs.</p>
-
-                <h3>Key Data Types</h3>
-                <p>JavaScript supports these main data types:</p>
+                <h3>Key DOM and Event Concepts</h3>
+                <p>Focus on these techniques:</p>
                 <ul>
-                    <li><strong>Number</strong>: Integers or decimals (e.g., <code>42</code>, <code>3.14</code>).</li>
-                    <li><strong>String</strong>: Text enclosed in quotes (e.g., <code>"Hello"</code>).</li>
-                    <li><strong>Boolean</strong>: True or false values (<code>true</code>, <code>false</code>).</li>
-                    <li><strong>Object</strong>: Complex data structures (e.g., <code>{ name: "John" }</code>).</li>
-                    <li><strong>Undefined</strong>: A variable with no value (<code>undefined</code>).</li>
+                    <li><strong>Selecting Elements</strong>: Use <code>querySelector</code> or <code>getElementById</code>.</li>
+                    <li><strong>Modifying Elements</strong>: Change text, attributes, or styles (e.g., <code>element.textContent</code>).</li>
+                    <li><strong>Event Listeners</strong>: Attach events with <code>addEventListener</code> (e.g., <code>click</code>, <code>input</code>).</li>
+                    <li><strong>Event Object</strong>: Access event details (e.g., <code>event.target</code>).</li>
                 </ul>
 
-                <h3>Working with Variables</h3>
-                <p>Follow these steps to use variables:</p>
-                <ol>
-                    <li><strong>Declare Variables</strong>: Use <code>let</code> or <code>const</code> (e.g., <code>let age = 25;</code>).</li>
-                    <li><strong>Assign Values</strong>: Update variables with new data (e.g., <code>age = 26;</code>).</li>
-                    <li><strong>Check Types</strong>: Use <code>typeof</code> to inspect a variable’s data type.</li>
-                </ol>
-
-                <h3>Code Example: Variables and Data Types</h3>
-                <p>Here’s a page demonstrating variables and data types:</p>
+                <h3>Code Example: DOM and Events</h3>
+                <p>Here’s an example of DOM manipulation and event handling:</p>
                 <pre>
-&lt;!-- index.html --&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Variables Page&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;User Info&lt;/h1&gt;
-    &lt;p id="output"&gt;&lt;/p&gt;
-    &lt;script&gt;
-        let name = "Alice";
-        const age = 30;
-        let isStudent = true;
-        let person = { name: name, age: age };
-        document.getElementById("output").textContent = 
-            `Name: ${name}, Age: ${age}, Student: ${isStudent}, Type: ${typeof person}`;
-        console.log("Person object:", person);
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+&lt;!-- index.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+    &lt;title>DOM Example&lt;/title>
+    &lt;style>
+        .highlight { background: yellow; }
+    &lt;/style>
+&lt;/head>
+&lt;body>
+    &lt;h1 id="title">Click Me&lt;/h1>
+    &lt;button>Toggle Highlight&lt;/button>
+    &lt;script src="script.js">&lt;/script>
+&lt;/body>
+&lt;/html>
+
+&lt;!-- script.js -->
+const title = document.querySelector('#title');
+const button = document.querySelector('button');
+button.addEventListener('click', () => {
+    title.classList.toggle('highlight');
+    title.textContent = title.classList.contains('highlight') ? 'Highlighted!' : 'Click Me';
+});
                 </pre>
-                <p>This example declares variables with different data types, displays them on the page, and logs an object to the console.</p>
+                <p>This code toggles a highlight class and updates text when the button is clicked.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Variables store data for calculations, user input, or state management. For example, an e-commerce site uses variables to track cart items or prices. In this course, you’ll use variables to manage product quantities in your e-commerce project.</p>
+                <p>DOM manipulation is used for interactive features like dropdown menus and form validation. In your task manager project, you’ll use DOM events to add and remove tasks dynamically.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To work with variables:</p>
+                <p>To master DOM and events:</p>
                 <ul>
-                    <li><strong>Use const for Constants</strong>: Prefer <code>const</code> for values that won’t change.</li>
-                    <li><strong>Choose Clear Names</strong>: Use descriptive names like <code>userName</code> for readability.</li>
-                    <li><strong>Check Types</strong>: Use <code>typeof</code> to debug unexpected values.</li>
-                    <li><strong>Avoid var</strong>: Use <code>let</code> or <code>const</code> for modern scoping.</li>
+                    <li><strong>Use <code>querySelector</code></strong>: It’s versatile for selecting elements.</li>
+                    <li><strong>Remove Event Listeners</strong>: Use <code>removeEventListener</code> to prevent memory leaks.</li>
+                    <li><strong>Test Events</strong>: Use dev tools to debug event listeners.</li>
+                    <li><strong>Keep Code Modular</strong>: Organize event handlers in separate functions.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Variables and data types are essential for storing and manipulating data in JavaScript. By mastering <code>let</code>, <code>const</code>, and common data types, you’re ready to build dynamic features. In the next lesson, you’ll learn about functions and scope to organize your code. Keep practicing variables!</p>
+                <p>DOM manipulation and event handling enable dynamic, interactive web pages. By mastering these skills, you’re ready to create engaging user experiences. In the next lesson, you’ll learn asynchronous JavaScript for handling data. Keep practicing DOM manipulation!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-nineteen/"></a></button>
