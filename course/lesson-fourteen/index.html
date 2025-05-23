@@ -146,7 +146,7 @@
             const selected = document.querySelector('input[name="answer"]:checked');
             const responseDiv = document.getElementById('quick-check-response');
             if (!selected) {
-                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
+                responseDiv.innerHTML = 'Please select an answer!';
                 responseDiv.style.display = 'block';
                 responseDiv.className = 'quick-check-response incorrect';
                 return;
@@ -154,11 +154,11 @@
             const answer = selected.value;
             const correctAnswer = 'C';
             if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! C) const, preventing reassignment of the variable.</pre>';
+                responseDiv.innerHTML = 'Correct! C) const, preventing reassignment of the variable.';
                 responseDiv.className = 'quick-check-response correct';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is C) const, preventing reassignment of the variable.</pre>';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is C) const, preventing reassignment of the variable.';
                 responseDiv.className = 'quick-check-response incorrect';
             }
             responseDiv.style.display = 'block';
