@@ -1,0 +1,596 @@
+Notes on the Adjusted HTML File
+•  Structure: Retains the header, navigation, article section, footer, and arrow navigation from the original CSS lesson file, ensuring consistency with your preferred setup.
+•  Placeholders: Content is generic (e.g., [Lesson Title], [Section Name]) to apply to any lesson. Replace placeholders with specific lesson details (e.g., “CSS Basics and Styling” for Lesson 10).
+•  Shearing Tip: Added under a dedicated <h3> to highlight how the lesson simplifies coding, tied to the sheep theme (e.g., “CSS shears away bland pages with vibrant styles”).
+•  Multiple-Choice Question: Included in a “Quick Check” section with a question, four options, and an answer with explanation, reinforcing learning without complexity.
+•  Metadata: Updated to be generic, with a broad description and keywords for the course. Update the <title> and <meta> tags for each lesson.
+•  Links: Arrow navigation URLs are placeholders ([Previous Lesson URL], [Next Lesson URL]). Replace with actual lesson URLs (e.g., https://www.codexedoc.com/course/lesson-nine/).
+•  Styling: Assumes styles.css supports .course-section, .lesson, .article-section, and .arrow-nav. Add styles for .quick-check if needed (e.g., .quick-check { margin-top: 20px; }).
+•  JavaScript: Arrow navigation script remains unchanged, but update URLs in the script for each lesson.
+Revised Curriculum Breakdown
+Below is the detailed breakdown of all 25 lessons, 7 reviews, and 7 exams for the CODEXEDOC Full-Stack Development Course, aligned with your requirements:
+•  Scope: Covers only essential skills (HTML, CSS, JavaScript, Node.js, SQL, Git, career preparation) needed for every full-stack developer job, excluding niche tools (e.g., Python, React, TypeScript, SASS, Django, GraphQL, GitHub Actions).
+•  Depth: Balances rigor for job readiness with simplicity, providing “just enough” content to prepare learners without overwhelming or oversimplifying.
+•  Structure: Replaces projects with reviews (summaries, diagrams, light exercises) and exams (multiple-choice, coding tasks, debugging) to reinforce learning.
+•  Language: Uses clear, professional terms (e.g., “Building APIs” instead of “Advanced API Design”) with sheep-themed analogies to simplify concepts.
+•  Job Readiness: Ensures learners can build a portfolio from exam outputs and prepare for interviews, meeting industry standards for full-stack roles in 2025.
+Section 1: Introduction to Full-Stack Development
+Objective: Lay the foundation for full-stack development with concepts, history, and tools.
+Lesson 1: Understanding Full-Stack Development
+•  Objective: Explain the role and components of full-stack development.
+•  Key Topics:
+	•  Full-stack definition: Front-end (HTML/CSS/JavaScript), back-end (Node.js), databases (SQL).
+	•  Role of each layer in a web app (e.g., a to-do list app).
+	•  Analogy: Full-stack as a “sheep farm” (front-end = wool display, back-end = shearing, database = storage).
+	•  Example: Diagram of a web app’s layers.
+•  Shearing Tip: “Full-stack shears away complexity by organizing app development into clear layers.”
+•  Quick Check:
+	•  Question: What does the back-end handle in a web application?
+		•  A) User interface
+		•  B) Server logic and data processing
+		•  C) Styling and layouts
+		•  D) Browser rendering
+	•  Answer: B) Server logic and data processing, as it manages server-side operations like APIs and databases.
+Lesson 2: History of Web Development
+•  Objective: Provide context on web evolution to appreciate modern tools.
+•  Key Topics:
+	•  Milestones: HTML (1990), CSS (1996), JavaScript (1995), Node.js (2009).
+	•  Shift from static to dynamic, full-stack apps.
+	•  Role of Git and modern frameworks in simplifying workflows.
+	•  Example: Compare a 1990s static page to a 2025 app.
+•  Shearing Tip: “Modern web tools shear away the complexity of early coding challenges.”
+•  Quick Check:
+	•  Question: When was JavaScript introduced?
+		•  A) 1990
+		•  B) 1995
+		•  C) 2000
+		•  D) 2009
+	•  Answer: B) 1995, marking the start of dynamic web interactivity.
+Lesson 3: Setting Up Your Development Environment
+•  Objective: Guide learners to install and configure coding tools.
+•  Key Topics:
+	•  Install VS Code, Node.js, Git, Chrome.
+	•  Configure VS Code: Extensions (Prettier, GitLens), settings.
+	•  Verify: node --version, git --version.
+	•  Visual: Setup checklist with screenshots.
+•  Shearing Tip: “A proper setup shears away technical barriers to start coding.”
+•  Quick Check:
+	•  Question: Which command checks the installed Git version?
+		•  A) git status
+		•  B) git --version
+		•  C) git init
+		•  D) git commit
+	•  Answer: B) git --version, displaying the installed Git version.
+Lesson 4: Command Line and Browser Developer Tools
+•  Objective: Teach CLI and browser tools for development and debugging.
+•  Key Topics:
+	•  CLI commands: ls, cd, mkdir, touch.
+	•  Browser dev tools: Inspect elements, console, network tab.
+	•  Practice: Create a folder via CLI, inspect a webpage.
+	•  In-browser CLI sandbox for practice.
+•  Shearing Tip: “CLI and dev tools shear away mystery by revealing code’s behavior.”
+•  Quick Check:
+	•  Question: What browser dev tool tab shows HTTP requests?
+		•  A) Elements
+		•  B) Console
+		•  C) Network
+		•  D) Sources
+	•  Answer: C) Network, used to monitor API calls and resource loading.
+Review: Foundations of Web Development
+•  Purpose: Summarize full-stack concepts, history, and tools.
+•  Content:
+	•  Diagram: “Sheep Path” showing front-end, back-end, database layers.
+	•  Recap: Full-stack roles, web history, setup, CLI/dev tools.
+	•  Exercise: Write a 3-line CLI script to create a project folder.
+	•  Q&A: “What are the main components of full-stack development?”
+•  Shearing Tip: “This review shears away confusion with a clear full-stack overview.”
+•  Quick Check:
+	•  Question: Which layer uses HTML and CSS?
+		•  A) Front-end
+		•  B) Back-end
+		•  C) Database
+		•  D) Version control
+	•  Answer: A) Front-end, responsible for user interface.
+Exam: Quiz on Full-Stack Basics and Setup
+•  Purpose: Assess foundational knowledge and setup skills.
+•  Content:
+	•  Multiple-choice: “What is the role of Node.js in full-stack development?”
+	•  Short-answer: “List two uses of browser dev tools.”
+	•  Practical: “Write the CLI command to create a file named ‘index.html’.”
+	•  ~10 questions, mixing theory and practical tasks.
+•  Shearing Tip: “This exam shears away doubt by confirming your starting point.”
+Section 2: Git and Version Control
+Objective: Teach version control for code management and collaboration.
+Lesson 5: Git Basics
+•  Objective: Introduce core Git commands for tracking changes.
+•  Key Topics:
+	•  Commands: git init, git add, git commit, git status.
+	•  Repository structure: Working directory, staging, history.
+	•  Analogy: Git as a “shepherd” tracking code versions.
+	•  Practice: Commit a sample HTML file.
+•  Shearing Tip: “Git shears away chaos by saving your code’s history.”
+•  Quick Check:
+	•  Question: What command saves changes to a Git repository?
+		•  A) git add
+		•  B) git commit
+		•  C) git push
+		•  D) git status
+	•  Answer: B) git commit, storing changes in the repository.
+Lesson 6: GitHub for Collaboration
+•  Objective: Teach GitHub for remote collaboration.
+•  Key Topics:
+	•  Create/clone a repository: git clone.
+	•  Push/pull changes: git push, git pull.
+	•  Pull requests for code reviews.
+	•  Example: Push a commit to a shared repo.
+•  Shearing Tip: “GitHub shears away solo coding with team collaboration.”
+•  Quick Check:
+	•  Question: What is the purpose of a pull request?
+		•  A) Initialize a repository
+		•  B) Commit changes locally
+		•  C) Request team review of changes
+		•  D) Delete a branch
+	•  Answer: C) Request team review of changes, ensuring code quality.
+Lesson 7: Branching and Merging
+•  Objective: Teach branching for parallel development.
+•  Key Topics:
+	•  Create/switch branches: git branch, git checkout.
+	•  Merge branches: git merge.
+	•  Visual: Branches as “sheep paths” splitting and rejoining.
+	•  Practice: Create and merge a feature branch.
+•  Shearing Tip: “Branching shears away conflicts by isolating changes.”
+•  Quick Check:
+	•  Question: Which command switches to a branch named ‘feature’?
+		•  A) git branch feature
+		•  B) git checkout feature
+		•  C) git merge feature
+		•  D) git add feature
+	•  Answer: B) git checkout feature, activating the branch.
+Lesson 8: Resolving Merge Conflicts
+•  Objective: Teach conflict resolution for collaborative workflows.
+•  Key Topics:
+	•  Conflicts: Overlapping changes in the same file.
+	•  Resolve using VS Code’s merge editor.
+	•  Example: Merge two branches with conflicting HTML.
+	•  Practice: Resolve a provided conflict.
+•  Shearing Tip: “Conflict resolution shears away team friction for smooth merges.”
+•  Quick Check:
+	•  Question: What causes a Git merge conflict?
+		•  A) Committing too many files
+		•  B) Changes to the same file in different branches
+		•  C) Pushing to a remote repository
+		•  D) Creating a new branch
+	•  Answer: B) Changes to the same file in different branches, requiring manual resolution.
+Review: Mastering Version Control
+•  Purpose: Consolidate Git and GitHub skills.
+•  Content:
+	•  Flowchart: git add → git commit → git push → pull request.
+	•  Recap: Commands, branching, collaboration, conflicts.
+	•  Exercise: Commit and push a 5-line file to GitHub.
+	•  Q&A: “How does branching improve team workflows?”
+•  Shearing Tip: “This review shears away Git complexity with a clear process.”
+•  Quick Check:
+	•  Question: What command pushes local changes to GitHub?
+		•  A) git commit
+		•  B) git push
+		•  C) git pull
+		•  D) git merge
+	•  Answer: B) git push, uploading changes to the remote repository.
+Exam: Practical Test on Git and GitHub
+•  Purpose: Assess version control proficiency.
+•  Content:
+	•  Practical: “Initialize a repo, commit a file, push to GitHub.”
+	•  Short-answer: “Explain the role of pull requests.”
+	•  Debugging: “Resolve this merge conflict” (provided snippet).
+	•  ~8 tasks, focusing on job-relevant Git skills.
+•  Shearing Tip: “This exam shears away uncertainty by proving your Git expertise.”
+Section 3: HTML & CSS
+Objective: Teach skills to build and style professional, accessible web pages.
+Lesson 9: HTML Structure and Semantics
+•  Objective: Teach HTML for structured, accessible content.
+•  Key Topics:
+	•  Tags: <!DOCTYPE>, <html>, <header>, <main>, <footer>.
+	•  Semantic elements: <article>, <section>, <nav>.
+	•  Example: Build a semantic blog page.
+	•  Analogy: HTML as a “sheep pen” organizing content.
+•  Shearing Tip: “Semantics shear away confusion for users and search engines.”
+•  Quick Check:
+	•  Question: Which tag defines the main content of a webpage?
+		•  A) <header>
+		•  B) <main>
+		•  C) <footer>
+		•  D) <div>
+	•  Answer: B) <main>, marking the primary content area.
+Lesson 10: CSS Basics and Styling
+•  Objective: Introduce CSS for visual styling.
+•  Key Topics:
+	•  Selectors, properties: color, font-size, background.
+	•  CSS methods: Inline, internal, external stylesheets.
+	•  Example: Style a semantic HTML page.
+	•  Practice: Apply styles to a heading and paragraph.
+•  Shearing Tip: “CSS shears away bland pages with vibrant styles.”
+•  Quick Check:
+	•  Question: Which CSS method uses a separate file?
+		•  A) Inline
+		•  B) Internal
+		•  C) External
+		•  D) Embedded
+	•  Answer: C) External, using a linked .css file for maintainability.
+Lesson 11: CSS Layouts and Box Model
+•  Objective: Teach CSS for structured layouts.
+•  Key Topics:
+	•  Box model: Content, padding, border, margin.
+	•  Flexbox: display: flex, justify-content, align-items.
+	•  Visual: Box model as a “sheep pen” with layers.
+	•  Practice: Create a three-column Flexbox layout.
+•  Shearing Tip: “Flexbox shears away layout struggles with easy alignment.”
+•  Quick Check:
+	•  Question: What CSS property includes padding and border in an element’s width?
+		•  A) box-sizing: border-box
+		•  B) display: flex
+		•  C) margin: auto
+		•  D) padding: 10px
+	•  Answer: A) box-sizing: border-box, simplifying size calculations.
+Lesson 12: Responsive Web Design
+•  Objective: Teach mobile-friendly design techniques.
+•  Key Topics:
+	•  Media queries: @media (max-width: 768px).
+	•  Relative units: vw, rem, em.
+	•  Example: Stack a layout on mobile, side-by-side on desktop.
+	•  Practice: Adjust a webpage for phone screens.
+•  Shearing Tip: “Responsive design shears away device barriers for all users.”
+•  Quick Check:
+	•  Question: What does a media query do?
+		•  A) Styles all elements equally
+		•  B) Applies styles based on device conditions
+		•  C) Defines font sizes
+		•  D) Creates Flexbox layouts
+	•  Answer: B) Applies styles based on device conditions, like screen width.
+Lesson 13: Web Accessibility Essentials
+•  Objective: Teach accessibility for inclusive design.
+•  Key Topics:
+	•  WCAG: Alt text, keyboard navigation, contrast ratios.
+	•  Semantic HTML for screen readers.
+	•  Practice: Add alt text and ARIA labels.
+	•  Example: Test a page with a screen reader.
+•  Shearing Tip: “Accessibility shears away barriers for diverse users.”
+•  Quick Check:
+	•  Question: What does alt text improve?
+		•  A) Page loading speed
+		•  B) Accessibility for screen readers
+		•  C) CSS styling
+		•  D) JavaScript interactivity
+	•  Answer: B) Accessibility for screen readers, describing images for visually impaired users.
+Review: Building Accessible Web Pages
+•  Purpose: Consolidate HTML and CSS skills.
+•  Content:
+	•  Diagram: HTML structure → CSS styling → responsive layout.
+	•  Recap: Semantics, box model, Flexbox, accessibility.
+	•  Exercise: Style a 10-line HTML page with Flexbox and media queries.
+	•  Q&A: “Why is accessibility important for web development?”
+•  Shearing Tip: “This review shears away web design complexity with clear techniques.”
+•  Quick Check:
+	•  Question: Which tag improves accessibility for navigation?
+		•  A) <div>
+		•  B) <nav>
+		•  C) <span>
+		•  D) <p>
+	•  Answer: B) <nav>, signaling navigation to screen readers.
+Exam: HTML and CSS Proficiency
+•  Purpose: Assess skills in creating styled, responsive, accessible pages.
+•  Content:
+	•  Coding: “Write HTML/CSS for a responsive two-column layout.”
+	•  Multiple-choice: “What does justify-content do in Flexbox?”
+	•  Practical: “Add alt text to an image and explain its role.”
+	•  ~10 tasks, testing job-relevant web design skills.
+•  Shearing Tip: “This exam shears away doubt by showcasing your design skills.”
+Section 4: JavaScript
+Objective: Teach JavaScript for dynamic, interactive web apps.
+Lesson 14: JavaScript Core Concepts
+•  Objective: Introduce JavaScript fundamentals.
+•  Key Topics:
+	•  Variables: let, const, data types (strings, arrays).
+	•  Functions, conditionals, loops.
+	•  Example: Calculate a sum with a function.
+	•  Practice: Write a function to process user input.
+•  Shearing Tip: “JavaScript shears away static pages with dynamic logic.”
+•  Quick Check:
+	•  Question: Which keyword declares a constant variable?
+		•  A) var
+		•  B) let
+		•  C) const
+		•  D) function
+	•  Answer: C) const, preventing variable reassignment.
+Lesson 15: DOM Manipulation and Events
+•  Objective: Teach interactivity via the DOM.
+•  Key Topics:
+	•  Select elements: document.querySelector.
+	•  Modify DOM: Text, styles, attributes.
+	•  Events: onclick, onchange.
+	•  Practice: Create a button that updates text.
+•  Shearing Tip: “DOM manipulation shears away static content with interactivity.”
+•  Quick Check:
+	•  Question: What method selects an element by ID?
+		•  A) getElementById
+		•  B) querySelector
+		•  C) addEventListener
+		•  D) innerHTML
+	•  Answer: A) getElementById, targeting a specific ID.
+Lesson 16: Modern JavaScript (ES6+)
+•  Objective: Teach modern JavaScript for efficient coding.
+•  Key Topics:
+	•  Arrow functions, template literals, destructuring.
+	•  Spread/rest operators, default parameters.
+	•  Example: Use template literals for dynamic HTML.
+	•  Practice: Refactor a function with arrow syntax.
+•  Shearing Tip: “ES6 shears away verbose code with concise syntax.”
+•  Quick Check:
+	•  Question: What does the spread operator do?
+		•  A) Combines arrays or objects
+		•  B) Declares a function
+		•  C) Loops through arrays
+		•  D) Styles elements
+	•  Answer: A) Combines arrays or objects, simplifying data manipulation.
+Lesson 17: Asynchronous JavaScript and APIs
+•  Objective: Teach async programming for data fetching.
+•  Key Topics:
+	•  Promises, async/await.
+	•  Fetch API: fetch() for HTTP requests.
+	•  Example: Fetch data from JSONPlaceholder.
+	•  Practice: Display API data on a webpage.
+•  Shearing Tip: “Async JavaScript shears away delays by fetching data smoothly.”
+•  Quick Check:
+	•  Question: What keyword makes a function asynchronous?
+		•  A) function
+		•  B) async
+		•  C) return
+		•  D) await
+	•  Answer: B) async, enabling await for Promises.
+Review: Dynamic Web Development
+•  Purpose: Consolidate JavaScript skills.
+•  Content:
+	•  Flowchart: JavaScript → DOM → API calls.
+	•  Recap: Variables, events, ES6, async programming.
+	•  Exercise: Write a 10-line script to fetch and display API data.
+	•  Q&A: “How does async/await improve code readability?”
+•  Shearing Tip: “This review shears away JavaScript complexity with a clear flow.”
+•  Quick Check:
+	•  Question: What does fetch() return?
+		•  A) A string
+		•  B) A Promise
+		•  C) An array
+		•  D) A function
+	•  Answer: B) A Promise, resolved to retrieve API data.
+Exam: JavaScript Proficiency
+•  Purpose: Assess skills in creating interactive, data-driven features.
+•  Content:
+	•  Coding: “Write a script to fetch API data and update the DOM.”
+	•  Debugging: “Fix this event listener code” (provided snippet).
+	•  Multiple-choice: “What is template literals used for?”
+	•  ~10 tasks, emphasizing job-relevant JavaScript skills.
+•  Shearing Tip: “This exam shears away uncertainty by proving your JavaScript skills.”
+Section 5: Node.js and Back-End Development
+Objective: Teach server-side development and deployment.
+Lesson 18: Introduction to Node.js
+•  Objective: Introduce Node.js for server-side programming.
+•  Key Topics:
+	•  Node.js: JavaScript runtime for servers.
+	•  Create a server with http module.
+	•  Use npm for package management.
+	•  Example: Build a “Hello, World!” server.
+•  Shearing Tip: “Node.js shears away browser limits by running code on servers.”
+•  Quick Check:
+	•  Question: What does npm install do?
+		•  A) Runs a server
+		•  B) Installs packages
+		•  C) Commits code
+		•  D) Styles a webpage
+	•  Answer: B) Installs packages, adding dependencies to a project.
+Lesson 19: Building APIs with Express
+•  Objective: Teach Express for RESTful APIs.
+•  Key Topics:
+	•  Set up Express: npm install express.
+	•  Routes: GET, POST, PUT, DELETE.
+	•  Middleware for JSON handling.
+	•  Practice: Build a to-do list API.
+•  Shearing Tip: “Express shears away server complexity with simple routes.”
+•  Quick Check:
+	•  Question: Which Express method handles a GET request?
+		•  A) app.post()
+		•  B) app.get()
+		•  C) app.use()
+		•  D) app.delete()
+	•  Answer: B) app.get(), defining a GET endpoint.
+Lesson 20: Authentication and Security
+•  Objective: Teach secure user authentication.
+•  Key Topics:
+	•  JSON Web Tokens (JWT) for authentication.
+	•  Middleware for protected routes.
+	•  Password hashing with bcrypt.
+	•  Practice: Add login/logout to an API.
+•  Shearing Tip: “Authentication shears away security risks with protected access.”
+•  Quick Check:
+	•  Question: What does JWT stand for?
+		•  A) JavaScript Web Token
+		•  B) JSON Web Token
+		•  C) Java Web Toolkit
+		•  D) JSON Widget Token
+	•  Answer: B) JSON Web Token, used for secure authentication.
+Lesson 21: Deploying Back-End Applications
+•  Objective: Teach deployment of Node.js apps.
+•  Key Topics:
+	•  Prepare app: Environment variables, error handling.
+	•  Deploy to Render or Heroku.
+	•  Example: Deploy a sample API.
+	•  Practice: Deploy a provided Express app.
+•  Shearing Tip: “Deployment shears away local limits by sharing apps globally.”
+•  Quick Check:
+	•  Question: What is an environment variable used for?
+		•  A) Styling webpages
+		•  B) Storing configuration settings
+		•  C) Writing SQL queries
+		•  D) Committing code
+	•  Answer: B) Storing configuration settings, like API keys.
+Review: Back-End Development Essentials
+•  Purpose: Consolidate server-side skills.
+•  Content:
+	•  Diagram: Node.js → Express routes → JWT authentication.
+	•  Recap: Servers, APIs, security, deployment.
+	•  Exercise: Write a 10-line Express route for a GET endpoint.
+	•  Q&A: “Why is authentication critical for APIs?”
+•  Shearing Tip: “This review shears away back-end complexity with a clear server flow.”
+•  Quick Check:
+	•  Question: What middleware parses JSON in Express?
+		•  A) express.json()
+		•  B) express.static()
+		•  C) express.urlencoded()
+		•  D) express.router()
+	•  Answer: A) express.json(), enabling JSON request handling.
+Exam: Node.js and Express Proficiency
+•  Purpose: Assess skills in building and securing APIs.
+•  Content:
+	•  Coding: “Create an Express route to return JSON data.”
+	•  Practical: “Add JWT authentication to a provided route.”
+	•  Multiple-choice: “What is the purpose of bcrypt?”
+	•  ~10 tasks, testing job-relevant back-end skills.
+•  Shearing Tip: “This exam shears away doubt by confirming your server skills.”
+Section 6: SQL and Databases
+Objective: Teach database management and integration.
+Lesson 22: SQL and relational Databases
+•  Objective: Introduce relational databases and SQL basics.
+•  Key Topics:
+	•  Concepts: Tables, rows, columns, primary keys.
+	•  SQL: CREATE, INSERT, SELECT, UPDATE, DELETE.
+	•  Example: Create a users table.
+	•  Analogy: SQL as a “shepherd” organizing data.
+•  Shearing Tip: “SQL shears away data chaos with structured tables.”
+•  Quick Check:
+	•  Question: What SQL command adds data to a table?
+		•  A) SELECT
+		•  B) INSERT
+		•  C) UPDATE
+		•  D) DELETE
+	•  Answer: B) INSERT, adding new rows to a table.
+Lesson 23: Writing Effective SQL Queries
+•  Objective: Teach advanced queries for data retrieval.
+•  Key Topics:
+	•  Joins: INNER JOIN, LEFT JOIN.
+	•  Filtering: WHERE, GROUP BY, ORDER BY.
+	•  Example: Join users and orders tables.
+	•  Practice: Query user orders.
+•  Shearing Tip: “Joins shear away data silos by connecting tables.”
+•  Quick Check:
+	•  Question: What join returns all rows from the left table?
+		•  A) INNER JOIN
+		•  B) LEFT JOIN
+		•  C) RIGHT JOIN
+		•  D) FULL JOIN
+	•  Answer: B) LEFT JOIN, including all left table rows.
+Lesson 24: Integrating Databases with Applications
+•  Objective: Connect SQL databases to Node.js apps.
+•  Key Topics:
+	•  Use mysql2 or pg for Node.js.
+	•  Execute SQL queries from Express routes.
+	•  Example: API to retrieve user data from a database.
+	•  Practice: Connect an API to a database.
+•  Shearing Tip: “Integration shears away disconnects between apps and data.”
+•  Quick Check:
+	•  Question: What Node.js package connects to PostgreSQL?
+		•  A) mysql2
+		•  B) pg
+		•  C) sqlite3
+		•  D) mongoose
+	•  Answer: B) pg, used for PostgreSQL databases.
+Review: Database Management
+•  Purpose: Consolidate SQL and integration skills.
+•  Content:
+	•  Diagram: SQL queries → Node.js API → database.
+	•  Recap: Tables, queries, integration.
+	•  Exercise: Write a 5-line SQL query to join two tables.
+	•  Q&A: “Why are joins important for databases?”
+•  Shearing Tip: “This review shears away database complexity with a clear data flow.”
+•  Quick Check:
+	•  Question: What does WHERE do in SQL?
+		•  A) Joins tables
+		•  B) Filters rows
+		•  C) Groups data
+		•  D) Orders results
+	•  Answer: B) Filters rows, selecting specific data.
+Exam: SQL and Database Proficiency
+•  Purpose: Assess database management and integration skills.
+•  Content:
+	•  Coding: “Write a SQL query to select users with orders.”
+	•  Practical: “Connect an Express route to a provided database.”
+	•  Multiple-choice: “What is a primary key?”
+	•  ~8 tasks, testing job-relevant database skills.
+•  Shearing Tip: “This exam shears away uncertainty by proving your data skills.”
+Section 7: Career Preparation
+Objective: Prepare learners for full-stack job applications.
+Lesson 25: Building a Professional Portfolio
+•  Objective: Guide creation of a portfolio from exam outputs.
+•  Key Topics:
+	•  Select outputs: Styled webpage, API, SQL queries.
+	•  Host on GitHub Pages or Netlify.
+	•  Structure: Homepage, about, projects, contact.
+	•  Practice: Build a portfolio page.
+•  Shearing Tip: “A portfolio shears away anonymity by showcasing your skills.”
+•  Quick Check:
+	•  Question: What platform can host a portfolio for free?
+		•  A) AWS
+		•  B) GitHub Pages
+		•  C) Azure
+		•  D) Google Cloud
+	•  Answer: B) GitHub Pages, offering free static site hosting.
+Lesson 26: Technical Interview Preparation
+•  Objective: Prepare for full-stack interview questions.
+•  Key Topics:
+	•  Coding challenges: FizzBuzz, array manipulation.
+	•  Behavioral questions: “Describe a challenging project.”
+	•  Whiteboard: Explain a REST API flow.
+	•  Practice: Solve a coding challenge.
+•  Shearing Tip: “Interview prep shears away fear with practiced confidence.”
+•  Quick Check:
+	•  Question: What is a common coding challenge topic?
+		•  A) Database design
+		•  B) Array manipulation
+		•  C) CSS animations
+		•  D) Git branching
+	•  Answer: B) Array manipulation, frequently tested in interviews.
+Lesson 27: Optimizing and Deploying Web Apps
+•  Objective: Teach optimization and deployment for professional apps.
+•  Key Topics:
+	•  Optimize: Minify CSS/JS, compress images.
+	•  Deploy: Front-end (Netlify), back-end (Render).
+	•  Example: Deploy a full-stack app.
+	•  Practice: Optimize and deploy a sample app.
+•  Shearing Tip: “Optimization shears away inefficiencies for fast, live apps.”
+•  Quick Check:
+	•  Question: What does minifying CSS do?
+		•  A) Increases file size
+		•  B) Reduces file size
+		•  C) Changes styles
+		•  D) Adds comments
+	•  Answer: B) Reduces file size, improving load times.
+Review: Full-Stack Career Readiness
+•  Purpose: Consolidate job preparation skills.
+•  Content:
+	•  Diagram: “Sheep Path” from HTML to deployed app.
+	•  Recap: Portfolio, interviews, deployment.
+	•  Exercise: Write a 5-line HTML page for a portfolio.
+	•  Q&A: “What makes a strong portfolio project?”
+•  Shearing Tip: “This review shears away job hunt complexity with a clear plan.”
+•  Quick Check:
+	•  Question: What should a portfolio include?
+		•  A) Only code snippets
+		•  B) Projects, about, contact sections
+		•  C) Just a resume
+		•  D) Unfinished projects
+	•  Answer: B) Projects, about, contact sections, showcasing skills comprehensively.
+Exam: Full-Stack Certification
+•  Purpose: Assess comprehensive full-stack skills.
+•  Content:
+	•  Coding: “Build a webpage with HTML/CSS/JS that fetches API data.”
+	•  Practical: “Deploy a provided Express API with a SQL database.”
+	•  Short-answer: “Explain JWT authentication.”
+	•  ~12 tasks, covering all course skills.
+•  Shearing Tip: “This exam shears away doubt by certifying your full-stack expertise.”
