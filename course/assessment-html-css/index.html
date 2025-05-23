@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test your HTML and CSS skills with CODEXEDOC’s practical exam on building a responsive, accessible e-commerce product card.">
+    <meta name="keywords" content="HTML, CSS, semantic HTML, responsive design, accessibility, Tailwind CSS, SCSS, assessment, CODEXEDOC">
+    <title>CODEXEDOC - Assessment: HTML and CSS Practical Exam</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">HTML & CSS</div>
+            <div class="lesson">Assessment: Practical Exam on HTML and CSS</div>
+            <div id="content">
+                <h2>Testing Your HTML and CSS Skills</h2>
+                <p>You’ve completed Lessons 10–17 of CODEXEDOC’s Full-Stack Development Course, covering semantic HTML, CSS basics, box model, layouts, responsive design, advanced CSS techniques, SCSS, accessibility, and CSS frameworks. This practical exam tests your ability to apply these skills by building a responsive, accessible e-commerce product card, a common component in web development. By completing this assessment, you’ll demonstrate your readiness to create professional web interfaces.</p>
+                
+                <h3>Why This Assessment Matters</h3>
+                <p>Building user-friendly, responsive, and accessible web components is a core skill for front-end developers. This exam simulates a real-world task—designing a product card for an e-commerce site—testing your ability to combine semantic HTML, CSS styling, and accessibility best practices. Mastering these skills prepares you for creating portfolio projects and contributing to production websites.</p>
+                
+                <h3>Exam Overview</h3>
+                <p>In this practical exam, you’ll create a single e-commerce product card using HTML and CSS (with SCSS or Tailwind CSS). The card should include a header, image placeholder, description, price, and call-to-action button. Requirements include:</p>
+                <ul>
+                    <li><strong>Semantic HTML</strong>: Use tags like <code>&lt;article&gt;</code>, <code>&lt;header&gt;</code>, and <code>&lt;img alt=""&gt;</code> for structure and accessibility.</li>
+                    <li><strong>CSS Styling</strong>: Apply the box model (padding, margin, border) and style with SCSS (variables, nesting) or Tailwind CSS utility classes.</li>
+                    <li><strong>Layout</strong>: Use Flexbox or CSS Grid to arrange elements.</li>
+                    <li><strong>Responsive Design</strong>: Use media queries to adapt the card for mobile (stacked layout) and desktop (fixed width).</li>
+                    <li><strong>Advanced CSS</strong>: Add a hover animation (e.g., scale or shadow) using <code>transition</code>.</li>
+                    <li><strong>Accessibility</strong>: Include ARIA attributes, keyboard-navigable buttons, and sufficient color contrast.</li>
+                </ul>
+                
+                <h3>Sample Task: Building the Product Card</h3>
+                <p>Here’s an example of the task and a solution:</p>
+                <p><strong>Task</strong>: Create a product card for a “Wireless Headphones” item. Include a header with the product name, an image placeholder, a short description, a price, and an “Add to Cart” button. Style it with SCSS, make it responsive, and ensure accessibility.</p>
+                <p><strong>Sample Solution (SCSS)</strong>:</p>
+                <pre>
+&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Product Card&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;article class="product-card" aria-labelledby="product-title"&gt;
+        &lt;header&gt;
+            &lt;h2 id="product-title"&gt;Wireless Headphones&lt;/h2&gt;
+        &lt;/header&gt;
+        &lt;img src="placeholder.jpg" alt="Black wireless headphones"&gt;
+        &lt;p&gt;High-quality headphones with noise cancellation.&lt;/p&gt;
+        &lt;p class="price"&gt;$99.99&lt;/p&gt;
+        &lt;button aria-label="Add Wireless Headphones to Cart"&gt;Add to Cart&lt;/button&gt;
+    &lt;/article&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+&lt;!-- styles.scss --&gt;
+$primary-color: #1e3a8a;
+$font-stack: 'Roboto Mono', monospace;
+
+.product-card {
+    font-family: $font-stack;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.3s ease;
+    &amp;:hover {
+        transform: scale(1.05);
+    }
+    header h2 {
+        color: $primary-color;
+    }
+    img {
+        width: 100%;
+        max-width: 200px;
+    }
+    .price {
+        font-weight: bold;
+    }
+    button {
+        background: $primary-color;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        &amp;:hover, &amp;:focus {
+            outline: 2px solid yellow;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .product-card {
+        max-width: 300px;
+    }
+}
+                </pre>
+                <p>Compile <code>styles.scss</code> to <code>styles.css</code>. This solution uses semantic HTML, SCSS variables and nesting, Flexbox, a hover animation, media queries, and accessibility features like ARIA and focus styles.</p>
+                <p><strong>Tailwind CSS Alternative</strong>:</p>
+                <pre>
+&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Product Card&lt;/title&gt;
+    &lt;!-- Assume Tailwind CSS is included --&gt;
+&lt;/head&gt;
+&lt;body class="bg-gray-100"&gt;
+    &lt;article class="m-4 p-6 bg-white border rounded shadow-md flex flex-col gap-4 transform transition hover:scale-105 max-w-sm md:max-w-md" aria-labelledby="product-title"&gt;
+        &lt;header&gt;
+            &lt;h2 id="product-title" class="text-2xl text-blue-900"&gt;Wireless Headphones&lt;/h2&gt;
+        &lt;/header&gt;
+        &lt;img src="placeholder.jpg" alt="Black wireless headphones" class="w-full max-w-xs"&gt;
+        &lt;p&gt;High-quality headphones with noise cancellation.&lt;/p&gt;
+        &lt;p class="font-bold"&gt;$99.99&lt;/p&gt;
+        &lt;button class="bg-blue-900 text-white py-2 px-4 rounded hover:outline hover:outline-2 hover:outline-yellow-400 focus:outline focus:outline-2 focus:outline-yellow-400" aria-label="Add Wireless Headphones to Cart"&gt;Add to Cart&lt;/button&gt;
+    &lt;/article&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+                <p>This Tailwind version uses utility classes to achieve the same result, assuming Tailwind CSS is included.</p>
+                
+                <h3>How to Prepare</h3>
+                <p>To succeed in the exam:</p>
+                <ul>
+                    <li><strong>Review Lessons</strong>: Revisit Lessons 10–17, focusing on semantic tags, box model, Flexbox/Grid, media queries, SCSS, accessibility, and Tailwind CSS.</li>
+                    <li><strong>Practice SCSS</strong>: Write and compile SCSS with variables and nesting; use <code>sass --watch styles.scss:styles.css</code>.</li>
+                    <li><strong>Experiment with Tailwind</strong>: Build a simple page with Tailwind classes to learn utilities like <code>flex</code> and <code>md:</code>.</li>
+                    <li><strong>Test Accessibility</strong>: Use tools like WAVE or a screen reader (NVDA) to check your HTML.</li>
+                    <li><strong>Simulate Responsiveness</strong>: Use browser dev tools to test layouts at different screen sizes (e.g., 320px, 768px).</li>
+                </ul>
+                
+                <h3>Taking the Exam</h3>
+                <p>The exam is hosted on CODEXEDOC’s platform, where you’ll submit your <code>index.html</code> and <code>styles.scss</code> (or CSS file). You have 90 minutes to complete the task. Your submission will be evaluated on:</p>
+                <ul>
+                    <li><strong>Correctness</strong>: Semantic HTML, valid CSS, and functional responsiveness.</li>
+                    <li><strong>Accessibility</strong>: Proper use of ARIA, alt text, and keyboard navigation.</li>
+                    <li><strong>Styling</strong>: Consistent use of box model, layouts, and animations.</li>
+                    <li><strong>Code Quality</strong>: Clean, organized code with minimal errors.</li>
+                </ul>
+                <p>A passing score (80% or higher) earns you an HTML & CSS proficiency badge for your portfolio. If you don’t pass, review feedback and retake after 24 hours.</p>
+                
+                <h3>Summary</h3>
+                <p>This practical exam tests your ability to build a responsive, accessible e-commerce product card, applying HTML and CSS skills from semantic structure to advanced styling. By completing it, you’re ready to tackle the e-commerce product page project and move on to JavaScript. Keep practicing layouts and accessibility, and build with confidence!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-seventeen/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/project-html-css/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-seventeen/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/project-html-css/';
+        });
+    </script>
+</body>
+</html>
