@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn backend development and Node.js with CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="backend, Node.js, web development, CODEXEDOC">
-    <title>CODEXEDOC - Introduction to Backend Development and Node.js</title>
+    <meta name="description" content="Learn to build servers with Express in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Node.js, Express, server, API, web development, CODEXEDOC">
+    <title>CODEXEDOC - Building Servers with Express</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -41,67 +41,57 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">Backend Development</div>
-            <div class="lesson">Introduction to Backend Development and Node.js</div>
+            <div class="course-section">Node.js & Back End Development</div>
+            <div class="lesson">Building Servers with Express</div>
             <div id="content">
-                <h2>Introduction to Backend Development and Node.js</h2>
-                <p>Welcome to Lesson 28 of CODEXEDOC’s Full-Stack Development Course! Backend development powers the server-side logic of web applications, handling data, APIs, and business rules. In this lesson, you’ll learn the basics of backend development and set up Node.js, a JavaScript runtime for server-side programming, to enhance your e-commerce project.</p>
+                <h2>Mastering Express for Server Development</h2>
+                <p>Welcome to Lesson 28! Express is a minimal Node.js framework for building web servers and APIs. In this lesson, you’ll learn to create RESTful APIs with Express, handle routes, and manage middleware.</p>
 
-                <h3>What is Backend Development?</h3>
-                <p>Backend development involves creating the server, database, and application logic that power a website’s functionality, like processing orders or user authentication. Unlike frontend (HTML/CSS/JS), the backend operates behind the scenes, delivering data to the client.</p>
+                <h3>What is Express?</h3>
+                <p>Express, released in 2010, simplifies Node.js server development with routing and middleware. In 2025, it’s a standard for building REST APIs, often paired with databases like MongoDB.</p>
 
-                <h3>What is Node.js?</h3>
-                <p>Node.js is a JavaScript runtime built on Chrome’s V8 engine, allowing you to run JavaScript outside the browser. Introduced in 2009, it’s widely used in 2025 for building fast, scalable backends, perfect for full-stack JavaScript development.</p>
-
-                <h3>Key Backend and Node.js Concepts</h3>
-                <p>Focus on these techniques:</p>
+                <h3>Key Express Concepts</h3>
+                <p>Focus on these features:</p>
                 <ul>
-                    <li><strong>Node.js Installation</strong>: Install Node.js and npm (Node Package Manager).</li>
-                    <li><strong>Modules</strong>: Use <code>require</code> or ES modules (<code>import</code>) to organize code.</li>
-                    <li><strong>File System</strong>: Interact with files using Node’s <code>fs</code> module.</li>
-                    <li><strong>HTTP Server</strong>: Create a basic server with Node’s <code>http</code> module.</li>
+                    <li><strong>Routing</strong>: Define endpoints with <code>app.get</code>, <code>app.post</code>, etc.</li>
+                    <li><strong>Middleware</strong>: Process requests with functions (e.g., <code>express.json()</code>).</li>
+                    <li><strong>Request/Response</strong>: Handle HTTP requests and send responses.</li>
+                    <li><strong>Error Handling</strong>: Use middleware for errors.</li>
                 </ul>
 
-                <h3>Setting Up Node.js</h3>
-                <p>Follow these steps to start with Node.js:</p>
-                <ol>
-                    <li><strong>Install Node.js</strong>: Download from nodejs.org (LTS version recommended).</li>
-                    <li><strong>Verify Installation</strong>: Run <code>node -v</code> and <code>npm -v</code> in your terminal.</li>
-                    <li><strong>Create a Project</strong>: Initialize with <code>npm init -y</code>.</li>
-                    <li><strong>Run a Script</strong>: Execute a JavaScript file with <code>node filename.js</code>.</li>
-                </ol>
-
-                <h3>Code Example: Basic Node.js Server</h3>
-                <p>Here’s a simple Node.js server:</p>
+                <h3>Code Example: Express Server</h3>
+                <p>Here’s a basic Express server:</p>
                 <pre>
-// server.js
-const http = require("http");
+<!-- server.js -->
+const express = require('express');
+const app = express();
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Hello from Node.js!");
+app.use(express.json());
+
+app.get('/api', (req, res) => {
+    res.json({ message: 'Welcome to the API!' });
 });
 
-server.listen(3000, () => {
-    console.log("Server running at http://localhost:3000/");
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
 });
                 </pre>
-                <p>Run this with <code>node server.js</code> and visit <code>http://localhost:3000</code> to see the response.</p>
+                <p>Run <code>node server.js</code> to start the server, accessible at <code>localhost:3000/api</code>.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Node.js powers backend services like APIs for e-commerce sites, handling product data or user logins. In this course, you’ll use Node.js to build an API for your e-commerce project, connecting it to your frontend cart.</p>
+                <p>Express powers APIs for apps like blogs or e-commerce platforms. In your blog API project, you’ll use Express to create endpoints for posts and users.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master Node.js:</p>
+                <p>To master Express:</p>
                 <ul>
-                    <li><strong>Use LTS Version</strong>: Ensure compatibility with most packages.</li>
-                    <li><strong>Organize Code</strong>: Split logic into modules for clarity.</li>
-                    <li><strong>Check Logs</strong>: Use <code>console.log</code> to debug server issues.</li>
-                    <li><strong>Explore npm</strong>: Install packages like <code>nodemon</code> for auto-restart.</li>
+                    <li><strong>Install Express</strong>: Use <code>npm install express</code>.</li>
+                    <li><strong>Organize Routes</strong>: Group related routes in separate files.</li>
+                    <li><strong>Use Middleware</strong>: Parse JSON and handle errors.</li>
+                    <li><strong>Test Locally</strong>: Use tools like Postman to test endpoints.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Backend development with Node.js enables you to create server-side logic using JavaScript. By setting up Node.js, you’re ready to build APIs and manage data. In the next lesson, you’ll learn about Express.js to simplify server creation. Keep exploring Node.js!</p>
+                <p>Express simplifies building RESTful APIs with Node.js. By mastering routing and middleware, you’re ready for backend development. Next, you’ll learn authentication and authorization. Keep building with Express!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-seven/"></a></button>
