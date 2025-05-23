@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn JavaScript event handling to respond to user actions like clicks and keypresses for interactive web applications.">
+    <meta name="keywords" content="JavaScript, event handling, addEventListener, click, full-stack development">
+    <title>CODEXEDOC - Event Handling</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">JavaScript</div>
+            <div class="lesson">Event Handling</div>
+            <div id="content">
+                <h2>Event Handling</h2>
+                <p>Welcome to Lesson 16 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn JavaScript event handling to respond to user actions like clicks and keypresses. By the end, you’ll be able to create a button that toggles text visibility.</p>
+
+                <h3>Introduction</h3>
+                <p>Event handling is like a shepherd listening for a sheep’s bleat, triggering actions when users interact with a page. JavaScript events let you respond to clicks, inputs, or scrolls. This lesson teaches you to use event listeners for responsive web features.</p>
+
+                <h3>Key Concepts</h3>
+                <p>This lesson covers event handling essentials:</p>
+                <ul>
+                    <li><strong>Events</strong>: User actions like <code>click</code>, <code>input</code>, or <code>keydown</code>.</li>
+                    <li><strong>Event Listeners</strong>: Use <code>addEventListener</code> to attach functions to events.</li>
+                    <li><strong>Event Object</strong>: Access details like <code>event.target</code> to customize responses.</li>
+                </ul>
+
+                <h3>Code Example</h3>
+                <p>Below is an example of a button that toggles the visibility of a paragraph using an event listener.</p>
+                <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;title&gt;Event Handling&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;button id="toggle"&gt;Toggle Text&lt;/button&gt;
+    &lt;p id="text"&gt;Hello, World!&lt;/p&gt;
+    &lt;script&gt;
+        const button = document.getElementById('toggle');
+        const text = document.getElementById('text');
+        button.addEventListener('click', () => {
+            text.style.display = text.style.display === 'none' ? 'block' : 'none';
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+
+                <h3>Practical Applications</h3>
+                <p>Event handling powers features in apps like YouTube or Slack, such as play buttons or message inputs. For example, a form app uses event listeners to validate user input in real-time. These skills are crucial for full-stack developers to build interactive interfaces.</p>
+
+                <h3>Tips for Success</h3>
+                <p>Here are tips to master event handling:</p>
+                <ul>
+                    <li>Use <code>addEventListener</code>: Avoid inline <code>onclick</code> for cleaner code.</li>
+                    <li>Remove listeners if needed: Use <code>removeEventListener</code> to prevent memory leaks.</li>
+                    <li>Test events: Use dev tools to debug event triggers.</li>
+                </ul>
+
+                <h3>Shearing Tip</h3>
+                <p>Event handling shears away passive pages with responsive actions, just as a shepherd reacts to a flock’s needs. Listeners make your pages engaging and intuitive.</p>
+
+                <h3>Quick Check</h3>
+                <p>Test your understanding with this interactive quiz:</p>
+                <div class="quick-check-container" id="quick-check">
+                    <p><strong>Question:</strong> Which method attaches an event listener to an element?</p>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-a" value="A">
+                        <label for="option-a">A) getElementById</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-b" value="B">
+                        <label for="option-b">B) addEventListener</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-c" value="C">
+                        <label for="option-c">C) textContent</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-d" value="D">
+                        <label for="option-d">D) querySelector</label>
+                    </div>
+                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
+                    <div class="quick-check-response" id="quick-check-response"></div>
+                </div>
+
+                <h3>Summary</h3>
+                <p>In this lesson, you learned event handling to respond to user actions with JavaScript. These skills create responsive interfaces. Next, in Lesson 17, you’ll explore conditionals to add decision-making logic to your scripts.</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-fifteen/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-seventeen/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        const jsConfetti = new JSConfetti();
+        function submitQuiz() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const responseDiv = document.getElementById('quick-check-response');
+            if (!selected) {
+                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
+                responseDiv.style.display = 'block';
+                responseDiv.className = 'quick-check-response incorrect';
+                return;
+            }
+            const answer = selected.value;
+            const correctAnswer = 'B';
+            if (answer === correctAnswer) {
+                responseDiv.innerHTML = '<pre>Correct! B) addEventListener, attaching functions to events.</pre>';
+                responseDiv.className = 'quick-check-response correct';
+                jsConfetti.addConfetti();
+            } else {
+                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) addEventListener, attaching functions to events.</pre>';
+                responseDiv.className = 'quick-check-response incorrect';
+            }
+            responseDiv.style.display = 'block';
+        }
+
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-fifteen/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-seventeen/';
+        });
+    </script>
+</body>
+</html>
