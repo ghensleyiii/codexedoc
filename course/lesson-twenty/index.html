@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript arrays and objects to manage and manipulate complex data in web applications.">
-    <meta name="keywords" content="JavaScript, arrays, objects, data structures, full-stack development">
-    <title>CODEXEDOC - Arrays and Objects</title>
+    <meta name="description" content="Learn to secure APIs with authentication using JWT and password hashing.">
+    <meta name="keywords" content="authentication, JWT, bcrypt, Express, full-stack development">
+    <title>CODEXEDOC - Authentication and Security</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -42,98 +42,98 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">JavaScript</div>
-            <div class="lesson">Arrays and Objects</div>
+            <div class="course-section">Node.js and Back-End Development</div>
+            <div class="lesson">Authentication and Security</div>
             <div id="content">
-                <h2>Arrays and Objects</h2>
-                <p>Welcome to Lesson 20 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn JavaScript arrays and objects to manage complex data. By the end, you’ll be able to create a task list app using arrays and objects.</p>
+                <h2>Authentication and Security</h2>
+                <p>Welcome to Lesson 20! You’ll learn to secure APIs with user authentication. By the end, you’ll add login/logout to an API.</p>
 
                 <h3>Introduction</h3>
-                <p>Arrays and objects are like a shepherd’s ledger, organizing sheep into lists or detailed records. Arrays store ordered data, while objects hold key-value pairs. This lesson teaches you to manipulate these structures for dynamic web applications.</p>
+                <p>Authentication is like a shepherd guarding the flock, ensuring only authorized users access resources. This lesson covers JSON Web Tokens (JWT) and password hashing with bcrypt.</p>
 
                 <h3>Key Concepts</h3>
-                <p>This lesson covers arrays and objects essentials:</p>
+                <p>Focus areas include:</p>
                 <ul>
-                    <li><strong>Arrays</strong>: Use <code>[]</code> to store lists, with methods like <code>push</code> and <code>map</code>.</li>
-                    <li><strong>Objects</strong>: Use <code>{}</code> for key-value pairs, accessing with dot or bracket notation.</li>
-                    <li><strong>Iteration</strong>: Loop through arrays with <code>forEach</code> or objects with <code>for...in</code>.</li>
+                    <li><strong>JWT</strong>: Tokens for secure authentication.</li>
+                    <li><strong>Middleware</strong>: Protect routes.</li>
+                    <li><strong>bcrypt</strong>: Hash passwords securely.</li>
                 </ul>
 
                 <h3>Code Example</h3>
-                <p>Below is an example of a task list app using arrays and objects to display tasks.</p>
+                <p>Here’s an Express API with login authentication.</p>
                 <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;title&gt;Task List&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;input type="text" id="task" placeholder="Enter task"&gt;
-    &lt;button onclick="addTask()"&gt;Add Task&lt;/button&gt;
-    &lt;ul id="taskList"&gt;&lt;/ul&gt;
-    &lt;script&gt;
-        const tasks = [];
-        function addTask() {
-            const input = document.getElementById('task');
-            const task = { id: tasks.length + 1, name: input.value };
-            tasks.push(task);
-            displayTasks();
-            input.value = '';
-        }
-        function displayTasks() {
-            const list = document.getElementById('taskList');
-            list.innerHTML = '';
-            tasks.forEach(task => {
-                const item = document.createElement('li');
-                item.textContent = `Task ${task.id}: ${task.name}`;
-                list.appendChild(item);
-            });
-        }
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const app = express();
+
+app.use(express.json());
+
+const users = [];
+const SECRET_KEY = 'your-secret-key';
+
+app.post('/register', async (req, res) => {
+    const { username, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    users.push({ username, password: hashedPassword });
+    res.status(201).json({ message: 'User registered' });
+});
+
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    const user = users.find(u => u.username === username);
+    if (user && await bcrypt.compare(password, user.password)) {
+        const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
+        res.json({ token });
+    } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+    }
+});
+
+app.listen(3000, () => console.log('Server running at http://localhost:3000'));
                 </pre>
+                <p>Install dependencies: <code>npm install express jsonwebtoken bcrypt</code>.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Arrays and objects are used in apps like Spotify or Jira to manage playlists or tickets. For example, a shopping cart app uses arrays to store items and objects for product details. These skills are vital for full-stack developers to handle structured data.</p>
+                <p>Authentication secures apps like Gmail. JWT protects API endpoints, and bcrypt ensures safe password storage. These skills are critical for secure back-end development.</p>
 
                 <h3>Tips for Success</h3>
-                <p>Here are tips to master arrays and objects:</p>
+                <p>Master authentication with these tips:</p>
                 <ul>
-                    <li>Use descriptive keys: Name object properties clearly for readability.</li>
-                    <li>Avoid mutating arrays directly: Use methods like <code>map</code> or <code>filter</code> for immutability.</li>
-                    <li>Debug with console: Log arrays or objects to inspect their structure.</li>
+                    <li>Use strong SECRET_KEY for JWT.</li>
+                    <li>Implement middleware for protected routes.</li>
+                    <li>Test authentication with Postman.</li>
                 </ul>
 
                 <h3>Shearing Tip</h3>
-                <p>Arrays and objects shear away chaotic data with organized structures, just as a shepherd sorts a flock. These tools make your data manageable and scalable.</p>
+                <p>Authentication shears away security risks with protected access, like a shepherd safeguarding the flock.</p>
 
                 <h3>Quick Check</h3>
-                <p>Test your understanding with this interactive quiz:</p>
+                <p>Test your knowledge:</p>
                 <div class="quick-check-container" id="quick-check">
-                    <p><strong>Question:</strong> Which method adds an element to the end of an array?</p>
+                    <p><strong>Question:</strong> What does JWT stand for?</p>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-a" value="A">
-                        <label for="option-a">A) pop</label>
+                        <label for="option-a">A) JavaScript Web Token</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-b" value="B">
-                        <label for="option-b">B) push</label>
+                        <label for="option-b">B) JSON Web Token</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-c" value="C">
-                        <label for="option-c">C) shift</label>
+                        <label for="option-c">C) Java Web Toolkit</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-d" value="D">
-                        <label for="option-d">D) forEach</label>
+                        <label for="option-d">D) JSON Widget Token</label>
                     </div>
                     <button class="quick-check" onclick="submitQuiz()">Submit</button>
                     <div class="quick-check-response" id="quick-check-response"></div>
                 </div>
 
                 <h3>Summary</h3>
-                <p>In this lesson, you learned arrays and objects to manage complex data in JavaScript. These skills enable data-driven features. Next, in Lesson 21, you’ll explore error handling to make your scripts more robust.</p>
+                <p>You’ve secured an API with authentication. Next, Lesson 21 covers deploying back-end applications.</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-nineteen/"></a></button>
@@ -144,12 +144,26 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo-container">
-                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
-                <div>CODEXEDOC</div>
+            <div class="footer-section">
+                <h3>About CODEXEDOC</h3>
+                <p>CODEXEDOC provides hands-on full-stack development training with a focus on job-ready skills.</p>
             </div>
-            <p>Shearing Away the Complexity of Coding!</p>
-            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                    <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                    <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+                <p>Follow us: <a href="https://www.linkedin.com/company/codexedoc">LinkedIn</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CODEXEDOC. All rights reserved.</p>
         </div>
     </footer>
 
@@ -159,30 +173,21 @@
             const selected = document.querySelector('input[name="answer"]:checked');
             const responseDiv = document.getElementById('quick-check-response');
             if (!selected) {
-                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
-                responseDiv.style.display = 'block';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Please select an answer!';
                 return;
             }
             const answer = selected.value;
-            const correctAnswer = 'B';
-            if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! B) push, adding an element to the end of an array.</pre>';
-                responseDiv.className = 'quick-check-response correct';
+            if (answer === 'B') {
+                responseDiv.innerHTML = 'Correct! JWT stands for JSON Web Token.';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) push, adding an element to the end of an array.</pre>';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is B) JSON Web Token, used for secure authentication.';
             }
-            responseDiv.style.display = 'block';
         }
-
-        document.querySelector('.arrow-left').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-nineteen/';
-        });
-        document.querySelector('.arrow-right').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-one/';
-        });
+        const leftArrow = document.querySelector('.arrow-left a');
+        const rightArrow = document.querySelector('.arrow-right a');
+        leftArrow.href = 'https://www.codexedoc.com/course/lesson-nineteen/';
+        rightArrow.href = 'https://www.codexedoc.com/course/lesson-twenty-one/';
     </script>
 </body>
 </html>
