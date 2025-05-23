@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn CRUD operations with MongoDB in CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="MongoDB, CRUD, backend, web development, CODEXEDOC">
-    <title>CODEXEDOC - CRUD Operations with MongoDB</title>
+    <meta name="description" content="Learn to deploy Node.js apps with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Node.js, Express, deployment, cloud, web development, CODEXEDOC">
+    <title>CODEXEDOC - Deploying Node.js Apps</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -41,139 +41,76 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">Backend Development</div>
-            <div class="lesson">CRUD Operations with MongoDB</div>
+            <div class="course-section">Node.js & Back End Development</div>
+            <div class="lesson">Deploying Node.js Apps</div>
             <div id="content">
-                <h2>CRUD Operations with MongoDB</h2>
-                <p>Welcome to Lesson 33 of CODEXEDOC’s Full-Stack Development Course! CRUD (Create, Read, Update, Delete) operations are the core of database interactions. In this lesson, you’ll learn to implement CRUD operations with MongoDB and Mongoose to manage products in your e-commerce API.</p>
+                <h2>Mastering Node.js App Deployment</h2>
+                <p>Welcome to Lesson 33! Deployment makes your Node.js app accessible online. In this lesson, you’ll learn to deploy Express apps to cloud platforms, configure production settings, and monitor performance.</p>
 
-                <h3>What are CRUD Operations?</h3>
-                <p>CRUD operations allow you to create, read, update, and delete data in a database. In MongoDB, these operations are performed on documents within collections, enabling dynamic data management for web apps.</p>
+                <h3>What is Deployment?</h3>
+                <p>Deployment involves hosting your app on a server or cloud platform. In 2025, platforms like Heroku, Vercel, and AWS are popular for Node.js apps, offering scalability and reliability.</p>
 
-                <h3>Why Use CRUD with MongoDB?</h3>
-                <p>CRUD operations make your API fully functional, allowing your e-commerce app to store, retrieve, modify, and remove products persistently. Mongoose simplifies these operations with a JavaScript-friendly interface.</p>
-
-                <h3>Key CRUD Concepts</h3>
+                <h3>Key Concepts</h3>
                 <p>Focus on these techniques:</p>
                 <ul>
-                    <li><strong>Create</strong>: Add documents with <code>Model.create</code> or <code>save</code>.</li>
-                    <li><strong>Read</strong>: Retrieve data with <code>find</code>, <code>findOne</code>, or <code>findById</code>.</li>
-                    <li><strong>Update</strong>: Modify documents with <code>updateOne</code> or <code>findByIdAndUpdate</code>.</li>
-                    <li><strong>Delete</strong>: Remove documents with <code>deleteOne</code> or <code>findByIdAndDelete</code>.</li>
+                    <li><strong>Production Configuration</strong>: Set <code>NODE_ENV=production</code>.</li>
+                    <li><strong>Cloud Platforms</strong>: Deploy to services like Heroku.</li>
+                    <li><strong>Process Managers</strong>: Use PM2 for app management.</li>
+                    <li><strong>Monitoring</strong>: Track errors and performance.</li>
                 </ul>
 
-                <h3>Implementing CRUD Operations</h3>
-                <p>Follow these steps to add CRUD to your API:</p>
-                <ol>
-                    <li><strong>Define a Schema</strong>: Create a Mongoose schema for products.</li>
-                    <li><strong>Create Routes</strong>: Add Express routes for each CRUD operation.</li>
-                    <li><strong>Handle Requests</strong>: Use Mongoose methods to interact with MongoDB.</li>
-                    <li><strong>Test Operations</strong>: Use Postman to verify CRUD functionality.</li>
-                </ol>
-
-                <h3>Code Example: CRUD API with MongoDB</h3>
-                <p>Here’s an Express API with full CRUD for products:</p>
+                <h3>Code Example: Deployment Setup</h3>
+                <p>Here’s an Express app ready for deployment:</p>
                 <pre>
-// server.js
-const express = require("express");
-const mongoose = require("mongoose");
+<!-- server.js -->
+const express = require('express');
 const app = express();
 
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/ecommerce", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log("Connected to MongoDB"));
-
-const productSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    price: { type: Number, required: true }
+app.get('/', (req, res) => {
+    res.json({ message: 'App is live!' });
 });
 
-const Product = mongoose.model("Product", productSchema);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
-// Create
-app.post("/api/products", async (req, res) => {
-    try {
-        const product = new Product(req.body);
-        await product.save();
-        res.status(201).json(product);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+<!-- package.json -->
+{
+    "name": "my-app",
+    "version": "1.0.0",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "prod": "NODE_ENV=production node server.js"
+    },
+    "dependencies": {
+        "express": "^4.18.2"
     }
-});
-
-// Read all
-app.get("/api/products", async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.json(products);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-// Read one
-app.get("/api/products/:id", async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
-        if (!product) return res.status(404).json({ message: "Product not found" });
-        res.json(product);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-// Update
-app.put("/api/products/:id", async (req, res) => {
-    try {
-        const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
-        if (!product) return res.status(404).json({ message: "Product not found" });
-        res.json(product);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-});
-
-// Delete
-app.delete("/api/products/:id", async (req, res) => {
-    try {
-        const product = await Product.findByIdAndDelete(req.params.id);
-        if (!product) return res.status(404).json({ message: "Product not found" });
-        res.json({ message: "Product deleted" });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-app.listen(3000, () => {
-    console.log("Server running at http://localhost:3000/");
-});
+}
                 </pre>
-                <p>Test with Postman: POST <code>/api/products</code> with <code>{ "name": "Tablet", "price": 299.99 }</code>, GET <code>/api/products</code>, etc.</p>
+                <p>Deploy this to Heroku by pushing to a Git repository and setting environment variables.</p>
 
                 <h3>Practical Applications</h3>
-                <p>CRUD operations enable e-commerce apps to manage product inventories dynamically. In this course, you’ll use these operations to power your API, allowing your frontend to interact with persistent data.</p>
+                <p>Deployment makes APIs accessible. In your blog API project, you’ll deploy your REST API to a cloud platform.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master CRUD:</p>
+                <p>To master deployment:</p>
                 <ul>
-                    <li><strong>Validate Data</strong>: Use Mongoose validators to ensure data integrity.</li>
-                    <li><strong>Handle Errors</strong>: Return meaningful error messages.</li>
-                    <li><strong>Test All Operations</strong>: Verify each CRUD endpoint works.</li>
-                    <li><strong>Use Async/Await</strong>: Keep code readable with async syntax.</li>
+                    <li><strong>Use Environment Variables</strong>: Configure ports and keys.</li>
+                    <li><strong>Test Locally</strong>: Simulate production with <code>NODE_ENV=production</code>.</li>
+                    <li><strong>Monitor Logs</strong>: Check platform logs for errors.</li>
+                    <li><strong>Automate Deployment</strong>: Use CI/CD pipelines.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>CRUD operations with MongoDB make your API fully functional, enabling data management. By implementing CRUD, you’ve built a robust backend. In the next lesson, you’ll create an e-commerce API project. Keep practicing CRUD!</p>
+                <p>Deployment brings your Node.js apps online. By mastering cloud platforms and production settings, you’re ready for real-world backends. Next, you’ll build a blog API project. Keep deploying!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-thirty-two/"></a></button>
-                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-thirty-four/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/project-nodejs/"></a></button>
             </div>
         </div>
     </section>
@@ -194,7 +131,7 @@ app.listen(3000, () => {
             window.location.href = 'https://www.codexedoc.com/course/lesson-thirty-two/';
         });
         document.querySelector('.arrow-right').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-thirty-four/';
+            window.location.href = 'https://www.codexedoc.com/course/project-nodejs/';
         });
     </script>
 </body>
