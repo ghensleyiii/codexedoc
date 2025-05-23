@@ -135,7 +135,7 @@ git --version
             const selected = document.querySelector('input[name="answer"]:checked');
             const responseDiv = document.getElementById('quick-check-response');
             if (!selected) {
-                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
+                responseDiv.innerHTML = 'Please select an answer!';
                 responseDiv.style.display = 'block';
                 responseDiv.className = 'quick-check-response incorrect';
                 return;
