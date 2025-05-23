@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn to set up Express.js for backend development with CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="Express.js, Node.js, backend, web development, CODEXEDOC">
-    <title>CODEXEDOC - Setting Up Express.js</title>
+    <meta name="description" content="Learn authentication and authorization in Node.js with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Node.js, Express, authentication, JWT, web development, CODEXEDOC">
+    <title>CODEXEDOC - Authentication and Authorization</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -41,73 +41,76 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">Backend Development</div>
-            <div class="lesson">Setting Up Express.js</div>
+            <div class="course-section">Node.js & Back End Development</div>
+            <div class="lesson">Authentication and Authorization</div>
             <div id="content">
-                <h2>Setting Up Express.js</h2>
-                <p>Welcome to Lesson 29 of CODEXEDOC’s Full-Stack Development Course! Express.js is a minimal Node.js framework for building web servers and APIs. In this lesson, you’ll learn how to set up Express.js and create basic routes to handle HTTP requests, laying the foundation for your e-commerce API.</p>
+                <h2>Mastering Authentication and Authorization</h2>
+                <p>Welcome to Lesson 29! Authentication verifies user identity, while authorization determines access rights. In this lesson, you’ll learn to implement authentication with JSON Web Tokens (JWT) and authorization in Express.</p>
 
-                <h3>What is Express.js?</h3>
-                <p>Express.js simplifies Node.js server development with a robust set of features for routing, middleware, and request handling. Introduced in 2010, it remains a cornerstone of Node.js development in 2025, powering APIs for modern web apps.</p>
+                <h3>What are Authentication and Authorization?</h3>
+                <p>Authentication confirms “who” a user is (e.g., via login), and authorization checks “what” they can do (e.g., admin access). JWT is a standard for secure token-based authentication in 2025.</p>
 
-                <h3>Why Use Express.js?</h3>
-                <p>Express.js streamlines backend development with easy-to-use routing and middleware, making it ideal for creating RESTful APIs. It integrates seamlessly with Node.js, perfect for full-stack JavaScript projects like your e-commerce site.</p>
-
-                <h3>Key Express.js Concepts</h3>
+                <h3>Key Concepts</h3>
                 <p>Focus on these techniques:</p>
                 <ul>
-                    <li><strong>Installation</strong>: Add Express.js with <code>npm install express</code>.</li>
-                    <li><strong>Basic Server</strong>: Create a server with <code>app.listen</code>.</li>
-                    <li><strong>Routing</strong>: Define routes with <code>app.get</code>, <code>app.post</code>, etc.</li>
-                    <li><strong>Middleware</strong>: Use functions to process requests (e.g., <code>express.json()</code>).</li>
+                    <li><strong>JWT</strong>: Generate and verify tokens for user sessions.</li>
+                    <li><strong>Middleware</strong>: Protect routes with authentication checks.</li>
+                    <li><strong>Password Hashing</strong>: Secure passwords with bcrypt.</li>
+                    <li><strong>Role-Based Access</strong>: Restrict actions based on user roles.</li>
                 </ul>
 
-                <h3>Setting Up Express.js</h3>
-                <p>Follow these steps to create an Express server:</p>
-                <ol>
-                    <li><strong>Initialize Project</strong>: Run <code>npm init -y</code> in a new directory.</li>
-                    <li><strong>Install Express</strong>: Run <code>npm install express</code>.</li>
-                    <li><strong>Create Server</strong>: Write a basic server script.</li>
-                    <li><strong>Test Routes</strong>: Use a tool like Postman or a browser to test.</li>
-                </ol>
-
-                <h3>Code Example: Express.js Server</h3>
-                <p>Here’s a basic Express server with routes:</p>
+                <h3>Code Example: JWT Authentication</h3>
+                <p>Here’s an Express server with JWT authentication:</p>
                 <pre>
-// server.js
-const express = require("express");
+<!-- server.js -->
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const app = express();
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("Welcome to the E-commerce API!");
+const users = [];
+const SECRET_KEY = 'your-secret-key';
+
+app.post('/register', async (req, res) => {
+    const { username, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    users.push({ username, password: hashedPassword });
+    res.status(201).json({ message: 'User registered' });
 });
 
-app.get("/products", (req, res) => {
-    res.json([{ id: 1, name: "Laptop", price: 999.99 }]);
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    const user = users.find(u => u.username === username);
+    if (user && await bcrypt.compare(password, user.password)) {
+        const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
+        res.json({ token });
+    } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+    }
 });
 
 app.listen(3000, () => {
-    console.log("Server running at http://localhost:3000/");
+    console.log('Server running on port 3000');
 });
                 </pre>
-                <p>Run with <code>node server.js</code>. Visit <code>http://localhost:3000/</code> or <code>/products</code> to see responses.</p>
+                <p>This server registers users, hashes passwords, and issues JWTs on login.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Express.js is used to build APIs for e-commerce platforms, serving product data or processing orders. In this course, you’ll use Express to create an API that your frontend cart can interact with, enabling dynamic data management.</p>
+                <p>Authentication secures APIs for apps like blogs. In your blog API project, you’ll implement JWT to protect post creation endpoints.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master Express.js:</p>
+                <p>To master authentication:</p>
                 <ul>
-                    <li><strong>Use nodemon</strong>: Install <code>nodemon</code> for auto-restart (<code>npm install -g nodemon</code>).</li>
-                    <li><strong>Test Routes</strong>: Use Postman to verify API endpoints.</li>
-                    <li><strong>Keep Routes Organized</strong>: Group related routes in separate files.</li>
-                    <li><strong>Handle Errors</strong>: Add middleware for error handling.</li>
+                    <li><strong>Secure Secrets</strong>: Store <code>SECRET_KEY</code> in environment variables.</li>
+                    <li><strong>Use Bcrypt</strong>: Hash passwords securely.</li>
+                    <li><strong>Validate Tokens</strong>: Check JWTs in middleware.</li>
+                    <li><strong>Test with Postman</strong>: Send tokens in Authorization headers.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Express.js simplifies Node.js server development, enabling you to create robust APIs. By setting up Express, you’re ready to build RESTful endpoints. In the next lesson, you’ll learn to create RESTful APIs for your e-commerce project. Keep practicing Express!</p>
+                <p>Authentication and authorization secure your APIs. By mastering JWT and middleware, you’re ready for protected routes. Next, you’ll explore advanced API design with REST and GraphQL. Keep securing your APIs!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-eight/"></a></button>
