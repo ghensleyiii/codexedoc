@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn modern JavaScript ES6+ features with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="JavaScript, ES6, arrow functions, destructuring, web development, CODEXEDOC">
+    <title>CODEXEDOC - Modern JavaScript (ES6+ Features)</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">JavaScript</div>
+            <div class="lesson">Modern JavaScript (ES6+ Features)</div>
+            <div id="content">
+                <h2>Mastering Modern JavaScript (ES6+ Features)</h2>
+                <p>Welcome to Lesson 19 of CODEXEDOC’s Full-Stack Development Course! ES6 (ECMAScript 2015) and later versions introduced features that make JavaScript more concise and powerful. In this lesson, you’ll learn arrow functions, destructuring, template literals, and more to write modern, efficient code.</p>
+
+                <h3>What is ES6+?</h3>
+                <p>ES6, released in 2015, modernized JavaScript with new syntax and features. Subsequent updates (ES7, ES8, etc.) added further enhancements. In 2025, ES6+ features are standard in web development, improving readability and productivity.</p>
+
+                <h3>Key ES6+ Features</h3>
+                <p>Focus on these features:</p>
+                <ul>
+                    <li><strong>Arrow Functions</strong>: Concise function syntax with implicit return (e.g., <code>x => x * 2</code>).</li>
+                    <li><strong>Destructuring</strong>: Extract values from arrays/objects (e.g., <code>{name} = obj</code>).</li>
+                    <li><strong>Template Literals</strong>: String interpolation with backticks (e.g., <code>`Hello, ${name}`</code>).</li>
+                    <li><strong>Spread/Rest Operators</strong>: Spread arrays/objects (<code>...</code>) or gather parameters.</li>
+                </ul>
+
+                <h3>Code Example: ES6+ Features</h3>
+                <p>Here’s an example using modern JavaScript:</p>
+                <pre>
+&lt;!-- index.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+    &lt;title>ES6+ Features&lt;/title>
+&lt;/head>
+&lt;body>
+    &lt;script src="script.js">&lt;/script>
+&lt;/body>
+&lt;/html>
+
+&lt;!-- script.js -->
+const user = { name: "Alice", age: 25 };
+const { name, age } = user;
+const greet = (person) => `Hello, ${person}!`;
+const numbers = [1, 2, 3];
+const doubled = numbers.map(num => num * 2);
+console.log(greet(name)); // Output: Hello, Alice!
+console.log(doubled); // Output: [2, 4, 6]
+                </pre>
+                <p>This code uses destructuring, arrow functions, and template literals for concise scripting.</p>
+
+                <h3>Practical Applications</h3>
+                <p>ES6+ features simplify code in frameworks like React. For example, arrow functions are used in event handlers, and destructuring is common in component props. You’ll use these in your task manager project.</p>
+
+                <h3>Tips for Success</h3>
+                <p>To master ES6+:</p>
+                <ul>
+                    <li><strong>Use Arrow Functions</strong>: Prefer them for short, functional code.</li>
+                    <li><strong>Practice Destructuring</strong>: Simplify object and array access in your code.</li>
+                    <li><strong>Leverage Template Literals</strong>: Use for dynamic strings in UI updates.</li>
+                    <li><strong>Test in Modern Browsers</strong>: Ensure ES6+ features work in Chrome/Firefox.</li>
+                </ul>
+
+                <h3>Summary</h3>
+                <p>ES6+ features make JavaScript more powerful and readable. By mastering arrow functions, destructuring, and more, you’re ready to write modern code. In the next lesson, you’ll learn DOM manipulation to interact with web pages. Keep experimenting with ES6+!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-eighteen/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-eighteen/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty/';
+        });
+    </script>
+</body>
+</html>
