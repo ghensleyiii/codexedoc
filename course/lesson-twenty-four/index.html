@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript objects and methods with CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="JavaScript, objects, methods, web development, CODEXEDOC">
-    <title>CODEXEDOC - JavaScript Objects and Methods</title>
+    <meta name="description" content="Learn to build with React in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="React, components, JSX, web development, CODEXEDOC">
+    <title>CODEXEDOC - Building with React</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -42,81 +42,72 @@
     <section class="article-section">
         <div class="article-container">
             <div class="course-section">JavaScript</div>
-            <div class="lesson">JavaScript Objects and Methods</div>
+            <div class="lesson">Building with React</div>
             <div id="content">
-                <h2>JavaScript Objects and Methods</h2>
-                <p>Welcome to Lesson 24 of CODEXEDOC’s Full-Stack Development Course! Objects are powerful data structures in JavaScript that store key-value pairs, and methods are functions attached to objects. In this lesson, you’ll learn how to create and use objects and methods to organize complex data, like product details or user profiles.</p>
+                <h2>Building with React</h2>
+                <p>Welcome to Lesson 24 of CODEXEDOC’s Full-Stack Development Course! React is a JavaScript library for building user interfaces with reusable components. In this lesson, you’ll learn React basics, including components, JSX, and state with hooks.</p>
 
-                <h3>What are Objects?</h3>
-                <p>Objects are collections of properties, where each property is a key-value pair. Keys are strings (or symbols), and values can be any data type, including functions. Objects are ideal for modeling real-world entities in web development in 2025.</p>
+                <h3>What is React?</h3>
+                <p>React, developed by Facebook in 2013, is a component-based library for creating dynamic UIs. In 2025, it’s a leading choice for front-end development, often paired with TypeScript and state management tools.</p>
 
-                <h3>What are Methods?</h3>
-                <p>Methods are functions stored as object properties, allowing objects to perform actions. For example, an object representing a product might have a method to calculate a discounted price.</p>
-
-                <h3>Key Object and Method Concepts</h3>
-                <p>Focus on these techniques:</p>
+                <h3>Key React Concepts</h3>
+                <p>Focus on these features:</p>
                 <ul>
-                    <li><strong>Object Creation</strong>: Define objects with curly braces (e.g., <code>let product = { name: "Laptop" };</code>).</li>
-                    <li><strong>Accessing Properties</strong>: Use dot notation (<code>product.name</code>) or bracket notation (<code>product["name"]</code>).</li>
-                    <li><strong>Defining Methods</strong>: Add functions to objects (e.g., <code>discount: function() {}</code>).</li>
-                    <li><strong>this Keyword</strong>: Refers to the object in methods (e.g., <code>this.name</code>).</li>
+                    <li><strong>Components</strong>: Reusable UI pieces (e.g., functional components).</li>
+                    <li><strong>JSX</strong>: HTML-like syntax for rendering UI.</li>
+                    <li><strong>Hooks</strong>: Manage state (<code>useState</code>) and side effects (<code>useEffect</code>).</li>
+                    <li><strong>Props</strong>: Pass data to components.</li>
                 </ul>
 
-                <h3>Working with Objects and Methods</h3>
-                <p>Follow these steps to use objects:</p>
-                <ol>
-                    <li><strong>Create an Object</strong>: Define properties and methods.</li>
-                    <li><strong>Access Properties</strong>: Retrieve or update values using dot or bracket notation.</li>
-                    <li><strong>Call Methods</strong>: Execute object functions to perform tasks.</li>
-                </ol>
-
-                <h3>Code Example: Objects and Methods</h3>
-                <p>Here’s a page displaying a product object with a method:</p>
+                <h3>Code Example: React Component</h3>
+                <p>Here’s a simple React component:</p>
                 <pre>
-<!-- index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
-    <style>
-        body { font-family: 'Roboto Mono', monospace; }
-    </style>
-</head>
-<body>
-    <h1>Product</h1>
-    <p id="output"></p>
-    <script>
-        const product = {
-            name: "Laptop",
-            price: 999.99,
-            discount: function(percentage) {
-                return (this.price * (1 - percentage / 100)).toFixed(2);
-            }
-        };
-        document.querySelector("#output").textContent = 
-            `${product.name}: $${product.discount(10)} (10% off)`;
-    </script>
-</body>
-</html>
+&lt;!-- index.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+    &lt;title>React Example&lt;/title>
+&lt;/head>
+&lt;body>
+    &lt;div id="root">&lt;/div>
+    &lt;script src="app.js">&lt;/script>
+&lt;/body>
+&lt;/html>
+
+&lt;!-- App.tsx -->
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+const App: React.FC = () => {
+    const [count, setCount] = useState(0);
+    return (
+        &lt;div>
+            &lt;h1>Counter: {count}&lt;/h1>
+            &lt;button onClick={() => setCount(count + 1)}>Increment&lt;/button>
+        &lt;/div>
+    );
+};
+
+ReactDOM.render(&lt;App />, document.getElementById('root'));
                 </pre>
-                <p>This example creates a product object with a method to calculate a discounted price and displays the result.</p>
+                <p>This TypeScript React component uses <code>useState</code> to manage a counter.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Objects model entities like users or products in web apps. For example, an e-commerce site uses objects to store product details and methods to compute totals. In this course, you’ll use objects to manage product data in your e-commerce project.</p>
+                <p>React is used for single-page apps like dashboards. In your task manager project, you’ll build a React-based UI for managing tasks.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master objects and methods:</p>
+                <p>To master React:</p>
                 <ul>
-                    <li><strong>Use Descriptive Keys</strong>: Choose clear property names like <code>price</code>.</li>
-                    <li><strong>Simplify Methods</strong>: Keep method logic focused and reusable.</li>
-                    <li><strong>Test this</strong>: Log <code>this</code> to ensure it refers to the correct object.</li>
-                    <li><strong>Explore Object Methods</strong>: Use built-in methods like <code>Object.keys()</code>.</li>
+                    <li><strong>Use Functional Components</strong>: Prefer them over class components.</li>
+                    <li><strong>Leverage Hooks</strong>: Use <code>useState</code> and <code>useEffect</code> for state and effects.</li>
+                    <li><strong>Organize Components</strong>: Split UI into small, reusable pieces.</li>
+                    <li><strong>Debug with Dev Tools</strong>: Use React Developer Tools extension.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Objects and methods allow you to structure and manipulate complex data effectively. By mastering object creation and method usage, you can model real-world entities. In the next lesson, you’ll learn about asynchronous JavaScript to handle time-based operations. Keep practicing objects!</p>
+                <p>React enables building dynamic UIs with components and hooks. By mastering React basics, you’re ready for modern front-end development. In the next lesson, you’ll learn state management with Redux or Context API. Keep building with React!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-three/"></a></button>
