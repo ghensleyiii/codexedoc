@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn the essentials of full-stack development with CODEXEDOC’s course, starting with understanding the role and layers of full-stack development.">
-    <meta name="keywords" content="full-stack development, web development, CODEXEDOC">
+    <meta name="description" content="Learn the fundamentals of full-stack development, including the roles of front-end, back-end, and databases in building modern web applications.">
+    <meta name="keywords" content="full-stack development, web development, front-end, back-end, databases, HTML, CSS, JavaScript, Node.js, SQL">
     <title>CODEXEDOC - Understanding Full-Stack Development</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
@@ -46,52 +46,47 @@
             <div class="lesson">Understanding Full-Stack Development</div>
             <div id="content">
                 <h2>Understanding Full-Stack Development</h2>
-                <p>Welcome to Lesson 1 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn what full-stack development is and how its components work together to create modern web applications. By the end, you’ll be able to describe the role of a full-stack developer and identify the three key layers of a web app: front-end, back-end, and database.</p>
+                <p>Welcome to Lesson 1 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn the core components of full-stack development and how they work together to create modern web applications. By the end, you’ll be able to explain the roles of front-end, back-end, and databases in building a functional web app.</p>
 
                 <h3>Introduction</h3>
-                <p>Imagine you’re browsing a to-do list app like Todoist. The interface you see (buttons, colors, text) is the front-end, built with HTML, CSS, and JavaScript. When you add a task, the app sends that data to a server, which processes it—that’s the back-end, often powered by Node.js. The task is then saved in a database using SQL, ready to be retrieved later. Full-stack development is the art of building all these layers to create a seamless user experience. As a full-stack developer, you’re like a “sheep farmer” managing the entire process: designing the wool display (front-end), shearing the wool (back-end), and storing it safely (database). This lesson will break down these layers and show you why they matter.</p>
+                <p>Full-stack development is the art of building both the front-end (what users see) and back-end (the server-side logic and data storage) of a web application. Imagine a full-stack developer as a shepherd managing a sheep farm: the front-end is the wool display that users admire, the back-end is the shearing process that prepares the wool, and the database stores the wool for future use. Understanding these layers is key to creating seamless, interactive web experiences, like a to-do list app where users add tasks (front-end), the server processes requests (back-end), and the database saves the tasks.</p>
 
                 <h3>Key Concepts</h3>
-                <p>Here are the main ideas you’ll master in this lesson:</p>
+                <p>This lesson covers the foundational components of full-stack development:</p>
                 <ul>
-                    <li><strong>Full-Stack Definition</strong>: A full-stack developer builds both the front-end (user interface) and back-end (server logic) of a web app, often integrating with a database.</li>
-                    <li><strong>Front-End</strong>: The part users interact with, created using HTML for structure, CSS for styling, and JavaScript for interactivity.</li>
-                    <li><strong>Back-End</strong>: The server-side logic that processes requests, manages data, and communicates with the database, typically using Node.js in this course.</li>
-                    <li><strong>Database</strong>: A system to store and retrieve data, like user profiles or tasks, using SQL for structured queries.</li>
+                    <li><strong>Front-End</strong>: The user interface, built with HTML (structure), CSS (styling), and JavaScript (interactivity). It’s what users interact with, like buttons and forms.</li>
+                    <li><strong>Back-End</strong>: The server-side logic, often using Node.js, that handles requests, processes data, and communicates with the database.</li>
+                    <li><strong>Databases</strong>: Storage systems, like SQL databases, that save and retrieve data, such as user profiles or task lists.</li>
                 </ul>
 
                 <h3>Code Example</h3>
-                <p>Let’s visualize how these layers connect in a simple to-do list app. Below is a diagram (represented as text for now) showing the flow of a user adding a task:</p>
+                <p>Below is a conceptual diagram of a web application’s layers, showing how the front-end, back-end, and database interact in a to-do list app. While this isn’t code you’ll run, it illustrates the flow of data in a full-stack application.</p>
                 <pre>
-[User clicks "Add Task" button]
-   ↓ (Front-End: HTML/CSS/JS)
-Sends task data to server
-   ↓ (Back-End: Node.js)
-Processes task and saves to database
-   ↓ (Database: SQL)
-Stores task data
+[Client Browser]
+   Front-End (HTML/CSS/JS)
+      | (User clicks "Add Task")
+      v
+[Server]
+   Back-End (Node.js)
+      | (Stores task)
+      v
+[Database]
+   SQL Database (Saves task data)
                 </pre>
-                <p>This diagram shows how a user’s action (front-end) triggers server processing (back-end) and data storage (database). You’ll build each part in later lessons!</p>
 
                 <h3>Practical Applications</h3>
-                <p>Full-stack development powers apps you use daily, like social media platforms, e-commerce sites, or productivity tools. For example, in a job at a tech company, you might:
-                    <ul>
-                        <li>Design a sleek user interface for a shopping cart (front-end).</li>
-                        <li>Build an API to process payments securely (back-end).</li>
-                        <li>Store customer orders in a database for quick retrieval (database).</li>
-                    </ul>
-                    Understanding these layers helps you create apps that are functional, user-friendly, and scalable, making you a valuable asset in the tech industry.</p>
+                <p>Full-stack development powers nearly every modern web application. For example, in a to-do list app, the front-end displays the tasks, the back-end processes user inputs (like adding or deleting tasks), and the database ensures tasks persist across sessions. This layered approach is used in e-commerce platforms (like Amazon), social media apps (like X), and productivity tools (like Trello), making full-stack skills essential for building real-world applications.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To get the most out of this lesson:</p>
+                <p>Here are some tips to master the basics of full-stack development:</p>
                 <ul>
-                    <li>Sketch the layers of an app you use (e.g., a music streaming service) to see how front-end, back-end, and database interact.</li>
-                    <li>Read about full-stack job descriptions on sites like LinkedIn to understand employer expectations.</li>
-                    <li>Keep a notebook for key terms like “front-end” and “back-end” to build your tech vocabulary.</li>
+                    <li>Visualize the layers: Think of front-end, back-end, and database as distinct but connected parts of a system.</li>
+                    <li>Start with examples: Break down apps you use daily (e.g., a weather app) into front-end, back-end, and database roles.</li>
+                    <li>Stay curious: Explore how each layer communicates, as this will help you debug issues later.</li>
                 </ul>
 
                 <h3>Shearing Tip</h3>
-                <p>Full-stack development shears away complexity by organizing app development into clear layers, just like a sheep farmer neatly manages wool production from pasture to storage.</p>
+                <p>Full-stack development shears away complexity by organizing app development into clear layers. Just as a shepherd separates wool into neat piles, full-stack splits tasks into front-end, back-end, and database for easier management.</p>
 
                 <h3>Quick Check</h3>
                 <p>Test your understanding with this interactive quiz:</p>
@@ -99,26 +94,26 @@ Stores task data
                     <p><strong>Question:</strong> What does the back-end handle in a web application?</p>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-a" value="A">
-                        <label for="option-a">A) Styling and layouts</label>
+                        <label for="option-a">A) User interface</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-b" value="B">
-                        <label for="option-b">B) Browser rendering</label>
+                        <label for="option-b">B) Server logic and data processing</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-c" value="C">
-                        <label for="option-c">C) Server logic and data processing</label>
+                        <label for="option-c">C) Styling and layouts</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-d" value="D">
-                        <label for="option-d">D) User interface</label>
+                        <label for="option-d">D) Browser rendering</label>
                     </div>
                     <button class="quick-check" onclick="submitQuiz()">Submit</button>
                     <div class="quick-check-response" id="quick-check-response"></div>
                 </div>
 
                 <h3>Summary</h3>
-                <p>In this lesson, you learned that full-stack development involves building the front-end (user interface), back-end (server logic), and database layers of a web app. These layers work together like a well-run sheep farm, ensuring a smooth user experience. Next up, in Lesson 2, you’ll explore the history of web development to understand how modern tools evolved to make your coding journey easier.</p>
+                <p>In this lesson, you explored the core layers of full-stack development: the front-end (user interface), back-end (server logic), and database (data storage). These components work together to create dynamic web applications, like a to-do list app. By understanding their roles, you’re ready to dive into the history of web development in Lesson 2, where we’ll explore how these layers evolved over time.</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/curriculum/"></a></button>
@@ -150,13 +145,13 @@ Stores task data
                 return;
             }
             const answer = selected.value;
-            const correctAnswer = 'C';
+            const correctAnswer = 'B';
             if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! C) Server logic and data processing\nThe back-end manages server-side operations like processing user requests and interacting with databases, leaving the user interface to the front-end.</pre>';
+                responseDiv.innerHTML = '<pre>Correct! B) Server logic and data processing, as it manages server-side operations like APIs and databases.</pre>';
                 responseDiv.className = 'quick-check-response correct';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is C) Server logic and data processing\nThe back-end manages server-side operations like processing user requests and interacting with databases, leaving the user interface to the front-end.</pre>';
+                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) Server logic and data processing, as it manages server-side operations like APIs and databases.</pre>';
                 responseDiv.className = 'quick-check-response incorrect';
             }
             responseDiv.style.display = 'block';
