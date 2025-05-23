@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn JavaScript arrays and objects to manage and manipulate complex data in web applications.">
+    <meta name="keywords" content="JavaScript, arrays, objects, data structures, full-stack development">
+    <title>CODEXEDOC - Arrays and Objects</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">JavaScript</div>
+            <div class="lesson">Arrays and Objects</div>
+            <div id="content">
+                <h2>Arrays and Objects</h2>
+                <p>Welcome to Lesson 20 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn JavaScript arrays and objects to manage complex data. By the end, you’ll be able to create a task list app using arrays and objects.</p>
+
+                <h3>Introduction</h3>
+                <p>Arrays and objects are like a shepherd’s ledger, organizing sheep into lists or detailed records. Arrays store ordered data, while objects hold key-value pairs. This lesson teaches you to manipulate these structures for dynamic web applications.</p>
+
+                <h3>Key Concepts</h3>
+                <p>This lesson covers arrays and objects essentials:</p>
+                <ul>
+                    <li><strong>Arrays</strong>: Use <code>[]</code> to store lists, with methods like <code>push</code> and <code>map</code>.</li>
+                    <li><strong>Objects</strong>: Use <code>{}</code> for key-value pairs, accessing with dot or bracket notation.</li>
+                    <li><strong>Iteration</strong>: Loop through arrays with <code>forEach</code> or objects with <code>for...in</code>.</li>
+                </ul>
+
+                <h3>Code Example</h3>
+                <p>Below is an example of a task list app using arrays and objects to display tasks.</p>
+                <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;title&gt;Task List&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;input type="text" id="task" placeholder="Enter task"&gt;
+    &lt;button onclick="addTask()"&gt;Add Task&lt;/button&gt;
+    &lt;ul id="taskList"&gt;&lt;/ul&gt;
+    &lt;script&gt;
+        const tasks = [];
+        function addTask() {
+            const input = document.getElementById('task');
+            const task = { id: tasks.length + 1, name: input.value };
+            tasks.push(task);
+            displayTasks();
+            input.value = '';
+        }
+        function displayTasks() {
+            const list = document.getElementById('taskList');
+            list.innerHTML = '';
+            tasks.forEach(task => {
+                const item = document.createElement('li');
+                item.textContent = `Task ${task.id}: ${task.name}`;
+                list.appendChild(item);
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+
+                <h3>Practical Applications</h3>
+                <p>Arrays and objects are used in apps like Spotify or Jira to manage playlists or tickets. For example, a shopping cart app uses arrays to store items and objects for product details. These skills are vital for full-stack developers to handle structured data.</p>
+
+                <h3>Tips for Success</h3>
+                <p>Here are tips to master arrays and objects:</p>
+                <ul>
+                    <li>Use descriptive keys: Name object properties clearly for readability.</li>
+                    <li>Avoid mutating arrays directly: Use methods like <code>map</code> or <code>filter</code> for immutability.</li>
+                    <li>Debug with console: Log arrays or objects to inspect their structure.</li>
+                </ul>
+
+                <h3>Shearing Tip</h3>
+                <p>Arrays and objects shear away chaotic data with organized structures, just as a shepherd sorts a flock. These tools make your data manageable and scalable.</p>
+
+                <h3>Quick Check</h3>
+                <p>Test your understanding with this interactive quiz:</p>
+                <div class="quick-check-container" id="quick-check">
+                    <p><strong>Question:</strong> Which method adds an element to the end of an array?</p>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-a" value="A">
+                        <label for="option-a">A) pop</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-b" value="B">
+                        <label for="option-b">B) push</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-c" value="C">
+                        <label for="option-c">C) shift</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-d" value="D">
+                        <label for="option-d">D) forEach</label>
+                    </div>
+                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
+                    <div class="quick-check-response" id="quick-check-response"></div>
+                </div>
+
+                <h3>Summary</h3>
+                <p>In this lesson, you learned arrays and objects to manage complex data in JavaScript. These skills enable data-driven features. Next, in Lesson 21, you’ll explore error handling to make your scripts more robust.</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-nineteen/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-one/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        const jsConfetti = new JSConfetti();
+        function submitQuiz() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const responseDiv = document.getElementById('quick-check-response');
+            if (!selected) {
+                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
+                responseDiv.style.display = 'block';
+                responseDiv.className = 'quick-check-response incorrect';
+                return;
+            }
+            const answer = selected.value;
+            const correctAnswer = 'B';
+            if (answer === correctAnswer) {
+                responseDiv.innerHTML = '<pre>Correct! B) push, adding an element to the end of an array.</pre>';
+                responseDiv.className = 'quick-check-response correct';
+                jsConfetti.addConfetti();
+            } else {
+                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) push, adding an element to the end of an array.</pre>';
+                responseDiv.className = 'quick-check-response incorrect';
+            }
+            responseDiv.style.display = 'block';
+        }
+
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-nineteen/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-one/';
+        });
+    </script>
+</body>
+</html>
