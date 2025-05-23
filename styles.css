@@ -680,8 +680,11 @@ hr {
 .quick-check {
     background: white;
     color: #002966;
+    border: 2px solid var(--gold);
     padding: 10px 20px !important;
-    border: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 5px !important;
+    font-weight: bold !important;
     cursor: pointer !important;
 }
 .quick-check:hover {
