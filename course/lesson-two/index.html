@@ -17,12 +17,11 @@
         .quiz-container { margin: 20px 0; }
         .quiz-option { margin: 10px 0; }
         .quiz-option input { margin-right: 10px; }
-        .quiz-submit { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
-        .quiz-submit:hover { background: #45a049; }
-        .quiz-response { display: none; margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
-        .quiz-response.correct { border-color: #4CAF50; background: #e8f5e9; }
+        .quick-check { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        .quick-check:hover { background: #45a049; }
+        .quiz-response { display: none; margin-top: 20px; }
+        .quiz-response pre { margin: 0; white-space: pre-wrap; font-family: 'Roboto Mono', monospace; }
         .quiz-response.correct::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #4CAF50; margin-right: 10px; }
-        .quiz-response.incorrect { border-color: #f44336; background: #ffebee; }
         .quiz-response.incorrect::before { content: "\f00d"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #f44336; margin-right: 10px; }
     </style>
 </head>
@@ -134,21 +133,21 @@
                     <p><strong>Question:</strong> When was JavaScript introduced?</p>
                     <div class="quiz-option">
                         <input type="radio" name="answer" id="option-a" value="A">
-                        <label for="option-a">A) 1990</label>
+                        <label for="option-a">A) 1995</label>
                     </div>
                     <div class="quiz-option">
                         <input type="radio" name="answer" id="option-b" value="B">
-                        <label for="option-b">B) 1995</label>
+                        <label for="option-b">B) 2000</label>
                     </div>
                     <div class="quiz-option">
                         <input type="radio" name="answer" id="option-c" value="C">
-                        <label for="option-c">C) 2000</label>
+                        <label for="option-c">C) 1990</label>
                     </div>
                     <div class="quiz-option">
                         <input type="radio" name="answer" id="option-d" value="D">
                         <label for="option-d">D) 2009</label>
                     </div>
-                    <button class="quiz-submit" onclick="submitQuiz()">Submit</button>
+                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
                     <div class="quiz-response" id="quiz-response"></div>
                 </div>
 
@@ -179,19 +178,19 @@
             const selected = document.querySelector('input[name="answer"]:checked');
             const responseDiv = document.getElementById('quiz-response');
             if (!selected) {
-                responseDiv.textContent = 'Please select an answer!';
+                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
                 responseDiv.style.display = 'block';
                 responseDiv.className = 'quiz-response incorrect';
                 return;
             }
             const answer = selected.value;
-            const correctAnswer = 'B';
+            const correctAnswer = 'A';
             if (answer === correctAnswer) {
-                responseDiv.textContent = 'Correct! B) 1995. JavaScript, introduced by Netscape, marked the start of dynamic web interactivity, enabling features like buttons and forms that respond to user actions.';
+                responseDiv.innerHTML = '<pre>Correct! A) 1995\nJavaScript, introduced by Netscape, marked the start of dynamic web interactivity, enabling features like buttons and forms that respond to user actions.</pre>';
                 responseDiv.className = 'quiz-response correct';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.textContent = 'Incorrect. The correct answer is B) 1995. JavaScript, introduced by Netscape, marked the start of dynamic web interactivity, enabling features like buttons and forms that respond to user actions.';
+                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is A) 1995\nJavaScript, introduced by Netscape, marked the start of dynamic web interactivity, enabling features like buttons and forms that respond to user actions.</pre>';
                 responseDiv.className = 'quiz-response incorrect';
             }
             responseDiv.style.display = 'block';
