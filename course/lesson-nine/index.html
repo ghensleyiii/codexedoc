@@ -163,11 +163,11 @@
             const answer = selected.value;
             const correctAnswer = 'B';
             if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! B) main, marking the primary content area.</pre>';
+                responseDiv.innerHTML = 'Correct! B) main, marking the primary content area.';
                 responseDiv.className = 'quick-check-response correct';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) main, marking the primary content area.</pre>';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is B) main, marking the primary content area.';
                 responseDiv.className = 'quick-check-response incorrect';
             }
             responseDiv.style.display = 'block';
