@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn to secure API endpoints in CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="API security, JWT, backend, web development, CODEXEDOC">
-    <title>CODEXEDOC - Securing API Endpoints</title>
+    <meta name="description" content="Learn advanced Flask features for web development with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Python, Flask, authentication, blueprints, web development, CODEXEDOC">
+    <title>CODEXEDOC - Advanced Flask</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -41,115 +41,67 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">Backend Development</div>
-            <div class="lesson">Securing API Endpoints</div>
+            <div class="course-section">Python & Back End Development</div>
+            <div class="lesson">Advanced Flask</div>
             <div id="content">
-                <h2>Securing API Endpoints</h2>
-                <p>Welcome to Lesson 36 of CODEXEDOC’s Full-Stack Development Course! Securing API endpoints ensures only authorized users access sensitive data. In this lesson, you’ll learn to protect your e-commerce API routes using JWT middleware, restricting access to authenticated users.</p>
+                <h2>Mastering Advanced Flask Features</h2>
+                <p>Welcome to Lesson 36! Advanced Flask features enable scalable, secure APIs. In this lesson, you’ll learn blueprints, authentication, and error handling to build production-ready Flask apps.</p>
 
-                <h3>What is API Security?</h3>
-                <p>API security involves protecting endpoints from unauthorized access, using techniques like token verification and input validation. In 2025, securing APIs is critical for safeguarding user data in web applications.</p>
+                <h3>What are Advanced Flask Features?</h3>
+                <p>Flask’s advanced tools, like blueprints and JWT authentication, support complex apps. In 2025, these are critical for secure, modular APIs, building on Node.js authentication concepts.</p>
 
-                <h3>Why Secure Endpoints?</h3>
-                <p>Securing endpoints prevents unauthorized actions, like modifying products without permission. For your e-commerce app, this ensures only logged-in users can perform sensitive operations.</p>
-
-                <h3>Key Security Concepts</h3>
+                <h3>Key Concepts</h3>
                 <p>Focus on these techniques:</p>
                 <ul>
-                    <li><strong>JWT Middleware</strong>: Verify tokens before processing requests.</li>
-                    <li><strong>Authorization</strong>: Restrict routes to specific users.</li>
-                    <li><strong>Input Validation</strong>: Sanitize request data to prevent attacks.</li>
-                    <li><strong>Error Handling</strong>: Return clear error messages for unauthorized access.</li>
+                    <li><strong>Blueprints</strong>: Organize routes into modular components.</li>
+                    <li><strong>JWT Authentication</strong>: Secure endpoints with tokens.</li>
+                    <li><strong>Error Handling</strong>: Use <code>@app.errorhandler</code> for custom errors.</li>
+                    <li><strong>Configuration</strong>: Manage settings with <code>app.config</code>.</li>
                 </ul>
 
-                <h3>Securing Endpoints</h3>
-                <p>Follow these steps to secure your API:</p>
-                <ol>
-                    <li><strong>Create Middleware</strong>: Write a function to verify JWTs.</li>
-                    <li><strong>Protect Routes</strong>: Apply middleware to sensitive endpoints.</li>
-                    <li><strong>Validate Input</strong>: Check request data integrity.</li>
-                    <li><strong>Test Security</strong>: Use Postman to verify protected routes.</li>
-                </ol>
-
-                <h3>Code Example: Securing Endpoints</h3>
-                <p>Here’s an Express API with a protected product creation route (extends Lesson 35):</p>
+                <h3>Code Example: Advanced Flask API</h3>
+                <p>Here’s a Flask API with blueprints and JWT:</p>
                 <pre>
-// server.js
-const express = require(&quot;express&quot;);
-const mongoose = require(&quot;mongoose&quot;);
-const jwt = require(&quot;jsonwebtoken&quot;);
-const cors = require(&quot;cors&quot;);
-const app = express();
+# app.py
+from flask import Flask, Blueprint, jsonify, request
+import jwt
 
-app.use(cors());
-app.use(express.json());
+app = Flask(__name__)
+api = Blueprint('api', __name__)
+SECRET_KEY = 'your-secret-key'
 
-mongoose.connect(&quot;mongodb://localhost:27017/ecommerce&quot;, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() =&gt; console.log(&quot;Connected to MongoDB&quot;));
+@api.route('/protected', methods=['GET'])
+def protected():
+    token = request.headers.get('Authorization')?.split(' ')[1]
+    if not token:
+        return jsonify({'message': 'No token'}), 401
+    try:
+        jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+        return jsonify({'message': 'Protected resource'})
+    except jwt.InvalidTokenError:
+        return jsonify({'message': 'Invalid token'}), 401
 
-const productSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    price: { type: Number, required: true }
-});
+app.register_blueprint(api, url_prefix='/api')
 
-const Product = mongoose.model(&quot;Product&quot;, productSchema);
-
-// JWT Middleware
-const authMiddleware = (req, res, next) =&gt; {
-    const token = req.header(&quot;Authorization&quot;)?.replace(&quot;Bearer &quot;, &quot;&quot;);
-    if (!token) return res.status(401).json({ message: &quot;No token provided&quot; });
-    try {
-        const decoded = jwt.verify(token, &quot;secret_key&quot;);
-        req.user = decoded;
-        next();
-    } catch (err) {
-        res.status(401).json({ message: &quot;Invalid token&quot; });
-    }
-};
-
-// Protected Route
-app.post(&quot;/api/products&quot;, authMiddleware, async (req, res) =&gt; {
-    try {
-        const product = new Product(req.body);
-        await product.save();
-        res.status(201).json(product);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-});
-
-// Public Route
-app.get(&quot;/api/products&quot;, async (req, res) =&gt; {
-    try {
-        const products = await Product.find();
-        res.json(products);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-app.listen(3000, () =&gt; {
-    console.log(&quot;Server running at http://localhost:3000/&quot;);
-});
+if __name__ == '__main__':
+    app.run(port=5000)
                 </pre>
-                <p>Test with Postman: POST <code>/api/products</code> with a Bearer token from Lesson 35’s login. Without a valid token, you’ll get a 401 error.</p>
+                <p>This API uses a blueprint and JWT to secure an endpoint.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Securing endpoints protects e-commerce APIs from unauthorized access, ensuring only admins can add products. This enhances your app’s security and reliability.</p>
+                <p>Advanced Flask features support scalable APIs. In your social media dashboard project, you’ll use blueprints to organize routes.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master API security:</p>
+                <p>To master advanced Flask:</p>
                 <ul>
-                    <li><strong>Use HTTPS</strong>: Secure API traffic in production.</li>
-                    <li><strong>Validate Tokens</strong>: Always verify JWTs before processing.</li>
-                    <li><strong>Sanitize Inputs</strong>: Use libraries like <code>express-validator</code>.</li>
-                    <li><strong>Test Thoroughly</strong>: Try accessing routes without tokens.</li>
+                    <li><strong>Use Blueprints</strong>: Modularize routes for clarity.</li>
+                    <li><strong>Secure Tokens</strong>: Store secrets in environment variables.</li>
+                    <li><strong>Handle Errors</strong>: Return consistent JSON errors.</li>
+                    <li><strong>Test with Postman</strong>: Verify protected endpoints.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Securing API endpoints with JWT middleware protects your e-commerce app. By implementing authentication checks, you’ve enhanced security. In the next lesson, you’ll learn to handle file uploads. Keep practicing security!</p>
+                <p>Advanced Flask enables scalable, secure APIs. By mastering blueprints and authentication, you’re ready for complex backends. Next, you’ll learn Django development. Keep enhancing your Flask skills!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-thirty-five/"></a></button>
