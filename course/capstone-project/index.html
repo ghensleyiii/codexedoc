@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Build a full-stack e-commerce platform with CODEXEDOC’s full-stack course capstone project.">
+    <meta name="keywords" content="full-stack, e-commerce, React, Django, Node.js, PostgreSQL, MongoDB, CODEXEDOC">
+    <title>CODEXEDOC - Capstone Project: Build a Full-Stack E-Commerce Platform</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Full-Stack Integration and Career Prep</div>
+            <div class="lesson">Capstone Project: Build a Full-Stack E-Commerce Platform</div>
+            <div id="content">
+                <h2>Building an E-Commerce Platform</h2>
+                <p>You’ve completed Lessons 1–48, mastering HTML, CSS, JavaScript, Node.js, Python, databases, and full-stack integration. In this capstone project, you’ll build a full-stack e-commerce platform, integrating all skills into a production-ready app for your portfolio.</p>
+
+                <h3>Why This Project Matters</h3>
+                <p>E-commerce platforms are complex, real-world apps requiring frontend, backend, databases, and deployment. This project showcases your full-stack expertise, preparing you for jobs and the final exam.</p>
+
+                <h3>Project Overview</h3>
+                <p>You’ll create an e-commerce platform with product listings, a cart, user authentication, and order management. Use React for the frontend, Node.js/Express or Django for the backend, PostgreSQL for products/orders, and MongoDB for logs. Requirements include:</p>
+                <ul>
+                    <li><strong>Frontend</strong>: Build UI with React, Tailwind CSS, and cart functionality.</li>
+                    <li><strong>Backend</strong>: Create REST APIs for products, orders, and users.</li>
+                    <li><strong>Databases</strong>: Use PostgreSQL for structured data, MongoDB for logs.</li>
+                    <li><strong>Authentication</strong>: Implement JWT for secure access.</li>
+                    <li><strong>Testing</strong>: Write Jest or Pytest tests for API and frontend.</li>
+                    <li><strong>Optimization</strong>: Cache queries, minify assets.</li>
+                    <li><strong>Deployment</strong>: Deploy to Heroku or AWS with Docker.</li>
+                </ul>
+
+                <h3>Sample Implementation</h3>
+                <p>Here’s a simplified Django + React e-commerce app:</p>
+                <pre>
+# backend/models.py (Django, PostgreSQL)
+from django.db import models
+
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.FloatField()
+    stock = models.IntegerField()
+
+class Order(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    total = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+# backend/serializers.py
+from rest_framework import serializers
+from .models import Product
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'price', 'stock']
+
+# backend/views.py
+from rest_framework import viewsets
+from .models import Product
+from .serializers import ProductSerializer
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+# backend/urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from . import views
+
+router = DefaultRouter()
+router.register(r'products', views.ProductViewSet)
+
+urlpatterns = [
+    path('api/', include(router.urls)),
+]
+
+# backend/log_orders.py (MongoDB)
+from pymongo import MongoClient
+
+client = MongoClient('mongodb://localhost/ecommerce')
+db = client['ecommerce']
+
+def log_order(order_id, action):
+    db.order_logs.insert_one({
+        'order_id': order_id,
+        'action': action,
+        'timestamp': datetime.now()
+    })
+
+// frontend/src/App.jsx (React)
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import './App.css';
+
+function App() {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        axios.get('/api/products/')
+            .then(res => setProducts(res.data))
+            .catch(err => console.error(err));
+    }, []);
+
+    return (
+        <div className="container">
+            <h1>E-Commerce Store</h1>
+            <ul>
+                {products.map(product => (
+                    <li key={product.id}>
+                        {product.name} - ${product.price} (Stock: {product.stock})
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+export default App;
+
+// frontend/src/App.css
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+# backend/test_api.py (Pytest)
+import pytest
+from rest_framework.test import APIClient
+from .models import Product
+
+@pytest.fixture
+def client():
+    return APIClient()
+
+def test_create_product(client):
+    response = client.post('/api/products/', {'name': 'Laptop', 'price': 999.99, 'stock': 10})
+    assert response.status_code == 201
+    assert response.data['name'] == 'Laptop'
+                </pre>
+                <p>This includes a DRF API, MongoDB logging, React frontend, and test. Add cart, orders, JWT, and deployment for completion.</p>
+
+                <h3>How to Approach the Project</h3>
+                <p>Follow these steps:</p>
+                <ul>
+                    <li><strong>Setup</strong>: Initialize React and Django/Express with PostgreSQL and MongoDB.</li>
+                    <li><strong>Models</strong>: Define products, orders, and users in PostgreSQL.</li>
+                    <li><strong>API</strong>: Create CRUD endpoints for products and orders.</li>
+                    <li><strong>Frontend</strong>: Build product listings and cart with React.</li>
+                    <li><strong>Authentication</strong>: Add JWT for user access.</li>
+                    <li><strong>Testing</strong>: Write tests for API and frontend.</li>
+                    <li><strong>Deploy</strong>: Host on Heroku or AWS with Docker.</li>
+                </ul>
+
+                <h3>Tips for Success</h3>
+                <p>To excel:</p>
+                <ul>
+                    <li><strong>Plan Architecture</strong>: Design database and API structure first.</li>
+                    <li><strong>Optimize</strong>: Use Redis caching and SQL indexes.</li>
+                    <li><strong>Test Thoroughly</strong>: Cover API, frontend, and edge cases.</li>
+                    <li><strong>Document</strong>: Include a README with setup and features.</li>
+                    <li><strong>Style UI</strong>: Use Tailwind CSS for a polished look.</li>
+                </ul>
+
+                <h3>Submitting the Project</h3>
+                <p>Submit via CODEXEDOC’s platform, including source code, tests, deployment URL, and a 5-minute demo video explaining your app. A passing grade (80% or higher) earns a project badge. Feedback within 48 hours.</p>
+
+                <h3>Summary</h3>
+                <p>This capstone project builds a production-ready e-commerce platform, showcasing your full-stack skills. By completing it, you’re ready for the final exam and a developer career. Keep refining your platform!</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-forty-eight/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/final-exam/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-forty-eight/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/final-exam/';
+        });
+    </script>
+</body>
+</html>
