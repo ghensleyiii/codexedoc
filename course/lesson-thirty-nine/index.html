@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn to test APIs with Jest in CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="Jest, API testing, backend, web development, CODEXEDOC">
-    <title>CODEXEDOC - Testing APIs with Jest</title>
+    <meta name="description" content="Learn database integration with Python in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Python, Django, Flask, database, SQL, web development, CODEXEDOC">
+    <title>CODEXEDOC - Database Integration with Python</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -41,117 +41,78 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">Backend Development</div>
-            <div class="lesson">Testing APIs with Jest</div>
+            <div class="course-section">Python & Back End Development</div>
+            <div class="lesson">Database Integration with Python</div>
             <div id="content">
-                <h2>Testing APIs with Jest</h2>
-                <p>Welcome to Lesson 39 of CODEXEDOC’s Full-Stack Development Course! Testing ensures your API works as expected. In this lesson, you’ll learn to test your e-commerce API with Jest and Supertest, verifying endpoints like product creation and retrieval.</p>
+                <h2>Mastering Database Integration</h2>
+                <p>Welcome to Lesson 39! Databases store app data persistently. In this lesson, you’ll learn to integrate SQL databases (e.g., PostgreSQL) with Python using Django’s ORM and SQLAlchemy for Flask.</p>
 
-                <h3>What is Jest?</h3>
-                <p>Jest is a JavaScript testing framework for unit and integration tests. Paired with Supertest, it’s ideal for testing Express APIs, ensuring reliability in 2025’s development landscape.</p>
+                <h3>What is Database Integration?</h3>
+                <p>Database integration connects apps to relational databases for data management. In 2025, PostgreSQL is a popular choice for Python apps, offering robust features for Django and Flask.</p>
 
-                <h3>Why Test APIs?</h3>
-                <p>Testing catches bugs early, ensuring your e-commerce API handles requests correctly. Automated tests save time and improve confidence in production code.</p>
-
-                <h3>Key Testing Concepts</h3>
+                <h3>Key Concepts</h3>
                 <p>Focus on these techniques:</p>
                 <ul>
-                    <li><strong>Unit Tests</strong>: Test individual functions or routes.</li>
-                    <li><strong>Integration Tests</strong>: Test API endpoints with Supertest.</li>
-                    <li><strong>Mocks</strong>: Simulate MongoDB interactions.</li>
-                    <li><strong>Assertions</strong>: Use Jest’s <code>expect</code> to verify responses.</li>
+                    <li><strong>Django ORM</strong>: Query databases with model-based syntax.</li>
+                    <li><strong>SQLAlchemy</strong>: Use for Flask database operations.</li>
+                    <li><strong>Migrations</strong>: Manage schema changes.</li>
+                    <li><strong>Connections</strong>: Configure database URLs securely.</li>
                 </ul>
 
-                <h3>Setting Up Jest</h3>
-                <p>Follow these steps to test your API:</p>
-                <ol>
-                    <li><strong>Install Jest/Supertest</strong>: Add testing packages.</li>
-                    <li><strong>Create Test File</strong>: Write tests for API endpoints.</li>
-                    <li><strong>Configure MongoDB</strong>: Use an in-memory database for tests.</li>
-                    <li><strong>Run Tests</strong>: Execute with <code>npm test</code>.</li>
-                </ol>
-
-                <h3>Code Example: Testing API</h3>
-                <p>Here’s a test suite for the Lesson 38 API:</p>
+                <h3>Code Example: Database Integration</h3>
+                <p>Here’s Django and Flask database integration:</p>
                 <pre>
-// product.test.js
-const request = require(&quot;supertest&quot;);
-const express = require(&quot;express&quot;);
-const mongoose = require(&quot;mongoose&quot;);
-const { MongoMemoryServer } = require(&quot;mongodb-memory-server&quot;);
+# Django: models.py
+from django.db import models
 
-const app = express();
-app.use(express.json());
+class User(models.Model):
+    username = models.CharField(max_length=50)
+    email = models.EmailField(unique=True)
 
-const productSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    price: { type: Number, required: true }
-});
+# Django: views.py
+from django.shortcuts import render
+from .models import User
 
-const Product = mongoose.model(&quot;Product&quot;, productSchema);
+def user_list(request):
+    users = User.objects.all()
+    return render(request, 'users/user_list.html', {'users': users})
 
-app.get(&quot;/api/products&quot;, async (req, res) =&gt; {
-    const products = await Product.find();
-    res.json(products);
-});
+# Flask: app.py
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-app.post(&quot;/api/products&quot;, async (req, res) =&gt; {
-    const product = new Product(req.body);
-    await product.save();
-    res.status(201).json(product);
-});
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user:pass@localhost/db'
+db = SQLAlchemy(app)
 
-describe(&quot;Product API&quot;, () =&gt; {
-    let mongoServer;
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True)
 
-    beforeAll(async () =&gt; {
-        mongoServer = await MongoMemoryServer.create();
-        const uri = mongoServer.getUri();
-        await mongoose.connect(uri);
-    });
+@app.route('/users')
+def get_users():
+    users = User.query.all()
+    return {'users': [{'username': user.username} for user in users]}
 
-    afterAll(async () =&gt; {
-        await mongoose.disconnect();
-        await mongoServer.stop();
-    });
-
-    afterEach(async () =&gt; {
-        await Product.deleteMany({});
-    });
-
-    it(&quot;should create a product&quot;, async () =&gt; {
-        const res = await request(app)
-            .post(&quot;/api/products&quot;)
-            .send({ name: &quot;Laptop&quot;, price: 999.99 });
-        expect(res.status).toBe(201);
-        expect(res.body.name).toBe(&quot;Laptop&quot;);
-    });
-
-    it(&quot;should get all products&quot;, async () =&gt; {
-        await Product.create({ name: &quot;Phone&quot;, price: 499.99 });
-        const res = await request(app).get(&quot;/api/products&quot;);
-        expect(res.status).toBe(200);
-        expect(res.body).toHaveLength(1);
-        expect(res.body[0].name).toBe(&quot;Phone&quot;);
-    });
-});
+if __name__ == '__main__':
+    app.run(port=5000)
                 </pre>
-                <p>Install dependencies: <code>npm install --save-dev jest supertest mongodb-memory-server</code>. Add <code>"test": "jest"</code> to <code>package.json</code>. Run: <code>npm test</code>.</p>
+                <p>Run Django with <code>python manage.py runserver</code> or Flask with <code>python app.py</code>.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Testing ensures your e-commerce API is reliable, catching errors before users do. In this course, tests validate your API’s core functionality.</p>
+                <p>Databases store user data for apps. In your social media dashboard project, you’ll use Django’s ORM for posts and users.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master testing:</p>
+                <p>To master database integration:</p>
                 <ul>
-                    <li><strong>Write Clear Tests</strong>: Focus on one behavior per test.</li>
-                    <li><strong>Use Mocks</strong>: Avoid real database calls in tests.</li>
-                    <li><strong>Run Frequently</strong>: Test after every change.</li>
-                    <li><strong>Check Coverage</strong>: Use <code>jest --coverage</code>.</li>
+                    <li><strong>Use PostgreSQL</strong>: Install and configure locally.</li>
+                    <li><strong>Run Migrations</strong>: Use <code>python manage.py makemigrations</code> for Django.</li>
+                    <li><strong>Secure Credentials</strong>: Store database URLs in environment variables.</li>
+                    <li><strong>Test Queries</strong>: Verify data retrieval locally.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Testing with Jest ensures your API’s reliability. By writing tests, you’ve strengthened your e-commerce app. In the next lesson, you’ll integrate your full-stack app. Keep practicing testing!</p>
+                <p>Database integration enables persistent data storage. By mastering Django’s ORM and SQLAlchemy, you’re ready for data-driven apps. Next, you’ll learn Pytest for testing. Keep integrating databases!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-thirty-eight/"></a></button>
