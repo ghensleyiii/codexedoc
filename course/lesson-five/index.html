@@ -149,11 +149,11 @@ git commit -m "Add initial HTML file"
             const answer = selected.value;
             const correctAnswer = 'B';
             if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! B) git commit, storing changes in the repository.</pre>';
+                responseDiv.innerHTML = 'Correct! B) git commit, storing changes in the repository.';
                 responseDiv.className = 'quick-check-response correct';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) git commit, storing changes in the repository.</pre>';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is B) git commit, storing changes in the repository.';
                 responseDiv.className = 'quick-check-response incorrect';
             }
             responseDiv.style.display = 'block';
