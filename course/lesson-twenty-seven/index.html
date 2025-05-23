@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript testing with Jest in CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="JavaScript, Jest, testing, web development, CODEXEDOC">
-    <title>CODEXEDOC - Testing JavaScript (Jest)</title>
+    <meta name="description" content="Learn the basics of Node.js with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Node.js, JavaScript, backend, web development, CODEXEDOC">
+    <title>CODEXEDOC - Introduction to Node.js</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -41,62 +41,61 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">JavaScript</div>
-            <div class="lesson">Testing JavaScript (Jest)</div>
+            <div class="course-section">Node.js & Back End Development</div>
+            <div class="lesson">Introduction to Node.js</div>
             <div id="content">
-                <h2>Mastering Testing JavaScript with Jest</h2>
-                <p>Welcome to Lesson 26 of CODEXEDOC’s Full-Stack Development Course! Testing ensures your JavaScript code works as expected. In this lesson, you’ll learn to use Jest, a popular testing framework, to write unit tests for your code.</p>
+                <h2>Mastering Node.js Basics</h2>
+                <p>Welcome to Lesson 27 of CODEXEDOC’s Full-Stack Development Course! Node.js is a JavaScript runtime for building server-side applications. In this lesson, you’ll learn Node.js fundamentals, including modules, file system operations, and asynchronous programming.</p>
 
-                <h3>What is Jest?</h3>
-                <p>Jest, developed by Facebook, is a JavaScript testing framework for unit and integration tests. In 2025, it’s widely used for testing React apps, ensuring code reliability and maintainability.</p>
+                <h3>What is Node.js?</h3>
+                <p>Node.js, created by Ryan Dahl in 2009, runs JavaScript outside the browser using the V8 engine. It’s ideal for scalable backend services like APIs. In 2025, Node.js powers many production apps due to its non-blocking I/O model.</p>
 
-                <h3>Key Testing Concepts</h3>
-                <p>Focus on these techniques:</p>
+                <h3>Key Node.js Concepts</h3>
+                <p>Focus on these features:</p>
                 <ul>
-                    <li><strong>Test Suites</strong>: Group tests with <code>describe</code>.</li>
-                    <li><strong>Assertions</strong>: Verify results with <code>expect</code> (e.g., <code>expect(2 + 2).toBe(4)</code>).</li>
-                    <li><strong>Mocks</strong>: Simulate functions or modules.</li>
-                    <li><strong>Snapshots</strong>: Test UI consistency in React.</li>
+                    <li><strong>Modules</strong>: Use <code>require</code> or ES modules (<code>import</code>) to organize code.</li>
+                    <li><strong>File System</strong>: Read/write files with <code>fs</code> module.</li>
+                    <li><strong>Asynchronous Programming</strong>: Handle tasks with callbacks, promises, or async/await.</li>
+                    <li><strong>Event Loop</strong>: Manages non-blocking operations.</li>
                 </ul>
 
-                <h3>Code Example: Jest Testing</h3>
-                <p>Here’s a Jest test for a simple function:</p>
+                <h3>Code Example: Node.js Basics</h3>
+                <p>Here’s a simple Node.js script:</p>
                 <pre>
-&lt;!-- math.ts -->
-export const add = (a: number, b: number): number => a + b;
+<!-- server.js -->
+const fs = require('fs').promises;
 
-&lt;!-- math.test.ts -->
-import { add } from './math';
+async function readFile() {
+    try {
+        const data = await fs.readFile('example.txt', 'utf8');
+        console.log(data);
+    } catch (error) {
+        console.error('Error reading file:', error);
+    }
+}
 
-describe('Math functions', () => {
-    test('adds 2 + 3 to equal 5', () => {
-        expect(add(2, 3)).toBe(5);
-    });
-    test('adds negative numbers', () => {
-        expect(add(-1, -1)).toBe(-2);
-    });
-});
+readFile();
                 </pre>
-                <p>Run <code>npm test</code> to execute these tests, verifying the <code>add</code> function.</p>
+                <p>This script reads a file asynchronously using the <code>fs</code> module and promises.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Jest is used to test React components and APIs. In your task manager project, you’ll write tests to ensure task addition and deletion work correctly.</p>
+                <p>Node.js is used for APIs, real-time apps, and microservices. In your blog API project, you’ll use Node.js to handle HTTP requests and file operations.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master Jest:</p>
+                <p>To master Node.js:</p>
                 <ul>
-                    <li><strong>Write Clear Tests</strong>: Use descriptive test names.</li>
-                    <li><strong>Test Edge Cases</strong>: Include invalid inputs.</li>
-                    <li><strong>Use Mocks</strong>: Simulate API calls for reliable tests.</li>
-                    <li><strong>Run Tests Often</strong>: Use <code>npm test -- --watch</code> for live feedback.</li>
+                    <li><strong>Install Node.js</strong>: Use the latest LTS version (e.g., 20.x in 2025).</li>
+                    <li><strong>Use Promises</strong>: Prefer promises or async/await over callbacks.</li>
+                    <li><strong>Explore Modules</strong>: Experiment with built-in modules like <code>fs</code> and <code>path</code>.</li>
+                    <li><strong>Debug with Console</strong>: Log outputs to understand async flow.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Jest ensures your JavaScript code is reliable through unit tests. By mastering testing, you’re ready for production apps. In the next section, you’ll build a task manager app with React and TypeScript. Keep writing tests!</p>
+                <p>Node.js enables server-side JavaScript with a non-blocking model. By mastering modules and async programming, you’re ready to build backends. In the next lesson, you’ll learn to create servers with Express. Keep practicing Node.js!</p>
             </div>
             <div class="arrow-nav-container">
-                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-five/"></a></button>
-                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/project-javascript/"></a></button>
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/assessment-javascript/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-eight/"></a></button>
             </div>
         </div>
     </section>
@@ -114,10 +113,10 @@ describe('Math functions', () => {
 
     <script>
         document.querySelector('.arrow-left').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-five/';
+            window.location.href = 'https://www.codexedoc.com/course/assessment-javascript/';
         });
         document.querySelector('.arrow-right').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/project-javascript/';
+            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-eight/';
         });
     </script>
 </body>
