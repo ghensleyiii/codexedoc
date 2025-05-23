@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript event handling to respond to user actions like clicks and keypresses for interactive web applications.">
-    <meta name="keywords" content="JavaScript, event handling, addEventListener, click, full-stack development">
-    <title>CODEXEDOC - Event Handling</title>
+    <meta name="description" content="Learn modern JavaScript (ES6+) features like arrow functions and template literals for efficient coding.">
+    <meta name="keywords" content="JavaScript, ES6, arrow functions, template literals, full-stack development">
+    <title>CODEXEDOC - Modern JavaScript (ES6+)</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -43,84 +43,94 @@
     <section class="article-section">
         <div class="article-container">
             <div class="course-section">JavaScript</div>
-            <div class="lesson">Event Handling</div>
+            <div class="lesson">Modern JavaScript (ES6+)</div>
             <div id="content">
-                <h2>Event Handling</h2>
-                <p>Welcome to Lesson 16 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn JavaScript event handling to respond to user actions like clicks and keypresses. By the end, you’ll be able to create a button that toggles text visibility.</p>
+                <h2>Modern JavaScript (ES6+)</h2>
+                <p>Welcome to Lesson 16! You’ll learn modern JavaScript (ES6+) features to write efficient code. By the end, you’ll refactor code using arrow functions and template literals.</p>
 
                 <h3>Introduction</h3>
-                <p>Event handling is like a shepherd listening for a sheep’s bleat, triggering actions when users interact with a page. JavaScript events let you respond to clicks, inputs, or scrolls. This lesson teaches you to use event listeners for responsive web features.</p>
+                <p>ES6 is like a shepherd’s sharpened shears, cutting through verbose code. Introduced in 2015, ES6+ modernizes JavaScript for readability and efficiency. This lesson teaches key features for dynamic web apps.</p>
 
                 <h3>Key Concepts</h3>
-                <p>This lesson covers event handling essentials:</p>
+                <p>Focus areas include:</p>
                 <ul>
-                    <li><strong>Events</strong>: User actions like <code>click</code>, <code>input</code>, or <code>keydown</code>.</li>
-                    <li><strong>Event Listeners</strong>: Use <code>addEventListener</code> to attach functions to events.</li>
-                    <li><strong>Event Object</strong>: Access details like <code>event.target</code> to customize responses.</li>
+                    <li><strong>Arrow Functions</strong>: Concise syntax with implicit returns.</li>
+                    <li><strong>Template Literals</strong>: String interpolation with backticks.</li>
+                    <li><strong>Destructuring</strong>: Extract values from arrays/objects.</li>
+                    <li><strong>Spread/Rest Operators</strong>: Combine or collect data.</li>
                 </ul>
 
                 <h3>Code Example</h3>
-                <p>Below is an example of a button that toggles the visibility of a paragraph using an event listener.</p>
+                <p>Here’s an example using ES6+ to generate dynamic HTML.</p>
                 <pre>
 &lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
-    &lt;title&gt;Event Handling&lt;/title&gt;
+    &lt;title&gt;ES6 Features&lt;/title&gt;
+    &lt;style&gt;
+        .card { padding: 10px; border: 1px solid #ccc; }
+    &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;button id="toggle"&gt;Toggle Text&lt;/button&gt;
-    &lt;p id="text"&gt;Hello, World!&lt;/p&gt;
+    &lt;div id="content"&gt;&lt;/div&gt;
     &lt;script&gt;
-        const button = document.getElementById('toggle');
-        const text = document.getElementById('text');
-        button.addEventListener('click', () => {
-            text.style.display = text.style.display === 'none' ? 'block' : 'none';
-        });
+        const user = { name: 'Shepherd', age: 30 };
+        const { name, age } = user; // Destructuring
+        const greet = (name) => `Welcome, ${name}!`; // Arrow function, template literal
+        const items = ['wool', 'milk'];
+        const moreItems = [...items, 'cheese']; // Spread operator
+        document.getElementById('content').innerHTML = `
+            &lt;div class="card"&gt;
+                &lt;h3&gt;${greet(name)}&lt;/h3&gt;
+                &lt;p&gt;Age: ${age}&lt;/p&gt;
+                &lt;p&gt;Items: ${moreItems.join(', ')}&lt;/p&gt;
+            &lt;/div&gt;
+        `;
     &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
                 </pre>
 
                 <h3>Practical Applications</h3>
-                <p>Event handling powers features in apps like YouTube or Slack, such as play buttons or message inputs. For example, a form app uses event listeners to validate user input in real-time. These skills are crucial for full-stack developers to build interactive interfaces.</p>
+                <p>ES6+ powers apps like Trello for concise code. Template literals render task cards, and destructuring processes API data. These skills are vital for maintainable code in full-stack roles.</p>
 
                 <h3>Tips for Success</h3>
-                <p>Here are tips to master event handling:</p>
+                <p>Excel with these tips:</p>
                 <ul>
-                    <li>Use <code>addEventListener</code>: Avoid inline <code>onclick</code> for cleaner code.</li>
-                    <li>Remove listeners if needed: Use <code>removeEventListener</code> to prevent memory leaks.</li>
-                    <li>Test events: Use dev tools to debug event triggers.</li>
+                    <li>Use arrow functions for short callbacks.</li>
+                    <li>Apply template literals for dynamic HTML.</li>
+                    <li>Practice destructuring for cleaner data handling.</li>
                 </ul>
 
                 <h3>Shearing Tip</h3>
-                <p>Event handling shears away passive pages with responsive actions, just as a shepherd reacts to a flock’s needs. Listeners make your pages engaging and intuitive.</p>
+                <p>ES6 shears away verbose code with concise syntax, streamlining your coding process like a shepherd’s shears.</p>
 
                 <h3>Quick Check</h3>
-                <p>Test your understanding with this interactive quiz:</p>
+                <p>Test your understanding:</p>
                 <div class="quick-check-container" id="quick-check">
-                    <p><strong>Question:</strong> Which method attaches an event listener to an element?</p>
+                    <p><strong>Question:</strong> What does the spread operator do?</p>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-a" value="A">
-                        <label for="option-a">A) getElementById</label>
+                        <label for="option-a">A) Combines arrays or objects</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-b" value="B">
-                        <label for="option-b">B) addEventListener</label>
+                        <label for="option-b">B) Declares a function</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-c" value="C">
-                        <label for="option-c">C) textContent</label>
+                        <label for="option-c">C) Loops through arrays</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-d" value="D">
-                        <label for="option-d">D) querySelector</label>
+                        <label for="option-d">D) Styles elements</label>
                     </div>
                     <button class="quick-check" onclick="submitQuiz()">Submit</button>
                     <div class="quick-check-response" id="quick-check-response"></div>
                 </div>
 
                 <h3>Summary</h3>
-                <p>In this lesson, you learned event handling to respond to user actions with JavaScript. These skills create responsive interfaces. Next, in Lesson 17, you’ll explore conditionals to add decision-making logic to your scripts.</p>
+                <p>You’ve mastered ES6+ features. Next, Lesson 17 covers asynchronous JavaScript for data fetching.</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-fifteen/"></a></button>
@@ -131,12 +141,26 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo-container">
-                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
-                <div>CODEXEDOC</div>
+            <div class="footer-section">
+                <h3>About CODEXEDOC</h3>
+                <p>CODEXEDOC provides hands-on full-stack development training with a focus on job-ready skills.</p>
             </div>
-            <p>Shearing Away the Complexity of Coding!</p>
-            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                    <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                    <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+                <p>Follow us: <a href="https://www.linkedin.com/company/codexedoc">LinkedIn</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CODEXEDOC. All rights reserved.</p>
         </div>
     </footer>
 
@@ -146,30 +170,21 @@
             const selected = document.querySelector('input[name="answer"]:checked');
             const responseDiv = document.getElementById('quick-check-response');
             if (!selected) {
-                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
-                responseDiv.style.display = 'block';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Please select an answer!';
                 return;
             }
             const answer = selected.value;
-            const correctAnswer = 'B';
-            if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! B) addEventListener, attaching functions to events.</pre>';
-                responseDiv.className = 'quick-check-response correct';
+            if (answer === 'A') {
+                responseDiv.innerHTML = 'Correct! The spread operator combines arrays or objects.';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) addEventListener, attaching functions to events.</pre>';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is A) Combines arrays or objects, simplifying data manipulation.';
             }
-            responseDiv.style.display = 'block';
         }
-
-        document.querySelector('.arrow-left').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-fifteen/';
-        });
-        document.querySelector('.arrow-right').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-seventeen/';
-        });
+        const leftArrow = document.querySelector('.arrow-left a');
+        const rightArrow = document.querySelector('.arrow-right a');
+        leftArrow.href = 'https://www.codexedoc.com/course/lesson-fifteen/';
+        rightArrow.href = 'https://www.codexedoc.com/course/lesson-seventeen/';
     </script>
 </body>
 </html>
