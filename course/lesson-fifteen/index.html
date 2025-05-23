@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript DOM manipulation to dynamically modify HTML elements and create interactive web pages.">
-    <meta name="keywords" content="JavaScript, DOM, manipulation, getElementById, full-stack development">
-    <title>CODEXEDOC - DOM Manipulation</title>
+    <meta name="description" content="Learn to manipulate the DOM and handle events in JavaScript for interactive web pages.">
+    <meta name="keywords" content="JavaScript, DOM, events, full-stack development">
+    <title>CODEXEDOC - DOM Manipulation and Events</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -43,84 +43,88 @@
     <section class="article-section">
         <div class="article-container">
             <div class="course-section">JavaScript</div>
-            <div class="lesson">DOM Manipulation</div>
+            <div class="lesson">DOM Manipulation and Events</div>
             <div id="content">
-                <h2>DOM Manipulation</h2>
-                <p>Welcome to Lesson 15 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn how to manipulate the Document Object Model (DOM) with JavaScript to dynamically update web pages. By the end, you’ll be able to change text and styles on button clicks.</p>
+                <h2>DOM Manipulation and Events</h2>
+                <p>Welcome to Lesson 15! In this lesson, you’ll learn to manipulate the Document Object Model (DOM) and handle user events to create interactive web pages. By the end, you’ll build a button that updates text dynamically.</p>
 
                 <h3>Introduction</h3>
-                <p>The DOM is like a shepherd’s map of the flock, representing a web page’s structure as a tree of elements. JavaScript lets you modify this tree to update content or styles dynamically. This lesson teaches you to select and change elements for interactive pages.</p>
+                <p>The DOM is like a sheep pen, organizing a webpage’s elements. JavaScript lets you modify this structure and respond to user actions, making static pages interactive. This lesson covers selecting elements, modifying them, and handling events.</p>
 
                 <h3>Key Concepts</h3>
-                <p>This lesson covers DOM manipulation essentials:</p>
+                <p>This lesson focuses on:</p>
                 <ul>
-                    <li><strong>Selecting Elements</strong>: Use <code>document.getElementById</code> or <code>querySelector</code> to target elements.</li>
-                    <li><strong>Modifying Content</strong>: Change text with <code>textContent</code> or <code>innerHTML</code>.</li>
-                    <li><strong>Updating Styles</strong>: Modify CSS via the <code>style</code> property.</li>
+                    <li><strong>Selecting Elements</strong>: Use <code>document.querySelector</code> or <code>getElementById</code>.</li>
+                    <li><strong>Modifying DOM</strong>: Change text, styles, or attributes.</li>
+                    <li><strong>Events</strong>: Handle clicks (<code>onclick</code>) or input changes (<code>onchange</code>).</li>
                 </ul>
 
                 <h3>Code Example</h3>
-                <p>Below is an example of changing text and background color when a button is clicked.</p>
+                <p>Below is an example of a button that updates text when clicked.</p>
                 <pre>
 &lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
-    &lt;title&gt;DOM Manipulation&lt;/title&gt;
+    &lt;title&gt;DOM Example&lt;/title&gt;
+    &lt;style&gt;
+        .message { color: navy; }
+    &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;h1 id="title"&gt;Hello&lt;/h1&gt;
-    &lt;button onclick="update()"&gt;Update&lt;/button&gt;
+    &lt;p id="message"&gt;Click the button!&lt;/p&gt;
+    &lt;button id="updateBtn"&gt;Update Text&lt;/button&gt;
     &lt;script&gt;
-        function update() {
-            const title = document.getElementById('title');
-            title.textContent = 'Updated!';
-            title.style.backgroundColor = 'lightblue';
-        }
+        const button = document.getElementById('updateBtn');
+        const message = document.getElementById('message');
+        button.onclick = () => {
+            message.textContent = 'Text updated!';
+            message.classList.add('message');
+        };
     &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
                 </pre>
 
                 <h3>Practical Applications</h3>
-                <p>DOM manipulation is used in apps like Twitter or Instagram to update feeds or toggle themes. For example, a portfolio site might use JavaScript to highlight project cards on hover. These skills are vital for full-stack developers to create dynamic front-end features.</p>
+                <p>DOM manipulation powers apps like Todoist, where clicking a task updates its status. Events drive interactivity in forms or dashboards. These skills are crucial for front-end development roles.</p>
 
                 <h3>Tips for Success</h3>
-                <p>Here are tips to master DOM manipulation:</p>
+                <p>Master DOM manipulation with these tips:</p>
                 <ul>
-                    <li>Use specific selectors: Prefer <code>getElementById</code> for single elements to improve performance.</li>
-                    <li>Avoid <code>innerHTML</code> for security: Use <code>textContent</code> unless adding HTML is necessary.</li>
-                    <li>Test changes: Use browser dev tools to inspect DOM updates.</li>
+                    <li>Use <code>querySelector</code> for flexible element selection.</li>
+                    <li>Keep event handlers simple to avoid performance issues.</li>
+                    <li>Test interactions in the browser’s developer tools.</li>
                 </ul>
 
                 <h3>Shearing Tip</h3>
-                <p>DOM manipulation shears away static content with dynamic updates, just as a shepherd adjusts a flock’s path. Selecting and modifying elements brings your pages to life.</p>
+                <p>DOM manipulation shears away static content with interactivity, like a shepherd shaping a flock for efficiency.</p>
 
                 <h3>Quick Check</h3>
-                <p>Test your understanding with this interactive quiz:</p>
+                <p>Test your knowledge:</p>
                 <div class="quick-check-container" id="quick-check">
-                    <p><strong>Question:</strong> Which method selects an element by its ID?</p>
+                    <p><strong>Question:</strong> What method selects an element by ID?</p>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-a" value="A">
-                        <label for="option-a">A) querySelector</label>
+                        <label for="option-a">A) getElementById</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-b" value="B">
-                        <label for="option-b">B) getElementById</label>
+                        <label for="option-b">B) querySelector</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-c" value="C">
-                        <label for="option-c">C) textContent</label>
+                        <label for="option-c">C) addEventListener</label>
                     </div>
                     <div class="quick-check-option">
                         <input type="radio" name="answer" id="option-d" value="D">
-                        <label for="option-d">D) style</label>
+                        <label for="option-d">D) innerHTML</label>
                     </div>
                     <button class="quick-check" onclick="submitQuiz()">Submit</button>
                     <div class="quick-check-response" id="quick-check-response"></div>
                 </div>
 
                 <h3>Summary</h3>
-                <p>In this lesson, you learned DOM manipulation to dynamically update HTML elements. These skills enable interactive features. Next, in Lesson 16, you’ll explore event handling to respond to user actions like clicks and inputs.</p>
+                <p>You’ve learned to manipulate the DOM and handle events. Next, Lesson 16 explores modern JavaScript (ES6+) for efficient coding.</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-fourteen/"></a></button>
@@ -131,12 +135,26 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo-container">
-                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
-                <div>CODEXEDOC</div>
+            <div class="footer-section">
+                <h3>About CODEXEDOC</h3>
+                <p>CODEXEDOC provides hands-on full-stack development training with a focus on job-ready skills.</p>
             </div>
-            <p>Shearing Away the Complexity of Coding!</p>
-            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                    <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                    <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+                <p>Follow us: <a href="https://www.linkedin.com/company/codexedoc">LinkedIn</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CODEXEDOC. All rights reserved.</p>
         </div>
     </footer>
 
@@ -146,30 +164,21 @@
             const selected = document.querySelector('input[name="answer"]:checked');
             const responseDiv = document.getElementById('quick-check-response');
             if (!selected) {
-                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
-                responseDiv.style.display = 'block';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Please select an answer!';
                 return;
             }
             const answer = selected.value;
-            const correctAnswer = 'B';
-            if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! B) getElementById, targeting a single element by ID.</pre>';
-                responseDiv.className = 'quick-check-response correct';
+            if (answer === 'A') {
+                responseDiv.innerHTML = 'Correct! getElementById targets a specific element by its ID.';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) getElementById, targeting a single element by ID.</pre>';
-                responseDiv.className = 'quick-check-response incorrect';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is A) getElementById, which targets a specific element by its ID.';
             }
-            responseDiv.style.display = 'block';
         }
-
-        document.querySelector('.arrow-left').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-fourteen/';
-        });
-        document.querySelector('.arrow-right').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-sixteen/';
-        });
+        const leftArrow = document.querySelector('.arrow-left a');
+        const rightArrow = document.querySelector('.arrow-right a');
+        leftArrow.href = 'https://www.codexedoc.com/course/lesson-fourteen/';
+        rightArrow.href = 'https://www.codexedoc.com/course/lesson-sixteen/';
     </script>
 </body>
 </html>
