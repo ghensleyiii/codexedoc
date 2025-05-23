@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn to handle file uploads in CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="file uploads, backend, Express, web development, CODEXEDOC">
-    <title>CODEXEDOC - Handling File Uploads</title>
+    <meta name="description" content="Learn to develop web apps with Django in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Python, Django, web development, backend, CODEXEDOC">
+    <title>CODEXEDOC - Developing with Django</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -41,117 +41,74 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">Backend Development</div>
-            <div class="lesson">Handling File Uploads</div>
+            <div class="course-section">Python & Back End Development</div>
+            <div class="lesson">Developing with Django</div>
             <div id="content">
-                <h2>Handling File Uploads</h2>
-                <p>Welcome to Lesson 37 of CODEXEDOC’s Full-Stack Development Course! File uploads allow users to send files, like product images, to your server. In this lesson, you’ll learn to handle file uploads in your e-commerce API using Express and Multer, enhancing product management.</p>
+                <h2>Mastering Django Development</h2>
+                <p>Welcome to Lesson 37! Django is a robust Python framework for rapid web development. In this lesson, you’ll learn Django’s MVC pattern, models, views, and templates to build web apps.</p>
 
-                <h3>What are File Uploads?</h3>
-                <p>File uploads involve sending files from the client to the server, typically via multipart form data. In 2025, handling uploads securely is essential for features like user avatars or product images.</p>
+                <h3>What is Django?</h3>
+                <p>Django, created in 2005, is a high-level framework for Python. In 2025, it’s widely used for secure, scalable apps like social platforms, leveraging its “batteries-included” philosophy.</p>
 
-                <h3>Why Handle File Uploads?</h3>
-                <p>Uploads enable visual content in e-commerce apps, like product photos. Integrating uploads with your API allows users to add images, improving the shopping experience.</p>
-
-                <h3>Key Upload Concepts</h3>
-                <p>Focus on these techniques:</p>
+                <h3>Key Django Concepts</h3>
+                <p>Focus on these features:</p>
                 <ul>
-                    <li><strong>Multer</strong>: A middleware for handling multipart form data.</li>
-                    <li><strong>File Storage</strong>: Save files to the server or cloud.</li>
-                    <li><strong>Validation</strong>: Restrict file types and sizes.</li>
-                    <li><strong>Integration</strong>: Store file metadata in MongoDB.</li>
+                    <li><strong>Models</strong>: Define data structures with ORM.</li>
+                    <li><strong>Views</strong>: Handle requests and return responses.</li>
+                    <li><strong>Templates</strong>: Render dynamic HTML.</li>
+                    <li><strong>Admin Interface</strong>: Manage data with Django’s admin panel.</li>
                 </ul>
 
-                <h3>Setting Up File Uploads</h3>
-                <p>Follow these steps to handle uploads:</p>
-                <ol>
-                    <li><strong>Install Multer</strong>: Add <code>multer</code> to your project.</li>
-                    <li><strong>Configure Storage</strong>: Set up Multer to save files.</li>
-                    <li><strong>Create Endpoint</strong>: Add a route for file uploads.</li>
-                    <li><strong>Test Uploads</strong>: Use Postman or a frontend form.</li>
-                </ol>
-
-                <h3>Code Example: File Uploads</h3>
-                <p>Here’s an Express API with file uploads (extends Lesson 36):</p>
+                <h3>Code Example: Django App</h3>
+                <p>Here’s a simple Django app:</p>
                 <pre>
-// server.js
-const express = require(&quot;express&quot;);
-const mongoose = require(&quot;mongoose&quot;);
-const multer = require(&quot;multer&quot;);
-const cors = require(&quot;cors&quot;);
-const app = express();
+# models.py
+from django.db import models
 
-app.use(cors());
-app.use(express.json());
-app.use(&quot;/uploads&quot;, express.static(&quot;uploads&quot;));
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
-mongoose.connect(&quot;mongodb://localhost:27017/ecommerce&quot;, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() =&gt; console.log(&quot;Connected to MongoDB&quot;));
+# views.py
+from django.shortcuts import render
+from .models import Post
 
-const productSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    price: { type: Number, required: true },
-    image: { type: String }
-});
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, 'posts/post_list.html', {'posts': posts})
 
-const Product = mongoose.model(&quot;Product&quot;, productSchema);
+# urls.py
+from django.urls import path
+from . import views
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) =&gt; {
-        cb(null, &quot;uploads/&quot;);
-    },
-    filename: (req, file, cb) =&gt; {
-        cb(null, Date.now() + &quot;-&quot; + file.originalname);
-    }
-});
+urlpatterns = [
+    path('posts/', views.post_list, name='post_list'),
+]
 
-const upload = multer({
-    storage,
-    fileFilter: (req, file, cb) =&gt; {
-        if (file.mimetype.startsWith(&quot;image/&quot;)) {
-            cb(null, true);
-        } else {
-            cb(new Error(&quot;Invalid file type&quot;), false);
-        }
-    }
-});
-
-app.post(&quot;/api/products&quot;, upload.single(&quot;image&quot;), async (req, res) =&gt; {
-    try {
-        const product = new Product({
-            name: req.body.name,
-            price: req.body.price,
-            image: req.file ? `/uploads/${req.file.filename}` : null
-        });
-        await product.save();
-        res.status(201).json(product);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-});
-
-app.listen(3000, () =&gt; {
-    console.log(&quot;Server running at http://localhost:3000/&quot;);
-});
+# templates/posts/post_list.html
+&lt;ul&gt;
+{% for post in posts %}
+    &lt;li&gt;{{ post.title }} - {{ post.created_at }}&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;
                 </pre>
-                <p>Create an <code>uploads</code> folder. Install dependencies: <code>npm install express mongoose multer cors</code>. Test with Postman: POST <code>/api/products</code> with form-data (key: <code>image</code>, file; keys: <code>name</code>, <code>price</code>, text).</p>
+                <p>Run <code>python manage.py runserver</code> to view posts at <code>localhost:8000/posts/</code>.</p>
 
                 <h3>Practical Applications</h3>
-                <p>File uploads enhance e-commerce apps by allowing product images, improving user engagement. In this course, you’ll use uploads to enrich your product catalog.</p>
+                <p>Django powers apps like dashboards. In your social media dashboard project, you’ll use Django for user management and posts.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master file uploads:</p>
+                <p>To master Django:</p>
                 <ul>
-                    <li><strong>Validate Files</strong>: Restrict to images and set size limits.</li>
-                    <li><strong>Use Cloud Storage</strong>: Consider AWS S3 for production.</li>
-                    <li><strong>Secure Uploads</strong>: Protect the upload endpoint with JWT.</li>
-                    <li><strong>Test Locally</strong>: Ensure the <code>uploads</code> folder exists.</li>
+                    <li><strong>Install Django</strong>: Use <code>pip install django</code>.</li>
+                    <li><strong>Use Migrations</strong>: Run <code>python manage.py migrate</code>.</li>
+                    <li><strong>Leverage Admin</strong>: Enable the admin interface for data management.</li>
+                    <li><strong>Test Templates</strong>: Preview HTML locally.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Handling file uploads with Multer adds visual features to your e-commerce API. By implementing uploads, you’ve enhanced product management. In the next lesson, you’ll learn to deploy your API. Keep practicing uploads!</p>
+                <p>Django streamlines web development with its ORM and templates. By mastering it, you’re ready for full-stack apps. Next, you’ll learn Django REST Framework. Keep building with Django!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-thirty-six/"></a></button>
