@@ -150,11 +150,11 @@ git commit -m "Resolve merge conflict"
             const answer = selected.value;
             const correctAnswer = 'B';
             if (answer === correctAnswer) {
-                responseDiv.innerHTML = '<pre>Correct! B) Changes to the same file in different branches, requiring manual resolution.</pre>';
+                responseDiv.innerHTML = 'Correct! B) Changes to the same file in different branches, requiring manual resolution.';
                 responseDiv.className = 'quick-check-response correct';
                 jsConfetti.addConfetti();
             } else {
-                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) Changes to the same file in different branches, requiring manual resolution.</pre>';
+                responseDiv.innerHTML = 'Incorrect. The correct answer is B) Changes to the same file in different branches, requiring manual resolution.';
                 responseDiv.className = 'quick-check-response incorrect';
             }
             responseDiv.style.display = 'block';
