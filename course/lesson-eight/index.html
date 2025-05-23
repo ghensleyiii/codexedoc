@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to resolve Git merge conflicts to maintain a clean codebase in collaborative full-stack projects.">
+    <meta name="keywords" content="Git, merge conflicts, version control, collaboration, full-stack development">
+    <title>CODEXEDOC - Resolving Merge Conflicts</title>
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+            <div>CODEXEDOC</div>
+        </div>
+        <input type="checkbox" id="hamburger-toggle">
+        <label class="hamburger" for="hamburger-toggle">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </label>
+        <nav>
+            <ul>
+                <li><a href="https://www.codexedoc.com/">Home</a></li>
+                <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
+                <li><a href="https://www.codexedoc.com/code/">Code</a></li>
+                <li><a href="https://www.codexedoc.com/about/">About</a></li>
+                <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
+                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="article-section">
+        <div class="article-container">
+            <div class="course-section">Git and Version Control</div>
+            <div class="lesson">Resolving Merge Conflicts</div>
+            <div id="content">
+                <h2>Resolving Merge Conflicts</h2>
+                <p>Welcome to Lesson 8 of CODEXEDOC’s Full-Stack Development Course! In this lesson, you’ll learn how to resolve merge conflicts in Git to maintain a clean codebase. By the end, you’ll be able to identify and fix conflicts when merging branches.</p>
+
+                <h3>Introduction</h3>
+                <p>Merge conflicts occur when Git can’t automatically combine changes, like two shepherds trying to guide sheep through the same gate. This happens when different branches modify the same file in conflicting ways. This lesson teaches you to resolve conflicts using tools like VS Code’s merge editor, ensuring smooth collaboration.</p>
+
+                <h3>Key Concepts</h3>
+                <p>This lesson covers resolving merge conflicts:</p>
+                <ul>
+                    <li><strong>Merge Conflicts</strong>: Occur when Git detects overlapping changes in the same file.</li>
+                    <li><strong>Conflict Markers</strong>: Git marks conflicts with `<<<<<<<`, `=======`, and `>>>>>>>` in the file.</li>
+                    <li><strong>Resolution</strong>: Edit the file to choose or combine changes, then commit the resolution.</li>
+                </ul>
+
+                <h3>Code Example</h3>
+                <p>Below is an example of a merge conflict in an HTML file and how to resolve it using VS Code.</p>
+                <pre>
+# Sample conflict in index.html
+<<<<<<< HEAD
+<h1>Welcome to My App</h1>
+=======
+<h1>Hello, My App!</h1>
+>>>>>>> feature
+
+# Resolved version
+<h1>Welcome to My App!</h1>
+
+# Commands to complete resolution
+git add index.html
+git commit -m "Resolve merge conflict"
+                </pre>
+
+                <h3>Practical Applications</h3>
+                <p>Resolving merge conflicts is a daily task for full-stack developers working in teams. For example, when two developers edit the same API endpoint in a Node.js app, a conflict may arise. Resolving it ensures the codebase remains functional. Companies like Google use these skills to maintain large, collaborative projects.</p>
+
+                <h3>Tips for Success</h3>
+                <p>Here are tips to resolve conflicts effectively:</p>
+                <ul>
+                    <li>Use VS Code’s merge editor: It visually highlights conflicts for easier resolution.</li>
+                    <li>Communicate with your team: Discuss changes to avoid repeated conflicts.</li>
+                    <li>Test after resolving: Ensure the merged code works as expected.</li>
+                </ul>
+
+                <h3>Shearing Tip</h3>
+                <p>Conflict resolution shears away team friction for smooth merges, just as a shepherd clears a blocked path. With practice, you’ll resolve conflicts quickly and confidently.</p>
+
+                <h3>Quick Check</h3>
+                <p>Test your understanding with this interactive quiz:</p>
+                <div class="quick-check-container" id="quick-check">
+                    <p><strong>Question:</strong> What causes a Git merge conflict?</p>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-a" value="A">
+                        <label for="option-a">A) Committing too many files</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-b" value="B">
+                        <label for="option-b">B) Changes to the same file in different branches</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-c" value="C">
+                        <label for="option-c">C) Pushing to a remote repository</label>
+                    </div>
+                    <div class="quick-check-option">
+                        <input type="radio" name="answer" id="option-d" value="D">
+                        <label for="option-d">D) Creating a new branch</label>
+                    </div>
+                    <button class="quick-check" onclick="submitQuiz()">Submit</button>
+                    <div class="quick-check-response" id="quick-check-response"></div>
+                </div>
+
+                <h3>Summary</h3>
+                <p>In this lesson, you learned how to resolve Git merge conflicts to keep your codebase clean. This completes the Git section, preparing you for collaborative workflows. Next, in Lesson 9, you’ll start building web pages with HTML structure and semantics.</p>
+            </div>
+            <div class="arrow-nav-container">
+                <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-seven/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-nine/"></a></button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        const jsConfetti = new JSConfetti();
+        function submitQuiz() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const responseDiv = document.getElementById('quick-check-response');
+            if (!selected) {
+                responseDiv.innerHTML = '<pre>Please select an answer!</pre>';
+                responseDiv.style.display = 'block';
+                responseDiv.className = 'quick-check-response incorrect';
+                return;
+            }
+            const answer = selected.value;
+            const correctAnswer = 'B';
+            if (answer === correctAnswer) {
+                responseDiv.innerHTML = '<pre>Correct! B) Changes to the same file in different branches, requiring manual resolution.</pre>';
+                responseDiv.className = 'quick-check-response correct';
+                jsConfetti.addConfetti();
+            } else {
+                responseDiv.innerHTML = '<pre>Incorrect. The correct answer is B) Changes to the same file in different branches, requiring manual resolution.</pre>';
+                responseDiv.className = 'quick-check-response incorrect';
+            }
+            responseDiv.style.display = 'block';
+        }
+
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-seven/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-nine/';
+        });
+    </script>
+</body>
+</html>
