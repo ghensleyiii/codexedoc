@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn to deploy a backend API in CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="deployment, backend, Express, web development, CODEXEDOC">
-    <title>CODEXEDOC - Deploying a Backend API</title>
+    <meta name="description" content="Learn Django REST Framework for API development with CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="Python, Django, REST API, Django REST Framework, web development, CODEXEDOC">
+    <title>CODEXEDOC - Django REST Framework</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -41,101 +41,80 @@
 
     <section class="article-section">
         <div class="article-container">
-            <div class="course-section">Backend Development</div>
-            <div class="lesson">Deploying a Backend API</div>
+            <div class="course-section">Python & Back End Development</div>
+            <div class="lesson">Django REST Framework</div>
             <div id="content">
-                <h2>Deploying a Backend API</h2>
-                <p>Welcome to Lesson 38 of CODEXEDOC’s Full-Stack Development Course! Deploying your API makes it accessible online. In this lesson, you’ll learn to deploy your e-commerce API to Render, a popular platform in 2025, ensuring your app is live and scalable.</p>
+                <h2>Mastering Django REST Framework</h2>
+                <p>Welcome to Lesson 38! Django REST Framework (DRF) extends Django for building REST APIs. In this lesson, you’ll learn to create APIs with DRF, including serializers, viewsets, and authentication.</p>
 
-                <h3>What is Deployment?</h3>
-                <p>Deployment involves hosting your application on a server, making it available to users via the internet. For APIs, this means running your Express server in a production environment.</p>
+                <h3>What is Django REST Framework?</h3>
+                <p>DRF, built on Django, simplifies REST API development with tools for serialization and authentication. In 2025, it’s a standard for Python APIs, akin to Express for Node.js.</p>
 
-                <h3>Why Deploy?</h3>
-                <p>Deploying your API allows your e-commerce frontend to interact with a live backend, enabling real-world functionality like user authentication and product management.</p>
-
-                <h3>Key Deployment Concepts</h3>
-                <p>Focus on these techniques:</p>
+                <h3>Key DRF Concepts</h3>
+                <p>Focus on these features:</p>
                 <ul>
-                    <li><strong>Environment Variables</strong>: Store sensitive data like MongoDB URIs.</li>
-                    <li><strong>Production Config</strong>: Use <code>process.env.PORT</code> for dynamic ports.</li>
-                    <li><strong>MongoDB Atlas</strong>: Host your database in the cloud.</li>
-                    <li><strong>Render</strong>: Deploy Express apps with ease.</li>
+                    <li><strong>Serializers</strong>: Convert models to JSON.</li>
+                    <li><strong>Viewsets</strong>: Handle CRUD operations.</li>
+                    <li><strong>Authentication</strong>: Use JWT or token-based auth.</li>
+                    <li><strong>Permissions</strong>: Restrict access to endpoints.</li>
                 </ul>
 
-                <h3>Deploying to Render</h3>
-                <p>Follow these steps to deploy:</p>
-                <ol>
-                    <li><strong>Set Up MongoDB Atlas</strong>: Create a cloud database and get the connection URI.</li>
-                    <li><strong>Configure Environment</strong>: Add <code>.env</code> variables.</li>
-                    <li><strong>Prepare API</strong>: Update <code>server.js</code> for production.</li>
-                    <li><strong>Deploy on Render</strong>: Push to GitHub and deploy via Render.</li>
-                </ol>
-
-                <h3>Code Example: Production-Ready API</h3>
-                <p>Here’s an updated <code>server.js</code> for deployment (extends Lesson 37):</p>
+                <h3>Code Example: DRF API</h3>
+                <p>Here’s a DRF API for posts:</p>
                 <pre>
-// server.js
-const express = require(&quot;express&quot;);
-const mongoose = require(&quot;mongoose&quot;);
-const cors = require(&quot;cors&quot;);
-require(&quot;dotenv&quot;).config();
-const app = express();
+# models.py
+from django.db import models
 
-app.use(cors());
-app.use(express.json());
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
 
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() =&gt; console.log(&quot;Connected to MongoDB&quot;));
+# serializers.py
+from rest_framework import serializers
+from .models import Post
 
-const productSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    price: { type: Number, required: true }
-});
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['id', 'title', 'content']
 
-const Product = mongoose.model(&quot;Product&quot;, productSchema);
+# views.py
+from rest_framework import viewsets
+from .models import Post
+from .serializers import PostSerializer
 
-app.get(&quot;/api/products&quot;, async (req, res) =&gt; {
-    try {
-        const products = await Product.find();
-        res.json(products);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
-app.post(&quot;/api/products&quot;, async (req, res) =&gt; {
-    try {
-        const product = new Product(req.body);
-        await product.save();
-        res.status(201).json(product);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-});
+# urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from . import views
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () =&gt; {
-    console.log(`Server running on port ${PORT}`);
-});
+router = DefaultRouter()
+router.register(r'posts', views.PostViewSet)
+
+urlpatterns = [
+    path('api/', include(router.urls)),
+]
                 </pre>
-                <p>Create a <code>.env</code> file with <code>MONGO_URI</code>. Install <code>dotenv</code>: <code>npm install dotenv express mongoose cors</code>. Push to GitHub, then deploy on Render, setting <code>MONGO_URI</code> in Render’s environment variables.</p>
+                <p>Run <code>python manage.py runserver</code> to access <code>localhost:8000/api/posts/</code>.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Deployed APIs power live e-commerce platforms, serving data globally. In this course, deployment makes your app accessible, preparing you for real-world development.</p>
+                <p>DRF powers APIs for apps like dashboards. In your social media dashboard project, you’ll use DRF for post and user APIs.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master deployment:</p>
+                <p>To master DRF:</p>
                 <ul>
-                    <li><strong>Use .env</strong>: Never hardcode sensitive data.</li>
-                    <li><strong>Test Locally</strong>: Verify with <code>dotenv</code> before deploying.</li>
-                    <li><strong>Monitor Logs</strong>: Check Render logs for errors.</li>
-                    <li><strong>Scale Gradually</strong>: Start with free tiers for testing.</li>
+                    <li><strong>Install DRF</strong>: Use <code>pip install djangorestframework</code>.</li>
+                    <li><strong>Use Viewsets</strong>: Simplify CRUD operations.</li>
+                    <li><strong>Test APIs</strong>: Use Postman or DRF’s browsable API.</li>
+                    <li><strong>Add Authentication</strong>: Secure endpoints with JWT.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Deploying your API to Render makes your e-commerce app live. By configuring your API for production, you’ve achieved a major milestone. In the next lesson, you’ll learn to test your API. Keep practicing deployment!</p>
+                <p>DRF streamlines REST API development. By mastering serializers and viewsets, you’re ready for API-driven apps. Next, you’ll learn database integration. Keep building with DRF!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-thirty-seven/"></a></button>
