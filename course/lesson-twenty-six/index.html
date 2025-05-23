@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn JavaScript error handling and debugging with CODEXEDOC’s full-stack course.">
-    <meta name="keywords" content="JavaScript, error handling, debugging, web development, CODEXEDOC">
-    <title>CODEXEDOC - JavaScript Error Handling and Debugging</title>
+    <meta name="description" content="Learn JavaScript testing with Jest in CODEXEDOC’s full-stack course.">
+    <meta name="keywords" content="JavaScript, Jest, testing, web development, CODEXEDOC">
+    <title>CODEXEDOC - Testing JavaScript (Jest)</title>
     <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../../android-chrome-192x192.png">
@@ -42,93 +42,61 @@
     <section class="article-section">
         <div class="article-container">
             <div class="course-section">JavaScript</div>
-            <div class="lesson">JavaScript Error Handling and Debugging</div>
+            <div class="lesson">Testing JavaScript (Jest)</div>
             <div id="content">
-                <h2>JavaScript Error Handling and Debugging</h2>
-                <p>Welcome to Lesson 26 of CODEXEDOC’s Full-Stack Development Course! Error handling and debugging are critical skills for writing robust JavaScript code. In this lesson, you’ll learn how to catch and manage errors and use debugging tools to identify and fix issues, ensuring your applications run smoothly.</p>
+                <h2>Mastering Testing JavaScript with Jest</h2>
+                <p>Welcome to Lesson 26 of CODEXEDOC’s Full-Stack Development Course! Testing ensures your JavaScript code works as expected. In this lesson, you’ll learn to use Jest, a popular testing framework, to write unit tests for your code.</p>
 
-                <h3>What is Error Handling?</h3>
-                <p>Error handling involves anticipating and managing errors that occur during code execution, such as invalid user input or failed API calls. JavaScript provides <code>try/catch</code> blocks to handle errors gracefully, preventing crashes.</p>
+                <h3>What is Jest?</h3>
+                <p>Jest, developed by Facebook, is a JavaScript testing framework for unit and integration tests. In 2025, it’s widely used for testing React apps, ensuring code reliability and maintainability.</p>
 
-                <h3>What is Debugging?</h3>
-                <p>Debugging is the process of finding and fixing bugs in your code. Modern browsers offer developer tools (e.g., Chrome DevTools) to inspect variables, set breakpoints, and trace errors, making debugging efficient in 2025.</p>
-
-                <h3>Key Error Handling and Debugging Concepts</h3>
+                <h3>Key Testing Concepts</h3>
                 <p>Focus on these techniques:</p>
                 <ul>
-                    <li><strong>Try/Catch</strong>: Wrap risky code in <code>try</code> and handle errors in <code>catch</code>.</li>
-                    <li><strong>Throw</strong>: Create custom errors with <code>throw new Error()</code>.</li>
-                    <li><strong>Console Methods</strong>: Use <code>console.log</code>, <code>console.error</code>, and <code>console.table</code> for debugging.</li>
-                    <li><strong>Breakpoints</strong>: Pause code execution in DevTools to inspect variables.</li>
+                    <li><strong>Test Suites</strong>: Group tests with <code>describe</code>.</li>
+                    <li><strong>Assertions</strong>: Verify results with <code>expect</code> (e.g., <code>expect(2 + 2).toBe(4)</code>).</li>
+                    <li><strong>Mocks</strong>: Simulate functions or modules.</li>
+                    <li><strong>Snapshots</strong>: Test UI consistency in React.</li>
                 </ul>
 
-                <h3>Implementing Error Handling and Debugging</h3>
-                <p>Follow these steps to handle errors and debug:</p>
-                <ol>
-                    <li><strong>Use Try/Catch</strong>: Protect code that might fail (e.g., API calls).</li>
-                    <li><strong>Log Errors</strong>: Output error details to the console for analysis.</li>
-                    <li><strong>Set Breakpoints</strong>: Use DevTools to pause and inspect code.</li>
-                    <li><strong>Test Edge Cases</strong>: Simulate failures to ensure robust handling.</li>
-                </ol>
-
-                <h3>Code Example: Error Handling and Debugging</h3>
-                <p>Here’s a page with error handling for a division operation:</p>
+                <h3>Code Example: Jest Testing</h3>
+                <p>Here’s a Jest test for a simple function:</p>
                 <pre>
-<!-- index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error Handling</title>
-    <style>
-        body { font-family: 'Roboto Mono', monospace; }
-        button { padding: 10px 20px; background: navy; color: white; border: none; }
-    </style>
-</head>
-<body>
-    <h1>Calculator</h1>
-    <button id="divide">Divide Numbers</button>
-    <p id="output">Result: None</p>
-    <script>
-        document.querySelector("#divide").addEventListener("click", () => {
-            const output = document.querySelector("#output");
-            try {
-                const result = divide(10, 0);
-                output.textContent = `Result: ${result}`;
-            } catch (error) {
-                output.textContent = `Error: ${error.message}`;
-                console.error(error);
-            }
-        });
-        function divide(a, b) {
-            if (b === 0) throw new Error("Division by zero");
-            return a / b;
-        }
-    </script>
-</body>
-</html>
+&lt;!-- math.ts --&gt;
+export const add = (a: number, b: number): number =&gt; a + b;
+
+&lt;!-- math.test.ts --&gt;
+import { add } from './math';
+
+describe('Math functions', () =&gt; {
+    test('adds 2 + 3 to equal 5', () =&gt; {
+        expect(add(2, 3)).toBe(5);
+    });
+    test('adds negative numbers', () =&gt; {
+        expect(add(-1, -1)).toBe(-2);
+    });
+});
                 </pre>
-                <p>This example uses <code>try/catch</code> to handle a division-by-zero error and logs the error to the console for debugging.</p>
+                <p>Run <code>npm test</code> to execute these tests, verifying the <code>add</code> function.</p>
 
                 <h3>Practical Applications</h3>
-                <p>Error handling ensures reliable apps, like validating form inputs or recovering from failed API calls. Debugging helps identify issues in complex logic, such as cart calculations in an e-commerce site. In this course, you’ll apply these skills to your e-commerce project to ensure robustness.</p>
+                <p>Jest is used to test React components and APIs. In your task manager project, you’ll write tests to ensure task addition and deletion work correctly.</p>
 
                 <h3>Tips for Success</h3>
-                <p>To master error handling and debugging:</p>
+                <p>To master Jest:</p>
                 <ul>
-                    <li><strong>Always Use Try/Catch</strong>: Protect async or risky operations.</li>
-                    <li><strong>Log Meaningful Errors</strong>: Include context in error messages.</li>
-                    <li><strong>Learn DevTools</strong>: Practice breakpoints and watch expressions.</li>
-                    <li><strong>Test Thoroughly</strong>: Simulate edge cases to catch potential bugs.</li>
+                    <li><strong>Write Clear Tests</strong>: Use descriptive test names.</li>
+                    <li><strong>Test Edge Cases</strong>: Include invalid inputs.</li>
+                    <li><strong>Use Mocks</strong>: Simulate API calls for reliable tests.</li>
+                    <li><strong>Run Tests Often</strong>: Use <code>npm test -- --watch</code> for live feedback.</li>
                 </ul>
 
                 <h3>Summary</h3>
-                <p>Error handling and debugging make your JavaScript code reliable and easier to maintain. By mastering <code>try/catch</code> and DevTools, you can build robust applications. In the next lesson, you’ll apply your JavaScript skills to build an interactive e-commerce cart. Keep practicing debugging!</p>
+                <p>Jest ensures your JavaScript code is reliable through unit tests. By mastering testing, you’re ready for production apps. In the next section, you’ll build a task manager app with React and TypeScript. Keep writing tests!</p>
             </div>
             <div class="arrow-nav-container">
                 <button class="arrow-nav arrow-left"><i class="fas fa-arrow-left"></i><a href="https://www.codexedoc.com/course/lesson-twenty-five/"></a></button>
-                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/lesson-twenty-seven/"></a></button>
+                <button class="arrow-nav arrow-right"><i class="fas fa-arrow-right"></i><a href="https://www.codexedoc.com/course/project-javascript/"></a></button>
             </div>
         </div>
     </section>
@@ -149,7 +117,7 @@
             window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-five/';
         });
         document.querySelector('.arrow-right').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-seven/';
+            window.location.href = 'https://www.codexedoc.com/course/project-javascript/';
         });
     </script>
 </body>
