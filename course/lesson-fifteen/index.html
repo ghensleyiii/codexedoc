@@ -62,24 +62,24 @@
                 <h3>Code Example</h3>
                 <p>This example creates a button that updates text when clicked.</p>
                 <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;Dynamic Text&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;p id="output"&gt;Click the button!&lt;/p&gt;
-    &lt;button id="myButton"&gt;Update Text&lt;/button&gt;
-    &lt;script&gt;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Text</title>
+</head>
+<body>
+    <p id="output">Click the button!</p>
+    <button id="myButton">Update Text</button>
+    <script>
         const button = document.getElementById('myButton');
         const output = document.getElementById('output');
         button.onclick = () => {
             output.textContent = 'Text updated!';
         };
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+    </script>
+</body>
+</html>
                 </pre>
                 <p>Save as <code>index.html</code> and open in a browser to test the button’s functionality.</p>
 
@@ -132,8 +132,13 @@
     </section>
 
     <footer>
-        <div class="footer-bottom">
-            <p>© 2025 CODEXEDOC. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
+            </div>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
         </div>
     </footer>
 
@@ -160,10 +165,13 @@
             }
             responseDiv.style.display = 'block';
         }
-        const leftArrow = document.querySelector('.arrow-left a');
-        const rightArrow = document.querySelector('.arrow-right a');
-        leftArrow.href = 'https://www.codexedoc.com/course/lesson-fourteen/';
-        rightArrow.href = 'https://www.codexedoc.com/course/lesson-sixteen/';
+
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-fourteen/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-sixteen/';
+        });
     </script>
 </body>
 </html>
