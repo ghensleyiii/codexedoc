@@ -158,14 +158,17 @@
             if (!selected) {
                 responseDiv.innerHTML = 'Please select an answer!';
                 responseDiv.style.display = 'block';
+                responseDiv.className = 'quick-check-response incorrect';
                 return;
             }
             const answer = selected.value;
             if (answer === 'A') {
                 responseDiv.innerHTML = 'Correct! The spread operator combines arrays or objects.';
+                responseDiv.className = 'quick-check-response correct';
                 jsConfetti.addConfetti();
             } else {
                 responseDiv.innerHTML = 'Incorrect. The correct answer is A) Combines arrays or objects, simplifying data manipulation.';
+                responseDiv.className = 'quick-check-response incorrect';
             }
             responseDiv.style.display = 'block';
         }
