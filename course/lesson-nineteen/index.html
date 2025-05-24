@@ -145,32 +145,33 @@ app.listen(3000, () => {
     </footer>
 
     <script>
-        const jsConfetti = new JSConfetti();
-        function submitQuiz() {
-            const selected = document.querySelector('input[name="answer"]:checked');
-            const responseDiv = document.getElementById('quick-check-response');
-            if (!selected) {
-                responseDiv.innerHTML = 'Please select an answer!';
-                responseDiv.style.display = 'block';
-                responseDiv.className = 'quick-check-response incorrect';
-                return;
-            }
-            const answer = selected.value;
-            if (answer === 'B') {
-                responseDiv.innerHTML = 'Correct! app.get() defines a GET endpoint.';
-                responseDiv.className = 'quick-check-response correct';
-                jsConfetti.addConfetti();
-            } else {
-                responseDiv.innerHTML = 'Incorrect. The correct answer is B) app.get(), defining a GET endpoint.';
-                responseDiv.className = 'quick-check-response incorrect';
-            }
+    const jsConfetti = new JSConfetti();
+    function submitQuiz() {
+        const selected = document.querySelector('input[name="answer"]:checked');
+        const responseDiv = document.getElementById('quick-check-response');
+        if (!selected) {
+            responseDiv.innerHTML = 'Please select an answer!';
             responseDiv.style.display = 'block';
+            responseDiv.className = 'quick-check-response incorrect';
+            return;
         }
-        document.querySelector('.arrow-left').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-eighteen/';
-        });
-        document.querySelector('.arrow-right').addEventListener('click', () => {
-            window.location.href = 'https://www.codexedoc.com/course/lesson-twenty/';
+        const answer = selected.value;
+        if (answer === 'B') {
+            responseDiv.innerHTML = 'Correct! app.get() defines a GET endpoint.';
+            responseDiv.className = 'quick-check-response correct';
+            jsConfetti.addConfetti();
+        } else {
+            responseDiv.innerHTML = 'Incorrect. The correct answer is B) app.get(), defining a GET endpoint.';
+            responseDiv.className = 'quick-check-response incorrect';
+        }
+        responseDiv.style.display = 'block';
+    }
+    document.querySelector('.arrow-left').addEventListener('click', () => {
+        window.location.href = 'https://www.codexedoc.com/course/lesson-eighteen/';
+    });
+    document.querySelector('.arrow-right').addEventListener('click', () => {
+        window.location.href = 'https://www.codexedoc.com/course/lesson-twenty/';
+    });
     </script>
 </body>
 </html>
