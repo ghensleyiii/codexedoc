@@ -126,26 +126,12 @@ server.listen(3000, () => {
 
     <footer>
         <div class="footer-content">
-            <div class="footer-section">
-                <h3>About CODEXEDOC</h3>
-                <p>CODEXEDOC provides hands-on full-stack development training with a focus on job-ready skills.</p>
+            <div class="footer-logo-container">
+                <img src="../../icons/codex.png" alt="CODEXEDOC Logo">
+                <div>CODEXEDOC</div>
             </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="https://www.codexedoc.com/curriculum/">Curriculum</a></li>
-                    <li><a href="https://www.codexedoc.com/code/">Code</a></li>
-                    <li><a href="https://www.codexedoc.com/portfolio/">Portfolio</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>Email: <a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
-                <p>Follow us: <a href="https://www.linkedin.com/company/codexedoc">LinkedIn</a></p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 CODEXEDOC. All rights reserved.</p>
+            <p>Shearing Away the Complexity of Coding!</p>
+            <div>© 2025 CODEXEDOC. All rights reserved.</div>
         </div>
     </footer>
 
@@ -156,20 +142,27 @@ server.listen(3000, () => {
             const responseDiv = document.getElementById('quick-check-response');
             if (!selected) {
                 responseDiv.innerHTML = 'Please select an answer!';
+                responseDiv.style.display = 'block';
+                responseDiv.className = 'quick-check-response incorrect';
                 return;
             }
             const answer = selected.value;
             if (answer === 'B') {
                 responseDiv.innerHTML = 'Correct! npm install adds packages to a project.';
+                responseDiv.className = 'quick-check-response correct';
                 jsConfetti.addConfetti();
             } else {
                 responseDiv.innerHTML = 'Incorrect. The correct answer is B) Installs packages, adding dependencies to a project.';
+                responseDiv.className = 'quick-check-response incorrect';
             }
+            responseDiv.style.display = 'block';
         }
-        const leftArrow = document.querySelector('.arrow-left a');
-        const rightArrow = document.querySelector('.arrow-right a');
-        leftArrow.href = 'https://www.codexedoc.com/course/lesson-seventeen/';
-        rightArrow.href = 'https://www.codexedoc.com/course/lesson-nineteen/';
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-seventeen/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-nineteen/';
+        });
     </script>
 </body>
 </html>
