@@ -159,10 +159,12 @@ app.listen(PORT, () => {
             }
             responseDiv.style.display = 'block';
         }
-        const leftArrow = document.querySelector('.arrow-left a');
-        const rightArrow = document.querySelector('.arrow-right a');
-        leftArrow.href = 'https://www.codexedoc.com/course/lesson-twenty/';
-        rightArrow.href = 'https://www.codexedoc.com/course/lesson-twenty-two/';
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+        window.location.href = 'https://www.codexedoc.com/course/lesson-twenty/';
+         });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+        window.location.href = 'https://www.codexedoc.com/course/lesson-twenty-two/';
+        });
     </script>
 </body>
 </html>
