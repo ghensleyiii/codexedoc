@@ -157,6 +157,7 @@
             const responseDiv = document.getElementById('quick-check-response');
             if (!selected) {
                 responseDiv.innerHTML = 'Please select an answer!';
+                responseDiv.style.display = 'block';
                 return;
             }
             const answer = selected.value;
@@ -168,8 +169,12 @@
             }
             responseDiv.style.display = 'block';
         }
-        leftArrow.href = 'https://www.codexedoc.com/course/lesson-fifteen/';
-        rightArrow.href = 'https://www.codexedoc.com/course/lesson-seventeen/';
+        document.querySelector('.arrow-left').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-fifteen/';
+        });
+        document.querySelector('.arrow-right').addEventListener('click', () => {
+            window.location.href = 'https://www.codexedoc.com/course/lesson-seventeen/';
+        });
     </script>
 </body>
 </html>
