@@ -1,8 +1,10 @@
+/* Global Styles and Variables */
 :root {
-    --dark-steel: #295d8a;
-    --steel: #4a7fb2;
-    --white: #ffffff;
-    --black: #000000;
+    --dark-blue: #001F47;
+    --light-blue: #002966;
+    --gold: #ffe786;
+    --white: #FFFFFF;
+    --dark-gold: #fdd65e;
 }
 
 * {
@@ -12,89 +14,105 @@
 }
 
 body {
-    font-family: Arial, sans-serif !important;
-    background-color: var(--black) !important;
+    font-family: 'Roboto Mono', monospace !important;
+    background-color: var(--dark-blue) !important;
     color: var(--white) !important;
     line-height: 1.6 !important;
+    min-height: 100vh !important;
+    display: flex;
+    flex-direction: column !important;
 }
 
+/* Header */
 header {
-    background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-    padding: 20px !important;
+    background-color: var(--dark-blue) !important;
+    padding: 1rem 1.5rem !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     position: sticky !important;
     top: 0 !important;
     z-index: 100 !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3) !important;
 }
 
 .logo h1 {
-    font-family: 'Audiowide', sans-serif !important;
-    color: var(--black) !important;
-    font-size: 35px !important;
-    margin: 0 !important;
+    font-family: 'Roboto Mono', monospace !important;
+    color: var(--gold) !important;
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
 }
 
 .logo a {
     text-decoration: none !important;
-    color: var(--black) !important;
+    color: var(--gold) !important;
 }
 
-.input-section {
-    max-width: 90% !important;
-    width: 100% !important;
+.logo a:hover {
+    color: var(--dark-gold) !important;
+    text-decoration: underline !important;
+}
+
+/* Input and Search Sections */
+.input-section, .search-section {
+    max-width: 800px !important;
     margin: 2rem auto !important;
-    padding: 0 0.5rem !important;
+    padding: 0 1rem !important;
 }
 
 input, textarea {
     width: 100% !important;
     margin: 10px 0 !important;
-    padding: 8px !important;
-    border: 1px solid var(--white) !important;
-    border-radius: 4px !important;
-    background-color: var(--black) !important;
+    padding: 10px !important;
+    border: 2px solid var(--gold) !important;
+    border-radius: 5px !important;
+    background-color: var(--light-blue) !important;
     color: var(--white) !important;
+    font-family: 'Roboto Mono', monospace !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
-.search-section {
-    max-width: 90% !important;
-    width: 100% !important;
-    margin: 0 auto !important;
-    padding: 0 0.5rem !important;
+input::placeholder, textarea::placeholder {
+    color: var(--dark-gold) !important;
 }
 
 #searchInput {
     width: 100% !important;
 }
 
+/* Highlight */
 .highlight {
-    background-color: var(--steel) !important;
+    background-color: var(--light-blue) !important;
     padding: 2px 4px !important;
     border-radius: 3px !important;
+    color: var(--gold) !important;
 }
 
+/* Note Section */
 .note {
-    max-width: 90% !important;
-    width: 100% !important;
+    max-width: 800px !important;
     margin: 0 auto 2rem auto !important;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
-    padding: 1rem !important;
-    background: var(--black) !important;
+    padding: 1.5rem !important;
+    background: var(--light-blue) !important;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
 .note h2 {
-    color: var(--dark-steel) !important;
+    color: var(--gold) !important;
     margin: 0 0 0.5rem 0 !important;
     font-size: 1.5rem !important;
-    font-family: 'Audiowide', sans-serif !important;
+    font-family: 'Roboto Mono', monospace !important;
+    font-weight: 600 !important;
 }
 
 .note .notes-preview {
     color: var(--white) !important;
     margin: 0 0 0.5rem 0 !important;
+    font-size: 1rem !important;
 }
 
 .note-footer {
@@ -108,13 +126,14 @@ input, textarea {
 
 .edit-link, .open-link {
     cursor: pointer !important;
-    color: var(--steel) !important;
-    text-decoration: underline !important;
+    color: var(--gold) !important;
+    text-decoration: none !important;
+    font-size: 0.9rem !important;
 }
 
-.edit-link:hover,
-.open-link:hover {
-    color: var(--dark-steel) !important;
+.edit-link:hover, .open-link:hover {
+    color: var(--dark-gold) !important;
+    text-decoration: underline !important;
 }
 
 .notes-preview {
@@ -122,6 +141,17 @@ input, textarea {
     white-space: pre-wrap !important;
 }
 
+.notes-preview a {
+    color: var(--gold) !important;
+    text-decoration: underline !important;
+}
+
+.notes-preview a:hover {
+    color: var(--dark-gold) !important;
+    text-decoration: none !important;
+}
+
+/* Order Controls */
 .order-controls {
     display: flex !important;
     align-items: center !important;
@@ -132,87 +162,79 @@ input, textarea {
 .order-input {
     width: 50px !important;
     padding: 5px !important;
+    font-size: 0.9rem !important;
 }
 
+/* Buttons */
 .btn-study#saveBtn, .btn-study#backupBtn, .btn-study#restoreBtn {
-    background: linear-gradient(90deg, var(--dark-steel), var(--steel)) !important;
-    color: var(--black) !important;
-    padding: 8px 16px !important;
-    border: none !important;
-    border-radius: 4px !important;
+    background-color: var(--light-blue) !important;
+    color: var(--gold) !important;
+    padding: 10px 20px !important;
+    border: 2px solid var(--gold) !important;
+    border-radius: 5px !important;
     cursor: pointer !important;
     width: 100% !important;
     max-width: 200px !important;
     margin: 10px auto !important;
     display: block !important;
-    font-family: 'Audiowide', sans-serif !important;
+    font-family: 'Roboto Mono', monospace !important;
+    font-weight: bold !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 .btn-study#saveBtn:hover, .btn-study#backupBtn:hover, .btn-study#restoreBtn:hover {
-    background: linear-gradient(90deg, var(--steel)) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
+    background-color: var(--dark-blue) !important;
 }
 
 .btn-study#deleteBtn {
-    background: linear-gradient(90deg, #ff4d4d, #cc0000, #ff4d4d) !important;
-    color: var(--black) !important;
-    padding: 8px 16px !important;
-    border: none !important;
-    border-radius: 4px !important;
+    background-color: #cc0000 !important;
+    color: var(--white) !important;
+    padding: 10px 20px !important;
+    border: 2px solid #cc0000 !important;
+    border-radius: 5px !important;
     cursor: pointer !important;
     width: 100% !important;
     max-width: 200px !important;
     margin: 10px auto !important;
-    display: none;
-    font-family: 'Audiowide', sans-serif !important;
+    display: none !important;
+    font-family: 'Roboto Mono', monospace !important;
+    font-weight: bold !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 .btn-study#deleteBtn:hover {
-    background: linear-gradient(90deg, #cc0000) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
+    background-color: #990000 !important;
 }
 
 .btn-study#deleteBtn.confirm {
-    background: linear-gradient(90deg, #b30000, #990000) !important;
+    background-color: #990000 !important;
+    border: 2px solid #990000 !important;
 }
 
 .btn-study#deleteBtn.confirm:hover {
-    background: linear-gradient(90deg, #990000) !important;
+    background-color: #800000 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
 }
 
+/* Backup and Restore Buttons */
 .backup-restore-buttons {
     display: flex !important;
     justify-content: center !important;
     gap: 10px !important;
     flex-wrap: wrap !important;
     margin: 1rem auto !important;
-    max-width: 90% !important;
-    width: 100% !important;
-    padding: 0 0.5rem !important;
+    max-width: 800px !important;
+    padding: 0 1rem !important;
 }
 
-footer {
-    background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
-    text-align: center !important;
-    padding: 20px !important;
-    color: var(--black) !important;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
-    width: 100% !important;
-}
-
-footer p {
-    margin: 10px 0 0 !important;
-}
-
-.notes-preview a {
-    color: var(--steel) !important;
-    text-decoration: underline !important;
-    cursor: pointer !important;
-}
-
-.notes-preview a:hover {
-    color: var(--dark-steel) !important;
-    text-decoration: none !important;
-}
-
+/* Formatting Toolbar */
 .formatting-toolbar {
     display: flex !important;
     justify-content: center !important;
@@ -224,26 +246,55 @@ footer p {
 .format-btn {
     width: 40px !important;
     height: 40px !important;
-    border: 1px solid var(--white) !important;
-    border-radius: 4px !important;
-    background: linear-gradient(90deg, var(--dark-steel), var(--steel)) !important;
-    color: var(--black) !important;
+    border: 2px solid var(--gold) !important;
+    border-radius: 5px !important;
+    background-color: var(--light-blue) !important;
+    color: var(--gold) !important;
     font-size: 16px !important;
     cursor: pointer !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    transition: background 0.3s !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 .format-btn:hover {
-    background: linear-gradient(90deg, var(--steel)) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
+    background-color: var(--dark-blue) !important;
 }
 
-@media (max-width: 600px) {
+/* Footer */
+footer {
+    background-color: var(--dark-blue) !important;
+    padding: 1.5rem !important;
+    text-align: center !important;
+    color: var(--gold) !important;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3) !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.3) !important;
+}
+
+footer p {
+    margin: 10px 0 0 !important;
+    font-size: 1rem !important;
+}
+
+footer a {
+    color: var(--gold) !important;
+    text-decoration: none !important;
+}
+
+footer a:hover {
+    color: var(--dark-gold) !important;
+    text-decoration: underline !important;
+}
+
+/* Responsive Styles */
+@media (max-width: 767px) {
     .input-section, .search-section, .note, .backup-restore-buttons {
         max-width: 90% !important;
-        padding: 0 0.25rem !important;
+        padding: 0 0.5rem !important;
     }
 
     .note h2 {
@@ -252,14 +303,16 @@ footer p {
 
     .order-input {
         width: 40px !important;
+        font-size: 0.8rem !important;
     }
 
     .edit-link, .open-link {
-        font-size: 0.9rem !important;
+        font-size: 0.8rem !important;
     }
 
     .btn-study#saveBtn, .btn-study#deleteBtn, .btn-study#backupBtn, .btn-study#restoreBtn {
-        padding: 6px 12px !important;
+        padding: 8px 15px !important;
+        font-size: 0.9rem !important;
     }
 
     .format-btn {
@@ -269,6 +322,36 @@ footer p {
     }
 }
 
-footer a {
-    color: var(--black) !important;
+@media (max-width: 480px) {
+    .input-section, .search-section, .note, .backup-restore-buttons {
+        max-width: 95% !important;
+        padding: 0 0.25rem !important;
+    }
+
+    .note h2 {
+        font-size: 1.1rem !important;
+    }
+
+    .btn-study#saveBtn, .btn-study#deleteBtn, .btn-study#backupBtn, .btn-study#restoreBtn {
+        padding: 6px 12px !important;
+        font-size: 0.8rem !important;
+    }
+
+    .format-btn {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 12px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .note {
+        max-width: 600px !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .input-section, .search-section, .note, .backup-restore-buttons {
+        max-width: 800px !important;
+    }
 }
