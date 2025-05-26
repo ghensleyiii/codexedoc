@@ -1,7 +1,7 @@
 /* Global Styles and Variables */
 :root {
-  --dark-blue: #001F47;
-  --light-blue: #002966;
+  --dark-blue: #1a3a5f/*#001F47*/;
+  --light-blue: #205791 /*#002966*/;
   --gold: #4e8735/*#ffe786*/;
   --white: #FFFFFF;
   --dark-gold: #fdd65e/*#e0a800*/;
