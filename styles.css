@@ -1,8 +1,15 @@
+/*:root {
+  --dark-blue: #18375a;
+  --light-blue: #1f548f;
+  --green: #8cb43c;
+  --white: #FFFFFF;
+}*/
+
 /* Global Styles and Variables */
 :root {
-  --dark-blue: #1a3a5f/*#001F47*/;
-  --light-blue: #205791 /*#002966*/;
-  --gold: #4e8735/*#ffe786*/;
+  --dark-blue: #001F47;
+  --light-blue: #205791;
+  --gold: #ffe786;
   --white: #FFFFFF;
   --dark-gold: #fdd65e/*#e0a800*/;
 }
