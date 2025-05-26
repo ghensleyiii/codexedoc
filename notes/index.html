@@ -54,7 +54,648 @@
         <a href="../terms/termsofuse.html">TERMS OF USE</a></p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+      /**
+       * @fileoverview NOTESPACE Application Script
+       * @description This script manages a web-based note management system with features to create, edit,
+       *              delete, and search notes. It also supports backing up notes to a text file and restoring
+       *              them from a file. Notes are stored in localStorage for persistence.
+       * @author [Your Name]
+       * @version 1.0.0
+       * @date 2025-05-12
+       */
+
+      // Global Variables
+      /**
+       * @type {Array<Object>} notes - Array of note objects loaded from localStorage or initialized as empty.
+       * Each note has properties: id (number), title (string), notes (string), order (number), date (string).
+       */
+      let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+      /**
+       * @type {number|null} editingNoteId - ID of the note currently being edited, or null if not editing.
+       */
+      let editingNoteId = null;
+
+      /**
+       * @type {Set<number>} openNotes - Set of note IDs whose notes are currently expanded.
+       */
+      let openNotes = new Set();
+
+      /**
+       * @type {boolean} isDeleteConfirmed - Flag indicating if the user has confirmed deletion of a note.
+       */
+      let isDeleteConfirmed = false;
+
+      /**
+       * Formats the selected text in the notes textarea based on the specified type.
+       * @param {string} type - The type of formatting ('bold', 'italic', 'underline', 'strike', 'hr', 'color', 'highlight', 'indent', 'unindent').
+       */
+      function formatText(type) {
+          const textarea = document.getElementById('notesInput');
+          const start = textarea.selectionStart;
+          const end = textarea.selectionEnd;
+          const selectedText = textarea.value.substring(start, end);
+          let newText = '';
+
+          if (type === 'hr') {
+              // Insert horizontal line marker
+              newText = '\n---\n';
+              if (start === end) {
+                  // No selection, insert at cursor
+                  textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
+                  textarea.selectionStart = textarea.selectionEnd = start + newText.length;
+              } else {
+                  // Replace selection with horizontal line
+                  textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
+                  textarea.selectionStart = textarea.selectionEnd = start + newText.length;
+              }
+          } else if (type === 'indent' || type === 'unindent') {
+              // Handle indent and unindent
+              if (start === end) {
+                  // No selection, apply to the current line
+                  const lineStart = textarea.value.lastIndexOf('\n', start - 1) + 1;
+                  const lineEnd = textarea.value.indexOf('\n', start);
+                  const endPos = lineEnd === -1 ? textarea.value.length : lineEnd;
+                  const line = textarea.value.substring(lineStart, endPos);
+
+                  if (type === 'indent') {
+                      newText = '  ' + line;
+                      textarea.value = textarea.value.substring(0, lineStart) + newText + textarea.value.substring(endPos);
+                      textarea.selectionStart = textarea.selectionEnd = start + 2;
+                  } else {
+                      // Unindent: remove up to 2 leading spaces
+                      const spacesRemoved = line.startsWith('  ') ? 2 : line.startsWith(' ') ? 1 : 0;
+                      newText = line.substring(spacesRemoved);
+                      textarea.value = textarea.value.substring(0, lineStart) + newText + textarea.value.substring(endPos);
+                      textarea.selectionStart = textarea.selectionEnd = start - spacesRemoved;
+                  }
+              } else {
+                  // Selection spans multiple lines
+                  const lines = selectedText.split('\n');
+                  let cursorAdjustment = 0;
+                  let newLines;
+                  if (type === 'indent') {
+                      newLines = lines.map(line => '  ' + line);
+                      cursorAdjustment = 2;
+                  } else {
+                      // Unindent: remove up to 2 leading spaces from each line
+                      newLines = lines.map(line => {
+                          if (line.startsWith('  ')) {
+                              return line.substring(2);
+                          } else if (line.startsWith(' ')) {
+                              return line.substring(1);
+                          }
+                          return line;
+                      });
+                      cursorAdjustment = lines[0].startsWith('  ') ? -2 : lines[0].startsWith(' ') ? -1 : 0;
+                  }
+                  newText = newLines.join('\n');
+
+                  textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
+                  textarea.selectionStart = start;
+                  textarea.selectionEnd = start + newText.length;
+              }
+          } else {
+              // Handle text formatting
+              if (start === end && selectedText === '') {
+                  // No selection, do nothing
+                  return;
+              }
+
+              switch (type) {
+                  case 'bold':
+                      newText = `**${selectedText}**`;
+                      break;
+                  case 'italic':
+                      newText = `*${selectedText}*`;
+                      break;
+                  case 'underline':
+                      newText = `__${selectedText}__`;
+                      break;
+                  case 'strike':
+                      newText = `~~${selectedText}~~`;
+                      break;
+                  case 'color':
+                      newText = `##${selectedText}##`;
+                      break;
+                  case 'highlight':
+                      newText = `^^${selectedText}^^`;
+                      break;
+                  default:
+                      return;
+              }
+
+              // Replace selected text with formatted text
+              textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
+              textarea.selectionStart = start;
+              textarea.selectionEnd = start + newText.length;
+          }
+
+          textarea.focus();
+      }
+
+      /**
+       * Saves a new note or updates an existing one based on the editing state.
+       * Retrieves title, notes, and order from input fields, validates them, and updates the notes array.
+       * Persists changes to localStorage and refreshes the display.
+       */
+      function saveOrUpdateNote() {
+          // Get input values from the DOM
+          const title = document.getElementById('titleInput').value;
+          const notesContent = document.getElementById('notesInput').value;
+          const order = parseInt(document.getElementById('orderInput').value) || 0;
+          const saveBtn = document.getElementById('saveBtn');
+          const deleteBtn = document.getElementById('deleteBtn');
+          
+          // Validate that both title and notes are provided
+          if (title && notesContent) {
+              if (editingNoteId) {
+                  // Update existing note
+                  const noteIndex = notes.findIndex(n => n.id === editingNoteId);
+                  notes[noteIndex] = {
+                      ...notes[noteIndex],
+                      title: title,
+                      notes: notesContent,
+                      order: order,
+                      date: new Date().toLocaleString()
+                  };
+                  // Reset editing state
+                  editingNoteId = null;
+                  saveBtn.textContent = 'Save Note';
+                  deleteBtn.style.display = 'none';
+                  isDeleteConfirmed = false;
+                  deleteBtn.textContent = 'Delete';
+                  deleteBtn.classList.remove('confirm');
+              } else {
+                  // Create new note
+                  const note = {
+                      id: Date.now(),
+                      title: title,
+                      notes: notesContent,
+                      order: order,
+                      date: new Date().toLocaleString()
+                  };
+                  notes.push(note);
+              }
+              
+              // Persist notes to localStorage and clear input fields
+              localStorage.setItem('notes', JSON.stringify(notes));
+              document.getElementById('titleInput').value = '';
+              document.getElementById('orderInput').value = '';
+              document.getElementById('notesInput').value = '';
+              displayNotes(notes);
+          }
+      }
+
+      /**
+       * Prepares a note for editing by populating the input fields with its data.
+       * @param {number} id - The ID of the note to edit.
+       */
+      function editNote(id) {
+          console.log('editNote called with id:', id); // Debug log
+          const note = notes.find(n => n.id === id);
+          if (note) {
+              // Populate input fields with note data
+              document.getElementById('titleInput').value = note.title;
+              document.getElementById('orderInput').value = note.order;
+              document.getElementById('notesInput').value = note.notes;
+              editingNoteId = id;
+              // Update UI to reflect editing mode
+              const saveBtn = document.getElementById('saveBtn');
+              const deleteBtn = document.getElementById('deleteBtn');
+              if (!deleteBtn) {
+                  console.error('deleteBtn not found in DOM');
+                  return;
+              }
+              console.log('Setting deleteBtn display to block'); // Debug log
+              saveBtn.textContent = 'Update Note';
+              deleteBtn.style.display = 'block';
+              isDeleteConfirmed = false;
+              deleteBtn.textContent = 'Delete';
+              deleteBtn.classList.remove('confirm');
+          } else {
+              console.warn('Note not found for id:', id);
+          }
+      }
+
+      /**
+       * Deletes the currently edited note after user confirmation.
+       * Requires two clicks: first to confirm, second to delete.
+       */
+      function deleteNote() {
+          const deleteBtn = document.getElementById('deleteBtn');
+          if (!isDeleteConfirmed) {
+              // First click: prompt for confirmation
+              isDeleteConfirmed = true;
+              deleteBtn.textContent = 'Confirm Delete';
+              deleteBtn.classList.add('confirm');
+          } else {
+              // Second click: delete the note
+              if (editingNoteId) {
+                  notes = notes.filter(n => n.id !== editingNoteId);
+                  localStorage.setItem('notes', JSON.stringify(notes));
+                  // Reset editing state and UI
+                  editingNoteId = null;
+                  isDeleteConfirmed = false;
+                  deleteBtn.textContent = 'Delete';
+                  deleteBtn.classList.remove('confirm');
+                  deleteBtn.style.display = 'none';
+                  document.getElementById('titleInput').value = '';
+                  document.getElementById('orderInput').value = '';
+                  document.getElementById('notesInput').value = '';
+                  document.getElementById('saveBtn').textContent = 'Save Note';
+                  displayNotes(notes);
+              }
+          }
+      }
+
+      /**
+       * Updates the order of a note and persists the change.
+       * @param {number} id - The ID of the note to update.
+       * @param {string} newOrder - The new order value as a string.
+       */
+      function updateOrder(id, newOrder) {
+          const noteIndex = notes.findIndex(n => n.id === id);
+          if (noteIndex !== -1) {
+              notes[noteIndex].order = parseInt(newOrder) || 0;
+              localStorage.setItem('notes', JSON.stringify(notes));
+              displayNotes(notes);
+          }
+      }
+
+      /**
+       * Toggles the expanded state of a note's notes.
+       * @param {number} id - The ID of the note to toggle.
+       */
+      function toggleNote(id) {
+          if (openNotes.has(id)) {
+              openNotes.delete(id);
+          } else {
+              openNotes.add(id);
+          }
+          displayNotes(notes);
+      }
+
+      /**
+       * Highlights occurrences of a search term in text by wrapping them in a span.
+       * @param {string} text - The text to search within.
+       * @param {string} searchTerm - The term to highlight.
+       * @returns {string} The text with highlighted search terms.
+       */
+      function highlightText(text, searchTerm) {
+          if (!searchTerm) return text;
+          const regex = new RegExp(`(${searchTerm})`, 'gi');
+          return text.replace(regex, '<span class="highlight">$1</span>');
+      }
+
+      /**
+       * Formats notes by converting URLs to clickable links, newlines to <br> tags,
+       * preserving leading spaces, and applying Markdown-like syntax to HTML for rendering.
+       * @param {string} notesContent - The raw notes text.
+       * @returns {string} The formatted notes as HTML.
+       */
+      function formatNotes(notesContent) {
+          let formatted = notesContent;
+
+          // Preserve leading spaces by converting them to  
+          formatted = formatted.replace(/(^|\n)([ ]+)/g, (match, prefix, spaces) => {
+              const nbspCount = spaces.length;
+              return prefix + ' '.repeat(nbspCount);
+          });
+
+          // Convert URLs to clickable links
+          const urlRegex = /(https?:\/\/[^\s<>"']+)/g;
+          formatted = formatted.replace(urlRegex, function(url) {
+              const safeUrl = url.startsWith('http') ? url : `https://${url}`;
+              return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--steel); text-decoration: underline;">${url}</a>`;
+          });
+
+          // Convert Markdown-like syntax to HTML
+          formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); // Bold
+          formatted = formatted.replace(/\*(.*?)\*/g, '<i>$1</i>'); // Italic
+          formatted = formatted.replace(/__(.*?)__/g, '<u>$1</u>'); // Underline
+          formatted = formatted.replace(/~~(.*?)~~/g, '<s>$1</s>'); // Strikethrough
+          formatted = formatted.replace(/##(.*?)##/g, '<span style="color: #295d8a">$1</span>'); // Text Color
+          formatted = formatted.replace(/\^\^(.*?)\^\^/g, '<span style="background-color: #4A7FB2">$1</span>'); // Highlight
+          formatted = formatted.replace(/---/g, '<hr>'); // Horizontal line
+
+          // Replace newlines with HTML line breaks
+          formatted = formatted.replace(/\n/g, '<br>');
+
+          return formatted;
+      }
+
+      /**
+       * Generates a preview of notes text, either truncated or expanded, with search term highlighting.
+       * @param {string} notesContent - The full notes text.
+       * @param {string} searchTerm - The term to highlight in the preview.
+       * @param {boolean} isOpen - Whether the notes are expanded.
+       * @returns {string} The formatted preview text.
+       */
+      function getPreviewText(notesContent, searchTerm, isOpen) {
+          const maxPreviewLength = 85;
+          const contextLength = 30;
+
+          let formattedNotes = formatNotes(notesContent);
+
+          if (isOpen) {
+              return highlightText(formattedNotes, searchTerm);
+          }
+
+          if (searchTerm) {
+              const lowerNotes = notesContent.toLowerCase();
+              const lowerSearch = searchTerm.toLowerCase();
+              const index = lowerNotes.indexOf(lowerSearch);
+              if (index !== -1) {
+                  // Show context around the search term
+                  const start = Math.max(0, index - contextLength);
+                  const end = Math.min(notesContent.length, index + searchTerm.length + contextLength);
+                  let preview = notesContent.substring(start, end);
+                  if (start > 0) preview = '...' + preview;
+                  if (end < notesContent.length) preview += '...';
+                  return highlightText(formatNotes(preview), searchTerm);
+              }
+          }
+
+          // Truncate notes if too long, adding ellipsis
+          return notesContent.length > maxPreviewLength 
+              ? highlightText(formatNotes(notesContent.substring(0, maxPreviewLength)) + '...', searchTerm) 
+              : highlightText(formattedNotes, searchTerm);
+      }
+
+      /**
+       * Displays a list of notes in the DOM, sorted by order and title, with search highlighting.
+       * @param {Array<Object>} notesToShow - The notes to display (filtered or full list).
+       */
+      function displayNotes(notesToShow) {
+          const container = document.getElementById('notesContainer');
+          const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+          container.innerHTML = '';
+          
+          // Sort notes by order, then by title
+          const sortedNotes = [...notesToShow].sort((a, b) => {
+              if (a.order === b.order) {
+                  return a.title.localeCompare(b.title);
+              }
+              return a.order - b.order;
+          });
+          
+          // Render each note as a DOM element
+          sortedNotes.forEach(note => {
+              const isOpen = openNotes.has(note.id);
+              const noteDiv = document.createElement('div');
+              noteDiv.className = 'note';
+              const highlightedTitle = highlightText(note.title, searchTerm);
+              const previewNotes = getPreviewText(note.notes, searchTerm, isOpen);
+              const showOpenLink = note.notes.length > 85 || (searchTerm && !isOpen);
+
+              noteDiv.innerHTML = `
+                  <h2>${highlightedTitle}</h2>
+                  <p class="notes-preview">${previewNotes}</p>
+                  <div class="note-footer">
+                      <small>Created: ${note.date}</small>
+                      <div class="order-controls">
+                          <input type="number" class="order-input" value="${note.order || 0}" 
+                              onchange="updateOrder(${note.id}, this.value)">
+                          ${showOpenLink ? `<span class="open-link" onclick="toggleNote(${note.id})">${isOpen ? 'Close' : 'Open'}</span>` : ''}
+                          <span class="edit-link" onclick="editNote(${note.id})">Edit</span>
+                      </div>
+                  </div>
+              `;
+              container.appendChild(noteDiv);
+          });
+      }
+
+      /**
+       * Filters notes based on a search term and updates the display.
+       */
+      function searchNotes() {
+          const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+          const filteredNotes = notes.filter(note => 
+              note.title.toLowerCase().includes(searchTerm) || 
+              note.notes.toLowerCase().includes(searchTerm)
+          );
+          displayNotes(filteredNotes);
+      }
+
+      /**
+       * Creates a backup file containing all notes and triggers a download.
+       * The file format includes a custom header followed by JSON data.
+       */
+      function backupData() {
+          const data = {
+              notes: JSON.parse(localStorage.getItem('notes')) || []
+          };
+          
+          // Format the backup content with a header and indented JSON
+          const codexContent = `CODEX-EDOC-BACKUP-v1\n${JSON.stringify(data, null, 2)}`;
+          const blob = new Blob([codexContent], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `notespace_backup_${new Date().toISOString().split('T')[0]}.txt`;
+          a.click();
+          URL.revokeObjectURL(url);
+      }
+
+      /**
+       * Checks if an object is a plain JavaScript object (not an array or null).
+       * @param {any} obj - The object to check.
+       * @returns {boolean} True if the object is plain, false otherwise.
+       */
+      function isPlainObject(obj) {
+          return obj !== null && typeof obj === 'object' && Object.getPrototypeOf(obj) === Object.prototype;
+      }
+
+      /**
+       * Restores notes from a backup file, validates the file, and updates localStorage.
+       * @param {Event} event - The file input change event containing the selected file.
+       */
+      function restoreData(event) {
+          const file = event.target.files[0];
+          const restoreInput = document.getElementById('restoreInput');
+          
+          // Validate file existence
+          if (!file) {
+              alert('Error: No file selected');
+              console.error('No file selected');
+              restoreInput.value = '';
+              return;
+          }
+
+          try {
+              // Validate file extension
+              const validExtensions = ['.codex', '.json', '.txt'];
+              const fileExtension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+              if (!validExtensions.includes(fileExtension)) {
+                  alert('Error: Invalid file type. Please select a .codex, .json, or .txt file.');
+                  console.error('Invalid file extension:', fileExtension);
+                  restoreInput.value = '';
+                  return;
+              }
+
+              // Check for empty file
+              if (file.size === 0) {
+                  alert('Error: File is empty');
+                  console.error('Empty file detected');
+                  restoreInput.value = '';
+                  return;
+              }
+
+              // Enforce file size limit (25MB)
+              if (file.size > 25 * 1024 * 1024) {
+                  alert('Error: File is too large (max 25MB)');
+                  console.error('File size too large:', file.size);
+                  restoreInput.value = '';
+                  return;
+              }
+          } catch (error) {
+              alert('Error: Failed to validate file properties');
+              console.error('File validation error:', error.message, error.stack);
+              restoreInput.value = '';
+              return;
+          }
+
+          // Read the file content
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              try {
+                  let content = e.target.result;
+                  // Remove BOM (Byte Order Mark) and trim whitespace
+                  content = content.replace(/^\uFEFF/, '').trim();
+                  if (!content) {
+                      alert('Error: File is empty or contains only whitespace');
+                      console.error('Empty or whitespace-only content');
+                      restoreInput.value = '';
+                      return;
+                  }
+
+                  let data;
+                  const isCodex = content.startsWith('CODEX-EDOC-BACKUP-v1');
+                  let jsonContent;
+
+                  // Parse content based on file format
+                  if (isCodex) {
+                      const lines = content.split('\n');
+                      if (lines[0].trim() !== 'CODEX-EDOC-BACKUP-v1') {
+                          throw new Error('Invalid .codex file header');
+                      }
+                      jsonContent = lines.slice(1).join('\n').trim();
+                      if (!jsonContent) {
+                          throw new Error('No JSON data found after header');
+                      }
+                  } else {
+                      jsonContent = content;
+                  }
+
+                  // Validate JSON structure
+                  if (!jsonContent.startsWith('{') && !jsonContent.startsWith('[')) {
+                      throw new Error('Invalid JSON: Content must start with an object or array');
+                  }
+
+                  // Parse JSON content
+                  try {
+                      data = JSON.parse(jsonContent);
+                  } catch (parseError) {
+                      const match = parseError.message.match(/at position (\d+)/);
+                      const position = match ? parseInt(match[1]) : -1;
+                      let errorContext = '';
+                      if (position >= 0) {
+                          const start = Math.max(0, position - 20);
+                          const end = Math.min(jsonContent.length, position + 20);
+                          errorContext = ` near "${jsonContent.slice(start, end)}"`;
+                      }
+                      throw new Error(`Invalid JSON format: ${parseError.message}${errorContext}`);
+                  }
+
+                  // Validate data structure
+                  if (!isPlainObject(data)) {
+                      throw new Error('Invalid data structure: Root must be an object');
+                  }
+
+                  // Validate notes array and filter invalid entries
+                  const notesData = Array.isArray(data.notes) ? data.notes : [];
+                  const validNotes = notesData.filter(note => {
+                      return isPlainObject(note) &&
+                             typeof note.id === 'number' &&
+                             typeof note.title === 'string' &&
+                             typeof note.notes === 'string' &&
+                             typeof note.date === 'string' &&
+                             (typeof note.order === 'number' || note.order === undefined);
+                  });
+
+                  if (validNotes.length !== notesData.length) {
+                      console.warn('Some notes were invalid and filtered out:', notesData);
+                  }
+
+                  // Update localStorage and refresh display
+                  try {
+                      localStorage.setItem('notes', JSON.stringify(validNotes));
+                      notes.length = 0;
+                      notes.push(...validNotes);
+                      openNotes.clear();
+                      displayNotes(notes);
+                  } catch (error) {
+                      throw new Error(`Failed to apply notes: ${error.message}`);
+                  }
+
+                  // Notify user of success, with a warning if some notes were ignored
+                  if (validNotes.length !== notesData.length) {
+                      alert('Data restored successfully, but some invalid notes were ignored.');
+                  } else {
+                      alert('Data restored successfully!');
+                  }
+              } catch (error) {
+                  // Construct detailed error message based on failure reason
+                  let errorMessage = 'Error restoring data: ';
+                  if (error.message.includes('codex file header')) {
+                      errorMessage += 'Invalid .codex file header. File must start with "CODEX-EDOC-BACKUP-v1".';
+                  } else if (error.message.includes('JSON data found')) {
+                      errorMessage += 'No JSON data found in .codex file after header.';
+                  } else if (error.message.includes('Invalid JSON')) {
+                      errorMessage += `File contains invalid JSON: ${error.message}`;
+                  } else if (error.message.includes('data structure')) {
+                      errorMessage += 'Invalid data format. Expected an array for notes.';
+                  } else if (error.message.includes('apply notes')) {
+                      errorMessage += `Failed to update notes: ${error.message}`;
+                  } else {
+                      errorMessage += `Unexpected error: ${error.message}`;
+                  }
+                  alert(errorMessage);
+                  console.error('Restore error:', error.message, error.stack);
+              }
+              restoreInput.value = '';
+          };
+          reader.onerror = function() {
+              alert('Error: Failed to read file');
+              console.error('FileReader error');
+              restoreInput.value = '';
+          };
+          reader.readAsText(file);
+      }
+
+      /**
+       * Initializes event listeners for the application when the DOM is fully loaded.
+       */
+      document.addEventListener('DOMContentLoaded', () => {
+          const backupBtn = document.getElementById('backupBtn');
+          const restoreBtn = document.getElementById('restoreBtn');
+          const restoreInput = document.getElementById('restoreInput');
+          const deleteBtn = document.getElementById('deleteBtn');
+
+          if (!deleteBtn) {
+              console.error('deleteBtn not found on page load');
+          } else {
+              console.log('deleteBtn found on page load');
+          }
+
+          // Attach event listeners for backup and restore functionality
+          backupBtn.addEventListener('click', backupData);
+          restoreBtn.addEventListener('click', () => restoreInput.click());
+          restoreInput.addEventListener('change', restoreData);
+      });
+    </script>
     <script>
       /**
        * Ensures notes are displayed after all scripts are loaded.
