@@ -6,12 +6,18 @@
 }*/
 
 /* Global Styles and Variables */
-:root {
+/*:root {
   --dark-blue: #001F47;
   --light-blue: #205791;
   --gold: #ffe786;
   --white: #FFFFFF;
-  --dark-gold: #fdd65e/*#e0a800*/;
+  --dark-gold;
+}*/
+:root {
+  --dark-blue: #192f51;
+  --light-blue: #215690;
+  --green: #8cb43c;
+  --white: #ffffff;
 }
 
 * {
@@ -55,7 +61,7 @@ header .logo-container img {
 header .logo-container div {
   font-size: 1.5rem !important;
   font-weight: normal !important;
-  color: var(--gold);
+  color: var(--green);
 }
 
 header nav {
@@ -143,7 +149,7 @@ header nav a:hover {
 .line-numbers {
   width: 48px !important;
   background-color: var(--light-blue);
-  color: var(--gold);
+  color: var(--green);
   font-family: 'Roboto Mono', monospace !important;
   font-size: 16px !important;
   text-align: right !important;
@@ -174,7 +180,7 @@ header nav a:hover {
   font-family: 'Roboto Mono', monospace !important;
   font-size: 16px !important;
   padding: 10px 15px 10px 60px !important;
-  border: 2px solid var(--gold);
+  border: 2px solid var(--green);
   border-radius: 5px !important;
   resize: none !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
@@ -182,7 +188,7 @@ header nav a:hover {
 }
 
 .code-editor textarea::placeholder {
-  color: var(--dark-gold);
+  color: var(--green);
 }
 
 .buttons {
@@ -195,8 +201,8 @@ header nav a:hover {
 
 .validate-btn, .test-btn, .document-btn {
   background-color: var(--light-blue);
-  color: var(--gold);
-  border: 2px solid var(--gold);
+  color: var(--green);
+  border: 2px solid var(--green);
   padding: 10px 20px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   border-radius: 5px !important;
@@ -234,7 +240,7 @@ header nav a:hover {
 .save-file-input {
   padding: 8px !important;
   font-size: 16px !important;
-  border: 2px solid var(--gold);
+  border: 2px solid var(--green);
   border-radius: 5px !important;
   flex: 0 1 300px !important;
   background-color: var(--dark-blue);
@@ -244,8 +250,8 @@ header nav a:hover {
 
 .save-file-btn {
   background-color: var(--light-blue);
-  color: var(--gold);
-  border: 2px solid var(--gold) !important;
+  color: var(--green);
+  border: 2px solid var(--green) !important;
   padding: 20px 10px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   border-radius: 5px !important;
@@ -275,7 +281,7 @@ header nav a:hover {
   background-color: var(--dark-blue);
   border-radius: 5px !important;
   overflow: hidden !important;
-  border: 2px solid var(--gold);
+  border: 2px solid var(--green);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
@@ -289,7 +295,7 @@ header nav a:hover {
 }
 
 hr {
-  border: 1px solid var(--gold);
+  border: 1px solid var(--green);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
@@ -337,7 +343,7 @@ hr {
   font-size: 2.25rem !important;
   font-weight: bold !important;
   margin-bottom: 1rem !important;
-  color: var(--gold);
+  color: var(--green);
 }
 
 .hero-content p {
@@ -355,7 +361,7 @@ hr {
 }
 
 .hero-content a:hover {
-  background-color: var(--gold);
+  background-color: var(--green);
 }
 
 /* Landing Page Image Section */
@@ -388,7 +394,7 @@ hr {
   font-weight: 700 !important;
   text-align: center !important;
   margin-bottom: 1.5rem !important;
-  color: var(--gold);
+  color: var(--green);
 }
 
 .how-it-works-content {
@@ -422,7 +428,7 @@ hr {
 
 .how-it-works-item i {
   font-size: 2.5rem !important;
-  color: var(--gold);
+  color: var(--green);
   margin-bottom: 1rem !important;
 }
 
@@ -449,7 +455,7 @@ hr {
   font-weight: 700 !important;
   text-align: center !important;
   margin-bottom: 3rem !important;
-  color: var(--gold);
+  color: var(--green);
 }
 
 .curriculum-grid {
@@ -475,7 +481,7 @@ hr {
   font-size: 1.5rem !important;
   font-weight: 600 !important;
   margin-bottom: 1rem !important;
-  color: var(--gold);
+  color: var(--green);
   text-align: center !important;
 }
 
@@ -503,7 +509,7 @@ hr {
   font-weight: 700 !important;
   text-align: center !important;
   margin-bottom: 1rem !important;
-  color: var(--gold);
+  color: var(--green);
 }
 
 .course-section p {
@@ -524,7 +530,7 @@ hr {
 }
 
 .course-section .section h2 {
-  color: var(--gold);
+  color: var(--green);
   margin-top: 0 !important;
   font-size: 1.5rem !important;
   font-weight: 600 !important;
@@ -534,7 +540,7 @@ hr {
   margin: 5px 0 !important;
   padding: 10px !important;
   background: var(--dark-blue);
-  border-left: 4px solid var(--gold);
+  border-left: 4px solid var(--green);
   display: flex;
   align-items: center !important;
   border-radius: 0.375rem !important;
@@ -542,7 +548,7 @@ hr {
 
 .course-section .lesson i {
   margin-right: 10px !important;
-  color: var(--gold);
+  color: var(--green);
 }
 
 .course-section .lesson span {
@@ -550,12 +556,12 @@ hr {
 }
 
 .course-section .lesson a {
-  color: var(--gold);
+  color: var(--green);
   text-decoration: none !important;
 }
 
 .course-section .lesson a:hover {
-  color: var(--dark-gold);
+  color: var(--green);
   text-decoration: underline !important;
 }
 
@@ -578,12 +584,12 @@ hr {
   font-weight: 700 !important;
   text-align: center !important;
   margin-bottom: 1rem !important;
-  color: var(--gold);
+  color: var(--green);
 }
 
 .article-container .course-section {
   font-size: 30px !important;
-  color: var(--gold);
+  color: var(--green);
   text-align: center !important;
   margin-bottom: 0.5rem !important;
   font-weight: bold !important;
@@ -606,7 +612,7 @@ hr {
 .article-container #content h1,
 .article-container #content h2,
 .article-container #content h3 {
-  color: var(--gold);
+  color: var(--green);
   margin: 1.5rem 0 1rem !important;
 }
 
@@ -647,7 +653,7 @@ hr {
 }
 
 .article-container #content blockquote {
-  border-left: 4px solid var(--gold);
+  border-left: 4px solid var(--green);
   padding: 1rem !important;
   margin: 1rem 0 !important;
   background: var(--light-blue);
@@ -669,7 +675,7 @@ hr {
 }
 
 .article-container .error-message {
-  color: var(--gold);
+  color: var(--green);
   text-align: center !important;
   font-style: italic !important;
 }
@@ -686,8 +692,8 @@ hr {
 }
 .quick-check {
     background-color: var(--light-blue);
-    color: var(--gold);
-    border: 2px solid var(--gold);
+    color: var(--green);
+    border: 2px solid var(--green);
     padding: 10px 20px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     border-radius: 5px !important;
@@ -732,7 +738,7 @@ hr {
 
 .arrow-nav {
   padding: 10px !important;
-  background-color: var(--gold);
+  background-color: var(--green);
   color: var(--dark-blue);
   border: none !important;
   border-radius: 0.5rem !important;
@@ -742,7 +748,7 @@ hr {
 }
 
 .arrow-nav:hover {
-  background-color: var(--dark-gold);
+  background-color: var(--green);
   transform: scale(1.1) !important;
 }
 
@@ -779,7 +785,7 @@ footer {
 
 .footer-logo-container div {
   font-size: 1rem !important;
-  color: var(--gold);
+  color: var(--green);
   line-height: 1 !important;
 }
 
@@ -836,8 +842,8 @@ footer {
     padding: 8px 15px;
     font-size: 0.9rem;
     background-color: var(--light-blue);
-    color: var(--gold);
-    border: 2px solid var(--gold);
+    color: var(--green);
+    border: 2px solid var(--green);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     font-weight: bold;
@@ -899,8 +905,8 @@ footer {
     padding: 6px 15px;
     font-size: 0.9rem;
     background-color: var(--light-blue);
-    color: var(--gold);
-    border: 2px solid var(--gold);
+    color: var(--green);
+    border: 2px solid var(--green);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     font-weight: bold;
