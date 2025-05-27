@@ -1,22 +1,7 @@
-/*:root {
-  --dark-blue: #18375a;
-  --light-blue: #1f548f;
-  --green: #8cb43c;
-  --white: #FFFFFF;
-}*/
-
-/* Global Styles and Variables */
-/*:root {
-  --dark-blue: #001F47;
-  --light-blue: #205791;
-  --gold: #ffe786;
-  --white: #FFFFFF;
-  --dark-gold;
-}*/
 :root {
-  --dark-blue: #192f51;
-  --light-blue: #215690;
-  --green: #8cb43c;
+  --dark-blue: #1b4b72;
+  --light-blue: #2270a8;
+  --green: #7fb33f;
   --white: #ffffff;
 }
 
