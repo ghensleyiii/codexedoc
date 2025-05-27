@@ -20,6 +20,10 @@ body {
   flex-direction: column !important;
   margin: 0 !important;
   line-height: 1.6 !important;
+}
+
+/*Make it so imgs cant be downloaded*/
+img {
   pointer-events: none;
 }
 
