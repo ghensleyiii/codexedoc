@@ -46,7 +46,7 @@ img {
 header {
   padding: 1rem 1.5rem !important;
   display: flex;
-  font-family: 'SaxMono', 'RobotoMono', Sans-Serif;
+  font-family: 'SaxMono', monospace !important;
   justify-content: space-between !important;
   align-items: center !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
