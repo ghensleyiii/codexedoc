@@ -330,7 +330,7 @@ hr {
   display: flex;
   align-items: center !important;
   justify-content: center !important;
-  padding: 100px !important;
+  padding: 100px 20px 100px 20px !important;
   background-image: url('gradient.png');
   background-size: cover; /* Scales image to cover element */
   background-position: center; /* Centers image */
