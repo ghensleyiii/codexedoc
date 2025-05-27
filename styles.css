@@ -1,7 +1,14 @@
-:root {
+/*:root {
   --dark-blue: #1b4b72;
   --light-blue: #2270a8;
   --green: #7fb33f;
+  --white: #ffffff;
+}*/
+
+:root {
+  --dark-blue: #132838;
+  --light-blue: #313a4f;
+  --green: #3c8235;
   --white: #ffffff;
 }
 
