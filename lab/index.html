@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mimo Playground with freeCodeCamp Testing</title>
+  <!-- Font Awesome for test result icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Define color scheme and reset styles */
+    :root {
+      --dark-blue: #0a0a23;
+      --light-blue: #1b1b32;
+      --green: #3c8235;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    body {
+      background-color: var(--dark-blue);
+      color: var(--white);
+      font-family: 'Share Tech Mono', monospace !important;
+      min-height: 100vh !important;
+      display: flex;
+      flex-direction: column !important;
+      line-height: 1.6 !important;
+    }
+
+    /* Header styling */
+    header {
+      padding: 1rem 1.5rem !important;
+      display: flex;
+      justify-content: space-between !important;
+      align-items: center !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+    header .logo-container {
+      display: flex;
+      align-items: center !important;
+      gap: 0.75rem !important;
+    }
+
+    header .logo-container div {
+      font-size: 1.5rem !important;
+      color: var(--green);
+    }
+
+    header nav ul {
+      display: flex;
+      gap: 1.5rem !important;
+      list-style: none !important;
+    }
+
+    header nav a {
+      color: var(--white);
+      text-decoration: none !important;
+    }
+
+    header nav a:hover {
+      text-decoration: underline !important;
+    }
+
+    /* Hamburger menu for mobile */
+    .hamburger {
+      display: none;
+      cursor: pointer !important;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 1.5rem !important;
+      height: 0.2rem !important;
+      background: var(--white);
+      margin-bottom: 0.3rem !important;
+    }
+
+    #hamburger-toggle:checked ~ nav {
+      transform: translateY(0) !important;
+      visibility: visible !important;
+    }
+
+    /* Playground layout */
+    #playground {
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+      gap: 10px;
+      max-width: 1200px !important;
+      margin: 20px auto !important;
+      padding: 0 10px !important;
+    }
+
+    #instructions, #code-output {
+      flex: 1;
+      padding: 15px !important;
+      border-radius: 5px !important;
+      background-color: var(--light-blue);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+      overflow-y: auto;
+    }
+
+    #instructions {
+      background-color: var(--dark-blue);
+      color: var(--white);
+    }
+
+    #instructions h2 {
+      color: var(--green);
+      margin-bottom: 1rem !important;
+    }
+
+    #instructions ul {
+      padding-left: 20px !important;
+    }
+
+    #instructions li {
+      margin-bottom: 0.5rem !important;
+    }
+
+    #code-output {
+      display: flex;
+      flex-direction: column;
+      gap: 10px !important;
+    }
+
+    /* Tabbed editor */
+    #tabs {
+      display: flex;
+      gap: 5px !important;
+    }
+
+    .tab {
+      padding: 8px 16px !important;
+      background-color: var(--dark-blue);
+      color: var(--white);
+      border: 2px solid var(--green);
+      border-bottom: none !important;
+      border-radius: 5px 5px 0 0 !important;
+      cursor: pointer;
+      font-size: 14px !important;
+    }
+
+    .tab.active {
+      background-color: var(--light-blue);
+      color: var(--green);
+    }
+
+    .code-editor {
+      display: none;
+      width: 100% !important;
+      height: 300px !important;
+      background: var(--light-blue);
+      font-family: 'Share Tech Mono', monospace !important;
+      font-size: 16px !important;
+      padding: 10px 15px !important;
+      border: 2px solid var(--green);
+      border-radius: 5px !important;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 20px !important;
+      color: var(--white); /* Default color for unhighlighted text */
+    }
+
+    .code-editor.active {
+      display: block;
+    }
+
+    .code-editor[contenteditable]:empty:before {
+      content: attr(data-placeholder);
+      color: var(--green);
+      pointer-events: none;
+    }
+
+    /* Syntax highlighting styles */
+    .keyword, .tag, .function-name, .element {
+      color: var(--green) !important;
+    }
+
+    .symbol {
+      color: var(--dark-blue) !important;
+    }
+
+    .text, .number, .string {
+      color: var(--white) !important;
+    }
+
+    /* Output and test results */
+    #output-container {
+      border: 2px solid var(--green);
+      padding: 10px !important;
+      border-radius: 5px !important;
+      background-color: var(--dark-blue);
+      min-height: 200px !important;
+    }
+
+    #test-results {
+      margin-top: 10px !important;
+      padding: 10px !important;
+      background-color: var(--light-blue);
+      border-radius: 5px !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .pass { color: var(--green); }
+    .fail { color: #f44336; }
+
+    button {
+      background-color: var(--light-blue);
+      color: var(--green);
+      border: 2px solid var(--green);
+      padding: 10px 20px !important;
+      border-radius: 5px !important;
+      font-family: 'Share Tech Mono', monospace !important;
+      font-weight: bold !important;
+      cursor: pointer !important;
+      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2) !important;
+    }
+
+    /* Footer */
+    footer {
+      padding: 20px !important;
+      background-color: var(--dark-blue);
+      border-top: 1px solid rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .footer-content div {
+      font-size: 1rem !important;
+      color: var(--green);
+    }
+
+    /* Responsive design */
+    @media (max-width: 767px) {
+      #playground {
+        flex-direction: column !important;
+      }
+      #instructions, #code-output {
+        height: auto !important;
+      }
+      .code-editor {
+        height: 200px !important;
+        font-size: 14px !important;
+        line-height: 18px !important;
+        padding: 10px 15px !important;
+      }
+      button {
+        padding: 8px 15px !important;
+        font-size: 0.9rem !important;
+      }
+      .hamburger {
+        display: block;
+      }
+      header nav {
+        position: fixed !important;
+        top: 0 !important;
+        right: 0 !important;
+        width: 50% !important;
+        max-width: 12rem !important;
+        background-color: var(--light-blue);
+        transform: translateY(-100%) !important;
+        transition: transform 0.3s ease, visibility 0.3s ease !important;
+        visibility: hidden !important;
+        padding: 1.5rem !important;
+        border-bottom-left-radius: 0.5rem !important;
+        border-bottom-right-radius: 0.5rem !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+      }
+      header nav ul {
+        flex-direction: column !important;
+        gap: 1rem !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with logo and navigation -->
+  <header>
+    <div class="logo-container">
+      <div>Mimo Playground</div>
+    </div>
+    <input type="checkbox" id="hamburger-toggle">
+    <label class="hamburger" for="hamburger-toggle">
+      <div class="lines">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </label>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Help</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main playground section -->
+  <div id="playground">
+    <!-- Instructions panel with project requirements -->
+    <div id="instructions">
+      <h2>Simple Calculator Project</h2>
+      <p>Create a calculator using HTML, CSS, and JavaScript. Your code must meet these requirements:</p>
+      <ul>
+        <li><strong>HTML</strong>: Include elements with IDs: <code>num1</code> (input), <code>num2</code> (input), <code>operation</code> (select), <code>calculate-button</code>, <code>result</code> (div).</li>
+        <li><strong>CSS</strong>: Style inputs, select, button, and result for a clean, responsive layout.</li>
+        <li><strong>JavaScript</strong>:
+          <ul>
+            <li>Define a <code>calculate</code> function to perform the selected operation (+, -, *, /).</li>
+            <li>Handle button click to compute and display the result.</li>
+            <li>Check for invalid inputs (e.g., empty fields, division by zero).</li>
+            <li>Update the <code>result</code> element with the answer or error message.</li>
+          </ul>
+        </li>
+      </ul>
+      <p>Write your code in the tabs below. The output updates as you type. Click "Run Tests" to validate your code.</p>
+    </div>
+
+    <!-- Code editor and output panel -->
+    <div id="code-output">
+      <!-- Tabs for switching between editors -->
+      <div id="tabs">
+        <div class="tab active" data-target="html-editor">HTML</div>
+        <div class="tab" data-target="css-editor">CSS</div>
+        <div class="tab" data-target="js-editor">JavaScript</div>
+      </div>
+      <!-- HTML editor -->
+      <div id="html-editor" class="code-editor active" contenteditable="true" data-placeholder="<!-- Write HTML here -->\n<input type='number' id='num1' placeholder='First number'>\n<input type='number' id='num2' placeholder='Second number'>\n<select id='operation'>\n  <option value='+'>+</option>\n  <option value='-'>-</option>\n  <option value='*'>*</option>\n  <option value='/'>/</option>\n</select>\n<button id='calculate-button'>Calculate</button>\n<div id='result'>Result: </div>"></div>
+      <!-- CSS editor -->
+      <div id="css-editor" class="code-editor" contenteditable="true" data-placeholder="/* Write CSS here */\ninput, select, button {\n  margin: 5px;\n  padding: 8px;\n  border-radius: 4px;\n  border: none;\n}\nbutton {\n  background-color: var(--green);\n  color: var(--white);\n  cursor: pointer;\n}\n#result {\n  margin: 10px;\n  font-size: 16px;\n}"></div>
+      <!-- JavaScript editor -->
+      <div id="js-editor" class="code-editor" contenteditable="true" data-placeholder="// Write JavaScript here\nfunction calculate(num1, num2, op) {\n  // Perform calculation based on operation\n}\n// Add event listener for calculate button"></div>
+      <!-- Run tests button -->
+      <button id="run-tests">Run Tests</button>
+      <!-- Output container -->
+      <div id="output-container">
+        <h3>Calculator Output</h3>
+        <div id="output"></div>
+      </div>
+      <!-- Test results container -->
+      <div id="test-results">
+        <h3>Test Results</h3>
+        <div id="test-output"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div>Mimo Playground © 2025</div>
+    </div>
+  </footer>
+
+  <script>
+    // Syntax highlighting function
+    function highlightSyntax(editor) {
+      let code = editor.textContent.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+      let type = editor.id.split('-')[0]; // html, css, or js
+      let highlighted = '';
+
+      if (type === 'html') {
+        // HTML: Tags and attributes
+        highlighted = code.replace(
+          /(&lt;\/?[\w\s="'-]+&gt;)|([{}[\]();,=+\-*\/&|!?:<>])|(["'].*?["'])|(\d+)|(\w+)/g,
+          (match, tag, symbol, string, number, text) => {
+            if (tag) return `<span class="tag">${tag}</span>`;
+            if (symbol) return `<span class="symbol">${symbol}</span>`;
+            if (string) return `<span class="string">${string}</span>`;
+            if (number) return `<span class="number">${number}</span>`;
+            return `<span class="text">${text}</span>`;
+          }
+        );
+      } else if (type === 'css') {
+        // CSS: Properties, selectors, values
+        highlighted = code.replace(
+          /([^{};:]+)\s*[:{]|([{}[\]();,=+\-*\/&|!?:])|(["'].*?["'])|(\d+\w*)|(\w+)/g,
+          (match, property, symbol, string, number, text) => {
+            if (property) return `<span class="keyword">${property.trim()}</span>`;
+            if (symbol) return `<span class="symbol">${symbol}</span>`;
+            if (string) return `<span class="string">${string}</span>`;
+            if (number) return `<span class="number">${number}</span>`;
+            return `<span class="text">${text}</span>`;
+          }
+        );
+      } else if (type === 'js') {
+        // JavaScript: Keywords, functions, symbols
+        const keywords = ['function', 'let', 'const', 'var', 'if', 'else', 'return', 'switch', 'case', 'break', 'default', 'document', 'getElementById'];
+        const keywordRegex = new RegExp(`\\b(${keywords.join('|')})\\b`, 'g');
+        highlighted = code.replace(
+          keywordRegex,
+          match => `<span class="keyword">${match}</span>`
+        ).replace(
+          /(\b\w+\b)\s*(?=\()|([{}[\]();,=+\-*\/&|!?:])|(["'].*?["'])|(\d+)|(\w+)/g,
+          (match, func, symbol, string, number, text) => {
+            if (func) return `<span class="function-name">${func}</span>`;
+            if (symbol) return `<span class="symbol">${symbol}</span>`;
+            if (string) return `<span class="string">${string}</span>`;
+            if (number) return `<span class="number">${number}</span>`;
+            return `<span class="text">${text}</span>`;
+          }
+        );
+      }
+
+      // Preserve cursor position
+      const selection = window.getSelection();
+      const range = document.createRange();
+      editor.innerHTML = highlighted;
+      if (selection.rangeCount) {
+        range.selectNodeContents(editor);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+
+    // Tab switching logic
+    const tabs = document.querySelectorAll('.tab');
+    const editors = document.querySelectorAll('.code-editor');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        editors.forEach(e => e.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.target).classList.add('active');
+      });
+    });
+
+    // Render output based on user code
+    function renderOutput() {
+      const html = document.getElementById('html-editor').textContent.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+      const css = document.getElementById('css-editor').textContent;
+      const output = document.getElementById('output');
+
+      // Clear previous content
+      output.innerHTML = '';
+
+      // Apply HTML
+      output.innerHTML = html;
+
+      // Apply CSS
+      const style = document.createElement('style');
+      style.textContent = css;
+      output.appendChild(style);
+
+      // Apply JavaScript
+      try {
+        const js = document.getElementById('js-editor').textContent;
+        eval(js); // Note: eval is used for simplicity; production should use a sandbox
+      } catch (error) {
+        console.error('JavaScript error:', error);
+      }
+    }
+
+    // Test suite to validate user code
+    function runTests() {
+      const testOutput = document.getElementById('test-output');
+      let tests = [];
+      let testCount = 0;
+      let passCount = 0;
+
+      // Custom assertion function for tests
+      function assert(condition, message) {
+        testCount++;
+        if (condition) {
+          passCount++;
+          tests.push(`<div class="pass"><i class="fas fa-check"></i> Test ${testCount}: ${message}</div>`);
+        } else {
+          tests.push(`<div class="fail"><i class="fas fa-times"></i> Test ${testCount}: ${message}</div>`);
+        }
+      }
+
+      try {
+        // Render user code before testing
+        renderOutput();
+
+        // Test 1: Check for required HTML elements using regex
+        const htmlCode = document.getElementById('html-editor').textContent;
+        const requiredIds = ['num1', 'num2', 'operation', 'calculate-button', 'result'];
+        let hasAllElements = true;
+        requiredIds.forEach(id => {
+          const regex = new RegExp(`id=["']${id}["']`);
+          if (!regex.test(htmlCode)) hasAllElements = false;
+        });
+        assert(hasAllElements, 'HTML should include all required elements (num1, num2, operation, calculate-button, result)');
+
+        // Test 2: Check if button is styled with a background color
+        const calcButton = document.getElementById('calculate-button');
+        assert(calcButton && getComputedStyle(calcButton).backgroundColor !== 'rgba(0, 0, 0, 0)', 'Calculate button should have a visible background color');
+
+        // Test 3: Check if CSS includes margin for inputs using regex
+        const cssCode = document.getElementById('css-editor').textContent;
+        const marginRegex = /input\s*\{[^}]*margin:[^;]+;/;
+        assert(marginRegex.test(cssCode), 'CSS should include margin for input elements');
+
+        // Test 4: Check if JavaScript defines a calculate function using regex
+        const jsCode = document.getElementById('js-editor').textContent;
+        const calcFuncRegex = /function\s+calculate\s*\(/;
+        assert(calcFuncRegex.test(jsCode), 'JavaScript should define a calculate function');
+
+        // Test 5: Test calculate function for addition
+        let calcFn;
+        eval(`calcFn = function(num1, num2, op) { ${jsCode}; return calculate ? calculate(num1, num2, op) : null; }`);
+        assert(calcFn(5, 3, '+') === 8, 'Calculate function should return 5 + 3 = 8');
+
+        // Test 6: Test calculate function for subtraction
+        assert(calcFn(5, 3, '-') === 2, 'Calculate function should return 5 - 3 = 2');
+
+        // Test 7: Test calculate function for multiplication
+        assert(calcFn(5, 3, '*') === 15, 'Calculate function should return 5 * 3 = 15');
+
+        // Test 8: Test calculate function for division
+        assert(calcFn(6, 2, '/') === 3, 'Calculate function should return 6 / 2 = 3');
+
+        // Test 9: Test division by zero handling
+        assert(calcFn(5, 0, '/') !== Infinity && calcFn(5, 0, '/') !== null, 'Calculate function should handle division by zero');
+
+        // Test 10: Check if calculate button is clickable
+        assert(calcButton && (calcButton.onclick || calcButton.getAttribute('onclick')), 'Calculate button should be clickable');
+
+        // Example tests for customization
+        /*
+        // Example 1: Test for specific HTML attribute with regex
+        const placeholderRegex = /placeholder=["'].*number["']/;
+        assert(placeholderRegex.test(htmlCode), 'At least one input should have a placeholder attribute');
+
+        // Example 2: Test for CSS property with regex
+        const fontRegex = /font-size:\s*[0-9]+px/;
+        assert(fontRegex.test(cssCode), 'CSS should include a font-size property');
+
+        // Example 3: Test for JavaScript variable with regex
+        const varRegex = /let\s+result/;
+        assert(varRegex.test(jsCode), 'JavaScript should define a result variable');
+
+        // Example 4: Test for specific function behavior
+        assert(calcFn(0, 0, '+') === 0, 'Calculate function should return 0 + 0 = 0');
+
+        // How to add custom tests:
+        // 1. Use assert(condition, 'Error message') to check a condition.
+        // 2. Use regex for pattern matching, (e.g., /pattern/) to test code structure.
+        // 3. Access DOM with document.getElementById or querySelector.
+        // 4. Use eval to test functions (wrap in try-catch).
+        // 5. Add tests within the try-catch block.
+        */
+      } catch (error) {
+        tests.push(`<div class="fail"><i class="fas fa-times"></i> Test ${++testCount}: Code execution failed - ${error.message}</div>`);
+      }
+
+      // Display test results with a summary
+      testOutput.innerHTML = tests.join('') + `<div><strong>${passCount}/${testCount} tests passed</strong></div>`;
+    }
+
+    // Event listeners for real-time updates and test running
+    document.getElementById('run-tests').addEventListener('click', () => {
+      renderOutput();
+      runTests();
+    });
+    editors.forEach(editor => {
+      editor.addEventListener('input', () => {
+        highlightSyntax(editor);
+        renderOutput();
+      });
+      // Initial highlight
+      highlightSyntax(editor);
+    });
+
+    // Initial render
+    renderOutput();
+  </script>
+</body>
+</html>
