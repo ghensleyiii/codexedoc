@@ -331,7 +331,7 @@ hr {
   align-items: center !important;
   justify-content: center !important;
   padding: 100px 20px 100px 20px !important;
-  background-image: linear-gradient(to bottom right, #0a0a23, #230a0a, #0a230a);
+  background-image: linear-gradient(to bottom right, #0a0a23, #0a230a, #230a0a);
 }
 
 .hero-content {
