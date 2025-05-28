@@ -29,7 +29,7 @@
 body {
   background-color: var(--dark-blue);
   color: var(--white);
-  font-family: 'Roboto Mono', monospace !important;
+  font-family: 'Share Tech Mono', monospace !important;
   min-height: 100vh !important;
   display: flex;
   flex-direction: column !important;
