@@ -19,8 +19,8 @@
 }
 
 @font-face {
-    font-family: 'SaxMono';
-    src: url('https://www.codexedoc.com/fonts/saxmono.ttf') format('truetype');
+    font-family: 'Share Tech Mono';
+    src: url('https://www.codexedoc.com/fonts/sharetechmono-regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap; /* Optional: improves loading behavior */
@@ -46,7 +46,7 @@ img {
 header {
   padding: 1rem 1.5rem !important;
   display: flex;
-  font-family: 'SaxMono', monospace !important;
+  font-family: 'Share Tech Mono', monospace !important;
   justify-content: space-between !important;
   align-items: center !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
