@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mimo Playground with freeCodeCamp Testing</title>
+  <title>Lab with freeCodeCamp Testing</title>
   <!-- Font Awesome for test result icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
@@ -85,8 +85,8 @@
       visibility: visible !important;
     }
 
-    /* Playground layout */
-    #playground {
+    /* Lab layout */
+    #lab {
       display: flex;
       flex-direction: row;
       flex: 1;
@@ -242,7 +242,7 @@
 
     /* Responsive design */
     @media (max-width: 767px) {
-      #playground {
+      #lab {
         flex-direction: column !important;
       }
       #instructions, #code-output {
@@ -287,7 +287,7 @@
   <!-- Header with logo and navigation -->
   <header>
     <div class="logo-container">
-      <div>Mimo Playground</div>
+      <div>Lab</div>
     </div>
     <input type="checkbox" id="hamburger-toggle">
     <label class="hamburger" for="hamburger-toggle">
@@ -306,8 +306,8 @@
     </nav>
   </header>
 
-  <!-- Main playground section -->
-  <div id="playground">
+  <!-- Main lab section -->
+  <div id="lab">
     <!-- Instructions panel with project requirements -->
     <div id="instructions">
       <h2>Simple Calculator Project</h2>
@@ -359,21 +359,21 @@
   <!-- Footer -->
   <footer>
     <div class="footer-content">
-      <div>Mimo Playground © 2025</div>
+      <div>Lab © 2025</div>
     </div>
   </footer>
 
   <script>
     // Syntax highlighting function
     function highlightSyntax(editor) {
-      let code = editor.textContent.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+      let code = editor.textContent.replace(/</g, '&lt;').replace(/>/g, '&gt;');
       let type = editor.id.split('-')[0]; // html, css, or js
       let highlighted = '';
 
       if (type === 'html') {
         // HTML: Tags and attributes
         highlighted = code.replace(
-          /(&lt;\/?[\w\s="'-]+&gt;)|([{}[\]();,=+\-*\/&|!?:<>])|(["'].*?["'])|(\d+)|(\w+)/g,
+          /(<\/?[\w\s="'-]+>)|([{}[\]();,=+\-*\/&|!?:<>])|(["'].*?["'])|(\d+)|(\w+)/g,
           (match, tag, symbol, string, number, text) => {
             if (tag) return `<span class="tag">${tag}</span>`;
             if (symbol) return `<span class="symbol">${symbol}</span>`;
