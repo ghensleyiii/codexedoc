@@ -198,6 +198,7 @@ header nav a:hover {
 }
 
 .buttons {
+  font-family: 'Share Tech Mono', monospace !important;
   margin: 20px auto !important;
   display: flex;
   justify-content: center !important;
@@ -212,6 +213,7 @@ header nav a:hover {
   padding: 10px 20px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   border-radius: 5px !important;
+  font-family: 'Share Tech Mono', monospace !important;
   font-weight: bold !important;
   cursor: pointer !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease !important;
