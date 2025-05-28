@@ -331,10 +331,7 @@ hr {
   align-items: center !important;
   justify-content: center !important;
   padding: 100px 20px 100px 20px !important;
-  background-image: url('gradient.png');
-  background-size: cover; /* Scales image to cover element */
-  background-position: center; /* Centers image */
-  background-repeat: no-repeat; /* Prevents repeating */
+  background-image: linear-gradient(to bottom right, #0a0a23, #230a0a, #0a230a);
 }
 
 .hero-content {
