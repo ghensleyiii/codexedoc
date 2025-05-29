@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Code Playground</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+
+    header {
+      background: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .tab-bar {
+      display: flex;
+      flex-wrap: wrap;
+      background: #444;
+      padding: 0.5rem;
+    }
+
+    .tab {
+      background: #666;
+      color: white;
+      padding: 6px 12px;
+      margin-right: 5px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: #2196F3;
+    }
+
+    .tab .close {
+      margin-left: 8px;
+      color: #eee;
+      cursor: pointer;
+    }
+
+    .toolbar {
+      padding: 1rem;
+      background: #eee;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    #editor {
+      height: 400px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 250px;
+      border: none;
+      background: white;
+    }
+
+    input[type="text"] {
+      padding: 4px 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Code Playground</h1>
+  </header>
+
+  <div class="toolbar">
+    <input type="text" id="newFileName" placeholder="filename.ext">
+    <button onclick="addTab()">Add Tab</button>
+    <button onclick="runCode()">Run</button>
+    <button onclick="downloadCode()">Download</button>
+    <input type="file" id="fileInput" />
+  </div>
+
+  <div class="tab-bar" id="tabBar"></div>
+
+  <textarea id="editor"></textarea>
+
+  <h3 style="margin-left: 1rem;">Live Preview:</h3>
+  <iframe id="preview"></iframe>
+
+  <!-- CodeMirror -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+
+  <script>
+    const editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+      lineNumbers: true,
+      mode: "htmlmixed",
+      theme: "default"
+    });
+
+    const tabBar = document.getElementById("tabBar");
+    const fileInput = document.getElementById("fileInput");
+
+    let tabs = {};
+    let currentTab = null;
+
+    const getModeFromExtension = (filename) => {
+      if (filename.endsWith(".html")) return "htmlmixed";
+      if (filename.endsWith(".js")) return "javascript";
+      if (filename.endsWith(".css")) return "css";
+      return "text/plain";
+    };
+
+    function addTab() {
+      const name = document.getElementById("newFileName").value.trim();
+      if (!name || tabs[name]) return alert("Invalid or duplicate filename.");
+      tabs[name] = localStorage.getItem(`file-${name}`) || "";
+      const btn = document.createElement("div");
+      btn.className = "tab";
+      btn.innerHTML = `${name} <span class="close" onclick="removeTab('${name}')">×</span>`;
+      btn.onclick = () => switchTab(name);
+      tabBar.appendChild(btn);
+      document.getElementById("newFileName").value = "";
+      switchTab(name);
+    }
+
+    function removeTab(name) {
+      if (confirm(`Remove tab "${name}"?`)) {
+        if (currentTab === name) currentTab = null;
+        localStorage.removeItem(`file-${name}`);
+        tabs[name] = null;
+        delete tabs[name];
+        [...tabBar.children].forEach(tab => {
+          if (tab.textContent.includes(name)) tab.remove();
+        });
+        editor.setValue("");
+      }
+    }
+
+    function switchTab(name) {
+      if (currentTab) saveCurrentTab();
+      currentTab = name;
+      [...tabBar.children].forEach(tab => {
+        tab.classList.toggle("active", tab.textContent.includes(name));
+      });
+      editor.setOption("mode", getModeFromExtension(name));
+      editor.setValue(tabs[name]);
+    }
+
+    function saveCurrentTab() {
+      if (currentTab) {
+        const val = editor.getValue();
+        tabs[currentTab] = val;
+        localStorage.setItem(`file-${currentTab}`, val);
+      }
+    }
+
+    function runCode() {
+      saveCurrentTab();
+      const html = tabs["index.html"] || "";
+      const css = tabs["style.css"] || "";
+      const js = tabs["script.js"] || "";
+
+      const iframe = document.getElementById("preview");
+      iframe.srcdoc = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>${css}</style>
+        </head>
+        <body>
+          ${html}
+          <script>${js}<\/script>
+        </body>
+        </html>`;
+    }
+
+    function downloadCode() {
+      if (!currentTab) return;
+      const blob = new Blob([editor.getValue()], { type: "text/plain" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = currentTab;
+      a.click();
+    }
+
+    fileInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById("newFileName").value = file.name;
+        addTab();
+        editor.setValue(e.target.result);
+      };
+      reader.readAsText(file);
+    });
+
+    window.addEventListener("beforeunload", () => saveCurrentTab());
+  </script>
+</body>
+</html>
