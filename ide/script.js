@@ -534,6 +534,35 @@ function clearEditorCode() {
 const clearCodeBtn = document.querySelector('#clear-code');
 clearCodeBtn.addEventListener('click', clearEditorCode);
 
+/* Download all files as ZIP */
+function downloadAllFiles() {
+  if (Object.keys(files).length === 0) {
+    appendToConsole('Error: No files to download', 'red');
+    return;
+  }
+  if (confirm('Are you sure you want to download all files as a ZIP?')) {
+    const zip = new JSZip();
+    Object.keys(files).forEach(filename => {
+      zip.file(filename, files[filename].content);
+    });
+    zip.generateAsync({ type: 'blob' }).then(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'project-files.zip';
+      a.click();
+      URL.revokeObjectURL(url);
+      appendToConsole('All files downloaded as project-files.zip', 'green');
+    }).catch(err => {
+      appendToConsole(`Error creating ZIP: ${err.message}`, 'red');
+    });
+  }
+}
+
+/* Download all files button */
+const downloadAllBtn = document.querySelector('#download-all');
+downloadAllBtn.addEventListener('click', downloadAllFiles);
+
 /* DOM elements */
 const tabs = document.querySelector('.tabs');
 const addFileBtn = document.querySelector('#add-file');
