@@ -103,11 +103,12 @@ function isValidJavaScript(code) {
 function addTab(filename) {
   const tab = document.createElement('div');
   tab.className = 'tab';
-  tab.innerHTML = `<i class="fa-solid fa-check"></i> ${filename} <i class="fa-solid fa-x"></i>`;
+  tab.innerHTML = `<i class="fa-solid fa-check" data-action="save"></i> ${filename} <i class="fa-solid fa-x" data-action="delete"></i>`;
   tab.addEventListener('click', (e) => {
-    if (e.target.dataset.action === 'save') {
+    const action = e.target.dataset.action;
+    if (action === 'save') {
       saveFile(filename);
-    } else if (e.target.dataset.action === 'delete') {
+    } else if (action === 'delete') {
       if (confirm(`Are you sure you want to delete ${filename}?`)) {
         deleteFile(filename);
       }
@@ -294,7 +295,7 @@ function openConsoleWindow() {
               const command = input.value.trim();
               const outputDiv = document.querySelector('.console-output');
               const commandDiv = document.createElement('div');
-              commandDiv.textContent = \`> \${command}\`;
+              commandDiv.textContent = `> ${command}`;
               commandDiv.style.color = '#3c8235';
               outputDiv.appendChild(commandDiv);
               try {
@@ -305,7 +306,7 @@ function openConsoleWindow() {
               } catch (mathErr) {
                 const result = window.safeEval(command);
                 if (result && result.error) {
-                  console.log(\`JavaScript Error: \${result.error}\`);
+                  console.log(`JavaScript Error: ${result.error}`);
                 } else {
                   console.log(String(result));
                 }
@@ -420,6 +421,7 @@ function deleteFile(filename) {
       updateStatusBar();
     }
     saveFilesToStorage();
+    appendToConsole(`File "${filename}" deleted successfully`, 'green');
   }
 }
 
@@ -435,7 +437,7 @@ function saveFile(filename) {
     a.click();
     URL.revokeObjectURL(url);
     saveFilesToStorage();
-    appendToConsole('File saved', 'green');
+    appendToConsole(`File "${filename}" saved successfully`, 'green');
   } else {
     appendToConsole('Error: No file selected', 'red');
   }
