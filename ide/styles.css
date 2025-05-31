@@ -135,7 +135,7 @@ body {
   flex: 1 !important;
   background-color: var(--dark-blue);
   padding: 10px !important;
-  overflow-y: auto !important; /* Enable editor scrolling */
+  overflow-y: auto !important; /* Ensure editor scrolling */
   -webkit-overflow-scrolling: touch !important;
 }
 
@@ -161,8 +161,8 @@ body {
   flex: 1 !important;
   background-color: var(--light-blue);
   padding: 10px !important;
-  overflow-y: auto !important; /* Enable output scrolling */
-  -webkit-overflow-scrolling: touch !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
   border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
   position: relative !important;
 }
@@ -200,8 +200,8 @@ body {
   height: 150px !important;
   background-color: var(--light-blue);
   padding: 10px !important;
-  overflow-y: auto !important; /* Ensure console scrolling */
-  -webkit-overflow-scrolling: touch !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
   position: relative !important;
 }
 
@@ -255,6 +255,15 @@ body {
 .output::-webkit-scrollbar-thumb:hover,
 .console::-webkit-scrollbar-thumb:hover {
   background: var(--light-blue) !important;
+}
+
+/* Firefox scrollbar styles */
+.file-tree-container,
+.editor,
+.output,
+.console {
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--green) var(--dark-blue) !important;
 }
 
 @media (max-width: 768px) {
