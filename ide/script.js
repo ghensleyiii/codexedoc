@@ -1,30 +1,31 @@
-// Global state
+/* Global state */
 let files = {};
 let currentFile = null;
 let editor = null;
 let pyodide = null;
-let pyodideReady = false;
+let pyodideActive = false;
+let pyodideInitialized = false; // New flag to track Pyodide initialization
+let consoleWindow = null;
+let debounceTimeout = null;
+let consoleMessageQueue = [];
 
-// Initialize Pyodide
-async function loadPyodideAndRun() {
+/* Initialize Pyodide */
+async function initializePyodide() {
+  if (pyodideInitialized) return; // Prevent multiple initializations
   try {
     pyodide = await loadPyodide();
-    pyodideReady = true;
-    const outputDiv = document.createElement('div');
-    outputDiv.textContent = 'Pyodide loaded';
-    document.querySelector('.console').insertBefore(outputDiv, document.querySelector('.console input'));
+    pyodideActive = true;
+    pyodideInitialized = true;
+    appendToConsole('Pyodide initialized', 'green');
   } catch (err) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = `Failed to load Pyodide: ${err.message}`;
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
+    appendToConsole(`Error loading Pyodide: ${err.message}`, 'red');
   }
 }
-loadPyodideAndRun();
+initializePyodide();
 
-// Initialize CodeMirror
-const textarea = document.querySelector('.editor textarea');
-editor = CodeMirror.fromTextArea(textarea, {
+/* Initialize CodeMirror */
+const editorTextArea = document.querySelector('.editor textarea');
+editor = CodeMirror.fromTextArea(editorTextArea, {
   lineNumbers: true,
   theme: 'monokai',
   tabSize: 2,
@@ -36,7 +37,7 @@ editor = CodeMirror.fromTextArea(textarea, {
   viewportMargin: Infinity
 });
 
-// Ensure CodeMirror modes are loaded
+/* Ensure CodeMirror modes are loaded */
 function loadCodeMirrorMode(mode, callback) {
   if (CodeMirror.modes[mode]) {
     callback();
@@ -46,7 +47,7 @@ function loadCodeMirrorMode(mode, callback) {
   }
 }
 
-// Load file into editor
+/* Load file into editor */
 function loadFile(filename) {
   currentFile = filename;
   const modes = {
@@ -66,11 +67,10 @@ function loadFile(filename) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   const tab = Array.from(document.querySelectorAll('.tab')).find(t => t.textContent.includes(filename));
   if (tab) tab.classList.add('active');
-  updateOutput();
   updateStatusBar();
 }
 
-// Load files from local storage
+/* Load files from local storage */
 function loadFilesFromStorage() {
   const storedFiles = localStorage.getItem('codeIDEFiles');
   if (storedFiles) {
@@ -84,12 +84,12 @@ function loadFilesFromStorage() {
   }
 }
 
-// Save files to local storage
+/* Save files to local storage */
 function saveFilesToStorage() {
   localStorage.setItem('codeIDEFiles', JSON.stringify(files));
 }
 
-// Validate JavaScript code
+/* Validate JavaScript code */
 function isValidJavaScript(code) {
   try {
     new Function(code);
@@ -99,11 +99,11 @@ function isValidJavaScript(code) {
   }
 }
 
-// Add tab
+/* Add tab */
 function addTab(filename) {
   const tab = document.createElement('div');
   tab.className = 'tab';
-  tab.innerHTML = `<i class="fa-solid fa-check" data-action="save"></i> ${filename} <i class="fa-solid fa-xmark" data-action="delete"></i>`;
+  tab.innerHTML = ` ${filename} `;
   tab.addEventListener('click', (e) => {
     if (e.target.dataset.action === 'save') {
       saveFile(filename);
@@ -118,36 +118,7 @@ function addTab(filename) {
   tabs.insertBefore(tab, document.querySelector('#add-file'));
 }
 
-// Update output
-function updateOutput() {
-  const htmlFile = Object.keys(files).find(f => f.endsWith('.html'));
-  const cssFile = Object.keys(files).find(f => f.endsWith('.css'));
-  const jsFile = Object.keys(files).find(f => f.endsWith('.js'));
-  const html = files[htmlFile]?.content || '';
-  const css = files[cssFile]?.content || '';
-  const js = files[jsFile]?.content || '';
-  
-  if (js && !isValidJavaScript(js)) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = 'Error: Invalid JavaScript in output';
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
-    document.querySelector('.output iframe').srcdoc = '<h1>Invalid JavaScript</h1>';
-    return;
-  }
-
-  const doc = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <style>${css}</style>
-      </head>
-      <body>${html}<script>${js}</script></body>
-    </html>`;
-  document.querySelector('.output iframe').srcdoc = doc;
-}
-
-// Open output in new window
+/* Open output in new window */
 function openOutputInNewWindow() {
   const htmlFile = Object.keys(files).find(f => f.endsWith('.html'));
   const cssFile = Object.keys(files).find(f => f.endsWith('.css'));
@@ -157,65 +128,286 @@ function openOutputInNewWindow() {
   const js = files[jsFile]?.content || '';
 
   if (js && !isValidJavaScript(js)) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = 'Cannot open output: Invalid JavaScript';
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
+    appendToConsole('Cannot open output: Invalid JavaScript', 'red');
     return;
   }
 
   try {
     const newWindow = window.open('', '_blank');
     if (!newWindow) {
-      const errorDiv = document.createElement('div');
-      errorDiv.textContent = 'Error: Popup blocked. Please allow popups for this site.';
-      errorDiv.style.color = 'red';
-      document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
+      appendToConsole('Error: Popup blocked. Please allow popups for this site.', 'red');
       return;
     }
     const doc = `
       <!DOCTYPE html>
       <html>
-        <head>
-          <title>Output Preview</title>
-          <style>${css}</style>
-        </head>
-        <body>${html}<script>${js}</script></body>
-      </html>`;
+      <head>
+        <style>${css}</style>
+      </head>
+      <body>
+        ${html}
+        <script>${js}</script>
+      </body>
+      </html>
+    `;
     newWindow.document.write(doc);
     newWindow.document.close();
   } catch (err) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = `Error opening new window: ${err.message}`;
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
+    appendToConsole(`Error opening new window: ${err.message}`, 'red');
   }
 }
 
-// Run Python code
-async function runPython(code) {
-  if (!pyodideReady) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = 'Error: Pyodide not loaded yet';
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
-    return;
+/* Append message to console window or fallback */
+function appendToConsole(message, color = 'white') {
+  if (consoleWindow && !consoleWindow.closed) {
+    const outputDiv = consoleWindow.document.createElement('div');
+    outputDiv.textContent = message;
+    outputDiv.style.color = color;
+    consoleWindow.document.querySelector('.console-output')?.appendChild(outputDiv);
+    consoleWindow.document.querySelector('.console-output').scrollTop = consoleWindow.document.querySelector('.console-output').scrollHeight;
+  } else {
+    // Only queue unique messages to avoid duplicates
+    if (!consoleMessageQueue.some(item => item.message === message && item.color === color)) {
+      consoleMessageQueue.push({ message, color });
+    }
+    console.log(`Console message queued: ${message} (console window not open)`);
+    const fallbackConsole = document.getElementById('fallback-console');
+    if (fallbackConsole) {
+      fallbackConsole.style.display = 'block';
+      const outputDiv = document.createElement('div');
+      outputDiv.textContent = message;
+      outputDiv.style.color = color;
+      fallbackConsole.appendChild(outputDiv);
+      fallbackConsole.scrollTop = fallbackConsole.scrollHeight;
+    }
+  }
+}
+
+/* Flush queued console messages */
+function flushConsoleQueue() {
+  if (consoleWindow && !consoleWindow.closed) {
+    consoleMessageQueue.forEach(({ message, color }) => {
+      const outputDiv = consoleWindow.document.createElement('div');
+      outputDiv.textContent = message;
+      outputDiv.style.color = color;
+      consoleWindow.document.querySelector('.console-output')?.appendChild(outputDiv);
+    });
+    consoleWindow.document.querySelector('.console-output').scrollTop = consoleWindow.document.querySelector('.console-output').scrollHeight;
+    consoleMessageQueue = []; // Clear queue after flushing
+  }
+}
+
+/* Open console in new window */
+function openConsoleWindow() {
+  if (consoleWindow && !consoleWindow.closed) {
+    consoleWindow.focus();
+    flushConsoleQueue();
+    return true;
   }
   try {
-    const output = await pyodide.runPythonAsync(code);
-    const outputDiv = document.createElement('div');
-    outputDiv.textContent = output !== undefined ? String(output) : '';
-    document.querySelector('.console').insertBefore(outputDiv, document.querySelector('.console input'));
+    consoleWindow = window.open('', 'consoleWindow', 'width=600,height=400');
+    if (!consoleWindow) {
+      // Display popup blocked message in fallback console only, not queued
+      const fallbackConsole = document.getElementById('fallback-console');
+      if (fallbackConsole) {
+        fallbackConsole.style.display = 'block';
+        const outputDiv = document.createElement('div');
+        outputDiv.textContent = 'Error: Popup blocked. Please allow popups for this site in your browser settings and click the console button again.';
+        outputDiv.style.color = 'red';
+        fallbackConsole.appendChild(outputDiv);
+        fallbackConsole.scrollTop = fallbackConsole.scrollHeight;
+      }
+      return false;
+    }
+    const consoleDoc = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Console</title>
+        <style>
+          body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: #0a0a23;
+            color: #ffffff;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+          }
+          .console-output {
+            background-color: #1b1b32;
+            padding: 10px;
+            flex: 1;
+            overflow-y: auto;
+            border: 2px solid #3c8235;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+          }
+          .console-input {
+            width: 100%;
+            padding: 8px;
+            background-color: #1b1b32;
+            border: 2px solid #3c8235;
+            color: #ffffff;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+          }
+          .console-input:focus {
+            outline: none;
+            border-color: #ffffff;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="console-output"></div>
+        <input type="text" class="console-input" placeholder="Enter command...">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js"></script>
+        <script>
+          window.safeEval = function(code) {
+            try {
+              return eval(code);
+            } catch (err) {
+              return { error: err.message };
+            }
+          };
+          (function() {
+            const originalConsoleLog = console.log;
+            console.log = function(...args) {
+              const outputDiv = document.querySelector('.console-output');
+              if (outputDiv) {
+                const message = args.map(arg => String(arg)).join(' ');
+                const div = document.createElement('div');
+                div.textContent = message;
+                div.style.color = 'white';
+                outputDiv.appendChild(div);
+                outputDiv.scrollTop = outputDiv.scrollHeight;
+              }
+              originalConsoleLog.apply(console, args);
+            };
+          })();
+          const input = document.querySelector('.console-input');
+          input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && input.value.trim()) {
+              const command = input.value.trim();
+              const outputDiv = document.querySelector('.console-output');
+              const commandDiv = document.createElement('div');
+              commandDiv.textContent = \`> \${command}\`;
+              commandDiv.style.color = '#3c8235';
+              outputDiv.appendChild(commandDiv);
+              try {
+                const mathResult = window.math.evaluate(command);
+                if (mathResult !== undefined) {
+                  console.log(String(mathResult));
+                }
+              } catch (mathErr) {
+                const result = window.safeEval(command);
+                if (result && result.error) {
+                  console.log(\`JavaScript Error: \${result.error}\`);
+                } else {
+                  console.log(String(result));
+                }
+              }
+              outputDiv.scrollTop = outputDiv.scrollHeight;
+              input.value = '';
+            }
+          });
+          // Signal that console is ready
+          window.consoleReady = true;
+        </script>
+      </body>
+      </html>
+    `;
+    consoleWindow.document.write(consoleDoc);
+    consoleWindow.document.close();
+    flushConsoleQueue();
+    if (pyodideActive) {
+      appendToConsole('Pyodide initialized', 'green');
+    }
+    console.log('Console window opened successfully');
+    return true;
   } catch (err) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = `Python Error: ${err.message}`;
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
+    appendToConsole(`Error opening console: ${err.message}. Please allow popups and click the console button again.`, 'red');
+    console.error('Console open error:', err);
+    return false;
   }
-  document.querySelector('.console').scrollTop = document.querySelector('.console').scrollHeight;
 }
 
-// Delete file
+/* Run console command */
+function runConsoleCommand(command, safeEval) {
+  if (!command) return;
+  appendToConsole(`> ${command}`);
+  try {
+    if (currentFile && currentFile.endsWith('.py')) {
+      runPython(command);
+    } else {
+      try {
+        const mathResult = consoleWindow.math.evaluate(command);
+        if (mathResult !== undefined) {
+          appendToConsole(String(mathResult));
+          return;
+        }
+      } catch (mathErr) {}
+      const result = safeEval(command);
+      if (result && result.error) {
+        appendToConsole(`JavaScript Error: ${result.error}`, 'red');
+      } else {
+        appendToConsole(String(result));
+      }
+    }
+  } catch (err) {
+    appendToConsole(`Error: ${err.message}`, 'red');
+  }
+}
+
+/* Run JavaScript code from editor */
+function runEditorCode() {
+  console.log('runEditorCode called for file:', currentFile);
+  if (!currentFile) {
+    appendToConsole('Error: No file selected', 'red');
+    return;
+  }
+  if (!currentFile.endsWith('.js')) {
+    appendToConsole(`Info: Auto-run skipped for non-JavaScript file (${currentFile})`, 'yellow');
+    return;
+  }
+  // Automatically open console if not open
+  if (!consoleWindow || consoleWindow.closed) {
+    if (!openConsoleWindow()) {
+      return;
+    }
+  }
+  const code = files[currentFile].content;
+  if (!code.trim()) {
+    appendToConsole('Info: No code to run', 'yellow');
+    return;
+  }
+  if (!isValidJavaScript(code)) {
+    appendToConsole('Error: Invalid JavaScript code', 'red');
+    return;
+  }
+  // Wait for console window to be ready
+  const checkConsoleReady = setInterval(() => {
+    if (consoleWindow.consoleReady) {
+      clearInterval(checkConsoleReady);
+      try {
+        appendToConsole(`Running ${currentFile}...`, 'green');
+        const result = consoleWindow.safeEval(code);
+        if (result && result.error) {
+          appendToConsole(`JavaScript Error: ${result.error}`, 'red');
+        } else {
+          appendToConsole('Run complete', 'green');
+        }
+      } catch (err) {
+        appendToConsole(`JavaScript Error: ${err.message}`, 'red');
+      }
+    }
+  }, 100);
+}
+
+/* Delete file */
 function deleteFile(filename) {
   if (files[filename]) {
     delete files[filename];
@@ -228,11 +420,10 @@ function deleteFile(filename) {
       updateStatusBar();
     }
     saveFilesToStorage();
-    updateOutput();
   }
 }
 
-// Save file
+/* Save file */
 function saveFile(filename) {
   if (filename && files[filename]) {
     files[filename].content = editor.getValue();
@@ -244,23 +435,21 @@ function saveFile(filename) {
     a.click();
     URL.revokeObjectURL(url);
     saveFilesToStorage();
-    alert('File saved');
+    appendToConsole('File saved', 'green');
   } else {
-    alert('No file selected');
+    appendToConsole('Error: No file selected', 'red');
   }
 }
 
-// Update status bar
+/* Update status bar */
 function updateStatusBar() {
   const { line, ch } = editor.getCursor();
   document.querySelector('.status-bar span:first-child').textContent = `Ln ${line + 1}, Col ${ch + 1}`;
   document.querySelector('.status-bar span:last-child').textContent = `UTF-8 | ${files[currentFile]?.type || 'None'} | Spaces: 2`;
 }
 
-// DOM elements
+/* DOM elements */
 const tabs = document.querySelector('.tabs');
-const outputFrame = document.querySelector('.output iframe');
-const consoleInput = document.querySelector('.console input');
 const addFileBtn = document.querySelector('#add-file');
 const fileInput = document.querySelector('#file-import');
 const fileModal = document.querySelector('#file-modal');
@@ -268,35 +457,28 @@ const createNewFileBtn = document.querySelector('#create-new-file');
 const cancelModalBtn = document.querySelector('#cancel-modal');
 const newFileNameInput = document.querySelector('#new-file-name');
 const openOutputBtn = document.querySelector('#open-output');
+const openConsoleBtn = document.querySelector('#open-console');
+const runCodeBtn = document.querySelector('#run-code');
 
-// Show file modal
+/* Show file modal */
 addFileBtn.addEventListener('click', () => {
   fileModal.style.display = 'flex';
 });
 
-// Create new file
+/* Create new file */
 createNewFileBtn.addEventListener('click', () => {
   const filename = newFileNameInput.value.trim();
   if (!filename) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = 'Error: Filename cannot be empty';
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    appendToConsole('Error: Filename cannot be empty', 'red');
     return;
   }
   if (files[filename]) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = `Error: File "${filename}" already exists`;
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    appendToConsole(`Error: File "${filename}" already exists`, 'red');
     return;
   }
   const ext = filename.split('.').pop().toLowerCase();
   if (!['html', 'css', 'js', 'py', 'txt'].includes(ext)) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = `Error: Unsupported file type ".${ext}"`;
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    appendToConsole(`Error: Unsupported file type ".${ext}"`, 'red');
     return;
   }
   files[filename] = { content: '', type: ext };
@@ -305,42 +487,31 @@ createNewFileBtn.addEventListener('click', () => {
   saveFilesToStorage();
   fileModal.style.display = 'none';
   newFileNameInput.value = '';
-  const successDiv = document.createElement('div');
-  successDiv.textContent = `File "${filename}" created successfully`;
-  document.querySelector('.console').insertBefore(successDiv, consoleInput);
+  appendToConsole(`File "${filename}" created successfully`, 'green');
 });
 
-// Cancel modal
+/* Cancel modal */
 cancelModalBtn.addEventListener('click', () => {
   fileModal.style.display = 'none';
   newFileNameInput.value = '';
 });
 
-// File import
+/* File import */
 fileInput.addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (!file) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = 'Error: No file selected';
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    appendToConsole('Error: No file selected', 'red');
     return;
   }
   const filename = file.name;
   const ext = filename.split('.').pop().toLowerCase();
   if (!['html', 'css', 'js', 'py', 'txt'].includes(ext)) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = `Error: Unsupported file type ".${ext}"`;
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    appendToConsole(`Error: Unsupported file type ".${ext}"`, 'red');
     e.target.value = '';
     return;
   }
   if (files[filename]) {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = `Error: File "${filename}" already exists`;
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    appendToConsole(`Error: File "${filename}" already exists`, 'red');
     e.target.value = '';
     return;
   }
@@ -352,76 +523,52 @@ fileInput.addEventListener('change', (e) => {
       loadFile(filename);
       saveFilesToStorage();
       fileModal.style.display = 'none';
-      const successDiv = document.createElement('div');
-      successDiv.textContent = `File "${filename}" imported successfully`;
-      document.querySelector('.console').insertBefore(successDiv, consoleInput);
+      appendToConsole(`File "${filename}" imported successfully`, 'green');
     } catch (err) {
-      const errorDiv = document.createElement('div');
-      errorDiv.textContent = `Error importing file: ${err.message}`;
-      errorDiv.style.color = 'red';
-      document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+      appendToConsole(`Error importing file: ${err.message}`, 'red');
     }
     e.target.value = '';
   };
   reader.onerror = () => {
-    const errorDiv = document.createElement('div');
-    errorDiv.textContent = 'Error: Failed to read file';
-    errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    appendToConsole('Error: Failed to read file', 'red');
     e.target.value = '';
   };
   reader.readAsText(file);
 });
 
-// Editor changes
+/* Editor changes with auto-run */
 editor.on('change', () => {
+  console.log('Editor change detected');
   if (currentFile && files[currentFile]) {
     files[currentFile].content = editor.getValue();
     saveFilesToStorage();
-    if (currentFile.endsWith('.html') || currentFile.endsWith('.css') || currentFile.endsWith('.js')) {
-      updateOutput();
-    }
+    /* Debounce auto-run */
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+      console.log('Triggering auto-run');
+      runEditorCode();
+    }, 500);
   }
 });
 
-// Cursor tracking
+/* Cursor tracking */
 editor.on('cursorActivity', updateStatusBar);
 
-// Console input
-consoleInput.addEventListener('keydown', async (e) => {
-  if (e.key === 'Enter') {
-    const command = e.target.value.trim();
-    if (!command) return;
-    const outputDiv = document.createElement('div');
-    outputDiv.textContent = `> ${command}`;
-    document.querySelector('.console').insertBefore(outputDiv, e.target);
-    try {
-      if (currentFile && currentFile.endsWith('.js') && isValidJavaScript(command)) {
-        const result = eval(command);
-        const resultDiv = document.createElement('div');
-        resultDiv.textContent = result !== undefined ? String(result) : '';
-        document.querySelector('.console').insertBefore(resultDiv, e.target);
-      } else if (currentFile && currentFile.endsWith('.py')) {
-        await runPython(command);
-      } else {
-        const errorDiv = document.createElement('div');
-        errorDiv.textContent = 'Error: No valid file context or invalid command';
-        errorDiv.style.color = 'red';
-        document.querySelector('.console').insertBefore(errorDiv, e.target);
-      }
-    } catch (err) {
-      const errorDiv = document.createElement('div');
-      errorDiv.textContent = `JavaScript Error: ${err.message}`;
-      errorDiv.style.color = 'red';
-      document.querySelector('.console').insertBefore(errorDiv, e.target);
-    }
-    e.target.value = '';
-    document.querySelector('.console').scrollTop = document.querySelector('.console').scrollHeight;
+/* Open output in new window button */
+openOutputBtn.addEventListener('click', openOutputInNewWindow);
+
+/* Open console in new window button */
+openConsoleBtn.addEventListener('click', () => {
+  if (openConsoleWindow()) {
+    appendToConsole('Console opened', 'green');
   }
 });
 
-// Open output in new window button
-openOutputBtn.addEventListener('click', openOutputInNewWindow);
+/* Run code button */
+runCodeBtn.addEventListener('click', () => {
+  console.log('Run button clicked');
+  runEditorCode();
+});
 
-// Initialize files from local storage
+/* Initialize files from local storage */
 loadFilesFromStorage();
