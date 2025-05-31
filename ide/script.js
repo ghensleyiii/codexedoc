@@ -103,7 +103,7 @@ function isValidJavaScript(code) {
 function addTab(filename) {
   const tab = document.createElement('div');
   tab.className = 'tab';
-  tab.innerHTML = ` ${filename} `;
+  tab.innerHTML = `<i class="fa-solid fa-check"></i> ${filename} <i class="fa-solid fa-x"></i>`;
   tab.addEventListener('click', (e) => {
     if (e.target.dataset.action === 'save') {
       saveFile(filename);
