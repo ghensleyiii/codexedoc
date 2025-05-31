@@ -28,20 +28,47 @@ editor = CodeMirror.fromTextArea(textarea, {
   lineNumbers: true,
   theme: 'monokai',
   tabSize: 2,
-  mode: 'text/plain'
+  mode: 'text/plain',
+  lineWrapping: true,
+  matchBrackets: true,
+  autoCloseBrackets: true,
+  styleActiveLine: true,
+  viewportMargin: Infinity
 });
 
-// DOM elements
-const tabs = document.querySelector('.tabs');
-const outputFrame = document.querySelector('.output iframe');
-const consoleInput = document.querySelector('.console input');
-const addFileBtn = document.querySelector('#add-file');
-const fileInput = document.querySelector('#file-import');
-const fileModal = document.querySelector('#file-modal');
-const createNewFileBtn = document.querySelector('#create-new-file');
-const cancelModalBtn = document.querySelector('#cancel-modal');
-const newFileNameInput = document.querySelector('#new-file-name');
-const openOutputBtn = document.querySelector('#open-output');
+// Ensure CodeMirror modes are loaded
+function loadCodeMirrorMode(mode, callback) {
+  if (CodeMirror.modes[mode]) {
+    callback();
+  } else {
+    console.warn(`Mode ${mode} not loaded, using text/plain`);
+    editor.setOption('mode', 'text/plain');
+  }
+}
+
+// Load file into editor
+function loadFile(filename) {
+  currentFile = filename;
+  const modes = {
+    html: 'htmlmixed',
+    css: 'css',
+    js: 'javascript',
+    py: 'python',
+    txt: 'text/plain'
+  };
+  const mode = modes[files[filename].type] || 'text/plain';
+  loadCodeMirrorMode(mode, () => {
+    editor.setOption('mode', mode);
+    editor.setOption('theme', 'monokai');
+    editor.setValue(files[filename].content || '');
+    editor.refresh();
+  });
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  const tab = Array.from(document.querySelectorAll('.tab')).find(t => t.textContent.includes(filename));
+  if (tab) tab.classList.add('active');
+  updateOutput();
+  updateStatusBar();
+}
 
 // Load files from local storage
 function loadFilesFromStorage() {
@@ -88,20 +115,7 @@ function addTab(filename) {
       loadFile(filename);
     }
   });
-  tabs.insertBefore(tab, addFileBtn);
-}
-
-// Load file into editor
-function loadFile(filename) {
-  currentFile = filename;
-  const modes = { html: 'htmlmixed', css: 'css', js: 'javascript', py: 'python', txt: 'text/plain' };
-  editor.setOption('mode', modes[files[filename].type]);
-  editor.setValue(files[filename].content || '');
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  const tab = Array.from(document.querySelectorAll('.tab')).find(t => t.textContent.includes(filename));
-  if (tab) tab.classList.add('active');
-  updateOutput();
-  updateStatusBar();
+  tabs.insertBefore(tab, document.querySelector('#add-file'));
 }
 
 // Update output
@@ -117,8 +131,8 @@ function updateOutput() {
     const errorDiv = document.createElement('div');
     errorDiv.textContent = 'Error: Invalid JavaScript in output';
     errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
-    outputFrame.srcdoc = '<h1>Invalid JavaScript</h1>';
+    document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
+    document.querySelector('.output iframe').srcdoc = '<h1>Invalid JavaScript</h1>';
     return;
   }
 
@@ -130,7 +144,7 @@ function updateOutput() {
       </head>
       <body>${html}<script>${js}</script></body>
     </html>`;
-  outputFrame.srcdoc = doc;
+  document.querySelector('.output iframe').srcdoc = doc;
 }
 
 // Open output in new window
@@ -146,7 +160,7 @@ function openOutputInNewWindow() {
     const errorDiv = document.createElement('div');
     errorDiv.textContent = 'Cannot open output: Invalid JavaScript';
     errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
     return;
   }
 
@@ -156,7 +170,7 @@ function openOutputInNewWindow() {
       const errorDiv = document.createElement('div');
       errorDiv.textContent = 'Error: Popup blocked. Please allow popups for this site.';
       errorDiv.style.color = 'red';
-      document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+      document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
       return;
     }
     const doc = `
@@ -174,7 +188,7 @@ function openOutputInNewWindow() {
     const errorDiv = document.createElement('div');
     errorDiv.textContent = `Error opening new window: ${err.message}`;
     errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
   }
 }
 
@@ -184,19 +198,19 @@ async function runPython(code) {
     const errorDiv = document.createElement('div');
     errorDiv.textContent = 'Error: Pyodide not loaded yet';
     errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
     return;
   }
   try {
     const output = await pyodide.runPythonAsync(code);
     const outputDiv = document.createElement('div');
     outputDiv.textContent = output !== undefined ? String(output) : '';
-    document.querySelector('.console').insertBefore(outputDiv, consoleInput);
+    document.querySelector('.console').insertBefore(outputDiv, document.querySelector('.console input'));
   } catch (err) {
     const errorDiv = document.createElement('div');
     errorDiv.textContent = `Python Error: ${err.message}`;
     errorDiv.style.color = 'red';
-    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    document.querySelector('.console').insertBefore(errorDiv, document.querySelector('.console input'));
   }
   document.querySelector('.console').scrollTop = document.querySelector('.console').scrollHeight;
 }
@@ -243,6 +257,18 @@ function updateStatusBar() {
   document.querySelector('.status-bar span:last-child').textContent = `UTF-8 | ${files[currentFile]?.type || 'None'} | Spaces: 2`;
 }
 
+// DOM elements
+const tabs = document.querySelector('.tabs');
+const outputFrame = document.querySelector('.output iframe');
+const consoleInput = document.querySelector('.console input');
+const addFileBtn = document.querySelector('#add-file');
+const fileInput = document.querySelector('#file-import');
+const fileModal = document.querySelector('#file-modal');
+const createNewFileBtn = document.querySelector('#create-new-file');
+const cancelModalBtn = document.querySelector('#cancel-modal');
+const newFileNameInput = document.querySelector('#new-file-name');
+const openOutputBtn = document.querySelector('#open-output');
+
 // Show file modal
 addFileBtn.addEventListener('click', () => {
   fileModal.style.display = 'flex';
@@ -251,21 +277,37 @@ addFileBtn.addEventListener('click', () => {
 // Create new file
 createNewFileBtn.addEventListener('click', () => {
   const filename = newFileNameInput.value.trim();
-  if (filename && !files[filename]) {
-    const ext = filename.split('.').pop().toLowerCase();
-    if (['html', 'css', 'js', 'py', 'txt'].includes(ext)) {
-      files[filename] = { content: '', type: ext };
-      addTab(filename);
-      loadFile(filename);
-      saveFilesToStorage();
-      fileModal.style.display = 'none';
-      newFileNameInput.value = '';
-    } else {
-      alert('Unsupported file type');
-    }
-  } else {
-    alert('Invalid or duplicate filename');
+  if (!filename) {
+    const errorDiv = document.createElement('div');
+    errorDiv.textContent = 'Error: Filename cannot be empty';
+    errorDiv.style.color = 'red';
+    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    return;
   }
+  if (files[filename]) {
+    const errorDiv = document.createElement('div');
+    errorDiv.textContent = `Error: File "${filename}" already exists`;
+    errorDiv.style.color = 'red';
+    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    return;
+  }
+  const ext = filename.split('.').pop().toLowerCase();
+  if (!['html', 'css', 'js', 'py', 'txt'].includes(ext)) {
+    const errorDiv = document.createElement('div');
+    errorDiv.textContent = `Error: Unsupported file type ".${ext}"`;
+    errorDiv.style.color = 'red';
+    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    return;
+  }
+  files[filename] = { content: '', type: ext };
+  addTab(filename);
+  loadFile(filename);
+  saveFilesToStorage();
+  fileModal.style.display = 'none';
+  newFileNameInput.value = '';
+  const successDiv = document.createElement('div');
+  successDiv.textContent = `File "${filename}" created successfully`;
+  document.querySelector('.console').insertBefore(successDiv, consoleInput);
 });
 
 // Cancel modal
@@ -277,23 +319,58 @@ cancelModalBtn.addEventListener('click', () => {
 // File import
 fileInput.addEventListener('change', (e) => {
   const file = e.target.files[0];
-  if (!file) return;
+  if (!file) {
+    const errorDiv = document.createElement('div');
+    errorDiv.textContent = 'Error: No file selected';
+    errorDiv.style.color = 'red';
+    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    return;
+  }
+  const filename = file.name;
+  const ext = filename.split('.').pop().toLowerCase();
+  if (!['html', 'css', 'js', 'py', 'txt'].includes(ext)) {
+    const errorDiv = document.createElement('div');
+    errorDiv.textContent = `Error: Unsupported file type ".${ext}"`;
+    errorDiv.style.color = 'red';
+    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    e.target.value = '';
+    return;
+  }
+  if (files[filename]) {
+    const errorDiv = document.createElement('div');
+    errorDiv.textContent = `Error: File "${filename}" already exists`;
+    errorDiv.style.color = 'red';
+    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    e.target.value = '';
+    return;
+  }
   const reader = new FileReader();
   reader.onload = (e) => {
-    const filename = file.name;
-    const ext = filename.split('.').pop().toLowerCase();
-    if (['html', 'css', 'js', 'py', 'txt'].includes(ext)) {
+    try {
       files[filename] = { content: e.target.result, type: ext };
       addTab(filename);
       loadFile(filename);
       saveFilesToStorage();
       fileModal.style.display = 'none';
-    } else {
-      alert('Unsupported file type');
+      const successDiv = document.createElement('div');
+      successDiv.textContent = `File "${filename}" imported successfully`;
+      document.querySelector('.console').insertBefore(successDiv, consoleInput);
+    } catch (err) {
+      const errorDiv = document.createElement('div');
+      errorDiv.textContent = `Error importing file: ${err.message}`;
+      errorDiv.style.color = 'red';
+      document.querySelector('.console').insertBefore(errorDiv, consoleInput);
     }
+    e.target.value = '';
+  };
+  reader.onerror = () => {
+    const errorDiv = document.createElement('div');
+    errorDiv.textContent = 'Error: Failed to read file';
+    errorDiv.style.color = 'red';
+    document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+    e.target.value = '';
   };
   reader.readAsText(file);
-  e.target.value = '';
 });
 
 // Editor changes
@@ -313,32 +390,32 @@ editor.on('cursorActivity', updateStatusBar);
 // Console input
 consoleInput.addEventListener('keydown', async (e) => {
   if (e.key === 'Enter') {
-    const command = consoleInput.value.trim();
+    const command = e.target.value.trim();
     if (!command) return;
     const outputDiv = document.createElement('div');
     outputDiv.textContent = `> ${command}`;
-    document.querySelector('.console').insertBefore(outputDiv, consoleInput);
+    document.querySelector('.console').insertBefore(outputDiv, e.target);
     try {
       if (currentFile && currentFile.endsWith('.js') && isValidJavaScript(command)) {
         const result = eval(command);
         const resultDiv = document.createElement('div');
         resultDiv.textContent = result !== undefined ? String(result) : '';
-        document.querySelector('.console').insertBefore(resultDiv, consoleInput);
+        document.querySelector('.console').insertBefore(resultDiv, e.target);
       } else if (currentFile && currentFile.endsWith('.py')) {
         await runPython(command);
       } else {
         const errorDiv = document.createElement('div');
         errorDiv.textContent = 'Error: No valid file context or invalid command';
         errorDiv.style.color = 'red';
-        document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+        document.querySelector('.console').insertBefore(errorDiv, e.target);
       }
     } catch (err) {
       const errorDiv = document.createElement('div');
       errorDiv.textContent = `JavaScript Error: ${err.message}`;
       errorDiv.style.color = 'red';
-      document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+      document.querySelector('.console').insertBefore(errorDiv, e.target);
     }
-    consoleInput.value = '';
+    e.target.value = '';
     document.querySelector('.console').scrollTop = document.querySelector('.console').scrollHeight;
   }
 });
