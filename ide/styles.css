@@ -5,6 +5,12 @@
   --white: #ffffff;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 @font-face {
   font-family: 'Share Tech Mono';
   src: url('https://www.codexedoc.com/fonts/ShareTechMono-Regular.ttf') format('truetype');
@@ -13,66 +19,62 @@
   font-display: swap;
 }
 
-* {
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
-}
-
 body {
-  font-family: 'Share Tech Mono', monospace !important;
+  font-family: 'Share Tech Mono', monospace;
   background-color: var(--dark-blue);
   color: var(--white);
-  height: 100vh !important;
+  height: 100vh;
   display: flex !important;
-  flex-direction: column !important;
-  overflow-y: auto !important; /* Enable body scrolling on mobile */
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .top-bar {
   background-color: var(--light-blue);
-  padding: 10px !important;
-  display: flex !important;
-  justify-content: flex-start !important;
-  align-items: center !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid var(--green);
 }
 
 .top-bar .logo {
-  font-size: 1.2rem !important;
-  font-weight: bold !important;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--green);
 }
 
 .main-container {
   display: flex !important;
-  flex: 1 !important;
-  height: calc(100vh - 50px) !important;
+  flex: 1;
+  height: calc(100vh - 50px);
 }
 
 .sidebar {
-  width: 200px !important;
+  width: 200px;
   background-color: var(--light-blue);
-  border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
-  padding: 10px !important;
-  display: flex !important;
-  flex-direction: column !important;
+  border-right: 1px solid var(--green);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar .file-actions {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 10px !important;
-  margin-bottom: 10px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .sidebar .file-actions button {
-  padding: 8px !important;
+  padding: 8px;
   background-color: var(--dark-blue);
-  border: 2px solid var(--green) !important;
+  border: 2px solid var(--green);
   color: var(--white);
-  cursor: pointer !important;
-  font-size: 0.9rem !important;
-  text-align: center !important;
+  cursor: pointer;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .sidebar .file-actions button:hover {
@@ -81,19 +83,21 @@ body {
 }
 
 .sidebar .file-tree-container {
-  flex: 1 !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--green) var(--dark-blue);
 }
 
 .sidebar .file-tree {
-  list-style: none !important;
+  list-style: none;
 }
 
 .sidebar .file-tree li {
-  padding: 5px 10px !important;
-  cursor: pointer !important;
-  font-size: 0.9rem !important;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--white);
 }
 
 .sidebar .file-tree li:hover {
@@ -101,94 +105,134 @@ body {
 }
 
 .editor-container {
-  width: 600px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--green);
+  position: relative;
 }
 
 .tabs {
   background-color: var(--light-blue);
-  display: flex !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-  overflow-x: auto !important;
+  display: flex;
+  border-bottom: 1px solid var(--green);
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--green) var(--dark-blue);
 }
 
 .tabs .tab {
-  padding: 10px 15px !important;
-  cursor: pointer !important;
-  background-color: var(--light-blue);
-  border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
-  white-space: nowrap !important;
+  padding: 10px 15px;
+  cursor: pointer;
+  background-color: var(--dark-blue);
+  border-right: 1px solid var(--green);
+  white-space: nowrap;
+  color: var(--white);
 }
 
 .tabs .tab.active {
-  background-color: var(--dark-blue);
+  background-color: var(--light-blue);
   color: var(--green);
 }
 
 .tabs .tab:hover {
+  background-color: var(--green);
+  color: var(--dark-blue);
+}
+
+.code-editor {
+  position: relative;
+  flex: 1;
   background-color: var(--dark-blue);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.line-numbers {
+  width: 48px;
+  background-color: var(--light-blue);
+  color: var(--green);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  text-align: left;
+  user-select: none;
+  line-height: 1.5;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  height: calc(100% - 10px);
+  padding: 10px 10px 10px 5px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.line-numbers pre {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
 }
 
 .editor {
-  flex: 1 !important;
+  flex: 1;
   background-color: var(--dark-blue);
-  padding: 10px !important;
-  overflow-y: auto !important; /* Ensure editor scrolling */
-  -webkit-overflow-scrolling: touch !important;
+  padding: 10px;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--green) var(--dark-blue);
 }
 
 .editor textarea {
-  width: 100% !important;
-  height: 100% !important;
-  background: none !important;
-  border: none !important;
+  width: 100%;
+  height: 100%;
+  background: var(--light-blue);
+  border: 2px solid var(--green);
   color: var(--white);
-  font-family: 'Share Tech Mono', monospace !important;
-  font-size: 0.9rem !important;
-  resize: none !important;
-  outline: none !important;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  padding: 10px 15px 10px 60px;
+  resize: none;
+  outline: none;
+  line-height: 1.5;
+  border-radius: 5px;
 }
 
 .output-console {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .output {
-  flex: 1 !important;
+  flex: 1;
   background-color: var(--light-blue);
-  padding: 10px !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-  position: relative !important;
+  padding: 10px;
+  overflow-y: auto;
+  border-bottom: 1px solid var(--green);
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--green) var(--dark-blue);
 }
 
 .output iframe {
-  width: 100% !important;
-  height: calc(100% - 40px) !important;
-  border: none !important;
+  width: 100%;
+  height: calc(100% - 40px);
+  border: none;
   background-color: var(--white);
 }
 
 .output button {
-  position: absolute !important;
-  top: 10px !important;
-  right: 10px !important;
-  padding: 8px !important;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 8px;
   background-color: var(--dark-blue);
-  border: 2px solid var(--green) !important;
+  border: 2px solid var(--green);
   color: var(--white);
-  cursor: pointer !important;
-  font-size: 0.9rem !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 32px !important;
-  height: 32px !important;
+  cursor: pointer;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
 }
 
 .output button:hover {
@@ -197,129 +241,208 @@ body {
 }
 
 .console {
-  height: 150px !important;
+  height: 150px;
   background-color: var(--light-blue);
-  padding: 10px !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
-  position: relative !important;
+  padding: 10px;
+  overflow-y: auto;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--green) var(--dark-blue);
 }
 
 .console input {
-  width: 100% !important;
-  background: none !important;
-  border: none !important;
+  width: 100%;
+  background: none;
+  border: none;
   color: var(--white);
-  font-family: 'Share Tech Mono', monospace !important;
-  font-size: 0.9rem !important;
-  outline: none !important;
-  position: sticky !important;
-  bottom: 0 !important;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  outline: none;
+  position: sticky;
+  bottom: 0;
 }
 
 .status-bar {
   background-color: var(--green);
   color: var(--dark-blue);
-  padding: 5px 10px !important;
-  font-size: 0.8rem !important;
-  display: flex !important;
-  justify-content: space-between !important;
-}
-
-/* Custom scrollbar styles for WebKit browsers */
-.file-tree-container::-webkit-scrollbar,
-.editor::-webkit-scrollbar,
-.output::-webkit-scrollbar,
-.console::-webkit-scrollbar {
-  width: 8px !important;
-  height: 8px !important;
-}
-
-.file-tree-container::-webkit-scrollbar-track,
-.editor::-webkit-scrollbar-track,
-.output::-webkit-scrollbar-track,
-.console::-webkit-scrollbar-track {
-  background: var(--dark-blue) !important;
-}
-
-.file-tree-container::-webkit-scrollbar-thumb,
-.editor::-webkit-scrollbar-thumb,
-.output::-webkit-scrollbar-thumb,
-.console::-webkit-scrollbar-thumb {
-  background: var(--green) !important;
-  border-radius: 4px !important;
-}
-
-.file-tree-container::-webkit-scrollbar-thumb:hover,
-.editor::-webkit-scrollbar-thumb:hover,
-.output::-webkit-scrollbar-thumb:hover,
-.console::-webkit-scrollbar-thumb:hover {
-  background: var(--light-blue) !important;
-}
-
-/* Firefox scrollbar styles */
-.file-tree-container,
-.editor,
-.output,
-.console {
-  scrollbar-width: thin !important;
-  scrollbar-color: var(--green) var(--dark-blue) !important;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 @media (max-width: 768px) {
   .main-container {
-    flex-direction: column !important;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
   }
 
   .sidebar {
-    width: 100% !important;
-    height: 150px !important;
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
   }
 
   .editor-container {
-    width: 100% !important;
-    height: 50% !important;
+    width: 100%;
+    height: 50%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
+  }
+
+  .code-editor {
+    height: 400px;
+  }
+
+  .line-numbers {
+    width: 38px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    padding: 10px 8px 10px 5px;
+    height: calc(100% - 10px);
+    text-align: left;
+  }
+
+  .line-numbers pre {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .editor textarea {
+    height: 400px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    padding: 10px 15px 10px 50px;
   }
 
   .output-console {
-    height: 50% !important;
+    height: 50%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
   }
 
   .output {
-    height: 60% !important;
+    height: 60%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
   }
 
   .console {
-    height: 40% !important;
+    height: 40%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
   }
 }
 
 @media (max-width: 480px) {
   .top-bar .logo {
-    font-size: 1rem !important;
+    font-size: 1rem;
   }
 
   .sidebar .file-actions button {
-    font-size: 0.8rem !important;
-    padding: 6px !important;
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  .code-editor {
+    height: 300px;
+  }
+
+  .line-numbers {
+    width: 38px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    padding: 10px 8px 10px 5px;
+    height: calc(100% - 10px);
+    text-align: left;
+  }
+
+  .line-numbers pre {
+    font-size: 0.8rem;
+    line-height: 1.5;
   }
 
   .editor textarea {
-    font-size: 0.8rem !important;
+    height: 300px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    padding: 10px 15px 10px 50px;
   }
 
   .console input {
-    font-size: 0.8rem !important;
+    font-size: 0.8rem;
   }
 
   .status-bar {
-    font-size: 0.7rem !important;
+    font-size: 0.7rem;
   }
 
   .output button {
-    font-size: 0.8rem !important;
-    padding: 6px !important;
-    width: 28px !important;
-    height: 28px !important;
+    font-size: 0.8rem;
+    padding: 6px;
   }
+
+  .main-container {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
+  }
+
+  .sidebar {
+    max-height: 120px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
+  }
+
+  .editor-container {
+    height: 45%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
+  }
+
+  .output-console {
+    height: 45%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
+  }
+
+  .output {
+    height: 55%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
+  }
+
+  .console {
+    height: 35%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green) var(--dark-blue);
+  }
+}
+
+/* WebKit Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--dark-blue);
 }
