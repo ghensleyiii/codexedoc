@@ -45,6 +45,11 @@ body {
   color: var(--white);
 }
 
+.top-bar .logo img {
+  width: 30px;
+  height: 30px;
+}
+
 .top-bar .top-bar-buttons {
   display: flex;
   gap: 10px;
