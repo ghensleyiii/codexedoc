@@ -27,6 +27,7 @@ body {
   display: flex !important;
   flex-direction: column;
   overflow: hidden;
+  touch-action: manipulation; /* Prevent pinch-to-zoom and double-tap zoom */
 }
 
 .top-bar {
@@ -118,30 +119,27 @@ body {
   border-radius: 5px;
 }
 
-.line-numbers {
-  width: 48px;
+.cm-s-monokai {
   background-color: var(--light-blue);
-  color: var(--green);
+  color: var(--white);
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.9rem;
-  text-align: left;
-  user-select: none;
   line-height: 1.5;
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  height: calc(100% - 10px);
-  padding: 10px 10px 10px 5px;
-  overflow: hidden;
-  z-index: 10;
+  height: 100%;
 }
 
-.line-numbers pre {
-  margin: 0;
-  padding: 0;
-  line-height: 1.5;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.9rem;
+.cm-s-monokai .CodeMirror-gutters {
+  background-color: var(--dark-blue);
+  border-right: 1px solid var(--green);
+}
+
+.cm-s-monokai .CodeMirror-linenumbers {
+  color: var(--green);
+  padding: 0 5px;
+}
+
+.cm-s-monokai .CodeMirror-cursor {
+  border-left: 1px solid var(--green);
 }
 
 .editor {
@@ -151,6 +149,12 @@ body {
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--green) var(--dark-blue);
+  touch-action: none; /* Prevent scrolling bounce in editor */
+}
+
+.editor .CodeMirror {
+  height: 100%;
+  width: 100%;
 }
 
 .editor textarea {
@@ -312,18 +316,14 @@ body {
     height: 400px;
   }
 
-  .line-numbers {
-    width: 38px;
+  .cm-s-monokai {
     font-size: 0.8rem;
     line-height: 1.5;
-    padding: 10px 8px 10px 5px;
-    height: calc(100% - 10px);
-    text-align: left;
   }
 
-  .line-numbers pre {
-    font-size: 0.8rem;
-    line-height: 1.5;
+  .cm-s-monokai .CodeMirror-linenumbers {
+    width: 38px;
+    padding: 0 5px;
   }
 
   .editor textarea {
@@ -373,18 +373,14 @@ body {
     height: 300px;
   }
 
-  .line-numbers {
-    width: 38px;
+  .cm-s-monokai {
     font-size: 0.8rem;
     line-height: 1.5;
-    padding: 10px 8px 10px 5px;
-    height: calc(100% - 10px);
-    text-align: left;
   }
 
-  .line-numbers pre {
-    font-size: 0.8rem;
-    line-height: 1.5;
+  .cm-s-monokai .CodeMirror-linenumbers {
+    width: 38px;
+    padding: 0 5px;
   }
 
   .editor textarea {
