@@ -13,6 +13,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/python/python.min.js"></script>
   <!-- Pyodide for Python execution -->
   <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+  <!-- JSZip for ZIP file creation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -21,6 +23,7 @@
   <div class="logo"><img src="codex.png" width="30px" height="30px">CODEXEDOC</div>
   <div class="top-bar-buttons">
     <button id="clear-code"><i class="fa-solid fa-snowplow"></i></button>
+    <button id="download-all"><i class="fa-solid fa-download"></i></button>
     <button id="run-code"><i class="fa-solid fa-play"></i></button>
     <button id="open-console"><i class="fa-solid fa-terminal"></i></button>
     <button id="open-output"><i class="fa-solid fa-window-restore"></i></button>
