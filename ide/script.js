@@ -16,7 +16,9 @@ async function initializePyodide() {
     pyodide = await loadPyodide();
     pyodideActive = true;
     pyodideInitialized = true;
-    appendToConsole('Pyodide initialized', 'green');
+    if (currentFile && currentFile.endsWith('.py')) {
+      appendToConsole('Pyodide initialized', 'green');
+    }
   } catch (err) {
     appendToConsole(`Error loading Pyodide: ${err.message}`, 'red');
   }
@@ -187,10 +189,12 @@ function appendToConsole(message, color = 'white') {
 function flushConsoleQueue() {
   if (consoleWindow && !consoleWindow.closed) {
     consoleMessageQueue.forEach(({ message, color }) => {
-      const outputDiv = consoleWindow.document.createElement('div');
-      outputDiv.textContent = message;
-      outputDiv.style.color = color;
-      consoleWindow.document.querySelector('.console-output')?.appendChild(outputDiv);
+      if (!(message === 'Pyodide initialized' && currentFile && !currentFile.endsWith('.py'))) {
+        const outputDiv = consoleWindow.document.createElement('div');
+        outputDiv.textContent = message;
+        outputDiv.style.color = color;
+        consoleWindow.document.querySelector('.console-output')?.appendChild(outputDiv);
+      }
     });
     consoleWindow.document.querySelector('.console-output').scrollTop = consoleWindow.document.querySelector('.console-output').scrollHeight;
     consoleMessageQueue = [];
@@ -321,10 +325,7 @@ function openConsoleWindow() {
     consoleWindow.document.write(consoleDoc);
     consoleWindow.document.close();
     flushConsoleQueue();
-    if (pyodideActive) {
-      appendToConsole('Pyodide initialized', 'green');
-    }
-    console.log('Console window opened successfully');
+    appendToConsole('Console opened', 'green');
     return true;
   } catch (err) {
     appendToConsole(`Error opening console: ${err.message}. Please allow popups and click the console button again.`, 'red');
@@ -377,49 +378,32 @@ function runConsoleCommand(command, safeEval) {
   }
 }
 
-/* Run JavaScript code from editor */
+/* Run editor code */
 function runEditorCode() {
   console.log('runEditorCode called for file:', currentFile);
   if (!currentFile) {
     appendToConsole('Error: No file selected', 'red');
     return;
   }
-  if (currentFile.endsWith('.py')) {
-    if (!consoleWindow || consoleWindow.closed) {
-      if (!openConsoleWindow()) {
+  if (!openConsoleWindow()) {
+    return;
+  }
+  const checkConsoleReady = setInterval(() => {
+    if (consoleWindow.consoleReady) {
+      clearInterval(checkConsoleReady);
+      const code = files[currentFile].content;
+      if (!code.trim()) {
+        appendToConsole('Info: No code to run', 'yellow');
         return;
       }
-    }
-    const code = files[currentFile].content;
-    if (!code.trim()) {
-      appendToConsole('Info: No code to run', 'yellow');
-      return;
-    }
-    const checkConsoleReady = setInterval(() => {
-      if (consoleWindow.consoleReady) {
-        clearInterval(checkConsoleReady);
+      if (currentFile.endsWith('.py')) {
         appendToConsole(`Running ${currentFile}...`, 'green');
         runPython(code);
-      }
-    }, 100);
-  } else if (currentFile.endsWith('.js')) {
-    if (!consoleWindow || consoleWindow.closed) {
-      if (!openConsoleWindow()) {
-        return;
-      }
-    }
-    const code = files[currentFile].content;
-    if (!code.trim()) {
-      appendToConsole('Info: No code to run', 'yellow');
-      return;
-    }
-    if (!isValidJavaScript(code)) {
-      appendToConsole('Error: Invalid JavaScript code', 'red');
-      return;
-    }
-    const checkConsoleReady = setInterval(() => {
-      if (consoleWindow.consoleReady) {
-        clearInterval(checkConsoleReady);
+      } else if (currentFile.endsWith('.js')) {
+        if (!isValidJavaScript(code)) {
+          appendToConsole('Error: Invalid JavaScript code', 'red');
+          return;
+        }
         try {
           appendToConsole(`Running ${currentFile}...`, 'green');
           const result = consoleWindow.safeEval(code);
@@ -431,11 +415,11 @@ function runEditorCode() {
         } catch (err) {
           appendToConsole(`JavaScript Error: ${err.message}`, 'red');
         }
+      } else {
+        appendToConsole(`Info: Auto-run skipped for non-JavaScript/Python file (${currentFile})`, 'yellow');
       }
-    }, 100);
-  } else {
-    appendToConsole(`Info: Auto-run skipped for non-JavaScript/Python file (${currentFile})`, 'yellow');
-  }
+    }
+  }, 100);
 }
 
 /* Delete file */
@@ -568,17 +552,12 @@ fileInput.addEventListener('change', (e) => {
   reader.readAsText(file);
 });
 
-/* Editor changes with auto-run */
+/* Editor changes */
 editor.on('change', () => {
   console.log('Editor change detected');
   if (currentFile && files[currentFile]) {
     files[currentFile].content = editor.getValue();
     saveFilesToStorage();
-    clearTimeout(debounceTimeout);
-    debounceTimeout = setTimeout(() => {
-      console.log('Triggering auto-run');
-      runEditorCode();
-    }, 500);
   }
 });
 
