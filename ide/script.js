@@ -295,7 +295,7 @@ function openConsoleWindow() {
               const command = input.value.trim();
               const outputDiv = document.querySelector('.console-output');
               const commandDiv = document.createElement('div');
-              commandDiv.textContent = `> ${command}`;
+              commandDiv.textContent = `${command}`;
               commandDiv.style.color = '#3c8235';
               outputDiv.appendChild(commandDiv);
               try {
