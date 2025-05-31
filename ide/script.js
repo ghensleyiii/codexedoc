@@ -1,4 +1,4 @@
-    // Global state
+// Global state
     let files = {};
     let currentFile = null;
     let editor = null;
@@ -38,7 +38,9 @@
     const consoleInput = document.querySelector('.console input');
     const createBtn = document.querySelector('#create-file');
     const fileInput = document.querySelector('#file-import');
-    const runBtn = document.querySelector('.menu button:nth-child(4)');
+    const saveBtn = document.querySelector('#save-file');
+    const deleteBtn = document.querySelector('#delete-file');
+    const runBtn = document.querySelector('.output-console button');
 
     // Validate JavaScript code
     function isValidJavaScript(code) {
@@ -151,6 +153,23 @@
       updateOutput();
     }
 
+    // Save file
+    function saveFile() {
+      if (currentFile) {
+        files[currentFile].content = editor.getValue();
+        const blob = new Blob([files[currentFile].content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = currentFile;
+        a.click();
+        URL.revokeObjectURL(url);
+        alert('File saved');
+      } else {
+        alert('No file selected');
+      }
+    }
+
     // Update status bar
     function updateStatusBar() {
       const { line, ch } = editor.getCursor();
@@ -195,6 +214,20 @@
       };
       reader.readAsText(file);
       e.target.value = '';
+    });
+
+    // Save file button
+    saveBtn.addEventListener('click', saveFile);
+
+    // Delete file button
+    deleteBtn.addEventListener('click', () => {
+      if (currentFile) {
+        if (confirm(`Are you sure you want to delete ${currentFile}?`)) {
+          deleteFile(currentFile);
+        }
+      } else {
+        alert('No file selected');
+      }
     });
 
     // Editor changes
@@ -263,10 +296,7 @@
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.key === 's') {
         e.preventDefault();
-        if (currentFile) {
-          files[currentFile].content = editor.getValue();
-          alert('File saved');
-        }
+        saveFile();
       } else if (e.ctrlKey && e.key === 'r') {
         e.preventDefault();
         runBtn.click();
