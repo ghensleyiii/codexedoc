@@ -115,7 +115,7 @@
       const css = files[cssFile]?.content || '';
       const js = files[jsFile]?.content || '';
       
-      // Validate JavaScript before injecting
+      // Vali date JavaScript before injecting
       if (js && !isValidJavaScript(js)) {
         const errorDiv = document.createElement('div');
         errorDiv.textContent = 'Error: Invalid JavaScript in output';
@@ -126,8 +126,11 @@
       }
 
       const doc = `
+        <!DOCTYPE html>
         <html>
-          <head><style>${css}</style></head>
+          <head>
+            <style>${css}</style>
+          </head>
           <body>${html}<script>${js}</script></body>
         </html>`;
       outputFrame.srcdoc = doc;
@@ -143,18 +146,39 @@
       const js = files[jsFile]?.content || '';
 
       if (js && !isValidJavaScript(js)) {
-        alert('Cannot open output: Invalid JavaScript');
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = 'Cannot open output: Invalid JavaScript';
+        errorDiv.style.color = 'red';
+        document.querySelector('.console').insertBefore(errorDiv, consoleInput);
         return;
       }
 
-      const doc = `
-        <html>
-          <head><style>${css}</style></head>
-          <body>${html}<script>${js}</script></body>
-        </html>`;
-      const newWindow = window.open('');
-      newWindow.document.write(doc);
-      newWindow.document.close();
+      try {
+        const newWindow = window.open('', '_blank');
+        if (!newWindow) {
+          const errorDiv = document.createElement('div');
+          errorDiv.textContent = 'Error: Popup blocked. Please allow popups for this site.';
+          errorDiv.style.color = 'red';
+          document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+          return;
+        }
+        const doc = `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>Output Preview</title>
+              <style>${css}</style>
+            </head>
+            <body>${html}<script>${js}</script></body>
+          </html>`;
+        newWindow.document.write(doc);
+        newWindow.document.close();
+      } catch (err) {
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = `Error opening new window: ${err.message}`;
+        errorDiv.style.color = 'red';
+        document.querySelector('.console').insertBefore(errorDiv, consoleInput);
+      }
     }
 
     // Run Python code
