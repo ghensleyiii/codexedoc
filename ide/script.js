@@ -4,14 +4,14 @@ let currentFile = null;
 let editor = null;
 let pyodide = null;
 let pyodideActive = false;
-let pyodideInitialized = false; // New flag to track Pyodide initialization
+let pyodideInitialized = false;
 let consoleWindow = null;
 let debounceTimeout = null;
 let consoleMessageQueue = [];
 
 /* Initialize Pyodide */
 async function initializePyodide() {
-  if (pyodideInitialized) return; // Prevent multiple initializations
+  if (pyodideInitialized) return;
   try {
     pyodide = await loadPyodide();
     pyodideActive = true;
@@ -167,7 +167,6 @@ function appendToConsole(message, color = 'white') {
     consoleWindow.document.querySelector('.console-output')?.appendChild(outputDiv);
     consoleWindow.document.querySelector('.console-output').scrollTop = consoleWindow.document.querySelector('.console-output').scrollHeight;
   } else {
-    // Only queue unique messages to avoid duplicates
     if (!consoleMessageQueue.some(item => item.message === message && item.color === color)) {
       consoleMessageQueue.push({ message, color });
     }
@@ -194,7 +193,7 @@ function flushConsoleQueue() {
       consoleWindow.document.querySelector('.console-output')?.appendChild(outputDiv);
     });
     consoleWindow.document.querySelector('.console-output').scrollTop = consoleWindow.document.querySelector('.console-output').scrollHeight;
-    consoleMessageQueue = []; // Clear queue after flushing
+    consoleMessageQueue = [];
   }
 }
 
@@ -208,7 +207,6 @@ function openConsoleWindow() {
   try {
     consoleWindow = window.open('', 'consoleWindow', 'width=600,height=400');
     if (!consoleWindow) {
-      // Display popup blocked message in fallback console only, not queued
       const fallbackConsole = document.getElementById('fallback-console');
       if (fallbackConsole) {
         fallbackConsole.style.display = 'block';
@@ -295,7 +293,7 @@ function openConsoleWindow() {
               const command = input.value.trim();
               const outputDiv = document.querySelector('.console-output');
               const commandDiv = document.createElement('div');
-              commandDiv.textContent = `${command}`;
+              commandDiv.textContent = \`> \${command}\`;
               commandDiv.style.color = '#3c8235';
               outputDiv.appendChild(commandDiv);
               try {
@@ -306,7 +304,7 @@ function openConsoleWindow() {
               } catch (mathErr) {
                 const result = window.safeEval(command);
                 if (result && result.error) {
-                  console.log(`JavaScript Error: ${result.error}`);
+                  console.log(\`JavaScript Error: \${result.error}\`);
                 } else {
                   console.log(String(result));
                 }
@@ -315,7 +313,6 @@ function openConsoleWindow() {
               input.value = '';
             }
           });
-          // Signal that console is ready
           window.consoleReady = true;
         </script>
       </body>
@@ -336,6 +333,22 @@ function openConsoleWindow() {
   }
 }
 
+/* Run Python code */
+async function runPython(code) {
+  if (!pyodideActive) {
+    appendToConsole('Error: Pyodide not initialized', 'red');
+    return;
+  }
+  try {
+    const result = await pyodide.runPythonAsync(code);
+    if (result !== undefined) {
+      appendToConsole(String(result));
+    }
+  } catch (err) {
+    appendToConsole(`Python Error: ${err.message}`, 'red');
+  }
+}
+
 /* Run console command */
 function runConsoleCommand(command, safeEval) {
   if (!command) return;
@@ -350,12 +363,13 @@ function runConsoleCommand(command, safeEval) {
           appendToConsole(String(mathResult));
           return;
         }
-      } catch (mathErr) {}
-      const result = safeEval(command);
-      if (result && result.error) {
-        appendToConsole(`JavaScript Error: ${result.error}`, 'red');
-      } else {
-        appendToConsole(String(result));
+      } catch (mathErr) {
+        const result = safeEval(command);
+        if (result && result.error) {
+          appendToConsole(`JavaScript Error: ${result.error}`, 'red');
+        } else {
+          appendToConsole(String(result));
+        }
       }
     }
   } catch (err) {
@@ -370,42 +384,58 @@ function runEditorCode() {
     appendToConsole('Error: No file selected', 'red');
     return;
   }
-  if (!currentFile.endsWith('.js')) {
-    appendToConsole(`Info: Auto-run skipped for non-JavaScript file (${currentFile})`, 'yellow');
-    return;
-  }
-  // Automatically open console if not open
-  if (!consoleWindow || consoleWindow.closed) {
-    if (!openConsoleWindow()) {
-      return;
-    }
-  }
-  const code = files[currentFile].content;
-  if (!code.trim()) {
-    appendToConsole('Info: No code to run', 'yellow');
-    return;
-  }
-  if (!isValidJavaScript(code)) {
-    appendToConsole('Error: Invalid JavaScript code', 'red');
-    return;
-  }
-  // Wait for console window to be ready
-  const checkConsoleReady = setInterval(() => {
-    if (consoleWindow.consoleReady) {
-      clearInterval(checkConsoleReady);
-      try {
-        appendToConsole(`Running ${currentFile}...`, 'green');
-        const result = consoleWindow.safeEval(code);
-        if (result && result.error) {
-          appendToConsole(`JavaScript Error: ${result.error}`, 'red');
-        } else {
-          appendToConsole('Run complete', 'green');
-        }
-      } catch (err) {
-        appendToConsole(`JavaScript Error: ${err.message}`, 'red');
+  if (currentFile.endsWith('.py')) {
+    if (!consoleWindow || consoleWindow.closed) {
+      if (!openConsoleWindow()) {
+        return;
       }
     }
-  }, 100);
+    const code = files[currentFile].content;
+    if (!code.trim()) {
+      appendToConsole('Info: No code to run', 'yellow');
+      return;
+    }
+    const checkConsoleReady = setInterval(() => {
+      if (consoleWindow.consoleReady) {
+        clearInterval(checkConsoleReady);
+        appendToConsole(`Running ${currentFile}...`, 'green');
+        runPython(code);
+      }
+    }, 100);
+  } else if (currentFile.endsWith('.js')) {
+    if (!consoleWindow || consoleWindow.closed) {
+      if (!openConsoleWindow()) {
+        return;
+      }
+    }
+    const code = files[currentFile].content;
+    if (!code.trim()) {
+      appendToConsole('Info: No code to run', 'yellow');
+      return;
+    }
+    if (!isValidJavaScript(code)) {
+      appendToConsole('Error: Invalid JavaScript code', 'red');
+      return;
+    }
+    const checkConsoleReady = setInterval(() => {
+      if (consoleWindow.consoleReady) {
+        clearInterval(checkConsoleReady);
+        try {
+          appendToConsole(`Running ${currentFile}...`, 'green');
+          const result = consoleWindow.safeEval(code);
+          if (result && result.error) {
+            appendToConsole(`JavaScript Error: ${result.error}`, 'red');
+          } else {
+            appendToConsole('Run complete', 'green');
+          }
+        } catch (err) {
+          appendToConsole(`JavaScript Error: ${err.message}`, 'red');
+        }
+      }
+    }, 100);
+  } else {
+    appendToConsole(`Info: Auto-run skipped for non-JavaScript/Python file (${currentFile})`, 'yellow');
+  }
 }
 
 /* Delete file */
@@ -544,7 +574,6 @@ editor.on('change', () => {
   if (currentFile && files[currentFile]) {
     files[currentFile].content = editor.getValue();
     saveFilesToStorage();
-    /* Debounce auto-run */
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
       console.log('Triggering auto-run');
