@@ -1,281 +1,316 @@
 :root {
-      --dark-blue: #0a0a23;
-      --light-blue: #1b1b32;
-      --green: #3c8235;
-      --white: #ffffff;
-    }
+  --dark-blue: #0a0a23;
+  --light-blue: #1b1b32;
+  --green: #3c8235;
+  --white: #ffffff;
+}
 
-    @font-face {
-      font-family: 'Share Tech Mono';
-      src: url('https://www.codexedoc.com/fonts/ShareTechMono-Regular.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
+@font-face {
+  font-family: 'Share Tech Mono';
+  src: url('https://www.codexedoc.com/fonts/ShareTechMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-    * {
-      margin: 0 !important;
-      padding: 0 !important;
-      box-sizing: border-box !important;
-    }
+* {
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
 
-    body {
-      font-family: 'Share Tech Mono', monospace !important;
-      background-color: var(--dark-blue);
-      color: var(--white);
-      height: 100vh !important;
-      display: flex !important;
-      flex-direction: column !important;
-      overflow: hidden !important;
-    }
+body {
+  font-family: 'Share Tech Mono', monospace !important;
+  background-color: var(--dark-blue);
+  color: var(--white);
+  height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow-y: auto !important; /* Enable body scrolling on mobile */
+}
 
-    .top-bar {
-      background-color: var(--light-blue);
-      padding: 10px !important;
-      display: flex !important;
-      justify-content: flex-start !important;
-      align-items: center !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-    }
+.top-bar {
+  background-color: var(--light-blue);
+  padding: 10px !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
 
-    .top-bar .logo {
-      font-size: 1.2rem !important;
-      font-weight: bold !important;
-    }
+.top-bar .logo {
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+}
 
-    .main-container {
-      display: flex !important;
-      flex: 1 !important;
-      height: calc(100vh - 50px) !important;
-    }
+.main-container {
+  display: flex !important;
+  flex: 1 !important;
+  height: calc(100vh - 50px) !important;
+}
 
-    .sidebar {
-      width: 200px !important;
-      background-color: var(--light-blue);
-      border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
-      padding: 10px !important;
-      display: flex !important;
-      flex-direction: column !important;
-    }
+.sidebar {
+  width: 200px !important;
+  background-color: var(--light-blue);
+  border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
+  padding: 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
 
-    .sidebar .file-actions {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 10px !important;
-      margin-bottom: 10px !important;
-    }
+.sidebar .file-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  margin-bottom: 10px !important;
+}
 
-    .sidebar .file-actions button {
-      padding: 8px !important;
-      background-color: var(--dark-blue);
-      border: 2px solid var(--green) !important;
-      color: var(--white);
-      cursor: pointer !important;
-      font-size: 0.9rem !important;
-      text-align: center !important;
-    }
+.sidebar .file-actions button {
+  padding: 8px !important;
+  background-color: var(--dark-blue);
+  border: 2px solid var(--green) !important;
+  color: var(--white);
+  cursor: pointer !important;
+  font-size: 0.9rem !important;
+  text-align: center !important;
+}
 
-    .sidebar .file-actions button:hover {
-      background-color: var(--green);
-      color: var(--dark-blue);
-    }
+.sidebar .file-actions button:hover {
+  background-color: var(--green);
+  color: var(--dark-blue);
+}
 
-    .sidebar .file-tree-container {
-      flex: 1 !important;
-      overflow-y: auto !important;
-    }
+.sidebar .file-tree-container {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
+}
 
-    .sidebar .file-tree {
-      list-style: none !important;
-    }
+.sidebar .file-tree {
+  list-style: none !important;
+}
 
-    .sidebar .file-tree li {
-      padding: 5px 10px !important;
-      cursor: pointer !important;
-      font-size: 0.9rem !important;
-    }
+.sidebar .file-tree li {
+  padding: 5px 10px !important;
+  cursor: pointer !important;
+  font-size: 0.9rem !important;
+}
 
-    .sidebar .file-tree li:hover {
-      background-color: var(--dark-blue);
-    }
+.sidebar .file-tree li:hover {
+  background-color: var(--dark-blue);
+}
 
-    .editor-container {
-      width: 600px !important;
-      display: flex !important;
-      flex-direction: column !important;
-      border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
-    }
+.editor-container {
+  width: 600px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
 
-    .tabs {
-      background-color: var(--light-blue);
-      display: flex !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-      overflow-x: auto !important;
-    }
+.tabs {
+  background-color: var(--light-blue);
+  display: flex !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+  overflow-x: auto !important;
+}
 
-    .tabs .tab {
-      padding: 10px 15px !important;
-      cursor: pointer !important;
-      background-color: var(--light-blue);
-      border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
-      white-space: nowrap !important;
-    }
+.tabs .tab {
+  padding: 10px 15px !important;
+  cursor: pointer !important;
+  background-color: var(--light-blue);
+  border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
+  white-space: nowrap !important;
+}
 
-    .tabs .tab.active {
-      background-color: var(--dark-blue);
-      color: var(--green);
-    }
+.tabs .tab.active {
+  background-color: var(--dark-blue);
+  color: var(--green);
+}
 
-    .tabs .tab:hover {
-      background-color: var(--dark-blue);
-    }
+.tabs .tab:hover {
+  background-color: var(--dark-blue);
+}
 
-    .editor {
-      flex: 1 !important;
-      background-color: var(--dark-blue);
-      padding: 10px !important;
-      overflow: auto !important;
-    }
+.editor {
+  flex: 1 !important;
+  background-color: var(--dark-blue);
+  padding: 10px !important;
+  overflow-y: auto !important; /* Enable editor scrolling */
+  -webkit-overflow-scrolling: touch !important;
+}
 
-    .editor textarea {
-      width: 100% !important;
-      height: 100% !important;
-      background: none !important;
-      border: none !important;
-      color: var(--white);
-      font-family: 'Share Tech Mono', monospace !important;
-      font-size: 0.9rem !important;
-      resize: none !important;
-      outline: none !important;
-    }
+.editor textarea {
+  width: 100% !important;
+  height: 100% !important;
+  background: none !important;
+  border: none !important;
+  color: var(--white);
+  font-family: 'Share Tech Mono', monospace !important;
+  font-size: 0.9rem !important;
+  resize: none !important;
+  outline: none !important;
+}
 
-    .output-console {
-      flex: 1 !important;
-      display: flex !important;
-      flex-direction: column !important;
-    }
+.output-console {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
 
-    .output {
-      flex: 1 !important;
-      background-color: var(--light-blue);
-      padding: 10px !important;
-      overflow-y: auto !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-      position: relative !important;
-    }
+.output {
+  flex: 1 !important;
+  background-color: var(--light-blue);
+  padding: 10px !important;
+  overflow-y: auto !important; /* Enable output scrolling */
+  -webkit-overflow-scrolling: touch !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+  position: relative !important;
+}
 
-    .output iframe {
-      width: 100% !important;
-      height: calc(100% - 40px) !important;
-      border: none !important;
-      background-color: var(--white);
-    }
+.output iframe {
+  width: 100% !important;
+  height: calc(100% - 40px) !important;
+  border: none !important;
+  background-color: var(--white);
+}
 
-    .output button {
-      position: absolute !important;
-      top: 10px !important;
-      right: 10px !important;
-      padding: 8px !important;
-      background-color: var(--dark-blue);
-      border: 2px solid var(--green) !important;
-      color: var(--white);
-      cursor: pointer !important;
-      font-size: 0.9rem !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      width: 32px !important;
-      height: 32px !important;
-    }
+.output button {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  padding: 8px !important;
+  background-color: var(--dark-blue);
+  border: 2px solid var(--green) !important;
+  color: var(--white);
+  cursor: pointer !important;
+  font-size: 0.9rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+}
 
-    .output button:hover {
-      background-color: var(--green);
-      color: var(--dark-blue);
-    }
+.output button:hover {
+  background-color: var(--green);
+  color: var(--dark-blue);
+}
 
-    .console {
-      height: 150px !important;
-      background-color: var(--light-blue);
-      padding: 10px !important;
-      overflow-y: auto !important;
-      position: relative !important;
-    }
+.console {
+  height: 150px !important;
+  background-color: var(--light-blue);
+  padding: 10px !important;
+  overflow-y: auto !important; /* Ensure console scrolling */
+  -webkit-overflow-scrolling: touch !important;
+  position: relative !important;
+}
 
-    .console input {
-      width: 100% !important;
-      background: none !important;
-      border: none !important;
-      color: var(--white);
-      font-family: 'Share Tech Mono', monospace !important;
-      font-size: 0.9rem !important;
-      outline: none !important;
-      position: sticky !important;
-      bottom: 0 !important;
-    }
+.console input {
+  width: 100% !important;
+  background: none !important;
+  border: none !important;
+  color: var(--white);
+  font-family: 'Share Tech Mono', monospace !important;
+  font-size: 0.9rem !important;
+  outline: none !important;
+  position: sticky !important;
+  bottom: 0 !important;
+}
 
-    .status-bar {
-      background-color: var(--green);
-      color: var(--dark-blue);
-      padding: 5px 10px !important;
-      font-size: 0.8rem !important;
-      display: flex !important;
-      justify-content: space-between !important;
-    }
+.status-bar {
+  background-color: var(--green);
+  color: var(--dark-blue);
+  padding: 5px 10px !important;
+  font-size: 0.8rem !important;
+  display: flex !important;
+  justify-content: space-between !important;
+}
 
-    @media (max-width: 768px) {
-      .main-container {
-        flex-direction: column !important;
-      }
+/* Custom scrollbar styles for WebKit browsers */
+.file-tree-container::-webkit-scrollbar,
+.editor::-webkit-scrollbar,
+.output::-webkit-scrollbar,
+.console::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
 
-      .sidebar {
-        width: 100% !important;
-        height: 150px !important;
-      }
+.file-tree-container::-webkit-scrollbar-track,
+.editor::-webkit-scrollbar-track,
+.output::-webkit-scrollbar-track,
+.console::-webkit-scrollbar-track {
+  background: var(--dark-blue) !important;
+}
 
-      .editor-container {
-        width: 100% !important;
-        height: 50% !important;
-      }
+.file-tree-container::-webkit-scrollbar-thumb,
+.editor::-webkit-scrollbar-thumb,
+.output::-webkit-scrollbar-thumb,
+.console::-webkit-scrollbar-thumb {
+  background: var(--green) !important;
+  border-radius: 4px !important;
+}
 
-      .output-console {
-        height: 50% !important;
-      }
+.file-tree-container::-webkit-scrollbar-thumb:hover,
+.editor::-webkit-scrollbar-thumb:hover,
+.output::-webkit-scrollbar-thumb:hover,
+.console::-webkit-scrollbar-thumb:hover {
+  background: var(--light-blue) !important;
+}
 
-      .output {
-        height: 60% !important;
-      }
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column !important;
+  }
 
-      .console {
-        height: 40% !important;
-      }
-    }
+  .sidebar {
+    width: 100% !important;
+    height: 150px !important;
+  }
 
-    @media (max-width: 480px) {
-      .top-bar .logo {
-        font-size: 1rem !important;
-      }
+  .editor-container {
+    width: 100% !important;
+    height: 50% !important;
+  }
 
-      .sidebar .file-actions button {
-        font-size: 0.8rem !important;
-        padding: 6px !important;
-      }
+  .output-console {
+    height: 50% !important;
+  }
 
-      .editor textarea {
-        font-size: 0.8rem !important;
-      }
+  .output {
+    height: 60% !important;
+  }
 
-      .console input {
-        font-size: 0.8rem !important;
-      }
+  .console {
+    height: 40% !important;
+  }
+}
 
-      .status-bar {
-        font-size: 0.7rem !important;
-      }
+@media (max-width: 480px) {
+  .top-bar .logo {
+    font-size: 1rem !important;
+  }
 
-      .output button {
-        font-size: 0.8rem !important;
-        padding: 6px !important;
-        width: 28px !important;
-        height: 28px !important;
-      }
-    }
+  .sidebar .file-actions button {
+    font-size: 0.8rem !important;
+    padding: 6px !important;
+  }
+
+  .editor textarea {
+    font-size: 0.8rem !important;
+  }
+
+  .console input {
+    font-size: 0.8rem !important;
+  }
+
+  .status-bar {
+    font-size: 0.7rem !important;
+  }
+
+  .output button {
+    font-size: 0.8rem !important;
+    padding: 6px !important;
+    width: 28px !important;
+    height: 28px !important;
+  }
+}
