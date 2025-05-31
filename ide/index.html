@@ -18,7 +18,12 @@
 </head>
 <body>
   <div class="top-bar">
-    <div class="logo">CODEXEDOC</div>
+    <div class="logo">Code IDE</div>
+    <div class="top-bar-buttons">
+      <button id="run-code"><i class="fa-solid fa-play"></i></button>
+      <button id="open-console"><i class="fa-solid fa-terminal"></i></button>
+      <button id="open-output"><i class="fa-solid fa-window-restore"></i></button>
+    </div>
   </div>
 
   <div class="main-container">
@@ -30,16 +35,6 @@
       </div>
       <div class="editor">
         <textarea placeholder="Start coding..."></textarea>
-      </div>
-    </div>
-
-    <div class="output-console">
-      <div class="output">
-        <button id="open-output"><i class="fa-solid fa-window-restore"></i></button>
-        <iframe srcdoc="<h1>Output will appear here</h1>"></iframe>
-      </div>
-      <div class="console">
-        <input type="text" placeholder="Console...">
       </div>
     </div>
   </div>
