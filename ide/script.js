@@ -516,6 +516,24 @@ function updateStatusBar() {
   document.querySelector('.status-bar span:last-child').textContent = `UTF-8 | ${files[currentFile]?.type || 'None'} | Spaces: 2`;
 }
 
+/* Clear editor code */
+function clearEditorCode() {
+  if (!currentFile) {
+    appendToConsole('Error: No file selected', 'red');
+    return;
+  }
+  if (confirm(`Are you sure you want to clear the code in ${currentFile}?`)) {
+    files[currentFile].content = '';
+    editor.setValue('');
+    saveFilesToStorage();
+    appendToConsole(`Code in "${currentFile}" cleared successfully`, 'green');
+  }
+}
+
+/* Clear code button */
+const clearCodeBtn = document.querySelector('#clear-code');
+clearCodeBtn.addEventListener('click', clearEditorCode);
+
 /* DOM elements */
 const tabs = document.querySelector('.tabs');
 const addFileBtn = document.querySelector('#add-file');
