@@ -72,6 +72,51 @@ function loadFile(filename) {
   updateStatusBar();
 }
 
+/* Initialize default files */
+function initializeDefaultFiles() {
+  files = {
+    'index.html': {
+      content: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Webpage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Welcome to My Webpage</h1>
+  <script src="script.js"></script>
+</body>
+</html>`,
+      type: 'html'
+    },
+    'styles.css': {
+      content: `body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  color: #333;
+}`,
+      type: 'css'
+    },
+    'script.js': {
+      content: `console.log('Hello from script.js!');`,
+      type: 'js'
+    }
+  };
+  Object.keys(files).forEach(filename => {
+    addTab(filename);
+  });
+  saveFilesToStorage();
+  loadFile('index.html');
+  appendToConsole('Default files created: index.html, styles.css, script.js', 'green');
+}
+
 /* Load files from local storage */
 function loadFilesFromStorage() {
   const storedFiles = localStorage.getItem('codeIDEFiles');
@@ -82,7 +127,11 @@ function loadFilesFromStorage() {
     });
     if (Object.keys(files).length > 0) {
       loadFile(Object.keys(files)[0]);
+    } else {
+      initializeDefaultFiles();
     }
+  } else {
+    initializeDefaultFiles();
   }
 }
 
@@ -436,6 +485,9 @@ function deleteFile(filename) {
     }
     saveFilesToStorage();
     appendToConsole(`File "${filename}" deleted successfully`, 'green');
+    if (Object.keys(files).length === 0) {
+      initializeDefaultFiles();
+    }
   }
 }
 
