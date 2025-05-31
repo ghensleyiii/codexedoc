@@ -40,7 +40,27 @@
     const fileInput = document.querySelector('#file-import');
     const saveBtn = document.querySelector('#save-file');
     const deleteBtn = document.querySelector('#delete-file');
-    const runBtn = document.querySelector('.output-console button');
+    const openOutputBtn = document.querySelector('#open-output');
+
+    // Load files from local storage
+    function loadFilesFromStorage() {
+      const storedFiles = localStorage.getItem('codeIDEFiles');
+      if (storedFiles) {
+        files = JSON.parse(storedFiles);
+        Object.keys(files).forEach(filename => {
+          addFileToTree(filename);
+          addTab(filename);
+        });
+        if (Object.keys(files).length > 0) {
+          loadFile(Object.keys(files)[0]);
+        }
+      }
+    }
+
+    // Save files to local storage
+    function saveFilesToStorage() {
+      localStorage.setItem('codeIDEFiles', JSON.stringify(files));
+    }
 
     // Validate JavaScript code
     function isValidJavaScript(code) {
@@ -113,6 +133,30 @@
       outputFrame.srcdoc = doc;
     }
 
+    // Open output in new window
+    function openOutputInNewWindow() {
+      const htmlFile = Object.keys(files).find(f => f.endsWith('.html'));
+      const cssFile = Object.keys(files).find(f => f.endsWith('.css'));
+      const jsFile = Object.keys(files).find(f => f.endsWith('.js'));
+      const html = files[htmlFile]?.content || '';
+      const css = files[cssFile]?.content || '';
+      const js = files[jsFile]?.content || '';
+
+      if (js && !isValidJavaScript(js)) {
+        alert('Cannot open output: Invalid JavaScript');
+        return;
+      }
+
+      const doc = `
+        <html>
+          <head><style>${css}</style></head>
+          <body>${html}<script>${js}</script></body>
+        </html>`;
+      const newWindow = window.open('');
+      newWindow.document.write(doc);
+      newWindow.document.close();
+    }
+
     // Run Python code
     async function runPython(code) {
       if (!pyodideReady) {
@@ -138,24 +182,27 @@
 
     // Delete file
     function deleteFile(filename) {
-      delete files[filename];
-      document.querySelectorAll(`.file-tree li`).forEach(li => {
-        if (li.textContent === filename) li.remove();
-      });
-      document.querySelectorAll(`.tabs .tab`).forEach(tab => {
-        if (tab.textContent === filename) tab.remove();
-      });
-      if (currentFile === filename) {
-        editor.setValue('');
-        currentFile = null;
-        updateStatusBar();
+      if (files[filename]) {
+        delete files[filename];
+        document.querySelectorAll(`.file-tree li`).forEach(li => {
+          if (li.textContent === filename) li.remove();
+        });
+        document.querySelectorAll(`.tabs .tab`).forEach(tab => {
+          if (tab.textContent === filename) tab.remove();
+        });
+        if (currentFile === filename) {
+          editor.setValue('');
+          currentFile = null;
+          updateStatusBar();
+        }
+        saveFilesToStorage();
+        updateOutput();
       }
-      updateOutput();
     }
 
     // Save file
     function saveFile() {
-      if (currentFile) {
+      if (currentFile && files[currentFile]) {
         files[currentFile].content = editor.getValue();
         const blob = new Blob([files[currentFile].content], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
@@ -164,6 +211,7 @@
         a.download = currentFile;
         a.click();
         URL.revokeObjectURL(url);
+        saveFilesToStorage();
         alert('File saved');
       } else {
         alert('No file selected');
@@ -187,6 +235,7 @@
           addFileToTree(filename);
           addTab(filename);
           loadFile(filename);
+          saveFilesToStorage();
         } else {
           alert('Unsupported file type');
         }
@@ -208,6 +257,7 @@
           addFileToTree(filename);
           addTab(filename);
           loadFile(filename);
+          saveFilesToStorage();
         } else {
           alert('Unsupported file type');
         }
@@ -221,7 +271,7 @@
 
     // Delete file button
     deleteBtn.addEventListener('click', () => {
-      if (currentFile) {
+      if (currentFile && files[currentFile]) {
         if (confirm(`Are you sure you want to delete ${currentFile}?`)) {
           deleteFile(currentFile);
         }
@@ -230,10 +280,14 @@
       }
     });
 
+    // Open output in new window button
+    openOutputBtn.addEventListener('click', openOutputInNewWindow);
+
     // Editor changes
     editor.on('change', () => {
-      if (currentFile) {
+      if (currentFile && files[currentFile]) {
         files[currentFile].content = editor.getValue();
+        saveFilesToStorage();
         if (currentFile.endsWith('.html') || currentFile.endsWith('.css') || currentFile.endsWith('.js')) {
           updateOutput();
         }
@@ -276,29 +330,5 @@
       }
     });
 
-    // Run button
-    runBtn.addEventListener('click', async () => {
-      if (currentFile) {
-        if (currentFile.endsWith('.html') || currentFile.endsWith('.css') || currentFile.endsWith('.js')) {
-          updateOutput();
-        } else if (currentFile.endsWith('.py')) {
-          await runPython(files[currentFile].content);
-        }
-      } else {
-        const errorDiv = document.createElement('div');
-        errorDiv.textContent = 'Error: No file selected';
-        errorDiv.style.color = 'red';
-        document.querySelector('.console').insertBefore(errorDiv, consoleInput);
-      }
-    });
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (e.ctrlKey && e.key === 's') {
-        e.preventDefault();
-        saveFile();
-      } else if (e.ctrlKey && e.key === 'r') {
-        e.preventDefault();
-        runBtn.click();
-      }
-    });
+    // Initialize files from local storage
+    loadFilesFromStorage();
