@@ -221,8 +221,8 @@ function openOutputInNewWindow() {
       const href = link.getAttribute('href');
       if (href && files[href] && files[href].content && href.endsWith('.css')) {
         const style = doc.createElement('style');
-        // Escape CSS content
-        style.textContent = files[href].content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        // Wrap CSS in CDATA to prevent XML parsing issues
+        style.textContent = `/* <![CDATA[ */\n${files[href].content}\n/* ]]> */`;
         doc.head.appendChild(style);
         embeddedCssFiles.push(href);
         link.remove();
@@ -239,15 +239,8 @@ function openOutputInNewWindow() {
       const src = script.getAttribute('src');
       if (src && files[src] && files[src].content && src.endsWith('.js')) {
         const newScript = doc.createElement('script');
-        // Wrap JS content in try-catch and escape special characters
-        newScript.textContent = `
-          try {
-            ${files[src].content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}
-          } catch (err) {
-            console.error('Error in ${src}: ' + err.message);
-            window.parent.postMessage({ type: 'console', message: 'Error in ${src}: ' + err.message, color: 'red' }, '*');
-          }
-        `;
+        // Wrap JS in CDATA and try-catch to prevent syntax errors
+        newScript.textContent = `/* <![CDATA[ */\ntry {\n${files[src].content}\n} catch (err) {\n  console.error('Error in ${src}: ' + err.message);\n  window.parent.postMessage({ type: 'console', message: 'Error in ${src}: ' + err.message, color: 'red' }, '*');\n}\n/* ]]> */`;
         doc.body.appendChild(newScript);
         embeddedJsFiles.push(src);
         script.remove();
@@ -259,31 +252,17 @@ function openOutputInNewWindow() {
 
     // Add console message forwarding
     const consoleScript = doc.createElement('script');
-    consoleScript.textContent = `
-      (function() {
-        const originalConsoleLog = console.log;
-        const originalConsoleError = console.error;
-        console.log = function(...args) {
-          const message = args.map(arg => String(arg)).join(' ');
-          window.parent.postMessage({ type: 'console', message: message, color: 'white' }, '*');
-          originalConsoleLog.apply(console, args);
-        };
-        console.error = function(...args) {
-          const message = args.map(arg => String(arg)).join(' ');
-          window.parent.postMessage({ type: 'console', message: message, color: 'red' }, '*');
-          originalConsoleError.apply(console, args);
-        };
-      })();
-    `;
+    consoleScript.textContent = `/* <![CDATA[ */\n(function() {\n  const originalConsoleLog = console.log;\n  const originalConsoleError = console.error;\n  console.log = function(...args) {\n    const message = args.map(arg => String(arg)).join(' ');\n    window.parent.postMessage({ type: 'console', message: message, color: 'white' }, '*');\n    originalConsoleLog.apply(console, args);\n  };\n  console.error = function(...args) {\n    const message = args.map(arg => String(arg)).join(' ');\n    window.parent.postMessage({ type: 'console', message: message, color: 'red' }, '*');\n    originalConsoleError.apply(console, args);\n  };\n})();\n/* ]]> */`;
     doc.head.appendChild(consoleScript);
 
-    // Serialize and escape the HTML to prevent syntax errors
+    // Serialize the document
     const serializer = new XMLSerializer();
     let finalHtml = serializer.serializeToString(doc);
-    // Additional escaping for document.write
-    finalHtml = finalHtml.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
-    // Wrap in a basic HTML structure to ensure proper rendering
-    finalHtml = `<!DOCTYPE html><html lang="en">${doc.documentElement.outerHTML}</html>`;
+    // Ensure DOCTYPE is included
+    finalHtml = `<!DOCTYPE html>\n${finalHtml}`;
+
+    // Debug: Log the final HTML to check for syntax issues
+    console.log('Generated HTML for output window:', finalHtml);
 
     newWindow.document.write(finalHtml);
     newWindow.document.close();
