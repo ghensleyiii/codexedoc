@@ -5,9 +5,7 @@ let editor = null;
 let pyodide = null;
 let pyodideActive = false;
 let pyodideInitialized = false;
-let consoleWindow = null;
 let debounceTimeout = null;
-let consoleMessageQueue = [];
 
 /* Initialize Pyodide */
 async function initializePyodide() {
@@ -17,10 +15,10 @@ async function initializePyodide() {
     pyodideActive = true;
     pyodideInitialized = true;
     if (currentFile && currentFile.endsWith('.py')) {
-      appendToConsole('Pyodide initialized', 'green');
+      console.log('Pyodide initialized');
     }
   } catch (err) {
-    appendToConsole(`Error loading Pyodide: ${err.message}`, 'red');
+    console.error(`Error loading Pyodide: ${err.message}`);
   }
 }
 initializePyodide();
@@ -114,7 +112,7 @@ h1 {
   });
   saveFilesToStorage();
   loadFile('index.html');
-  appendToConsole('Default files created: index.html, styles.css, script.js', 'green');
+  console.log('Default files created: index.html, styles.css, script.js');
 }
 
 /* Load files from local storage */
@@ -170,15 +168,15 @@ function addTab(filename) {
   tabs.insertBefore(tab, document.querySelector('#add-file'));
 }
 
-/* openOutputInNewWindow */
+/* Open output in new window */
 function openOutputInNewWindow() {
   if (!currentFile || !currentFile.endsWith('.html')) {
-    appendToConsole('Error: Please select an HTML file to open output', 'red');
+    console.error('Error: Please select an HTML file to open output');
     return;
   }
 
   if (!files[currentFile] || !files[currentFile].content) {
-    appendToConsole(`Error: No content found for "${currentFile}"`, 'red');
+    console.error(`Error: No content found for "${currentFile}"`);
     return;
   }
 
@@ -189,11 +187,11 @@ function openOutputInNewWindow() {
   const jsFiles = Object.keys(files).filter(f => f.endsWith('.js'));
   for (const jsFile of jsFiles) {
     if (!files[jsFile] || !files[jsFile].content) {
-      appendToConsole(`Error: File "${jsFile}" is empty or not found`, 'red');
+      console.error(`Error: File "${jsFile}" is empty or not found`);
       return;
     }
     if (!isValidJavaScript(files[jsFile].content)) {
-      appendToConsole(`Cannot open output: Invalid JavaScript in ${jsFile}`, 'red');
+      console.error(`Cannot open output: Invalid JavaScript in ${jsFile}`);
       return;
     }
   }
@@ -201,7 +199,7 @@ function openOutputInNewWindow() {
   try {
     const newWindow = window.open('', '_blank');
     if (!newWindow) {
-      appendToConsole('Error: Popup blocked. Please allow popups for this site.', 'red');
+      console.error('Error: Popup blocked. Please allow popups for this site.');
       return;
     }
 
@@ -210,7 +208,7 @@ function openOutputInNewWindow() {
 
     // Check for parsing errors
     if (doc.querySelector('parsererror')) {
-      appendToConsole(`Error: Invalid HTML in "${htmlFileName}"`, 'red');
+      console.error(`Error: Invalid HTML in "${htmlFileName}"`);
       return;
     }
 
@@ -225,9 +223,9 @@ function openOutputInNewWindow() {
         doc.head.appendChild(style);
         embeddedCssFiles.push(href);
         link.remove();
-        appendToConsole(`Embedded CSS: ${href}`, 'green');
+        console.log(`Embedded CSS: ${href}`);
       } else if (href && !files[href]) {
-        appendToConsole(`Warning: CSS file "${href}" not found, link preserved`, 'yellow');
+        console.warn(`Warning: CSS file "${href}" not found, link preserved`);
       }
     });
 
@@ -244,278 +242,44 @@ function openOutputInNewWindow() {
             ${files[src].content}
           } catch (err) {
             console.error('Error in ${src}: ' + err.message);
-            window.parent.postMessage({ type: 'console', message: 'Error in ${src}: ' + err.message, color: 'red' }, '*');
           }
         `;
         doc.body.appendChild(newScript);
         embeddedJsFiles.push(src);
         script.remove();
-        appendToConsole(`Embedded JS: ${src}`, 'green');
+        console.log(`Embedded JS: ${src}`);
       } else if (src && !files[src]) {
-        appendToConsole(`Warning: JS file "${src}" not found, script tag preserved`, 'yellow');
+        console.warn(`Warning: JS file "${src}" not found, script tag preserved`);
       }
     });
 
-    // Add console message forwarding
-    const consoleScript = doc.createElement('script');
-    consoleScript.textContent = `
-      (function() {
-        const originalConsoleLog = console.log;
-        const originalConsoleError = console.error;
-        console.log = function(...args) {
-          const message = args.map(arg => String(arg)).join(' ');
-          window.parent.postMessage({ type: 'console', message: message, color: 'white' }, '*');
-          originalConsoleLog.apply(console, args);
-        };
-        console.error = function(...args) {
-          const message = args.map(arg => String(arg)).join(' ');
-          window.parent.postMessage({ type: 'console', message: message, color: 'red' }, '*');
-          originalConsoleError.apply(console, args);
-        };
-      })();
-    `;
-    doc.head.appendChild(consoleScript);
-
     // Serialize the document
     const serializer = new XMLSerializer();
-    let finalHtml = `<!DOCTYPE html>\n${serializer.serializeToString(doc)}`;
-
-    // Debug: Log the final HTML to check for issues
-    console.log('Generated HTML for output window:', finalHtml);
+    const finalHtml = `<!DOCTYPE html>\n${serializer.serializeToString(doc)}`;
 
     // Write to the new window
     newWindow.document.write(finalHtml);
     newWindow.document.close();
 
-    // Listen for console messages from the new window
-    window.addEventListener('message', (event) => {
-      if (event.data.type === 'console') {
-        appendToConsole(event.data.message, event.data.color);
-      }
-    }, { once: true });
-
-    appendToConsole(`Output opened for HTML: ${htmlFileName}, CSS: [${embeddedCssFiles.join(', ') || 'none'}], JS: [${embeddedJsFiles.join(', ') || 'none'}]`, 'green');
+    console.log(`Output opened for HTML: ${htmlFileName}, CSS: [${embeddedCssFiles.join(', ') || 'none'}], JS: [${embeddedJsFiles.join(', ') || 'none'}]`);
   } catch (err) {
-    appendToConsole(`Error opening output: ${err.message}`, 'red');
-    console.error('Output error:', err);
-  }
-}
-
-/* Append message to console window or fallback */
-function appendToConsole(message, color = 'white') {
-  if (consoleWindow && !consoleWindow.closed) {
-    const outputDiv = consoleWindow.document.createElement('div');
-    outputDiv.textContent = message;
-    outputDiv.style.color = color;
-    consoleWindow.document.querySelector('.console-output')?.appendChild(outputDiv);
-    consoleWindow.document.querySelector('.console-output').scrollTop = consoleWindow.document.querySelector('.console-output').scrollHeight;
-  } else {
-    if (!consoleMessageQueue.some(item => item.message === message && item.color === color)) {
-      consoleMessageQueue.push({ message, color });
-    }
-    console.log(`Console message queued: ${message} (console window not open)`);
-    const fallbackConsole = document.getElementById('fallback-console');
-    if (fallbackConsole) {
-      fallbackConsole.style.display = 'block';
-      const outputDiv = document.createElement('div');
-      outputDiv.textContent = message;
-      outputDiv.style.color = color;
-      fallbackConsole.appendChild(outputDiv);
-      fallbackConsole.scrollTop = fallbackConsole.scrollHeight;
-    }
-  }
-}
-
-/* Flush queued console messages */
-function flushConsoleQueue() {
-  if (consoleWindow && !consoleWindow.closed) {
-    consoleMessageQueue.forEach(({ message, color }) => {
-      if (!(message === 'Pyodide initialized' && currentFile && !currentFile.endsWith('.py'))) {
-        const outputDiv = consoleWindow.document.createElement('div');
-        outputDiv.textContent = message;
-        outputDiv.style.color = color;
-        consoleWindow.document.querySelector('.console-output')?.appendChild(outputDiv);
-      }
-    });
-    consoleWindow.document.querySelector('.console-output').scrollTop = consoleWindow.document.querySelector('.console-output').scrollHeight;
-    consoleMessageQueue = [];
-  }
-}
-
-/* Open console in new window */
-function openConsoleWindow() {
-  if (consoleWindow && !consoleWindow.closed) {
-    consoleWindow.focus();
-    flushConsoleQueue();
-    return true;
-  }
-  try {
-    consoleWindow = window.open('', 'consoleWindow', 'width=600,height=400');
-    if (!consoleWindow) {
-      const fallbackConsole = document.getElementById('fallback-console');
-      if (fallbackConsole) {
-        fallbackConsole.style.display = 'block';
-        const outputDiv = document.createElement('div');
-        outputDiv.textContent = 'Error: Popup blocked. Please allow popups for this site in your browser settings and click the console button again.';
-        outputDiv.style.color = 'red';
-        fallbackConsole.appendChild(outputDiv);
-        fallbackConsole.scrollTop = fallbackConsole.scrollHeight;
-      }
-      return false;
-    }
-    const consoleDoc = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Console</title>
-        <style>
-          body {
-            font-family: 'Share Tech Mono', monospace;
-            background-color: #0a0a23;
-            color: #ffffff;
-            margin: 0;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-          }
-          .console-output {
-            background-color: #1b1b32;
-            padding: 10px;
-            flex: 1;
-            overflow-y: auto;
-            border: 2px solid #3c8235;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-          }
-          .console-input {
-            width: 100%;
-            padding: 8px;
-            background-color: #1b1b32;
-            border: 2px solid #3c8235;
-            color: #ffffff;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9rem;
-          }
-          .console-input:focus {
-            outline: none;
-            border-color: #ffffff;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="console-output"></div>
-        <input type="text" class="console-input" placeholder="Enter command...">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js"></script>
-        <script>
-          window.safeEval = function(code) {
-            try {
-              return eval(code);
-            } catch (err) {
-              return { error: err.message };
-            }
-          };
-          (function() {
-            const originalConsoleLog = console.log;
-            console.log = function(...args) {
-              const outputDiv = document.querySelector('.console-output');
-              if (outputDiv) {
-                const message = args.map(arg => String(arg)).join(' ');
-                const div = document.createElement('div');
-                div.textContent = message;
-                div.style.color = 'white';
-                outputDiv.appendChild(div);
-                outputDiv.scrollTop = outputDiv.scrollHeight;
-              }
-              originalConsoleLog.apply(console, args);
-            };
-          })();
-          const input = document.querySelector('.console-input');
-          input.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && input.value.trim()) {
-              const command = input.value.trim();
-              const outputDiv = document.querySelector('.console-output');
-              const commandDiv = document.createElement('div');
-              commandDiv.textContent = \`> \${command}\`;
-              commandDiv.style.color = '#3c8235';
-              outputDiv.appendChild(commandDiv);
-              try {
-                const mathResult = window.math.evaluate(command);
-                if (mathResult !== undefined) {
-                  console.log(String(mathResult));
-                }
-              } catch (mathErr) {
-                const result = window.safeEval(command);
-                if (result && result.error) {
-                  console.log(\`JavaScript Error: \${result.error}\`);
-                } else {
-                  console.log(String(result));
-                }
-              }
-              outputDiv.scrollTop = outputDiv.scrollHeight;
-              input.value = '';
-            }
-          });
-          window.consoleReady = true;
-        </script>
-      </body>
-      </html>
-    `;
-    consoleWindow.document.write(consoleDoc);
-    consoleWindow.document.close();
-    flushConsoleQueue();
-    appendToConsole('Console opened', 'green');
-    return true;
-  } catch (err) {
-    appendToConsole(`Error opening console: ${err.message}. Please allow popups and click the console button again.`, 'red');
-    console.error('Console open error:', err);
-    return false;
+    console.error(`Error opening output: ${err.message}`);
   }
 }
 
 /* Run Python code */
 async function runPython(code) {
   if (!pyodideActive) {
-    appendToConsole('Error: Pyodide not initialized', 'red');
+    console.error('Error: Pyodide not initialized');
     return;
   }
   try {
     const result = await pyodide.runPythonAsync(code);
     if (result !== undefined) {
-      appendToConsole(String(result));
+      console.log(String(result));
     }
   } catch (err) {
-    appendToConsole(`Python Error: ${err.message}`, 'red');
-  }
-}
-
-/* Run console command */
-function runConsoleCommand(command, safeEval) {
-  if (!command) return;
-  appendToConsole(`> ${command}`);
-  try {
-    if (currentFile && currentFile.endsWith('.py')) {
-      runPython(command);
-    } else {
-      try {
-        const mathResult = consoleWindow.math.evaluate(command);
-        if (mathResult !== undefined) {
-          appendToConsole(String(mathResult));
-          return;
-        }
-      } catch (mathErr) {
-        const result = safeEval(command);
-        if (result && result.error) {
-          appendToConsole(`JavaScript Error: ${result.error}`, 'red');
-        } else {
-          appendToConsole(String(result));
-        }
-      }
-    }
-  } catch (err) {
-    appendToConsole(`Error: ${err.message}`, 'red');
+    console.error(`Python Error: ${err.message}`);
   }
 }
 
@@ -523,44 +287,32 @@ function runConsoleCommand(command, safeEval) {
 function runEditorCode() {
   console.log('runEditorCode called for file:', currentFile);
   if (!currentFile) {
-    appendToConsole('Error: No file selected', 'red');
+    console.error('Error: No file selected');
     return;
   }
-  if (!openConsoleWindow()) {
+  const code = files[currentFile].content;
+  if (!code.trim()) {
+    console.log('Info: No code to run');
     return;
   }
-  const checkConsoleReady = setInterval(() => {
-    if (consoleWindow.consoleReady) {
-      clearInterval(checkConsoleReady);
-      const code = files[currentFile].content;
-      if (!code.trim()) {
-        appendToConsole('Info: No code to run', 'yellow');
-        return;
-      }
-      if (currentFile.endsWith('.py')) {
-        appendToConsole(`Running ${currentFile}...`, 'green');
-        runPython(code);
-      } else if (currentFile.endsWith('.js')) {
-        if (!isValidJavaScript(code)) {
-          appendToConsole('Error: Invalid JavaScript code', 'red');
-          return;
-        }
-        try {
-          appendToConsole(`Running ${currentFile}...`, 'green');
-          const result = consoleWindow.safeEval(code);
-          if (result && result.error) {
-            appendToConsole(`JavaScript Error: ${result.error}`, 'red');
-          } else {
-            appendToConsole('Run complete', 'green');
-          }
-        } catch (err) {
-          appendToConsole(`JavaScript Error: ${err.message}`, 'red');
-        }
-      } else {
-        appendToConsole(`Info: Auto-run skipped for non-JavaScript/Python file (${currentFile})`, 'yellow');
-      }
+  if (currentFile.endsWith('.py')) {
+    console.log(`Running ${currentFile}...`);
+    runPython(code);
+  } else if (currentFile.endsWith('.js')) {
+    if (!isValidJavaScript(code)) {
+      console.error('Error: Invalid JavaScript code');
+      return;
     }
-  }, 100);
+    try {
+      console.log(`Running ${currentFile}...`);
+      const result = eval(code);
+      console.log('Run complete');
+    } catch (err) {
+      console.error(`JavaScript Error: ${err.message}`);
+    }
+  } else {
+    console.log(`Info: Auto-run skipped for non-JavaScript/Python file (${currentFile})`);
+  }
 }
 
 /* Delete file */
@@ -576,7 +328,7 @@ function deleteFile(filename) {
       updateStatusBar();
     }
     saveFilesToStorage();
-    appendToConsole(`File "${filename}" deleted successfully`, 'green');
+    console.log(`File "${filename}" deleted successfully`);
     if (Object.keys(files).length === 0) {
       initializeDefaultFiles();
     }
@@ -595,9 +347,9 @@ function saveFile(filename) {
     a.click();
     URL.revokeObjectURL(url);
     saveFilesToStorage();
-    appendToConsole(`File "${filename}" saved successfully`, 'green');
+    console.log(`File "${filename}" saved successfully`);
   } else {
-    appendToConsole('Error: No file selected', 'red');
+    console.error('Error: No file selected');
   }
 }
 
@@ -611,14 +363,14 @@ function updateStatusBar() {
 /* Clear editor code */
 function clearEditorCode() {
   if (!currentFile) {
-    appendToConsole('Error: No file selected', 'red');
+    console.error('Error: No file selected');
     return;
   }
   if (confirm(`Are you sure you want to clear the code in ${currentFile}?`)) {
     files[currentFile].content = '';
     editor.setValue('');
     saveFilesToStorage();
-    appendToConsole(`Code in "${currentFile}" cleared successfully`, 'green');
+    console.log(`Code in "${currentFile}" cleared successfully`);
   }
 }
 
@@ -629,7 +381,7 @@ clearCodeBtn.addEventListener('click', clearEditorCode);
 /* Download all files as ZIP */
 function downloadAllFiles() {
   if (Object.keys(files).length === 0) {
-    appendToConsole('Error: No files to download', 'red');
+    console.error('Error: No files to download');
     return;
   }
   if (confirm('Are you sure you want to download all files as a ZIP?')) {
@@ -644,9 +396,9 @@ function downloadAllFiles() {
       a.download = 'project-files.zip';
       a.click();
       URL.revokeObjectURL(url);
-      appendToConsole('All files downloaded as project-files.zip', 'green');
+      console.log('All files downloaded as project-files.zip');
     }).catch(err => {
-      appendToConsole(`Error creating ZIP: ${err.message}`, 'red');
+      console.error(`Error creating ZIP: ${err.message}`);
     });
   }
 }
@@ -658,14 +410,14 @@ downloadAllBtn.addEventListener('click', downloadAllFiles);
 /* Copy current file content to clipboard */
 function copyFileContent() {
   if (!currentFile) {
-    appendToConsole('Error: No file selected to copy', 'red');
+    console.error('Error: No file selected to copy');
     return;
   }
   const content = files[currentFile].content || '';
   navigator.clipboard.writeText(content).then(() => {
-    appendToConsole(`Copied content of "${currentFile}" to clipboard`, 'green');
+    console.log(`Copied content of "${currentFile}" to clipboard`);
   }).catch(err => {
-    appendToConsole(`Error copying content: ${err.message}`, 'red');
+    console.error(`Error copying content: ${err.message}`);
   });
 }
 
@@ -682,7 +434,6 @@ const createNewFileBtn = document.querySelector('#create-new-file');
 const cancelModalBtn = document.querySelector('#cancel-modal');
 const newFileNameInput = document.querySelector('#new-file-name');
 const openOutputBtn = document.querySelector('#open-output');
-const openConsoleBtn = document.querySelector('#open-console');
 const runCodeBtn = document.querySelector('#run-code');
 
 /* Show file modal */
@@ -694,16 +445,16 @@ addFileBtn.addEventListener('click', () => {
 createNewFileBtn.addEventListener('click', () => {
   const filename = newFileNameInput.value.trim();
   if (!filename) {
-    appendToConsole('Error: Filename cannot be empty', 'red');
+    console.error('Error: Filename cannot be empty');
     return;
   }
   if (files[filename]) {
-    appendToConsole(`Error: File "${filename}" already exists`, 'red');
+    console.error(`Error: File "${filename}" already exists`);
     return;
   }
   const ext = filename.split('.').pop().toLowerCase();
   if (!['html', 'css', 'js', 'py', 'txt'].includes(ext)) {
-    appendToConsole(`Error: Unsupported file type ".${ext}"`, 'red');
+    console.error(`Error: Unsupported file type ".${ext}"`);
     return;
   }
   files[filename] = { content: '', type: ext };
@@ -712,7 +463,7 @@ createNewFileBtn.addEventListener('click', () => {
   saveFilesToStorage();
   fileModal.style.display = 'none';
   newFileNameInput.value = '';
-  appendToConsole(`File "${filename}" created successfully`, 'green');
+  console.log(`File "${filename}" created successfully`);
 });
 
 /* Cancel modal */
@@ -725,19 +476,17 @@ cancelModalBtn.addEventListener('click', () => {
 fileInput.addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (!file) {
-    appendToConsole('Error: No file selected', 'red');
+    console.error('Error: No file selected');
     return;
   }
   const filename = file.name;
   const ext = filename.split('.').pop().toLowerCase();
   if (!['html', 'css', 'js', 'py', 'txt'].includes(ext)) {
-    appendToConsole(`Error: Unsupported file type ".${ext}"`, 'red');
-    e.target.value = '';
+    console.error(`Error: Unsupported file type ".${ext}"`);
     return;
   }
   if (files[filename]) {
-    appendToConsole(`Error: File "${filename}" already exists`, 'red');
-    e.target.value = '';
+    console.error(`Error: File "${filename}" already exists`);
     return;
   }
   const reader = new FileReader();
@@ -748,14 +497,14 @@ fileInput.addEventListener('change', (e) => {
       loadFile(filename);
       saveFilesToStorage();
       fileModal.style.display = 'none';
-      appendToConsole(`File "${filename}" imported successfully`, 'green');
+      console.log(`File "${filename}" imported successfully`);
     } catch (err) {
-      appendToConsole(`Error importing file: ${err.message}`, 'red');
+      console.error(`Error importing file: ${err.message}`);
     }
     e.target.value = '';
   };
   reader.onerror = () => {
-    appendToConsole('Error: Failed to read file', 'red');
+    console.error('Error: Failed to read file');
     e.target.value = '';
   };
   reader.readAsText(file);
@@ -775,13 +524,6 @@ editor.on('cursorActivity', updateStatusBar);
 
 /* Open output in new window button */
 openOutputBtn.addEventListener('click', openOutputInNewWindow);
-
-/* Open console in new window button */
-openConsoleBtn.addEventListener('click', () => {
-  if (openConsoleWindow()) {
-    appendToConsole('Console opened', 'green');
-  }
-});
 
 /* Run code button */
 runCodeBtn.addEventListener('click', () => {
