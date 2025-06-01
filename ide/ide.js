@@ -230,7 +230,9 @@ function openOutputInNewWindow() {
       const href = link.getAttribute('href');
       if (href && files[href] && files[href].content && href.endsWith('.css')) {
         const style = doc.createElement('style');
-        style.textContent = `/* CSS from ${href} */\n${files[href].content}`;
+        // Sanitize CSS content to prevent breaking script tags
+        const sanitizedCss = files[href].content.replace(/<\/(script|style)>/gi, '');
+        style.textContent = `/* CSS from ${href} */\n${sanitizedCss}`;
         doc.head.appendChild(style);
         embeddedCssFiles.push(href);
         link.remove();
@@ -247,7 +249,9 @@ function openOutputInNewWindow() {
       const src = script.getAttribute('src');
       if (src && files[src] && files[src].content && src.endsWith('.js')) {
         const newScript = doc.createElement('script');
-        newScript.textContent = `/* JavaScript from ${src} */\n${files[src].content}`;
+        // Sanitize JS content to prevent breaking script tags
+        const sanitizedJs = files[src].content.replace(/<\/script>/gi, '<\\/script>');
+        newScript.textContent = `/* JavaScript from ${src} */\n${sanitizedJs}`;
         doc.body.appendChild(newScript);
         embeddedJsFiles.push(src);
         script.remove();
@@ -275,9 +279,14 @@ function openOutputInNewWindow() {
     console.log('Final HTML for new window:\n', finalHtml);
 
     // Write to the new window
-    newWindow.document.open();
-    newWindow.document.write(finalHtml);
-    newWindow.document.close();
+    try {
+      newWindow.document.write(finalHtml);
+      newWindow.document.close();
+    } catch (writeErr) {
+      console.error(`Error writing to new window: ${writeErr.message}`);
+      console.log('Problematic HTML:\n', finalHtml);
+      return;
+    }
 
     console.log(`Output opened for HTML: ${htmlFileName}, CSS: [${embeddedCssFiles.join(', ') || 'none'}], JS: [${embeddedJsFiles.join(', ') || 'none'}]`);
   } catch (err) {
