@@ -170,13 +170,12 @@ function addTab(filename) {
   tabs.insertBefore(tab, document.querySelector('#add-file'));
 }
 
-//openOutputInNewWindow
+/* openOutputInNewWindow */
 function openOutputInNewWindow() {
   const htmlFiles = Object.keys(files).filter(f => f.endsWith('.html'));
   const cssFiles = Object.keys(files).filter(f => f.endsWith('.css'));
   const jsFiles = Object.keys(files).filter(f => f.endsWith('.js'));
 
-  // Debug: Log files
   appendToConsole(`Files detected - HTML: [${htmlFiles.join(', ') || 'none'}], CSS: [${cssFiles.join(', ') || 'none'}], JS: [${jsFiles.join(', ') || 'none'}]`, 'blue');
 
   // Validate JavaScript files
@@ -230,8 +229,8 @@ function openOutputInNewWindow() {
       .map(script => ({ element: script, src: script.getAttribute('src') }))
       .filter(({ src }) => jsFiles.includes(src));
     scriptTags.forEach(({ element, src }) => {
-      element.removeAttribute('src');
-      appendToConsole(`Neutralized script src: ${src}`, 'yellow');
+      element.remove();
+      appendToConsole(`Removed script src: ${src} (will embed content)`, 'yellow');
     });
 
     // Remove or neutralize <link> tags for local CSS files
@@ -239,34 +238,30 @@ function openOutputInNewWindow() {
       const href = link.getAttribute('href');
       if (cssFiles.includes(href)) {
         link.remove();
-        appendToConsole(`Neutralized CSS link: ${href}`, 'yellow');
+        appendToConsole(`Removed CSS link: ${href} (will embed content)`, 'yellow');
       }
     });
 
     // Embed CSS files
     cssFiles.forEach(cssFile => {
-      const style = doc.createElement('style');
-      style.textContent = files[cssFile].content;
-      doc.head.appendChild(style);
-      appendToConsole(`Embedded CSS: ${cssFile}`, 'green');
+      if (files[cssFile] && files[cssFile].content) {
+        const style = doc.createElement('style');
+        style.textContent = files[cssFile].content;
+        doc.head.appendChild(style);
+        appendToConsole(`Embedded CSS: ${cssFile}`, 'green');
+      }
     });
 
-    // Embed JS files in order
-    const orderedJsFiles = [
-      ...scriptTags.map(({ src }) => src),
-      ...jsFiles.filter(jsFile => !scriptTags.some(tag => tag.src === jsFile))
-    ];
-    orderedJsFiles.forEach(jsFile => {
-      if (files[jsFile]) {
+    // Embed JS files
+    jsFiles.forEach(jsFile => {
+      if (files[jsFile] && files[jsFile].content) {
         const script = doc.createElement('script');
         script.textContent = `
           try {
-            console.log('Executing ${jsFile}');
-            document.addEventListener('DOMContentLoaded', function() {
-              ${files[jsFile].content}
-            });
+            ${files[jsFile].content}
           } catch (err) {
             console.error('Error in ${jsFile}: ' + err.message);
+            window.parent.postMessage({ type: 'console', message: 'Error in ${jsFile}: ' + err.message, color: 'red' }, '*');
           }
         `;
         doc.body.appendChild(script);
@@ -274,17 +269,44 @@ function openOutputInNewWindow() {
       }
     });
 
+    // Add event listener to capture console messages from the new window
+    const consoleScript = doc.createElement('script');
+    consoleScript.textContent = `
+      (function() {
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+        console.log = function(...args) {
+          const message = args.map(arg => String(arg)).join(' ');
+          window.parent.postMessage({ type: 'console', message: message, color: 'white' }, '*');
+          originalConsoleLog.apply(console, args);
+        };
+        console.error = function(...args) {
+          const message = args.map(arg => String(arg)).join(' ');
+          window.parent.postMessage({ type: 'console', message: message, color: 'red' }, '*');
+          originalConsoleError.apply(console, args);
+        };
+      })();
+    `;
+    doc.head.appendChild(consoleScript);
+
     const serializer = new XMLSerializer();
     const finalHtml = serializer.serializeToString(doc);
 
     newWindow.document.write(finalHtml);
     newWindow.document.close();
-    appendToConsole(`Output opened using HTML: ${selectedHtmlFile}, CSS: [${cssFiles.join(', ') || 'none'}], JS: [${orderedJsFiles.join(', ') || 'none'}]`, 'green');
+
+    // Listen for console messages from the new window
+    window.addEventListener('message', (event) => {
+      if (event.data.type === 'console') {
+        appendToConsole(event.data.message, event.data.color);
+      }
+    });
+
+    appendToConsole(`Output opened using HTML: ${selectedHtmlFile}, CSS: [${cssFiles.join(', ') || 'none'}], JS: [${jsFiles.join(', ') || 'none'}]`, 'green');
   } catch (err) {
     appendToConsole(`Error opening new window: ${err.message}`, 'red');
   }
 }
-
 /* Append message to console window or fallback */
 function appendToConsole(message, color = 'white') {
   if (consoleWindow && !consoleWindow.closed) {
