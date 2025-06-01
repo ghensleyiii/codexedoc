@@ -170,14 +170,11 @@ function addTab(filename) {
   tabs.insertBefore(tab, document.querySelector('#add-file'));
 }
 
-/* Open output in new window */
 function openOutputInNewWindow() {
-  // Collect all HTML, CSS, and JS files
   const htmlFiles = Object.keys(files).filter(f => f.endsWith('.html'));
   const cssFiles = Object.keys(files).filter(f => f.endsWith('.css'));
   const jsFiles = Object.keys(files).filter(f => f.endsWith('.js'));
 
-  // Validate JavaScript files
   for (const jsFile of jsFiles) {
     if (!isValidJavaScript(files[jsFile].content)) {
       appendToConsole(`Cannot open output: Invalid JavaScript in ${jsFile}`, 'red');
@@ -192,10 +189,13 @@ function openOutputInNewWindow() {
       return;
     }
 
-    // Select the first HTML file as the base, or create a minimal one if none exists
     let htmlContent = '';
-    if (htmlFiles.length > 0) {
+    let selectedHtmlFile = currentFile && currentFile.endsWith('.html') ? currentFile : htmlFiles[0];
+    if (selectedHtmlFile && files[selectedHtmlFile]) {
+      htmlContent = files[selectedHtmlFile].content;
+    } else if (htmlFiles.length > 0) {
       htmlContent = files[htmlFiles[0]].content;
+      selectedHtmlFile = htmlFiles[0];
     } else {
       htmlContent = `
         <!DOCTYPE html>
@@ -212,32 +212,66 @@ function openOutputInNewWindow() {
       `;
     }
 
-    // Create a document to manipulate the HTML
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, 'text/html');
 
-    // Add CSS files as <style> tags in the head
+    // Embed CSS files
     cssFiles.forEach(cssFile => {
       const style = doc.createElement('style');
       style.textContent = files[cssFile].content;
       doc.head.appendChild(style);
     });
 
-    // Add JS files as <script> tags in the body
+    // Embed JS files
     jsFiles.forEach(jsFile => {
       const script = doc.createElement('script');
       script.textContent = files[jsFile].content;
       doc.body.appendChild(script);
     });
 
-    // Serialize the modified document
+    // Add navigation handler script
+    const navigationScript = doc.createElement('script');
+    navigationScript.textContent = `
+      // Store files object in the window for access
+      window.__files = ${JSON.stringify(files)};
+      document.addEventListener('click', function(e) {
+        const link = e.target.closest('a[href]');
+        if (link) {
+          const href = link.getAttribute('href');
+          if (window.__files[href] && href.endsWith('.html')) {
+            e.preventDefault();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(window.__files[href].content, 'text/html');
+            // Re-embed CSS files
+            ${JSON.stringify(cssFiles)}.forEach(cssFile => {
+              const style = document.createElement('style');
+              style.textContent = window.__files[cssFile].content;
+              doc.head.appendChild(style);
+            });
+            // Re-embed JS files
+            ${JSON.stringify(jsFiles)}.forEach(jsFile => {
+              const script = document.createElement('script');
+              script.textContent = window.__files[jsFile].content;
+              doc.body.appendChild(script);
+            });
+            // Update document content
+            document.open();
+            document.write(new XMLSerializer().serializeToString(doc));
+            document.close();
+            // Update history to reflect new URL
+            history.pushState(null, '', href);
+          }
+        }
+      });
+    `;
+    doc.body.appendChild(navigationScript);
+
     const serializer = new XMLSerializer();
     const finalHtml = serializer.serializeToString(doc);
 
-    // Write the final document to the new window
     newWindow.document.write(finalHtml);
     newWindow.document.close();
-    appendToConsole('Output opened in new window', 'green');
+    appendToConsole(`Output opened using HTML: ${selectedHtmlFile || 'default'}, CSS: [${cssFiles.join(', ') || 'none'}], JS: [${jsFiles.join(', ') || 'none'}]`, 'green');
   } catch (err) {
     appendToConsole(`Error opening new window: ${err.message}`, 'red');
   }
