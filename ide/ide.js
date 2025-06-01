@@ -221,8 +221,7 @@ function openOutputInNewWindow() {
       const href = link.getAttribute('href');
       if (href && files[href] && files[href].content && href.endsWith('.css')) {
         const style = doc.createElement('style');
-        // Wrap CSS in CDATA to prevent XML parsing issues
-        style.textContent = `/* <![CDATA[ */\n${files[href].content}\n/* ]]> */`;
+        style.textContent = `/* CSS from ${href} */\n${files[href].content}`;
         doc.head.appendChild(style);
         embeddedCssFiles.push(href);
         link.remove();
@@ -239,8 +238,15 @@ function openOutputInNewWindow() {
       const src = script.getAttribute('src');
       if (src && files[src] && files[src].content && src.endsWith('.js')) {
         const newScript = doc.createElement('script');
-        // Wrap JS in CDATA and try-catch to prevent syntax errors
-        newScript.textContent = `/* <![CDATA[ */\ntry {\n${files[src].content}\n} catch (err) {\n  console.error('Error in ${src}: ' + err.message);\n  window.parent.postMessage({ type: 'console', message: 'Error in ${src}: ' + err.message, color: 'red' }, '*');\n}\n/* ]]> */`;
+        newScript.textContent = `
+          // JavaScript from ${src}
+          try {
+            ${files[src].content}
+          } catch (err) {
+            console.error('Error in ${src}: ' + err.message);
+            window.parent.postMessage({ type: 'console', message: 'Error in ${src}: ' + err.message, color: 'red' }, '*');
+          }
+        `;
         doc.body.appendChild(newScript);
         embeddedJsFiles.push(src);
         script.remove();
@@ -252,18 +258,32 @@ function openOutputInNewWindow() {
 
     // Add console message forwarding
     const consoleScript = doc.createElement('script');
-    consoleScript.textContent = `/* <![CDATA[ */\n(function() {\n  const originalConsoleLog = console.log;\n  const originalConsoleError = console.error;\n  console.log = function(...args) {\n    const message = args.map(arg => String(arg)).join(' ');\n    window.parent.postMessage({ type: 'console', message: message, color: 'white' }, '*');\n    originalConsoleLog.apply(console, args);\n  };\n  console.error = function(...args) {\n    const message = args.map(arg => String(arg)).join(' ');\n    window.parent.postMessage({ type: 'console', message: message, color: 'red' }, '*');\n    originalConsoleError.apply(console, args);\n  };\n})();\n/* ]]> */`;
+    consoleScript.textContent = `
+      (function() {
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+        console.log = function(...args) {
+          const message = args.map(arg => String(arg)).join(' ');
+          window.parent.postMessage({ type: 'console', message: message, color: 'white' }, '*');
+          originalConsoleLog.apply(console, args);
+        };
+        console.error = function(...args) {
+          const message = args.map(arg => String(arg)).join(' ');
+          window.parent.postMessage({ type: 'console', message: message, color: 'red' }, '*');
+          originalConsoleError.apply(console, args);
+        };
+      })();
+    `;
     doc.head.appendChild(consoleScript);
 
     // Serialize the document
     const serializer = new XMLSerializer();
-    let finalHtml = serializer.serializeToString(doc);
-    // Ensure DOCTYPE is included
-    finalHtml = `<!DOCTYPE html>\n${finalHtml}`;
+    let finalHtml = `<!DOCTYPE html>\n${serializer.serializeToString(doc)}`;
 
-    // Debug: Log the final HTML to check for syntax issues
+    // Debug: Log the final HTML to check for issues
     console.log('Generated HTML for output window:', finalHtml);
 
+    // Write to the new window
     newWindow.document.write(finalHtml);
     newWindow.document.close();
 
