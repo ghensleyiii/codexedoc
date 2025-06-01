@@ -208,6 +208,12 @@ function openOutputInNewWindow() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, 'text/html');
 
+    // Check for parsing errors
+    if (doc.querySelector('parsererror')) {
+      appendToConsole(`Error: Invalid HTML in "${htmlFileName}"`, 'red');
+      return;
+    }
+
     // Process CSS: Remove <link> tags and embed content
     const cssLinks = Array.from(doc.querySelectorAll('link[rel="stylesheet"]'));
     const embeddedCssFiles = [];
@@ -215,7 +221,8 @@ function openOutputInNewWindow() {
       const href = link.getAttribute('href');
       if (href && files[href] && files[href].content && href.endsWith('.css')) {
         const style = doc.createElement('style');
-        style.textContent = files[href].content;
+        // Escape CSS content
+        style.textContent = files[href].content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         doc.head.appendChild(style);
         embeddedCssFiles.push(href);
         link.remove();
@@ -232,9 +239,10 @@ function openOutputInNewWindow() {
       const src = script.getAttribute('src');
       if (src && files[src] && files[src].content && src.endsWith('.js')) {
         const newScript = doc.createElement('script');
+        // Wrap JS content in try-catch and escape special characters
         newScript.textContent = `
           try {
-            ${files[src].content}
+            ${files[src].content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}
           } catch (err) {
             console.error('Error in ${src}: ' + err.message);
             window.parent.postMessage({ type: 'console', message: 'Error in ${src}: ' + err.message, color: 'red' }, '*');
@@ -269,8 +277,13 @@ function openOutputInNewWindow() {
     `;
     doc.head.appendChild(consoleScript);
 
+    // Serialize and escape the HTML to prevent syntax errors
     const serializer = new XMLSerializer();
-    const finalHtml = serializer.serializeToString(doc);
+    let finalHtml = serializer.serializeToString(doc);
+    // Additional escaping for document.write
+    finalHtml = finalHtml.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+    // Wrap in a basic HTML structure to ensure proper rendering
+    finalHtml = `<!DOCTYPE html><html lang="en">${doc.documentElement.outerHTML}</html>`;
 
     newWindow.document.write(finalHtml);
     newWindow.document.close();
@@ -280,11 +293,12 @@ function openOutputInNewWindow() {
       if (event.data.type === 'console') {
         appendToConsole(event.data.message, event.data.color);
       }
-    }, { once: true }); // Use once to avoid multiple listeners piling up
+    }, { once: true });
 
     appendToConsole(`Output opened for HTML: ${htmlFileName}, CSS: [${embeddedCssFiles.join(', ') || 'none'}], JS: [${embeddedJsFiles.join(', ') || 'none'}]`, 'green');
   } catch (err) {
     appendToConsole(`Error opening output: ${err.message}`, 'red');
+    console.error('Output error:', err);
   }
 }
 
