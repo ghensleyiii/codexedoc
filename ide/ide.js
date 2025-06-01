@@ -275,6 +275,7 @@ function openOutputInNewWindow() {
     console.log('Final HTML for new window:\n', finalHtml);
 
     // Write to the new window
+    newWindow.document.open();
     newWindow.document.write(finalHtml);
     newWindow.document.close();
 
