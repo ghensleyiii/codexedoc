@@ -172,16 +172,17 @@ function addTab(filename) {
 
 /* Open output in new window */
 function openOutputInNewWindow() {
-  const htmlFile = Object.keys(files).find(f => f.endsWith('.html'));
-  const cssFile = Object.keys(files).find(f => f.endsWith('.css'));
-  const jsFile = Object.keys(files).find(f => f.endsWith('.js'));
-  const html = files[htmlFile]?.content || '';
-  const css = files[cssFile]?.content || '';
-  const js = files[jsFile]?.content || '';
+  // Collect all HTML, CSS, and JS files
+  const htmlFiles = Object.keys(files).filter(f => f.endsWith('.html'));
+  const cssFiles = Object.keys(files).filter(f => f.endsWith('.css'));
+  const jsFiles = Object.keys(files).filter(f => f.endsWith('.js'));
 
-  if (js && !isValidJavaScript(js)) {
-    appendToConsole('Cannot open output: Invalid JavaScript', 'red');
-    return;
+  // Validate JavaScript files
+  for (const jsFile of jsFiles) {
+    if (!isValidJavaScript(files[jsFile].content)) {
+      appendToConsole(`Cannot open output: Invalid JavaScript in ${jsFile}`, 'red');
+      return;
+    }
   }
 
   try {
@@ -190,20 +191,53 @@ function openOutputInNewWindow() {
       appendToConsole('Error: Popup blocked. Please allow popups for this site.', 'red');
       return;
     }
-    const doc = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <style>${css}</style>
-      </head>
-      <body>
-        ${html}
-        <script>${js}</script>
-      </body>
-      </html>
-    `;
-    newWindow.document.write(doc);
+
+    // Select the first HTML file as the base, or create a minimal one if none exists
+    let htmlContent = '';
+    if (htmlFiles.length > 0) {
+      htmlContent = files[htmlFiles[0]].content;
+    } else {
+      htmlContent = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Output</title>
+        </head>
+        <body>
+          <h1>No HTML file provided</h1>
+        </body>
+        </html>
+      `;
+    }
+
+    // Create a document to manipulate the HTML
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, 'text/html');
+
+    // Add CSS files as <style> tags in the head
+    cssFiles.forEach(cssFile => {
+      const style = doc.createElement('style');
+      style.textContent = files[cssFile].content;
+      doc.head.appendChild(style);
+    });
+
+    // Add JS files as <script> tags in the body
+    jsFiles.forEach(jsFile => {
+      const script = doc.createElement('script');
+      script.textContent = files[jsFile].content;
+      doc.body.appendChild(script);
+    });
+
+    // Serialize the modified document
+    const serializer = new XMLSerializer();
+    const finalHtml = serializer.serializeToString(doc);
+
+    // Write the final document to the new window
+    newWindow.document.write(finalHtml);
     newWindow.document.close();
+    appendToConsole('Output opened in new window', 'green');
   } catch (err) {
     appendToConsole(`Error opening new window: ${err.message}`, 'red');
   }
