@@ -639,6 +639,24 @@ function downloadAllFiles() {
 const downloadAllBtn = document.querySelector('#download-all');
 downloadAllBtn.addEventListener('click', downloadAllFiles);
 
+/* Copy current file content to clipboard */
+function copyFileContent() {
+  if (!currentFile) {
+    appendToConsole('Error: No file selected to copy', 'red');
+    return;
+  }
+  const content = files[currentFile].content || '';
+  navigator.clipboard.writeText(content).then(() => {
+    appendToConsole(`Copied content of "${currentFile}" to clipboard`, 'green');
+  }).catch(err => {
+    appendToConsole(`Error copying content: ${err.message}`, 'red');
+  });
+}
+
+/* Copy code button */
+const copyCodeBtn = document.querySelector('#copy-code');
+copyCodeBtn.addEventListener('click', copyFileContent);
+
 /* DOM elements */
 const tabs = document.querySelector('.tabs');
 const addFileBtn = document.querySelector('#add-file');
