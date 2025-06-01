@@ -170,12 +170,23 @@ function addTab(filename) {
   tabs.insertBefore(tab, document.querySelector('#add-file'));
 }
 
+//openOutputInNewWindow
 function openOutputInNewWindow() {
   const htmlFiles = Object.keys(files).filter(f => f.endsWith('.html'));
   const cssFiles = Object.keys(files).filter(f => f.endsWith('.css'));
   const jsFiles = Object.keys(files).filter(f => f.endsWith('.js'));
 
+  // Log files for debugging
+  console.log('HTML Files:', htmlFiles);
+  console.log('CSS Files:', cssFiles);
+  console.log('JS Files:', jsFiles);
+
+  // Validate JavaScript files
   for (const jsFile of jsFiles) {
+    if (!files[jsFile]) {
+      appendToConsole(`Error: File "${jsFile}" not found in files object`, 'red');
+      return;
+    }
     if (!isValidJavaScript(files[jsFile].content)) {
       appendToConsole(`Cannot open output: Invalid JavaScript in ${jsFile}`, 'red');
       return;
@@ -210,10 +221,25 @@ function openOutputInNewWindow() {
         </body>
         </html>
       `;
+      selectedHtmlFile = 'default';
     }
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, 'text/html');
+
+    // Remove or neutralize <script src> tags for local JS files
+    const scriptTags = Array.from(doc.querySelectorAll('script[src]'))
+      .map(script => ({ element: script, src: script.getAttribute('src') }))
+      .filter(({ src }) => jsFiles.includes(src));
+    scriptTags.forEach(({ element }) => element.removeAttribute('src'));
+
+    // Remove or neutralize <link> tags for local CSS files
+    doc.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (cssFiles.includes(href)) {
+        link.remove();
+      }
+    });
 
     // Embed CSS files
     cssFiles.forEach(cssFile => {
@@ -222,56 +248,30 @@ function openOutputInNewWindow() {
       doc.head.appendChild(style);
     });
 
-    // Embed JS files
-    jsFiles.forEach(jsFile => {
-      const script = doc.createElement('script');
-      script.textContent = files[jsFile].content;
-      doc.body.appendChild(script);
+    // Embed JS files in the order of <script> tags, followed by additional JS files
+    const orderedJsFiles = [
+      ...scriptTags.map(({ src }) => src),
+      ...jsFiles.filter(jsFile => !scriptTags.some(tag => tag.src === jsFile))
+    ];
+    orderedJsFiles.forEach(jsFile => {
+      if (files[jsFile]) {
+        const script = doc.createElement('script');
+        // Wrap script content in DOMContentLoaded to ensure DOM is ready
+        script.textContent = `
+          document.addEventListener('DOMContentLoaded', function() {
+            ${files[jsFile].content}
+          });
+        `;
+        doc.body.appendChild(script);
+      }
     });
-
-    // Add navigation handler script
-    const navigationScript = doc.createElement('script');
-    navigationScript.textContent = `
-      // Store files object in the window for access
-      window.__files = ${JSON.stringify(files)};
-      document.addEventListener('click', function(e) {
-        const link = e.target.closest('a[href]');
-        if (link) {
-          const href = link.getAttribute('href');
-          if (window.__files[href] && href.endsWith('.html')) {
-            e.preventDefault();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(window.__files[href].content, 'text/html');
-            // Re-embed CSS files
-            ${JSON.stringify(cssFiles)}.forEach(cssFile => {
-              const style = document.createElement('style');
-              style.textContent = window.__files[cssFile].content;
-              doc.head.appendChild(style);
-            });
-            // Re-embed JS files
-            ${JSON.stringify(jsFiles)}.forEach(jsFile => {
-              const script = document.createElement('script');
-              script.textContent = window.__files[jsFile].content;
-              doc.body.appendChild(script);
-            });
-            // Update document content
-            document.open();
-            document.write(new XMLSerializer().serializeToString(doc));
-            document.close();
-            // Update history to reflect new URL
-            history.pushState(null, '', href);
-          }
-        }
-      });
-    `;
-    doc.body.appendChild(navigationScript);
 
     const serializer = new XMLSerializer();
     const finalHtml = serializer.serializeToString(doc);
 
     newWindow.document.write(finalHtml);
     newWindow.document.close();
-    appendToConsole(`Output opened using HTML: ${selectedHtmlFile || 'default'}, CSS: [${cssFiles.join(', ') || 'none'}], JS: [${jsFiles.join(', ') || 'none'}]`, 'green');
+    appendToConsole(`Output opened using HTML: ${selectedHtmlFile}, CSS: [${cssFiles.join(', ') || 'none'}], JS: [${orderedJsFiles.join(', ') || 'none'}]`, 'green');
   } catch (err) {
     appendToConsole(`Error opening new window: ${err.message}`, 'red');
   }
