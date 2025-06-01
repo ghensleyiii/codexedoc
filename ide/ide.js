@@ -176,10 +176,8 @@ function openOutputInNewWindow() {
   const cssFiles = Object.keys(files).filter(f => f.endsWith('.css'));
   const jsFiles = Object.keys(files).filter(f => f.endsWith('.js'));
 
-  // Log files for debugging
-  console.log('HTML Files:', htmlFiles);
-  console.log('CSS Files:', cssFiles);
-  console.log('JS Files:', jsFiles);
+  // Debug: Log files
+  appendToConsole(`Files detected - HTML: [${htmlFiles.join(', ') || 'none'}], CSS: [${cssFiles.join(', ') || 'none'}], JS: [${jsFiles.join(', ') || 'none'}]`, 'blue');
 
   // Validate JavaScript files
   for (const jsFile of jsFiles) {
@@ -231,13 +229,17 @@ function openOutputInNewWindow() {
     const scriptTags = Array.from(doc.querySelectorAll('script[src]'))
       .map(script => ({ element: script, src: script.getAttribute('src') }))
       .filter(({ src }) => jsFiles.includes(src));
-    scriptTags.forEach(({ element }) => element.removeAttribute('src'));
+    scriptTags.forEach(({ element, src }) => {
+      element.removeAttribute('src');
+      appendToConsole(`Neutralized script src: ${src}`, 'yellow');
+    });
 
     // Remove or neutralize <link> tags for local CSS files
     doc.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
       const href = link.getAttribute('href');
       if (cssFiles.includes(href)) {
         link.remove();
+        appendToConsole(`Neutralized CSS link: ${href}`, 'yellow');
       }
     });
 
@@ -246,9 +248,10 @@ function openOutputInNewWindow() {
       const style = doc.createElement('style');
       style.textContent = files[cssFile].content;
       doc.head.appendChild(style);
+      appendToConsole(`Embedded CSS: ${cssFile}`, 'green');
     });
 
-    // Embed JS files in the order of <script> tags, followed by additional JS files
+    // Embed JS files in order
     const orderedJsFiles = [
       ...scriptTags.map(({ src }) => src),
       ...jsFiles.filter(jsFile => !scriptTags.some(tag => tag.src === jsFile))
@@ -256,13 +259,18 @@ function openOutputInNewWindow() {
     orderedJsFiles.forEach(jsFile => {
       if (files[jsFile]) {
         const script = doc.createElement('script');
-        // Wrap script content in DOMContentLoaded to ensure DOM is ready
         script.textContent = `
-          document.addEventListener('DOMContentLoaded', function() {
-            ${files[jsFile].content}
-          });
+          try {
+            console.log('Executing ${jsFile}');
+            document.addEventListener('DOMContentLoaded', function() {
+              ${files[jsFile].content}
+            });
+          } catch (err) {
+            console.error('Error in ${jsFile}: ' + err.message);
+          }
         `;
         doc.body.appendChild(script);
+        appendToConsole(`Embedded JS: ${jsFile}`, 'green');
       }
     });
 
