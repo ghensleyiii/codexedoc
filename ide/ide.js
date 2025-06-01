@@ -140,7 +140,12 @@ function loadFilesFromStorage() {
 
 /* Save files to local storage */
 function saveFilesToStorage() {
-  localStorage.setItem('codeIDEFiles', JSON.stringify(files));
+  try {
+    console.log('Saving files to localStorage:', files);
+    localStorage.setItem('codeIDEFiles', JSON.stringify(files));
+  } catch (err) {
+    console.error('Error saving files to localStorage:', err.message);
+  }
 }
 
 /* Validate JavaScript code */
@@ -468,7 +473,7 @@ createNewFileBtn.addEventListener('click', () => {
   saveFilesToStorage();
   fileModal.style.display = 'none';
   newFileNameInput.value = '';
-  console.log(`File "${filename}" created successfully`);
+  console.log(`File "${filename}" created and saved successfully`);
 });
 
 /* Cancel modal */
@@ -517,10 +522,12 @@ fileInput.addEventListener('change', (e) => {
 
 /* Editor changes */
 editor.on('change', () => {
-  console.log('Editor change detected');
+  console.log('Editor change detected, currentFile:', currentFile);
   if (currentFile && files[currentFile]) {
     files[currentFile].content = editor.getValue();
     saveFilesToStorage();
+  } else {
+    console.warn('No current file selected, skipping save');
   }
 });
 
