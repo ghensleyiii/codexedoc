@@ -179,6 +179,7 @@ function addTab(filename) {
 }
 
 /* Open output in new window */
+/* Open output in new window */
 function openOutputInNewWindow() {
   if (!currentFile || !currentFile.endsWith('.html')) {
     console.error('Error: Please select an HTML file to open output');
@@ -246,14 +247,7 @@ function openOutputInNewWindow() {
       const src = script.getAttribute('src');
       if (src && files[src] && files[src].content && src.endsWith('.js')) {
         const newScript = doc.createElement('script');
-        newScript.textContent = `
-          // JavaScript from ${src}
-          try {
-            ${files[src].content}
-          } catch (err) {
-            console.error('Error in ${src}: ' + err.message);
-          }
-        `;
+        newScript.textContent = `/* JavaScript from ${src} */\n${files[src].content}`;
         doc.body.appendChild(newScript);
         embeddedJsFiles.push(src);
         script.remove();
@@ -263,9 +257,22 @@ function openOutputInNewWindow() {
       }
     });
 
+    // Check for inline event handlers (e.g., onclick)
+    const elementsWithHandlers = doc.querySelectorAll('[onclick]');
+    elementsWithHandlers.forEach(el => {
+      const handler = el.getAttribute('onclick');
+      if (handler.includes('changeText')) {
+        console.warn(`Warning: Inline event handler "${handler}" references undefined function "changeText". Removing to prevent errors.`);
+        el.removeAttribute('onclick');
+      }
+    });
+
     // Serialize the document
     const serializer = new XMLSerializer();
     const finalHtml = `<!DOCTYPE html>\n${serializer.serializeToString(doc)}`;
+
+    // Log the final HTML for debugging
+    console.log('Final HTML for new window:\n', finalHtml);
 
     // Write to the new window
     newWindow.document.write(finalHtml);
