@@ -172,16 +172,24 @@ function addTab(filename) {
 
 /* openOutputInNewWindow */
 function openOutputInNewWindow() {
-  const htmlFiles = Object.keys(files).filter(f => f.endsWith('.html'));
-  const cssFiles = Object.keys(files).filter(f => f.endsWith('.css'));
+  if (!currentFile || !currentFile.endsWith('.html')) {
+    appendToConsole('Error: Please select an HTML file to open output', 'red');
+    return;
+  }
+
+  if (!files[currentFile] || !files[currentFile].content) {
+    appendToConsole(`Error: No content found for "${currentFile}"`, 'red');
+    return;
+  }
+
+  const htmlContent = files[currentFile].content;
+  const htmlFileName = currentFile;
+
+  // Validate JavaScript files that might be linked
   const jsFiles = Object.keys(files).filter(f => f.endsWith('.js'));
-
-  appendToConsole(`Files detected - HTML: [${htmlFiles.join(', ') || 'none'}], CSS: [${cssFiles.join(', ') || 'none'}], JS: [${jsFiles.join(', ') || 'none'}]`, 'blue');
-
-  // Validate JavaScript files
   for (const jsFile of jsFiles) {
-    if (!files[jsFile]) {
-      appendToConsole(`Error: File "${jsFile}" not found in files object`, 'red');
+    if (!files[jsFile] || !files[jsFile].content) {
+      appendToConsole(`Error: File "${jsFile}" is empty or not found`, 'red');
       return;
     }
     if (!isValidJavaScript(files[jsFile].content)) {
@@ -197,79 +205,51 @@ function openOutputInNewWindow() {
       return;
     }
 
-    let htmlContent = '';
-    let selectedHtmlFile = currentFile && currentFile.endsWith('.html') ? currentFile : htmlFiles[0];
-    if (selectedHtmlFile && files[selectedHtmlFile]) {
-      htmlContent = files[selectedHtmlFile].content;
-    } else if (htmlFiles.length > 0) {
-      htmlContent = files[htmlFiles[0]].content;
-      selectedHtmlFile = htmlFiles[0];
-    } else {
-      htmlContent = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Output</title>
-        </head>
-        <body>
-          <h1>No HTML file provided</h1>
-        </body>
-        </html>
-      `;
-      selectedHtmlFile = 'default';
-    }
-
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, 'text/html');
 
-    // Remove or neutralize <script src> tags for local JS files
-    const scriptTags = Array.from(doc.querySelectorAll('script[src]'))
-      .map(script => ({ element: script, src: script.getAttribute('src') }))
-      .filter(({ src }) => jsFiles.includes(src));
-    scriptTags.forEach(({ element, src }) => {
-      element.remove();
-      appendToConsole(`Removed script src: ${src} (will embed content)`, 'yellow');
-    });
-
-    // Remove or neutralize <link> tags for local CSS files
-    doc.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+    // Process CSS: Remove <link> tags and embed content
+    const cssLinks = Array.from(doc.querySelectorAll('link[rel="stylesheet"]'));
+    const embeddedCssFiles = [];
+    cssLinks.forEach(link => {
       const href = link.getAttribute('href');
-      if (cssFiles.includes(href)) {
-        link.remove();
-        appendToConsole(`Removed CSS link: ${href} (will embed content)`, 'yellow');
-      }
-    });
-
-    // Embed CSS files
-    cssFiles.forEach(cssFile => {
-      if (files[cssFile] && files[cssFile].content) {
+      if (href && files[href] && files[href].content && href.endsWith('.css')) {
         const style = doc.createElement('style');
-        style.textContent = files[cssFile].content;
+        style.textContent = files[href].content;
         doc.head.appendChild(style);
-        appendToConsole(`Embedded CSS: ${cssFile}`, 'green');
+        embeddedCssFiles.push(href);
+        link.remove();
+        appendToConsole(`Embedded CSS: ${href}`, 'green');
+      } else if (href && !files[href]) {
+        appendToConsole(`Warning: CSS file "${href}" not found, link preserved`, 'yellow');
       }
     });
 
-    // Embed JS files
-    jsFiles.forEach(jsFile => {
-      if (files[jsFile] && files[jsFile].content) {
-        const script = doc.createElement('script');
-        script.textContent = `
+    // Process JavaScript: Remove <script src> tags and embed content
+    const scriptTags = Array.from(doc.querySelectorAll('script[src]'));
+    const embeddedJsFiles = [];
+    scriptTags.forEach(script => {
+      const src = script.getAttribute('src');
+      if (src && files[src] && files[src].content && src.endsWith('.js')) {
+        const newScript = doc.createElement('script');
+        newScript.textContent = `
           try {
-            ${files[jsFile].content}
+            ${files[src].content}
           } catch (err) {
-            console.error('Error in ${jsFile}: ' + err.message);
-            window.parent.postMessage({ type: 'console', message: 'Error in ${jsFile}: ' + err.message, color: 'red' }, '*');
+            console.error('Error in ${src}: ' + err.message);
+            window.parent.postMessage({ type: 'console', message: 'Error in ${src}: ' + err.message, color: 'red' }, '*');
           }
         `;
-        doc.body.appendChild(script);
-        appendToConsole(`Embedded JS: ${jsFile}`, 'green');
+        doc.body.appendChild(newScript);
+        embeddedJsFiles.push(src);
+        script.remove();
+        appendToConsole(`Embedded JS: ${src}`, 'green');
+      } else if (src && !files[src]) {
+        appendToConsole(`Warning: JS file "${src}" not found, script tag preserved`, 'yellow');
       }
     });
 
-    // Add event listener to capture console messages from the new window
+    // Add console message forwarding
     const consoleScript = doc.createElement('script');
     consoleScript.textContent = `
       (function() {
@@ -300,13 +280,14 @@ function openOutputInNewWindow() {
       if (event.data.type === 'console') {
         appendToConsole(event.data.message, event.data.color);
       }
-    });
+    }, { once: true }); // Use once to avoid multiple listeners piling up
 
-    appendToConsole(`Output opened using HTML: ${selectedHtmlFile}, CSS: [${cssFiles.join(', ') || 'none'}], JS: [${jsFiles.join(', ') || 'none'}]`, 'green');
+    appendToConsole(`Output opened for HTML: ${htmlFileName}, CSS: [${embeddedCssFiles.join(', ') || 'none'}], JS: [${embeddedJsFiles.join(', ') || 'none'}]`, 'green');
   } catch (err) {
-    appendToConsole(`Error opening new window: ${err.message}`, 'red');
+    appendToConsole(`Error opening output: ${err.message}`, 'red');
   }
 }
+
 /* Append message to console window or fallback */
 function appendToConsole(message, color = 'white') {
   if (consoleWindow && !consoleWindow.closed) {
