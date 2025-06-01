@@ -120,15 +120,20 @@ function loadFilesFromStorage() {
   const storedFiles = localStorage.getItem('codeIDEFiles');
   if (storedFiles) {
     files = JSON.parse(storedFiles);
-    Object.keys(files).forEach(filename => {
-      addTab(filename);
-    });
-    if (Object.keys(files).length > 0) {
-      loadFile(Object.keys(files)[0]);
-    } else {
+    if (Object.keys(files).length === 0) {
+      // If no files exist in storage, initialize default files
       initializeDefaultFiles();
+    } else {
+      // Load existing files
+      Object.keys(files).forEach(filename => {
+        addTab(filename);
+      });
+      if (Object.keys(files).length > 0) {
+        loadFile(Object.keys(files)[0]);
+      }
     }
   } else {
+    // If no stored files exist, initialize default files
     initializeDefaultFiles();
   }
 }
