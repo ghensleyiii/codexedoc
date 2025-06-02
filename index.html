@@ -40,7 +40,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="starfield">
         <div class="hero-content">
             <h1>UNFURL YOUR TRAIN, CODE WITH CONFIDENCE</h1>
             <p>Learn to code with CODEXEDOC—where programming is made approachable, empowering you to create with clarity and confidence.</p>
@@ -120,5 +120,17 @@
             <div>© 2025 CODEXEDOC. All rights reserved.</div>
         </div>
     </footer>
+
+    <script>
+        // Generate 2000 stars with random positions
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 2000; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            starfield.appendChild(star);
+        }
+    </script>
 </body>
 </html>
