@@ -332,7 +332,7 @@ hr {
             display: flex;
             align-items: center !important;
             justify-content: center !important;
-            padding: 100px 20px 100px 20px !important;
+            padding: 200px 20px 200px 20px !important;
             background: #000; /* Black background for space */
             position: relative;
             overflow: hidden;
