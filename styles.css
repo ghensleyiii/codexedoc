@@ -1,7 +1,13 @@
-:root {
+/*:root {
   --dark-blue: #0a0a23;
   --light-blue: #1b1b32;
-  --green: #1a5c38/*#3c8235 Peacocks Green*/;
+  --green: #1a5c38  #3c8235 Peacocks Green;
+  --white: #ffffff;
+}*/
+:root {
+  --dark-blue: #181A1C;
+  --light-blue: #181A1C;
+  --green: #4a7fb2 /*#1a5c38*/;
   --white: #ffffff;
 }
 
