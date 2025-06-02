@@ -326,7 +326,8 @@ hr {
 }
 
 /* Landing Page Hero Section */
-.hero {
+/* Hero section with starfield */
+        .hero {
             flex-grow: 1 !important;
             display: flex;
             align-items: center !important;
@@ -400,6 +401,9 @@ hr {
             max-width: 32rem !important;
             position: relative; /* Ensure content stays above stars */
             z-index: 1;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            padding: 1.5rem; /* Add padding for better appearance */
+            border-radius: 0.5rem; /* Soft rounded corners */
         }
 
         .hero-content h1 {
@@ -407,12 +411,14 @@ hr {
             font-weight: bold !important;
             margin-bottom: 1rem !important;
             color: var(--white);
+            text-shadow: 0 0 6px rgba(0, 0, 0, 1), 0 0 10px rgba(0, 0, 0, 0.9); /* Stronger black shadow */
         }
 
         .hero-content p {
             font-size: 1.125rem !important;
             margin-bottom: 1.5rem !important;
             color: var(--white); /* Ensure text is visible on black background */
+            text-shadow: 0 0 6px rgba(0, 0, 0, 1), 0 0 10px rgba(0, 0, 0, 0.9); /* Stronger black shadow */
         }
 
         .hero-content a {
@@ -422,6 +428,7 @@ hr {
             border-radius: 0.5rem !important;
             font-weight: 600 !important;
             text-decoration: none !important;
+            text-shadow: 0 0 6px rgba(0, 0, 0, 1), 0 0 10px rgba(0, 0, 0, 0.9); /* Stronger black shadow */
         }
 
         .hero-content a:hover {
