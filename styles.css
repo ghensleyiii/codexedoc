@@ -327,50 +327,106 @@ hr {
 
 /* Landing Page Hero Section */
 .hero {
-  flex-grow: 1 !important;
-  display: flex;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 100px 20px 100px 20px !important;
-  background-image: linear-gradient(to bottom right, #4a7fb2, #4ab27f, #b24a7f);
-}
+            flex-grow: 1 !important;
+            display: flex;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 100px 20px 100px 20px !important;
+            background: #000; /* Black background for space */
+            position: relative;
+            overflow: hidden;
+        }
 
-.hero-content {
-  text-align: center !important;
-  max-width: 32rem !important;
-}
+        /* Base star styles */
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
 
-.hero-content img {
-  margin: 0 auto 1.5rem !important;
-  max-width: 100% !important;
-  height: auto !important;
-}
+        /* Different star sizes, animation durations, and glow effects */
+        .star:nth-child(5n) {
+            width: 1px;
+            height: 1px;
+            animation-duration: 3.5s;
+            animation-delay: 0.5s;
+            box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+        }
 
-.hero-content h1 {
-  font-size: 2.25rem !important;
-  font-weight: bold !important;
-  margin-bottom: 1rem !important;
-  color: var(--white);
-}
+        .star:nth-child(5n+1) {
+            width: 1.5px;
+            height: 1.5px;
+            animation-duration: 2.8s;
+            animation-delay: 0.2s;
+            background: #e0e0e0; /* Light grey */
+            box-shadow: 0 0 3px rgba(224, 224, 224, 0.6);
+        }
 
-.hero-content p {
-  font-size: 1.125rem !important;
-  margin-bottom: 1.5rem !important;
-}
+        .star:nth-child(5n+2) {
+            width: 2px;
+            height: 2px;
+            animation-duration: 3s;
+            animation-delay: 0.8s;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
+        }
 
-.hero-content a {
-  background-color: var(--white);
-  color: var(--dark-blue);
-  padding: 0.75rem 1.5rem !important;
-  border-radius: 0.5rem !important;
-  font-weight: 600 !important;
-  text-decoration: none !important;
-}
+        .star:nth-child(5n+3) {
+            width: 2.5px;
+            height: 2.5px;
+            animation-duration: 2.3s;
+            animation-delay: 0.4s;
+            background: #d0d0d0; /* Medium grey */
+            box-shadow: 0 0 5px rgba(208, 208, 208, 0.6);
+        }
 
-.hero-content a:hover {
-  background-color: var(--green);
-}
+        .star:nth-child(5n+4) {
+            width: 3px;
+            height: 3px;
+            animation-duration: 2.7s;
+            animation-delay: 0.6s;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+        }
 
+        /* Twinkle animation with reduced brightness */
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 0.6; transform: scale(1); }
+        }
+
+        /* Hero content styles */
+        .hero-content {
+            text-align: center !important;
+            max-width: 32rem !important;
+            position: relative; /* Ensure content stays above stars */
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 2.25rem !important;
+            font-weight: bold !important;
+            margin-bottom: 1rem !important;
+            color: var(--white);
+        }
+
+        .hero-content p {
+            font-size: 1.125rem !important;
+            margin-bottom: 1.5rem !important;
+            color: var(--white); /* Ensure text is visible on black background */
+        }
+
+        .hero-content a {
+            background-color: var(--white);
+            color: var(--dark-blue);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 0.5rem !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+        }
+
+        .hero-content a:hover {
+            background-color: var(--green);
+        }
 /* Landing Page Image Section */
 .image-section {
   flex-grow: 1 !important;
