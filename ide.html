@@ -30,19 +30,23 @@
     .header-container {
       background: var(--dark);
       border-bottom: 1px solid var(--blue);
+      display: flex;
+      flex-direction: column;
+      min-height: 48px;
     }
 
     .top-bar {
       background: var(--dark);
       padding: 12px 16px;
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: flex-start;
       align-items: center;
       font-weight: 600;
       gap: 12px;
-      height: 48px;
       box-sizing: border-box;
-      flex-wrap: nowrap;
+      position: relative;
+      z-index: 2;
     }
 
     .top-bar span {
@@ -58,8 +62,6 @@
       border-radius: 4px;
       transition: background 0.2s, border-color 0.2s;
       font-size: 14px;
-      position: relative;
-      z-index: 2;
       touch-action: auto;
       height: 32px;
       line-height: 1;
@@ -67,7 +69,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      flex: 1;
+      flex: 0 0 auto;
       max-width: 120px;
       justify-content: center;
     }
@@ -138,19 +140,43 @@
       color: var(--dark);
     }
 
+    .find-replace-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9;
+      justify-content: center;
+      align-items: center;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .find-replace-backdrop.active {
+      display: flex;
+    }
+
     .find-replace-panel {
       display: none;
-      position: absolute;
-      top: 40px;
-      right: 0;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       background: var(--dark);
       border: 1px solid var(--blue);
-      padding: 8px;
-      border-radius: 4px;
+      padding: 16px;
+      border-radius: 6px;
       z-index: 10;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       min-width: 250px;
+      max-width: 90%;
+      pointer-events: auto;
+      user-select: text;
+      touch-action: auto;
     }
 
     .find-replace-panel.active {
@@ -168,10 +194,21 @@
       height: 32px;
       width: 100%;
       box-sizing: border-box;
+      user-select: text;
+      touch-action: auto;
+      pointer-events: auto;
     }
 
     .find-replace-panel input:focus {
       border-color: var(--blue);
+    }
+
+    .find-replace-panel div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
     }
 
     .find-replace-panel button {
@@ -183,7 +220,6 @@
       border-radius: 4px;
       transition: background 0.2s, border-color 0.2s;
       font-size: 14px;
-      z-index: 2;
       touch-action: auto;
       height: 32px;
       line-height: 1;
@@ -192,6 +228,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+      pointer-events: auto;
     }
 
     .find-replace-panel button i {
@@ -213,6 +250,7 @@
       color: #606060;
       cursor: not-allowed;
       border-color: #3a3a3a;
+      pointer-events: none;
     }
 
     .find-replace-panel button:disabled i {
@@ -224,6 +262,7 @@
       background: var(--dark);
       overflow-x: auto;
       border-bottom: 1px solid var(--blue);
+      z-index: 1;
     }
 
     .tab {
@@ -236,7 +275,6 @@
       transition: background 0.2s, color 0.2s;
       font-size: 14px;
       position: relative;
-      z-index: 2;
       touch-action: auto;
       margin-right: 4px;
     }
@@ -310,6 +348,8 @@
       scrollbar-color: var(--blue) var(--dark);
       z-index: 2;
       position: relative;
+      user-select: text;
+      touch-action: auto;
     }
 
     .code-editor::-webkit-scrollbar {
@@ -368,6 +408,7 @@
       justify-content: center;
       align-items: center;
       z-index: 10;
+      pointer-events: auto;
     }
 
     .modal-content {
@@ -376,6 +417,9 @@
       border-radius: 6px;
       text-align: center;
       border: 1px solid var(--blue);
+      pointer-events: auto;
+      user-select: text;
+      touch-action: auto;
     }
 
     .modal-content p {
@@ -395,11 +439,22 @@
       border-radius: 4px;
       outline: none;
       font-size: 14px;
+      user-select: text;
+      touch-action: auto;
+      pointer-events: auto;
     }
 
     .modal-content input:focus,
     .modal-content select:focus {
       border-color: var(--blue);
+    }
+
+    .modal-content div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
     }
 
     .modal-content button {
@@ -411,12 +466,12 @@
       border-radius: 4px;
       transition: background 0.2s, border-color 0.2s;
       font-size: 14px;
-      margin: 0 6px;
       z-index: 12;
       touch-action: auto;
       display: flex;
       align-items: center;
       gap: 6px;
+      pointer-events: auto;
     }
 
     .modal-content button i {
@@ -435,13 +490,14 @@
 
     @media only screen and (min-width: 768px) {
       .header-container {
-        display: flex;
+        flex-direction: row;
         align-items: center;
       }
 
       .top-bar {
         flex: 0 0 auto;
         border-bottom: none;
+        flex-wrap: wrap;
       }
 
       .find-replace-container {
@@ -449,14 +505,14 @@
       }
 
       .find-replace-panel {
-        top: 40px;
-        right: 0;
+        min-width: 300px;
+        max-width: 400px;
       }
     }
 
     @media only screen and (max-width: 767px) {
       .header-container {
-        display: block;
+        flex-direction: column;
       }
 
       .top-bar {
@@ -483,11 +539,9 @@
       }
 
       .find-replace-panel {
-        position: static;
-        width: 100%;
-        border: none;
-        padding: 10px 12px;
-        background: var(--dark);
+        min-width: 80%;
+        max-width: 90%;
+        padding: 12px;
       }
 
       .find-replace-panel input {
@@ -636,10 +690,15 @@
       <button id="deleteBtn" onclick="showDeleteModal()" disabled><i class="fas fa-trash"></i> Delete</button>
       <div class="find-replace-container">
         <button class="find-replace-toggle" onclick="toggleFindReplace()"><i class="fas fa-search"></i> Find</button>
-        <div class="find-replace-panel" id="findReplacePanel">
-          <input type="text" id="findText" placeholder="Find text">
-          <input type="text" id="replaceText" placeholder="Replace with">
-          <button id="findReplaceBtn" onclick="findAndReplace()" disabled><i class="fas fa-check"></i> Submit</button>
+        <div class="find-replace-backdrop" id="findReplaceBackdrop">
+          <div class="find-replace-panel" id="findReplacePanel">
+            <input type="text" id="findText" placeholder="Find text" tabindex="0">
+            <input type="text" id="replaceText" placeholder="Replace with" tabindex="0">
+            <div>
+              <button id="findReplaceBtn" onclick="findAndReplace()" disabled><i class="fas fa-check"></i> Submit</button>
+              <button id="findReplaceCancelBtn" onclick="closeFindReplace()"><i class="fas fa-times"></i> Cancel</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -702,7 +761,7 @@ console.log("Hello from JS");
   <div id="newFileModal" class="modal">
     <div class="modal-content">
       <h3>Create New File</h3>
-      <input type="text" id="newFileName" placeholder="Enter file name">
+      <input type="text" id="newFileName" placeholder="Enter file name" tabindex="0">
       <select id="fileType">
         <option value="html">.html</option>
         <option value="css">.css</option>
@@ -720,7 +779,7 @@ console.log("Hello from JS");
   <div id="saveFileModal" class="modal">
     <div class="modal-content">
       <h3>Save File</h3>
-      <input type="text" id="saveFileName" placeholder="Enter file name">
+      <input type="text" id="saveFileName" placeholder="Enter file name" tabindex="0">
       <div>
         <button onclick="downloadFile()"><i class="fas fa-download"></i> Download</button>
         <button onclick="closeSaveFileModal()"><i class="fas fa-times"></i> Cancel</button>
@@ -801,10 +860,27 @@ console.log("Hello from JS");
     function toggleFindReplace() {
       console.log('Find/Replace toggle clicked');
       const panel = document.getElementById('findReplacePanel');
-      panel.classList.toggle('active');
-      if (panel.classList.contains('active')) {
-        document.getElementById('findText').focus();
+      const backdrop = document.getElementById('findReplaceBackdrop');
+      if (!panel.classList.contains('active')) {
+        panel.classList.add('active');
+        backdrop.classList.add('active');
+        setTimeout(() => {
+          const findInput = document.getElementById('findText');
+          findInput.focus();
+          findInput.select();
+        }, 50);
       }
+    }
+
+    function closeFindReplace() {
+      console.log('Find/Replace cancel clicked');
+      const panel = document.getElementById('findReplacePanel');
+      const backdrop = document.getElementById('findReplaceBackdrop');
+      panel.classList.remove('active');
+      backdrop.classList.remove('active');
+      document.getElementById('findText').value = '';
+      document.getElementById('replaceText').value = '';
+      updateFindReplaceButton();
     }
 
     function loadInitialFiles() {
@@ -884,7 +960,7 @@ console.log("Hello from JS");
 
       updateButtonStates();
       updateFindReplaceButton();
-      document.getElementById('findReplacePanel').classList.remove('active');
+      closeFindReplace();
 
       if (tab === 'browser') {
         runCode();
@@ -1015,7 +1091,7 @@ console.log("Hello from JS");
     function showNewFileModal() {
       console.log('New File button clicked');
       document.getElementById('newFileModal').style.display = 'flex';
-      document.getElementById('newFileName').focus();
+      setTimeout(() => document.getElementById('newFileName').focus(), 50);
     }
 
     function closeNewFileModal() {
@@ -1061,28 +1137,18 @@ console.log("Hello from JS");
       editorWrapper.appendChild(lineNumbers);
       editorWrapper.appendChild(textarea);
       editorArea.appendChild(editorWrapper);
-      document.querySelector = document.querySelector('.container');
-      document.querySelector = editor.querySelector('.querySelector');
-      if (querySelector) {
-        querySelector.appendChild(document);
-      } else {
-        console.error('No element found');
-      }
+      document.querySelector('.container').appendChild(editorArea);
 
-      files[fileId] = { type,
-      content: textarea.value };
+      files[fileId] = { type, content: textarea.value };
 
       textarea.addEventListener('input', () => {
         files[fileId].content = textarea.value;
         updateLineNumbers(textarea, lineNumbers);
         highlightCode(textarea, fileId);
       });
-      textarea.addEventListener('scroll', () => {
-        syncScroll(textarea, lineNumbers);
-      });
+      textarea.addEventListener('scroll', () => syncScroll(textarea, lineNumbers));
 
       updateLineNumbers(textarea, lineNumbers);
-
       highlightCode(textarea, fileId);
 
       closeNewFileModal();
@@ -1098,7 +1164,7 @@ console.log("Hello from JS");
       const fileName = `${currentTab.replace(/^[^-]+-/, '')}.${files[currentTab].type}`;
       document.getElementById('saveFileName').value = fileName;
       document.getElementById('saveFileModal').style.display = 'flex';
-      document.getElementById('saveFileName').focus();
+      setTimeout(() => document.getElementById('saveFileName').focus(), 50);
     }
 
     function closeSaveFileModal() {
@@ -1155,6 +1221,7 @@ console.log("Hello from JS");
       console.log(`Replaced "${findText}" with "${replaceText}" in ${currentTab}`);
       updateLineNumbers(editor, document.getElementById(`line-numbers-${currentTab}`));
       highlightCode(editor, currentTab);
+      closeFindReplace();
     }
 
     function updateFindReplaceButton() {
@@ -1165,6 +1232,13 @@ console.log("Hello from JS");
 
     document.getElementById('findText').addEventListener('input', updateFindReplaceButton);
     document.getElementById('replaceText').addEventListener('input', updateFindReplaceButton);
+
+    document.getElementById('findReplaceBackdrop').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('findReplaceBackdrop')) {
+        console.log('Backdrop clicked, closing find/replace');
+        closeFindReplace();
+      }
+    });
 
     document.querySelectorAll('.code-editor').forEach(editor => {
       editor.addEventListener('input', () => {
@@ -1185,6 +1259,12 @@ console.log("Hello from JS");
     document.querySelectorAll('.modal-content button').forEach(button => {
       button.addEventListener('click', () => {
         console.log(`Modal button clicked: ${button.textContent}`);
+      });
+    });
+
+    document.querySelectorAll('.find-replace-panel button').forEach(button => {
+      button.addEventListener('click', () => {
+        console.log(`Find/Replace button clicked: ${button.id || button.textContent}`);
       });
     });
 
