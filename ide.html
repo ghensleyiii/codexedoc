@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>IDE - Just Wise Love</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a1a;
+      color: #d0d0d0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      font-size: 16px;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .header-container {
+      background: #252525;
+      border-bottom: 1px solid #333;
+    }
+
+    .top-bar {
+      background: #252525;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      font-weight: 600;
+      gap: 16px;
+      height: 48px;
+      box-sizing: border-box;
+    }
+
+    .top-bar button {
+      background: #3a3a3a;
+      color: #d0d0d0;
+      border: 1px solid #4a4a4a;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s, border-color 0.2s;
+      font-size: 14px;
+      margin-left: 8px;
+      position: relative;
+      z-index: 2;
+      touch-action: auto;
+      height: 32px;
+      line-height: 1;
+      box-sizing: border-box;
+    }
+
+    .top-bar button:hover {
+      background: #4a4a4a;
+      border-color: #5a5a5a;
+    }
+
+    .top-bar button:disabled {
+      background: #2a2a2a;
+      color: #606060;
+      cursor: not-allowed;
+      border-color: #3a3a3a;
+    }
+
+    .find-replace-bar {
+      background: #252525;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 48px;
+      box-sizing: border-box;
+      flex-wrap: nowrap;
+    }
+
+    .find-replace-bar label,
+    .find-replace-bar span {
+      background: #2e2e2e;
+      color: #d0d0d0;
+      border: 1px solid #4a4a4a;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      height: 32px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .find-replace-bar input {
+      background: #2a2a2a;
+      color: #d0d0d0;
+      border: 1px solid #4a4a4a;
+      padding: 6px 8px;
+      border-radius: 4px;
+      font-size: 14px;
+      outline: none;
+      height: 32px;
+      width: 60px;
+      box-sizing: border-box;
+    }
+
+    .find-replace-bar input:focus {
+      border-color: #5a5a5a;
+    }
+
+    .find-replace-bar button {
+      background: #2e2e2e;
+      color: #d0d0d0;
+      border: 1px solid #4a4a4a;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s, border-color 0.2s;
+      font-size: 14px;
+      z-index: 2;
+      touch-action: auto;
+      height: 32px;
+      line-height: 1;
+      box-sizing: border-box;
+      min-width: 80px;
+    }
+
+    .find-replace-bar button:hover,
+    .find-replace-bar label:hover,
+    .find-replace-bar span:hover {
+      background: #3a3a3a;
+      border-color: #5a5a5a;
+    }
+
+    .find-replace-bar button:disabled {
+      background: #2a2a2a;
+      color: #606060;
+      cursor: not-allowed;
+      border-color: #3a3a3a;
+    }
+
+    .tabs {
+      display: flex;
+      background: #202020;
+      overflow-x: auto;
+      border-bottom: 1px solid #333;
+    }
+
+    .tab {
+      padding: 10px 16px;
+      background: #202020;
+      border: none;
+      color: #a0a0a0;
+      cursor: pointer;
+      flex: 0 0 auto;
+      transition: background 0.2s, color 0.2s;
+      font-size: 14px;
+      position: relative;
+      z-index: 2;
+      touch-action: auto;
+      margin-right: 4px;
+    }
+
+    .tab:last-child {
+      margin-right: 0;
+    }
+
+    .tab.active {
+      background: #2a2a2a;
+      color: #d0d0d0;
+      font-weight: 600;
+      border-bottom: 2px solid #4a4a4a;
+    }
+
+    .tab:hover {
+      background: #2a2a2a;
+      color: #d0d0d0;
+    }
+
+    .editor-area {
+      display: none;
+      flex-grow: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .editor-area.visible {
+      display: flex;
+    }
+
+    .editor-wrapper {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .line-numbers {
+      width: 40px;
+      background: #1e1e1e;
+      color: #6a6a6a;
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 12px 0;
+      text-align: right;
+      user-select: none;
+      border-right: 1px solid #333;
+      overflow: hidden;
+    }
+
+    .line-numbers div {
+      padding-right: 8px;
+    }
+
+    .code-editor {
+      background: transparent;
+      color: transparent; /* Hide the textarea text */
+      caret-color: #d0d0d0; /* Keep cursor visible */
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      width: 100%;
+      height: 100%;
+      resize: none;
+      border: none;
+      padding: 12px;
+      box-sizing: border-box;
+      outline: none;
+      scrollbar-color: #4a4a4a #2a2a2a;
+      z-index: 2;
+      position: relative;
+    }
+
+    .code-editor::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .code-editor::-webkit-scrollbar-track {
+      background: #2a2a2a;
+    }
+
+    .code-editor::-webkit-scrollbar-thumb {
+      background: #4a4a4a;
+      border-radius: 4px;
+    }
+
+    .editor-wrapper pre {
+      position: absolute;
+      top: 0;
+      left: 40px; /* Align with textarea, accounting for line numbers */
+      width: calc(100% - 40px); /* Adjust for line numbers width */
+      height: 100%;
+      margin: 0;
+      padding: 12px;
+      background: #1e1e1e;
+      pointer-events: none;
+      z-index: 1;
+      line-height: 1.6;
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: 14px;
+      overflow: hidden;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+    }
+
+    .container {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .modal-content {
+      background: #252525;
+      padding: 24px;
+      border-radius: 6px;
+      text-align: center;
+      border: 1px solid #333;
+    }
+
+    .modal-content p {
+      margin: 12px 0;
+      font-size: 14px;
+    }
+
+    .modal-content input,
+    .modal-content select {
+      margin: 12px 0;
+      padding: 8px;
+      width: 220px;
+      background: #2a2a2a;
+      color: #d0d0d0;
+      border: 1px solid #4a4a4a;
+      border-radius: 4px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .modal-content input:focus,
+    .modal-content select:focus {
+      border-color: #5a5a5a;
+    }
+
+    .modal-content button {
+      background: #3a3a3a;
+      color: #d0d0d0;
+      border: 1px solid #4a4a4a;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s, border-color 0.2s;
+      font-size: 14px;
+      margin: 0 6px;
+      z-index: 12;
+      touch-action: auto;
+    }
+
+    .modal-content button:hover {
+      background: #4a4a4a;
+      border-color: #5a5a5a;
+    }
+
+    @media only screen and (min-width: 768px) {
+      .header-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .top-bar {
+        flex: 0 0 auto;
+        border-bottom: none;
+        padding-right: 0;
+      }
+
+      .find-replace-bar {
+        flex: 1;
+        border-bottom: none;
+        border-left: 1px solid #333;
+        padding-left: 16px;
+      }
+    }
+
+    @media only screen and (max-width: 767px) {
+      .header-container {
+        display: block;
+      }
+
+      .top-bar {
+        padding: 10px 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .top-bar button {
+        font-size: 16px;
+        padding: 8px 14px;
+        min-width: 80px;
+        height: 36px;
+      }
+
+      .find-replace-bar {
+        gap: 4px;
+        padding: 10px 12px;
+      }
+
+      .find-replace-bar label,
+      .find-replace-bar span {
+        font-size: 16px;
+        padding: 8px 14px;
+        height: 36px;
+      }
+
+      .find-replace-bar input {
+        width: 80px;
+        font-size: 14px;
+        padding: 8px 6px;
+        height: 36px;
+      }
+
+      .find-replace-bar button {
+        font-size: 16px;
+        padding: 8px 14px;
+        min-width: 80px;
+        height: 36px;
+      }
+
+      .tab {
+        font-size: 16px;
+        padding: 8px 12px;
+        min-width: 70px;
+        margin-right: 4px;
+      }
+
+      .tab:last-child {
+        margin-right: 0;
+      }
+
+      .code-editor {
+        font-size: 16px;
+        padding: 10px;
+        line-height: 1.8;
+      }
+
+      .editor-wrapper pre {
+        padding: 10px;
+        left: 40px;
+        width: calc(100% - 40px);
+        line-height: 1.8;
+        font-size: 16px;
+      }
+
+      .line-numbers {
+        font-size: 16px;
+        line-height: 1.8;
+        padding: 10px 0;
+      }
+
+      .modal-content {
+        padding: 20px;
+      }
+
+      .modal-content h3 {
+        font-size: 20px;
+      }
+
+      .modal-content p {
+        font-size: 16px;
+      }
+
+      .modal-content input,
+      .modal-content select {
+        font-size: 16px;
+        padding: 10px;
+        width: 90%;
+        max-width: 300px;
+      }
+
+      .modal-content button {
+        font-size: 16px;
+        padding: 8px 14px;
+        min-width: 100px;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .top-bar button {
+        font-size: 14px;
+        padding: 6px 10px;
+        min-width: 70px;
+        height: 32px;
+      }
+
+      .find-replace-bar label,
+      .find-replace-bar span {
+        font-size: 14px;
+        padding: 6px 10px;
+        height: 32px;
+      }
+
+      .find-replace-bar input {
+        width: 60px;
+        font-size: 12px;
+        padding: 6px 4px;
+        height: 32px;
+      }
+
+      .find-replace-bar button {
+        font-size: 14px;
+        padding: 6px 10px;
+        min-width: 70px;
+        height: 32px;
+      }
+
+      .tab {
+        font-size: 14px;
+        padding: 6px 10px;
+        min-width: 60px;
+        margin-right: 4px;
+      }
+
+      .tab:last-child {
+        margin-right: 0;
+      }
+
+      .code-editor {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      .editor-wrapper pre {
+        padding: 8px;
+        left: 40px;
+        width: calc(100% - 40px);
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .line-numbers {
+        font-size: 14px;
+        padding: 8px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-container">
+    <div class="top-bar">
+      <span>IDE</span>
+      <div>
+        <button id="newFileBtn" onclick="showNewFileModal()">New File</button>
+        <button id="selectAllBtn" onclick="selectAllCode()" disabled>Select All</button>
+        <button id="saveBtn" onclick="saveToFile()" disabled>Save</button>
+        <button id="deleteBtn" onclick="showDeleteModal()" disabled>Delete</button>
+      </div>
+    </div>
+    <div class="find-replace-bar">
+      <span>Find:</span>
+      <input type="text" id="findText" placeholder="Text">
+      <span>Replace:</span>
+      <input type="text" id="replaceText" placeholder="With">
+      <button id="findReplaceBtn" onclick="findAndReplace()" disabled>Submit</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-file-id="html-index" onclick="switchTab('html-index')">index.html</button>
+    <button class="tab" data-file-id="css-style" onclick="switchTab('css-style')">style.css</button>
+    <button class="tab" data-file-id="js-script" onclick="switchTab('js-script')">script.js</button>
+    <button class="tab" onclick="switchTab('browser')">Browser</button>
+  </div>
+
+  <div class="container">
+    <div id="html-index" class="editor-area visible">
+      <div class="editor-wrapper">
+        <div class="line-numbers" id="line-numbers-html-index"></div>
+        <textarea id="editor-html-index" class="code-editor" spellcheck="false">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome - JWL</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>Hello Coder</h1>
+    <script src="script.js"></script>
+  </body>
+</html>
+        </textarea>
+      </div>
+    </div>
+
+    <div id="css-style" class="editor-area">
+      <div class="editor-wrapper">
+        <div class="line-numbers" id="line-numbers-css-style"></div>
+        <textarea id="editor-css-style" class="code-editor" spellcheck="false">
+body {
+  background-color: lightgray;
+  text-align: center;
+  font-family: sans-serif;
+}
+        </textarea>
+      </div>
+    </div>
+
+    <div id="js-script" class="editor-area">
+      <div class="editor-wrapper">
+        <div class="line-numbers" id="line-numbers-js-script"></div>
+        <textarea id="editor-js-script" class="code-editor" spellcheck="false">
+console.log("Hello from JS");
+        </textarea>
+      </div>
+    </div>
+
+    <div id="browser" class="editor-area">
+      <iframe id="preview"></iframe>
+    </div>
+  </div>
+
+  <div id="newFileModal" class="modal">
+    <div class="modal-content">
+      <h3>Create New File</h3>
+      <input type="text" id="newFileName" placeholder="Enter file name">
+      <select id="fileType">
+        <option value="html">.html</option>
+        <option value="css">.css</option>
+        <option value="js">.js</option>
+        <option value="jsx">.jsx</option>
+        <option value="py">.py</option>
+      </select>
+      <div>
+        <button onclick="createNewFile()">Create</button>
+        <button onclick="closeNewFileModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="saveFileModal" class="modal">
+    <div class="modal-content">
+      <h3>Save File</h3>
+      <input type="text" id="saveFileName" placeholder="Enter file name">
+      <div>
+        <button onclick="downloadFile()">Download</button>
+        <button onclick="closeSaveFileModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="deleteFileModal" class="modal">
+    <div class="modal-content">
+      <h3>Delete File</h3>
+      <p id="deleteFileMessage"></p>
+      <div>
+        <button onclick="confirmDelete()">Confirm</button>
+        <button onclick="closeDeleteModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script>
+    window.onerror = function(message, source, lineno, colno, error) {
+      console.error(`Global error: ${message} at ${source}:${lineno}:${colno}`);
+      alert(`A script error occurred: ${message}. Check the console for details.`);
+      return true;
+    };
+
+    let files = {
+      'html-index': { type: 'html', content: document.getElementById('editor-html-index').value },
+      'css-style': { type: 'css', content: document.getElementById('editor-css-style').value },
+      'js-script': { type: 'js', content: document.getElementById('editor-js-script').value }
+    };
+
+    let currentTab = 'html-index';
+    let lastHtmlTab = 'html-index';
+
+    function updateButtonStates() {
+      const selectAllBtn = document.getElementById('selectAllBtn');
+      const saveBtn = document.getElementById('saveBtn');
+      const deleteBtn = document.getElementById('deleteBtn');
+      const findReplaceBtn = document.getElementById('findReplaceBtn');
+
+      const isBrowserTab = currentTab === 'browser';
+      selectAllBtn.disabled = isBrowserTab;
+      saveBtn.disabled = isBrowserTab;
+      deleteBtn.disabled = isBrowserTab || Object.keys(files).length <= 1;
+      findReplaceBtn.disabled = isBrowserTab || !document.getElementById('findText').value;
+    }
+
+    function updateLineNumbers(textarea, lineNumbersDiv) {
+      const lines = textarea.value.split('\n').length;
+      lineNumbersDiv.innerHTML = Array.from({ length: lines }, (_, i) => `<div>${i + 1}</div>`).join('');
+      lineNumbersDiv.scrollTop = textarea.scrollTop;
+    }
+
+    function syncScroll(textarea, lineNumbersDiv) {
+      lineNumbersDiv.scrollTop = textarea.scrollTop;
+    }
+
+    function highlightCode(textarea, fileId) {
+      const code = textarea.value;
+      const type = files[fileId]?.type || 'html';
+      let language = type === 'html' ? 'markup' : type === 'js' ? 'javascript' : type;
+      const highlighted = Prism.highlight(code, Prism.languages[language], language);
+      let pre = textarea.parentNode.querySelector('pre');
+      if (!pre) {
+        pre = document.createElement('pre');
+        pre.className = `language-${language}`;
+        textarea.parentNode.appendChild(pre);
+      }
+      pre.innerHTML = highlighted;
+    }
+
+    function loadInitialFiles() {
+      for (let fileId in files) {
+        if (!document.getElementById(fileId)) {
+          const file = files[fileId];
+          const tab = document.createElement('button');
+          tab.className = 'tab';
+          tab.textContent = `${fileId.replace(/^[^-]+-/, '')}.${file.type}`;
+          tab.setAttribute('data-file-id', fileId);
+          tab.onclick = () => switchTab(fileId);
+          document.querySelector('.tabs').insertBefore(tab, document.querySelector('.tab[onclick="switchTab(\'browser\')"]'));
+
+          const editorArea = document.createElement('div');
+          editorArea.id = fileId;
+          editorArea.className = 'editor-area';
+          const editorWrapper = document.createElement('div');
+          editorWrapper.className = 'editor-wrapper';
+          const lineNumbers = document.createElement('div');
+          lineNumbers.className = 'line-numbers';
+          lineNumbers.id = `line-numbers-${fileId}`;
+          const textarea = document.createElement('textarea');
+          textarea.id = `editor-${fileId}`;
+          textarea.className = 'code-editor';
+          textarea.spellcheck = false;
+          textarea.value = file.content;
+          editorWrapper.appendChild(lineNumbers);
+          editorWrapper.appendChild(textarea);
+          editorArea.appendChild(editorWrapper);
+          document.querySelector('.container').appendChild(editorArea);
+
+          textarea.addEventListener('input', () => {
+            files[fileId].content = textarea.value;
+            updateLineNumbers(textarea, lineNumbers);
+            highlightCode(textarea, fileId);
+          });
+          textarea.addEventListener('scroll', () => syncScroll(textarea, lineNumbers));
+          updateLineNumbers(textarea, lineNumbers);
+          highlightCode(textarea, fileId);
+        } else {
+          const textarea = document.getElementById(`editor-${fileId}`);
+          const lineNumbers = document.getElementById(`line-numbers-${fileId}`);
+          if (textarea) {
+            textarea.value = files[fileId].content;
+            updateLineNumbers(textarea, lineNumbers);
+            highlightCode(textarea, fileId);
+            textarea.addEventListener('input', () => {
+              files[fileId].content = textarea.value;
+              updateLineNumbers(textarea, lineNumbers);
+              highlightCode(textarea, fileId);
+            });
+            textarea.addEventListener('scroll', () => syncScroll(textarea, lineNumbers));
+          }
+        }
+      }
+      if (!files[lastHtmlTab] || files[lastHtmlTab].type !== 'html') {
+        const htmlFiles = Object.keys(files).filter(id => files[id].type === 'html');
+        lastHtmlTab = htmlFiles.length > 0 ? htmlFiles[0] : null;
+      }
+      updateButtonStates();
+    }
+
+    function switchTab(tab) {
+      console.log(`Switching to tab: ${tab}`);
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      const tabButton = document.querySelector(`.tab[data-file-id="${tab}"], .tab[onclick="switchTab('${tab}')"]`);
+      if (tabButton) tabButton.classList.add('active');
+      else console.warn(`Tab button for ${tab} not found`);
+
+      document.querySelectorAll('.editor-area').forEach(e => e.classList.remove('visible'));
+      const editorArea = document.getElementById(tab);
+      if (editorArea) editorArea.className = 'editor-area visible';
+      else console.warn(`Editor area for ${tab} not found`);
+
+      currentTab = tab;
+      if (files[tab]?.type === 'html') lastHtmlTab = tab;
+
+      updateButtonStates();
+      updateFindReplaceButton();
+
+      if (tab === 'browser') {
+        runCode();
+      } else {
+        const textarea = editorArea?.querySelector('.code-editor');
+        const lineNumbers = editorArea?.querySelector('.line-numbers');
+        if (textarea && lineNumbers) {
+          updateLineNumbers(textarea, lineNumbers);
+          highlightCode(textarea, tab);
+          setTimeout(() => textarea.focus(), 50);
+        }
+      }
+    }
+
+    function runCode() {
+      console.log('Running code for browser preview');
+      if (currentTab !== 'browser') {
+        const editor = document.getElementById(`editor-${currentTab}`);
+        if (editor) files[currentTab].content = editor.value;
+      }
+
+      let htmlContent = lastHtmlTab && files[lastHtmlTab]?.type === 'html' ? files[lastHtmlTab].content : '<html><body><h1>No HTML file available</h1></body></html>';
+      let cssContent = '';
+      let jsContent = '';
+
+      for (let id in files) {
+        if (files[id].type === 'css') cssContent += files[id].content + '\n';
+        else if (files[id].type === 'js') jsContent += files[id].content + '\n';
+      }
+
+      const fullCode = `
+        <html>
+          <head><style>${cssContent}</style></head>
+          <body>${htmlContent}<script>${jsContent}<\/script></body>
+        </html>
+      `;
+
+      const previewIframe = document.getElementById('preview');
+      const oldSrc = previewIframe.src;
+      try {
+        const blob = new Blob([fullCode], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        previewIframe.src = url;
+        if (oldSrc.startsWith('blob:')) {
+          setTimeout(() => URL.revokeObjectURL(oldSrc), 100);
+        }
+      } catch (error) {
+        console.error('Error generating preview:', error);
+        previewIframe.src = 'about:blank';
+        previewIframe.contentDocument.body.innerHTML = '<h1>Error rendering preview</h1>';
+      }
+    }
+
+    function selectAllCode() {
+      console.log('Select All button clicked');
+      if (currentTab !== 'browser') {
+        const textarea = document.querySelector(`#${currentTab} .code-editor`);
+        if (textarea) textarea.select();
+      }
+    }
+
+    function showDeleteModal() {
+      console.log('Delete button clicked');
+      if (currentTab === 'browser' || Object.keys(files).length <= 1) {
+        console.log('Delete blocked: On browser tab or only one file remains');
+        return;
+      }
+
+      const fileName = `${currentTab.replace(/^[^-]+-/, '')}.${files[currentTab].type}`;
+      console.log(`Showing delete modal for file: ${fileName}`);
+      const deleteMessage = document.getElementById('deleteFileMessage');
+      deleteMessage.textContent = `Are you sure you want to delete ${fileName}?`;
+      document.getElementById('deleteFileModal').style.display = 'flex';
+    }
+
+    function closeDeleteModal() {
+      console.log('Delete modal closed');
+      document.getElementById('deleteFileModal').style.display = 'none';
+    }
+
+    function confirmDelete() {
+      console.log(`Confirming deletion of file: ${currentTab}`);
+      if (currentTab === 'browser' || !files[currentTab]) {
+        console.warn('Delete aborted: Invalid tab or file not found');
+        closeDeleteModal();
+        return;
+      }
+
+      try {
+        const tabButton = document.querySelector(`.tab[data-file-id="${currentTab}"]`);
+        if (tabButton) {
+          console.log(`Removing tab button for ${currentTab}`);
+          tabButton.remove();
+        } else {
+          console.warn(`Tab button for ${currentTab} not found`);
+        }
+
+        const editorArea = document.getElementById(currentTab);
+        if (editorArea) {
+          console.log(`Removing editor area for ${currentTab}`);
+          editorArea.remove();
+        } else {
+          console.warn(`Editor area for ${currentTab} not found`);
+        }
+
+        delete files[currentTab];
+        console.log(`File ${currentTab} deleted from files object`);
+
+        if (currentTab === lastHtmlTab) {
+          const htmlFiles = Object.keys(files).filter(id => files[id].type === 'html');
+          lastHtmlTab = htmlFiles.length > 0 ? htmlFiles[0] : null;
+          console.log(`Updated lastHtmlTab to: ${lastHtmlTab || 'none'}`);
+        }
+
+        const remainingTabs = Object.keys(files).filter(id => id !== 'browser');
+        const nextTab = remainingTabs.length > 0 ? remainingTabs[0] : 'browser';
+        console.log(`Switching to next tab: ${nextTab}`);
+        switchTab(nextTab);
+
+        closeDeleteModal();
+      } catch (error) {
+        console.error('Error during file deletion:', error.message);
+        alert(`Failed to delete file: ${error.message}. Check the console for details.`);
+        closeDeleteModal();
+      }
+    }
+
+    function showNewFileModal() {
+      console.log('New File button clicked');
+      document.getElementById('newFileModal').style.display = 'flex';
+      document.getElementById('newFileName').focus();
+    }
+
+    function closeNewFileModal() {
+      console.log('New File modal closed');
+      document.getElementById('newFileModal').style.display = 'none';
+      document.getElementById('newFileName').value = '';
+    }
+
+    function createNewFile() {
+      console.log('Create button clicked');
+      const name = document.getElementById('newFileName').value.trim();
+      const type = document.getElementById('fileType').value;
+      if (!name) return alert('Enter a file name.');
+
+      const fileId = `${type}-${name.replace(/\.[^/.]+$/, '')}`;
+      if (files[fileId]) return alert('File already exists.');
+
+      const tab = document.createElement('button');
+      tab.className = 'tab';
+      tab.textContent = `${name}.${type}`;
+      tab.setAttribute('data-file-id', fileId);
+      tab.onclick = () => switchTab(fileId);
+      document.querySelector('.tabs').insertBefore(tab, document.querySelector('.tab[onclick="switchTab(\'browser\')"]'));
+
+      const editorArea = document.createElement('div');
+      editorArea.id = fileId;
+      editorArea.className = 'editor-area';
+      const editorWrapper = document.createElement('div');
+      editorWrapper.className = 'editor-wrapper';
+      const lineNumbers = document.createElement('div');
+      lineNumbers.className = 'line-numbers';
+      lineNumbers.id = `line-numbers-${fileId}`;
+      const textarea = document.createElement('textarea');
+      textarea.id = `editor-${fileId}`;
+      textarea.className = 'code-editor';
+      textarea.spellcheck = false;
+      textarea.value = type === 'html' ? '<!DOCTYPE html>\n<html>\n  <head>\n    <title>New Page</title>\n  </head>\n  <body>\n  </body>\n</html>' :
+                       type === 'css' ? '/* New CSS File */\n' :
+                       type === 'js' ? '/* New JS File */\n' :
+                       type === 'jsx' ? 'import React from "react";\n\nfunction Component() {\n  return (\n    <div>\n      <h1>Hello, React!</h1>\n    </div>\n  );\n}\n\nexport default Component;\n' :
+                       type === 'py' ? '# New Python File\n\nprint("Hello, Python!")\n' : '';
+      editorWrapper.appendChild(lineNumbers);
+      editorWrapper.appendChild(textarea);
+      editorArea.appendChild(editorWrapper);
+      document.querySelector('.container').appendChild(editorArea);
+
+      files[fileId] = { type, content: textarea.value };
+
+      textarea.addEventListener('input', () => {
+        files[fileId].content = textarea.value;
+        updateLineNumbers(textarea, lineNumbers);
+        highlightCode(textarea, fileId);
+      });
+      textarea.addEventListener('scroll', () => syncScroll(textarea, lineNumbers));
+
+      updateLineNumbers(textarea, lineNumbers);
+      highlightCode(textarea, fileId);
+
+      closeNewFileModal();
+      setTimeout(() => {
+        switchTab(fileId);
+        textarea.focus();
+      }, 100);
+    }
+
+    function saveToFile() {
+      console.log('Save button clicked');
+      if (currentTab === 'browser') return;
+      const fileName = `${currentTab.replace(/^[^-]+-/, '')}.${files[currentTab].type}`;
+      document.getElementById('saveFileName').value = fileName;
+      document.getElementById('saveFileModal').style.display = 'flex';
+      document.getElementById('saveFileName').focus();
+    }
+
+    function closeSaveFileModal() {
+      console.log('Save modal closed');
+      document.getElementById('saveFileModal').style.display = 'none';
+      document.getElementById('saveFileName').value = '';
+    }
+
+    function downloadFile() {
+      console.log('Download button clicked');
+      const fileName = document.getElementById('saveFileName').value.trim();
+      if (!fileName) return alert('Enter a file name.');
+
+      const editor = document.getElementById(`editor-${currentTab}`);
+      if (editor) files[currentTab].content = editor.value;
+
+      const content = files[currentTab].content;
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      closeSaveFileModal();
+    }
+
+    function findAndReplace() {
+      console.log('Find and Replace button clicked');
+      if (currentTab === 'browser') {
+        console.log('Find and Replace blocked: On browser tab');
+        return;
+      }
+
+      const findText = document.getElementById('findText').value;
+      const replaceText = document.getElementById('replaceText').value;
+
+      if (!findText) {
+        alert('Please enter text to find.');
+        return;
+      }
+
+      const editor = document.getElementById(`editor-${currentTab}`);
+      if (!editor) {
+        console.error(`Editor for ${currentTab} not found`);
+        return;
+      }
+
+      const regex = new RegExp(findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+      files[currentTab].content = editor.value = editor.value.replace(regex, replaceText);
+      console.log(`Replaced "${findText}" with "${replaceText}" in ${currentTab}`);
+      updateLineNumbers(editor, document.getElementById(`line-numbers-${currentTab}`));
+      highlightCode(editor, currentTab);
+    }
+
+    function updateFindReplaceButton() {
+      const findText = document.getElementById('findText').value;
+      const findReplaceBtn = document.getElementById('findReplaceBtn');
+      findReplaceBtn.disabled = currentTab === 'browser' || !findText;
+    }
+
+    document.getElementById('findText').addEventListener('input', updateFindReplaceButton);
+    document.getElementById('replaceText').addEventListener('input', updateFindReplaceButton);
+
+    document.querySelectorAll('.code-editor').forEach(editor => {
+      editor.addEventListener('input', () => {
+        const fileId = editor.id.replace('editor-', '');
+        files[fileId].content = editor.value;
+        updateLineNumbers(editor, document.getElementById(`line-numbers-${fileId}`));
+        highlightCode(editor, fileId);
+      });
+      editor.addEventListener('scroll', () => syncScroll(editor, document.getElementById(`line-numbers-${fileId}`)));
+    });
+
+    document.querySelectorAll('.top-bar button').forEach(button => {
+      button.addEventListener('click', () => {
+        console.log(`Button clicked: ${button.id}`);
+      });
+    });
+
+    document.querySelectorAll('.modal-content button').forEach(button => {
+      button.addEventListener('click', () => {
+        console.log(`Modal button clicked: ${button.textContent}`);
+      });
+    });
+
+    loadInitialFiles();
+    window.onload = () => {
+      console.log('Window loaded');
+      if (currentTab === 'browser') runCode();
+    };
+  </script>
+</body>
+</html>
