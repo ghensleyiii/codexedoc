@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="An exhaustive guide to HTML5, detailing all elements, attributes, forms, tables, media, accessibility, and advanced features for modern web development.">
@@ -91,22 +89,20 @@
 
     section {
       margin-bottom: 2.5rem;
-      border: 1px solid var(--blue);
       padding: 1.5rem;
       border-radius: 6px;
-      background-color: rgba(255, 255, 255, 0.05);
     }
 
     code {
-      background-color: var(--white);
-      color: var(--dark);
+      background-color: var(--blue);
+      color: var(--white);
       padding: 3px 6px;
       border-radius: 4px;
       font-family: 'Courier New', monospace;
     }
 
     pre {
-      background-color: var(--blue);
+      background-color: var(--dark);
       color: var(--white);
       padding: 1.5rem;
       border-radius: 6px;
@@ -193,26 +189,6 @@
     <h1>Comprehensive HTML5 Guide</h1>
   </header>
 
-  <nav>
-    <ul>
-      <li><a href="#introduction">Introduction to HTML5</a></li>
-      <li><a href="#structure">Document Structure</a></li>
-      <li><a href="#elements">HTML Elements</a></li>
-      <li><a href="#semantic">Semantic HTML</a></li>
-      <li><a href="#forms">Forms</a></li>
-      <li><a href="#tables">Tables</a></li>
-      <li><a href="#media">Media & Multimedia</a></li>
-      <li><a href="#links">Links & Navigation</a></li>
-      <li><a href="#global-attributes">Global Attributes</a></li>
-      <li><a href="#events">Event Attributes</a></li>
-      <li><a href="#seo">SEO & Social Sharing</a></li>
-      <li><a href="#accessibility">Accessibility</a></li>
-      <li><a href="#tools">Development Tools</a></li>
-      <li><a href="#advanced">Advanced Features</a></li>
-      <li><a href="#best-practices">Best Practices</a></li>
-    </ul>
-  </nav>
-
   <main>
     <section id="introduction">
       <h2>Introduction to HTML5</h2>
@@ -240,8 +216,7 @@
       </ul>
       <h3>Boilerplate Example</h3>
       <p>The HTML5 boilerplate is the starting template for any webpage:</p>
-      <pre>
-&lt;!DOCTYPE html&gt;
+      <pre>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
@@ -385,8 +360,7 @@
         <li><code>&lt;source src="media.mp4"&gt;</code></li>
       </ul>
       <h3>Example</h3>
-      <pre>
-&lt;div&gt;
+      <pre>&lt;div&gt;
   &lt;h1&gt;Main Heading&lt;/h1&gt;
   &lt;p&gt;This is a &lt;strong&gt;bold&lt;/strong&gt; paragraph with a &lt;a href="page.html"&gt;link&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -435,8 +409,7 @@
       </ul>
       <h3>Description Lists</h3>
       <p>The <code>&lt;dl&gt;</code> element creates term-description pairs, with <code>&lt;dt&gt;</code> for terms and <code>&lt;dd&gt;</code> for descriptions:</p>
-      <pre>
-&lt;dl&gt;
+      <pre>&lt;dl&gt;
   &lt;dt&gt;HTML&lt;/dt&gt;
   &lt;dd&gt;Hypertext Markup Language, the standard for web structure.&lt;/dd&gt;
   &lt;dt&gt;CSS&lt;/dt&gt;
@@ -452,8 +425,7 @@
         <li>Replace deprecated presentational elements like <code>&lt;center&gt;</code>, <code>&lt;font&gt;</code>, or <code>&lt;big&gt;</code>, which should be avoided in favor of CSS.</li>
       </ul>
       <h3>Example Semantic Structure</h3>
-      <pre>
-&lt;header&gt;
+      <pre>&lt;header&gt;
   &lt;h1&gt;Site Title&lt;/h1&gt;
   &lt;nav&gt;
     &lt;ul&gt;
@@ -531,8 +503,7 @@
         <li><code>multiple</code>: Allows multiple selections (e.g., for <code>file</code> or <code>select</code>).</li>
       </ul>
       <h3>Example Form</h3>
-      <pre>
-&lt;form action="/submit" method="POST"&gt;
+      <pre>&lt;form action="/submit" method="POST"&gt;
   &lt;fieldset&gt;
     &lt;legend&gt;User Information&lt;/legend&gt;
     &lt;label for="name"&gt;Name:&lt;/label&gt;
@@ -550,8 +521,7 @@
       <ul>
         <li><strong>Validation</strong>: Use <code>required</code>, <code>pattern</code>, or type-specific validation (e.g., <code>email</code>).</li>
         <li><strong>Datalist</strong>: Provides autocomplete options:
-          <pre>
-&lt;input type="text" list="fruits"&gt;
+          <pre>&lt;input type="text" list="fruits"&gt;
 &lt;datalist id="fruits"&gt;
   &lt;option value="Apple"&gt;
   &lt;option value="Banana"&gt;
@@ -559,8 +529,7 @@
           </pre>
         </li>
         <li><strong>Progress and Meter</strong>: Visualize progress or measurements:
-          <pre>
-&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;
+          <pre>&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;
 &lt;meter value="0.6" min="0" max="1"&gt;60%&lt;/meter&gt;
           </pre>
         </li>
@@ -590,8 +559,7 @@
         <li><code>headers</code>: Links a <code>&lt;td&gt;</code> to a <code>&lt;th&gt;</code> for screen readers.</li>
       </ul>
       <h3>Example Table</h3>
-      <pre>
-&lt;table&gt;
+      <pre>&lt;table&gt;
   &lt;caption&gt;Student Grades&lt;/caption&gt;
   &lt;thead&gt;
     &lt;tr&gt;
@@ -633,8 +601,7 @@
       </ul>
       <h3>Picture Element</h3>
       <p>The <code>&lt;picture&gt;</code> element enables responsive images with multiple sources:</p>
-      <pre>
-&lt;picture&gt;
+      <pre>&lt;picture&gt;
   &lt;source media="(max-width: 600px)" srcset="small.jpg"&gt;
   &lt;source media="(max-width: 1200px)" srcset="medium.jpg"&gt;
   &lt;img src="default.jpg" alt="A scenic landscape"&gt;
@@ -642,8 +609,7 @@
       </pre>
       <h3>Audio and Video</h3>
       <p>The <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> elements embed media, with <code>&lt;source&gt;</code> for multiple formats and <code>&lt;track&gt;</code> for captions or subtitles:</p>
-      <pre>
-&lt;audio controls&gt;
+      <pre>&lt;audio controls&gt;
   &lt;source src="audio.mp3" type="audio/mpeg"&gt;
   &lt;source src="audio.ogg" type="audio/ogg"&gt;
   Your browser does not support audio.
@@ -656,13 +622,11 @@
       </pre>
       <h3>Iframes</h3>
       <p>The <code>&lt;iframe&gt;</code> embeds external content, like videos or maps:</p>
-      <pre>
-&lt;iframe src="https://www.youtube.com/embed/videoID" title="Video description" width="560" height="315"&gt;&lt;/iframe&gt;
+      <pre>&lt;iframe src="https://www.youtube.com/embed/videoID" title="Video description" width="560" height="315"&gt;&lt;/iframe&gt;
       </pre>
       <h3>Canvas and SVG</h3>
       <p><code>&lt;canvas&gt;</code> enables dynamic graphics via JavaScript, while <code>&lt;svg&gt;</code> defines scalable vector graphics:</p>
-      <pre>
-&lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
+      <pre>&lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
 &lt;svg width="100" height="100"&gt;
   &lt;circle cx="50" cy="50" r="40" fill="blue"/&gt;
 &lt;/svg&gt;
@@ -709,8 +673,7 @@
         <li><code>:active</code>: Clicked state.</li>
       </ul>
       <h3>Example Links</h3>
-      <pre>
-&lt;a href="https://example.com" target="_blank" rel="noopener"&gt;Visit Example&lt;/a&gt;
+      <pre>&lt;a href="https://example.com" target="_blank" rel="noopener"&gt;Visit Example&lt;/a&gt;
 &lt;a href="#section"&gt;Go to Section&lt;/a&gt;
 &lt;a href="file.pdf" download&gt;Download PDF&lt;/a&gt;
       </pre>
@@ -736,8 +699,7 @@
         <li><code>translate</code>: Controls translation (<code>yes</code> or <code>no</code>).</li>
       </ul>
       <h3>Example</h3>
-      <pre>
-&lt;div id="content" class="main-section" data-type="primary" contenteditable="true"&gt;Editable content&lt;/div&gt;
+      <pre>&lt;div id="content" class="main-section" data-type="primary" contenteditable="true"&gt;Editable content&lt;/div&gt;
       </pre>
     </section>
 
@@ -758,8 +720,7 @@
         <li><code>onfocus</code> and <code>onblur</code>: Triggers when an element gains or loses focus.</li>
       </ul>
       <h3>Example</h3>
-      <pre>
-&lt;button onclick="myFunction()"&gt;Click Me&lt;/button&gt;
+      <pre>&lt;button onclick="myFunction()"&gt;Click Me&lt;/button&gt;
 &lt;input type="text" oninput="validateInput(this)"&gt;
       </pre>
       <p><strong>Note</strong>: Prefer external JavaScript over inline event attributes for maintainability.</p>
@@ -784,16 +745,14 @@
         <li><code>&lt;meta property="og:type"&gt;</code>: Content type (e.g., <code>website</code>, <code>article</code>).</li>
       </ul>
       <h3>Example</h3>
-      <pre>
-&lt;meta name="description" content="Learn HTML5 with this comprehensive guide"&gt;
+      <pre>&lt;meta name="description" content="Learn HTML5 with this comprehensive guide"&gt;
 &lt;meta name="robots" content="index, follow"&gt;
 &lt;meta property="og:title" content="HTML5 Guide"&gt;
 &lt;meta property="og:image" content="thumbnail.jpg"&gt;
       </pre>
       <h3>Structured Data</h3>
       <p>Use JSON-LD or microdata to provide search engines with structured information:</p>
-      <pre>
-&lt;script type="application/ld+json"&gt;
+      <pre>&lt;script type="application/ld+json"&gt;
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -839,8 +798,7 @@
         <li><code>aria-checked</code>, <code>aria-selected</code>: Indicates state for interactive elements.</li>
       </ul>
       <h3>Example ARIA</h3>
-      <pre>
-&lt;button aria-label="Close dialog"&gt;X&lt;/button&gt;
+      <pre>&lt;button aria-label="Close dialog"&gt;X&lt;/button&gt;
 &lt;div role="alert" aria-live="assertive"&gt;Error: Invalid input&lt;/div&gt;
 &lt;nav aria-label="Main navigation"&gt;
   &lt;ul&gt;
@@ -877,16 +835,14 @@
       </ul>
       <h3>Microdata and Schema.org</h3>
       <p>Add structured data to improve SEO:</p>
-      <pre>
-&lt;div itemscope itemtype="https://schema.org/Person"&gt;
+      <pre>&lt;div itemscope itemtype="https://schema.org/Person"&gt;
   &lt;span itemprop="name"&gt;John Doe&lt;/span&gt;
   &lt;span itemprop="jobTitle"&gt;Developer&lt;/span&gt;
 &lt;/div&gt;
       </pre>
       <h3>Custom Elements</h3>
       <p>Define custom HTML elements with JavaScript:</p>
-      <pre>
-&lt;custom-element&gt;&lt;/custom-element&gt;
+      <pre>&lt;custom-element&gt;&lt;/custom-element&gt;
 &lt;script&gt;
   class CustomElement extends HTMLElement {
     connectedCallback() {
@@ -898,8 +854,7 @@
       </pre>
       <h3>Content Security Policy (CSP)</h3>
       <p>Use <code>&lt;meta&gt;</code> to enforce security policies:</p>
-      <pre>
-&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self'"&gt;
+      <pre>&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self'"&gt;
       </pre>
     </section>
 
@@ -924,5 +879,6 @@
   <footer>
     <p>© 2025 Comprehensive HTML5 Guide | Created with &lt;3</p>
   </footer>
-</body>
-</html>
+
+
+</body></html>
