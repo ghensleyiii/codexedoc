@@ -1,37 +1,928 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <style>
-      :root {
-        --black: #000000;
-        --white: #ffffff;
-      }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An exhaustive guide to HTML5, detailing all elements, attributes, forms, tables, media, accessibility, and advanced features for modern web development.">
+  <meta property="og:title" content="Comprehensive HTML5 Guide">
+  <meta property="og:description" content="Master HTML5 with this in-depth guide covering every element, attribute, and best practice for accessible, semantic web development.">
+  <meta property="og:image" content="html5-guide.jpg">
+  <title>Comprehensive HTML5 Guide</title>
+  <style>
+    :root {
+      --dark: #181A1C;
+      --blue: #4a7fb2;
+      --white: #ffffff;
+    }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      line-height: 1.7;
+      background-color: var(--dark);
+      color: var(--white);
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: var(--dark);
+      border-bottom: 3px solid var(--blue);
+      padding: 1.5rem;
+      text-align: center;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 100;
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+
+    nav {
+      width: 250px;
+      background-color: var(--dark);
+      border-right: 3px solid var(--blue);
+      padding: 1.5rem;
+      position: fixed;
+      top: 5rem;
+      height: calc(100vh - 5rem);
+      overflow-y: auto;
+    }
+
+    nav ul {
+      list-style: none;
+    }
+
+    nav li {
+      margin-bottom: 0.75rem;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      display: block;
+      padding: 0.75rem;
+      border-left: 4px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    nav a:hover {
+      border-left: 4px solid var(--blue);
+      color: var(--blue);
+      background-color: rgba(74, 127, 178, 0.1);
+    }
+
+    main {
+      margin-left: 270px;
+      padding: 6rem 1.5rem 2rem;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+      border: 1px solid var(--blue);
+      padding: 1.5rem;
+      border-radius: 6px;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    code {
+      background-color: var(--white);
+      color: var(--dark);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+    }
+
+    pre {
+      background-color: var(--white);
+      color: var(--dark);
+      padding: 1.5rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      border: 1px solid var(--blue);
+      font-family: 'Courier New', monospace;
+      margin: 1rem 0;
+    }
+
+    ul, ol {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      background-color: var(--dark);
+      border-top: 3px solid var(--blue);
+      text-align: center;
+      padding: 1.5rem;
+      width: 100%;
+      margin-left: 250px;
+    }
+
+    @media (max-width: 768px) {
       body {
-        background-color: var(--white);
-        color: var(--black);
-        font-family: Arial, sans-serif;
+        flex-direction: column;
       }
-    </style>
+
+      nav {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 3px solid var(--blue);
+        padding: 1rem;
+      }
+
+      nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      nav li {
+        margin-bottom: 0;
+      }
+
+      nav a {
+        padding: 0.5rem;
+      }
+
+      main {
+        margin-left: 0;
+        padding: 1.5rem;
+      }
+
+      footer {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+
+      section {
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header></header>
-  <section id="navigation">
+  <header>
+    <h1>Comprehensive HTML5 Guide</h1>
+  </header>
+
+  <nav>
     <ul>
-      <li><a class="nav-link" href="#introduction">1. Introduction</a><li>
+      <li><a href="#introduction">Introduction to HTML5</a></li>
+      <li><a href="#structure">Document Structure</a></li>
+      <li><a href="#elements">HTML Elements</a></li>
+      <li><a href="#semantic">Semantic HTML</a></li>
+      <li><a href="#forms">Forms</a></li>
+      <li><a href="#tables">Tables</a></li>
+      <li><a href="#media">Media & Multimedia</a></li>
+      <li><a href="#links">Links & Navigation</a></li>
+      <li><a href="#global-attributes">Global Attributes</a></li>
+      <li><a href="#events">Event Attributes</a></li>
+      <li><a href="#seo">SEO & Social Sharing</a></li>
+      <li><a href="#accessibility">Accessibility</a></li>
+      <li><a href="#tools">Development Tools</a></li>
+      <li><a href="#advanced">Advanced Features</a></li>
+      <li><a href="#best-practices">Best Practices</a></li>
     </ul>
-  </section>
-  <main></main>
-  <footer></footer>
-  <script src="script.js"></script>
+  </nav>
+
+  <main>
+    <section id="introduction">
+      <h2>Introduction to HTML5</h2>
+      <p>HTML5 (Hypertext Markup Language, version 5) is the cornerstone of web development, providing a robust framework for structuring content on the internet. It defines the skeleton of a webpage, including text, images, forms, and interactive elements, working in tandem with CSS for visual styling and JavaScript for dynamic behavior. HTML5 introduces new semantic elements, multimedia support, and APIs to support modern web applications, such as mobile-friendly designs, offline capabilities, and enhanced accessibility.</p>
+      <p>Key features of HTML5 include:</p>
+      <ul>
+        <li>Semantic elements for better structure and SEO.</li>
+        <li>Native support for audio, video, and canvas graphics.</li>
+        <li>Improved form inputs and validation.</li>
+        <li>APIs for geolocation, drag-and-drop, and local storage.</li>
+        <li>Enhanced accessibility with WAI-ARIA integration.</li>
+      </ul>
+      <p>This guide provides an exhaustive exploration of HTML5, suitable for beginners learning the basics and advanced developers seeking in-depth insights.</p>
+    </section>
+
+    <section id="structure">
+      <h2>Document Structure</h2>
+      <p>Every HTML5 document adheres to a standardized structure to ensure cross-browser compatibility and proper rendering. The structure consists of key components that organize metadata and content.</p>
+      <h3>Core Components</h3>
+      <ul>
+        <li><strong>DOCTYPE Declaration</strong>: <code>&lt;!DOCTYPE html&gt;</code> specifies the document as HTML5, ensuring browsers render it correctly.</li>
+        <li><strong>HTML Element</strong>: <code>&lt;html lang="en"&gt;</code> serves as the root element, with the <code>lang</code> attribute defining the document’s language (e.g., <code>en</code> for English) for accessibility.</li>
+        <li><strong>Head Element</strong>: <code>&lt;head&gt;</code> contains metadata, such as character encoding, viewport settings, titles, and external resource links.</li>
+        <li><strong>Body Element</strong>: <code>&lt;body&gt;</code> holds all visible content, including headings, paragraphs, images, and interactive elements.</li>
+      </ul>
+      <h3>Boilerplate Example</h3>
+      <p>The HTML5 boilerplate is the starting template for any webpage:</p>
+      <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;meta name="description" content="A sample webpage"&gt;
+  &lt;title&gt;Sample Page&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome to My Page&lt;/h1&gt;
+  &lt;p&gt;This is a sample paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+      </pre>
+      <h3>Key Meta Tags</h3>
+      <ul>
+        <li><code>&lt;meta charset="UTF-8"&gt;</code>: Ensures universal character support, including special characters and non-Latin scripts.</li>
+        <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>: Enables responsive design for mobile devices.</li>
+        <li><code>&lt;meta name="description"&gt;</code>: Provides a page summary for search engines.</li>
+        <li><code>&lt;link rel="stylesheet" href="styles.css"&gt;</code>: Links to external CSS files.</li>
+        <li><code>&lt;script src="script.js"&gt;</code>: Embeds external JavaScript files.</li>
+      </ul>
+      <h3>Character Entities</h3>
+      <p>HTML entities display reserved characters without rendering them as code. Common entities include:</p>
+      <ul>
+        <li><code>&amp;lt;</code>: Displays <code>&lt;</code> (less than).</li>
+        <li><code>&amp;gt;</code>: Displays <code>&gt;</code> (greater than).</li>
+        <li><code>&amp;amp;</code>: Displays <code>&amp;</code> (ampersand).</li>
+        <li><code>&amp;quot;</code>: Displays <code>"</code> (quotation mark).</li>
+        <li><code>&amp;nbsp;</code>: Non-breaking space.</li>
+      </ul>
+    </section>
+
+    <section id="elements">
+      <h2>HTML Elements</h2>
+      <p>HTML elements are the building blocks of a webpage, consisting of an opening tag, content, and a closing tag (e.g., <code>&lt;p&gt;Text&lt;/p&gt;</code>). Void elements, like <code>&lt;img&gt;</code>, are self-closing and require no closing tag.</p>
+      <h3>Element Categories</h3>
+      <p>HTML5 elements are grouped by function:</p>
+      <ul>
+        <li><strong>Metadata</strong>: Define document properties (e.g., <code>&lt;meta&gt;</code>, <code>&lt;title&gt;</code>, <code>&lt;base&gt;</code>).</li>
+        <li><strong>Structural</strong>: Organize content (e.g., <code>&lt;div&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>).</li>
+        <li><strong>Text</strong>: Format text content (e.g., <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;span&gt;</code>).</li>
+        <li><strong>Embedded</strong>: Include media (e.g., <code>&lt;img&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>).</li>
+        <li><strong>Interactive</strong>: Enable user interaction (e.g., <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;button&gt;</code>).</li>
+        <li><strong>Scripting</strong>: Support dynamic content (e.g., <code>&lt;script&gt;</code>, <code>&lt;canvas&gt;</code>).</li>
+      </ul>
+      <h3>Comprehensive Element List</h3>
+      <p>Below is a detailed list of HTML5 elements, grouped by category:</p>
+      <h4>Metadata Elements</h4>
+      <ul>
+        <li><code>&lt;head&gt;</code>: Contains metadata about the document.</li>
+        <li><code>&lt;title&gt;</code>: Sets the page title displayed in the browser tab.</li>
+        <li><code>&lt;meta&gt;</code>: Defines metadata like charset or SEO descriptions.</li>
+        <li><code>&lt;base&gt;</code>: Specifies the base URL for relative links (e.g., <code>&lt;base href="https://example.com"&gt;</code>).</li>
+        <li><code>&lt;link&gt;</code>: Links external resources like CSS or favicons.</li>
+        <li><code>&lt;style&gt;</code>: Embeds internal CSS.</li>
+        <li><code>&lt;script&gt;</code>: Embeds or links JavaScript.</li>
+        <li><code>&lt;noscript&gt;</code>: Displays content if JavaScript is disabled.</li>
+      </ul>
+      <h4>Structural Elements</h4>
+      <ul>
+        <li><code>&lt;div&gt;</code>: Generic container with no semantic meaning.</li>
+        <li><code>&lt;main&gt;</code>: Primary content of the page.</li>
+        <li><code>&lt;header&gt;</code>: Introductory content or banner.</li>
+        <li><code>&lt;footer&gt;</code>: Footer with contact or copyright info.</li>
+        <li><code>&lt;nav&gt;</code>: Navigation links.</li>
+        <li><code>&lt;section&gt;</code>: Groups related content.</li>
+        <li><code>&lt;article&gt;</code>: Self-contained content (e.g., blog post).</li>
+        <li><code>&lt;aside&gt;</code>: Supplementary content, like sidebars.</li>
+        <li><code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code>: Images or diagrams with captions.</li>
+        <li><code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code>: Collapsible content with a toggle.</li>
+      </ul>
+      <h4>Text Elements</h4>
+      <ul>
+        <li><code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>: Headings for hierarchical structure.</li>
+        <li><code>&lt;p&gt;</code>: Paragraphs for text blocks.</li>
+        <li><code>&lt;span&gt;</code>: Inline container for styling or scripting.</li>
+        <li><code>&lt;strong&gt;</code>: Indicates strong importance (typically bold).</li>
+        <li><code>&lt;em&gt;</code>: Stress emphasis (typically italicized).</li>
+        <li><code>&lt;b&gt;</code>: Stylistic attention without semantic importance.</li>
+        <li><code>&lt;i&gt;</code>: Alternative voice, technical terms, or idiomatic text.</li>
+        <li><code>&lt;u&gt;</code>: Non-textual annotations (underlined).</li>
+        <li><code>&lt;s&gt;</code>: Strikethrough for outdated content.</li>
+        <li><code>&lt;code&gt;</code>: Displays computer code.</li>
+        <li><code>&lt;pre&gt;</code>: Preserves whitespace for formatted text.</li>
+        <li><code>&lt;blockquote cite="source"&gt;</code>: Quoted sections from another source.</li>
+        <li><code>&lt;q&gt;</code>: Inline quotations.</li>
+        <li><code>&lt;abbr title="Explanation"&gt;</code>: Abbreviations or acronyms.</li>
+        <li><code>&lt;time datetime="2025-06-03"&gt;</code>: Dates or times.</li>
+        <li><code>&lt;sup&gt;</code> and <code>&lt;sub&gt;</code>: Superscript and subscript text.</li>
+        <li><code>&lt;mark&gt;</code>: Highlights text for reference.</li>
+        <li><code>&lt;small&gt;</code>: Side comments or fine print.</li>
+        <li><code>&lt;del&gt;</code> and <code>&lt;ins&gt;</code>: Deleted or inserted content for edits.</li>
+        <li><code>&lt;cite&gt;</code>: References a creative work.</li>
+        <li><code>&lt;kbd&gt;</code>: Represents user input (e.g., keyboard commands).</li>
+        <li><code>&lt;samp&gt;</code>: Sample output from a program.</li>
+        <li><code>&lt;var&gt;</code>: Variables in programming or math.</li>
+        <li><code>&lt;address&gt;</code>: Contact information.</li>
+        <li><code>&lt;ruby&gt;</code>, <code>&lt;rt&gt;</code>, <code>&lt;rp&gt;</code>: Ruby annotations for East Asian text.</li>
+      </ul>
+      <h4>List Elements</h4>
+      <ul>
+        <li><code>&lt;ul&gt;</code>: Unordered list (bulleted).</li>
+        <li><code>&lt;ol&gt;</code>: Ordered list (numbered).</li>
+        <li><code>&lt;li&gt;</code>: List item.</li>
+        <li><code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code>: Description list with terms and descriptions.</li>
+      </ul>
+      <h4>Embedded Elements</h4>
+      <ul>
+        <li><code>&lt;img&gt;</code>: Embeds images.</li>
+        <li><code>&lt;audio&gt;</code>: Embeds audio files.</li>
+        <li><code>&lt;video&gt;</code>: Embeds video files.</li>
+        <li><code>&lt;iframe&gt;</code>: Embeds external content.</li>
+        <li><code>&lt;embed&gt;</code>: Embeds external applications.</li>
+        <li><code>&lt;object&gt;</code>: Embeds multimedia or plugins.</li>
+        <li><code>&lt;picture&gt;</code>: Responsive images with multiple sources.</li>
+        <li><code>&lt;source&gt;</code>: Specifies media sources for <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, or <code>&lt;picture&gt;</code>.</li>
+        <li><code>&lt;track&gt;</code>: Adds subtitles or captions to media.</li>
+        <li><code>&lt;canvas&gt;</code>: Dynamic graphics via JavaScript.</li>
+        <li><code>&lt;svg&gt;</code>: Scalable vector graphics.</li>
+      </ul>
+      <h4>Interactive Elements</h4>
+      <ul>
+        <li><code>&lt;form&gt;</code>: User input form.</li>
+        <li><code>&lt;input&gt;</code>: Input fields.</li>
+        <li><code>&lt;button&gt;</code>: Clickable buttons.</li>
+        <li><code>&lt;select&gt;</code> and <code>&lt;option&gt;</code>: Dropdown menus.</li>
+        <li><code>&lt;textarea&gt;</code>: Multi-line text input.</li>
+        <li><code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code>: Collapsible content.</li>
+        <li><code>&lt;dialog&gt;</code>: Modal or dialog box.</li>
+      </ul>
+      <h4>Void Elements</h4>
+      <p>Void elements are self-closing and include:</p>
+      <ul>
+        <li><code>&lt;img src="image.jpg" alt="Description"&gt;</code></li>
+        <li><code>&lt;input type="text"&gt;</code></li>
+        <li><code>&lt;br&gt;</code>: Line break.</li>
+        <li><code>&lt;hr&gt;</code>: Horizontal rule.</li>
+        <li><code>&lt;meta charset="UTF-8"&gt;</code></li>
+        <li><code>&lt;link rel="stylesheet" href="styles.css"&gt;</code></li>
+        <li><code>&lt;source src="media.mp4"&gt;</code></li>
+      </ul>
+      <h3>Example</h3>
+      <pre>
+&lt;div&gt;
+  &lt;h1&gt;Main Heading&lt;/h1&gt;
+  &lt;p&gt;This is a &lt;strong&gt;bold&lt;/strong&gt; paragraph with a &lt;a href="page.html"&gt;link&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+      </pre>
+    </section>
+
+    <section id="semantic">
+      <h2>Semantic HTML</h2>
+      <p>Semantic HTML uses elements that convey the meaning and purpose of content, enhancing accessibility, SEO, and code maintainability. Unlike non-semantic elements like <code>&lt;div&gt;</code>, semantic elements describe their role in the document structure.</p>
+      <h3>Key Semantic Elements</h3>
+      <ul>
+        <li><code>&lt;header&gt;</code>: Represents introductory content, such as a logo, navigation, or page title.</li>
+        <li><code>&lt;nav&gt;</code>: Contains navigation links, such as menus or breadcrumbs.</li>
+        <li><code>&lt;main&gt;</code>: Defines the primary content, unique to each page.</li>
+        <li><code>&lt;article&gt;</code>: Represents self-contained content, like a blog post or news article.</li>
+        <li><code>&lt;section&gt;</code>: Groups thematically related content.</li>
+        <li><code>&lt;aside&gt;</code>: Holds supplementary content, like sidebars or ads.</li>
+        <li><code>&lt;footer&gt;</code>: Contains footer information, such as copyright or contact details.</li>
+        <li><code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code>: Groups media with a caption.</li>
+        <li><code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code>: Creates collapsible sections.</li>
+        <li><code>&lt;dialog&gt;</code>: Represents a modal or dialog box.</li>
+      </ul>
+      <h3>Text-Level Semantics</h3>
+      <p>These elements provide meaning to inline content:</p>
+      <ul>
+        <li><code>&lt;strong&gt;</code>: Indicates strong importance, typically rendered as bold.</li>
+        <li><code>&lt;em&gt;</code>: Stresses emphasis, typically italicized.</li>
+        <li><code>&lt;b&gt;</code>: Draws attention without semantic importance.</li>
+        <li><code>&lt;i&gt;</code>: Marks alternative voice, technical terms, or idiomatic text.</li>
+        <li><code>&lt;u&gt;</code>: Non-textual annotations, often underlined.</li>
+        <li><code>&lt;s&gt;</code>: Strikethrough for outdated or incorrect content.</li>
+        <li><code>&lt;mark&gt;</code>: Highlights text for reference or emphasis.</li>
+        <li><code>&lt;small&gt;</code>: Represents side comments or fine print.</li>
+        <li><code>&lt;del&gt;</code> and <code>&lt;ins&gt;</code>: Marks deleted or inserted content for edits.</li>
+        <li><code>&lt;cite&gt;</code>: References a creative work, like a book or article.</li>
+        <li><code>&lt;code&gt;</code>: Displays computer code snippets.</li>
+        <li><code>&lt;kbd&gt;</code>: Represents user input, like keyboard commands.</li>
+        <li><code>&lt;samp&gt;</code>: Shows sample output from a program.</li>
+        <li><code>&lt;var&gt;</code>: Indicates variables in code or math.</li>
+        <li><code>&lt;abbr title="World Health Organization"&gt;WHO&lt;/abbr&gt;</code>: Abbreviations or acronyms with expanded text.</li>
+        <li><code>&lt;blockquote cite="source"&gt;</code>: Long quotations from another source.</li>
+        <li><code>&lt;q&gt;</code>: Short inline quotations.</li>
+        <li><code>&lt;time datetime="2025-06-03"&gt;</code>: Represents dates or times in a machine-readable format.</li>
+        <li><code>&lt;sup&gt;</code> and <code>&lt;sub&gt;</code>: Superscript and subscript for mathematical or chemical notation.</li>
+        <li><code>&lt;ruby&gt;</code>, <code>&lt;rt&gt;</code>, <code>&lt;rp&gt;</code>: Ruby annotations for East Asian pronunciation guides.</li>
+      </ul>
+      <h3>Description Lists</h3>
+      <p>The <code>&lt;dl&gt;</code> element creates term-description pairs, with <code>&lt;dt&gt;</code> for terms and <code>&lt;dd&gt;</code> for descriptions:</p>
+      <pre>
+&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;Hypertext Markup Language, the standard for web structure.&lt;/dd&gt;
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;Cascading Style Sheets, used for styling webpages.&lt;/dd&gt;
+&lt;/dl&gt;
+      </pre>
+      <h3>Why Use Semantic HTML?</h3>
+      <p>Semantic elements:</p>
+      <ul>
+        <li>Improve accessibility by providing clear structure for screen readers.</li>
+        <li>Enhance SEO by helping search engines understand content hierarchy.</li>
+        <li>Make code more maintainable and readable for developers.</li>
+        <li>Replace deprecated presentational elements like <code>&lt;center&gt;</code>, <code>&lt;font&gt;</code>, or <code>&lt;big&gt;</code>, which should be avoided in favor of CSS.</li>
+      </ul>
+      <h3>Example Semantic Structure</h3>
+      <pre>
+&lt;header&gt;
+  &lt;h1&gt;Site Title&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;article&gt;
+    &lt;h2&gt;Article Title&lt;/h2&gt;
+    &lt;p&gt;Content here.&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+  &lt;p&gt;© 2025&lt;/p&gt;
+&lt;/footer&gt;
+      </pre>
+    </section>
+
+    <section id="forms">
+      <h2>HTML Forms</h2>
+      <p>Forms enable user input for data collection, such as login credentials, surveys, or file uploads. The <code>&lt;form&gt;</code> element defines a form, with attributes controlling its behavior.</p>
+      <h3>Form Attributes</h3>
+      <ul>
+        <li><code>action</code>: URL where form data is sent (e.g., <code>action="/submit"</code>).</li>
+        <li><code>method</code>: HTTP method, either <code>GET</code> (appends data to URL) or <code>POST</code> (sends data securely).</li>
+        <li><code>enctype</code>: Encoding type for form data, e.g., <code>multipart/form-data</code> for file uploads.</li>
+        <li><code>novalidate</code>: Disables browser validation.</li>
+        <li><code>autocomplete</code>: Enables or disables form autofill (<code>on</code> or <code>off</code>).</li>
+      </ul>
+      <h3>Form Elements</h3>
+      <p>HTML5 provides a rich set of form elements for various input types:</p>
+      <ul>
+        <li><code>&lt;input&gt;</code>: Creates input fields with types like:
+          <ul>
+            <li><code>text</code>: Single-line text.</li>
+            <li><code>email</code>: Email address with validation.</li>
+            <li><code>password</code>: Masked input for sensitive data.</li>
+            <li><code>radio</code>: Single selection from a group.</li>
+            <li><code>checkbox</code>: Multiple selections.</li>
+            <li><code>file</code>: File uploads.</li>
+            <li><code>number</code>: Numeric input with min/max constraints.</li>
+            <li><code>date</code>: Date picker.</li>
+            <li><code>tel</code>: Telephone numbers.</li>
+            <li><code>url</code>: URLs with validation.</li>
+            <li><code>search</code>: Search field.</li>
+            <li><code>range</code>: Slider for numeric ranges.</li>
+            <li><code>color</code>: Color picker.</li>
+            <li><code>submit</code>: Form submission button.</li>
+            <li><code>reset</code>: Resets form fields.</li>
+            <li><code>button</code>: Generic button.</li>
+          </ul>
+        </li>
+        <li><code>&lt;label&gt;</code>: Associates text with an input, improving accessibility. Use <code>for</code> to match an input’s <code>id</code> or wrap the input inside the label.</li>
+        <li><code>&lt;button&gt;</code>: Creates clickable buttons with types <code>submit</code>, <code>reset</code>, or <code>button</code>.</li>
+        <li><code>&lt;select&gt;</code> and <code>&lt;option&gt;</code>: Dropdown menus, with <code>&lt;optgroup&gt;</code> for grouping options.</li>
+        <li><code>&lt;textarea&gt;</code>: Multi-line text input.</li>
+        <li><code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code>: Groups related inputs with a caption.</li>
+        <li><code>&lt;datalist&gt;</code>: Provides autocomplete suggestions for inputs.</li>
+        <li><code>&lt;output&gt;</code>: Displays form calculation results.</li>
+        <li><code>&lt;progress&gt;</code>: Shows task completion progress.</li>
+        <li><code>&lt;meter&gt;</code>: Displays a scalar value within a range.</li>
+      </ul>
+      <h3>Input Attributes</h3>
+      <ul>
+        <li><code>placeholder</code>: Hint text for user guidance.</li>
+        <li><code>value</code>: Default value or button text.</li>
+        <li><code>required</code>: Mandates input before submission.</li>
+        <li><code>disabled</code>: Disables the input field.</li>
+        <li><code>readonly</code>: Prevents editing but allows submission.</li>
+        <li><code>min</code>, <code>max</code>, <code>step</code>: Numeric constraints.</li>
+        <li><code>pattern</code>: Regular expression for validation (e.g., <code>pattern="[A-Za-z]{3}"</code>).</li>
+        <li><code>autocomplete</code>: Suggests previous inputs.</li>
+        <li><code>list</code>: Links to a <code>&lt;datalist&gt;</code> for suggestions.</li>
+        <li><code>multiple</code>: Allows multiple selections (e.g., for <code>file</code> or <code>select</code>).</li>
+      </ul>
+      <h3>Example Form</h3>
+      <pre>
+&lt;form action="/submit" method="POST"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;User Information&lt;/legend&gt;
+    &lt;label for="name"&gt;Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name" placeholder="John Doe" required&gt;
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" placeholder="john@example.com"&gt;
+    &lt;label for="color"&gt;Favorite Color:&lt;/label&gt;
+    &lt;input type="color" id="color" name="color"&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;
+      </pre>
+      <h3>Advanced Form Features</h3>
+      <p>HTML5 forms support client-side validation and dynamic inputs:</p>
+      <ul>
+        <li><strong>Validation</strong>: Use <code>required</code>, <code>pattern</code>, or type-specific validation (e.g., <code>email</code>).</li>
+        <li><strong>Datalist</strong>: Provides autocomplete options:
+          <pre>
+&lt;input type="text" list="fruits"&gt;
+&lt;datalist id="fruits"&gt;
+  &lt;option value="Apple"&gt;
+  &lt;option value="Banana"&gt;
+&lt;/datalist&gt;
+          </pre>
+        </li>
+        <li><strong>Progress and Meter</strong>: Visualize progress or measurements:
+          <pre>
+&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;
+&lt;meter value="0.6" min="0" max="1"&gt;60%&lt;/meter&gt;
+          </pre>
+        </li>
+      </ul>
+    </section>
+
+    <section id="tables">
+      <h2>HTML Tables</h2>
+      <p>Tables organize data in a grid of rows and columns, ideal for presenting structured information like schedules or statistics.</p>
+      <h3>Table Elements</h3>
+      <ul>
+        <li><code>&lt;table&gt;</code>: Defines the table.</li>
+        <li><code>&lt;thead&gt;</code>: Groups header content for accessibility and styling.</li>
+        <li><code>&lt;tbody&gt;</code>: Groups body content.</li>
+        <li><code>&lt;tfoot&gt;</code>: Groups footer content, like summaries.</li>
+        <li><code>&lt;tr&gt;</code>: Defines a table row.</li>
+        <li><code>&lt;th&gt;</code>: Header cell, typically bold and centered.</li>
+        <li><code>&lt;td&gt;</code>: Data cell.</li>
+        <li><code>&lt;caption&gt;</code>: Provides a table title for context.</li>
+        <li><code>&lt;colgroup&gt;</code> and <code>&lt;col&gt;</code>: Define column properties for styling.</li>
+      </ul>
+      <h3>Table Attributes</h3>
+      <ul>
+        <li><code>colspan</code>: Spans a cell across multiple columns.</li>
+        <li><code>rowspan</code>: Spans a cell across multiple rows.</li>
+        <li><code>scope</code>: Specifies header scope (<code>row</code>, <code>col</code>) for accessibility.</li>
+        <li><code>headers</code>: Links a <code>&lt;td&gt;</code> to a <code>&lt;th&gt;</code> for screen readers.</li>
+      </ul>
+      <h3>Example Table</h3>
+      <pre>
+&lt;table&gt;
+  &lt;caption&gt;Student Grades&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Name&lt;/th&gt;
+      &lt;th scope="col"&gt;Grade&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Jane Smith&lt;/td&gt;
+      &lt;td&gt;85&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;John Doe&lt;/td&gt;
+      &lt;td&gt;92&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td colspan="2"&gt;Average: 88.5&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+      </pre>
+      <h3>Accessibility in Tables</h3>
+      <p>Use <code>scope</code> and <code>headers</code> to make tables accessible to screen readers, ensuring data relationships are clear.</p>
+    </section>
+
+    <section id="media">
+      <h2>Media and Multimedia</h2>
+      <p>HTML5 supports rich media embedding, including images, audio, video, and external content, with features for accessibility and performance optimization.</p>
+      <h3>Images</h3>
+      <p>The <code>&lt;img&gt;</code> element embeds images, with key attributes:</p>
+      <ul>
+        <li><code>src</code>: Image file path.</li>
+        <li><code>alt</code>: Alternative text for accessibility.</li>
+        <li><code>loading="lazy"</code>: Delays loading until visible, improving performance.</li>
+        <li><code>srcset</code> and <code>sizes</code>: Responsive image sources.</li>
+      </ul>
+      <h3>Picture Element</h3>
+      <p>The <code>&lt;picture&gt;</code> element enables responsive images with multiple sources:</p>
+      <pre>
+&lt;picture&gt;
+  &lt;source media="(max-width: 600px)" srcset="small.jpg"&gt;
+  &lt;source media="(max-width: 1200px)" srcset="medium.jpg"&gt;
+  &lt;img src="default.jpg" alt="A scenic landscape"&gt;
+&lt;/picture&gt;
+      </pre>
+      <h3>Audio and Video</h3>
+      <p>The <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> elements embed media, with <code>&lt;source&gt;</code> for multiple formats and <code>&lt;track&gt;</code> for captions or subtitles:</p>
+      <pre>
+&lt;audio controls&gt;
+  &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+  &lt;source src="audio.ogg" type="audio/ogg"&gt;
+  Your browser does not support audio.
+&lt;/audio&gt;
+&lt;video controls width="600"&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+  &lt;track src="subtitles.vtt" kind="subtitles" srclang="en" label="English"&gt;
+  Your browser does not support video.
+&lt;/video&gt;
+      </pre>
+      <h3>Iframes</h3>
+      <p>The <code>&lt;iframe&gt;</code> embeds external content, like videos or maps:</p>
+      <pre>
+&lt;iframe src="https://www.youtube.com/embed/videoID" title="Video description" width="560" height="315"&gt;&lt;/iframe&gt;
+      </pre>
+      <h3>Canvas and SVG</h3>
+      <p><code>&lt;canvas&gt;</code> enables dynamic graphics via JavaScript, while <code>&lt;svg&gt;</code> defines scalable vector graphics:</p>
+      <pre>
+&lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
+&lt;svg width="100" height="100"&gt;
+  &lt;circle cx="50" cy="50" r="40" fill="blue"/&gt;
+&lt;/svg&gt;
+      </pre>
+      <h3>Media Optimization</h3>
+      <ul>
+        <li>Use compressed formats (JPEG, WebP) for raster images and SVG for vectors.</li>
+        <li>Implement lazy loading with <code>loading="lazy"</code>.</li>
+        <li>Ensure proper licensing (e.g., Creative Commons) for media.</li>
+        <li>Add captions and audio descriptions for accessibility.</li>
+      </ul>
+    </section>
+
+    <section id="links">
+      <h2>Links and Navigation</h2>
+      <p>The <code>&lt;a&gt;</code> element creates hyperlinks to connect pages, resources, or sections within a page.</p>
+      <h3>Link Attributes</h3>
+      <ul>
+        <li><code>href</code>: Destination URL or anchor (e.g., <code>#section</code>).</li>
+        <li><code>target</code>: Specifies where the link opens (<code>_self</code>, <code>_blank</code>, <code>_parent</code>, <code>_top</code>).</li>
+        <li><code>rel</code>: Defines the relationship, e.g., <code>nofollow</code>, <code>noopener</code>, or <code>alternate</code>.</li>
+        <li><code>download</code>: Prompts file download instead of navigation.</li>
+        <li><code>hreflang</code>: Specifies the language of the linked resource.</li>
+        <li><code>type</code>: Indicates the MIME type of the linked resource.</li>
+      </ul>
+      <h3>Path Types</h3>
+      <ul>
+        <li><strong>Absolute Paths</strong>: Full URLs (e.g., <code>https://example.com/page</code>).</li>
+        <li><strong>Relative Paths</strong>: Relative to the current file (e.g., <code>./page.html</code>, <code>../parent/page.html</code>).</li>
+        <li><strong>Root-Relative Paths</strong>: Start from the site root (e.g., <code>/page.html</code>).</li>
+      </ul>
+      <h3>Path Syntax</h3>
+      <ul>
+        <li><code>/</code>: Root directory.</li>
+        <li><code>./</code>: Current directory.</li>
+        <li><code>../</code>: Parent directory.</li>
+      </ul>
+      <h3>Link States</h3>
+      <p>CSS pseudo-classes style link interactions:</p>
+      <ul>
+        <li><code>:link</code>: Unvisited links.</li>
+        <li><code>:visited</code>: Visited links.</li>
+        <li><code>:hover</code>: Mouse hover state.</li>
+        <li><code>:active</code>: Clicked state.</li>
+      </ul>
+      <h3>Example Links</h3>
+      <pre>
+&lt;a href="https://example.com" target="_blank" rel="noopener"&gt;Visit Example&lt;/a&gt;
+&lt;a href="#section"&gt;Go to Section&lt;/a&gt;
+&lt;a href="file.pdf" download&gt;Download PDF&lt;/a&gt;
+      </pre>
+    </section>
+
+    <section id="global-attributes">
+      <h2>Global Attributes</h2>
+      <p>Global attributes can be applied to any HTML element to enhance functionality or accessibility:</p>
+      <ul>
+        <li><code>id</code>: Unique identifier for an element (e.g., <code>id="header"</code>).</li>
+        <li><code>class</code>: Groups elements for styling or scripting (e.g., <code>class="nav-item"</code>).</li>
+        <li><code>style</code>: Inline CSS styles (use sparingly).</li>
+        <li><code>title</code>: Tooltip text on hover.</li>
+        <li><code>lang</code>: Specifies the language (e.g., <code>lang="es"</code> for Spanish).</li>
+        <li><code>dir</code>: Text direction (<code>ltr</code> or <code>rtl</code>).</li>
+        <li><code>hidden</code>: Hides an element from rendering.</li>
+        <li><code>tabindex</code>: Defines keyboard navigation order (0 for focusable, -1 to exclude).</li>
+        <li><code>accesskey</code>: Keyboard shortcut (e.g., <code>accesskey="s"</code>).</li>
+        <li><code>data-*</code>: Custom data attributes (e.g., <code>data-id="123"</code>).</li>
+        <li><code>draggable</code>: Enables drag-and-drop (<code>true</code> or <code>false</code>).</li>
+        <li><code>spellcheck</code>: Enables or disables spell checking.</li>
+        <li><code>contenteditable</code>: Allows editing of element content.</li>
+        <li><code>translate</code>: Controls translation (<code>yes</code> or <code>no</code>).</li>
+      </ul>
+      <h3>Example</h3>
+      <pre>
+&lt;div id="content" class="main-section" data-type="primary" contenteditable="true"&gt;Editable content&lt;/div&gt;
+      </pre>
+    </section>
+
+    <section id="events">
+      <h2>Event Attributes</h2>
+      <p>HTML5 supports event attributes to trigger JavaScript actions based on user interactions or browser events. These are global attributes prefixed with <code>on</code>.</p>
+      <h3>Common Event Attributes</h3>
+      <ul>
+        <li><code>onclick</code>: Triggers on mouse click.</li>
+        <li><code>onchange</code>: Triggers when an input value changes.</li>
+        <li><code>oninput</code>: Triggers on input value changes in real-time.</li>
+        <li><code>onsubmit</code>: Triggers on form submission.</li>
+        <li><code>onmouseover</code>: Triggers on mouse hover.</li>
+        <li><code>onkeydown</code>: Triggers on key press.</li>
+        <li><code>onload</code>: Triggers when an element loads.</li>
+        <li><code>onerror</code>: Triggers on error (e.g., image fails to load).</li>
+        <li><code>ondrag</code>: Triggers during drag-and-drop operations.</li>
+        <li><code>onfocus</code> and <code>onblur</code>: Triggers when an element gains or loses focus.</li>
+      </ul>
+      <h3>Example</h3>
+      <pre>
+&lt;button onclick="myFunction()"&gt;Click Me&lt;/button&gt;
+&lt;input type="text" oninput="validateInput(this)"&gt;
+      </pre>
+      <p><strong>Note</strong>: Prefer external JavaScript over inline event attributes for maintainability.</p>
+    </section>
+
+    <section id="seo">
+      <h2>SEO and Social Sharing</h2>
+      <p>Search Engine Optimization (SEO) and social sharing enhance a webpage’s visibility and shareability. Meta tags and structured data play a critical role.</p>
+      <h3>SEO Meta Tags</h3>
+      <ul>
+        <li><code>&lt;meta name="description" content="Page summary"&gt;</code>: Summarizes the page for search engines.</li>
+        <li><code>&lt;meta name="keywords" content="html, web"&gt;</code>: Lists relevant keywords (less impactful today).</li>
+        <li><code>&lt;meta name="robots" content="index, follow"&gt;</code>: Instructs search engines on indexing and crawling.</li>
+        <li><code>&lt;meta name="author" content="Name"&gt;</code>: Specifies the page author.</li>
+      </ul>
+      <h3>Open Graph Tags</h3>
+      <p>Open Graph tags optimize social media previews:</p>
+      <ul>
+        <li><code>&lt;meta property="og:title"&gt;</code>: Social media title.</li>
+        <li><code>&lt;meta property="og:description"&gt;</code>: Social media description.</li>
+        <li><code>&lt;meta property="og:image"&gt;</code>: Preview image.</li>
+        <li><code>&lt;meta property="og:type"&gt;</code>: Content type (e.g., <code>website</code>, <code>article</code>).</li>
+      </ul>
+      <h3>Example</h3>
+      <pre>
+&lt;meta name="description" content="Learn HTML5 with this comprehensive guide"&gt;
+&lt;meta name="robots" content="index, follow"&gt;
+&lt;meta property="og:title" content="HTML5 Guide"&gt;
+&lt;meta property="og:image" content="thumbnail.jpg"&gt;
+      </pre>
+      <h3>Structured Data</h3>
+      <p>Use JSON-LD or microdata to provide search engines with structured information:</p>
+      <pre>
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "HTML5 Guide",
+  "description": "A comprehensive guide to HTML5."
+}
+&lt;/script&gt;
+      </pre>
+    </section>
+
+    <section id="accessibility">
+      <h2>Accessibility</h2>
+      <p>Accessibility ensures webpages are usable by everyone, including people with disabilities, following the Web Content Accessibility Guidelines (WCAG). WCAG’s four principles are <strong>Perceivable</strong>, <strong>Operable</strong>, <strong>Understandable</strong>, and <strong>Robust</strong>.</p>
+      <h3>Assistive Technologies</h3>
+      <ul>
+        <li><strong>Screen Readers</strong>: Software like NVDA or VoiceOver reads content aloud for visually impaired users.</li>
+        <li><strong>Screen Magnifiers</strong>: Enlarge content for low-vision users.</li>
+        <li><strong>Voice Recognition</strong>: Allows voice-based navigation for mobility-impaired users.</li>
+        <li><strong>Alternative Input Devices</strong>: Joysticks, trackballs, or touchpads for users with motor impairments.</li>
+        <li><strong>Braille Keyboards</strong>: Support tactile input for blind users.</li>
+      </ul>
+      <h3>Accessibility Best Practices</h3>
+      <ul>
+        <li><strong>Headings</strong>: Use <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> in a logical hierarchy to structure content.</li>
+        <li><strong>Labels</strong>: Associate <code>&lt;label&gt;</code> with inputs using <code>for</code> or implicit wrapping.</li>
+        <li><strong>Alt Text</strong>: Provide descriptive <code>alt</code> attributes for images (e.g., <code>alt="A sunset over mountains"</code>).</li>
+        <li><strong>Link Text</strong>: Use meaningful text (e.g., “Read the guide” instead of “Click here”).</li>
+        <li><strong>Multimedia</strong>: Include captions, transcripts, and audio descriptions for audio and video.</li>
+        <li><strong>Keyboard Navigation</strong>: Ensure all interactive elements are focusable with <code>tabindex</code>.</li>
+        <li><strong>Color Contrast</strong>: Maintain high contrast ratios (e.g., 4.5:1 for text) for readability.</li>
+      </ul>
+      <h3>WAI-ARIA</h3>
+      <p>Web Accessibility Initiative - Accessible Rich Internet Applications (WAI-ARIA) enhances accessibility for dynamic content:</p>
+      <ul>
+        <li><code>role</code>: Defines an element’s purpose (e.g., <code>role="banner"</code>, <code>role="alert"</code>).</li>
+        <li><code>aria-label</code>: Provides a programmatic name (e.g., <code>aria-label="Close dialog"</code>).</li>
+        <li><code>aria-labelledby</code>: References another element’s text as a label.</li>
+        <li><code>aria-hidden="true"</code>: Hides non-essential content from assistive technologies.</li>
+        <li><code>aria-expanded</code>: Indicates toggle state (<code>true</code> or <code>false</code>).</li>
+        <li><code>aria-live</code>: Announces content updates (<code>polite</code> or <code>assertive</code>).</li>
+        <li><code>aria-controls</code>: Links an element to the content it controls.</li>
+        <li><code>aria-describedby</code>: Provides additional context via another element.</li>
+        <li><code>aria-checked</code>, <code>aria-selected</code>: Indicates state for interactive elements.</li>
+      </ul>
+      <h3>Example ARIA</h3>
+      <pre>
+&lt;button aria-label="Close dialog"&gt;X&lt;/button&gt;
+&lt;div role="alert" aria-live="assertive"&gt;Error: Invalid input&lt;/div&gt;
+&lt;nav aria-label="Main navigation"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+      </pre>
+    </section>
+
+    <section id="tools">
+      <h2>Development Tools</h2>
+      <p>Tools streamline HTML development and ensure quality:</p>
+      <ul>
+        <li><strong>W3C Markup Validator</strong>: Checks HTML syntax for errors.</li>
+        <li><strong>Browser DevTools</strong>: Inspect and debug the DOM, CSS, and JavaScript in browsers like Chrome or Firefox.</li>
+        <li><strong>Accessibility Auditors</strong>: Tools like Google Lighthouse, WAVE, axe DevTools, and IBM Equal Access Checker evaluate WCAG compliance.</li>
+        <li><strong>Screen Reader Testing</strong>: Test with NVDA, VoiceOver, or JAWS to ensure accessibility.</li>
+        <li><strong>HTML Formatters</strong>: Tools like Prettier or online formatters clean up code structure.</li>
+      </ul>
+    </section>
+
+    <section id="advanced">
+      <h2>Advanced HTML5 Features</h2>
+      <p>HTML5 introduces APIs and features for modern web applications:</p>
+      <h3>HTML5 APIs</h3>
+      <ul>
+        <li><strong>Geolocation</strong>: Access user location with JavaScript (<code>navigator.geolocation</code>).</li>
+        <li><strong>Drag and Drop</strong>: Enable drag-and-drop with <code>draggable</code> and event attributes like <code>ondragstart</code>.</li>
+        <li><strong>Web Storage</strong>: Store data locally with <code>localStorage</code> and <code>sessionStorage</code>.</li>
+        <li><strong>WebSockets</strong>: Enable real-time communication using <code>&lt;script&gt;</code> with WebSocket APIs.</li>
+        <li><strong>Service Workers</strong>: Support offline functionality and caching.</li>
+        <li><strong>Canvas API</strong>: Create dynamic graphics with <code>&lt;canvas&gt;</code>.</li>
+        <li><strong>WebRTC</strong>: Enable real-time audio and video communication.</li>
+      </ul>
+      <h3>Microdata and Schema.org</h3>
+      <p>Add structured data to improve SEO:</p>
+      <pre>
+&lt;div itemscope itemtype="https://schema.org/Person"&gt;
+  &lt;span itemprop="name"&gt;John Doe&lt;/span&gt;
+  &lt;span itemprop="jobTitle"&gt;Developer&lt;/span&gt;
+&lt;/div&gt;
+      </pre>
+      <h3>Custom Elements</h3>
+      <p>Define custom HTML elements with JavaScript:</p>
+      <pre>
+&lt;custom-element&gt;&lt;/custom-element&gt;
+&lt;script&gt;
+  class CustomElement extends HTMLElement {
+    connectedCallback() {
+      this.innerHTML = 'Custom content';
+    }
+  }
+  customElements.define('custom-element', CustomElement);
+&lt;/script&gt;
+      </pre>
+      <h3>Content Security Policy (CSP)</h3>
+      <p>Use <code>&lt;meta&gt;</code> to enforce security policies:</p>
+      <pre>
+&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self'"&gt;
+      </pre>
+    </section>
+
+    <section id="best-practices">
+      <h2>Best Practices</h2>
+      <p>Follow these guidelines to create robust, accessible, and maintainable HTML5 code:</p>
+      <ul>
+        <li><strong>Use Semantic Elements</strong>: Prefer <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code> over <code>&lt;div&gt;</code> for meaningful structure.</li>
+        <li><strong>Minimize Inline Code</strong>: Use external CSS and JavaScript files for maintainability.</li>
+        <li><strong>Optimize Media</strong>: Compress images, use <code>loading="lazy"</code>, and choose efficient formats (WebP, SVG).</li>
+        <li><strong>Validate HTML</strong>: Use the W3C Validator to catch syntax errors.</li>
+        <li><strong>Test Accessibility</strong>: Verify with screen readers and tools like Lighthouse.</li>
+        <li><strong>Avoid Deprecated Elements</strong>: Replace <code>&lt;center&gt;</code>, <code>&lt;font&gt;</code> with CSS.</li>
+        <li><strong>Use ARIA Sparingly</strong>: Apply ARIA only when native HTML is insufficient.</li>
+        <li><strong>Responsive Design</strong>: Include viewport meta tags and test across devices.</li>
+        <li><strong>Maintain Semantic Hierarchy</strong>: Use headings (<code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>) in order without skipping levels.</li>
+        <li><strong>Secure Forms</strong>: Use <code>POST</code> for sensitive data and validate inputs on both client and server.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Comprehensive HTML5 Guide | Created with &lt;3</p>
+  </footer>
 </body>
 </html>
