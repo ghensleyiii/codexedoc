@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>IDE - Just Wise Love</title>
-  <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
   <style>
     :root {
@@ -927,6 +927,7 @@ console.log("Hello from JS");
             textarea.value = files[fileId].content;
             updateLineNumbers(textarea, lineNumbers);
             highlightCode(textarea, fileId);
+            // Attach event listeners with fileId in scope
             textarea.addEventListener('input', () => {
               files[fileId].content = textarea.value;
               updateLineNumbers(textarea, lineNumbers);
@@ -1131,9 +1132,9 @@ console.log("Hello from JS");
       textarea.value = type === 'html' ? '<!DOCTYPE html>\n<html>\n  <head>\n    <title>New Page</title>\n  </head>\n  <body>\n  </body>\n</html>' :
                        type === 'css' ? '/* New CSS File */\n' :
                        type === 'js' ? '/* New JS File */\n' :
-                       type === 'jsx' ? 'import React from "react";\n\nfunction Component() {\n  return (\n    <div>\n      <h1>Hello, React!</h1>\n    </div>\n  );\n}\n' +
+                       type === 'jsx' ? 'import React from "react";\nfunction Component() {\n  return (\n    <div>\n      <h1>Hello, React!</h1>\n  </div>\n  );\n}\n' +
                                         'export default Component;\n' :
-                       type === 'py' ? '# New Python File\n\nprint("Hello, Python!")\n' : '';
+                       type === 'py' ? '# New Python File\nprint("Hello, Python!")' : '\n';
       editorWrapper.appendChild(lineNumbers);
       editorWrapper.appendChild(textarea);
       editorArea.appendChild(editorWrapper);
@@ -1161,7 +1162,7 @@ console.log("Hello from JS");
     function saveToFile() {
       console.log('Save button clicked');
       if (currentTab === 'browser') return;
-      const fileName = `${currentTab.replace(/^[^-]+-/, '')}.${files[currentTab].type}`;
+      const fileName = `${currentTab.replace(/^[^-]+}-/, '')}.${files[currentTab].type}`;
       document.getElementById('saveFileName').value = fileName;
       document.getElementById('saveFileModal').style.display = 'flex';
       setTimeout(() => document.getElementById('saveFileName').focus(), 50);
@@ -1176,7 +1177,7 @@ console.log("Hello from JS");
     function downloadFile() {
       console.log('Download button clicked');
       const fileName = document.getElementById('saveFileName').value.trim();
-      if (!fileName) return alert('Enter a file name.');
+      if (!fileName) return alert('Please enter a file name.');
 
       const editor = document.getElementById(`editor-${currentTab}`);
       if (editor) files[currentTab].content = editor.value;
@@ -1202,7 +1203,7 @@ console.log("Hello from JS");
         return;
       }
 
-      const findText = document.getElementById('findText').value;
+      const findText = document.getElementById('content').value;
       const replaceText = document.getElementById('replaceText').value;
 
       if (!findText) {
@@ -1236,18 +1237,9 @@ console.log("Hello from JS");
     document.getElementById('findReplaceBackdrop').addEventListener('click', (e) => {
       if (e.target === document.getElementById('findReplaceBackdrop')) {
         console.log('Backdrop clicked, closing find/replace');
+        console.log('Find closeFindReplace');
         closeFindReplace();
       }
-    });
-
-    document.querySelectorAll('.code-editor').forEach(editor => {
-      editor.addEventListener('input', () => {
-        const fileId = editor.id.replace('editor-', '');
-        files[fileId].content = editor.value;
-        updateLineNumbers(editor, document.getElementById(`line-numbers-${fileId}`));
-        highlightCode(editor, fileId);
-      });
-      editor.addEventListener('scroll', () => syncScroll(editor, document.getElementById(`line-numbers-${fileId}`)));
     });
 
     document.querySelectorAll('.top-bar button').forEach(button => {
@@ -1270,7 +1262,7 @@ console.log("Hello from JS");
 
     loadInitialFiles();
     window.onload = () => {
-      console.log('Window loaded');
+      console.log('Document loaded');
       if (currentTab === 'browser') runCode();
     };
   </script>
