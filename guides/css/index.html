@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An exhaustive guide to CSS, detailing all properties, selectors, layouts, animations, accessibility, and best practices for modern web styling.">
+  <meta property="og:title" content="Comprehensive CSS Guide">
+  <meta property="og:description" content="Master CSS with this in-depth guide covering every property, selector, layout technique, and best practice for accessible, responsive web design.">
+  <meta property="og:image" content="css-guide.jpg">
+  <title>Comprehensive CSS Guide</title>
+  <style>
+    :root {
+      --dark: #181A1C;
+      --blue: #4a7fb2;
+      --white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      line-height: 1.7;
+      background-color: var(--dark);
+      color: var(--white);
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: var(--dark);
+      border-bottom: 3px solid var(--blue);
+      padding: 1.5rem;
+      text-align: center;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 100;
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+
+    nav {
+      width: 250px;
+      background-color: var(--dark);
+      border-right: 3px solid var(--blue);
+      padding: 1.5rem;
+      position: fixed;
+      top: 5rem;
+      height: calc(100vh - 5rem);
+      overflow-y: auto;
+    }
+
+    nav ul {
+      list-style: none;
+    }
+
+    nav li {
+      margin-bottom: 0.75rem;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      display: block;
+      padding: 0.75rem;
+      border-left: 4px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    nav a:hover {
+      border-left: 4px solid var(--blue);
+      color: var(--blue);
+      background-color: rgba(74, 127, 178, 0.1);
+    }
+
+    main {
+      margin-left: 270px;
+      padding: 6rem 1.5rem 2rem;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+      padding: 1.5rem;
+      border-radius: 6px;
+    }
+
+    code {
+      background-color: var(--blue);
+      color: var(--white);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+    }
+
+    pre {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 1.5rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      border: 1px solid var(--blue);
+      font-family: 'Courier New', monospace;
+      margin: 1rem 0;
+    }
+
+    ul, ol {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      background-color: var(--dark);
+      border-top: 3px solid var(--blue);
+      text-align: center;
+      padding: 1.5rem;
+      width: 100%;
+      margin-left: 250px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      nav {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 3px solid var(--blue);
+        padding: 1rem;
+      }
+
+      nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      nav li {
+        margin-bottom: 0;
+      }
+
+      nav a {
+        padding: 0.5rem;
+      }
+
+      main {
+        margin-left: 0;
+        padding: 1.5rem;
+      }
+
+      footer {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+
+      section {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Comprehensive CSS Guide</h1>
+  </header>
+
+  <main>
+    <section id="introduction">
+      <h2>Introduction to CSS</h2>
+      <p>Cascading Style Sheets (CSS) is the language used to style and layout web pages, controlling the presentation of HTML elements. CSS defines colors, fonts, sizes, positioning, and animations, enabling visually appealing and responsive designs. It works alongside HTML for structure and JavaScript for interactivity, forming the core of modern web development.</p>
+      <p>Key features of CSS include:</p>
+      <ul>
+        <li>Flexible styling with selectors and properties.</li>
+        <li>Support for responsive design with media queries and flexible units.</li>
+        <li>Advanced layout systems like Flexbox and Grid.</li>
+        <li>Animations and transitions for dynamic effects.</li>
+        <li>Accessibility features to ensure inclusive designs.</li>
+      </ul>
+      <p>This guide provides a thorough exploration of CSS, covering syntax, selectors, properties, layouts, and best practices for creating robust, accessible, and modern web designs.</p>
+    </section>
+
+    <section id="syntax">
+      <h2>Syntax & Structure</h2>
+      <p>CSS consists of rules that style HTML elements. Each rule includes a selector to target elements and a declaration block containing properties and values.</p>
+      <h3>Basic Syntax</h3>
+      <p>A CSS rule follows this structure:</p>
+      <pre>
+selector {
+  property: value;
+  property: value;
+}
+      </pre>
+      <p>Example:</p>
+      <pre>
+h1 {
+  color: #4a7fb2;
+  font-size: 2rem;
+}
+      </pre>
+      <h3>Applying CSS</h3>
+      <p>CSS can be applied in three ways:</p>
+      <ul>
+        <li><strong>External CSS</strong>: Linked via <code>&lt;link rel="stylesheet" href="styles.css"&gt;</code> for maintainability.</li>
+        <li><strong>Internal CSS</strong>: Embedded in <code>&lt;style&gt;</code> tags within the HTML <code>&lt;head&gt;</code>.</li>
+        <li><strong>Inline CSS</strong>: Applied directly via the <code>style</code> attribute (e.g., <code>&lt;div style="color: blue"&gt;</code>), but should be avoided for scalability.</li>
+      </ul>
+      <h3>Comments</h3>
+      <p>Use <code>/* comment */</code> for CSS comments:</p>
+      <pre>
+/* This is a comment */
+p {
+  margin: 1rem; /* Inline comment */
+}
+      </pre>
+      <h3>CSS Units</h3>
+      <p>CSS supports various units for measurements:</p>
+      <ul>
+        <li><strong>Absolute Units</strong>: <code>px</code> (pixels), <code>cm</code>, <code>mm</code>, <code>in</code>, <code>pt</code>, <code>pc</code>.</li>
+        <li><strong>Relative Units</strong>: <code>rem</code> (root font size), <code>em</code> (parent font size), <code>vw</code> (viewport width), <code>vh</code> (viewport height), <code>%</code>, <code>vmin</code>, <code>vmax</code>.</li>
+      </ul>
+      <p>Example:</p>
+      <pre>
+div {
+  width: 50vw;
+  font-size: 1.5rem;
+  margin: 10px;
+}
+      </pre>
+    </section>
+
+    <section id="selectors">
+      <h2>Selectors</h2>
+      <p>Selectors target HTML elements for styling. CSS supports a wide range of selectors for precise control.</p>
+      <h3>Basic Selectors</h3>
+      <ul>
+        <li><strong>Element Selector</strong>: Targets HTML tags (e.g., <code>p</code>, <code>div</code>).</li>
+        <li><strong>Class Selector</strong>: Targets elements with a class (e.g., <code>.container</code>).</li>
+        <li><strong>ID Selector</strong>: Targets a unique element (e.g., <code>#header</code>).</li>
+        <li><strong>Universal Selector</strong>: Targets all elements (<code>*</code>).</li>
+        <li><strong>Attribute Selector</strong>: Targets elements by attribute (e.g., <code>[type="text"]</code>).</li>
+      </ul>
+      <h3>Combinators</h3>
+      <ul>
+        <li><strong>Descendant</strong>: <code>div p</code> (all <code>p</code> inside <code>div</code>).</li>
+        <li><strong>Child</strong>: <code>div > p</code> (direct <code>p</code> children of <code>div</code>).</li>
+        <li><strong>Adjacent Sibling</strong>: <code>h1 + p</code> (first <code>p</code> after <code>h1</code>).</li>
+        <li><strong遵1 class="selector" title="Descendant Selector">Descendant Selector</a>
+        <li><strong>General Sibling</strong>: <code>h1 ~ p</code> (all <code>p</code> siblings after <code>h1</code>).</li>
+      </ul>
+      <h3>Advanced Selectors</h3>
+      <ul>
+        <li><code>[data-*]</code>: Custom data attributes (e.g., <code>[data-role="button"]</code>).</li>
+        <li><code>:not(selector)</code>: Excludes elements (e.g., <code>:not(.active)</code>).</li>
+        <li><code>:where()</code>: Groups conditions (e.g., <code>:where(:hover, :focus)</code>).</li>
+        <li><code>:is()</code>: Matches any selector in a list (e.g., <code>:is(h1, h2)</code>).</li>
+      </ul>
+      <h3>Example</h3>
+      <pre>
+.container {
+  background-color: #181A1C;
+}
+#hero {
+  padding: 2rem;
+}
+div > p {
+  color: #4a7fb2;
+}
+      </pre>
+    </section>
+
+    <section id="properties">
+      <h2>CSS Properties</h2>
+      <p>CSS properties define the styling of elements. Below is a comprehensive overview of key property categories.</p>
+      <h3>Text and Font Properties</h3>
+      <ul>
+        <li><code>color</code>: Text color (e.g., <code>#4a7fb2</code>).</li>
+        <li><code>font-family</code>: Font stack (e.g., <code>'Arial', sans-serif</code>).</li>
+        <li><code>font-size</code>: Text size (e.g., <code>16px</code>, <code>1rem</code>).</li>
+        <li><code>font-weight</code>: Text thickness (e.g., <code>400</code>, <code>bold</code>).</li>
+        <li><code>font-style</code>: Style like <code>italic</code> or <code>normal</code>.</li>
+        <li><code>text-align</code>: Alignment (<code>left</code>, <code>center</code>, <code>right</code>, <code>justify</code>).</li>
+        <li><code>text-decoration</code>: Effects like <code>underline</code>, <code>line-through</code>.</li>
+        <li><code>text-transform</code>: Case control (<code>uppercase</code>, <code>lowercase</code>, <code>capitalize</code>).</li>
+        <li><code>line-height</code>: Spacing between lines (e.g., <code>1.5</code>).</li>
+        <li><code>letter-spacing</code>: Character spacing (e.g., <code>1px</code>).</li>
+        <li><code>word-spacing</code>: Word spacing (e.g., <code>2px</code>).</li>
+      </ul>
+      <h3>Background Properties</h3>
+      <ul>
+        <li><code>background-color</code>: Background color (e.g., <code>#181A1C</code>).</li>
+        <li><code>background-image</code>: Image background (e.g., <code>url('image.jpg')</code>).</li>
+        <li><code>background-position</code>: Image position (e.g., <code>center</code>, <code>top left</code>).</li>
+        <li><code>background-repeat</code>: Image repetition (<code>repeat</code>, <code>no-repeat</code>).</li>
+        <li><code>background-size</code>: Image size (<code>cover</code>, <code>contain</code>, <code>auto</code>).</li>
+      </ul>
+      <h3>Box Model Properties</h3>
+      <p>The box model defines an element’s dimensions:</p>
+      <ul>
+        <li><code>width</code>, <code>height</code>: Element size (e.g., <code>100px</code>, <code>50%</code>).</li>
+        <li><code>margin</code>: Outer spacing (e.g., <code>10px</code>, <code>auto</code>).</li>
+        <li><code>padding</code>: Inner spacing (e.g., <code>1rem</code>).</li>
+        <li><code>border</code>: Border style, width, and color (e.g., <code>1px solid #4a7fb2</code>).</li>
+        <li><code>box-sizing</code>: Controls box model behavior (<code>content-box</code>, <code>border-box</code>).</li>
+      </ul>
+      <h3>Display and Positioning</h3>
+      <ul>
+        <li><code>display</code>: Element rendering (<code>block</code>, <code>inline</code>, <code>inline-block</code>, <code>flex</code>, <code>grid</code>, <code>none</code>).</li>
+        <li><code>position</code>: Positioning type (<code>static</code>, <code>relative</code>, <code>absolute</code>, <code>fixed</code>, <code>sticky</code>).</li>
+        <li><code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code>: Position offsets.</li>
+        <li><code>z-index</code>: Stacking order (e.g., <code>100</code>).</li>
+      </ul>
+      <h3>Other Properties</h3>
+      <ul>
+        <li><code>opacity</code>: Transparency (0 to 1).</li>
+        <li><code>visibility</code>: Show/hide element (<code>visible</code>, <code>hidden</code>).</li>
+        <li><code>cursor</code>: Mouse pointer style (e.g., <code>pointer</code>, <code>default</code>).</li>
+        <li><code>overflow</code>: Content overflow handling (<code>visible</code>, <code>hidden</code>, <code>scroll</code>, <code>auto</code>).</li>
+        <li><code>float</code>: Floats element (<code>left</code>, <code>right</code>, <code>none</code>).</li>
+        <li><code>clear</code>: Clears floats (<code>left</code>, <code>right</code>, <code>both</code>).</li>
+      </ul>
+      <h3>Example</h3>
+      <pre>
+.box {
+  background-color: #181A1C;
+  border: 2px solid #4a7fb2;
+  padding: 1rem;
+  margin: 10px auto;
+  font-family: Arial, sans-serif;
+  color: #ffffff;
+}
+      </pre>
+    </section>
+
+    <section id="layout">
+      <h2>Layout Techniques</h2>
+      <p>CSS provides powerful layout systems for structuring webpages.</p>
+      <h3>Flexbox</h3>
+      <p>Flexbox is a one-dimensional layout system for aligning items in a row or column:</p>
+      <ul>
+        <li><code>display: flex</code>: Enables flex container.</li>
+        <li><code>flex-direction</code>: Sets axis (<code>row</code>, <code>column</code>).</li>
+        <li><code>justify-content</code>: Aligns items along main axis (<code>flex-start</code>, <code>center</code>, <code>space-between</code>).</li>
+        <li><code>align-items</code>: Aligns items along cross axis (<code>stretch</code>, <code>center</code>).</li>
+        <li><code>flex-wrap</code>: Controls wrapping (<code>nowrap</code>, <code>wrap</code>).</li>
+        <li><code>flex</code>: Defines item flexibility (e.g., <code>flex: 1</code>).</li>
+      </ul>
+      <pre>
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.item {
+  flex: 1;
+}
+      </pre>
+      <h3>Grid</h3>
+      <p>CSS Grid is a two-dimensional layout system for rows and columns:</p>
+      <ul>
+        <li><code>display: grid</code>: Enables grid container.</li>
+        <li><code>grid-template-columns</code>: Defines column sizes (e.g., <code>1fr 2fr</code>).</li>
+        <li><code>grid-template-rows</code>: Defines row sizes.</li>
+        <li><code>gap</code>: Sets spacing between grid cells.</li>
+        <li><code>grid-column</code>, <code>grid-row</code>: Positions items (e.g., <code>grid-column: 1 / 3</code>).</li>
+      </ul>
+      <pre>
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.cell {
+  grid-column: span 2;
+}
+      </pre>
+      <h3>Positioning</h3>
+      <p>Positioning controls element placement:</p>
+      <ul>
+        <li><code>position: absolute</code>: Positions relative to nearest positioned ancestor.</li>
+        <li><code>position: fixed</code>: Positions relative to viewport.</li>
+        <li><code>position: sticky</code>: Toggles between relative and fixed based on scroll.</li>
+      </ul>
+      <pre>
+.fixed-nav {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+      </pre>
+    </section>
+
+    <section id="responsive">
+      <h2>Responsive Design</h2>
+      <p>Responsive design ensures websites adapt to different screen sizes and devices.</p>
+      <h3>Media Queries</h3>
+      <p>Media queries apply styles based on conditions like screen width:</p>
+      <pre>
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
+      </pre>
+      <h3>Responsive Units</h3>
+      <ul>
+        <li><code>vw</code>, <code>vh</code>: Viewport width/height percentages.</li>
+        <li><code>rem</code>, <code>em</code>: Relative to root or parent font size.</li>
+        <li><code>%</code>: Relative to parent element.</li>
+      </ul>
+      <h3>Mobile-First Approach</h3>
+      <p>Style for smaller screens first, then override for larger screens:</p>
+      <pre>
+.container {
+  padding: 1rem;
+}
+@media (min-width: 768px) {
+  .container {
+    padding: 2rem;
+  }
+}
+      </pre>
+      <h3>Viewport Meta Tag</h3>
+      <p>Ensure mobile responsiveness with:</p>
+      <pre>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </pre>
+    </section>
+
+    <section id="animations">
+      <h2>Animations & Transitions</h2>
+      <p>CSS enables dynamic effects with transitions and animations.</p>
+      <h3>Transitions</h3>
+      <p>Transitions smoothly change property values:</p>
+      <ul>
+        <li><code>transition-property</code>: Properties to transition (e.g., <code>background-color</code>).</li>
+        <li><code>transition-duration</code>: Duration (e.g., <code>0.3s</code>).</li>
+        <li><code>transition-timing-function</code>: Speed curve (<code>ease</code>, <code>linear</code>).</li>
+        <li><code>transition-delay</code>: Delay before starting.</li>
+      </ul>
+      <pre>
+.button {
+  background-color: #4a7fb2;
+  transition: background-color 0.3s ease;
+}
+.button:hover {
+  background-color: #181A1C;
+}
+      </pre>
+      <h3>Animations</h3>
+      <p>Animations use keyframes for complex effects:</p>
+      <ul>
+        <li><code>@keyframes</code>: Defines animation stages.</li>
+        <li><code>animation-name</code>: Links to keyframes.</li>
+        <li><code>animation-duration</code>: Duration of animation.</li>
+        <li><code>animation-iteration-count</code>: Number of repeats (<code>infinite</code> or number).</li>
+      </ul>
+      <pre>
+@keyframes slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100px); }
+}
+.element {
+  animation: slide 2s infinite;
+}
+      </pre>
+      <h3>Transformations</h3>
+      <ul>
+        <li><code>transform</code>: Applies 2D/3D effects like <code>rotate</code>, <code>scale</code>, <code>translate</code>, <code>skew</code>.</li>
+      </ul>
+      <pre>
+.box {
+  transform: rotate(45deg) scale(1.2);
+}
+      </pre>
+    </section>
+
+    <section id="pseudo">
+      <h2>Pseudo-Classes & Pseudo-Elements</h2>
+      <p>Pseudo-classes and pseudo-elements style specific states or parts of elements.</p>
+      <h3>Pseudo-Classes</h3>
+      <ul>
+        <li><code>:hover</code>: Mouse over element.</li>
+        <li><code>:active</code>: Element being clicked.</li>
+        <li><code>:focus</code>: Element with keyboard focus.</li>
+        <li><code>:visited</code>: Visited links.</li>
+        <li><code>:first-child</code>, <code>:last-child</code>: First or last child in a parent.</li>
+        <li><code>:nth-child(n)</code>: Selects nth child (e.g., <code>:nth-child(2)</code>).</li>
+        <li><code>:not(selector)</code>: Excludes elements.</li>
+        <li><code>:checked</code>: Checked inputs (radio, checkbox).</li>
+        <li><code>:disabled</code>: Disabled form elements.</li>
+      </ul>
+      <h3>Pseudo-Elements</h3>
+      <ul>
+        <li><code>::before</code>, <code>::after</code>: Add content before/after an element.</li>
+        <li><code>::first-line</code>: Styles the first line of text.</li>
+        <li><code>::first-letter</code>: Styles the first letter of text.</li>
+        <li><code>::selection</code>: Styles selected text.</li>
+      </ul>
+      <h3>Example</h3>
+      <pre>
+a:hover {
+  color: #4a7fb2;
+}
+p::first-letter {
+  font-size: 2rem;
+}
+.element::before {
+  content: "★ ";
+}
+      </pre>
+    </section>
+
+    <section id="specificity">
+      <h2>Specificity & Cascade</h2>
+      <p>The CSS cascade determines which styles apply when multiple rules target the same element.</p>
+      <h3>Specificity</h3>
+      <p>Specificity is calculated based on selector types:</p>
+      <ul>
+        <li>Inline styles: 1000 points.</li>
+        <li>ID selectors: 100 points.</li>
+        <li>Class, attribute, pseudo-class: 10 points.</li>
+        <li>Element, pseudo-element: 1 point.</li>
+      </ul>
+      <p>Example: <code>#id .class p</code> has higher specificity than <code>p</code>.</p>
+      <h3>Cascade Rules</h3>
+      <ul>
+        <li>Higher specificity wins.</li>
+        <li>If specificity is equal, the last rule applies.</li>
+        <li><code>!important</code> overrides other rules (use sparingly).</li>
+      </ul>
+      <pre>
+#container p {
+  color: #4a7fb2; /* Higher specificity */
+}
+p {
+  color: #181A1C;
+}
+      </pre>
+    </section>
+
+    <section id="preprocessors">
+      <h2>Preprocessors & Frameworks</h2>
+      <p>CSS preprocessors and frameworks enhance development efficiency.</p>
+      <h3>Preprocessors</h3>
+      <p>Preprocessors like Sass and Less extend CSS with features:</p>
+      <ul>
+        <li><strong>Variables</strong>: Store reusable values (e.g., <code>$primary: #4a7fb2</code>).</li>
+        <li><strong>Nesting</strong>: Nested selectors for readability.</li>
+        <li><strong>Mixins</strong>: Reusable style blocks.</li>
+        <li><strong>Functions</strong>: Dynamic calculations.</li>
+      </ul>
+      <pre>
+$primary: #4a7fb2;
+.container {
+  background: $primary;
+  p {
+    color: #ffffff;
+  }
+}
+      </pre>
+      <h3>Frameworks</h3>
+      <p>Frameworks like Bootstrap, Tailwind CSS, and Bulma provide pre-built styles and components:</p>
+      <ul>
+        <li><strong>Bootstrap</strong>: Comprehensive with grid system and utilities.</li>
+        <li><strong>Tailwind CSS</strong>: Utility-first for rapid styling.</li>
+        <li><strong>Bulma</strong>: Lightweight and modular.</li>
+      </ul>
+    </section>
+
+    <section id="accessibility">
+      <h2>Accessibility</h2>
+      <p>Accessible CSS ensures styles support users with disabilities, aligning with WCAG principles (Perceivable, Operable, Understandable, Robust).</p>
+      <h3>Best Practices</h3>
+      <ul>
+        <li><strong>Color Contrast</strong>: Ensure high contrast ratios (e.g., 4.5:1 for text) using tools like WebAIM’s Contrast Checker.</li>
+        <li><strong>Focus Styles</strong>: Provide visible focus indicators (e.g., <code>:focus { outline: 2px solid #4a7fb2 }</code>).</li>
+        <li><strong>Font Size</strong>: Use relative units like <code>rem</code> for scalable text.</li>
+        <li><strong>Reduced Motion</strong>: Respect user preferences with <code>@media (prefers-reduced-motion)</code>.</li>
+        <li><strong>Readable Fonts</strong>: Choose legible fonts like Arial or sans-serif families.</li>
+      </ul>
+      <pre>
+button:focus {
+  outline: 2px solid #4a7fb2;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animation {
+    animation: none;
+  }
+}
+      </pre>
+    </section>
+
+    <section id="tools">
+      <h2>Development Tools</h2>
+      <p>Tools enhance CSS development and debugging:</p>
+      <ul>
+        <li><strong>Browser DevTools</strong>: Inspect and edit CSS in real-time (Chrome, Firefox).</li>
+        <li><strong>CSS Validator</strong>: W3C’s CSS Validator checks syntax.</li>
+        <li><strong>Code Editors</strong>: VS Code, Sublime Text with plugins for autocomplete.</li>
+        <li><strong>Accessibility Tools</strong>: Lighthouse, WAVE, axe DevTools for WCAG compliance.</li>
+        <li><strong>Preprocessor Compilers</strong>: Sass CLI, PostCSS for processing.</li>
+      </ul>
+    </section>
+
+    <section id="best-practices">
+      <h2>Best Practices</h2>
+      <p>Adopt these practices for maintainable, efficient, and accessible CSS:</p>
+      <ul>
+        <li>Use external stylesheets over inline CSS.</li>
+        <li>Minimize <code>!important</code> usage to avoid specificity issues.</li>
+        <li>Organize CSS with comments and logical grouping.</li>
+        <li>Optimize performance with minimal selectors and efficient properties.</li>
+        <li>Test across browsers (Chrome, Firefox, Safari, Edge).</li>
+        <li>Ensure accessibility with high contrast and focus styles.</li>
+        <li>Use preprocessors for large projects to improve scalability.</li>
+        <li>Leverage CSS custom properties (<code>--variable</code>) for theming.</li>
+        <li>Validate CSS to catch errors early.</li>
+      </ul>
+      <pre>
+:root {
+  --primary: #4a7fb2;
+}
+body {
+  font-size: 1rem;
+  color: #ffffff;
+  background: #181A1C;
+}
+      </pre>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Comprehensive CSS Guide | Created with <3</p>
+  </footer>
+</body>
+</html>
