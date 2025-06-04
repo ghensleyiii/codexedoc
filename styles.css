@@ -529,7 +529,7 @@ hr {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: var(--dark); /* Match section background */
+    background-color: var(--light-blue); /* Match section background */
 }
 
 .carousel-track {
