@@ -1,146 +1,85 @@
 <html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="An exhaustive guide to HTML5, detailing all elements, attributes, forms, tables, media, accessibility, and advanced features for modern web development.">
-    <meta property="og:title" content="Comprehensive HTML5 Guide">
-    <meta property="og:description" content="Master HTML5 with this in-depth guide covering every element, attribute, and best practice for accessible, semantic web development.">
-    <meta property="og:image" content="html5-guide.jpg">
-    <meta name="description" content="Explore programming languages, development resources, and learn through CODEXEDOC.">
-    <meta name="keywords" content="programming, coding, development, CODEXEDOC">
-    <title>CODEXEDOC</title>
-    <link rel="icon" type="image/x-icon" href="https://www.codexedoc.com/icons/favicon.ico">
-    <link rel="apple-touch-icon" href="https://www.codexedoc.com/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://www.codexedoc.com/icons/android-chrome-192x192.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An exhaustive guide to HTML5, detailing all elements, attributes, forms, tables, media, accessibility, and advanced features for modern web development.">
+  <meta property="og:title" content="Comprehensive HTML5 Guide">
+  <meta property="og:description" content="Master HTML5 with this in-depth guide covering every element, attribute, and best practice for accessible, semantic web development.">
+  <meta property="og:image" content="html5-guide.jpg">
+  <title>Comprehensive HTML5 Guide</title>
+  <style>
     :root {
-  --dark: #181A1C;
-  --blue: #4a7fb2;
-  --white: #ffffff;
-}
+      --dark: #181A1C;
+      --blue: #4a7fb2;
+      --white: #ffffff;
+    }
 
-* {
-  box-sizing: border-box !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-@font-face {
-    font-family: 'Share Tech Mono';
-    src: url('https://www.codexedoc.com/fonts/ShareTechMono-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      line-height: 1.7;
+      background-color: var(--dark);
+      color: var(--white);
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
 
-body {
-  background-color: var(--dark);
-  color: var(--white);
-  font-family: 'Share Tech Mono', monospace !important;
-  min-height: 100vh !important;
-  display: flex;
-  flex-direction: column !important;
-  margin: 0 !important;
-  line-height: 1.6 !important;
-}
-
-img {
-  pointer-events: none;
-}
-
-header {
-  padding: 1rem 1.5rem !important;
-  display: flex;
-  font-family: 'Share Tech Mono', monospace !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-header .logo-container {
-  display: flex;
-  align-items: center !important;
-  gap: 0.75rem !important;
-}
-
-header .logo-container img {
-  width: 35px !important;
-  height: auto !important;
-  object-fit: contain !important;
-}
-
-header .logo-container div {
-  font-size: 1.5rem !important;
-  font-weight: normal !important;
-  color: var(--blue);
-}
-
-header nav {
-  display: flex;
-}
-
-header nav ul {
-  display: flex;
-  gap: 1.5rem !important;
-  list-style: none !important;
-}
-
-header nav a {
-  color: inherit;
-  text-decoration: none !important;
-}
-
-header nav a:hover {
-  text-decoration: underline !important;
-}
-
-#hamburger-anchor {
-  display: none;
-}
-
-.hamburger {
-  display: none;
-  cursor: pointer !important;
-  position: relative !important;
-  z-index: 100 !important;
-}
-
-.hamburger-anchor-anchor {
-  height: 0 !important;
-}
-
-.hamburger .logo {
-  display: inline-block;
-  transform-origin: center !important;
-  transition: transform 0.3s ease !important;
-}
-
-.hamburger span {
-  display: block;
-  width: 1.5rem !important;
-  height: 0.2rem !important;
-  background: var(--white);
-  margin-bottom: 0.3rem !important;
-}
-
-.hamburger span:last-child {
-  margin-bottom: 0 !important;
-}
-
-#hamburger-anchor:checked + .hamburger .logo {
-  transform: rotate(90deg) !important;
-}
-
-#hamburger-anchor:checked ~ nav {
-  transform: none !important;
-  visibility: visible !important;
-}
+    header {
+      background-color: var(--dark);
+      border-bottom: 3px solid var(--blue);
+      padding: 1.5rem;
+      text-align: center;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 100;
+    }
 
     h1, h2, h3, h4 {
       color: var(--blue);
       margin-bottom: 0.5rem;
     }
-        
+
+    nav {
+      width: 250px;
+      background-color: var(--dark);
+      border-right: 3px solid var(--blue);
+      padding: 1.5rem;
+      position: fixed;
+      top: 5rem;
+      height: calc(100vh - 5rem);
+      overflow-y: auto;
+    }
+
+    nav ul {
+      list-style: none;
+    }
+
+    nav li {
+      margin-bottom: 0.75rem;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      display: block;
+      padding: 0.75rem;
+      border-left: 4px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    nav a:hover {
+      border-left: 4px solid var(--blue);
+      color: var(--blue);
+      background-color: rgba(74, 127, 178, 0.1);
+    }
+
     main {
       margin-left: 270px;
       padding: 6rem 1.5rem 2rem;
@@ -183,79 +122,13 @@ header nav a:hover {
     }
 
     footer {
-  padding: 1.5rem 1.5rem !important;
-  background-color: var(--dark);
-  border-top: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-.footer-content {
-  max-width: 64rem !important;
-  margin: 0 auto !important;
-  display: flex;
-  flex-direction: column !important;
-  align-items: center !important;
-  text-align: center !important;
-  gap: 0.5rem !important;
-}
-
-.footer-logo-container {
-  display: flex;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-}
-
-.footer-logo-container img {
-  width: 35px !important;
-  height: auto !important;
-  object-fit: contain !important;
-  vertical-align: middle !important;
-}
-
-.footer-logo-container div {
-  font-size: 1rem !important;
-  color: var(--blue);
-  line-height: 1 !important;
-}
-
-.footer-content p {
-  font-size: 1rem !important;
-  font-style: italic !important;
-  margin: 0 !important;
-}
-
-.footer-content div:last-child {
-  font-size: 1rem !important;
-  color: var(--white);
-}
-
-@media (max-width: 767px) {
-  .hamburger {
-    display: block;
-  }
-
-  header nav {
-    position: fixed !important;
-    top: 0 !important;
-    right: 0 !important;
-    width: 50% !important;
-    max-width: 12rem !important;
-    background-color: var(--dark);
-    transform: translateY(-100%) !important;
-    transition: transform 0.3s ease, visibility 0.3s ease !important;
-    visibility: hidden !important;
-    padding: 1.5rem !important;
-    border-bottom-left-radius: 0.5rem !important;
-    border-bottom-right-radius: 0.5rem !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
-    z-index: 99 !important;
-  }
-
-  header nav ul {
-    flex-direction: column !important;
-    gap: 1rem !important;
-  }
-}
+      background-color: var(--dark);
+      border-top: 3px solid var(--blue);
+      text-align: center;
+      padding: 1.5rem;
+      width: 100%;
+      margin-left: 250px;
+    }
 
     @media (max-width: 768px) {
       body {
@@ -312,30 +185,9 @@ header nav a:hover {
   </style>
 </head>
 <body>
-  <!-- Header -->
-    <header>
-        <div class="logo-container">
-            <div class="logo"><img src="https://www.codexedoc.com/icons/codex.png" width="30px" height="30px">CODEXEDOC</div>
-        </div>
-        <input type="checkbox" id="hamburger-anchor">
-        <label class="hamburger" for="hamburger-anchor">
-            <div class="logo">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </label>
-        <nav>
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="https://www.codexedoc.com/">Guides</a></li>
-                <li><a href="https://www.codexedoc.com/">Code</a></li>
-                <li><a href="https://www.codexedoc.com/">About</a></li>
-                <li><a href="https://www.codexedoc.com/">Portfolio</a></li>
-                <li><a href="mailto:contact@codexedoc.com">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header>
+    <h1>Comprehensive HTML5 Guide</h1>
+  </header>
 
   <main>
     <section id="introduction">
@@ -1024,17 +876,9 @@ header nav a:hover {
     </section>
   </main>
 
-  <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo-container">
-                <img src="https://www.codexedoc.com/icons/codex.png" alt="CODEXEDOC Logo">
-                <div>CODEXEDOC</div>
-            </div>
-            <p>LAUNCH INTO CODING</p>
-            <div>© 2025 CODEXEDOC. All rights reserved.</div>
-        </div>
-    </footer>
+  <footer>
+    <p>© 2025 Comprehensive HTML5 Guide | Created with &lt;3</p>
+  </footer>
 
 
 </body></html>
