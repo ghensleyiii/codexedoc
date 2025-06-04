@@ -78,36 +78,44 @@
         </div>
     </section>
 
-    <!-- Curriculum Section -->
-    <!--<section class="curriculum">
-        <h2>Our Curriculum</h2>
-        <div class="curriculum-grid">
-            <div class="curriculum-item">
-                <h3>Git</h3>
-                <p>Master Git for version control. Learn to track code changes, collaborate with teams on GitHub, and resolve conflicts.</p>
+    <!-- Featured Languages Carousel -->
+<section class="featured-languages" id="terrain">
+    <h2>Featured Languages</h2>
+    <div class="carousel">
+        <div class="carousel-track">
+            <div class="carousel-slide">
+                <a href="https://www.codexedoc.com/guides/html/">
+                    <h3>HTML</h3>
+                    <p>Master the foundation of web development.</p>
+                </a>
             </div>
-            <div class="curriculum-item">
-                <h3>HTML & CSS</h3>
-                <p>Build and style web pages with HTML and CSS. Master semantic structure, responsive layouts, and accessibility.</p>
+            <div class="carousel-slide">
+                <a href="https://www.codexedoc.com/guides/css/">
+                    <h3>CSS</h3>
+                    <p>Style your web projects with ease.</p>
+                </a>
             </div>
-            <div class="curriculum-item">
-                <h3>JavaScript</h3>
-                <p>Master JavaScript for interactive websites. Learn ES6+, DOM manipulation, and asynchronous programming to create dynamic web apps.</p>
+            <div class="carousel-slide">
+                <a href="https://www.codexedoc.com/guides/javascript/">
+                    <h3>JavaScript</h3>
+                    <p>Add interactivity to your websites.</p>
+                </a>
             </div>
-            <div class="curriculum-item">
-                <h3>Node.js</h3>
-                <p>Build server-side applications with Node.js. Learn to create scalable APIs with Express and secure apps.</p>
+            <div class="carousel-slide">
+                <a href="https://www.codexedoc.com/guides/python/">
+                    <h3>Python</h3>
+                    <p>Build powerful backends with Python.</p>
+                </a>
             </div>
-            <div class="curriculum-item">
-                <h3>SQL</h3>
-                <p>Manage databases with SQL. Learn to design tables, write queries, and integrate data with apps.</p>
-            </div>
-            <div class="curriculum-item">
-                <h3>Career Preparation</h3>
-                <p>Prepare for full-stack jobs with portfolio building and interview skills. Learn to showcase your work and excel in technical interviews.</p>
+            <div class="carousel-slide">
+                <a href="https://www.codexedoc.com/guides/nodejs/">
+                    <h3>Node.js</h3>
+                    <p>Develop scalable server-side applications.</p>
+                </a>
             </div>
         </div>
-    </section>-->
+    </div>
+</section>
 
     <!-- Footer -->
     <footer>
@@ -132,5 +140,13 @@
             starfield.appendChild(star);
         }
     </script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('.carousel-track');
+    const originalSlides = track.innerHTML;
+    track.innerHTML += originalSlides; // Append a copy of slides for seamless loop
+});
+</script>
 </body>
 </html>
