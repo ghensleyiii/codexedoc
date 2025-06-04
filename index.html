@@ -5,23 +5,507 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Explore programming languages, development resources, and learn through CODEXEDOC.">
     <meta name="keywords" content="programming, coding, development, CODEXEDOC">
-    <title>CODEXEDOC</title>
+    <title>INDEX</title>
     <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
     <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://www.codexedoc.com/androidicons/android-chrome-192x192.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="styles.css">
+    <style>
+:root {
+  --dark: #181A1C;
+  --blue: #4a7fb2;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+@font-face {
+    font-family: 'Share Tech Mono';
+    src: url('https://www.codexedoc.com/fonts/ShareTechMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+  background-color: var(--dark);
+  color: var(--white);
+  font-family: 'Share Tech Mono', monospace !important;
+  min-height: 100vh !important;
+  display: flex;
+  flex-direction: column !important;
+  margin: 0 !important;
+  line-height: 1.6 !important;
+}
+
+img {
+  pointer-events: none;
+}
+
+header {
+  padding: 1rem 1.5rem !important;
+  display: flex;
+  font-family: 'Share Tech Mono', monospace !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+header .logo-container {
+  display: flex;
+  align-items: center !important;
+  gap: 0.75rem !important;
+}
+
+header .logo-container img {
+  width: 35px !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+header .logo-container div {
+  font-size: 1.5rem !important;
+  font-weight: normal !important;
+  color: var(--blue);
+}
+
+header nav {
+  display: flex;
+}
+
+header nav ul {
+  display: flex;
+  gap: 1.5rem !important;
+  list-style: none !important;
+}
+
+header nav a {
+  color: inherit;
+  text-decoration: none !important;
+}
+
+header nav a:hover {
+  text-decoration: underline !important;
+}
+
+#hamburger-anchor {
+  display: none;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 100 !important;
+}
+
+.hamburger-anchor-anchor {
+  height: 0 !important;
+}
+
+.hamburger .logo {
+  display: inline-block;
+  transform-origin: center !important;
+  transition: transform 0.3s ease !important;
+}
+
+.hamburger span {
+  display: block;
+  width: 1.5rem !important;
+  height: 0.2rem !important;
+  background: var(--white);
+  margin-bottom: 0.3rem !important;
+}
+
+.hamburger span:last-child {
+  margin-bottom: 0 !important;
+}
+
+#hamburger-anchor:checked + .hamburger .logo {
+  transform: rotate(90deg) !important;
+}
+
+#hamburger-anchor:checked ~ nav {
+  transform: none !important;
+  visibility: visible !important;
+}
+
+.hero {
+  flex: 1 !important;
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 200px 20px !important;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  animation: twinkle 2s infinite alternate;
+}
+
+.star:nth-child(5n) {
+  width: 1px;
+  height: 1px;
+  animation-duration: 3.5s;
+  animation-delay: 0.5s;
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.star:nth-child(5n+1) {
+  width: 1.5px;
+  height: 1.5px;
+  animation-duration: 2.8s;
+  animation-delay: 0.2s;
+  background: #e0e0e0;
+  box-shadow: 0 0 3px rgba(224, 224, 224, 0.6);
+}
+
+.star:nth-child(5n+2) {
+  width: 2px;
+  height: 2px;
+  animation-duration: 3s;
+  animation-delay: 0.8s;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
+}
+
+.star:nth-child(5n+3) {
+  width: 2.5px;
+  height: 2.5px;
+  animation-duration: 2.3s;
+  animation-delay: 0.4s;
+  background: #d0d0d0;
+  box-shadow: 0 0 5px rgba(208, 208, 208, 0.6);
+}
+
+.star:nth-child(5n+4) {
+  width: 3px;
+  height: 3px;
+  animation-duration: 2.7s;
+  animation-delay: 0.6s;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 0.6; transform: scale(1); }
+}
+
+.hero-content {
+  text-align: center !important;
+  max-width: 32rem !important;
+  position: relative;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.hero-content h1 {
+  font-size: 2.25rem !important;
+  font-weight: bold !important;
+  margin-bottom: 1rem !important;
+  color: var(--blue);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 1), 0 0 10px rgba(0, 0, 0, 0.9);
+}
+
+.hero-content p {
+  font-size: 1.125rem !important;
+  margin-bottom: 1.5rem !important;
+  color: var(--white);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 1), 0 0 10px rgba(0, 0, 0, 0.9);
+}
+
+.hero-content a {
+  background-color: var(--white);
+  color: var(--dark);
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+
+.hero-content a:hover {
+  background-color: var(--blue);
+}
+
+.how-it-works {
+  padding: 20px !important;
+  background-color: var(--dark);
+}
+
+.how-it-works h2 {
+  font-size: 2.25rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  margin-bottom: 1.5rem !important;
+  color: var(--blue);
+}
+
+.how-it-works-content {
+  max-width: 80rem !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+.how-it-works-content p.intro {
+  font-size: 1.125rem !important;
+  color: var(--white);
+  margin-bottom: 2rem !important;
+  max-width: 48rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.how-it-works-grid {
+  display: grid;
+  grid-template-columns: 1fr !important;
+  gap: 2rem !important;
+  max-width: 80rem !important;
+  margin: 0 auto !important;
+}
+
+.how-it-works-item {
+  padding: 2rem !important;
+  background-color: var(--dark);
+  border-radius: 0.75rem !important;
+}
+
+.how-it-works-item i {
+  font-size: 2.5rem !important;
+  color: var(--blue);
+  margin-bottom: 1rem !important;
+}
+
+.how-it-works-item h3 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.75rem !important;
+  color: var(--white);
+}
+
+.how-it-works-item p {
+  font-size: 1rem !important;
+  color: var(--white);
+}
+
+.featured-languages {
+  padding: 1rem !important;
+  text-align: center;
+  position: relative;
+}
+
+.featured-languages::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('terrain.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.featured-languages h2 {
+  font-size: 2.25rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  margin-bottom: 2rem !important;
+  color: var(--white);
+  position: relative;
+  z-index: 1;
+}
+
+.carousel {
+  overflow: hidden;
+  position: relative;
+  height: 300px;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.carousel-track {
+  display: flex;
+  justify-content: center;
+  animation: scroll 15s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.carousel-slide {
+  flex: 0 0 auto;
+  width: 200px;
+  margin: 0 0.5rem !important;
+  box-sizing: border-box;
+  background-color: var(--dark);
+  border: 2px solid var(--blue);
+  border-radius: 0.5rem;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.carousel-slide a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.carousel-slide h3 {
+  margin: 0.5rem 0;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+}
+
+.carousel-slide p {
+  margin: 0;
+  font-size: 1rem !important;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-1080px);
+  }
+}
+
+.carousel:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+footer {
+  padding: 1.5rem 1.5rem !important;
+  background-color: var(--dark);
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.footer-content {
+  max-width: 64rem !important;
+  margin: 0 auto !important;
+  display: flex;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 0.5rem !important;
+}
+
+.footer-logo-container {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.footer-logo-container img {
+  width: 35px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  vertical-align: middle !important;
+}
+
+.footer-logo-container div {
+  font-size: 1rem !important;
+  color: var(--blue);
+  line-height: 1 !important;
+}
+
+.footer-content p {
+  font-size: 1rem !important;
+  font-style: italic !important;
+  margin: 0 !important;
+}
+
+.footer-content div:last-child {
+  font-size: 1rem !important;
+  color: var(--white);
+}
+
+@media (max-width: 767px) {
+  .hamburger {
+    display: block;
+  }
+
+  header nav {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 50% !important;
+    max-width: 12rem !important;
+    background-color: var(--dark);
+    transform: translateY(-100%) !important;
+    transition: transform 0.3s ease, visibility 0.3s ease !important;
+    visibility: hidden !important;
+    padding: 1.5rem !important;
+    border-bottom-left-radius: 0.5rem !important;
+    border-bottom-right-radius: 0.5rem !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+    z-index: 99 !important;
+  }
+
+  header nav ul {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .how-it-works-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-content {
+    max-width: 800px !important;
+  }
+
+  .how-it-works h2 {
+    font-size: 2.5rem !important;
+  }
+
+  .featured-languages h2 {
+    font-size: 2.5rem !important;
+  }
+}
+    </style>
 </head>
 <body>
     <!-- Header -->
     <header>
         <div class="logo-container">
-            <div class="logo"><img src="icons/codex.png" width="30px" height="30px">CODEXEDOC</div>
+            <div class="logo"><img src="https://www.codexedoc.com/images/codex.png" width="30px" height="30px">CODEXEDOC</div>
         </div>
-        <input type="checkbox" id="hamburger-toggle">
-        <label class="hamburger" for="hamburger-toggle">
-            <div class="lines">
+        <input type="checkbox" id="hamburger-anchor">
+        <label class="hamburger" for="hamburger-anchor">
+            <div class="logo">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -47,11 +531,6 @@
             <a href="https://www.codexedoc.com/curriculum/">Start Coding</a>
         </div>
     </section>
-
-    <!-- Image Section -->
-    <!--<section class="image-section">
-        <img src="icons/codex.png" alt="Peacock with laptop on lap Image">
-    </section>-->
 
     <!-- How It Works Section -->
     <section class="how-it-works">
@@ -79,49 +558,49 @@
     </section>
 
     <!-- Featured Languages Carousel -->
-<section class="featured-languages" id="terrain">
-    <h2>Featured Languages</h2>
-    <div class="carousel">
-        <div class="carousel-track">
-            <div class="carousel-slide">
-                <a href="https://www.codexedoc.com/guides/html/">
-                    <h3>HTML</h3>
-                    <p>Master the foundation of web development.</p>
-                </a>
-            </div>
-            <div class="carousel-slide">
-                <a href="https://www.codexedoc.com/guides/css/">
-                    <h3>CSS</h3>
-                    <p>Style your web projects with ease.</p>
-                </a>
-            </div>
-            <div class="carousel-slide">
-                <a href="https://www.codexedoc.com/guides/javascript/">
-                    <h3>JavaScript</h3>
-                    <p>Add interactivity to your websites.</p>
-                </a>
-            </div>
-            <div class="carousel-slide">
-                <a href="https://www.codexedoc.com/guides/python/">
-                    <h3>Python</h3>
-                    <p>Build powerful backends with Python.</p>
-                </a>
-            </div>
-            <div class="carousel-slide">
-                <a href="https://www.codexedoc.com/guides/nodejs/">
-                    <h3>Node.js</h3>
-                    <p>Develop scalable server-side applications.</p>
-                </a>
+    <section class="featured-languages">
+        <h2>Featured Languages</h2>
+        <div class="carousel">
+            <div class="carousel-track">
+                <div class="carousel-slide">
+                    <a href="https://www.codexedoc.com/guides/html/">
+                        <h3>HTML</h3>
+                        <p>Master the foundation of web development.</p>
+                    </a>
+                </div>
+                <div class="carousel-slide">
+                    <a href="https://www.codexedoc.com/guides/css/">
+                        <h3>CSS</h3>
+                        <p>Style your web projects with ease.</p>
+                    </a>
+                </div>
+                <div class="carousel-slide">
+                    <a href="https://www.codexedoc.com/guides/javascript/">
+                        <h3>JavaScript</h3>
+                        <p>Add interactivity to your websites.</p>
+                    </a>
+                </div>
+                <div class="carousel-slide">
+                    <a href="https://www.codexedoc.com/guides/python/">
+                        <h3>Python</h3>
+                        <p>Build powerful backends with Python.</p>
+                    </a>
+                </div>
+                <div class="carousel-slide">
+                    <a href="https://www.codexedoc.com/guides/nodejs/">
+                        <h3>Node.js</h3>
+                        <p>Develop scalable server-side applications.</p>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-logo-container">
-                <img src="icons/codex.png" alt="CODEXEDOC Logo">
+                <img src="https://www.codexedoc.com/images/codex.png" alt="CODEXEDOC Logo">
                 <div>CODEXEDOC</div>
             </div>
             <p>LAUNCH INTO CODING</p>
@@ -145,7 +624,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const track = document.querySelector('.carousel-track');
     const originalSlides = track.innerHTML;
-    track.innerHTML += originalSlides; // Append a copy of slides for seamless loop
+    track.innerHTML += originalSlides + originalSlides + originalSlides + originalSlides + originalSlides; // Duplicate five times for seamless loop
 });
 </script>
 </body>
