@@ -5,7 +5,10 @@
   <meta property="og:title" content="Comprehensive HTML5 Guide">
   <meta property="og:description" content="Master HTML5 with this in-depth guide covering every element, attribute, and best practice for accessible, semantic web development.">
   <meta property="og:image" content="html5-guide.jpg">
-  <title>Comprehensive HTML5 Guide</title>
+  <link rel="icon" type="image/x-icon" href="https://www.codexedoc.com/icons/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.codexedoc.com/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://www.codexedoc.com/icons/android-chrome-192x192.png">
+  <title>CODEXEDOC</title>
   <style>
     :root {
       --dark: #181A1C;
@@ -14,148 +17,152 @@
     }
 
     * {
-  box-sizing: border-box !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
+  		box-sizing: border-box !important;
+  		margin: 0 !important;
+  		padding: 0 !important;
+		}
 
-@font-face {
-    font-family: 'Share Tech Mono';
-    src: url('https://www.codexedoc.com/fonts/ShareTechMono-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
+		@font-face {
+    	font-family: 'Share Tech Mono';
+    	src: url('https://www.codexedoc.com/fonts/ShareTechMono-Regular.ttf') format('truetype');
+    	font-weight: normal;
+    	font-style: normal;
+    	font-display: swap;
+		}
 
     body {
-      font-family: 'Share Tech Mono', monospace;
-      line-height: 1.7;
-      background-color: var(--dark);
-      color: var(--white);
-      display: flex;
-      flex-direction: row;
-      min-height: 100vh;
-    }
-    img {
-  pointer-events: none;
-}
-
-header {
-  padding: 1rem 1.5rem !important;
-  display: flex;
-  font-family: 'Share Tech Mono', monospace !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-header .logo-container {
-  display: flex;
-  align-items: center !important;
-  gap: 0.75rem !important;
-}
-
-header .logo-container img {
-  width: 35px !important;
-  height: auto !important;
-  object-fit: contain !important;
-}
-
-header .logo-container div {
-  font-size: 1.5rem !important;
-  font-weight: normal !important;
-  color: var(--blue);
-}
-
-header nav {
-  display: flex;
-}
-
-header nav ul {
-  display: flex;
-  gap: 1.5rem !important;
-  list-style: none !important;
-}
-
-header nav a {
-  color: inherit;
-  text-decoration: none !important;
-}
-
-header nav a:hover {
-  text-decoration: underline !important;
-}
-
-#hamburger-anchor {
-  display: none;
-}
-
-.hamburger {
-  display: none;
-  cursor: pointer !important;
-  position: relative !important;
-  z-index: 100 !important;
-}
-
-.hamburger-anchor-anchor {
-  height: 0 !important;
-}
-
-.hamburger .logo {
-  display: inline-block;
-  transform-origin: center !important;
-  transition: transform 0.3s ease !important;
-}
-
-.hamburger span {
-  display: block;
-  width: 1.5rem !important;
-  height: 0.2rem !important;
-  background: var(--white);
-  margin-bottom: 0.3rem !important;
-}
-
-.hamburger span:last-child {
-  margin-bottom: 0 !important;
-}
-
-#hamburger-anchor:checked + .hamburger .logo {
-  transform: rotate(90deg) !important;
-}
-
-#hamburger-anchor:checked ~ nav {
-  transform: none !important;
-  visibility: visible !important;
-}
-    footer {
-  padding: 1.5rem 1.5rem !important;
   background-color: var(--dark);
-  border-top: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-.footer-content {
-  max-width: 64rem !important;
-  margin: 0 auto !important;
+  color: var(--white);
+  font-family: 'Share Tech Mono', monospace !important;
+  min-height: 100vh !important;
   display: flex;
   flex-direction: column !important;
-  align-items: center !important;
-  text-align: center !important;
-  gap: 0.5rem !important;
+  margin: 0 !important;
+  line-height: 1.6 !important;
 }
 
-.footer-logo-container {
-  display: flex;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-}
+    
+    img {
+  		pointer-events: none;
+		}
 
-.footer-logo-container img {
-  width: 35px !important;
-  height: auto !important;
-  object-fit: contain !important;
-  vertical-align: middle !important;
-}
+		header {
+ 		 	padding: 1rem 1.5rem !important;
+  		display: flex;
+  		font-family: 'Share Tech Mono', monospace !important;
+  		justify-content: space-between !important;
+  		align-items: center !important;
+  		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+		}
+
+		header .logo-container {
+  		display: flex;
+  		align-items: center !important;
+  		gap: 0.75rem !important;
+		}
+
+		header .logo-container img {
+  		width: 35px !important;
+  		height: auto !important;
+  		object-fit: contain !important;
+		}
+
+		header .logo-container div {
+  		font-size: 1.5rem !important;
+  		font-weight: normal !important;
+  		color: var(--blue);
+		}
+
+		header nav {
+  		display: flex;
+		}
+
+		header nav ul {
+  		display: flex;
+ 		  gap: 1.5rem !important;
+      list-style: none !important;
+		}
+
+		header nav a {
+  		color: inherit;
+  		text-decoration: none !important;
+		}
+
+		header nav a:hover {
+  		text-decoration: underline !important;
+		}
+
+		#hamburger-anchor {
+  		display: none;
+		}
+
+		.hamburger {
+  		display: none;
+ 		  cursor: pointer !important;
+  		position: relative !important;
+  		z-index: 100 !important;
+		}
+
+		.hamburger-anchor-anchor {
+  		height: 0 !important;
+		}
+
+		.hamburger .logo {
+  		display: inline-block;
+  		transform-origin: center !important;
+  		transition: transform 0.3s ease !important;
+		}
+
+		.hamburger span {
+  		display: block;
+  		width: 1.5rem !important;
+  		height: 0.2rem !important;
+  		background: var(--white);
+  		margin-bottom: 0.3rem !important;
+		}
+
+		.hamburger span:last-child {
+  		margin-bottom: 0 !important;
+		}
+
+		#hamburger-anchor:checked + .hamburger .logo {
+  		transform: rotate(90deg) !important;
+		}
+
+		#hamburger-anchor:checked ~ nav {
+  		transform: none !important;
+  		visibility: visible !important;
+		}
+    
+    footer {
+  		padding: 1.5rem 1.5rem !important;
+  		background-color: var(--dark);
+  		border-top: 1px solid rgba(0, 0, 0, 0.3);
+		}
+
+		.footer-content {
+  		max-width: 64rem !important;
+  		margin: 0 auto !important;
+  		display: flex;
+  		flex-direction: column !important;
+  		align-items: center !important;
+  		text-align: center !important;
+  		gap: 0.5rem !important;
+		}
+
+		.footer-logo-container {
+  		display: flex;
+  		flex-direction: row !important;
+  		align-items: center !important;
+  		gap: 0.5rem !important;
+		}
+
+		.footer-logo-container img {
+  		width: 35px !important;
+  		height: auto !important;
+  		object-fit: contain !important;
+  		vertical-align: middle !important;
+		}
 
 .footer-logo-container div {
   font-size: 1rem !important;
@@ -213,6 +220,11 @@ header nav a:hover {
       padding: 20px !important;
       max-width: 900px;
       width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: wrap;
+      flex-direction: column;
+      text-align: left;
     }
 
     main li {
@@ -263,7 +275,13 @@ header nav a:hover {
       }
 
     }
-
+    
+    @media (min-width: 769px) {
+      main {
+        margin-left: 200px !important;
+      }
+    }
+    
   </style>
 </head>
 <body>
