@@ -4,7 +4,7 @@ document.querySelectorAll('.code-editor').forEach((textarea) => {
   const editor = CodeMirror.fromTextArea(textarea, {
     lineNumbers: true,
     mode: 'htmlmixed',
-    theme: 'monokai',
+    theme: 'colorforth',
     tabSize: 2,
     lineWrapping: true,
     extraKeys: {
@@ -110,7 +110,7 @@ function createNewFile() {
   const editor = CodeMirror.fromTextArea(textarea, {
     lineNumbers: true,
     mode: fileType === 'html' ? 'htmlmixed' : fileType,
-    theme: 'monokai',
+    theme: 'colorforth',
     tabSize: 2,
     lineWrapping: true,
     extraKeys: {
@@ -164,7 +164,7 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
     const editor = CodeMirror.fromTextArea(textarea, {
       lineNumbers: true,
       mode: fileType === 'html' ? 'htmlmixed' : fileType,
-      theme: 'monokai',
+      theme: 'colorforth',
       tabSize: 2,
       lineWrapping: true,
       extraKeys: {
@@ -393,7 +393,7 @@ function openProject() {
       const editor = CodeMirror.fromTextArea(textarea, {
         lineNumbers: true,
         mode: fileType === 'html' ? 'htmlmixed' : fileType,
-        theme: 'monokai',
+        theme: 'colorforth',
         tabSize: 2,
         lineWrapping: true,
         extraKeys: {
