@@ -90,7 +90,7 @@ body {
 .logo-button .logo-text {
   font-family: 'Audiowide', sans-serif !important;
   font-size: 16px !important; /* Adjusted to fit within button height */
-  color: #ffd800 !important;
+  color: var(--white) !important;
   text-align: center;
   line-height: 1;
   /*border: 1px solid yellow; Preserve debug border*/
