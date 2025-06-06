@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/theme/monokai.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap">
+  <link rel="stylesheet" href="ide.css">
+</head>
+<body>
+  <div class="header-container">
+    <div class="columns">
+      <!-- Project Bar -->
+      <div class="project-bar column">
+        <!-- Page Logo -->
+        <div class="page-logo">
+          <div class="logo-text">IDE</div>
+          <div class="tagline">LAUNCH INTO CODING</div>
+        </div>
+        <span>PROJECT</span>
+        <input type="text" id="projectName" placeholder="Project Name">
+        <select id="projectList">
+          <option value="">Select a Project</option>
+        </select>
+        <button id="addProjectBtn" onclick="showNewProjectModal()"><i class="fas fa-plus"></i> Add</button>
+        <button id="saveProjectBtn" onclick="saveProject()"><i class="fas fa-save"></i> Save</button>
+        <button id="openProjectBtn" onclick="openProject()"><i class="fas fa-folder-open"></i> Open</button>
+        <button id="deleteProjectBtn" onclick="showDeleteProjectModal()"><i class="fas fa-trash-alt"></i> Delete</button>
+      </div>
+      <!-- File Bar (Combined with Find/Replace) -->
