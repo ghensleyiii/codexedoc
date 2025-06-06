@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IDE</title>
+  <title>CODEXEDOC</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/theme/monokai.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap">
+  <link rel="icon" type="image/x-icon" href="../icons/favicon.ico">
+  <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../android-chrome-192x192.png">
   <link rel="stylesheet" href="ide.css">
 </head>
 <body>
@@ -15,8 +18,7 @@
     <div class="columns">
       <!-- Project Bar -->
       <div class="project-bar column">
-        <!-- Page Logo -->
-        <div class="page-logo">
+        <div class="logo-button page-logo">
           <div class="logo-text">IDE</div>
           <div class="tagline">LAUNCH INTO CODING</div>
         </div>
@@ -29,10 +31,11 @@
         <button id="saveProjectBtn" onclick="saveProject()"><i class="fas fa-save"></i> Save</button>
         <button id="openProjectBtn" onclick="openProject()"><i class="fas fa-folder-open"></i> Open</button>
         <button id="deleteProjectBtn" onclick="showDeleteProjectModal()"><i class="fas fa-trash-alt"></i> Delete</button>
+        <button id="exportProjectBtn" onclick="exportProject()"><i class="fas fa-file-export"></i> Export</button>
       </div>
       <!-- File Bar (Combined with Find/Replace) -->
       <div class="file-bar column">
-        <span>FILES</span>
+        <span class="level">FILES</span>
         <button id="selectAllBtn" onclick="selectAllCode()"><i class="fas fa-check-square"></i> Select All</button>
         <button id="newBtn" onclick="showNewFileModal()"><i class="fas fa-plus"></i> New</button>
         <button id="importBtn" onclick="triggerFileInput()"><i class="fas fa-file-import"></i> Import</button>
@@ -158,6 +161,7 @@ console.log("Script loaded.");</textarea>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/css/css.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/htmlmixed/htmlmixed.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="ide.js"></script>
 </body>
 </html>
