@@ -1,366 +1,679 @@
 :root {
-  --dark-blue: #181A1C;
-  --light-blue: #181A1C;
-  --green: #4a7fb2 /*#1a5c38*/;
+  --dark: #181A1C;
+  --blue: #008000;
+  --hover: #00b300;
   --white: #ffffff;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-@font-face {
-  font-family: 'Share Tech Mono';
-  src: url('https://www.codexedoc.com/fonts/ShareTechMono-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 body {
-  font-family: 'Share Tech Mono', monospace;
-  background-color: var(--dark-blue);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--dark);
   color: var(--white);
-  height: 100vh;
-  display: flex !important;
+  display: flex;
   flex-direction: column;
-  overflow: hidden;
+  height: 100vh;
+  font-size: 16px;
+  -webkit-user-select: none;
+  user-select: none;
   touch-action: manipulation;
 }
 
-.top-bar {
-  background-color: var(--light-blue);
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--green);
+.header-container {
+  background: var(--dark);
+  flex: 0 0 auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.top-bar .logo {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--white);
-}
-
-.top-bar .top-bar-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.top-bar button {
-  padding: 8px;
-  background-color: var(--dark-blue);
-  border: 2px solid var(--green);
-  color: var(--white);
-  cursor: pointer;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.9rem;
-}
-
-.top-bar button:hover {
-  background-color: var(--green);
-  color: var(--dark-blue);
-}
-
-.main-container {
+.columns {
   display: flex !important;
-  flex: 1;
-  height: calc(100vh - 50px);
+  flex-direction: column; /* Stack rows vertically for desktop */
+  width: 100%;
+  border-bottom: none; /* Remove bottom border from container */
 }
 
-.editor-container {
-  flex: 1;
+.column {
+  flex: none; /* Remove flex-grow to let content dictate size */
+  width: 100%; /* Full width for each row */
+  background: linear-gradient(to bottom, #1e2022, var(--dark));
+  padding: 15px 20px; /* Adjusted padding for better spacing */
+  display: flex !important;
+  flex-direction: row; /* Horizontal layout within each row */
+  align-items: center;
+  justify-content: center; /* Center items horizontally */
+  gap: 10px; /* Space between elements in the row */
+  box-sizing: border-box;
+  min-height: auto; /* Let content dictate height */
+}
+
+.project-bar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator between Project and File rows */
+}
+
+.file-bar {
+  /* No border needed since it's the last row */
+}
+
+.column span {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.logo-button {
+  background: #252729;
+  color: var(--white);
+  border: 1px solid var(--blue);
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+  font-size: 14px;
+  font-weight: 500;
+  touch-action: auto;
+  height: 36px;
+  line-height: 1;
+  box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  position: relative;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  width: 120px; /* Match button width on desktop */
+  justify-content: center;
+  text-align: center;
+  border: 1px solid var(--blue); /* Preserve debug border */
+}
+
+.logo-button .logo-text {
+  font-family: 'Audiowide', sans-serif !important;
+  font-size: 16px !important; /* Adjusted to fit within button height */
+  color: #ffd800 !important;
+  text-align: center;
+  line-height: 1;
+  /*border: 1px solid yellow; Preserve debug border*/
+}
+
+.logo-button .tagline {
+  font-size: 8px !important; /* Adjusted to fit within button height */
+  color: #a0a0a0 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  line-height: 1.2;
+  margin-top: 2px;
+  /*border: 1px solid blue;*/ /* Preserve debug border */
+}
+
+.logo-button:hover {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--hover);
+  transform: translateY(-1px);
+}
+
+.project-bar input,
+.file-bar input {
+  background: #252729;
+  color: var(--white);
+  border: 1px solid var(--blue);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  height: 36px;
+  width: 200px; /* Fixed width for desktop */
+  box-sizing: border-box;
+  user-select: text;
+  touch-action: auto;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+
+.project-bar input:focus,
+.file-bar input:focus {
+  border-color: var(--hover);
+  box-shadow: 0 0 4px rgba(0, 179, 0, 0.3);
+}
+
+.project-bar select {
+  background: #252729;
+  color: var(--white);
+  border: 1px solid var(--blue);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  height: 36px;
+  width: 200px; /* Fixed width for desktop */
+  box-sizing: border-box;
+  user-select: text;
+  touch-action: auto;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+
+.project-bar select:focus {
+  border-color: var(--hover);
+  box-shadow: 0 0 4px rgba(0, 179, 0, 0.3);
+}
+
+.column button {
+  background: #252729;
+  color: var(--white);
+  border: 1px solid var(--blue);
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+  font-size: 14px;
+  font-weight: 500;
+  touch-action: auto;
+  height: 36px;
+  line-height: 1;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  width: 120px; /* Fixed width for buttons on desktop */
+  justify-content: center;
+  text-align: center;
+}
+
+.column button i {
+  color: var(--blue);
+  transition: color 0.2s;
+}
+
+.column button:hover {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--hover);
+  transform: translateY(-1px);
+}
+
+.column button:hover i {
+  color: var(--white);
+}
+
+.column button:disabled {
+  background: #252729;
+  color: #606060;
+  cursor: not-allowed;
+  border-color: #3a3a3a;
+  transform: none;
+}
+
+.column button:disabled i {
+  color: #606060;
 }
 
 .tabs {
-  background-color: var(--light-blue);
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--green);
+  display: flex !important;
+  background: var(--dark);
   overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--green) var(--dark-blue);
+  border-bottom: 1px solid var(--blue);
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
 }
 
-.tabs .tab {
-  padding: 10px 15px;
+.tab {
+  padding: 10px 16px;
+  background: var(--dark);
+  border: none;
+  color: #a0a0a0;
   cursor: pointer;
-  background-color: var(--dark-blue);
-  border-right: 1px solid var(--green);
-  white-space: nowrap;
+  flex: 0 0 auto;
+  transition: background 0.2s, color 0.2s;
+  font-size: 14px;
+  position: relative;
+  touch-action: auto;
+  margin-right: 4px;
+  text-align: center;
+}
+
+.tab:last-child {
+  margin-right: 0;
+}
+
+.tab.active {
+  background: var(--blue);
   color: var(--white);
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--hover);
 }
 
-.tabs .tab.active {
-  background-color: var(--light-blue);
-  color: var(--green);
-}
-
-.tabs .tab:hover {
-  background-color: var(--green);
-  color: var(--dark-blue);
-}
-
-.tabs .tab i {
-  font-size: 0.8rem;
-}
-
-.tabs button#add-file {
-  padding: 10px;
-  background-color: var(--dark-blue);
-  border: 2px solid var(--green);
+.tab:hover {
+  background: var(--hover);
   color: var(--white);
-  cursor: pointer;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.9rem;
-  margin-left: 10px;
 }
 
-.tabs button#add-file:hover {
-  background-color: var(--green);
-  color: var(--dark-blue);
+.editor-area {
+  display: none !important;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.editor-area.visible {
+  display: flex !important;
 }
 
 .code-editor {
-  position: relative;
-  flex: 1;
-  background-color: var(--dark-blue);
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.cm-s-monokai {
-  background-color: var(--light-blue);
+  background: var(--dark);
   color: var(--white);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  height: 100%;
-}
-
-.cm-s-monokai .CodeMirror-gutters {
-  background-color: var(--dark-blue);
-  border-right: 1px solid var(--green);
-}
-
-.cm-s-monokai .CodeMirror-linenumbers {
-  color: var(--green);
-  padding: 0 5px;
-}
-
-.cm-s-monokai .CodeMirror-cursor {
-  border-left: 1px solid var(--green);
-}
-
-.editor {
-  flex: 1;
-  background-color: var(--dark-blue);
-  padding: 10px;
-  overflow: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--green) var(--dark-blue);
-  touch-action: none;
-}
-
-.editor .CodeMirror {
-  height: 100%;
-  width: 100%;
-}
-
-.editor textarea {
+  caret-color: var(--white);
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.6;
   width: 100%;
   height: 100%;
-  background: var(--light-blue);
-  border: 2px solid var(--green);
-  color: var(--white);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.9rem;
-  padding: 10px 15px 10px 60px;
   resize: none;
+  border: none;
+  padding: 12px;
+  box-sizing: border-box;
   outline: none;
-  line-height: 1.5;
-  border-radius: 5px;
+  scrollbar-color: var(--blue) var(--dark);
+  user-select: text;
+  touch-action: auto;
 }
 
-.status-bar {
-  background-color: var(--green);
-  color: var(--dark-blue);
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  display: flex;
-  justify-content: space-between;
+.CodeMirror {
+  width: 100% !important;
+  height: 100% !important;
+  background: var(--dark);
+  color: var(--white);
+  font-family: 'Fira Code', 'Consolas', monospace !important;
+  font-size: 14px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.CodeMirror-scroll {
+  scrollbar-color: var(--blue) var(--dark);
+  overflow: auto !important;
+}
+
+.CodeMirror::-webkit-scrollbar {
+  width: 8px;
+}
+
+.CodeMirror::-webkit-scrollbar-track {
+  background: var(--dark);
+}
+
+.CodeMirror::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  border-radius: 4px;
+}
+
+iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+  background: var(--white);
+}
+
+.container {
+  flex: 1;
+  display: flex !important;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
 }
 
 .modal {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
+  background: rgba(0, 0, 0, 0.7);
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .modal-content {
-  background-color: var(--light-blue);
-  padding: 20px;
-  border: 2px solid var(--green);
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 300px;
+  background: var(--dark);
+  padding: 24px;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid var(--blue);
+  pointer-events: auto;
+  user-select: text;
+  touch-action: auto;
 }
 
-.modal-content h3 {
-  margin: 0;
-  color: var(--green);
-}
-
-.modal-content input {
-  padding: 8px;
-  background-color: var(--dark-blue);
-  border: 2px solid var(--green);
+.modal-content p {
+  margin: 12px 0;
+  font-size: 14px;
   color: var(--white);
-  font-family: 'Share Tech Mono', monospace;
+}
+
+.modal-content input,
+.modal-content select {
+  margin: 12px 0;
+  padding: 8px 12px;
+  width: 220px;
+  box-sizing: border-box;
+  background: #252729;
+  color: var(--white);
+  border: 1px solid var(--blue);
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  user-select: text;
+  touch-action: auto;
+  pointer-events: auto;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+
+.modal-content input:focus,
+.modal-content select:focus {
+  border-color: var(--hover);
+  box-shadow: 0 0 4px rgba(0, 179, 0, 0.3);
+}
+
+.modal-content div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .modal-content button {
-  padding: 8px;
-  background-color: var(--dark-blue);
-  border: 2px solid var(--green);
+  background: #252729;
   color: var(--white);
+  border: 1px solid var(--blue);
+  padding: 8px 16px;
   cursor: pointer;
-  font-family: 'Share Tech Mono', monospace;
+  border-radius: 6px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+  font-size: 14px;
+  font-weight: 500;
+  touch-action: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+  text-align: center;
+}
+
+.modal-content button i {
+  color: var(--blue);
+  transition: color 0.2s;
 }
 
 .modal-content button:hover {
-  background-color: var(--green);
-  color: var(--dark-blue);
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--hover);
+  transform: translateY(-1px);
 }
 
-@media (max-width: 768px) {
-  .main-container {
-    flex-direction: column;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--green) var(--dark-blue);
+.modal-content button:hover i {
+  color: var(--white);
+}
+
+#fileInput {
+  display: none;
+}
+
+/* Responsive adjustments for tablet and mobile */
+@media only screen and (max-width: 767px) {
+  .header-container {
+    flex: 0 0 auto;
   }
 
-  .editor-container {
+  .columns {
+    flex-direction: row; /* Side-by-side layout for tablet/mobile */
+  }
+
+  .column {
+    flex: 1; /* Equal width for side-by-side */
+    width: auto; /* Reset width */
+    padding: 10px 8px;
+    flex-direction: column; /* Stack elements vertically within each column */
+    align-items: center;
+    gap: 8px;
+    min-height: 60px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .project-bar {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none; /* Remove bottom border for side-by-side */
+  }
+
+  .file-bar {
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .project-bar .logo-button {
     width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--green) var(--dark-blue);
+    max-width: none; /* Full width on smaller screens */
+  }
+
+  .logo-button .logo-text {
+    font-size: 20px !important; /* Adjusted for mobile/tablet */
+  }
+
+  .logo-button .tagline {
+    font-size: 7px !important; /* Adjusted for mobile/tablet */
+  }
+
+  .project-bar input,
+  .file-bar input {
+    width: 100%;
+    max-width: none; /* Full width on smaller screens */
+    font-size: 13px;
+    padding: 6px 8px;
+    height: 32px;
+  }
+
+  .project-bar select {
+    width: 100%;
+    max-width: none; /* Full width on smaller screens */
+    font-size: 13px;
+    padding: 6px 8px;
+    height: 32px;
+  }
+
+  .column button {
+    width: 100%;
+    max-width: none; /* Full width on smaller screens */
+    font-size: 13px;
+    padding: 6px 12px;
+    height: 32px;
+  }
+
+  .column span {
+    font-size: 13px;
+    line-height: 32px;
+  }
+
+  .tabs {
+    padding: 4px 0;
+  }
+
+  .tab {
+    font-size: 13px;
+    padding: 8px 12px;
+    min-width: 80px;
+    margin-right: 4px;
+  }
+
+  .tab:last-child {
+    margin-right: 0;
   }
 
   .code-editor {
-    height: 400px;
+    font-size: 13px;
+    padding: 10px;
+    line-height: 1.8;
   }
 
-  .cm-s-monokai {
-    font-size: 0.8rem;
-    line-height: 1.5;
-  }
-
-  .cm-s-monokai .CodeMirror-linenumbers {
-    width: 38px;
-    padding: 0 5px;
-  }
-
-  .editor textarea {
-    height: 400px;
-    font-size: 0.8rem;
-    line-height: 1.5;
-    padding: 10px 15px 10px 50px;
+  .CodeMirror {
+    font-size: 13px;
+    line-height: 1.8;
   }
 
   .modal-content {
+    padding: 16px;
     width: 90%;
+    max-width: 320px;
+  }
+
+  .modal-content h3 {
+    font-size: 18px;
+    margin: 8px 0;
+  }
+
+  .modal-content p {
+    font-size: 13px;
+    margin: 8px 0;
+  }
+
+  .modal-content input,
+  .modal-content select {
+    font-size: 13px;
+    padding: 8px 10px;
+    width: 100%;
+    max-width: 280px;
+    height: 36px;
+  }
+
+  .modal-content button {
+    font-size: 13px;
+    padding: 8px 12px;
+    min-width: 90px;
+    height: 36px;
+  }
+
+  .level {
+    padding-bottom: 8px;
   }
 }
 
-@media (max-width: 480px) {
-  .top-bar .logo {
-    font-size: 1rem;
+@media only screen and (max-width: 480px) {
+  .column {
+    gap: 6px;
+    padding: 8px 6px;
   }
 
-  .top-bar button {
-    font-size: 0.8rem;
-    padding: 6px;
+  .column span {
+    font-size: 12px;
+    line-height: 30px;
   }
 
-  .tabs button#add-file {
-    font-size: 0.8rem;
-    padding: 6px;
+  .project-bar .logo-button {
+    margin-bottom: 2px;
+  }
+
+  .logo-button .logo-text {
+    font-size: 18px !important; /* Adjusted for mobile */
+  }
+
+  .logo-button .tagline {
+    font-size: 6px !important; /* Adjusted for mobile */
+  }
+
+  .project-bar input,
+  .file-bar input {
+    width: 100%;
+    font-size: 12px;
+    padding: 6px 8px;
+    height: 30px;
+  }
+
+  .project-bar select {
+    width: 100%;
+    font-size: 12px;
+    padding: 6px 8px;
+    height: 30px;
+  }
+
+  .column button {
+    font-size: 12px;
+    padding: 6px 10px;
+    height: 30px;
+    width: 100%;
+  }
+
+  .tabs {
+    padding: 2px 0;
+  }
+
+  .tab {
+    font-size: 12px;
+    padding: 6px 10px;
+    min-width: 70px;
+    margin-right: 2px;
+  }
+
+  .tab:last-child {
+    margin-right: 0;
   }
 
   .code-editor {
-    height: 300px;
+    font-size: 12px;
+    padding: 8px;
+    line-height: 1.6;
   }
 
-  .cm-s-monokai {
-    font-size: 0.8rem;
-    line-height: 1.5;
-  }
-
-  .cm-s-monokai .CodeMirror-linenumbers {
-    width: 38px;
-    padding: 0 5px;
-  }
-
-  .editor textarea {
-    height: 300px;
-    font-size: 0.8rem;
-    line-height: 1.5;
-    padding: 10px 15px 10px 50px;
-  }
-
-  .status-bar {
-    font-size: 0.7rem;
-  }
-
-  .main-container {
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--green) var(--dark-blue);
-  }
-
-  .editor-container {
-    height: 100%;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--green) var(--dark-blue);
+  .CodeMirror {
+    font-size: 12px;
+    line-height: 1.6;
   }
 
   .modal-content {
+    padding: 12px;
     width: 90%;
+    max-width: 280px;
   }
-}
 
-/* WebKit Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 8px;
-}
+  .modal-content h3 {
+    font-size: 16px;
+    margin: 6px 0;
+  }
 
-::-webkit-scrollbar-thumb {
-  background-color: #3c8235;
-  border-radius: 4px;
-}
+  .modal-content p {
+    font-size: 12px;
+    margin: 6px 0;
+  }
 
-::-webkit-scrollbar-track {
-  background-color: #0a0a23;
+  .modal-content input,
+  .modal-content select {
+    font-size: 12px;
+    padding: 8px;
+    width: 100%;
+    max-width: 240px;
+    height: 32px;
+  }
+
+  .modal-content button {
+    font-size: 12px;
+    padding: 6px 10px;
+    min-width: 80px;
+    height: 32px;
+  }
+
+  .level {
+    padding-bottom: 8px;
+  }
 }
