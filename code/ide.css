@@ -1,7 +1,6 @@
 :root {
   --dark: #181A1C;
-  --green: #008000;
-  --green-hover: #00b300;
+  --blue: #4A90E2;
   --white: #ffffff;
 }
 
@@ -27,59 +26,31 @@ body {
 
 .columns {
   display: flex !important;
-  flex-direction: row;
+  flex-direction: column; /* Stack rows vertically for desktop */
   width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none; /* Remove bottom border from container */
 }
 
 .column {
-  flex: 1;
+  flex: none; /* Remove flex-grow to let content dictate size */
+  width: 100%; /* Full width for each row */
   background: linear-gradient(to bottom, #1e2022, var(--dark));
-  padding: 15px 10px;
+  padding: 15px 20px; /* Adjusted padding for better spacing */
   display: flex !important;
-  flex-direction: column;
+  flex-direction: row; /* Horizontal layout within each row */
   align-items: center;
-  gap: 8px;
+  justify-content: center; /* Center items horizontally */
+  gap: 10px; /* Space between elements in the row */
   box-sizing: border-box;
-  min-height: 60px;
-}
-
-/* Page Logo Styles */
-.page-logo {
-  display: flex !important;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 12px;
-  border: 1px dashed red; /* Debug border to confirm visibility */
-  width: 100%;
-}
-
-.logo-text {
-  font-family: 'Audiowide', sans-serif !important;
-  font-size: 28px !important;
-  color: var(--white) !important;
-  text-align: center;
-  line-height: 1;
-  border: 1px solid yellow; /* Debug border */
-}
-
-.tagline {
-  font-size: 10px !important;
-  color: #a0a0a0 !important;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: center;
-  line-height: 1.2;
-  margin-top: 4px;
-  border: 1px solid blue; /* Debug border */
+  min-height: auto; /* Let content dictate height */
 }
 
 .project-bar {
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator between Project and File rows */
 }
 
 .file-bar {
-  /* No border-right since it's the last column */
+  /* No border needed since it's the last row */
 }
 
 .column span {
@@ -93,17 +64,67 @@ body {
   text-align: center;
 }
 
+.logo-button {
+  background: #252729;
+  color: var(--white);
+  border: 1px solid var(--blue);
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+  font-size: 14px;
+  font-weight: 500;
+  touch-action: auto;
+  height: 36px;
+  line-height: 1;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  width: 120px; /* Match button width on desktop */
+  justify-content: center;
+  text-align: center;
+  border: 1px solid var(--blue); /* Preserve debug border */
+}
+
+.logo-button .logo-text {
+  font-family: 'Audiowide', sans-serif !important;
+  font-size: 16px !important; /* Adjusted to fit within button height */
+  color: #ffd800 !important;
+  text-align: center;
+  line-height: 1;
+  /*border: 1px solid yellow; Preserve debug border*/
+}
+
+.logo-button .tagline {
+  font-size: 8px !important; /* Adjusted to fit within button height */
+  color: #a0a0a0 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  line-height: 1.2;
+  margin-top: 2px;
+  /*border: 1px solid blue;*/ /* Preserve debug border */
+}
+
+.logo-button:blue {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+  transform: translateY(-1px);
+}
+
 .project-bar input,
 .file-bar input {
   background: #252729;
   color: var(--white);
-  border: 1px solid var(--green);
+  border: 1px solid var(--blue);
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 14px;
   outline: none;
   height: 36px;
-  width: 100%;
+  width: 200px; /* Fixed width for desktop */
   box-sizing: border-box;
   user-select: text;
   touch-action: auto;
@@ -113,20 +134,20 @@ body {
 
 .project-bar input:focus,
 .file-bar input:focus {
-  border-color: var(--green-hover);
+  border-color: var(--blue);
   box-shadow: 0 0 4px rgba(0, 179, 0, 0.3);
 }
 
 .project-bar select {
   background: #252729;
   color: var(--white);
-  border: 1px solid var(--green);
+  border: 1px solid var(--blue);
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 14px;
   outline: none;
   height: 36px;
-  width: 100%;
+  width: 200px; /* Fixed width for desktop */
   box-sizing: border-box;
   user-select: text;
   touch-action: auto;
@@ -135,14 +156,14 @@ body {
 }
 
 .project-bar select:focus {
-  border-color: var(--green-hover);
+  border-color: var(--blue);
   box-shadow: 0 0 4px rgba(0, 179, 0, 0.3);
 }
 
 .column button {
   background: #252729;
   color: var(--white);
-  border: 1px solid var(--green);
+  border: 1px solid var(--blue);
   padding: 8px 16px;
   cursor: pointer;
   border-radius: 6px;
@@ -157,24 +178,24 @@ body {
   align-items: center;
   gap: 6px;
   flex: 0 0 auto;
-  width: 100%;
+  width: 120px; /* Fixed width for buttons on desktop */
   justify-content: center;
   text-align: center;
 }
 
 .column button i {
-  color: var(--green);
+  color: var(--blue);
   transition: color 0.2s;
 }
 
-.column button:hover {
-  background: var(--green);
+.column button:blue {
+  background: var(--blue);
   color: var(--white);
-  border-color: var(--green-hover);
+  border-color: var(--blue);
   transform: translateY(-1px);
 }
 
-.column button:hover i {
+.column button:blue i {
   color: var(--white);
 }
 
@@ -194,7 +215,7 @@ body {
   display: flex !important;
   background: var(--dark);
   overflow-x: auto;
-  border-bottom: 1px solid var(--green);
+  border-bottom: 1px solid var(--blue);
   position: relative;
   z-index: 2;
   flex: 0 0 auto;
@@ -220,14 +241,14 @@ body {
 }
 
 .tab.active {
-  background: var(--green);
+  background: var(--blue);
   color: var(--white);
   font-weight: 600;
-  border-bottom: 2px solid var(--green-hover);
+  border-bottom: 2px solid var(--blue);
 }
 
-.tab:hover {
-  background: var(--green-hover);
+.tab:blue {
+  background: var(--blue);
   color: var(--white);
 }
 
@@ -258,7 +279,7 @@ body {
   padding: 12px;
   box-sizing: border-box;
   outline: none;
-  scrollbar-color: var(--green) var(--dark);
+  scrollbar-color: var(--blue) var(--dark);
   user-select: text;
   touch-action: auto;
 }
@@ -276,7 +297,7 @@ body {
 }
 
 .CodeMirror-scroll {
-  scrollbar-color: var(--green) var(--dark);
+  scrollbar-color: var(--blue) var(--dark);
   overflow: auto !important;
 }
 
@@ -289,7 +310,7 @@ body {
 }
 
 .CodeMirror::-webkit-scrollbar-thumb {
-  background: var(--green);
+  background: var(--blue);
   border-radius: 4px;
 }
 
@@ -327,7 +348,7 @@ iframe {
   padding: 24px;
   border-radius: 6px;
   text-align: center;
-  border: 1px solid var(--green);
+  border: 1px solid var(--blue);
   pointer-events: auto;
   user-select: text;
   touch-action: auto;
@@ -347,7 +368,7 @@ iframe {
   box-sizing: border-box;
   background: #252729;
   color: var(--white);
-  border: 1px solid var(--green);
+  border: 1px solid var(--blue);
   border-radius: 6px;
   outline: none;
   font-size: 14px;
@@ -360,7 +381,7 @@ iframe {
 
 .modal-content input:focus,
 .modal-content select:focus {
-  border-color: var(--green-hover);
+  border-color: var(--blue);
   box-shadow: 0 0 4px rgba(0, 179, 0, 0.3);
 }
 
@@ -376,7 +397,7 @@ iframe {
 .modal-content button {
   background: #252729;
   color: var(--white);
-  border: 1px solid var(--green);
+  border: 1px solid var(--blue);
   padding: 8px 16px;
   cursor: pointer;
   border-radius: 6px;
@@ -392,18 +413,18 @@ iframe {
 }
 
 .modal-content button i {
-  color: var(--green);
+  color: var(--blue);
   transition: color 0.2s;
 }
 
-.modal-content button:hover {
-  background: var(--green);
+.modal-content button:blue {
+  background: var(--blue);
   color: var(--white);
-  border-color: var(--green-hover);
+  border-color: var(--blue);
   transform: translateY(-1px);
 }
 
-.modal-content button:hover i {
+.modal-content button:blue i {
   color: var(--white);
 }
 
@@ -411,12 +432,22 @@ iframe {
   display: none;
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for tablet and mobile */
 @media only screen and (max-width: 767px) {
+  .header-container {
+    flex: 0 0 auto;
+  }
+
+  .columns {
+    flex-direction: row; /* Side-by-side layout for tablet/mobile */
+  }
+
   .column {
+    flex: 1; /* Equal width for side-by-side */
+    width: auto; /* Reset width */
     padding: 10px 8px;
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: column; /* Stack elements vertically within each column */
+    align-items: center;
     gap: 8px;
     min-height: 60px;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
@@ -424,28 +455,31 @@ iframe {
 
   .project-bar {
     border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none; /* Remove bottom border for side-by-side */
   }
 
   .file-bar {
     border-right: none;
+    border-bottom: none;
   }
 
-  .page-logo {
-    margin-bottom: 8px;
+  .project-bar .logo-button {
+    width: 100%;
+    max-width: none; /* Full width on smaller screens */
   }
 
-  .logo-text {
-    font-size: 24px !important;
+  .logo-button .logo-text {
+    font-size: 20px !important; /* Adjusted for mobile/tablet */
   }
 
-  .tagline {
-    font-size: 8px !important;
-    letter-spacing: 0.8px;
+  .logo-button .tagline {
+    font-size: 7px !important; /* Adjusted for mobile/tablet */
   }
 
   .project-bar input,
   .file-bar input {
     width: 100%;
+    max-width: none; /* Full width on smaller screens */
     font-size: 13px;
     padding: 6px 8px;
     height: 32px;
@@ -453,16 +487,18 @@ iframe {
 
   .project-bar select {
     width: 100%;
+    max-width: none; /* Full width on smaller screens */
     font-size: 13px;
     padding: 6px 8px;
     height: 32px;
   }
 
   .column button {
+    width: 100%;
+    max-width: none; /* Full width on smaller screens */
     font-size: 13px;
     padding: 6px 12px;
     height: 32px;
-    width: 100%;
   }
 
   .column span {
@@ -527,6 +563,10 @@ iframe {
     min-width: 90px;
     height: 36px;
   }
+
+  .level {
+    padding-bottom: 8px;
+  }
 }
 
 @media only screen and (max-width: 480px) {
@@ -540,17 +580,16 @@ iframe {
     line-height: 30px;
   }
 
-  .page-logo {
-    margin-bottom: 6px;
+  .project-bar .logo-button {
+    margin-bottom: 2px;
   }
 
-  .logo-text {
-    font-size: 20px !important;
+  .logo-button .logo-text {
+    font-size: 18px !important; /* Adjusted for mobile */
   }
 
-  .tagline {
-    font-size: 7px !important;
-    letter-spacing: 0.6px;
+  .logo-button .tagline {
+    font-size: 6px !important; /* Adjusted for mobile */
   }
 
   .project-bar input,
@@ -631,5 +670,9 @@ iframe {
     padding: 6px 10px;
     min-width: 80px;
     height: 32px;
+  }
+
+  .level {
+    padding-bottom: 8px;
   }
 }
