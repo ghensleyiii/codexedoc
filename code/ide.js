@@ -218,9 +218,9 @@ function downloadFile() {
   URL.revokeObjectURL(url);
   closeSaveFileModal();
 }
-
+// Remove this bc of error: || activeTab === 'html-index' || activeTab === 'css-style' || activeTab === 'js-script'
 function showDeleteModal() {
-  if (activeTab === 'browser' || activeTab === 'html-index' || activeTab === 'css-style' || activeTab === 'js-script') {
+  if (activeTab === 'browser') {
     alert('Cannot delete this tab.');
     return;
   }
