@@ -31,3 +31,133 @@
         <button id="deleteProjectBtn" onclick="showDeleteProjectModal()"><i class="fas fa-trash-alt"></i> Delete</button>
       </div>
       <!-- File Bar (Combined with Find/Replace) -->
+      <div class="file-bar column">
+        <span>FILES</span>
+        <button id="selectAllBtn" onclick="selectAllCode()"><i class="fas fa-check-square"></i> Select All</button>
+        <button id="newBtn" onclick="showNewFileModal()"><i class="fas fa-plus"></i> New</button>
+        <button id="importBtn" onclick="triggerFileInput()"><i class="fas fa-file-import"></i> Import</button>
+        <button id="saveBtn" onclick="saveToFile()"><i class="fas fa-save"></i> Save</button>
+        <button id="deleteBtn" onclick="showDeleteModal()"><i class="fas fa-trash-alt"></i> Delete</button>
+        <input type="text" id="findText" placeholder="Find">
+        <input type="text" id="replaceText" placeholder="Replace">
+        <button id="findReplaceBtn" onclick="findAndReplace()"><i class="fas fa-sync-alt"></i> Submit</button>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-file-id="html-index" onclick="switchTab('html-index')">index.html</button>
+      <button class="tab" data-file-id="css-style" onclick="switchTab('css-style')">style.css</button>
+      <button class="tab" data-file-id="js-script" onclick="switchTab('js-script')">script.js</button>
+      <button class="tab" onclick="switchTab('browser')">Browser</button>
+    </div>
+  </div>
+  <div class="container">
+    <div id="html-index" class="editor-area visible">
+      <textarea id="editor-html-index" class="code-editor"><!DOCTYPE html>
+<html>
+  <head>
+    <title>My Page</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+    <p id="demo">This is a demo.</p>
+    <script src="script.js"></script>
+  </body>
+</html></textarea>
+    </div>
+    <div id="css-style" class="editor-area">
+      <textarea id="editor-css-style" class="code-editor">body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #333;
+}
+
+p {
+  color: #666;
+}</textarea>
+    </div>
+    <div id="js-script" class="editor-area">
+      <textarea id="editor-js-script" class="code-editor">document.getElementById("demo").innerHTML = "Hello from JavaScript!";
+console.log("Script loaded.");</textarea>
+    </div>
+    <div id="browser" class="editor-area">
+      <iframe id="preview"></iframe>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept=".html,.css,.js,.jsx,.py">
+
+  <div id="newFileModal" class="modal">
+    <div class="modal-content">
+      <h3>Create New File</h3>
+      <input type="text" id="newFileName" placeholder="File Name">
+      <select id="fileType">
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="js">JavaScript</option>
+        <option value="jsx">JSX</option>
+        <option value="py">Python</option>
+      </select>
+      <div>
+        <button onclick="createNewFile()"><i class="fas fa-check"></i> Create</button>
+        <button onclick="closeNewFileModal()"><i class="fas fa-times"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="saveFileModal" class="modal">
+    <div class="modal-content">
+      <h3>Save File</h3>
+      <input type="text" id="saveFileName" placeholder="File Name">
+      <div>
+        <button onclick="downloadFile()"><i class="fas fa-download"></i> Download</button>
+        <button onclick="closeSaveFileModal()"><i class="fas fa-times"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="deleteFileModal" class="modal">
+    <div class="modal-content">
+      <h3>Delete File</h3>
+      <p id="deleteFileMessage"></p>
+      <div>
+        <button onclick="confirmDeleteFile()"><i class="fas fa-trash-alt"></i> Delete</button>
+        <button onclick="closeDeleteModal()"><i class="fas fa-times"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="newProjectModal" class="modal">
+    <div class="modal-content">
+      <h3>Create New Project</h3>
+      <input type="text" id="newProjectName" placeholder="Project Name">
+      <div>
+        <button onclick="createNewProject()"><i class="fas fa-check"></i> Create</button>
+        <button onclick="closeNewProjectModal()"><i class="fas fa-times"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="deleteProjectModal" class="modal">
+    <div class="modal-content">
+      <h3>Delete Project</h3>
+      <p id="deleteProjectMessage"></p>
+      <div>
+        <button onclick="confirmDeleteProject()"><i class="fas fa-trash-alt"></i> Delete</button>
+        <button onclick="closeDeleteProjectModal()"><i class="fas fa-times"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/python/python.min.js"></script>
+  <script src="ide.js"></script>
+</body>
+</html>
