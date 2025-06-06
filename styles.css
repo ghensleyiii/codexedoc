@@ -537,6 +537,80 @@ header nav a:hover {
   }
 }
 
+/*INDIVIDUAL GUIDES PAGE CSS*/
+.guide-heading {
+  color: var(--blue);
+  margin-top: 20px !important;
+  margin-bottom: 10px !important;
+}
+
+.guides-main {
+  margin-left: 20px;
+  padding: 20px !important;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: wrap;
+  flex-direction: column;
+  text-align: left;
+}
+
+.guides-main li {
+  margin-left: 20px !important;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+
+code {
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 10px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+}
+
+pre {
+  background-color: var(--dark);
+  color: var(--white);
+  padding: 1.5rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: 1px solid var(--blue);
+  font-family: 'Courier New', monospace;
+  margin: 1rem 0;
+}
+
+.guides-main ul, ol {
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.guides-main li {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .guides-main {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 769px) {
+  .guides-main {
+    margin-left: 15% !important;
+    margin-right: 15% !important;
+  }
+}
+
 /*THE FOOTER FOR ALL PAGES*/
 
 footer {
