@@ -26,31 +26,30 @@ body {
 
 .columns {
   display: flex !important;
-  flex-direction: column; /* Stack rows vertically for desktop */
+  flex-direction: column;
   width: 100%;
-  border-bottom: none; /* Remove bottom border from container */
+  border-bottom: none;
 }
 
 .column {
-  flex: none; /* Remove flex-grow to let content dictate size */
-  width: 100%; /* Full width for each row */
+  flex: none;
+  width: 100%;
   background: linear-gradient(to bottom, #1e2022, var(--dark));
-  padding: 15px 20px; /* Adjusted padding for better spacing */
+  padding: 15px 20px;
   display: flex !important;
-  flex-direction: row; /* Horizontal layout within each row */
+  flex-direction: row;
   align-items: center;
-  justify-content: center; /* Center items horizontally */
-  gap: 10px; /* Space between elements in the row */
+  justify-content: center;
+  gap: 10px;
   box-sizing: border-box;
-  min-height: auto; /* Let content dictate height */
+  min-height: auto;
 }
 
 .project-bar {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator between Project and File rows */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .file-bar {
-  /* No border needed since it's the last row */
 }
 
 .column span {
@@ -81,33 +80,30 @@ body {
   align-items: center;
   gap: 6px;
   flex: 0 0 auto;
-  width: 120px; /* Match button width on desktop */
+  width: 120px;
   justify-content: center;
   text-align: center;
-  border: 1px solid var(--blue); /* Preserve debug border */
 }
 
 .logo-button .logo-text {
   font-family: 'Audiowide', sans-serif !important;
-  font-size: 16px !important; /* Adjusted to fit within button height */
+  font-size: 16px !important;
   color: var(--white) !important;
   text-align: center;
   line-height: 1;
-  /*border: 1px solid yellow; Preserve debug border*/
 }
 
 .logo-button .tagline {
-  font-size: 8px !important; /* Adjusted to fit within button height */
+  font-size: 8px !important;
   color: #a0a0a0 !important;
   text-transform: uppercase;
   letter-spacing: 1px;
   text-align: center;
   line-height: 1.2;
   margin-top: 2px;
-  /*border: 1px solid blue;*/ /* Preserve debug border */
 }
 
-.logo-button:blue {
+.logo-button:hover {
   background: var(--blue);
   color: var(--white);
   border-color: var(--blue);
@@ -124,7 +120,7 @@ body {
   font-size: 14px;
   outline: none;
   height: 36px;
-  width: 200px; /* Fixed width for desktop */
+  width: 200px;
   box-sizing: border-box;
   user-select: text;
   touch-action: auto;
@@ -147,7 +143,7 @@ body {
   font-size: 14px;
   outline: none;
   height: 36px;
-  width: 200px; /* Fixed width for desktop */
+  width: 200px;
   box-sizing: border-box;
   user-select: text;
   touch-action: auto;
@@ -178,7 +174,7 @@ body {
   align-items: center;
   gap: 6px;
   flex: 0 0 auto;
-  width: 120px; /* Fixed width for buttons on desktop */
+  width: 120px;
   justify-content: center;
   text-align: center;
 }
@@ -188,14 +184,14 @@ body {
   transition: color 0.2s;
 }
 
-.column button:blue {
+.column button:hover {
   background: var(--blue);
   color: var(--white);
   border-color: var(--blue);
   transform: translateY(-1px);
 }
 
-.column button:blue i {
+.column button:hover i {
   color: var(--white);
 }
 
@@ -247,7 +243,7 @@ body {
   border-bottom: 2px solid var(--blue);
 }
 
-.tab:blue {
+.tab:hover {
   background: var(--blue);
   color: var(--white);
 }
@@ -417,14 +413,14 @@ iframe {
   transition: color 0.2s;
 }
 
-.modal-content button:blue {
+.modal-content button:hover {
   background: var(--blue);
   color: var(--white);
   border-color: var(--blue);
   transform: translateY(-1px);
 }
 
-.modal-content button:blue i {
+.modal-content button:hover i {
   color: var(--white);
 }
 
@@ -432,21 +428,20 @@ iframe {
   display: none;
 }
 
-/* Responsive adjustments for tablet and mobile */
 @media only screen and (max-width: 767px) {
   .header-container {
     flex: 0 0 auto;
   }
 
   .columns {
-    flex-direction: row; /* Side-by-side layout for tablet/mobile */
+    flex-direction: row;
   }
 
   .column {
-    flex: 1; /* Equal width for side-by-side */
-    width: auto; /* Reset width */
+    flex: 1;
+    width: auto;
     padding: 10px 8px;
-    flex-direction: column; /* Stack elements vertically within each column */
+    flex-direction: column;
     align-items: center;
     gap: 8px;
     min-height: 60px;
@@ -455,7 +450,7 @@ iframe {
 
   .project-bar {
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: none; /* Remove bottom border for side-by-side */
+    border-bottom: none;
   }
 
   .file-bar {
@@ -465,21 +460,21 @@ iframe {
 
   .project-bar .logo-button {
     width: 100%;
-    max-width: none; /* Full width on smaller screens */
+    max-width: none;
   }
 
   .logo-button .logo-text {
-    font-size: 20px !important; /* Adjusted for mobile/tablet */
+    font-size: 20px !important;
   }
 
   .logo-button .tagline {
-    font-size: 7px !important; /* Adjusted for mobile/tablet */
+    font-size: 7px !important;
   }
 
   .project-bar input,
   .file-bar input {
     width: 100%;
-    max-width: none; /* Full width on smaller screens */
+    max-width: none;
     font-size: 13px;
     padding: 6px 8px;
     height: 32px;
@@ -487,7 +482,7 @@ iframe {
 
   .project-bar select {
     width: 100%;
-    max-width: none; /* Full width on smaller screens */
+    max-width: none;
     font-size: 13px;
     padding: 6px 8px;
     height: 32px;
@@ -495,7 +490,7 @@ iframe {
 
   .column button {
     width: 100%;
-    max-width: none; /* Full width on smaller screens */
+    max-width: none;
     font-size: 13px;
     padding: 6px 12px;
     height: 32px;
@@ -585,11 +580,11 @@ iframe {
   }
 
   .logo-button .logo-text {
-    font-size: 18px !important; /* Adjusted for mobile */
+    font-size: 18px !important;
   }
 
   .logo-button .tagline {
-    font-size: 6px !important; /* Adjusted for mobile */
+    font-size: 6px !important;
   }
 
   .project-bar input,
