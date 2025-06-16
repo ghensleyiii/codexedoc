@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DESSERT SHOP</title>
+  <!-- Font Awesome CDN for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --dark-steel: #295d8a !important;
+      --steel: #4a7fb2 !important;
+      --white: #ffffff !important;
+      --black: #000000 !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", "Lato", Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      background:
+        radial-gradient(circle, var(--dark-steel) 3px, transparent 4px),
+        radial-gradient(circle, var(--steel) 3px, transparent 4px),
+        radial-gradient(circle, var(--dark-steel) 3px, transparent 4px),
+        radial-gradient(circle, var(--steel) 3px, transparent 4px),
+        radial-gradient(circle, var(--dark-steel) 3px, transparent 4px),
+        radial-gradient(circle, var(--steel) 3px, transparent 4px);
+      background-size: 100px 100px;
+      background-position:
+        0 0,
+        25px 25px,
+        50px 50px,
+        75px 75px,
+        100px 100px,
+        125px 125px;
+      background-color: var(--white);
+      color: var(--black);
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    .title {
+      text-align: center;
+      margin: 40px 0;
+      color: var(--black);
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    #dessert-card-container {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .dessert-card {
+      background-color: var(--white);
+      padding: 25px;
+      text-align: center;
+      border: 2px solid #000000;
+      border-radius: 8px;
+      margin: 15px;
+      width: 400px;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .dessert-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .dessert-card h2 {
+      color: #000000;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .dessert-price {
+      color: #000000;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 10px 0;
+    }
+
+    .product-category {
+      color: #000000;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      width: 140px;
+      background: var(--dark-steel);
+      border: none;
+      border-radius: 6px;
+      color: var(--white);
+      padding: 10px 15px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+      margin: 15px auto;
+      transition: background 0.3s ease;
+    }
+
+    .btn i {
+      margin-right: 8px;
+    }
+
+    .btn:hover {
+      background: var(--steel);
+    }
+
+    #cart-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      margin: 0;
+      width: 160px;
+      z-index: 100;
+    }
+
+    #cart-container {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background-color: var(--white);
+      width: 300px;
+      max-height: 500px;
+      border: 2px solid #000000;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1rem;
+      overflow-y: auto;
+      padding: 25px;
+      color: var(--black);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      z-index: 100;
+    }
+
+    .product {
+      margin: 20px 0;
+      font-size: 0.9rem;
+    }
+
+    .product-count {
+      display: inline-block;
+      margin-right: 10px;
+      font-weight: 600;
+    }
+
+    .product-category {
+      margin: 10px 0;
+    }
+
+    @media (min-width: 900px) {
+      #dessert-card-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .dessert-card {
+        flex: 0 0 calc(33.333% - 30px);
+        max-width: calc(33.333% - 30px);
+        margin: 15px;
+      }
+
+      #cart-container {
+        width: 340px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .dessert-card {
+        width: 90%;
+        margin: 10px;
+      }
+
+      #cart-container {
+        width: 90%;
+        right: 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="title">DESSERT SHOP</h1>
+  </header>
+  <main>
+    <button id="cart-btn" type="button" class="btn">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span id="show-hide-cart">Show</span> Cart
+    </button>
+    <div id="cart-container">
+      <button class="btn" id="clear-cart-btn">
+        <i class="fa-solid fa-cart-arrow-down"></i>
+        Clear Cart
+      </button>
+      <div id="products-container"></div>
+      <p>Total number of items: <span id="total-items">0</span></p>
+      <p>Subtotal: <span id="subtotal">$0</span></p>
+      <p>Taxes: <span id="taxes">$0</span></p>
+      <p>Total: <span id="total">$0</span></p>
+    </div>
+    <div id="dessert-card-container"></div>
+  </main>
+  <script>
+    const cartContainer = document.getElementById("cart-container");
+    const productsContainer = document.getElementById("products-container");
+    const dessertCards = document.getElementById("dessert-card-container");
+    const cartBtn = document.getElementById("cart-btn");
+    const clearCartBtn = document.getElementById("clear-cart-btn");
+    const totalNumberOfItems = document.getElementById("total-items");
+    const cartSubTotal = document.getElementById("subtotal");
+    const cartTaxes = document.getElementById("taxes");
+    const cartTotal = document.getElementById("total");
+    const showHideCartSpan = document.getElementById("show-hide-cart");
+    let isCartShowing = false;
+
+    const products = [
+      {
+        id: 1,
+        name: "Vanilla Cupcakes (6 Pack)",
+        price: 12.99,
+        category: "Cupcake",
+      },
+      {
+        id: 2,
+        name: "French Macaron",
+        price: 3.99,
+        category: "Macaron",
+      },
+      {
+        id: 3,
+        name: "Pumpkin Cupcake",
+        price: 3.99,
+        category: "Cupcake",
+      },
+      {
+        id: 4,
+        name: "Chocolate Cupcake",
+        price: 5.99,
+        category: "Cupcake",
+      },
+      {
+        id: 5,
+        name: "Chocolate Pretzels (4 Pack)",
+        price: 10.99,
+        category: "Pretzel",
+      },
+      {
+        id: 6,
+        name: "Strawberry Ice Cream",
+        price: 2.99,
+        category: "Ice Cream",
+      },
+      {
+        id: 7,
+        name: "Chocolate Macarons (4 Pack)",
+        price: 9.99,
+        category: "Macaron",
+      },
+      {
+        id: 8,
+        name: "Strawberry Pretzel",
+        price: 4.99,
+        category: "Pretzel",
+      },
+      {
+        id: 9,
+        name: "Butter Pecan Ice Cream",
+        price: 2.99,
+        category: "Ice Cream",
+      },
+      {
+        id: 10,
+        name: "Rocky Road Ice Cream",
+        price: 2.99,
+        category: "Ice Cream",
+      },
+      {
+        id: 11,
+        name: "Vanilla Macarons (5 Pack)",
+        price: 11.99,
+        category: "Macaron",
+      },
+      {
+        id: 12,
+        name: "Lemon Cupcakes (4 Pack)",
+        price: 12.99,
+        category: "Cupcake",
+      },
+    ];
+
+    products.forEach(
+      ({ name, id, price, category }) => {
+        dessertCards.innerHTML += `
+          <div class="dessert-card">
+            <h2>${name}</h2>
+            <p class="dessert-price">$${price}</p>
+            <p class="product-category">Category: ${category}</p>
+            <button
+              id="${id}"
+              class="btn add-to-cart-btn">
+              <i class="fa-solid fa-cart-plus"></i>
+              Add to cart
+            </button>
+          </div>
+        `;
+      }
+    );
+
+    class ShoppingCart {
+      constructor() {
+        this.items = [];
+        this.total = 0;
+        this.taxRate = 8.25;
+      }
+
+      addItem(id, products) {
+        const product = products.find((item) => item.id === id);
+        const { name, price } = product;
+        this.items.push(product);
+
+        const totalCountPerProduct = {};
+        this.items.forEach((dessert) => {
+          totalCountPerProduct[dessert.id] = (totalCountPerProduct[dessert.id] || 0) + 1;
+        });
+
+        const currentProductCount = totalCountPerProduct[product.id];
+        const currentProductCountSpan = document.getElementById(`product-count-for-id${id}`);
+
+        currentProductCount > 1
+          ? currentProductCountSpan.textContent = `${currentProductCount}x`
+          : productsContainer.innerHTML += `
+            <div id="dessert${id}" class="product">
+              <p>
+                <span class="product-count" id="product-count-for-id${id}"></span>${name}
+              </p>
+              <p>${price}</p>
+            </div>
+          `;
+      }
+
+      getCounts() {
+        return this.items.length;
+      }
+
+      clearCart() {
+        if (!this.items.length) {
+          alert("Your shopping cart is already empty");
+          return;
+        }
+
+        const isCartCleared = confirm(
+          "Are you sure you want to clear all items from your shopping cart?"
+        );
+
+        if (isCartCleared) {
+          this.items = [];
+          this.total = 0;
+          productsContainer.innerHTML = "";
+          totalNumberOfItems.textContent = 0;
+          cartSubTotal.textContent = 0;
+          cartTaxes.textContent = 0;
+          cartTotal.textContent = 0;
+        }
+      }
+
+      calculateTaxes(amount) {
+        return parseFloat(((this.taxRate / 100) * amount).toFixed(2));
+      }
+
+      calculateTotal() {
+        const subTotal = this.items.reduce((total, item) => total + item.price, 0);
+        const tax = this.calculateTaxes(subTotal);
+        this.total = subTotal + tax;
+        cartSubTotal.textContent = `$${subTotal.toFixed(2)}`;
+        cartTaxes.textContent = `$${tax.toFixed(2)}`;
+        cartTotal.textContent = `$${this.total.toFixed(2)}`;
+        return this.total;
+      }
+    }
+
+    const cart = new ShoppingCart();
+    const addToCartBtns = document.getElementsByClassName("add-to-cart-btn");
+
+    [...addToCartBtns].forEach(
+      (btn) => {
+        btn.addEventListener("click", (event) => {
+          cart.addItem(Number(event.target.id), products);
+          totalNumberOfItems.textContent = cart.getCounts();
+          cart.calculateTotal();
+        });
+      }
+    );
+
+    cartBtn.addEventListener("click", () => {
+      isCartShowing = !isCartShowing;
+      showHideCartSpan.textContent = isCartShowing ? "Hide" : "Show";
+      cartContainer.style.display = isCartShowing ? "block" : "none";
+    });
+
+    clearCartBtn.addEventListener('click', cart.clearCart.bind(cart));
+  </script>
+</body>
+</html>
