@@ -281,6 +281,7 @@ footer {
 
 .results::-webkit-scrollbar {
   width: 8px;
+  z-index: 50; /*ADDED TO TRY TO MAKE SCROLL BAR APPEAR*/
 }
 
 .results::-webkit-scrollbar-track {
