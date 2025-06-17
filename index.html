@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Codexedoc offical website">
@@ -9,80 +10,81 @@
     <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/images/android-chrome-192x192.png">
     <title>CODEXEDOC</title>
-    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  </head>
-  <body>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
     <main>
-      <section class="hero" id="hero">
-        <h1>CODEXEDOC</h1>
-        <p><i>Code Codex</i></p>
-        <div class="search">
-          <div class="search-bar">
-            <input type="text" placeholder="Search code components...e.g.'&lt;div&gt;'">
-            <button type="submit" onclick="test()"><i class="fas fa-search" style="color: white;"></i></button>
-          </div>
-        </div>
-      </section>
-      <section class="portfolio reveal" id="portfolio">
-        <h2>PORTFOLIO</h2>
-        <div class="portfolio-grid">
-          <div class="portfolio-item reveal">
-            <a href="portfolio/original-trombones/">
-            <img src="assets/images/original-trombones.png" alt="Original Trombones Hero Section">
-            <h3>Original Trombones</h3>
-            <p>A product landing page using html and css.</p>
-            </a>
-          </div>
-          <div class="portfolio-item reveal">
-            <a href="portfolio/pangolin-magazine/">
-            <img src="assets/images/pangolin-magazine.png" alt="Pangolin Magazine Hero Section">
-            <h3>Pangolin Magazine</h3>
-            <p>A magazine page using html, and css.</p>
-            </a>
-          </div>
-          <div class="portfolio-item reveal">
-            <a href="portfolio/dessert-shop/">
-            <img src="assets/images/dessert-shop.png" alt="Dessert Shop Hero Section">
-            <h3>Dessert Shop</h3>
-            <p>A dessert shop page using html, css, and JavaScript.</p>
-            </a>
-          </div>
-          <div class="portfolio-item reveal">
-            <a href="portfolio/rock-paper-scissors/">
-            <img src="assets/images/rock-paper-scissors.png" alt="Rock Paper Scissors Hero Section">
-            <h3>Rock Paper Scissors</h3>
-            <p>A Rock Paper Scissors game page using html, css, and JavaScript.</p>
-            </a>
-          </div>
-          <div class="portfolio-item reveal">
-            <a href="portfolio/calorie-counter/">
-            <img src="assets/images/calorie-counter.png" alt="Calorie Counter Hero Section">
-            <h3>Calorie Counter</h3>
-            <p>A calorie counter page using html, css, and JavaScript.</p>
-            </a>
-          </div>
-          <div class="portfolio-item reveal">
-            <a href="portfolio/palindrome-cheker/">
-            <img src="assets/images/palindrome.png" alt="Palindrome Checker Hero Section">
-            <h3>Palindrome Checker</h3>
-            <p>A palindrome checker page using html, css, and JavaScript.</p>
-            </a>
-          </div>
-          <div class="portfolio-item reveal">
-            <a href="portfolio/roman-numeral-converter/">
-            <img src="assets/images/roman-numeral.png" alt="Roman Numeral Hero Section">
-            <h3>Roman Numeral Converter</h3>
-            <p>A roman numeral converter page using html, css, and JavaScript.</p>
-            </a>
-          </div>
-        </div>
-      </section>
+        <section class="hero" id="hero">
+            <h1>CODEXEDOC</h1>
+            <p><i>Code Codex</i></p>
+            <div class="search">
+                <div class="search-bar">
+                    <input type="text" id="search" placeholder="Search code components...e.g.'<div>'">
+                </div>
+            </div>
+            <div id="results" class="results"></div>
+        </section>
+        <section class="portfolio reveal" id="portfolio">
+            <h2>PORTFOLIO</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item reveal">
+                    <a href="portfolio/original-trombones/">
+                        <img src="assets/images/original-trombones.png" alt="Original Trombones Hero Section">
+                        <h3>Original Trombones</h3>
+                        <p>A product landing page using html and css.</p>
+                    </a>
+                </div>
+                <div class="portfolio-item reveal">
+                    <a href="portfolio/pangolin-magazine/">
+                        <img src="assets/images/pangolin-magazine.png" alt="Pangolin Magazine Hero Section">
+                        <h3>Pangolin Magazine</h3>
+                        <p>A magazine page using html, and css.</p>
+                    </a>
+                </div>
+                <div class="portfolio-item reveal">
+                    <a href="portfolio/dessert-shop/">
+                        <img src="assets/images/dessert-shop.png" alt="Dessert Shop Hero Section">
+                        <h3>Dessert Shop</h3>
+                        <p>A dessert shop page using html, css, and JavaScript.</p>
+                    </a>
+                </div>
+                <div class="portfolio-item reveal">
+                    <a href="portfolio/rock-paper-scissors/">
+                        <img src="assets/images/rock-paper-scissors.png" alt="Rock Paper Scissors Hero Section">
+                        <h3>Rock Paper Scissors</h3>
+                        <p>A Rock Paper Scissors game page using html, css, and JavaScript.</p>
+                    </a>
+                </div>
+                <div class="portfolio-item reveal">
+                    <a href="portfolio/calorie-counter/">
+                        <img src="assets/images/calorie-counter.png" alt="Calorie Counter Hero Section">
+                        <h3>Calorie Counter</h3>
+                        <p>A calorie counter page using html, css, and JavaScript.</p>
+                    </a>
+                </div>
+                <div class="portfolio-item reveal">
+                    <a href="portfolio/palindrome-cheker/">
+                        <img src="assets/images/palindrome.png" alt="Palindrome Checker Hero Section">
+                        <h3>Palindrome Checker</h3>
+                        <p>A palindrome checker page using html, css, and JavaScript.</p>
+                    </a>
+                </div>
+                <div class="portfolio-item reveal">
+                    <a href="portfolio/roman-numeral-converter/">
+                        <img src="assets/images/roman-numeral.png" alt="Roman Numeral Hero Section">
+                        <h3>Roman Numeral Converter</h3>
+                        <p>A roman numeral converter page using html, css, and JavaScript.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
     <footer>
-      <p>&copy 2025 CODEXEDOC. All rights reserved.</p>
-      <p>contact@codexedoc.com</p>
+        <p>© 2025 CODEXEDOC. All rights reserved.</p>
+        <p>contact@codexedoc.com</p>
     </footer>
     <script src="js/script.js"></script>
-  </body>
-  </html>
+    <script src="js/codex.js"></script>
+</body>
+</html>
