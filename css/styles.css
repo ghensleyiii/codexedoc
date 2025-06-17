@@ -132,6 +132,10 @@ h1 {
   .search-bar input[type="text"] {
     width: 25rem;
   }
+  input[type="search"],
+  input[type="text"] {
+    -webkit-text-size-adjust: 100%;
+  }
 }
 
 @media (max-width: 900px) {
@@ -148,6 +152,10 @@ h1 {
   .search-bar input[type="text"] {
     width: 15rem;
     font-size: 1rem;
+  }
+  input[type="search"],
+  input[type="text"] {
+    -webkit-text-size-adjust: 100%;
   }
 }
 
@@ -169,6 +177,10 @@ h1 {
     width: 60vw;
     font-size: 0.9rem;
     padding: 6px;
+  }
+  input[type="search"],
+  input[type="text"] {
+    -webkit-text-size-adjust: 100%;
   }
 }
 
