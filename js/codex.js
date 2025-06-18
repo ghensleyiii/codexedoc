@@ -1716,5 +1716,15 @@ const components = [
         c: "JavaScript window.matchMedia()",
         d: "The window.matchMedia() method tests if a media query matches, returning a MediaQueryList. It’s used for responsive design checks.",
         e: "let mq = window.matchMedia('(max-width: 600px)'); console.log(mq.matches);"
+    },
+    {
+        c: "JavaScript trimStart() method",
+        d: "The trimStart() method works similarly to the trim() method, except it only removes the whitespace from the beginning of a string.",
+        e: "let str = '  hello  '; console.log(str.trimStart()); // 'hello  '"
+    },
+    {
+        c: "JavaScript trimEnd() method",
+        d: "The trimEnd() method works similarly to the trim() method, except it only removes the whitespace from the end of a string.",
+        e: "let str = '  hello  '; console.log(str.trimEnd()); // '  hello'"
     }
 ];
