@@ -1729,7 +1729,7 @@ const components = [
     },
     {
         c: "JavaScript isNaN function",
-        d: "The isNaN function is used to determine whether a value is NaN or not. It is best practice to use the Number constructor to provide a more reliable result.",
+        d: "The isNaN() function is used to determine whether a value is NaN or not. It is best practice to use the Number constructor to provide a more reliable result.",
         e: "let value = 'apple'; console.log(isNaN(value)); // true"
     }
 ];
