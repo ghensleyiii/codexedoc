@@ -1726,5 +1726,10 @@ const components = [
         c: "JavaScript trimEnd() method",
         d: "The trimEnd() method works similarly to the trim() method, except it only removes the whitespace from the end of a string.",
         e: "let str = '  hello  '; console.log(str.trimEnd()); // '  hello'"
+    },
+    {
+        c: "JavaScript isNaN function",
+        d: "The isNaN function is used to determine whether a value is NaN or not. It is best practice to use the Number constructor to provide a more reliable result.",
+        e: "let value = 'apple'; console.log(isNaN(value)); // true"
     }
 ];
