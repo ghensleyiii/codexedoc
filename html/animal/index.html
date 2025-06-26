@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Animal Runner</title>
+  <title>Animal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html, body {
@@ -36,6 +36,14 @@
       align-items: center;
       justify-content: center;
       z-index: 10;
+      over-flow: auto;
+      scrollbar-width: none;           /* Firefox */
+      -ms-overflow-style: none;        /* IE and Edge */
+    }
+    
+    .popup::-webkit-scrollbar {
+      width: 0 !important;             /* Chrome, Safari */
+      display: none;
     }
     .popup-content {
       background: #fff;
