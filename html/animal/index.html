@@ -134,26 +134,8 @@
       #score { font-size: 1.2em; }
     }
     /* Backgrounds */
-    .bg-red {
-      background: linear-gradient(to top, #d80707 20%, #000000 20%);
-    }
-    .bg-orange {
-      background: linear-gradient(to top, #d85c07 20%, #000000 20%);
-    }
-    .bg-yellow {
-      background: linear-gradient(to top, #d8d807 20%, #000000 20%);
-    }
-    .bg-green {
-      background: linear-gradient(to top, #47d469 20%, #000000 20%);
-    }
-    .bg-blue {
-      background: linear-gradient(to top, #0783d8 20%, #000000 20%);
-    }
-    .bg-purple {
-      background: linear-gradient(to top, #5c07d8 20%, #000000 20%);
-    }
-    .bg-white {
-      background: linear-gradient(to top, #ffffff 20%, #000000 20%);
+    .bg {
+      background: linear-gradient(to top, #47d469 20%, #33c1ee 20%, #0783d8, #0e4d90);
     }
     
     /* Hide scrollbars */
@@ -179,8 +161,6 @@
       <div id="animal-choices"></div>
       <div class="label">Choose Obstacle</div>
       <div id="obstacle-choices"></div>
-      <div class="label">Choose background</div>
-      <div id="bg-choices"></div>
       <button id="start-btn" style="margin-top:1em;font-size:1.2em;">Start Game</button>
     </div>
   </div>
@@ -194,77 +174,67 @@
   <script>
     // Emoji options
     const animals = [
-  // Aquatic animals
-  '🐬', '🐳', '🐋', '🐟', '🐠', '🐡', '🦈', '🦭',
-  '🪼', '🦑', '🦐',
+      // Reptiles and Amphibians
+      '🐢', '🐍', '🐊',
 
-  // Reptiles and Amphibians
-  '🐢', '🐍', '🐊',
+      // Dinosaurs and extinct reptiles
+      '🦖', '🦕',
 
-  // Dinosaurs and extinct reptiles
-  '🦖', '🦕',
+      // Insects and arthropods
+      '🐜', '🐝', '🐛', '🦗', '🦟', '🦂',
 
-  // Insects and arthropods
-  '🐜', '🐝', '🐛', '🦗', '🦟', '🦂',
+      // Birds (ordered by color or similarity)
+      '🦆', '🪿', '🐓', '🦃', '🦤', '🦢', '🦩', '🦜', '🦅', '🕊️', '🐦‍⬛', '🦇',
 
-  // Birds (ordered by color or similarity)
-  '🦆', '🪿', '🐓', '🦃', '🦤', '🦢', '🦩', '🦜', '🦅', '🕊️', '🐦‍⬛', '🦇',
+      // Big cats and similar mammals
+      '🐅', '🐆', '🦓',
 
-  // Big cats and similar mammals
-  '🐅', '🐆', '🦓',
+      // Primates
+      '🐒', '🦍',
 
-  // Primates
-  '🐒', '🦍',
+      // Large land mammals
+      '🐘', '🦣', '🦛', '🦏',
 
-  // Large land mammals
-  '🐘', '🦣', '🦛', '🦏',
+      // Hoofed animals
+      '🐃', '🦬', '🐂', '🐄', '🫏', '🐎', '🐪', '🐫', '🦒', '🦌', '🦙', '🐐', '🐏', '🐑',
 
-  // Hoofed animals
-  '🐃', '🦬', '🐂', '🐄', '🫏', '🐎', '🐪', '🐫', '🦒', '🦌', '🦙', '🐐', '🐏', '🐑',
+      // Domesticated animals
+      '🐖', '🐕', '🐩', '🦮', '🐕‍🦺', '🐈', '🐈‍⬛',
 
-  // Domesticated animals
-  '🐖', '🐕', '🐩', '🦮', '🐕‍🦺', '🐈', '🐈‍⬛',
+      // Small mammals
+      '🐇', '🐁', '🐀', '🐿️',
 
-  // Small mammals
-  '🐇', '🐁', '🐀', '🐿️',
-
-  // Misc mammals
-  '🦝', '🦨', '🦡', '🦫', '🦔'
-];
+      // Misc mammals
+      '🦝', '🦨', '🦡', '🦫', '🦔'
+    ];
     // Obstacles: always three sizes for each emoji
     const baseObstacles = [
-  // Sea and Water elements
-  '🪸', '🐚',
+      // Plants - Trees, Logs, Leaves
+      '🌵', '🌳', '🌲', '🌴', '🪵', '🪾',
+      '🌱', '🌿', '☘️', '🍀', '🍃', '🍂', '🍁',
+      '🪴',
 
-  // Plants - Trees, Logs, Leaves
-  '🌵', '🌳', '🌲', '🌴', '🪵', '🪾',
-  '🌱', '🌿', '☘️', '🍀', '🍃', '🍂', '🍁',
-  '🪴',
+      // Nests and Webs
+      '🪺', '🪹', '🕸️',
 
-  // Nests and Webs
-  '🪺', '🪹', '🕸️',
+      // Flowers and Flower-like
+      '🌾', '💐', '🌷', '🌹', '🥀', '🪻', '🪷', '🌺', '🌸', '🌼', '🌻',
 
-  // Flowers and Flower-like
-  '🌾', '💐', '🌷', '🌹', '🥀', '🪻', '🪷', '🌺', '🌸', '🌼', '🌻',
+      // Footprints / Animal traces
+      '🐾',
 
-  // Weather & Celestial
-  '☀️', '⭐️', '🌟', '✨', '⚡️', '☄️', '🌪️', '💦', '💧', '🫧', '❄️', '🧊', '💥', '🔥',
+      // Objects & Traps
+      '🪨', '🪤', '💣',
 
-  // Footprints / Animal traces
-  '🐾',
+      // Food/Nature Items
+      '🥜',
 
-  // Objects & Traps
-  '🪨', '🪤', '💣',
+      // Special case: Mushroom (includes variant)
+      '🍄', '🍄‍🟫',
 
-  // Food/Nature Items
-  '🥜',
-
-  // Special case: Mushroom (includes variant)
-  '🍄', '🍄‍🟫',
-
-  // Microscopic/Threat
-  '🦠'
-];
+      // Microscopic/Threat
+      '🦠'
+    ];
     const sizeTypes = [
       {size: 1, label: 'full'},
       {size: 0.75, label: 'medium'},
@@ -296,15 +266,9 @@
       shuffleArray(obstacleDeck);
     }
 
-    const backgrounds = [
-      { name: "Red", class: "bg-red", emoji: "🔴"},
-      { name: "Orange", class: "bg-orange", emoji: "🟠"},
-      { name: "Yellow", class: "bg-yellow", emoji: "🟡"},
-      { name: "Green", class: "bg-green", emoji: "🟢"},
-      { name: "Blue", class: "bg-blue", emoji: "🔵"},
-      { name: "Purple", class: "bg-purple", emoji: "🟣"},
-      { name: "Pink", class: "bg-white", emoji: "⚪️"}
-    ];
+    // Removed backgrounds and background selection code
+    // Set your background class here:
+    const backgroundClass = "bg"; // <-- Set your background class here
 
     // DOM
     const game = document.getElementById('game');
@@ -313,7 +277,7 @@
     const gameoverPopup = document.getElementById('gameover-popup');
     const animalChoices = document.getElementById('animal-choices');
     const obstacleChoices = document.getElementById('obstacle-choices');
-    const bgChoices = document.getElementById('bg-choices');
+    // Removed bgChoices
     const startBtn = document.getElementById('start-btn');
     const restartBtn = document.getElementById('restart-btn');
     const mobileControls = document.getElementById('mobile-controls');
@@ -323,7 +287,7 @@
     // Game state
     let selectedAnimal = animals[0];
     let selectedObstacle = obstacles[0];
-    let selectedBg = backgrounds[0];
+    // Removed selectedBg
     let running = false;
     let score = 0;
     let speed = 0.5; // Normal, fixed speed
@@ -340,13 +304,31 @@
     let jumpPower = 0;
     let jumpMax = 13;
     let jumpMin = 7;
-    let gravity = 0; // was 0.6 I changed it to 0 for higher jumps
+    let gravity = 0;
     let lastObstacleTime = 0;
     let obstacleInterval = 1400;
     let lastFrameTime = 0;
     let bgEmojiCount = 18;
-    // Always use desktop logic
     let isMobile = false;
+
+    // --- Weather/Disaster State ---
+    const cloudEmojis = ['☁️'];
+    const windEmojis = ['💨'];
+    const rainDropEmojis = ['💧','💦','🫧'];
+    const quakeEmoji = '🌋';
+    let clouds = [];
+    let winds = [];
+    let rains = [];
+    let quake = null;
+    let windActive = false;
+    let rainActive = false;
+    let quakeActive = false;
+    let windAffectEnd = 0;
+    let rainAffectEnd = 0;
+    let quakeAffectEnd = 0;
+    let nextWindScore = 1500;
+    let nextRainScore = 2000;
+    let nextQuakeScore = 3000;
 
     // --- UI Setup ---
     function createEmojiMenu(arr, container, selected, cb) {
@@ -382,159 +364,366 @@
         container.appendChild(btn);
       });
     }
-    function createBgMenu(arr, container, selected, cb) {
-      container.innerHTML = '';
-      arr.forEach(bg => {
-        const btn = document.createElement('button');
-        btn.className = 'emoji-select' + (bg === selected ? ' selected' : '');
-        btn.textContent = bg.emoji;
-        btn.title = bg.name;
-        btn.onclick = () => {
-          container.querySelectorAll('.emoji-select').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          cb(bg);
-        };
-        container.appendChild(btn);
-      });
-    }
+    // Removed createBgMenu and background menu setup
     createEmojiMenu(animals, animalChoices, selectedAnimal, a => selectedAnimal = a);
     createEmojiMenu(obstacles, obstacleChoices, selectedObstacle, o => { selectedObstacle = o; refillObstacleDeck(); });
-    createBgMenu(backgrounds, bgChoices, selectedBg, bg => selectedBg = bg);
 
     // --- Game Entities ---
     function resetGameVars() {
-  running = true;
-  score = 0;
-  speed = 0.5;
-  bgSpeed = 0.7;
-  animal = null;
-  obstacleList = [];
-  bgEmojis = [];
-  jumpVelocity = 0;
-  isJumping = false;
-  jumpPressed = false;
-  jumpStart = false;
-  jumpPower = 0;
-  lastObstacleTime = 0;
-  obstacleInterval = 1400;
-  lastFrameTime = 0;
-  game.innerHTML = '';
-  scoreDiv.textContent = '';
-  document.body.className = selectedBg.class;
-  game.className = selectedBg.class;
-  refillObstacleDeck();
-}
+      running = true;
+      score = 0;
+      speed = 0.5;
+      bgSpeed = 0.7;
+      animal = null;
+      obstacleList = [];
+      bgEmojis = [];
+      jumpVelocity = 0;
+      isJumping = false;
+      jumpPressed = false;
+      jumpStart = false;
+      jumpPower = 0;
+      lastObstacleTime = 0;
+      obstacleInterval = 1400;
+      lastFrameTime = 0;
+      game.innerHTML = '';
+      scoreDiv.textContent = '';
+      // Set background class here
+      document.body.className = backgroundClass;
+      game.className = backgroundClass;
+      refillObstacleDeck();
+      // Clouds & weather/disaster
+      clouds = [];
+      winds = [];
+      rains = [];
+      quake = null;
+      windActive = false;
+      rainActive = false;
+      quakeActive = false;
+      windAffectEnd = 0;
+      rainAffectEnd = 0;
+      quakeAffectEnd = 0;
+      nextWindScore = 1500;
+      nextRainScore = 2000;
+      nextQuakeScore = 3000;
+      createClouds();
+    }
 
     function createAnimal() {
-  const el = document.createElement('div');
-  el.style.position = 'absolute';
-  el.style.left = '80vw'; // Move to the right side
-  el.style.bottom = '20vh';
-  el.style.fontSize = '8vh';
-  el.style.lineHeight = '1';
-  el.style.userSelect = 'none';
-  el.textContent = selectedAnimal;
-  el.setAttribute('aria-label', 'player');
-  game.appendChild(el);
-  groundY = 20;
-  return {el, x: 80, y: groundY, vy: 0, width: 8, height: 8}; // Update x to 80
-}
+      const el = document.createElement('div');
+      el.style.position = 'absolute';
+      el.style.left = '80vw';
+      el.style.bottom = '20vh';
+      el.style.fontSize = '8vh';
+      el.style.lineHeight = '1';
+      el.style.userSelect = 'none';
+      el.textContent = selectedAnimal;
+      el.setAttribute('aria-label', 'player');
+      game.appendChild(el);
+      groundY = 20;
+      return {el, x: 80, y: groundY, vy: 0, width: 8, height: 8};
+    }
 
     function createObstacle() {
-  if (obstacleDeck.length === 0) refillObstacleDeck();
-  let obs = obstacleDeck.shift();
-  let fontSize = 8 * obs.size;
-  let scale = window.innerWidth < 600 ? 0.3 : 1; // scale down for mobile
-  fontSize = fontSize * scale;
-  const el = document.createElement('div');
-  el.style.position = 'absolute';
-  el.style.left = '-10vw'; // Start off-screen on the left
-  el.style.bottom = '20vh';
-  el.style.fontSize = fontSize + 'vh';
-  el.style.lineHeight = '1';
-  el.style.userSelect = 'none';
-  el.textContent = obs.emoji;
-  el.setAttribute('aria-label', 'obstacle');
-  game.appendChild(el);
-  return {
-    el,
-    x: -10, // Start at -10vw
-    y: groundY,
-    width: 8 * obs.size * scale,
-    height: 8 * obs.size * scale,
-    sizeType: obs.size
-  };
-}
+      if (obstacleDeck.length === 0) refillObstacleDeck();
+      let obs = obstacleDeck.shift();
+      let fontSize = 8 * obs.size;
+      let scale = window.innerWidth < 600 ? 0.3 : 1;
+      fontSize = fontSize * scale;
+      const el = document.createElement('div');
+      el.style.position = 'absolute';
+      el.style.left = '-10vw';
+      el.style.bottom = '20vh';
+      el.style.fontSize = fontSize + 'vh';
+      el.style.lineHeight = '1';
+      el.style.userSelect = 'none';
+      el.textContent = obs.emoji;
+      el.setAttribute('aria-label', 'obstacle');
+      game.appendChild(el);
+      return {
+        el,
+        x: -10,
+        y: groundY,
+        width: 8 * obs.size * scale,
+        height: 8 * obs.size * scale,
+        sizeType: obs.size
+      };
+    }
+
+    // --- Clouds, Wind, Rain, Quake ---
+    function createClouds() {
+      clouds.forEach(c => c.el.remove());
+      clouds = [];
+      let n = Math.floor(window.innerWidth / 120) + 4;
+      for (let i = 0; i < n; ++i) {
+        let emoji = cloudEmojis[0];
+        let el = document.createElement('div');
+        el.textContent = emoji;
+        el.style.position = 'absolute';
+        el.style.top = (2 + Math.random() * 3) + 'vh';
+        el.style.left = (Math.random() * 100) + 'vw';
+        el.style.fontSize = (5 + Math.random() * 3) + 'vh';
+        el.style.opacity = 0.85;
+        el.style.pointerEvents = 'none';
+        el.style.zIndex = 2;
+        el.className = 'bg-emoji';
+        game.appendChild(el);
+        clouds.push({
+          el,
+          x: parseFloat(el.style.left),
+          y: parseFloat(el.style.top),
+          speed: 0.04 + Math.random() * 0.06
+        });
+      }
+    }
+
+    function spawnWind() {
+      if (rainActive || quakeActive) return;
+      winds.forEach(w => w.el.remove());
+      winds = [];
+      let n = Math.floor(2 + Math.random() * 2);
+      for (let i = 0; i < n; ++i) {
+        let emoji = windEmojis[0];
+        let el = document.createElement('div');
+        el.textContent = emoji;
+        el.style.position = 'absolute';
+        el.style.top = (8 + Math.random() * 3) + 'vh';
+        el.style.left = (Math.random() * 100) + 'vw';
+        el.style.fontSize = (4.5 + Math.random() * 2) + 'vh';
+        el.style.opacity = 0.85;
+        el.style.pointerEvents = 'none';
+        el.style.zIndex = 3;
+        el.className = 'bg-emoji';
+        game.appendChild(el);
+        winds.push({
+          el,
+          x: parseFloat(el.style.left),
+          y: parseFloat(el.style.top),
+          speed: 0.22 + Math.random() * 0.12,
+          width: 7,
+          height: 4
+        });
+      }
+      windActive = true;
+      windAffectEnd = performance.now() + 1800;
+    }
+
+    function spawnRain() {
+      if (windActive || quakeActive) return;
+      rains.forEach(r => r.el.remove());
+      rains = [];
+      let dropCount = Math.floor(window.innerWidth / 40);
+      for (let i = 0; i < dropCount; ++i) {
+        let emoji = rainDropEmojis[Math.floor(Math.random() * rainDropEmojis.length)];
+        let el = document.createElement('div');
+        el.textContent = emoji;
+        el.style.position = 'absolute';
+        el.style.left = (Math.random() * 100) + 'vw';
+        el.style.top = (-5 + Math.random() * 5) + 'vh';
+        el.style.fontSize = (2.5 + Math.random() * 1.5) + 'vh';
+        el.style.opacity = 0.7 + Math.random() * 0.3;
+        el.style.pointerEvents = 'none';
+        el.style.zIndex = 4;
+        el.className = 'bg-emoji';
+        game.appendChild(el);
+        rains.push({
+          el,
+          x: parseFloat(el.style.left),
+          y: parseFloat(el.style.top),
+          speed: 0.25 + Math.random() * 0.15
+        });
+      }
+      rainActive = true;
+      rainAffectEnd = performance.now() + 2200;
+    }
+
+    function spawnQuake() {
+      if (windActive || rainActive) return;
+      if (quake && quake.el) quake.el.remove();
+      quake = null;
+      quakeActive = true;
+      quakeAffectEnd = performance.now() + 1800;
+      let el = document.createElement('div');
+      el.textContent = quakeEmoji;
+      el.style.position = 'absolute';
+      el.style.left = '50vw';
+      el.style.bottom = '2vh';
+      el.style.transform = 'translateX(-50%)';
+      el.style.fontSize = '7vh';
+      el.style.opacity = 0.95;
+      el.style.pointerEvents = 'none';
+      el.style.zIndex = 10;
+      el.className = 'bg-emoji';
+      game.appendChild(el);
+      quake = {el};
+    }
+
+    function updateClouds(dt) {
+      clouds.forEach(c => {
+        c.x += c.speed * dt / 16;
+        if (c.x > 110) c.x = -10;
+        c.el.style.left = c.x + 'vw';
+      });
+    }
+
+    function updateWinds(dt) {
+      winds.forEach(w => {
+        w.x += w.speed * dt / 16;
+        if (w.x > 110) w.x = -10;
+        w.el.style.left = w.x + 'vw';
+      });
+    }
+
+    function updateRains(dt) {
+      rains.forEach(r => {
+        r.y += r.speed * dt / 16;
+        if (r.y > 110) r.y = -10;
+        r.el.style.top = r.y + 'vh';
+      });
+    }
+
+    function isAnimalInWind() {
+      let ax = animal.x, ay = animal.y, aw = animal.width, ah = animal.height;
+      for (let w of winds) {
+        let wx = w.x, wy = w.y, ww = w.width, wh = w.height;
+        if (
+          ax + aw * 0.7 > wx && ax < wx + ww * 0.7 &&
+          ay + ah > wy && ay < wy + wh
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     // --- Game Loop ---
     function gameLoop(ts) {
-  if (!running) return;
-  if (!lastFrameTime) lastFrameTime = ts;
-  let dt = ts - lastFrameTime;
-  lastFrameTime = ts;
+      if (!running) return;
+      if (!lastFrameTime) lastFrameTime = ts;
+      let dt = ts - lastFrameTime;
+      lastFrameTime = ts;
 
-  // Background speed stays fixed
-  bgSpeed = speed / 2.5;
+      // Clouds always move
+      updateClouds(dt);
 
-  // --- Normal Jump Physics (parabolic) ---
-  const jumpVelocityInit = 7.5;
-  const gravity = 0.5;
+      // Weather/disaster triggers (never overlap)
+      if (!windActive && !rainActive && !quakeActive) {
+        if (score >= nextRainScore) {
+          spawnRain();
+          nextRainScore += 2000 + Math.random() * 1000;
+        } else if (score >= nextQuakeScore) {
+          spawnQuake();
+          nextQuakeScore += 2500 + Math.random() * 1000;
+        } else if (score >= nextWindScore) {
+          spawnWind();
+          nextWindScore += 300 + Math.random() * 200;
+        }
+      }
 
-  if (!animal.isJumping) animal.isJumping = false;
-  if (!animal.vy) animal.vy = 0;
+      // Wind logic
+      if (windActive) {
+        updateWinds(dt);
+        if (performance.now() > windAffectEnd) {
+          winds.forEach(w => w.el.remove());
+          winds = [];
+          windActive = false;
+        }
+      }
 
-  if (jumpPressed && !animal.isJumping) {
-    animal.isJumping = true;
-    animal.vy = jumpVelocityInit;
-  }
+      // Rain logic
+      if (rainActive) {
+        updateRains(dt);
+        if (performance.now() > rainAffectEnd) {
+          rains.forEach(r => r.el.remove());
+          rains = [];
+          rainActive = false;
+        }
+      }
 
-  if (animal.isJumping) {
-    animal.y += animal.vy;
-    animal.vy -= gravity;
-    if (animal.y <= groundY) {
-      animal.y = groundY;
-      animal.isJumping = false;
-      animal.vy = 0;
+      // Quake logic
+      if (quakeActive) {
+        // Shake effect: apply to game container
+        let shake = Math.random() * 8 - 4;
+        let shakeY = Math.random() * 4 - 2;
+        game.style.transform = `translate(${shake}px,${shakeY}px)`;
+        if (performance.now() > quakeAffectEnd) {
+          quakeActive = false;
+          if (quake && quake.el) quake.el.remove();
+          quake = null;
+          game.style.transform = '';
+        }
+      } else {
+        game.style.transform = '';
+      }
+
+      // Effects: wind, rain, quake
+      let windEffect = windActive; // windActive means wind is blowing
+      let rainEffect = rainActive;
+      let quakeEffect = quakeActive;
+
+      // Only wind speeds things up, but does NOT affect gravity or jump velocity
+      let jumpVelocityInit = rainEffect ? 7.5 : 7.5;
+      let gravityVal = rainEffect ? 0.8 : 0.5;
+      let speedVal = windEffect ? 1.2 : 0.5;
+
+      // Background speed stays fixed
+      bgSpeed = speedVal / 2.5;
+
+      if (!animal.isJumping) animal.isJumping = false;
+      if (!animal.vy) animal.vy = 0;
+
+      if (jumpPressed && !animal.isJumping) {
+        animal.isJumping = true;
+        animal.vy = jumpVelocityInit;
+      }
+
+      if (animal.isJumping) {
+        animal.y += animal.vy;
+        animal.vy -= gravityVal;
+        if (animal.y <= groundY) {
+          animal.y = groundY;
+          animal.isJumping = false;
+          animal.vy = 0;
+        }
+      }
+
+      animal.el.style.bottom = animal.y + 'vh';
+      animal.el.style.left = animal.x + 'vw';
+
+      // Obstacles
+      for (let i = obstacleList.length - 1; i >= 0; --i) {
+        let obs = obstacleList[i];
+        obs.x += speedVal * dt / 16;
+        obs.el.style.left = obs.x + 'vw';
+        if (obs.x > 110) {
+          obs.el.remove();
+          obstacleList.splice(i, 1);
+          continue;
+        }
+        // Collision (unchanged)
+        let ax = animal.x, ay = animal.y, aw = animal.width, ah = animal.height;
+        let ox = obs.x, oy = obs.y, ow = obs.width, oh = obs.height;
+        if (
+          ax + aw * 0.7 > ox && ax < ox + ow * 0.7 &&
+          ay < oy + oh * 0.7 && ay + ah * 0.7 > oy
+        ) {
+          if (ay > oy + oh * 0.7) continue;
+          running = false;
+          setTimeout(showGameOver, 300);
+          return;
+        }
+      }
+      // Spawn obstacles
+      if (ts - lastObstacleTime > obstacleInterval) {
+        obstacleList.push(createObstacle());
+        lastObstacleTime = ts;
+        obstacleInterval = Math.max(500, 1200 + Math.random() * 700);
+      }
+      // Score
+      score += dt / 16;
+      scoreDiv.textContent = Math.floor(score);
+
+      requestId = requestAnimationFrame(gameLoop);
     }
-  }
-
-  animal.el.style.bottom = animal.y + 'vh';
-  animal.el.style.left = animal.x + 'vw';
-
-  // Obstacles
-  for (let i = obstacleList.length - 1; i >= 0; --i) {
-    let obs = obstacleList[i];
-    obs.x += speed * dt / 16; // Move right
-    obs.el.style.left = obs.x + 'vw';
-    if (obs.x > 110) { // Remove when off-screen on the right
-      obs.el.remove();
-      obstacleList.splice(i, 1);
-      continue;
-    }
-    // Collision (unchanged)
-    let ax = animal.x, ay = animal.y, aw = animal.width, ah = animal.height;
-    let ox = obs.x, oy = obs.y, ow = obs.width, oh = obs.height;
-    if (
-      ax + aw * 0.7 > ox && ax < ox + ow * 0.7 &&
-      ay < oy + oh * 0.7 && ay + ah * 0.7 > oy
-    ) {
-      if (ay > oy + oh * 0.7) continue;
-      running = false;
-      setTimeout(showGameOver, 300);
-      return;
-    }
-  }
-  // Spawn obstacles
-  if (ts - lastObstacleTime > obstacleInterval) {
-    obstacleList.push(createObstacle());
-    lastObstacleTime = ts;
-    obstacleInterval = Math.max(500, 1200 + Math.random() * 700);
-  }
-  // Score
-  score += dt / 16;
-  scoreDiv.textContent = Math.floor(score);
-
-  requestId = requestAnimationFrame(gameLoop);
-}
 
     // --- Controls ---
     function handleKey(e) {
@@ -563,7 +752,6 @@
       jumpPressed = false;
       e.preventDefault();
     }
-    // Remove jumpBtn handlers and mobile controls logic
 
     // --- Game Start/Restart ---
     function startGame() {
@@ -572,7 +760,7 @@
       resetGameVars();
       animal = createAnimal();
       mobileControls.style.display = 'none';
-      requestId = requestAnimationFrame(gameLoop); // requestAnimationFrame is used for smooth animation it is a browser API that allows you to create smooth animations by calling a function before the next repaint of the browser.
+      requestId = requestAnimationFrame(gameLoop);
     }
     function showGameOver() {
       running = false;
@@ -580,6 +768,16 @@
       finalScore.textContent = `Score: ${Math.floor(score)}`;
       gameoverPopup.style.display = '';
       mobileControls.style.display = 'none';
+      // Remove clouds and weather/disaster
+      clouds.forEach(c => c.el.remove());
+      clouds = [];
+      winds.forEach(w => w.el.remove());
+      winds = [];
+      rains.forEach(r => r.el.remove());
+      rains = [];
+      if (quake && quake.el) quake.el.remove();
+      quake = null;
+      game.style.transform = '';
     }
     function restartGame() {
       startPopup.style.display = '';
@@ -587,7 +785,7 @@
       mobileControls.style.display = 'none';
       createEmojiMenu(animals, animalChoices, selectedAnimal, a => selectedAnimal = a);
       createEmojiMenu(obstacles, obstacleChoices, selectedObstacle, o => { selectedObstacle = o; refillObstacleDeck(); });
-      createBgMenu(backgrounds, bgChoices, selectedBg, bg => selectedBg = bg);
+      // Removed createBgMenu
     }
 
     // --- Event Listeners ---
@@ -595,7 +793,6 @@
     restartBtn.onclick = restartGame;
     window.addEventListener('keydown', handleKey);
     window.addEventListener('keyup', handleKeyUp);
-    // Tap anywhere on the game area to jump (works for mobile and desktop)
     game.addEventListener('touchstart', handleTouchStart, {passive:false});
     game.addEventListener('touchend', handleTouchEnd, {passive:false});
     game.addEventListener('mousedown', function(e) {
@@ -608,7 +805,7 @@
       jumpPressed = false;
       e.preventDefault();
     });
-    game.addEventListener('touchmove', e => e.preventDefault(), {passive:false}); // I replaced above with this line to prevent scrolling on the game area only
+    game.addEventListener('touchmove', e => e.preventDefault(), {passive:false});
 
     // --- Mobile Controls Show/Hide ---
     mobileControls.style.display = 'none';
