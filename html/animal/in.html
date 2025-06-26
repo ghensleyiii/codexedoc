@@ -355,17 +355,6 @@
   scoreDiv.textContent = '';
   document.body.className = selectedBg.class;
   game.className = selectedBg.class;
-  /*// Scatter background emojis
-  bgEmojis = [];
-  for (let i = 0; i < bgEmojiCount; ++i) {
-    let scatter = selectedBg.scatter;
-    let emoji = scatter[Math.floor(Math.random() * scatter.length)];
-    let size = 2 + Math.random() * 3;
-    let y = Math.random() * 70 + 10;
-    let x = Math.random() * -10 - 5; // Start off-screen on the left
-    let speedMod = 0.5 + Math.random() * 0.7;
-    bgEmojis.push({emoji, x, y, size, speedMod});
-  }*/
   refillObstacleDeck();
 }
 
@@ -418,31 +407,6 @@
 
   // Background speed stays fixed
   bgSpeed = speed / 2.5;
-
-  // Move background emojis
-  /*bgEmojis.forEach(bg => {
-    bg.x += bgSpeed * bg.speedMod * dt / 1000; // Move right
-    if (bg.x > 105) { // When off-screen on the right
-      bg.x = -15 - Math.random() * 10; // Reset to off-screen on the left
-      bg.y = Math.random() * 70 + 10;
-      bg.emoji = selectedBg.scatter[Math.floor(Math.random() * selectedBg.scatter.length)];
-    }
-  });
-  // Render background emojis
-  let bgHtml = '';
-  bgEmojis.forEach(bg => {
-    bgHtml += `<div class="bg-emoji" style="left:${bg.x}vw;top:${bg.y}vh;font-size:${bg.size}vh;opacity:0.7;">${bg.emoji}</div>`;
-  });
-  // Remove all background emoji nodes first
-  let bgNodes = Array.from(game.querySelectorAll('.bg-emoji'));
-  bgNodes.forEach(n => n.remove());
-  // Add new background emoji nodes
-  let temp = document.createElement('div');
-  temp.innerHTML = bgHtml;
-  Array.from(temp.children).forEach(n => {
-    n.classList.add('bg-emoji');
-    game.insertBefore(n, game.firstChild);
-  });*/
 
   // --- Normal Jump Physics (parabolic) ---
   const jumpVelocityInit = 7.5;
@@ -577,8 +541,6 @@
       jumpPressed = false;
       e.preventDefault();
     });
-    /*// Prevent scrolling on mobile
-    document.body.addEventListener('touchmove', e => e.preventDefault(), {passive:false});*/
     game.addEventListener('touchmove', e => e.preventDefault(), {passive:false}); // I replaced above with this line to prevent scrolling on the game area only
 
     // --- Mobile Controls Show/Hide ---
