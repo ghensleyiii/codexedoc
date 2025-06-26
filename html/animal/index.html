@@ -567,8 +567,9 @@
       jumpPressed = false;
       e.preventDefault();
     });
-    // Prevent scrolling on mobile
-    document.body.addEventListener('touchmove', e => e.preventDefault(), {passive:false});
+    /*// Prevent scrolling on mobile
+    document.body.addEventListener('touchmove', e => e.preventDefault(), {passive:false});*/
+    game.addEventListener('touchmove', e => e.preventDefault(), {passive:false}); // I replaced above with this line to prevent scrolling on the game area only
 
     // --- Mobile Controls Show/Hide ---
     mobileControls.style.display = 'none';
