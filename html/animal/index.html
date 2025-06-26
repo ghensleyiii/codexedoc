@@ -375,7 +375,7 @@
   if (obstacleDeck.length === 0) refillObstacleDeck();
   let obs = obstacleDeck.shift();
   let fontSize = 8 * obs.size;
-  let scale = window.innerWidth < 600 ? 0.5 : 1; // scale down for mobile
+  let scale = window.innerWidth < 600 ? 0.3 : 1; // scale down for mobile
   fontSize = fontSize * scale;
   const el = document.createElement('div');
   el.style.position = 'absolute';
