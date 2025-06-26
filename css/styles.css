@@ -67,9 +67,26 @@ body::-webkit-scrollbar, html::-webkit-scrollbar { /* Chrome, Safari, Opera */
   left: 10px;
 }
 
-.animal:hover {
+a .animal {
+  text-decoration: none;
+}
+
+a:hover .animal {
+  text-decoration: none;
   width: 33vw;
   height: 33vh;
+}
+
+a:visited .animal {
+  color: white;
+}
+
+a:active .animal {
+  color: white;
+}
+
+a:focus .animal {
+  outline: none;
 }
 
 h1 {
