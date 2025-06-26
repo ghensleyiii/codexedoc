@@ -112,7 +112,8 @@
     #score {
       position: absolute;
       top: 2vh;
-      left: 2vw;
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 2em;
       color: #fff;
       text-shadow: 0 2px 8px #000;
@@ -345,7 +346,7 @@
   scoreDiv.textContent = '';
   document.body.className = selectedBg.class;
   game.className = selectedBg.class;
-  // Scatter background emojis
+  /*// Scatter background emojis
   bgEmojis = [];
   for (let i = 0; i < bgEmojiCount; ++i) {
     let scatter = selectedBg.scatter;
@@ -355,7 +356,7 @@
     let x = Math.random() * -10 - 5; // Start off-screen on the left
     let speedMod = 0.5 + Math.random() * 0.7;
     bgEmojis.push({emoji, x, y, size, speedMod});
-  }
+  }*/
   refillObstacleDeck();
 }
 
@@ -410,7 +411,7 @@
   bgSpeed = speed / 2.5;
 
   // Move background emojis
-  bgEmojis.forEach(bg => {
+  /*bgEmojis.forEach(bg => {
     bg.x += bgSpeed * bg.speedMod * dt / 1000; // Move right
     if (bg.x > 105) { // When off-screen on the right
       bg.x = -15 - Math.random() * 10; // Reset to off-screen on the left
@@ -432,7 +433,7 @@
   Array.from(temp.children).forEach(n => {
     n.classList.add('bg-emoji');
     game.insertBefore(n, game.firstChild);
-  });
+  });*/
 
   // --- Normal Jump Physics (parabolic) ---
   const jumpVelocityInit = 7.5;
