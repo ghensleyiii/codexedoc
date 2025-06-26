@@ -371,29 +371,31 @@
     }
 
     function createObstacle() {
-      // Always use the next obstacle from the shuffled deck
-      if (obstacleDeck.length === 0) refillObstacleDeck();
-      let obs = obstacleDeck.shift();
-      let fontSize = 8 * obs.size;
-      const el = document.createElement('div');
-      el.style.position = 'absolute';
-      el.style.left = '100vw';
-      el.style.bottom = '20vh';
-      el.style.fontSize = fontSize + 'vh';
-      el.style.lineHeight = '1';
-      el.style.userSelect = 'none';
-      el.textContent = obs.emoji;
-      el.setAttribute('aria-label', 'obstacle');
-      game.appendChild(el);
-      return {
-        el,
-        x: 100,
-        y: groundY,
-        width: 8 * obs.size,
-        height: 8 * obs.size,
-        sizeType: obs.size
-      };
-    }
+  // Always use the next obstacle from the shuffled deck
+  if (obstacleDeck.length === 0) refillObstacleDeck();
+  let obs = obstacleDeck.shift();
+  let fontSize = 8 * obs.size;
+  let scale = window.innerWidth < 600 ? 0.5 : 1; // scale down for mobile
+  fontSize = fontSize * scale;
+  const el = document.createElement('div');
+  el.style.position = 'absolute';
+  el.style.left = '100vw';
+  el.style.bottom = '20vh';
+  el.style.fontSize = fontSize + 'vh';
+  el.style.lineHeight = '1';
+  el.style.userSelect = 'none';
+  el.textContent = obs.emoji;
+  el.setAttribute('aria-label', 'obstacle');
+  game.appendChild(el);
+  return {
+    el,
+    x: 100,
+    y: groundY,
+    width: 8 * obs.size * scale,
+    height: 8 * obs.size * scale,
+    sizeType: obs.size
+  };
+}
 
     // --- Game Loop ---
     function gameLoop(ts) {
