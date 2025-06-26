@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      font-family: sans-serif;
+      user-select: none;
+      touch-action: none;
+      background: #222;
+    }
+    #game {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .popup {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      over-flow: auto;
+      scrollbar-width: none;           /* Firefox */
+      -ms-overflow-style: none;        /* IE and Edge */
+    }
+    
+    .popup::-webkit-scrollbar {
+      width: 0 !important;             /* Chrome, Safari */
+      display: none;
+    }
+    .popup-content {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2em;
+      min-width: 300px;
+      max-width: 95vw;
+      max-height: 70vh;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      align-items: center;
+      overflow-y: auto;
+      scrollbar-width: none;           /* Firefox */
+      -ms-overflow-style: none;        /* IE and Edge */
+    }
+    
+    .popup-content::-webkit-scrollbar {
+      width: 0 !important;             /* Chrome, Safari */
+      display: none;
+    }
+
+    .emoji-select {
+      font-size: 2em;
+      cursor: pointer;
+      margin: 0.2em;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      transition: border 0.2s;
+      background: none;
+    }
+    .emoji-select.selected {
+      border: 2px solid #0078d4;
+      background: #e6f0fa;
+    }
+    .label {
+      font-weight: bold;
+      margin-bottom: 0.2em;
+    }
+    #mobile-controls {
+      position: absolute;
+      bottom: 2vh;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      z-index: 5;
+      pointer-events: none;
+    }
+    #jump-btn {
+      font-size: 2em;
+      padding: 0.5em 2em;
+      border-radius: 2em;
+      border: none;
+      background: #0078d4;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      pointer-events: auto;
+      cursor: pointer;
+      opacity: 0.85;
+      transition: background 0.2s;
+    }
+    #jump-btn:active {
+      background: #005fa3;
+    }
+    #score {
+      position: absolute;
+      top: 2vh;
+      right: 2vw;
+      font-size: 2em;
+      color: #fff;
+      text-shadow: 0 2px 8px #000;
+      z-index: 3;
+      font-weight: bold;
+    }
+    @media (max-width: 600px) {
+      .popup-content { min-width: 90vw; }
+      #score { font-size: 1.2em; }
+    }
+    /* Backgrounds */
+    .bg-night {
+      background: linear-gradient(to top, #222 70%, #3a3a6a 100%);
+    }
+    .bg-forest {
+      background: linear-gradient(to top, #2e8b57 70%, #b7e4c7 100%);
+    }
+    .bg-desert {
+      background: linear-gradient(to top, #f7d488 70%, #ffe5b4 100%);
+    }
+    .bg-ocean {
+      background: linear-gradient(to top, #0077be 70%, #b3e0ff 100%);
+    }
+    .bg-space {
+      background: linear-gradient(to top, #0a0a23 70%, #2d2d5a 100%);
+    }
+    .bg-mountain {
+      background: linear-gradient(to top, #6b8e23 70%, #e0e4cc 100%);
+    }
+    .bg-autumn {
+      background: linear-gradient(to top, #8b4513 70%, #e07b39 100%);
+    }
+    
+    /* Hide scrollbars */
+    ::-webkit-scrollbar { width: 0 !important }
+    body { -ms-overflow-style: none; scrollbar-width: none; }
+    /* Background emoji always behind */
+    .bg-emoji {
+      z-index: 0 !important;
+      pointer-events: none;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div id="game"></div>
+  <div id="score"></div>
+  <div id="mobile-controls" style="display:none;">
+    <button id="jump-btn">⬆️ Jump</button>
+  </div>
+  <div class="popup" id="start-popup">
+    <div class="popup-content">
+      <div class="label">Choose Animal</div>
+      <div id="animal-choices"></div>
+      <div class="label">Choose Obstacle</div>
+      <div id="obstacle-choices"></div>
+      <div class="label">Choose background</div>
+      <div id="bg-choices"></div>
+      <button id="start-btn" style="margin-top:1em;font-size:1.2em;">Start Game</button>
+    </div>
+  </div>
+  <div class="popup" id="gameover-popup" style="display:none;">
+    <div class="popup-content">
+      <div id="gameover-msg" style="font-size:2em;">Game Over!</div>
+      <div id="final-score" style="font-size:1.2em;"></div>
+      <button id="restart-btn" style="margin-top:1em;font-size:1.2em;">Restart</button>
+    </div>
+  </div>
+  <script>
+    // Emoji options
+    const animals = ['🦖','🦕','🐈‍⬛','🐕','🐩','🐍','🐢','🐇','🐓','🦙','🐐','🦌','🦬','🐆','🐅','🐂','🐄','🐖','🐒','🐥','🐙','🐬','🐳','🐋','🦈','🐊','🦓','🦒','🦘','🦥','🦦','🦨','🦡','🦔', '🐜'];
+    // Obstacles: always three sizes for each emoji
+    const baseObstacles = [
+      '🌵','🌲','🪨','🍄','🪵','🍩','🍕','🥕','🍌','🍎','🥚','🍪','🍫','🍬','🍭','💣'
+    ];
+    const sizeTypes = [
+      {size: 1, label: 'full'},
+      {size: 0.75, label: 'medium'},
+      {size: 0.25, label: 'small'}
+    ];
+    // Build all combinations
+    const obstacles = [];
+    baseObstacles.forEach(emoji => {
+      sizeTypes.forEach(st => {
+        obstacles.push({emoji, size: st.size});
+      });
+    });
+    // Shuffle helper
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+    // For random obstacle order
+    let obstacleDeck = [];
+    function refillObstacleDeck() {
+      // Only use the selected obstacle emoji, but randomize size each time
+      obstacleDeck = [];
+      for (let i = 0; i < 30; ++i) {
+        const st = sizeTypes[Math.floor(Math.random() * sizeTypes.length)];
+        obstacleDeck.push({emoji: selectedObstacle.emoji || selectedObstacle, size: st.size});
+      }
+      shuffleArray(obstacleDeck);
+    }
+
+    const backgrounds = [
+      { name: "Night Sky", class: "bg-night", emoji: "🌙", scatter: ["🌙","⭐","✨"] },
+      { name: "Forest", class: "bg-forest", emoji: "🌲", scatter: ["🌲","🌳","🍃"] },
+      { name: "Desert", class: "bg-desert", emoji: "🌵", scatter: ["🌵","🏜️","☀️"] },
+      { name: "Ocean", class: "bg-ocean", emoji: "🌊", scatter: ["🌊","🐟","🐠"] },
+      { name: "Space", class: "bg-space", emoji: "🪐", scatter: ["🪐","🌟","🚀"] },
+      { name: "Mountain", class: "bg-mountain", emoji: "🏔️", scatter: ["🏔️","🌄","🌞"] },
+      { name: "Autumn", class: "bg-autumn", emoji: "🍁", scatter: ["🍁","🍂","🏵️"] }
+    ];
+
+    // DOM
+    const game = document.getElementById('game');
+    const scoreDiv = document.getElementById('score');
+    const startPopup = document.getElementById('start-popup');
+    const gameoverPopup = document.getElementById('gameover-popup');
+    const animalChoices = document.getElementById('animal-choices');
+    const obstacleChoices = document.getElementById('obstacle-choices');
+    const bgChoices = document.getElementById('bg-choices');
+    const startBtn = document.getElementById('start-btn');
+    const restartBtn = document.getElementById('restart-btn');
+    const mobileControls = document.getElementById('mobile-controls');
+    const jumpBtn = document.getElementById('jump-btn');
+    const finalScore = document.getElementById('final-score');
+
+    // Game state
+    let selectedAnimal = animals[0];
+    let selectedObstacle = obstacles[0];
+    let selectedBg = backgrounds[0];
+    let running = false;
+    let score = 0;
+    let speed = 0.5; // Normal, fixed speed
+    let bgSpeed = 0.7;
+    let requestId = null;
+    let animal = null;
+    let obstacleList = [];
+    let bgEmojis = [];
+    let jumpVelocity = 0;
+    let isJumping = false;
+    let groundY = 0;
+    let jumpPressed = false;
+    let jumpStart = false;
+    let jumpPower = 0;
+    let jumpMax = 13;
+    let jumpMin = 7;
+    let gravity = 0; // was 0.6 I changed it to 0 for higher jumps
+    let lastObstacleTime = 0;
+    let obstacleInterval = 1400;
+    let lastFrameTime = 0;
+    let bgEmojiCount = 18;
+    // Always use desktop logic
+    let isMobile = false;
+
+    // --- UI Setup ---
+    function createEmojiMenu(arr, container, selected, cb) {
+      container.innerHTML = '';
+      // Only show each emoji once for obstacle selection
+      if (container === obstacleChoices) {
+        let used = new Set();
+        arr.forEach(e => {
+          let emoji = typeof e === 'object' ? e.emoji : e;
+          if (used.has(emoji)) return;
+          used.add(emoji);
+          const btn = document.createElement('button');
+          btn.className = 'emoji-select' + (emoji === (typeof selected === 'object' ? selected.emoji : selected) ? ' selected' : '');
+          btn.textContent = emoji;
+          btn.onclick = () => {
+            container.querySelectorAll('.emoji-select').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            cb({emoji});
+          };
+          container.appendChild(btn);
+        });
+        return;
+      }
+      arr.forEach(e => {
+        const btn = document.createElement('button');
+        btn.className = 'emoji-select' + ((typeof e === 'object' ? e.emoji : e) === (typeof selected === 'object' ? selected.emoji : selected) ? ' selected' : '');
+        btn.textContent = typeof e === 'object' ? e.emoji : e;
+        btn.onclick = () => {
+          container.querySelectorAll('.emoji-select').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          cb(e);
+        };
+        container.appendChild(btn);
+      });
+    }
+    function createBgMenu(arr, container, selected, cb) {
+      container.innerHTML = '';
+      arr.forEach(bg => {
+        const btn = document.createElement('button');
+        btn.className = 'emoji-select' + (bg === selected ? ' selected' : '');
+        btn.textContent = bg.emoji;
+        btn.title = bg.name;
+        btn.onclick = () => {
+          container.querySelectorAll('.emoji-select').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          cb(bg);
+        };
+        container.appendChild(btn);
+      });
+    }
+    createEmojiMenu(animals, animalChoices, selectedAnimal, a => selectedAnimal = a);
+    createEmojiMenu(obstacles, obstacleChoices, selectedObstacle, o => { selectedObstacle = o; refillObstacleDeck(); });
+    createBgMenu(backgrounds, bgChoices, selectedBg, bg => selectedBg = bg);
+
+    // --- Game Entities ---
+    function resetGameVars() {
+  running = true;
+  score = 0;
+  speed = 0.5;
+  bgSpeed = 0.7;
+  animal = null;
+  obstacleList = [];
+  bgEmojis = [];
+  jumpVelocity = 0;
+  isJumping = false;
+  jumpPressed = false;
+  jumpStart = false;
+  jumpPower = 0;
+  lastObstacleTime = 0;
+  obstacleInterval = 1400;
+  lastFrameTime = 0;
+  game.innerHTML = '';
+  scoreDiv.textContent = '';
+  document.body.className = selectedBg.class;
+  game.className = selectedBg.class;
+  // Scatter background emojis
+  bgEmojis = [];
+  for (let i = 0; i < bgEmojiCount; ++i) {
+    let scatter = selectedBg.scatter;
+    let emoji = scatter[Math.floor(Math.random() * scatter.length)];
+    let size = 2 + Math.random() * 3;
+    let y = Math.random() * 70 + 10;
+    let x = Math.random() * -10 - 5; // Start off-screen on the left
+    let speedMod = 0.5 + Math.random() * 0.7;
+    bgEmojis.push({emoji, x, y, size, speedMod});
+  }
+  refillObstacleDeck();
+}
+
+    function createAnimal() {
+  const el = document.createElement('div');
+  el.style.position = 'absolute';
+  el.style.left = '80vw'; // Move to the right side
+  el.style.bottom = '20vh';
+  el.style.fontSize = '8vh';
+  el.style.lineHeight = '1';
+  el.style.userSelect = 'none';
+  el.textContent = selectedAnimal;
+  el.setAttribute('aria-label', 'player');
+  game.appendChild(el);
+  groundY = 20;
+  return {el, x: 80, y: groundY, vy: 0, width: 8, height: 8}; // Update x to 80
+}
+
+    function createObstacle() {
+  if (obstacleDeck.length === 0) refillObstacleDeck();
+  let obs = obstacleDeck.shift();
+  let fontSize = 8 * obs.size;
+  let scale = window.innerWidth < 600 ? 0.3 : 1; // scale down for mobile
+  fontSize = fontSize * scale;
+  const el = document.createElement('div');
+  el.style.position = 'absolute';
+  el.style.left = '-10vw'; // Start off-screen on the left
+  el.style.bottom = '20vh';
+  el.style.fontSize = fontSize + 'vh';
+  el.style.lineHeight = '1';
+  el.style.userSelect = 'none';
+  el.textContent = obs.emoji;
+  el.setAttribute('aria-label', 'obstacle');
+  game.appendChild(el);
+  return {
+    el,
+    x: -10, // Start at -10vw
+    y: groundY,
+    width: 8 * obs.size * scale,
+    height: 8 * obs.size * scale,
+    sizeType: obs.size
+  };
+}
+    // --- Game Loop ---
+    function gameLoop(ts) {
+  if (!running) return;
+  if (!lastFrameTime) lastFrameTime = ts;
+  let dt = ts - lastFrameTime;
+  lastFrameTime = ts;
+
+  // Background speed stays fixed
+  bgSpeed = speed / 2.5;
+
+  // Move background emojis
+  bgEmojis.forEach(bg => {
+    bg.x += bgSpeed * bg.speedMod * dt / 1000; // Move right
+    if (bg.x > 105) { // When off-screen on the right
+      bg.x = -15 - Math.random() * 10; // Reset to off-screen on the left
+      bg.y = Math.random() * 70 + 10;
+      bg.emoji = selectedBg.scatter[Math.floor(Math.random() * selectedBg.scatter.length)];
+    }
+  });
+  // Render background emojis
+  let bgHtml = '';
+  bgEmojis.forEach(bg => {
+    bgHtml += `<div class="bg-emoji" style="left:${bg.x}vw;top:${bg.y}vh;font-size:${bg.size}vh;opacity:0.7;">${bg.emoji}</div>`;
+  });
+  // Remove all background emoji nodes first
+  let bgNodes = Array.from(game.querySelectorAll('.bg-emoji'));
+  bgNodes.forEach(n => n.remove());
+  // Add new background emoji nodes
+  let temp = document.createElement('div');
+  temp.innerHTML = bgHtml;
+  Array.from(temp.children).forEach(n => {
+    n.classList.add('bg-emoji');
+    game.insertBefore(n, game.firstChild);
+  });
+
+  // --- Normal Jump Physics (parabolic) ---
+  const jumpVelocityInit = 7.5;
+  const gravity = 0.5;
+
+  if (!animal.isJumping) animal.isJumping = false;
+  if (!animal.vy) animal.vy = 0;
+
+  if (jumpPressed && !animal.isJumping) {
+    animal.isJumping = true;
+    animal.vy = jumpVelocityInit;
+  }
+
+  if (animal.isJumping) {
+    animal.y += animal.vy;
+    animal.vy -= gravity;
+    if (animal.y <= groundY) {
+      animal.y = groundY;
+      animal.isJumping = false;
+      animal.vy = 0;
+    }
+  }
+
+  animal.el.style.bottom = animal.y + 'vh';
+  animal.el.style.left = animal.x + 'vw';
+
+  // Obstacles
+  for (let i = obstacleList.length - 1; i >= 0; --i) {
+    let obs = obstacleList[i];
+    obs.x += speed * dt / 16; // Move right
+    obs.el.style.left = obs.x + 'vw';
+    if (obs.x > 110) { // Remove when off-screen on the right
+      obs.el.remove();
+      obstacleList.splice(i, 1);
+      continue;
+    }
+    // Collision (unchanged)
+    let ax = animal.x, ay = animal.y, aw = animal.width, ah = animal.height;
+    let ox = obs.x, oy = obs.y, ow = obs.width, oh = obs.height;
+    if (
+      ax + aw * 0.7 > ox && ax < ox + ow * 0.7 &&
+      ay < oy + oh * 0.7 && ay + ah * 0.7 > oy
+    ) {
+      if (ay > oy + oh * 0.7) continue;
+      running = false;
+      setTimeout(showGameOver, 300);
+      return;
+    }
+  }
+  // Spawn obstacles
+  if (ts - lastObstacleTime > obstacleInterval) {
+    obstacleList.push(createObstacle());
+    lastObstacleTime = ts;
+    obstacleInterval = Math.max(500, 1200 + Math.random() * 700);
+  }
+  // Score
+  score += dt / 16;
+  scoreDiv.textContent = Math.floor(score);
+
+  requestId = requestAnimationFrame(gameLoop);
+}
+
+    // --- Controls ---
+    function handleKey(e) {
+      if (!running) return;
+      if (e.code === 'Space') {
+        if (!jumpPressed) {
+          jumpPressed = true;
+        }
+        e.preventDefault();
+      }
+    }
+    function handleKeyUp(e) {
+      if (!running) return;
+      if (e.code === 'Space') {
+        jumpPressed = false;
+        e.preventDefault();
+      }
+    }
+    function handleTouchStart(e) {
+      if (!running) return;
+      jumpPressed = true;
+      e.preventDefault();
+    }
+    function handleTouchEnd(e) {
+      if (!running) return;
+      jumpPressed = false;
+      e.preventDefault();
+    }
+    // Remove jumpBtn handlers and mobile controls logic
+
+    // --- Game Start/Restart ---
+    function startGame() {
+      startPopup.style.display = 'none';
+      gameoverPopup.style.display = 'none';
+      resetGameVars();
+      animal = createAnimal();
+      mobileControls.style.display = 'none';
+      requestId = requestAnimationFrame(gameLoop); // requestAnimationFrame is used for smooth animation it is a browser API that allows you to create smooth animations by calling a function before the next repaint of the browser.
+    }
+    function showGameOver() {
+      running = false;
+      cancelAnimationFrame(requestId);
+      finalScore.textContent = `Score: ${Math.floor(score)}`;
+      gameoverPopup.style.display = '';
+      mobileControls.style.display = 'none';
+    }
+    function restartGame() {
+      startPopup.style.display = '';
+      gameoverPopup.style.display = 'none';
+      mobileControls.style.display = 'none';
+      createEmojiMenu(animals, animalChoices, selectedAnimal, a => selectedAnimal = a);
+      createEmojiMenu(obstacles, obstacleChoices, selectedObstacle, o => { selectedObstacle = o; refillObstacleDeck(); });
+      createBgMenu(backgrounds, bgChoices, selectedBg, bg => selectedBg = bg);
+    }
+
+    // --- Event Listeners ---
+    startBtn.onclick = startGame;
+    restartBtn.onclick = restartGame;
+    window.addEventListener('keydown', handleKey);
+    window.addEventListener('keyup', handleKeyUp);
+    // Tap anywhere on the game area to jump (works for mobile and desktop)
+    game.addEventListener('touchstart', handleTouchStart, {passive:false});
+    game.addEventListener('touchend', handleTouchEnd, {passive:false});
+    game.addEventListener('mousedown', function(e) {
+      if (!running) return;
+      jumpPressed = true;
+      e.preventDefault();
+    });
+    game.addEventListener('mouseup', function(e) {
+      if (!running) return;
+      jumpPressed = false;
+      e.preventDefault();
+    });
+    /*// Prevent scrolling on mobile
+    document.body.addEventListener('touchmove', e => e.preventDefault(), {passive:false});*/
+    game.addEventListener('touchmove', e => e.preventDefault(), {passive:false}); // I replaced above with this line to prevent scrolling on the game area only
+
+    // --- Mobile Controls Show/Hide ---
+    mobileControls.style.display = 'none';
+
+    // --- Start at menu ---
+    restartGame();
+  </script>
+</body>
+</html>
