@@ -142,6 +142,10 @@
     .bg-mountain {
       background: linear-gradient(to top, #6b8e23 70%, #e0e4cc 100%);
     }
+    .bg-autumn {
+      background: linear-gradient(to top, #e07b39 70%, #8b4513 100%);
+    }
+    
     /* Hide scrollbars */
     ::-webkit-scrollbar { width: 0 !important }
     body { -ms-overflow-style: none; scrollbar-width: none; }
@@ -179,10 +183,10 @@
   </div>
   <script>
     // Emoji options
-    const animals = ['🦖','🦕','🐱','🐶','🐸','🐧','🐢','🐇','🦊','🐻','🐼','🐨','🦁','🐯','🐮','🐷','🐵','🐤','🐙','🐬','🐳','🐋','🦈','🐊','🦓','🦒','🦘','🦥','🦦','🦨','🦡','🦔'];
+    const animals = ['🦖','🦕','🐱','🐶','🐸','🐧','🐢','🐇','🦊','🫎','🐻','🐼','🐨','🦁','🐯','🐮','🐷','🐵','🐤','🐙','🐬','🐳','🐋','🦈','🐊','🦓','🦒','🦘','🦥','🦦','🦨','🦡','🦔', '🐜'];
     // Obstacles: always three sizes for each emoji
     const baseObstacles = [
-      '🌵','🌲','🪨','🍄','🪵','🍩','🍕','🥕','🍌','🍎','🥚','🍪','🍫','🍬','🍭'
+      '🌵','🌲','🪨','🍄','🪵','🍩','🍕','🥕','🍌','🍎','🥚','🍪','🍫','🍬','🍭','💣'
     ];
     const sizeTypes = [
       {size: 1, label: 'full'},
@@ -221,7 +225,8 @@
       { name: "Desert", class: "bg-desert", emoji: "🌵", scatter: ["🌵","🏜️","☀️"] },
       { name: "Ocean", class: "bg-ocean", emoji: "🌊", scatter: ["🌊","🐟","🐠"] },
       { name: "Space", class: "bg-space", emoji: "🪐", scatter: ["🪐","🌟","🚀"] },
-      { name: "Mountain", class: "bg-mountain", emoji: "🏔️", scatter: ["🏔️","🌄","🌞"] }
+      { name: "Mountain", class: "bg-mountain", emoji: "🏔️", scatter: ["🏔️","🌄","🌞"] },
+      { name: "Autumn", class: "bg-autumn", emoji: "🍁", scatter: ["🍁","🍂","🏵️"] }
     ];
 
     // DOM
