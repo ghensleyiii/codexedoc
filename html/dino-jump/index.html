@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dino Jump</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      font-family: sans-serif;
+      user-select: none;
+      touch-action: none;
+      background: #222;
+    }
+    #game {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    /* Start and game over box styles */
+    #start-box, #gameover-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5em 2em;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 20;
+      min-width: 220px;
+      max-width: 95vw;
+      gap: 1em;
+    }
+    #start-box h2, #gameover-box h2 {
+      margin: 0 0 0.5em 0;
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #222;
+    }
+    #start-btn, #restart-btn {
+      font-size: 1.2em;
+      padding: 0.5em 2em;
+      border-radius: 2em;
+      border: none;
+      background: #0078d4;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+      opacity: 0.85;
+      transition: background 0.2s;
+    }
+    #start-btn:active, #restart-btn:active {
+      background: #005fa3;
+    }
+    #score {
+      position: absolute;
+      top: 2vh;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2em;
+      color: #fff;
+      text-shadow: 0 2px 8px #000;
+      z-index: 3;
+      font-weight: bold;
+    }
+    @media (max-width: 600px) {
+      #start-box, #gameover-box { min-width: 90vw; }
+      #score { font-size: 1.2em; }
+    }
+    .bg {
+      background: linear-gradient(to top, #47d469 20%, #33c1ee 20%, #0783d8, #0e4d90);
+    }
+    .bg-emoji {
+      z-index: 0 !important;
+      pointer-events: none;
+      position: absolute;
+    }
+    #mobile-controls {
+      position: absolute;
+      bottom: 2vh;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      z-index: 5;
+      pointer-events: none;
+    }
+    #jump-btn {
+      font-size: 2em;
+      padding: 0.5em 2em;
+      border-radius: 2em;
+      border: none;
+      background: #0078d4;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      pointer-events: auto;
+      cursor: pointer;
+      opacity: 0.85;
+      transition: background 0.2s;
+    }
+    #jump-btn:active {
+      background: #005fa3;
+    }
+    /* Hide scrollbars */
+    ::-webkit-scrollbar { width: 0 !important }
+    body { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body>
+  <div id="game"></div>
+  <div id="score"></div>
+  <div id="mobile-controls" style="display:none;">
+    <button id="jump-btn">⬆️ Jump</button>
+  </div>
+  <!-- Start box -->
+  <div id="start-box">
+    <h2>DINO JUMP</h2>
+    <div style="font-size:2em;display:flex;gap:1em;align-items:center;">
+      <span title="Animal">🦖</span>
+      <span style="font-size:1.2em;">+</span>
+      <span title="Obstacle">🌵</span>
+    </div>
+    <button id="start-btn">Start</button>
+  </div>
+  <!-- Game over box -->
+  <div id="gameover-box" style="display:none;">
+    <h2>Game Over!</h2>
+    <div id="final-score" style="font-size:2em;"></div>
+    <button id="restart-btn">Restart</button>
+  </div>
+  <script>
+    // --- Game constants ---
+    const animals = ['🦖']; // Only Trex
+    const obstacles = [{emoji: '🌵', size: 1}, {emoji: '🌵', size: 0.75}, {emoji: '🌵', size: 0.25}];
+    const sizeTypes = [
+      {size: 1, label: 'full'},
+      {size: 0.75, label: 'medium'},
+      {size: 0.25, label: 'small'}
+    ];
+    // Weather/Disaster
+    const cloudEmojis = ['☁️'];
+    const windEmojis = ['💨'];
+    const rainDropEmojis = ['💧','💦','🫧'];
+    const quakeEmoji = '🌋';
+
+    // --- DOM ---
+    const game = document.getElementById('game');
+    const scoreDiv = document.getElementById('score');
+    const startBox = document.getElementById('start-box');
+    const gameoverBox = document.getElementById('gameover-box');
+    const startBtn = document.getElementById('start-btn');
+    const restartBtn = document.getElementById('restart-btn');
+    const mobileControls = document.getElementById('mobile-controls');
+    const jumpBtn = document.getElementById('jump-btn');
+    const finalScore = document.getElementById('final-score');
+
+    // --- State ---
+    let selectedAnimal = animals[0];
+    let selectedObstacle = {emoji: '🌵'};
+    let running = false;
+    let score = 0;
+    let speed = 0.5;
+    let bgSpeed = 0.7;
+    let requestId = null;
+    let animal = null;
+    let obstacleList = [];
+    let bgEmojis = [];
+    let jumpVelocity = 0;
+    let isJumping = false;
+    let jumpPressed = false;
+    let groundY = 0;
+    let lastObstacleTime = 0;
+    let obstacleInterval = 1400;
+    let lastFrameTime = 0;
+    let bgEmojiCount = 18;
+    let isMobile = false;
+
+    // Weather/Disaster State
+    let clouds = [];
+    let winds = [];
+    let rains = [];
+    let quake = null;
+    let windActive = false;
+    let rainActive = false;
+    let quakeActive = false;
+    let windAffectEnd = 0;
+    let rainAffectEnd = 0;
+    let quakeAffectEnd = 0;
+    let nextWindScore = 1500;
+    let nextRainScore = 2000;
+    let nextQuakeScore = 3000;
+
+    // Obstacle deck
+    let obstacleDeck = [];
+    function refillObstacleDeck() {
+      obstacleDeck = [];
+      for (let i = 0; i < 30; ++i) {
+        const st = sizeTypes[Math.floor(Math.random() * sizeTypes.length)];
+        obstacleDeck.push({emoji: selectedObstacle.emoji, size: st.size});
+      }
+      shuffleArray(obstacleDeck);
+    }
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+
+    // --- Game Entities ---
+    function resetGameVars() {
+      running = true;
+      score = 0;
+      speed = 0.5;
+      bgSpeed = 0.7;
+      animal = null;
+      obstacleList = [];
+      bgEmojis = [];
+      jumpVelocity = 0;
+      isJumping = false;
+      jumpPressed = false;
+      lastObstacleTime = 0;
+      obstacleInterval = 1400;
+      lastFrameTime = 0;
+      game.innerHTML = '';
+      scoreDiv.textContent = '';
+      document.body.className = "bg";
+      game.className = "bg";
+      refillObstacleDeck();
+      clouds = [];
+      winds = [];
+      rains = [];
+      quake = null;
+      windActive = false;
+      rainActive = false;
+      quakeActive = false;
+      windAffectEnd = 0;
+      rainAffectEnd = 0;
+      quakeAffectEnd = 0;
+      nextWindScore = 1500;
+      nextRainScore = 2000;
+      nextQuakeScore = 3000;
+      createClouds();
+    }
+
+    function createAnimal() {
+      const el = document.createElement('div');
+      el.style.position = 'absolute';
+      el.style.left = '80vw';
+      el.style.bottom = '20vh';
+      el.style.fontSize = '8vh';
+      el.style.lineHeight = '1';
+      el.style.userSelect = 'none';
+      el.textContent = selectedAnimal;
+      el.setAttribute('aria-label', 'player');
+      game.appendChild(el);
+      groundY = 20;
+      return {el, x: 80, y: groundY, vy: 0, width: 8, height: 8};
+    }
+
+    function createObstacle() {
+      if (obstacleDeck.length === 0) refillObstacleDeck();
+      let obs = obstacleDeck.shift();
+      let fontSize = 8 * obs.size;
+      let scale = window.innerWidth < 600 ? 0.3 : 1;
+      fontSize = fontSize * scale;
+      const el = document.createElement('div');
+      el.style.position = 'absolute';
+      el.style.left = '-10vw';
+      el.style.bottom = '20vh';
+      el.style.fontSize = fontSize + 'vh';
+      el.style.lineHeight = '1';
+      el.style.userSelect = 'none';
+      el.textContent = obs.emoji;
+      el.setAttribute('aria-label', 'obstacle');
+      game.appendChild(el);
+      return {
+        el,
+        x: -10,
+        y: groundY,
+        width: 8 * obs.size * scale,
+        height: 8 * obs.size * scale,
+        sizeType: obs.size
+      };
+    }
+
+    // --- Clouds, Wind, Rain, Quake ---
+    function createClouds() {
+      clouds.forEach(c => c.el.remove());
+      clouds = [];
+      let n = Math.floor(window.innerWidth / 120) + 4;
+      for (let i = 0; i < n; ++i) {
+        let emoji = cloudEmojis[0];
+        let el = document.createElement('div');
+        el.textContent = emoji;
+        el.style.position = 'absolute';
+        el.style.top = (2 + Math.random() * 3) + 'vh';
+        el.style.left = (Math.random() * 100) + 'vw';
+        el.style.fontSize = (5 + Math.random() * 3) + 'vh';
+        el.style.opacity = 0.85;
+        el.style.pointerEvents = 'none';
+        el.style.zIndex = 2;
+        el.className = 'bg-emoji';
+        game.appendChild(el);
+        clouds.push({
+          el,
+          x: parseFloat(el.style.left),
+          y: parseFloat(el.style.top),
+          speed: 0.04 + Math.random() * 0.06
+        });
+      }
+    }
+
+    function spawnWind() {
+      if (rainActive || quakeActive) return;
+      winds.forEach(w => w.el.remove());
+      winds = [];
+      let n = Math.floor(2 + Math.random() * 2);
+      for (let i = 0; i < n; ++i) {
+        let emoji = windEmojis[0];
+        let el = document.createElement('div');
+        el.textContent = emoji;
+        el.style.position = 'absolute';
+        el.style.top = (8 + Math.random() * 3) + 'vh';
+        el.style.left = (Math.random() * 100) + 'vw';
+        el.style.fontSize = (4.5 + Math.random() * 2) + 'vh';
+        el.style.opacity = 0.85;
+        el.style.pointerEvents = 'none';
+        el.style.zIndex = 3;
+        el.className = 'bg-emoji';
+        game.appendChild(el);
+        winds.push({
+          el,
+          x: parseFloat(el.style.left),
+          y: parseFloat(el.style.top),
+          speed: 0.22 + Math.random() * 0.12,
+          width: 7,
+          height: 4
+        });
+      }
+      windActive = true;
+      windAffectEnd = performance.now() + 1800;
+    }
+
+    function spawnRain() {
+      if (windActive || quakeActive) return;
+      rains.forEach(r => r.el.remove());
+      rains = [];
+      let dropCount = Math.floor(window.innerWidth / 40);
+      for (let i = 0; i < dropCount; ++i) {
+        let emoji = rainDropEmojis[Math.floor(Math.random() * rainDropEmojis.length)];
+        let el = document.createElement('div');
+        el.textContent = emoji;
+        el.style.position = 'absolute';
+        el.style.left = (Math.random() * 100) + 'vw';
+        el.style.top = (-5 + Math.random() * 5) + 'vh';
+        el.style.fontSize = (2.5 + Math.random() * 1.5) + 'vh';
+        el.style.opacity = 0.7 + Math.random() * 0.3;
+        el.style.pointerEvents = 'none';
+        el.style.zIndex = 4;
+        el.className = 'bg-emoji';
+        game.appendChild(el);
+        rains.push({
+          el,
+          x: parseFloat(el.style.left),
+          y: parseFloat(el.style.top),
+          speed: 0.25 + Math.random() * 0.15
+        });
+      }
+      rainActive = true;
+      rainAffectEnd = performance.now() + 2200;
+    }
+
+    function spawnQuake() {
+      if (windActive || rainActive) return;
+      if (quake && quake.el) quake.el.remove();
+      quake = null;
+      quakeActive = true;
+      quakeAffectEnd = performance.now() + 1800;
+      let el = document.createElement('div');
+      el.textContent = quakeEmoji;
+      el.style.position = 'absolute';
+      el.style.left = '50vw';
+      el.style.bottom = '2vh';
+      el.style.transform = 'translateX(-50%)';
+      el.style.fontSize = '7vh';
+      el.style.opacity = 0.95;
+      el.style.pointerEvents = 'none';
+      el.style.zIndex = 10;
+      el.className = 'bg-emoji';
+      game.appendChild(el);
+      quake = {el};
+    }
+
+    function updateClouds(dt) {
+      clouds.forEach(c => {
+        c.x += c.speed * dt / 16;
+        if (c.x > 110) c.x = -10;
+        c.el.style.left = c.x + 'vw';
+      });
+    }
+
+    function updateWinds(dt) {
+      winds.forEach(w => {
+        w.x += w.speed * dt / 16;
+        if (w.x > 110) w.x = -10;
+        w.el.style.left = w.x + 'vw';
+      });
+    }
+
+    function updateRains(dt) {
+      rains.forEach(r => {
+        r.y += r.speed * dt / 16;
+        if (r.y > 110) r.y = -10;
+        r.el.style.top = r.y + 'vh';
+      });
+    }
+
+    function isAnimalInWind() {
+      let ax = animal.x, ay = animal.y, aw = animal.width, ah = animal.height;
+      for (let w of winds) {
+        let wx = w.x, wy = w.y, ww = w.width, wh = w.height;
+        if (
+          ax + aw * 0.7 > wx && ax < wx + ww * 0.7 &&
+          ay + ah > wy && ay < wy + wh
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    // --- Game Loop ---
+    function gameLoop(ts) {
+      if (!running) return;
+      if (!lastFrameTime) lastFrameTime = ts;
+      let dt = ts - lastFrameTime;
+      lastFrameTime = ts;
+
+      // Clouds always move
+      updateClouds(dt);
+
+      // Weather/disaster triggers (never overlap)
+      if (!windActive && !rainActive && !quakeActive) {
+        if (score >= nextRainScore) {
+          spawnRain();
+          nextRainScore += 2000 + Math.random() * 1000;
+        } else if (score >= nextQuakeScore) {
+          spawnQuake();
+          nextQuakeScore += 2500 + Math.random() * 1000;
+        } else if (score >= nextWindScore) {
+          spawnWind();
+          nextWindScore += 300 + Math.random() * 200;
+        }
+      }
+
+      // Wind logic
+      if (windActive) {
+        updateWinds(dt);
+        if (performance.now() > windAffectEnd) {
+          winds.forEach(w => w.el.remove());
+          winds = [];
+          windActive = false;
+        }
+      }
+
+      // Rain logic
+      if (rainActive) {
+        updateRains(dt);
+        if (performance.now() > rainAffectEnd) {
+          rains.forEach(r => r.el.remove());
+          rains = [];
+          rainActive = false;
+        }
+      }
+
+      // Quake logic
+      if (quakeActive) {
+        let shake = Math.random() * 8 - 4;
+        let shakeY = Math.random() * 4 - 2;
+        game.style.transform = `translate(${shake}px,${shakeY}px)`;
+        if (performance.now() > quakeAffectEnd) {
+          quakeActive = false;
+          if (quake && quake.el) quake.el.remove();
+          quake = null;
+          game.style.transform = '';
+        }
+      } else {
+        game.style.transform = '';
+      }
+
+      // Effects: wind, rain, quake
+      let windEffect = windActive;
+      let rainEffect = rainActive;
+      let quakeEffect = quakeActive;
+
+      let jumpVelocityInit = rainEffect ? 7.5 : 7.5;
+      let gravityVal = rainEffect ? 0.8 : 0.5;
+      let speedVal = windEffect ? 1.2 : 0.5;
+
+      bgSpeed = speedVal / 2.5;
+
+      if (!animal.isJumping) animal.isJumping = false;
+      if (!animal.vy) animal.vy = 0;
+
+      if (jumpPressed && !animal.isJumping) {
+        animal.isJumping = true;
+        animal.vy = jumpVelocityInit;
+      }
+
+      if (animal.isJumping) {
+        animal.y += animal.vy;
+        animal.vy -= gravityVal;
+        if (animal.y <= groundY) {
+          animal.y = groundY;
+          animal.isJumping = false;
+          animal.vy = 0;
+        }
+      }
+
+      animal.el.style.bottom = animal.y + 'vh';
+      animal.el.style.left = animal.x + 'vw';
+
+      // Obstacles
+      for (let i = obstacleList.length - 1; i >= 0; --i) {
+        let obs = obstacleList[i];
+        obs.x += speedVal * dt / 16;
+        obs.el.style.left = obs.x + 'vw';
+        if (obs.x > 110) {
+          obs.el.remove();
+          obstacleList.splice(i, 1);
+          continue;
+        }
+        // Collision
+        let ax = animal.x, ay = animal.y, aw = animal.width, ah = animal.height;
+        let ox = obs.x, oy = obs.y, ow = obs.width, oh = obs.height;
+        if (
+          ax + aw * 0.7 > ox && ax < ox + ow * 0.7 &&
+          ay < oy + oh * 0.7 && ay + ah * 0.7 > oy
+        ) {
+          if (ay > oy + oh * 0.7) continue;
+          running = false;
+          setTimeout(showGameOver, 300);
+          return;
+        }
+      }
+      // Spawn obstacles
+      if (ts - lastObstacleTime > obstacleInterval) {
+        obstacleList.push(createObstacle());
+        lastObstacleTime = ts;
+        obstacleInterval = Math.max(500, 1200 + Math.random() * 700);
+      }
+      // Score
+      score += dt / 16;
+      scoreDiv.textContent = Math.floor(score);
+
+      requestId = requestAnimationFrame(gameLoop);
+    }
+
+    // --- Controls ---
+    function handleKey(e) {
+      if (!running) return;
+      if (e.code === 'Space') {
+        if (!jumpPressed) {
+          jumpPressed = true;
+        }
+        e.preventDefault();
+      }
+    }
+    function handleKeyUp(e) {
+      if (!running) return;
+      if (e.code === 'Space') {
+        jumpPressed = false;
+        e.preventDefault();
+      }
+    }
+    function handleTouchStart(e) {
+      if (!running) return;
+      jumpPressed = true;
+      e.preventDefault();
+    }
+    function handleTouchEnd(e) {
+      if (!running) return;
+      jumpPressed = false;
+      e.preventDefault();
+    }
+
+    // --- Game Start/Restart ---
+    function startGame() {
+      startBox.style.display = 'none';
+      gameoverBox.style.display = 'none';
+      resetGameVars();
+      animal = createAnimal();
+      mobileControls.style.display = 'none';
+      requestId = requestAnimationFrame(gameLoop);
+    }
+    function showGameOver() {
+      running = false;
+      cancelAnimationFrame(requestId);
+      finalScore.textContent = `Score: ${Math.floor(score)}`;
+      gameoverBox.style.display = '';
+      mobileControls.style.display = 'none';
+      clouds.forEach(c => c.el.remove());
+      clouds = [];
+      winds.forEach(w => w.el.remove());
+      winds = [];
+      rains.forEach(r => r.el.remove());
+      rains = [];
+      if (quake && quake.el) quake.el.remove();
+      quake = null;
+      game.style.transform = '';
+    }
+    function restartGame() {
+      startBox.style.display = '';
+      gameoverBox.style.display = 'none';
+      mobileControls.style.display = 'none';
+      document.body.className = "bg";
+      game.className = "bg";
+      Array.from(game.children).forEach(child => {
+        if (!child.classList.contains('bg-emoji')) child.remove();
+      });
+      if (clouds.length === 0) createClouds();
+      let lastCloudFrame = 0;
+      function cloudsLoop(ts) {
+        if (startBox.style.display === 'none') return;
+        if (!lastCloudFrame) lastCloudFrame = ts;
+        let dt = ts - lastCloudFrame;
+        lastCloudFrame = ts;
+        updateClouds(dt);
+        requestAnimationFrame(cloudsLoop);
+      }
+      requestAnimationFrame(cloudsLoop);
+    }
+
+    // --- Event Listeners ---
+    startBtn.onclick = startGame;
+    restartBtn.onclick = restartGame;
+    window.addEventListener('keydown', handleKey);
+    window.addEventListener('keyup', handleKeyUp);
+    game.addEventListener('touchstart', handleTouchStart, {passive:false});
+    game.addEventListener('touchend', handleTouchEnd, {passive:false});
+    game.addEventListener('mousedown', function(e) {
+      if (!running) return;
+      jumpPressed = true;
+      e.preventDefault();
+    });
+    game.addEventListener('mouseup', function(e) {
+      if (!running) return;
+      jumpPressed = false;
+      e.preventDefault();
+    });
+    game.addEventListener('touchmove', e => e.preventDefault(), {passive:false});
+
+    // --- Start at menu ---
+    restartGame();
+  </script>
+</body>
+</html>
