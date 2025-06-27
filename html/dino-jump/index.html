@@ -114,6 +114,12 @@
     #jump-btn:active {
       background: #005fa3;
     }
+    /* Image styles */
+    .game-img {
+      max-width: 100%;
+      height: auto;
+      vertical-align: middle;
+    }
     /* Hide scrollbars */
     ::-webkit-scrollbar { width: 0 !important }
     body { -ms-overflow-style: none; scrollbar-width: none; }
@@ -129,9 +135,9 @@
   <div id="start-box">
     <h2>DINO JUMP</h2>
     <div style="font-size:2em;display:flex;gap:1em;align-items:center;">
-      <span title="Animal">🦖</span>
+      <img src="dino.png" alt="Dino" class="game-img" style="width: 40px; height: 40px;">
       <span style="font-size:1.2em;">+</span>
-      <span title="Obstacle">🌵</span>
+      <img src="cactus.png" alt="Cactus" class="game-img" style="width: 40px; height: 40px;">
     </div>
     <button id="start-btn">Start</button>
   </div>
@@ -143,18 +149,22 @@
   </div>
   <script>
     // --- Game constants ---
-    const animals = ['🦖']; // Only Trex
-    const obstacles = [{emoji: '🌵', size: 1}, {emoji: '🌵', size: 0.75}, {emoji: '🌵', size: 0.25}];
+    const animals = ['dino.png']; // Using image filename
+    const obstacles = [
+      {image: 'cactus.png', size: 1},
+      {image: 'cactus.png', size: 0.75},
+      {image: 'cactus.png', size: 0.25}
+    ];
     const sizeTypes = [
       {size: 1, label: 'full'},
       {size: 0.75, label: 'medium'},
       {size: 0.25, label: 'small'}
     ];
     // Weather/Disaster
-    const cloudEmojis = ['☁️'];
-    const windEmojis = ['💨'];
-    const rainDropEmojis = ['💧','💦','🫧'];
-    const quakeEmoji = '🌋';
+    const cloudImage = 'cloud.png';
+    const windImage = 'wind.png';
+    const rainDropImage = 'raindrop.png';
+    const quakeImage = 'quake.png';
 
     // --- DOM ---
     const game = document.getElementById('game');
@@ -169,7 +179,7 @@
 
     // --- State ---
     let selectedAnimal = animals[0];
-    let selectedObstacle = {emoji: '🌵'};
+    let selectedObstacle = {image: 'cactus.png'};
     let running = false;
     let score = 0;
     let speed = 0.5;
@@ -177,7 +187,7 @@
     let requestId = null;
     let animal = null;
     let obstacleList = [];
-    let bgEmojis = [];
+    let bgImages = [];
     let jumpVelocity = 0;
     let isJumping = false;
     let jumpPressed = false;
@@ -185,7 +195,7 @@
     let lastObstacleTime = 0;
     let obstacleInterval = 1400;
     let lastFrameTime = 0;
-    let bgEmojiCount = 18;
+    let bgImageCount = 18;
     let isMobile = false;
 
     // Weather/Disaster State
@@ -209,7 +219,7 @@
       obstacleDeck = [];
       for (let i = 0; i < 30; ++i) {
         const st = sizeTypes[Math.floor(Math.random() * sizeTypes.length)];
-        obstacleDeck.push({emoji: selectedObstacle.emoji, size: st.size});
+        obstacleDeck.push({image: selectedObstacle.image, size: st.size});
       }
       shuffleArray(obstacleDeck);
     }
@@ -228,7 +238,7 @@
       bgSpeed = 0.7;
       animal = null;
       obstacleList = [];
-      bgEmojis = [];
+      bgImages = [];
       jumpVelocity = 0;
       isJumping = false;
       jumpPressed = false;
@@ -257,15 +267,16 @@
     }
 
     function createAnimal() {
-      const el = document.createElement('div');
+      const el = document.createElement('img');
+      el.src = selectedAnimal;
+      el.alt = "Dino";
+      el.className = 'game-img';
       el.style.position = 'absolute';
       el.style.left = '80vw';
       el.style.bottom = '20vh';
-      el.style.fontSize = '8vh';
-      el.style.lineHeight = '1';
+      el.style.width = '8vh';
+      el.style.height = '8vh';
       el.style.userSelect = 'none';
-      el.textContent = selectedAnimal;
-      el.setAttribute('aria-label', 'player');
       game.appendChild(el);
       groundY = 20;
       return {el, x: 80, y: groundY, vy: 0, width: 8, height: 8};
@@ -274,18 +285,17 @@
     function createObstacle() {
       if (obstacleDeck.length === 0) refillObstacleDeck();
       let obs = obstacleDeck.shift();
-      let fontSize = 8 * obs.size;
       let scale = window.innerWidth < 600 ? 0.3 : 1;
-      fontSize = fontSize * scale;
-      const el = document.createElement('div');
+      const el = document.createElement('img');
+      el.src = obs.image;
+      el.alt = "Cactus";
+      el.className = 'game-img';
       el.style.position = 'absolute';
       el.style.left = '-10vw';
       el.style.bottom = '20vh';
-      el.style.fontSize = fontSize + 'vh';
-      el.style.lineHeight = '1';
+      el.style.width = (8 * obs.size * scale) + 'vh';
+      el.style.height = (8 * obs.size * scale) + 'vh';
       el.style.userSelect = 'none';
-      el.textContent = obs.emoji;
-      el.setAttribute('aria-label', 'obstacle');
       game.appendChild(el);
       return {
         el,
@@ -303,17 +313,18 @@
       clouds = [];
       let n = Math.floor(window.innerWidth / 120) + 4;
       for (let i = 0; i < n; ++i) {
-        let emoji = cloudEmojis[0];
-        let el = document.createElement('div');
-        el.textContent = emoji;
+        let el = document.createElement('img');
+        el.src = cloudImage;
+        el.alt = "Cloud";
+        el.className = 'game-img bg-emoji';
         el.style.position = 'absolute';
         el.style.top = (2 + Math.random() * 3) + 'vh';
         el.style.left = (Math.random() * 100) + 'vw';
-        el.style.fontSize = (5 + Math.random() * 3) + 'vh';
+        el.style.width = (5 + Math.random() * 3) + 'vh';
+        el.style.height = (5 + Math.random() * 3) + 'vh';
         el.style.opacity = 0.85;
         el.style.pointerEvents = 'none';
         el.style.zIndex = 2;
-        el.className = 'bg-emoji';
         game.appendChild(el);
         clouds.push({
           el,
@@ -330,17 +341,18 @@
       winds = [];
       let n = Math.floor(2 + Math.random() * 2);
       for (let i = 0; i < n; ++i) {
-        let emoji = windEmojis[0];
-        let el = document.createElement('div');
-        el.textContent = emoji;
+        let el = document.createElement('img');
+        el.src = windImage;
+        el.alt = "Wind";
+        el.className = 'game-img bg-emoji';
         el.style.position = 'absolute';
         el.style.top = (8 + Math.random() * 3) + 'vh';
         el.style.left = (Math.random() * 100) + 'vw';
-        el.style.fontSize = (4.5 + Math.random() * 2) + 'vh';
+        el.style.width = (4.5 + Math.random() * 2) + 'vh';
+        el.style.height = (4.5 + Math.random() * 2) + 'vh';
         el.style.opacity = 0.85;
         el.style.pointerEvents = 'none';
         el.style.zIndex = 3;
-        el.className = 'bg-emoji';
         game.appendChild(el);
         winds.push({
           el,
@@ -361,17 +373,18 @@
       rains = [];
       let dropCount = Math.floor(window.innerWidth / 40);
       for (let i = 0; i < dropCount; ++i) {
-        let emoji = rainDropEmojis[Math.floor(Math.random() * rainDropEmojis.length)];
-        let el = document.createElement('div');
-        el.textContent = emoji;
+        let el = document.createElement('img');
+        el.src = rainDropImage;
+        el.alt = "Raindrop";
+        el.className = 'game-img bg-emoji';
         el.style.position = 'absolute';
         el.style.left = (Math.random() * 100) + 'vw';
         el.style.top = (-5 + Math.random() * 5) + 'vh';
-        el.style.fontSize = (2.5 + Math.random() * 1.5) + 'vh';
+        el.style.width = (2.5 + Math.random() * 1.5) + 'vh';
+        el.style.height = (2.5 + Math.random() * 1.5) + 'vh';
         el.style.opacity = 0.7 + Math.random() * 0.3;
         el.style.pointerEvents = 'none';
         el.style.zIndex = 4;
-        el.className = 'bg-emoji';
         game.appendChild(el);
         rains.push({
           el,
@@ -390,17 +403,19 @@
       quake = null;
       quakeActive = true;
       quakeAffectEnd = performance.now() + 1800;
-      let el = document.createElement('div');
-      el.textContent = quakeEmoji;
+      let el = document.createElement('img');
+      el.src = quakeImage;
+      el.alt = "Quake";
+      el.className = 'game-img bg-emoji';
       el.style.position = 'absolute';
       el.style.left = '50vw';
       el.style.bottom = '2vh';
       el.style.transform = 'translateX(-50%)';
-      el.style.fontSize = '7vh';
+      el.style.width = '7vh';
+      el.style.height = '7vh';
       el.style.opacity = 0.95;
       el.style.pointerEvents = 'none';
       el.style.zIndex = 10;
-      el.className = 'bg-emoji';
       game.appendChild(el);
       quake = {el};
     }
@@ -647,7 +662,7 @@
 
     // --- Event Listeners ---
     startBtn.onclick = startGame;
-    restartBtn.onclick = restartGame;
+    restartBtn.onclick = startGame; // Restart button calls startGame directly
     window.addEventListener('keydown', handleKey);
     window.addEventListener('keyup', handleKeyUp);
     game.addEventListener('touchstart', handleTouchStart, {passive:false});
