@@ -1,58 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-black text-white">
+<html lang="en" class="bg-[#0f0f0f] text-white">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Codexedoc | Code With Confidence</title>
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="font-sans bg-[#0f0f0f] text-white">
 
-  <!-- Minimal Dark Header -->
-  <header class="py-6 text-center">
-    <h1 class="text-3xl font-bold tracking-wide text-white">CODEXEDOC</h1>
+  <!-- Custom font (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 1.2s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-[#0f0f0f] text-white min-h-screen relative overflow-hidden">
+
+  <!-- Radial Background Glow -->
+  <div class="absolute top-0 left-0 w-full h-full bg-gradient-radial from-blue-800/20 to-transparent pointer-events-none"></div>
+
+  <!-- Header -->
+  <header class="py-6 text-center z-10 relative">
+    <h1 class="text-4xl font-bold tracking-wide animate-fade-in">
+      <span class="text-blue-500">C</span>ODE<span class="text-blue-500">X</span>EDOC
+    </h1>
   </header>
 
   <!-- Main Content -->
-  <main class="text-center px-6 py-12 max-w-3xl mx-auto">
+  <main class="relative z-10 px-6 py-10 max-w-3xl mx-auto backdrop-blur-md bg-[#1a1a1a]/50 rounded-xl border border-gray-800 shadow-lg">
 
     <!-- Tagline -->
-    <h2 class="text-2xl sm:text-3xl font-semibold mb-4 text-white">
-      Code With Confidence
+    <h2 class="text-2xl sm:text-3xl font-light mb-6 text-gray-300">
+      <span class="font-medium text-white">Code With Confidence</span>
     </h2>
 
-    <!-- Navigation Links -->
-    <nav class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 mt-8">
-      <a href="#" class="bg-blue-600 text-white py-3 rounded hover:bg-blue-700">Curriculum</a>
-      <a href="#" class="bg-gray-800 text-white py-3 rounded hover:bg-gray-700">Resources</a>
-      <a href="#" class="bg-gray-800 text-white py-3 rounded hover:bg-gray-700">Articles</a>
-      <a href="#" class="bg-gray-800 text-white py-3 rounded hover:bg-gray-700">Contact</a>
+    <!-- Navigation Buttons -->
+    <nav class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+      <a href="#" class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white py-3 rounded shadow-md transition">Curriculum</a>
+      <a href="#" class="bg-gray-900 hover:bg-gray-800 text-white py-3 rounded shadow-md transition">Resources</a>
+      <a href="#" class="bg-gray-900 hover:bg-gray-800 text-white py-3 rounded shadow-md transition">Articles</a>
+      <a href="#" class="bg-gray-900 hover:bg-gray-800 text-white py-3 rounded shadow-md transition">Contact</a>
     </nav>
 
     <!-- Search Bar -->
-    <div class="mb-12">
+    <div class="mb-10">
       <input 
-        type="text" 
+        type="text"
         placeholder="Search articles..." 
-        class="w-full px-4 py-3 border border-gray-700 bg-[#1a1a1a] text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full px-4 py-3 rounded bg-[#121212] text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
       />
     </div>
 
-    <!-- Optional Featured Articles -->
+    <!-- Featured Articles -->
     <section class="text-left">
-      <h3 class="text-xl font-bold mb-4 text-white">Featured Articles</h3>
+      <h3 class="text-xl font-semibold text-gray-200 mb-4">Featured Articles</h3>
       <ul class="space-y-2">
-        <li><a href="#" class="text-blue-400 hover:underline">Build a Responsive Navbar with Tailwind</a></li>
-        <li><a href="#" class="text-blue-400 hover:underline">Understanding Flexbox in 10 Minutes</a></li>
-        <li><a href="#" class="text-blue-400 hover:underline">The Easiest Way to Use Git</a></li>
+        <li><a href="#" class="text-blue-400 hover:underline">Responsive Layouts with Tailwind</a></li>
+        <li><a href="#" class="text-blue-400 hover:underline">Mastering CSS Variables</a></li>
+        <li><a href="#" class="text-blue-400 hover:underline">How to Think in JavaScript</a></li>
       </ul>
     </section>
-
   </main>
 
   <!-- Footer -->
-  <footer class="text-center py-6 text-sm text-gray-500 border-t border-gray-800">
-    © 2025 Codexedoc
+  <footer class="text-center py-6 text-sm text-gray-500">
+    © 2025 Codexedoc. All rights reserved.
   </footer>
 
 </body>
