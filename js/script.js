@@ -64,3 +64,20 @@ const currentDate = new Date();
 const year = currentDate.getFullYear();
 
 copyright.textContent = `© ${year} CODEXEDOC. All Rights Reserved.`;
+
+/*
+**************************************************
+BITS & BYTES CONTENT
+**************************************************
+*/
+
+fetch('../docs/bitsandbytes/bits-and-bytes.md')
+      .then(response => response.text())
+      .then(markdown => {
+        const html = marked.parse(markdown);
+        document.querySelector('#bits-and-bytes').innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Error loading markdown:', error);
+        document.querySelector('#bits-and-bytes').innerHTML = 'Failed to load content.';
+      });
