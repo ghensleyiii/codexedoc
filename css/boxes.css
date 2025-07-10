@@ -1,3 +1,9 @@
+/*
+**************************************************
+BOX STYLES
+**************************************************
+*/
+
 .boxes {
   background-color: var(--white);
   color: var(--blue);
@@ -9,11 +15,55 @@
 }
 
 .box-grid {
-  display: flex;
+  display: grid;
   flex-wrap: wrap;
   gap: 15px;
-  justify-content: center;
-  padding-bottom: 80px;
+  justify-items: center;
+  align-content: center;
+  padding-bottom: 50px;
+  grid-template-rows: repeat(8, 1fr);
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+    "alias-js"
+    "alias-html" 
+    "alias-css"
+    "alias-git"
+    "alias-tw"
+    "alias-react"
+    "alias-ts"
+    "alias-career";
+}
+
+#js-box {
+  grid-area: alias-js;
+}
+
+#html-box {
+  grid-area: alias-html;
+}
+
+#css-box {
+  grid-area: alias-css;
+}
+
+#git-box {
+  grid-area: alias-git;
+}
+
+#tailwind-box {
+  grid-area: alias-tw;
+}
+
+#react-box {
+  grid-area: alias-react;
+}
+
+#typescript-box {
+  grid-area: alias-ts;
+}
+
+#career-box {
+  grid-area: alias-career;
 }
 
 .box-item {
@@ -29,7 +79,7 @@
   text-align: left;
 }
 
-.beta {
+.tab {
   background-color: var(--theme);
   border-radius: 10px;
   padding: 5px 10px;
@@ -107,4 +157,47 @@ a.more:hover .arrow {
 
 .arrow {
   text-align: right;
+}
+
+/*
+**************************************************
+BREAKPOINTS
+**************************************************
+*/
+
+@media (min-width: 576px) {
+  .box-grid {
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "alias-js"
+      "alias-html" 
+      "alias-css"
+      "alias-git"
+      "alias-tw"
+      "alias-react"
+      "alias-ts"
+      "alias-career";
+  }
+}
+
+@media (min-width: 992px) {
+  .box-grid {
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 
+    "alias-js alias-html alias-css"
+    "alias-git alias-tw alias-react"
+    "alias-ts alias-career . ";
+  }
+}
+
+@media (min-width: 1440px) {
+  .box-grid {
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "alias-js alias-html alias-css alias-git"
+    "alias-tw alias-react alias-ts alias-career";
+  }
 }
