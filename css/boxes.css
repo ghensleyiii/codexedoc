@@ -15,15 +15,15 @@ BOX STYLES
 }
 
 .box-grid {
-  display: grid;
+  display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  justify-items: center;
-  align-content: center;
+  justify-content: center;
+  align-items: center;
   padding-bottom: 50px;
-  grid-template-rows: repeat(8, 1fr);
+  /*grid-template-rows: repeat(8, 1fr);
   grid-template-columns: 1fr;
-  grid-template-areas: 
+  /*grid-template-areas: 
     "alias-js"
     "alias-html" 
     "alias-css"
@@ -31,7 +31,7 @@ BOX STYLES
     "alias-tw"
     "alias-react"
     "alias-ts"
-    "alias-career";
+    "alias-career";*/
 }
 
 #js-box {
@@ -157,47 +157,4 @@ a.more:hover .arrow {
 
 .arrow {
   text-align: right;
-}
-
-/*
-**************************************************
-BREAKPOINTS
-**************************************************
-*/
-
-@media (min-width: 576px) {
-  .box-grid {
-    grid-template-rows: repeat(8, 1fr);
-    grid-template-columns: 1fr;
-    grid-template-areas: 
-      "alias-js"
-      "alias-html" 
-      "alias-css"
-      "alias-git"
-      "alias-tw"
-      "alias-react"
-      "alias-ts"
-      "alias-career";
-  }
-}
-
-@media (min-width: 992px) {
-  .box-grid {
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: 
-    "alias-js alias-html alias-css"
-    "alias-git alias-tw alias-react"
-    "alias-ts alias-career . ";
-  }
-}
-
-@media (min-width: 1440px) {
-  .box-grid {
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas: 
-    "alias-js alias-html alias-css alias-git"
-    "alias-tw alias-react alias-ts alias-career";
-  }
 }
