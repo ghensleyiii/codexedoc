@@ -255,6 +255,7 @@ nav {
   color: var(--blue);
   text-decoration: none;
   margin-top: 5px;
+  font-size: 0.8rem;
 }
 
 .nav-link:hover {
