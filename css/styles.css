@@ -64,6 +64,10 @@ p {
   margin-bottom: 15px;
 }
 
+li {
+  list-style-type: none;
+}
+
 /*
 **************************************************
 CSS OUTER GRID STYLES
