@@ -52,3 +52,15 @@ function updateAllImages(theme) {
     img.setAttribute('src', src);
   });
 }
+
+/*
+**************************************************
+FOOTER COPYRIGHT MESSAGE
+**************************************************
+*/
+
+const copyright = document.querySelector('.copyright');
+const currentDate = new Date();
+const year = currentDate.getFullYear();
+
+copyright.textContent = `© ${year} CODEXEDOC. All Rights Reserved.`;
