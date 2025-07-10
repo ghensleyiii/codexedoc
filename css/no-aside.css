@@ -1,0 +1,131 @@
+/*
+**************************************************
+CSS OUTER GRID STYLES
+**************************************************
+*/
+
+.outer-grid {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 70px 1fr;
+  grid-template-columns: 90px 1fr;
+  grid-template-areas: 
+    "alias-header alias-header"
+    "alias-innergrid alias-innergrid";
+}
+
+.outer-grid-expanded {
+  grid-template-areas: 
+    "alias-header alias-header"
+    "alias-nav alias-innergrid";
+}
+
+.hide-nav {
+  display: none;
+}
+
+header {
+  grid-area: alias-header;
+  /*background-color: rgba(0, 31, 255, 0.5);*/
+}
+
+nav {
+  grid-area: alias-nav;
+  /*background-color: rgba(0, 31, 255, 0.8);*/
+}
+
+/*
+**************************************************
+CSS INNER GRID STYLES
+**************************************************
+*/
+
+.inner-grid {
+  overflow-y: scroll;
+  display: grid;
+  grid-area: alias-innergrid;
+  /*background-color: rgba(0, 31, 255, 0.2);*/
+  grid-template-rows: 1fr 60px;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+    "alias-main"
+    "alias-footer";
+}
+
+main {
+  grid-area: alias-main;
+  /*background-color: rgba(255, 122, 0, 0.9);*/
+}
+
+footer {
+  grid-area: alias-footer;
+  /*background-color: rgba(255, 122, 0, 0.7);*/
+}
+
+/*
+**************************************************
+BREAKPOINTS
+**************************************************
+*/
+
+@media (min-width: 576px) {
+  nav {
+    display: block !important;
+  }
+
+  .outer-grid {
+    grid-template-areas: 
+    "alias-header alias-header"
+    "alias-nav alias-innergrid";
+  }
+
+  .bars {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .inner-grid {
+    grid-template-rows: 1fr 60px;
+    grid-template-columns: minmax(auto, 700px) 1fr;
+    grid-template-areas: 
+    "alias-main alias-main"
+    "alias-footer alias-footer";
+  }
+}
+
+@media (min-width: 1440px) {
+  .outer-grid {
+    grid-template-columns: 1fr 950px 1fr;
+    grid-template-areas: 
+      "alias-header alias-header alias-header"
+      "alias-nav alias-innergrid alias-innergrid"
+      "alias-footer alias-footer alias-footer";
+  }
+
+  header {
+    display: grid;
+    grid-template-columns: 1fr 950px 1fr;
+    grid-template-areas: "alias-lh . alias-rh";
+  }
+
+  .left-header {
+    grid-area: alias-lh;
+    justify-self: end;
+  }
+
+  .right-header {
+    grid-area: alias-rh;
+    justify-self: start;
+  }
+
+  nav {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .nav-link {
+    padding-right: 15px;
+  }
+}
