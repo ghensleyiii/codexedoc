@@ -21,49 +21,6 @@ BOX STYLES
   justify-content: center;
   align-items: center;
   padding-bottom: 50px;
-  /*grid-template-rows: repeat(8, 1fr);
-  grid-template-columns: 1fr;
-  /*grid-template-areas: 
-    "alias-js"
-    "alias-html" 
-    "alias-css"
-    "alias-git"
-    "alias-tw"
-    "alias-react"
-    "alias-ts"
-    "alias-career";*/
-}
-
-#js-box {
-  grid-area: alias-js;
-}
-
-#html-box {
-  grid-area: alias-html;
-}
-
-#css-box {
-  grid-area: alias-css;
-}
-
-#git-box {
-  grid-area: alias-git;
-}
-
-#tailwind-box {
-  grid-area: alias-tw;
-}
-
-#react-box {
-  grid-area: alias-react;
-}
-
-#typescript-box {
-  grid-area: alias-ts;
-}
-
-#career-box {
-  grid-area: alias-career;
 }
 
 .box-item {
@@ -71,7 +28,7 @@ BOX STYLES
   max-width: 350px;
   box-sizing: border-box;
   height: 380px;
-  background-color: white;
+  background-color: var(--theme);
   border-radius: 10px;
   border: 2px solid var(--blue);
   border-bottom: 5px solid var(--blue);
@@ -108,7 +65,7 @@ BOX STYLES
   margin-bottom: 15px;
   text-align: center;
   align-items: center;
-  color: white;
+  color: var(--theme);
   font-size: 2rem;
 }
 
