@@ -7,7 +7,10 @@
   <meta name="keywords" content="coding, programming, learning to code, front-end developer, web developer, portfolio, Glenn Hensley III, codexedoc, code">
   <meta name="author" content="Glenn Hensley III">
   <title>CODEXEDOC</title>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
@@ -15,11 +18,11 @@
     <header>
       <div class="left-header">
         <img src="./assets/navigation/bars-light.svg" alt="bars icon" class="bars" onclick="toggleNav()">
-        <img src="./assets/brand/code-light.png" alt="codexedoc official logo" class="logo">
+        <img src="./assets/brand/codexedoc.png" alt="codexedoc official logo" class="logo">
       </div>
       <div class="right-header">
         <button class="header-link" onclick="toggleTheme()">
-          <img src="./assets/brand/fire-light.png" alt="light theme fire" class="theme">
+          <img src="./assets/brand/theme.png" alt="light theme fire" class="theme">
           <p>THEME</p>
         </button>
       </div>
@@ -27,38 +30,32 @@
     <nav class="hide-nav">
       <div class="nav-link">
         <a href="">
-          <img src="./assets/navigation/home.svg" alt="house icon" class="nav-img">
+          <i class="fa-solid fa-house"></i>
           <p>HOME</p>
         </a>
       </div>
       <div class="nav-link">
-        <a href="./html/blog/">
-          <img src="./assets/navigation/blog.svg" alt="open book icon" class="nav-img">
-          <p>BLOG</p>
+        <a href="./html/code/">
+          <i class="fa-solid fa-code"></i>
+          <p>CODE</p>
         </a>
       </div>
       <div class="nav-link">
-        <a href="./html/courses/">
-          <img src="./assets/navigation/courses.svg" alt="graduation cap icon" class="nav-img">
-          <p>COURSES</p>
+        <a href="./html/docs/">
+          <i class="fa-solid fa-book-open"></i>
+          <p>DOCS</p>
         </a>
       </div>
       <div class="nav-link">
-        <a href="./html/projects/">
-          <img src="./assets/navigation/projects.svg" alt="code icon" class="nav-img">
-          <p>PROJECTS</p>
-        </a>
-      </div>
-      <div class="nav-link">
-        <a href="./html/about/">
-          <img src="./assets/navigation/about.svg" alt="laptop icon" class="nav-img">
-          <p>ABOUT</p>
+        <a href="./html/info/">
+          <i class="fa-solid fa-laptop"></i>
+          <p>INFO</p>
         </a>
       </div>
       <div class="nav-link">
         <a href="mailto:contact@codexedoc.com">
-          <img src="./assets/navigation/contact.svg" alt="at symbol icon" class="nav-img">
-          <p>CONTACT</p>
+          <i class="fa-solid fa-at"></i>
+          <p>MAIL</p>
         </a>
       </div>
     </nav>
@@ -83,12 +80,8 @@
           </p>
         </article>
       </main>
-      <aside>
-        <h1>BITS & BYTES</h1>
-        <div id="bits-and-bytes"></div>
-      </aside>
       <footer>
-        <div class="slogan"><img src="./assets/brand/x-light.png" alt="codexedoc fire logo" class="special-img"><em>Create With Code</em></div>
+        <div class="slogan"><img src="./assets/brand/x.png" alt="codexedoc fire logo" class="special-img"><em>Create With Code</em></div>
         <p class="copyright"></p>
       </footer>
     </div>
