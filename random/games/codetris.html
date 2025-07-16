@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../icons/android-chrome-192x192.png">
+    <title>Codetris</title>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      :root {
+        --dark-steel: #295d8a;
+        --steel: #4a7fb2;
+        --white: #ffffff;
+        --black: #000000;
+        --emerald-green: #10b981;
+      }
+
+      * {
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      body {
+        font-family: Arial, sans-serif !important;
+        background-color: var(--black) !important;
+        color: var(--white) !important;
+        line-height: 1.6 !important;
+      }
+
+      header {
+        background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
+        padding: 20px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 100 !important;
+      }
+
+      .logo h1 {
+        font-family: 'Audiowide', sans-serif !important;
+        color: var(--black) !important;
+        font-size: 35px !important;
+        margin: 0 !important;
+      }
+
+      .logo a {
+        text-decoration: none !important;
+        color: var(--black) !important;
+      }
+
+      .intro {
+        background: linear-gradient(90deg, var(--steel)) !important;
+        padding: 20px !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+        text-align: center !important;
+        width: 100vw !important;
+        margin-bottom: 20px !important;
+      }
+
+      footer {
+        background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
+        text-align: center !important;
+        padding: 20px !important;
+        color: var(--black) !important;
+        box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
+        width: 100% !important;
+      }
+
+      footer a {
+        color: var(--black) !important;
+      }
+
+      main {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        min-height: calc(100vh - 140px) !important;
+        padding: 0 20px !important;
+        flex-direction: column !important;
+      }
+
+      #game-container {
+        background-color: #252526 !important;
+        border: 2px solid #3c3c3c !important;
+        padding: 10px !important;
+        border-radius: 5px !important;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        font-family: 'Consolas', 'Courier New', monospace !important;
+        margin: 20px 0 !important;
+      }
+
+      #board {
+        display: grid !important;
+        gap: 1px !important;
+        background-color: #3c3c3c !important;
+        grid-template-columns: repeat(8, 30px) !important;
+      }
+
+      .cell {
+        width: 30px !important;
+        height: 30px !important;
+        background-color: #1e1e1e !important;
+        border: 1px solid #3c3c3c !important;
+      }
+
+      .tetrimino-dark-steel { background-color: var(--dark-steel) !important; }
+      .tetrimino-steel { background-color: var(--steel) !important; }
+      .tetrimino-emerald-green { background-color: var(--emerald-green) !important; }
+
+      #info-panel {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        margin: 10px 0 !important;
+      }
+
+      #status {
+        margin: 10px 0 !important;
+        font-size: 16px !important;
+        color: var(--white) !important;
+        text-align: center !important;
+      }
+
+      #controls {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        justify-content: center !important;
+        margin-top: 10px !important;
+      }
+
+      button {
+        padding: 10px 20px !important;
+        background-color: var(--steel) !important;
+        color: var(--white) !important;
+        border: none !important;
+        border-radius: 3px !important;
+        cursor: pointer !important;
+        font-family: 'Consolas', 'Courier New', monospace !important;
+        touch-action: manipulation !important;
+      }
+
+      button:hover {
+        background-color: var(--dark-steel) !important;
+      }
+
+      #mobile-controls {
+        display: none !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        justify-content: center !important;
+        margin-top: 10px !important;
+      }
+
+      @media (max-width: 600px) {
+        #mobile-controls {
+          display: flex !important;
+        }
+        #board {
+          grid-template-columns: repeat(8, 25px) !important;
+        }
+        .cell {
+          width: 25px !important;
+          height: 25px !important;
+        }
+      }
+
+      #game-description {
+        font-family: 'Consolas', 'Courier New', monospace !important;
+        color: var(--white) !important;
+        font-size: 16px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="../index.html">
+          <h1>CODETRIS</h1>
+        </a>
+      </div>
+    </header>
+    <main>
+      <section class="intro">
+        <div id="game-description">
+          <p>In Codetris, your goal is to fit falling tetriminos (shapes made of four blocks) into an 8x16 grid. Use arrow keys: Left/Right to move, Up to rotate, Down to drop faster, and Space to drop instantly. On mobile, use touch controls. Complete horizontal lines to clear them and earn points (100 per line, up to 400 for four lines). The game speeds up as you clear lines. If the grid fills to the top, the game ends.</p>
+        </div>
+      </section>
+      <div id="game-container">
+        <div id="board"></div>
+        <div id="info-panel">
+          <div id="status">Score: 0</div>
+        </div>
+        <div id="controls">
+          <button onclick="startGame()">Start Game</button>
+          <button onclick="resetGame()">New Game</button>
+        </div>
+        <div id="mobile-controls">
+          <button onclick="movePieceLeft()"><i class="fas fa-arrow-left"></i></button>
+          <button onclick="movePieceRight()"><i class="fas fa-arrow-right"></i></button>
+          <button onclick="rotatePiece()"><i class="fas fa-redo"></i></button>
+          <button onclick="movePieceDown()"><i class="fas fa-arrow-down"></i></button>
+          <button onclick="dropPiece()"><i class="fas fa-angle-double-down"></i></button>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>© 2025 CODEXEDOC. All rights reserved.<br>
+      <a href="../terms/termsofuse.html">TERMS OF USE</a></p>
+    </footer>
+
+    <script>
+      const ROWS = 16;
+      const COLS = 8;
+      let board = [];
+      let currentPiece = null;
+      let nextPiece = null;
+      let score = 0;
+      let gameOver = false;
+      let gameLoop = null;
+      let dropSpeed = 1000;
+
+      const tetriminos = {
+        I: { shape: [[1, 1, 1, 1]], color: 'tetrimino-dark-steel' },
+        J: { shape: [[1, 0, 0], [1, 1, 1]], color: 'tetrimino-steel' },
+        L: { shape: [[0, 0, 1], [1, 1, 1]], color: 'tetrimino-emerald-green' },
+        O: { shape: [[1, 1], [1, 1]], color: 'tetrimino-dark-steel' },
+        S: { shape: [[0, 1, 1], [1, 1, 0]], color: 'tetrimino-steel' },
+        T: { shape: [[0, 1, 0], [1, 1, 1]], color: 'tetrimino-emerald-green' },
+        Z: { shape: [[1, 1, 0], [0, 1, 1]], color: 'tetrimino-dark-steel' }
+      };
+
+      function initializeBoard() {
+        board = Array(ROWS).fill().map(() => Array(COLS).fill(0));
+        score = 0;
+        gameOver = false;
+        dropSpeed = 1000;
+        document.getElementById('status').textContent = `Score: ${score}`;
+      }
+
+      function renderBoard() {
+        const boardElement = document.getElementById('board');
+        boardElement.innerHTML = '';
+        let displayBoard = board.map(row => [...row]);
+        if (currentPiece) {
+          currentPiece.shape.forEach((row, i) => {
+            row.forEach((cell, j) => {
+              if (cell) {
+                let r = currentPiece.row + i;
+                let c = currentPiece.col + j;
+                if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
+                  displayBoard[r][c] = currentPiece.color;
+                }
+              }
+            });
+          });
+        }
+        for (let i = 0; i < ROWS; i++) {
+          for (let j = 0; j < COLS; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            if (displayBoard[i][j]) {
+              cell.classList.add(displayBoard[i][j]);
+            }
+            boardElement.appendChild(cell);
+          }
+        }
+      }
+
+      function spawnPiece() {
+        const types = Object.keys(tetriminos);
+        const type = types[Math.floor(Math.random() * types.length)];
+        currentPiece = {
+          type: type,
+          shape: tetriminos[type].shape.map(row => [...row]),
+          color: tetriminos[type].color,
+          row: 0,
+          col: Math.floor((COLS - tetriminos[type].shape[0].length) / 2)
+        };
+        if (!canMove(currentPiece.shape, currentPiece.row, currentPiece.col)) {
+          gameOver = true;
+          clearInterval(gameLoop);
+          document.getElementById('status').textContent = `Game Over! Score: ${score}`;
+        }
+      }
+
+      function canMove(shape, row, col) {
+        for (let i = 0; i < shape.length; i++) {
+          for (let j = 0; j < shape[i].length; j++) {
+            if (shape[i][j]) {
+              let newRow = row + i;
+              let newCol = col + j;
+              if (newRow >= ROWS || newCol < 0 || newCol >= COLS || (newRow >= 0 && board[newRow][newCol])) {
+                return false;
+              }
+            }
+          }
+        }
+        return true;
+      }
+
+      function movePieceDown() {
+        if (!currentPiece) return;
+        if (canMove(currentPiece.shape, currentPiece.row + 1, currentPiece.col)) {
+          currentPiece.row++;
+        } else {
+          lockPiece();
+          spawnPiece();
+        }
+        renderBoard();
+      }
+
+      function lockPiece() {
+        currentPiece.shape.forEach((row, i) => {
+          row.forEach((cell, j) => {
+            if (cell) {
+              let r = currentPiece.row + i;
+              let c = currentPiece.col + j;
+              if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
+                board[r][c] = currentPiece.color;
+              }
+            }
+          });
+        });
+        clearLines();
+      }
+
+      function clearLines() {
+        let linesCleared = 0;
+        for (let i = ROWS - 1; i >= 0; i--) {
+          if (board[i].every(cell => cell)) {
+            board.splice(i, 1);
+            board.unshift(Array(COLS).fill(0));
+            linesCleared++;
+            i++;
+          }
+        }
+        if (linesCleared > 0) {
+          score += [0, 100, 200, 300, 400][linesCleared];
+          dropSpeed = Math.max(100, dropSpeed - linesCleared * 50);
+          clearInterval(gameLoop);
+          gameLoop = setInterval(movePieceDown, dropSpeed);
+          document.getElementById('status').textContent = `Score: ${score}`;
+        }
+      }
+
+      function rotatePiece() {
+        if (!currentPiece) return;
+        const newShape = currentPiece.shape[0].map((_, i) =>
+          currentPiece.shape.map(row => row[row.length - 1 - i])
+        );
+        if (canMove(newShape, currentPiece.row, currentPiece.col)) {
+          currentPiece.shape = newShape;
+          renderBoard();
+        }
+      }
+
+      function movePieceLeft() {
+        if (!currentPiece) return;
+        if (canMove(currentPiece.shape, currentPiece.row, currentPiece.col - 1)) {
+          currentPiece.col--;
+          renderBoard();
+        }
+      }
+
+      function movePieceRight() {
+        if (!currentPiece) return;
+        if (canMove(currentPiece.shape, currentPiece.row, currentPiece.col + 1)) {
+          currentPiece.col++;
+          renderBoard();
+        }
+      }
+
+      function dropPiece() {
+        if (!currentPiece) return;
+        while (canMove(currentPiece.shape, currentPiece.row + 1, currentPiece.col)) {
+          currentPiece.row++;
+        }
+        lockPiece();
+        spawnPiece();
+        renderBoard();
+      }
+
+      function handleKeyPress(e) {
+        if (gameOver) return;
+        switch (e.key) {
+          case 'ArrowLeft':
+            movePieceLeft();
+            break;
+          case 'ArrowRight':
+            movePieceRight();
+            break;
+          case 'ArrowUp':
+            rotatePiece();
+            break;
+          case 'ArrowDown':
+            movePieceDown();
+            break;
+          case ' ':
+            dropPiece();
+            break;
+        }
+      }
+
+      function startGame() {
+        if (gameLoop || gameOver) return;
+        spawnPiece();
+        gameLoop = setInterval(movePieceDown, dropSpeed);
+        document.addEventListener('keydown', handleKeyPress);
+        renderBoard();
+      }
+
+      function resetGame() {
+        clearInterval(gameLoop);
+        gameLoop = null;
+        document.removeEventListener('keydown', handleKeyPress);
+        initializeBoard();
+        currentPiece = null;
+        nextPiece = null;
+        startGame();
+      }
+
+      initializeBoard();
+      renderBoard();
+    </script>
+  </body>
+</html>

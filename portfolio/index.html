@@ -6,76 +6,195 @@
   <meta name="description" content="codexedoc official website">
   <meta name="keywords" content="coding, programming, learning to code, front-end developer, web developer, portfolio, Glenn Hensley III, codexedoc, code">
   <meta name="author" content="Glenn Hensley III">
-  <title>CODEXEDOC PROJECTS</title>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/no-aside.css">
+  <title>CODEXEDOCS</title>
+  <!--ICONS-->
+  <link rel="icon" type="image/png" href="../../assets/icons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg" />
+  <link rel="shortcut icon" href="../../assets/icons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="CODEXEDOC" />
+  <link rel="manifest" href="../../assets/icons/site.webmanifest" />
+  <!--FONTS-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
+  <!--STYLESHEETS-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <style>
+    .paragraph {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <div class="outer-grid">
     <header>
       <div class="left-header">
-        <img src="../assets/navigation/bars-light.svg" alt="bars icon" class="bars" onclick="toggleNav()">
-        <img src="../assets/brand/codexedoc.png" alt="codexedoc official logo" class="logo">
+        <i class="fa-solid fa-bars bars" style="color: #ffffff;" onclick="toggleNav()"></i>
+        <img src="../../assets/brand/codexedoc.png" alt="codexedoc official logo" class="logo">
       </div>
       <div class="right-header">
         <button class="header-link" onclick="toggleTheme()">
-          <img src="../assets/brand/theme.png" alt="light theme fire" class="theme">
+          <img src="../../assets/brand/theme.png" alt="light theme fire" class="theme">
           <p>THEME</p>
         </button>
       </div>
     </header>
     <nav class="hide-nav">
       <div class="nav-link">
-        <a href="../index.html">
-          <img src="../assets/navigation/home.svg" alt="house icon" class="nav-img">
+        <a href="../../index.html">
+          <i class="fa-solid fa-house"></i>
           <p>HOME</p>
         </a>
       </div>
       <div class="nav-link">
-        <a href="../blog/">
-          <img src="../assets/navigation/blog.svg" alt="open book icon" class="nav-img">
-          <p>BLOG</p>
+        <a href="../html/code/">
+          <i class="fa-solid fa-code"></i>
+          <p>CODE</p>
         </a>
       </div>
       <div class="nav-link">
-        <a href="../courses/">
-          <img src="../assets/navigation/courses.svg" alt="graduation cap icon" class="nav-img">
-          <p>COURSES</p>
+        <a href="../html/docs/">
+          <i class="fa-solid fa-book-open"></i>
+          <p>DOCS</p>
         </a>
       </div>
       <div class="nav-link">
-        <a href="">
-          <img src="../assets/navigation/projects.svg" alt="code icon" class="nav-img">
-          <p>PROJECTS</p>
-        </a>
-      </div>
-      <div class="nav-link">
-        <a href="../about/">
-          <img src="../assets/navigation/about.svg" alt="laptop icon" class="nav-img">
-          <p>ABOUT</p>
+        <a href="../html/info/">
+          <i class="fa-solid fa-laptop"></i>
+          <p>INFO</p>
         </a>
       </div>
       <div class="nav-link">
         <a href="mailto:contact@codexedoc.com">
-          <img src="../assets/navigation/contact.svg" alt="at symbol icon" class="nav-img">
-          <p>CONTACT</p>
+          <i class="fa-solid fa-at"></i>
+          <p>MAIL</p>
         </a>
       </div>
     </nav>
     <div class="inner-grid">
       <main>
         <article>
-          <h1>Welcome To My Portfolio!</h1>
-          <h2>Explore My Projects</h2>
+          <h1>PORTFOLIO</h1>
+          <h2>Welcome To My Personal Portfolio!</h2>
+          <div class="boxes">
+            <div class="box-grid">
+            
+              <div class="box-item">
+                <div class="box-image"><img src="images/dish-dash.png" alt="dish dash page"></div>
+                <h3>Dish Dash</h3>
+                <p class="paragraph">HTML, CSS, JavaScript.</p>
+                <div class="read-more">
+                  <hr>
+                  <div class="paragraph"><a href="dish-dash/" class="more">
+                    <span class="read">Read More</span>
+                    <span class="arrow">➜</span>
+                  </a></div>
+                </div>
+              </div>
+
+              <div class="box-item">
+                <div class="box-image"><img src="images/original-trombones.png" alt="original trombones page"></div>
+                <h3>Original Trombones</h3>
+                <p class="paragraph">HTML, CSS.</p>
+                <div class="read-more">
+                  <hr>
+                  <div class="paragraph"><a href="original-trombones/" class="more">
+                    <span class="read">Read More</span>
+                    <span class="arrow">➜</span>
+                  </a></div>
+                </div>
+              </div>
+
+              <div class="box-item">
+                <div class="box-image"><img src="images/pangolin-magazine.png" alt="pangolin-magazine"></div>
+                <h3>Pangolin Magazine</h3>
+                <p class="paragraph">HTML, CSS</p>
+                <div class="read-more">
+                  <hr>
+                  <div class="paragraph"><a href="pangolin-magazine/" class="more">
+                    <span class="read">Read More</span>
+                    <span class="arrow">➜</span>
+                  </a></div>
+                </div>
+              </div>
+
+              <div class="box-item">
+                <div class="box-image"><img src="images/dessert-shop.png" alt="dessert-shop page"></div>
+                <h3>Dessert Shop</h3>
+                <p class="paragraph">HTML, CSS, JavaScript.</p>
+                <div class="read-more">
+                  <hr>
+                  <div class="paragraph"><a href="dessert-shop/" class="more">
+                    <span class="read">Read More</span>
+                    <span class="arrow">➜</span>
+                  </a></div>
+                </div>
+              </div>
+
+              <div class="box-item">
+                <div class="box-image"><img src="images/rock-paper-scissors.png" alt="rock-paper-scissors page"></div>
+                <h3>Rock Paper Scissors</h3>
+                <p class="paragraph">HTML, CSS, JavaScript.</p>
+                <div class="read-more">
+                  <hr>
+                  <div class="paragraph"><a href="rock-paper-scissors/" class="more">
+                    <span class="read">Read More</span>
+                    <span class="arrow">➜</span>
+                  </a></div>
+                </div>
+              </div>
+
+              <div class="box-item">
+                <div class="box-image"><img src="images/calorie-counter.png" alt="calorie-counter page"></div>
+                <h3>Calorie Counter</h3>
+                <p class="paragraph">HTML, CSS, JavaScript.</p>
+                <div class="read-more">
+                  <hr>
+                  <div class="paragraph"><a href="calorie-counter/" class="more">
+                    <span class="read">Read More</span>
+                    <span class="arrow">➜</span>
+                  </a></div>
+                </div>
+              </div>
+
+              <div class="box-item">
+                <div class="box-image"><img src="images/palindrome.png" alt="palindrome checker page"></div>
+                <h3>Palindrome Checker</h3>
+                <p class="paragraph">HTML, CSS, JavaScript.</p>
+                <div class="read-more">
+                  <hr>
+                  <div class="paragraph"><a href="palindrome-checker/" class="more">
+                    <span class="read">Read More</span>
+                    <span class="arrow">➜</span>
+                  </a></div>
+                </div>
+              </div>
+
+              <div class="box-item">
+                <div class="box-image"><img src="images/roman-numeral.png" alt="roman numeral converter page"></div>
+                <h3>Roman Numeral Converter</h3>
+                <p class="paragraph">HTML, CSS, JavaScript.</p>
+                <div class="read-more">
+                  <hr>
+                  <div class="paragraph"><a href="roman-numeral-converter/" class="more">
+                    <span class="read">Read More</span>
+                    <span class="arrow">➜</span>
+                  </a></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </article>
       </main>
       <footer>
-        <div class="slogan"><img src="../assets/brand/x.png" alt="codexedoc fire logo" class="special-img"><em>Become A Web Developer</em></div>
+        <div class="slogan"><img src="../../assets/brand/x.png" alt="codexedoc fire logo" class="special-img"><em>Create With Code</em></div>
         <p class="copyright">&copy 2025 CODEXEDOC. All Rights Reserved.</p>
       </footer>
     </div>
   </div>
-  <script src="../js/script.js"></script>
+  <script src="../../js/script.js"></script>
 </body>
 </html>

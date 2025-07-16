@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>LAPTOP DEFENSE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #eeeeee;
+            font-family: Arial, sans-serif;
+            overflow: auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            padding: 0 20px 20px 20px;
+            flex: 1;
+        }
+
+        /* Game-Specific Styles */
+        #gameInstructions {
+            color: #333333;
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            text-align: center;
+            margin: 0 auto 15px auto;
+            max-width: 800px;
+            width: 90%;
+            padding: 30px 0;
+        }
+
+        #gameInstructions h3 {
+            font-size: 1.5rem;
+            margin: 0 auto 20px auto;
+            text-align: center;
+            font-weight: bold;
+            line-height: 1.4;
+            width: 100%;
+        }
+
+        #gameCounter {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 50%;
+            margin: 0 auto;
+            padding: 8px 15px;
+            background: #eeeeee;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+            margin-bottom: 40px;
+        }
+
+        .counter-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 60px;
+        }
+
+        .counter-label {
+            color: #1e90ff;
+            font-size: clamp(0.8rem, 1.6vw, 1rem);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .counter-value {
+            color: #333333;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: bold;
+            margin: 2px 0;
+        }
+
+        .counter-desc {
+            color: #1e90ff;
+            font-size: clamp(0.6rem, 1.4vw, 0.8rem);
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            aspect-ratio: 4 / 3;
+            margin: 0 auto;
+        }
+
+        #gameCanvas {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #1e90ff;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tower-spot {
+            position: absolute;
+            width: clamp(15px, 3.5vw, 25px);
+            height: clamp(15px, 3.5vw, 25px);
+            background-color: #1e90ff;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+
+        .tower-spot:hover {
+            background-color: #333333;
+        }
+
+        #startButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 12px 25px;
+            font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+            font-weight: bold;
+            color: #eeeeee;
+            background-color: #333333;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 10;
+            display: block;
+        }
+
+        #startButton:hover {
+            background-color: #1e90ff;
+        }
+
+        /* Game-Specific Responsive Styles */
+        @media (max-width: 600px) {
+            main {
+                padding: 0 10px 10px 10px;
+            }
+
+            #gameCounter {
+                gap: 8px;
+                padding: 5px 10px;
+                margin-bottom: 30px;
+            }
+
+            .counter-section {
+                min-width: 45px;
+            }
+
+            .tower-spot {
+                width: clamp(12px, 4vw, 18px);
+                height: clamp(12px, 4vw, 18px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="../code/code.html">CODE</a><a href="../../index.html"><span>X</span></a><a href="../edoc/edoc.html">EDOC</a>
+        </div>
+    </header>
+    <main>
+        <div id="gameInstructions">
+            <h3>Protect the laptop (💻) from incoming bugs (☣️/☢️).</h3>
+            <h3>Use COD points to place DOC (📗) on blue spots.</h3>
+        </div>
+        <div id="gameContainer">
+            <canvas id="gameCanvas"></canvas>
+            <button id="startButton">START</button>
+        </div>
+        <div id="gameCounter">
+            <div class="counter-section">
+                <span class="counter-label">COD</span>
+                <span class="counter-value" id="codValue">4</span>
+                <span class="counter-desc">Code Points</span>
+            </div>
+            <div class="counter-section">
+                <span class="counter-label">EXE</span>
+                <span class="counter-value" id="exeValue">0</span>
+                <span class="counter-desc">Executed Bugs</span>
+            </div>
+            <div class="counter-section">
+                <span class="counter-label">DOC</span>
+                <span class="counter-value" id="docValue">2</span>
+                <span class="counter-desc">Document Price</span>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p><span class="footer-logo">CODE<span>X</span>EDOC</span></p>
+        <p>Copyright © 2025 CODEXEDOC. All Rights Reserved.</p>
+        <p><a href="mailto:contact@codexedoc.com">contact@codexedoc.com</a></p>
+    </footer>
+    <script>
+        const container = document.getElementById('gameContainer');
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startButton = document.getElementById('startButton');
+        const gameInstructions = document.getElementById('gameInstructions');
+
+        // Reference resolution for normalized coordinates
+        const REF_WIDTH = 800;
+        const REF_HEIGHT = 600;
+
+        function resizeCanvas() {
+            const maxWidth = REF_WIDTH;
+            const maxHeight = REF_HEIGHT;
+            const aspectRatio = maxWidth / maxHeight;
+            
+            const availableWidth = window.innerWidth * 0.9;
+            const availableHeight = window.innerHeight * 0.8;
+            
+            let width = Math.min(availableWidth, maxWidth);
+            let height = width / aspectRatio;
+            
+            if (height > availableHeight) {
+                height = availableHeight;
+                width = height * aspectRatio;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            container.style.width = `${width}px`;
+            container.style.height = `${height}px`;
+
+            // Update scale factors
+            scaleX = canvas.width / REF_WIDTH;
+            scaleY = canvas.height / REF_HEIGHT;
+        }
+
+        // Scaling factors
+        let scaleX = canvas.width / REF_WIDTH;
+        let scaleY = canvas.height / REF_HEIGHT;
+
+        let cod = 4;
+        let exe = 0;
+        let doc = 2;
+        let towers = [];
+        let enemies = [];
+        let towerSpots = [];
+        let enemySpawnRate = 1000;
+        let lastSpawn = 0;
+        let gameOver = false;
+        let gameWon = false;
+        let towerCount = 0;
+        let gameStarted = false;
+
+        function getScaledPath() {
+            return [
+                {x: 0, y: 300},
+                {x: 200, y: 300},
+                {x: 200, y: 100},
+                {x: 400, y: 100},
+                {x: 400, y: 500},
+                {x: 600, y: 500},
+                {x: 600, y: 300},
+                {x: 800, y: 300}
+            ];
+        }
+
+        function scalePoint(point) {
+            return {
+                x: point.x * scaleX,
+                y: point.y * scaleY
+            };
+        }
+
+        function unscalePoint(point) {
+            return {
+                x: point.x / scaleX,
+                y: point.y / scaleY
+            };
+        }
+
+        function calculatePathLength(path) {
+            let totalLength = 0;
+            for (let i = 0; i < path.length - 1; i++) {
+                const dx = path[i + 1].x - path[i].x;
+                const dy = path[i + 1].y - path[i].y;
+                totalLength += Math.sqrt(dx * dx + dy * dy);
+            }
+            return totalLength;
+        }
+
+        function getPositionAtDistance(path, distance) {
+            let currentLength = 0;
+            for (let i = 0; i < path.length - 1; i++) {
+                const dx = path[i + 1].x - path[i].x;
+                const dy = path[i + 1].y - path[i].y;
+                const segmentLength = Math.sqrt(dx * dx + dy * dy);
+                
+                if (currentLength + segmentLength >= distance) {
+                    const remaining = distance - currentLength;
+                    const t = remaining / segmentLength;
+                    return {
+                        x: path[i].x + t * dx,
+                        y: path[i].y + t * dy,
+                        segment: i
+                    };
+                }
+                currentLength += segmentLength;
+            }
+            return { x: path[path.length - 1].x, y: path[path.length - 1].y, segment: path.length - 1 };
+        }
+
+        function createTowerSpots() {
+            towerSpots.forEach(spot => spot.remove());
+            towerSpots = [];
+            
+            const path = getScaledPath();
+            const offset = 40;
+            const totalLength = calculatePathLength(path);
+            const numberOfSpots = 8;
+            const stepSize = totalLength / (numberOfSpots - 1);
+
+            for (let i = 0; i < numberOfSpots; i++) {
+                const distance = i * stepSize;
+                const pos = getPositionAtDistance(path, distance);
+                
+                let dx = 0, dy = 0;
+                if (pos.segment < path.length - 1) {
+                    dx = path[pos.segment + 1].x - path[pos.segment].x;
+                    dy = path[pos.segment + 1].y - path[pos.segment].y;
+                }
+                const length = Math.sqrt(dx * dx + dy * dy);
+                if (length > 0) {
+                    dx /= length;
+                    dy /= length;
+                }
+                
+                const perpX = -dy;
+                const perpY = dx;
+
+                // Spot 1
+                const spot1X = pos.x + perpX * offset;
+                const spot1Y = pos.y + perpY * offset;
+                // Only create spot if no tower exists at this position
+                if (!towers.some(t => t.normX === spot1X && t.normY === spot1Y)) {
+                    const spot1Pos = scalePoint({ x: spot1X, y: spot1Y });
+                    const spot1 = document.createElement('div');
+                    spot1.className = 'tower-spot';
+                    spot1.style.left = `${spot1Pos.x}px`;
+                    spot1.style.top = `${spot1Pos.y}px`;
+                    spot1.onclick = () => placeTower(spot1X, spot1Y, spot1);
+                    container.appendChild(spot1);
+                    towerSpots.push(spot1);
+                }
+
+                // Spot 2
+                const spot2X = pos.x - perpX * offset;
+                const spot2Y = pos.y - perpY * offset;
+                // Only create spot if no tower exists at this position
+                if (!towers.some(t => t.normX === spot2X && t.normY === spot2Y)) {
+                    const spot2Pos = scalePoint({ x: spot2X, y: spot2Y });
+                    const spot2 = document.createElement('div');
+                    spot2.className = 'tower-spot';
+                    spot2.style.left = `${spot2Pos.x}px`;
+                    spot2.style.top = `${spot2Pos.y}px`;
+                    spot2.onclick = () => placeTower(spot2X, spot2Y, spot2);
+                    container.appendChild(spot2);
+                    towerSpots.push(spot2);
+                }
+            }
+        }
+
+        class Tower {
+            constructor(x, y, type) {
+                this.normX = x; // Store normalized coordinates
+                this.normY = y;
+                this.type = type;
+                this.range = 100; // Normalized range
+                this.cooldown = 0;
+            }
+
+            get x() {
+                return this.normX * scaleX;
+            }
+
+            get y() {
+                return this.normY * scaleY;
+            }
+
+            draw() {
+                ctx.font = `${25 * scaleY}px Arial`; // Match tower spot size
+                ctx.fillStyle = '#1e90ff';
+                ctx.fillText(this.type, this.x - 12 * scaleX, this.y + 12 * scaleY);
+            }
+
+            shoot() {
+                if (this.cooldown <= 0) {
+                    for (let enemy of enemies) {
+                        const distance = Math.sqrt(
+                            Math.pow(enemy.x - this.x, 2) + Math.pow(enemy.y - this.y, 2)
+                        );
+                        if (distance < this.range * scaleX) {
+                            enemy.health--;
+                            this.cooldown = 100;
+                            return;
+                        }
+                    }
+                }
+                this.cooldown--;
+            }
+        }
+
+        class Enemy {
+            constructor() {
+                const path = getScaledPath();
+                this.normX = path[0].x;
+                this.normY = path[0].y;
+                this.health = 2;
+                this.baseSpeed = 1;
+                this.speedMultiplier = 1;
+                this.speed = this.baseSpeed * this.speedMultiplier;
+                this.pathIndex = 1;
+                this.type = Math.random() < 0.5 ? '☣️' : '☢️';
+            }
+
+            get x() {
+                return this.normX * scaleX;
+            }
+
+            get y() {
+                return this.normY * scaleY;
+            }
+
+            set x(value) {
+                this.normX = value / scaleX;
+            }
+
+            set y(value) {
+                this.normY = value / scaleY;
+            }
+
+            updateSpeed(multiplier) {
+                this.speedMultiplier = multiplier;
+                this.speed = this.baseSpeed * this.speedMultiplier;
+            }
+
+            move() {
+                const path = getScaledPath();
+                const target = path[this.pathIndex];
+                const dx = target.x - this.normX;
+                const dy = target.y - this.normY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                const scaledSpeed = this.speed * (scaleX + scaleY) / 2;
+
+                if (distance < this.speed) {
+                    this.normX = target.x;
+                    this.normY = target.y;
+                    this.pathIndex++;
+                    if (this.pathIndex >= path.length) {
+                        gameOver = true;
+                    }
+                } else {
+                    this.normX += (dx / distance) * this.speed;
+                    this.normY += (dy / distance) * this.speed;
+                }
+            }
+
+            draw() {
+                ctx.font = `${20 * scaleY}px Arial`;
+                ctx.fillStyle = '#00cc00';
+                ctx.fillText(this.type, this.x - 10 * scaleX, this.y + 10 * scaleY);
+            }
+        }
+
+        function placeTower(x, y, spot) {
+            if (cod >= doc && !towers.some(t => t.normX === x && t.normY === y)) {
+                cod -= doc;
+                doc = Math.floor(doc * 1.5);
+                const type = '📗';
+                towers.push(new Tower(x, y, type));
+                towerCount++;
+                spot.style.display = 'none'; // Hide the spot immediately
+                updateGameCounter();
+            }
+        }
+
+        function spawnEnemy() {
+            enemies.push(new Enemy());
+            enemySpawnRate = Math.max(500, enemySpawnRate * 0.98);
+        }
+
+        function updateGameCounter() {
+            document.getElementById('codValue').textContent = cod;
+            document.getElementById('exeValue').textContent = exe;
+            document.getElementById('docValue').textContent = doc;
+        }
+
+        function gameLoop(timestamp) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (!gameStarted) {
+                const path = getScaledPath().map(scalePoint);
+                ctx.beginPath();
+                ctx.strokeStyle = '#1e90ff';
+                ctx.lineWidth = 40 * scaleX;
+                ctx.moveTo(path[0].x, path[0].y);
+                for (let point of path) {
+                    ctx.lineTo(point.x, point.y);
+                }
+                ctx.stroke();
+
+                ctx.font = `${40 * scaleY}px Arial`;
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText('💻', path[path.length - 1].x - 40 * scaleX, path[path.length - 1].y + 15 * scaleY);
+
+                requestAnimationFrame(gameLoop);
+                return;
+            }
+
+            if (gameOver) {
+                ctx.fillStyle = '#333333';
+                ctx.font = `${40 * scaleY}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
+                ctx.textAlign = 'start';
+                return;
+            }
+
+            if (gameWon) {
+                ctx.fillStyle = '#1e90ff';
+                ctx.font = `${40 * scaleY}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.fillText('YOU WIN', canvas.width / 2, canvas.height / 2);
+                ctx.textAlign = 'start';
+                return;
+            }
+
+            const path = getScaledPath().map(scalePoint);
+            ctx.beginPath();
+            ctx.strokeStyle = '#1e90ff';
+            ctx.lineWidth = 40 * scaleX;
+            ctx.moveTo(path[0].x, path[0].y);
+            for (let point of path) {
+                ctx.lineTo(point.x, point.y);
+            }
+            ctx.stroke();
+
+            ctx.font = `${40 * scaleY}px Arial`;
+            ctx.fillStyle = '#eeeeee';
+            ctx.fillText('💻', path[path.length - 1].x - 40 * scaleX, path[path.length - 1].y + 15 * scaleY);
+
+            if (timestamp - lastSpawn > enemySpawnRate) {
+                spawnEnemy();
+                lastSpawn = timestamp;
+            }
+
+            towers.forEach(tower => {
+                tower.shoot();
+                tower.draw();
+            });
+
+            const speedMultiplier = 1 + Math.floor(exe / 64) * 0.25;
+
+            for (let i = enemies.length - 1; i >= 0; i--) {
+                enemies[i].updateSpeed(speedMultiplier);
+                enemies[i].move();
+                enemies[i].draw();
+                if (enemies[i].health <= 0) {
+                    enemies.splice(i, 1);
+                    cod += 1;
+                    exe += 1;
+                    updateGameCounter();
+                    if (exe >= 314) {
+                        gameWon = true;
+                    }
+                }
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        startButton.addEventListener('click', () => {
+            gameStarted = true;
+            startButton.style.display = 'none';
+            gameInstructions.style.display = 'none';
+            createTowerSpots();
+        });
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            if (gameStarted) {
+                createTowerSpots();
+            }
+        });
+        
+        resizeCanvas();
+        requestAnimationFrame(gameLoop);
+    </script>
+</body>
+</html>

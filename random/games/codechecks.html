@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../icons/android-chrome-192x192.png">
+    <title>Code Checks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Consolas&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      :root {
+        --dark-steel: #295d8a;
+        --steel: #4a7fb2;
+        --white: #ffffff;
+        --black: #000000;
+        --emerald-green: #10b981;
+      }
+
+      * {
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      body {
+        font-family: Arial, sans-serif !important;
+        background-color: var(--black) !important;
+        color: var(--white) !important;
+        line-height: 1.6 !important;
+      }
+
+      header {
+        background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
+        padding: 20px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 100 !important;
+      }
+
+      .logo h1 {
+        font-family: 'Audiowide', sans-serif !important;
+        color: var(--black) !important;
+        font-size: 35px !important;
+        margin: 0 !important;
+      }
+
+      .logo a {
+        text-decoration: none !important;
+        color: var(--black) !important;
+      }
+
+      .intro {
+        background: linear-gradient(90deg, var(--steel)) !important;
+        padding: 20px 20px 0 !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+        text-align: center !important;
+        width: 100vw !important;
+        margin-bottom: 20px !important;
+      }
+
+      footer {
+        background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
+        text-align: center !important;
+        padding: 20px !important;
+        color: var(--black) !important;
+        box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
+        width: 100% !important;
+      }
+
+      footer a {
+        color: var(--black) !important;
+      }
+
+      main {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        min-height: calc(100vh - 140px) !important;
+        padding: 0 20px !important;
+        flex-direction: column !important;
+      }
+
+      #game-container {
+        background-color: #252526 !important;
+        border: 2px solid #3c3c3c !important;
+        padding: 20px !important;
+        border-radius: 5px !important;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        font-family: 'Consolas', monospace !important;
+        margin: 20px 0 !important;
+      }
+
+      #board-container {
+        position: relative !important;
+        transition: transform 0.5s ease !important;
+        width: 408px !important; /* 8 * 50px + 8 * 1px gaps */
+        height: 408px !important;
+        display: block !important;
+        transform-origin: center !important;
+      }
+
+      #board {
+        display: grid !important;
+        grid-template-columns: repeat(8, 50px) !important;
+        gap: 1px !important;
+        background-color: #3c3c3c !important;
+        width: 100% !important;
+        height: 100% !important;
+        visibility: visible !important;
+      }
+
+      .cell {
+        width: 50px !important;
+        height: 50px !important;
+        background-color: #1e1e1e !important;
+        border: 1px solid #3c3c3c !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+      }
+
+      .cell.light {
+        background-color: #4a4a4a !important;
+      }
+
+      .piece {
+        width: 80% !important;
+        height: 80% !important;
+        border-radius: 50% !important;
+        background-color: var(--steel) !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        font-size: 20px !important;
+        color: var(--black) !important;
+        font-weight: bold !important;
+      }
+
+      .piece.king {
+        background-color: var(--dark-steel) !important;
+      }
+
+      .selected {
+        border: 2px solid var(--emerald-green) !important;
+      }
+
+      .highlight {
+        background-color: var(--dark-steel) !important;
+      }
+
+      #info-panel {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        margin: 10px 0 !important;
+      }
+
+      #status {
+        margin: 10px 0 !important;
+        font-size: 16px !important;
+        color: var(--white) !important;
+        text-align: center !important;
+      }
+
+      #controls {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        justify-content: center !important;
+        margin-top: 10px !important;
+      }
+
+      button {
+        padding: 10px 20px !important;
+        background-color: var(--steel) !important;
+        color: var(--white) !important;
+        border: none !important;
+        border-radius: 3px !important;
+        cursor: pointer !important;
+        font-family: 'Consolas', monospace !important;
+        touch-action: manipulation !important;
+      }
+
+      button:hover {
+        background-color: var(--dark-steel) !important;
+      }
+
+      #mobile-controls {
+        display: none !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        justify-content: center !important;
+        margin-top: 10px !important;
+      }
+
+      @media (max-width: 600px) {
+        #mobile-controls {
+          display: flex !important;
+        }
+        #board {
+          grid-template-columns: repeat(8, 40px) !important;
+        }
+        #board-container {
+          width: 328px !important; /* 8 * 40px + 8 * 1px gaps */
+          height: 328px !important;
+        }
+        .cell {
+          width: 40px !important;
+          height: 40px !important;
+        }
+        .piece {
+          font-size: 16px !important;
+        }
+      }
+
+      #game-description {
+        font-family: 'Consolas', monospace !important;
+        color: var(--white) !important;
+        font-size: 16px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="../index.html">
+          <h1>CODE CHECKS</h1>
+        </a>
+      </div>
+    </header>
+    <main>
+      <section class="intro">
+        <div id="game-description">
+          <p>In Code Checks, players take turns moving pieces ("1" or "0") diagonally on an 8x8 board. Click a piece to select it, then click a highlighted square to move or jump. Jumps are mandatory if available. Pieces reaching the opponent's back row become kings, changing to a darker color and moving diagonally in any direction. Play in two-player mode (same screen) or against the computer. The board rotates so your pieces ("1" at bottom first) are always at the bottom. Win by capturing all opponent pieces or blocking their moves.</p>
+        </div>
+      </section>
+      <div id="game-container">
+        <KILL><div id="board-container">
+          <div id="board"></div>
+        </div>
+        <div id="info-panel">
+          <div id="status">Player 1's turn (1)</div>
+        </div>
+        <div id="controls">
+          <button onclick="startTwoPlayerGame()">Two-Player Game</button>
+          <button onclick="startComputerGame()">Play vs Computer</button>
+          <button onclick="resetGame()">New Game</button>
+        </div>
+        <div id="mobile-controls">
+          <button onclick="undoSelection()"><i class="fas fa-undo"></i> Undo</button>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>© 2025 CODEXEDOC. All rights reserved.<br>
+      <a href="../terms/termsofuse.html">TERMS OF USE</a></p>
+    </footer>
+
+    <script>
+      const ROWS = 8;
+      const COLS = 8;
+      let board = [];
+      let currentPlayer = 1; // 1 for Player 1 ("1"), -1 for Player 2 ("0")
+      let selectedPiece = null;
+      let validMoves = [];
+      let gameMode = 'twoPlayer'; // 'twoPlayer' or 'computer'
+      let gameOver = false;
+
+      function initializeBoard() {
+        console.log('Initializing board...');
+        board = Array(ROWS).fill().map(() => Array(COLS).fill(0));
+        // Place Player 1 pieces ("1") on dark squares in rows 0-2
+        for (let row = 0; row < 3; row++) {
+          for (let col = (row % 2) ? 0 : 1; col < COLS; col += 2) {
+            board[row][col] = 1; // Regular piece for Player 1
+          }
+        }
+        // Place Player 2 pieces ("0") on dark squares in rows 5-7
+        for (let row = 5; row < ROWS; row++) {
+          for (let col = (row % 2) ? 0 : 1; col < COLS; col += 2) {
+            board[row][col] = -1; // Regular piece for Player 2
+          }
+        }
+        currentPlayer = 1;
+        selectedPiece = null;
+        validMoves = [];
+        gameOver = false;
+        updateStatus();
+        rotateBoard();
+        renderBoard();
+      }
+
+      function renderBoard() {
+        console.log('Rendering board...');
+        const boardElement = document.getElementById('board');
+        if (!boardElement) {
+          console.error('Board element not found!');
+          return;
+        }
+        boardElement.innerHTML = '';
+        for (let row = 0; row < ROWS; row++) {
+          for (let col = 0; col < COLS; col++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            if ((row + col) % 2 === 1) cell.classList.add('light');
+            if (board[row][col] !== 0) {
+              const piece = document.createElement('div');
+              piece.classList.add('piece');
+              piece.textContent = board[row][col] === 1 || board[row][col] === 2 ? '1' : '0';
+              if (board[row][col] === 2 || board[row][col] === -2) piece.classList.add('king');
+              cell.appendChild(piece);
+            }
+            if (selectedPiece && selectedPiece.row === row && selectedPiece.col === col) {
+              cell.classList.add('selected');
+            }
+            if (validMoves.some(move => move.row === row && move.col === col)) {
+              cell.classList.add('highlight');
+            }
+            cell.addEventListener('click', () => handleCellClick(row, col));
+            boardElement.appendChild(cell);
+          }
+        }
+        console.log('Board rendered with', boardElement.childElementCount, 'cells');
+      }
+
+      function rotateBoard() {
+        const boardContainer = document.getElementById('board-container');
+        if (!boardContainer) {
+          console.error('Board container not found!');
+          return;
+        }
+        // Player 1: rotate 180deg so rows 0-2 are at the bottom
+        // Player 2: rotate 0deg so rows 5-7 are at the bottom
+        boardContainer.style.transform = currentPlayer === 1 ? 'rotate(180deg)' : 'rotate(0deg)';
+      }
+
+      function updateStatus() {
+        if (gameOver) {
+          document.getElementById('status').textContent = `Game Over! ${currentPlayer === 1 ? 'Player 2 (0)' : 'Player 1 (1)'} wins!`;
+          return;
+        }
+        document.getElementById('status').textContent = `${currentPlayer === 1 ? 'Player 1 (1)' : gameMode === 'computer' ? 'Computer (0)' : 'Player 2 (0)'}'s turn`;
+      }
+
+      function handleCellClick(row, col) {
+        if (gameOver) return;
+        console.log(`Clicked cell: row=${row}, col=${col}, currentPlayer=${currentPlayer}`);
+        if (selectedPiece) {
+          const move = validMoves.find(m => m.row === row && m.col === col);
+          if (move) {
+            console.log(`Making move from (${selectedPiece.row}, ${selectedPiece.col}) to (${move.row}, ${move.col})`);
+            makeMove(selectedPiece, move);
+            selectedPiece = null;
+            validMoves = [];
+            renderBoard();
+            if (gameMode === 'computer' && currentPlayer === -1 && !gameOver) {
+              setTimeout(computerMove, 500);
+            }
+          } else {
+            undoSelection();
+            selectPiece(row, col);
+          }
+        } else {
+          selectPiece(row, col);
+        }
+      }
+
+      function undoSelection() {
+        selectedPiece = null;
+        validMoves = [];
+        renderBoard();
+      }
+
+      function selectPiece(row, col) {
+        if (board[row][col] === 0 || (board[row][col] > 0 && currentPlayer === -1) || (board[row][col] < 0 && currentPlayer === 1)) {
+          console.log(`Cannot select piece at (${row}, ${col}): invalid or wrong player`);
+          return;
+        }
+        selectedPiece = { row, col };
+        validMoves = getValidMoves(row, col);
+        console.log(`Selected piece at (${row}, ${col}), valid moves:`, validMoves);
+        renderBoard();
+      }
+
+      function getValidMoves(row, col) {
+        const moves = [];
+        const isKing = Math.abs(board[row][col]) === 2;
+        const directions = isKing ? [
+          [-1, -1], [-1, 1], [1, -1], [1, 1]
+        ] : currentPlayer === 1 ? [
+          [1, -1], [1, 1] // Move toward higher rows (visual "up" when rotated 180deg)
+        ] : [
+          [-1, -1], [-1, 1] // Move toward lower rows (visual "up" when at 0deg)
+        ];
+
+        // Check for jumps (mandatory)
+        for (const [dr, dc] of directions) {
+          const newRow = row + dr * 2;
+          const newCol = col + dc * 2;
+          const midRow = row + dr;
+          const midCol = col + dc;
+          if (
+            newRow >= 0 && newRow < ROWS &&
+            newCol >= 0 && newCol < COLS &&
+            board[newRow][newCol] === 0 &&
+            board[midRow][midCol] !== 0 &&
+            ((currentPlayer === 1 && board[midRow][midCol] < 0) || (currentPlayer === -1 && board[midRow][midCol] > 0))
+          ) {
+            moves.push({ row: newRow, col: newCol, isJump: true, jumped: { row: midRow, col: midCol } });
+          }
+        }
+
+        // If jumps are available, only return jumps
+        if (moves.length > 0) return moves;
+
+        // Check for regular moves
+        for (const [dr, dc] of directions) {
+          const newRow = row + dr;
+          const newCol = col + dc;
+          if (
+            newRow >= 0 && newRow < ROWS &&
+            newCol >= 0 && newCol < COLS &&
+            board[newRow][newCol] === 0
+          ) {
+            moves.push({ row: newRow, col: newCol, isJump: false });
+          }
+        }
+
+        return moves;
+      }
+
+      function makeMove(from, to) {
+        board[to.row][to.col] = board[from.row][from.col];
+        board[from.row][from.col] = 0;
+        if (to.isJump) {
+          board[to.jumped.row][to.jumped.col] = 0;
+          // Check for additional jumps
+          selectedPiece = { row: to.row, col: to.col };
+          validMoves = getValidMoves(to.row, to.col).filter(m => m.isJump);
+          if (validMoves.length > 0) {
+            renderBoard();
+            return;
+          }
+        }
+
+        // Promote to king
+        if ((currentPlayer === 1 && to.row === ROWS - 1) || (currentPlayer === -1 && to.row === 0)) {
+          board[to.row][to.col] = currentPlayer === 1 ? 2 : -2;
+        }
+
+        currentPlayer *= -1;
+        rotateBoard();
+        checkGameOver();
+        updateStatus();
+        renderBoard();
+      }
+
+      function checkGameOver() {
+        let playerPieces = 0;
+        let opponentPieces = 0;
+        let playerMoves = false;
+        for (let row = 0; row < ROWS; row++) {
+          for (let col = 0; col < COLS; col++) {
+            if (board[row][col] > 0) playerPieces++;
+            if (board[row][col] < 0) opponentPieces++;
+            if (board[row][col] * currentPlayer > 0) {
+              if (getValidMoves(row, col).length > 0) playerMoves = true;
+            }
+          }
+        }
+        if (opponentPieces === 0 || !playerMoves) {
+          gameOver = true;
+        }
+      }
+
+      function computerMove() {
+        if (gameOver) return;
+        let allMoves = [];
+        for (let row = 0; row < ROWS; row++) {
+          for (let col = 0; col < COLS; col++) {
+            if (board[row][col] < 0) {
+              const moves = getValidMoves(row, col);
+              if (moves.length > 0) {
+                allMoves.push({ from: { row, col }, moves });
+              }
+            }
+          }
+        }
+        if (allMoves.length === 0) {
+          gameOver = true;
+          updateStatus();
+          return;
+        }
+        const jumpMoves = allMoves.filter(m => m.moves.some(move => move.isJump));
+        const chosen = jumpMoves.length > 0 ? jumpMoves : allMoves;
+        const { from, moves } = chosen[Math.floor(Math.random() * chosen.length)];
+        const jump = moves.find(m => m.isJump) || moves[Math.floor(Math.random() * moves.length)];
+        selectedPiece = from;
+        validMoves = moves;
+        renderBoard();
+        setTimeout(() => {
+          makeMove(from, jump);
+          selectedPiece = null;
+          validMoves = [];
+          renderBoard();
+        }, 500);
+      }
+
+      function startTwoPlayerGame() {
+        gameMode = 'twoPlayer';
+        resetGame();
+      }
+
+      function startComputerGame() {
+        gameMode = 'computer';
+        resetGame();
+      }
+
+      function resetGame() {
+        initializeBoard();
+      }
+
+      initializeBoard();
+    </script>
+  </body>
+</html>

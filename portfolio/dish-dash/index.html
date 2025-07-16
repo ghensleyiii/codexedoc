@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dish Dash</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+
+    :root {
+      --primary: #c2a84e;
+      --accent: #999999;
+      --bg: #f6f8fa;
+      --radius: 12px;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Fugaz One', sans-serif;
+      background: var(--bg);
+      color: #222;
+      min-height: 100vh;
+    }
+    header {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      border-radius: 0 0 var(--radius) var(--radius);
+      margin-bottom: 2rem;
+      font-weight: normal;
+      height: 100%;
+      padding: 20px;
+    }
+    header h1 {
+      font-size: 3rem;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 0 1rem;
+    }
+    form {
+      display: flex;
+      gap: 1rem;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px #0001;
+    }
+    input, select, button {
+      font-size: 1rem;
+      border-radius: var(--radius);
+      border: 1px solid #ddd;
+      padding: 0.7rem 1rem;
+      outline: none;
+    }
+    input, select {
+      flex: 1;
+      background: #f8fafc;
+    }
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    button:hover { box-shadow: 0 2px 8px #0001; }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px #0001;
+      flex: 1 1 260px;
+      min-width: 220px;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #eee;
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background: #eee;
+    }
+    .card-body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    .fav-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .fav-btn[title*="Add"] { color: var(--primary); }
+    .card-text {
+      font-size: 0.98rem;
+      color: #444;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+    .card a {
+      background: var(--primary);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 500;
+      margin-top: auto;
+      transition: background 0.2s;
+      display: inline-block;
+    }
+    .card a:hover { background: #146c43; }
+    #load-more {
+      display: block;
+      margin: 2rem auto 1rem auto;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.7rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #load-more:hover { background: #146c43; }
+    .favorites {
+      margin-top: 2rem;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px #0001;
+      padding: 1rem;
+      border: 1px solid #eee;
+    }
+    .favorites h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .alert {
+      background: #f8d7da;
+      color: #842029;
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      font-size: 1rem;
+    }
+    .spinner {
+      width: 2rem;
+      height: 2rem;
+      border: 0.25em solid var(--primary);
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 1rem auto;
+      display: block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (max-width: 800px) {
+      .row { flex-direction: column; gap: 1rem; }
+      .card { max-width: 100%; }
+      form { flex-direction: column; gap: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DISH DASH</h1>
+    <p>Find recipes by ingredient or dish. Save your favorites!</p>
+  </header>
+  <div class="container">
+    <form id="search-form">
+      <input type="text" id="query" placeholder="Search recipes..." required>
+      <select id="filter">
+        <option value="">All</option>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="gluten free">Gluten-Free</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+    <div class="row" id="recipes"></div>
+    <button id="load-more" style="display:none;">Load More</button>
+    <div class="favorites" id="favorites">
+      <h3>Favorites</h3>
+      <div class="row" id="fav-list"></div>
+    </div>
+  </div>
+  <script>
+
+    // API details
+    const API_KEY = '9a4f93e07f6a4cda8340745d8930787b';
+    const API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
+    const RECIPES_PER_PAGE = 9;
+
+    // Track search state
+    let page = 1;
+    let lastQuery = '';
+    let lastFilter = '';
+    let totalResults = 0;
+
+    // Get page elements
+    const form = document.getElementById('search-form');
+    const queryInput = document.getElementById('query');
+    const filterSelect = document.getElementById('filter');
+    const recipesDiv = document.getElementById('recipes');
+    const loadMoreBtn = document.getElementById('load-more');
+    const favListDiv = document.getElementById('fav-list');
+
+    // --- Favorites functions ---
+
+    // Get favorites from local storage
+    function getFavorites() {
+      const favs = localStorage.getItem('favorites');
+      return favs ? JSON.parse(favs) : [];
+    }
+
+    // Save favorites to local storage
+    function saveFavorites(favs) {
+      localStorage.setItem('favorites', JSON.stringify(favs));
+    }
+
+    // Check if a recipe is a favorite
+    function isFavorite(id) {
+      return getFavorites().some(recipe => recipe.id === id);
+    }
+
+    // Show favorite recipes
+    function showFavorites() {
+      const favs = getFavorites();
+      favListDiv.innerHTML = favs.length === 0
+      ? '<p style="opacity:0.7;">No favorites yet.</p>'
+      : '';
+      favs.forEach(recipe => {
+      favListDiv.appendChild(createRecipeCard(recipe, true));
+      });
+    }
+
+    // --- Recipe card creation ---
+
+    // Make a recipe card
+    function createRecipeCard(recipe, inFavorites = false) {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      // Clean up summary text
+      let summary = '';
+      if (recipe.summary) {
+      summary = recipe.summary.replace(/<[^>]+>/g, '').slice(0, 90) + '...';
+      }
+
+      // Card HTML
+      card.innerHTML = `
+      <img src="${recipe.image}" alt="${recipe.title}">
+      <div class="card-body">
+        <div class="card-title">
+        <span style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${recipe.title}</span>
+        <button class="fav-btn" title="${isFavorite(recipe.id) ? 'Remove from favorites' : 'Add to favorites'}">
+          ${isFavorite(recipe.id) ? '♥' : '♡'}
+        </button>
+        </div>
+        <div class="card-text">${summary}</div>
+        <a href="${recipe.sourceUrl || '#'}" target="_blank">View Recipe</a>
+      </div>
+      `;
+
+      // Favorite button click
+      const favBtn = card.querySelector('.fav-btn');
+      favBtn.onclick = function(event) {
+      event.preventDefault();
+      let favs = getFavorites();
+      if (isFavorite(recipe.id)) {
+        favs = favs.filter(r => r.id !== recipe.id);
+      } else {
+        favs.push(recipe);
+      }
+      saveFavorites(favs);
+      showFavorites();
+      if (!inFavorites) {
+        favBtn.innerHTML = isFavorite(recipe.id) ? '♥' : '♡';
+      }
+      };
+
+      return card;
+    }
+
+    // --- API and search ---
+
+    // Get recipes from API
+    async function fetchRecipes(query, filter, page = 1) {
+      let params = [
+      `apiKey=${API_KEY}`,
+      `query=${encodeURIComponent(query)}`,
+      `number=${RECIPES_PER_PAGE}`,
+      `offset=${(page - 1) * RECIPES_PER_PAGE}`,
+      'addRecipeInformation=true'
+      ];
+      if (filter === 'vegetarian') params.push('diet=vegetarian');
+      if (filter === 'gluten free') params.push('intolerances=gluten');
+      const url = `${API_URL}?${params.join('&')}`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('API error');
+      return response.json();
+    }
+
+    // Show recipes on the page
+    function showRecipes(recipes, addToExisting = false) {
+      if (!addToExisting) recipesDiv.innerHTML = '';
+      recipes.forEach(recipe => {
+      recipesDiv.appendChild(createRecipeCard(recipe));
+      });
+    }
+
+    // Handle search and load more
+    async function handleSearch(event, loadMore = false) {
+      if (event) event.preventDefault();
+      const query = queryInput.value.trim();
+      const filter = filterSelect.value;
+      if (!query) return;
+
+      if (!loadMore) {
+      page = 1;
+      lastQuery = query;
+      lastFilter = filter;
+      recipesDiv.innerHTML = '<div class="spinner"></div>';
+      }
+
+      try {
+      const data = await fetchRecipes(lastQuery, lastFilter, page);
+      totalResults = data.totalResults;
+      showRecipes(data.results, loadMore);
+      // Show or hide "Load More"
+      if (page * RECIPES_PER_PAGE < totalResults) {
+        loadMoreBtn.style.display = '';
+      } else {
+        loadMoreBtn.style.display = 'none';
+      }
+      } catch {
+      recipesDiv.innerHTML = '<div class="alert">Failed to fetch recipes.</div>';
+      loadMoreBtn.style.display = 'none';
+      }
+    }
+
+    // --- Event listeners ---
+
+    // Search form submit
+    form.onsubmit = handleSearch;
+
+    // Load more button
+    loadMoreBtn.onclick = function() {
+      page++;
+      handleSearch(null, true);
+    };
+
+    // Show favorites on page load
+    showFavorites();
+  </script>
+</body>
+</html>

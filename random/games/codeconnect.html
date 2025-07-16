@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../icons/android-chrome-192x192.png">
+    <title>Code Connect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Consolas&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      :root {
+        --dark-steel: #295d8a;
+        --steel: #4a7fb2;
+        --white: #ffffff;
+        --black: #000000;
+        --emerald-green: #10b981;
+      }
+
+      * {
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      body {
+        font-family: Arial, sans-serif !important;
+        background-color: var(--black) !important;
+        color: var(--white) !important;
+        line-height: 1.6 !important;
+      }
+
+      header {
+        background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
+        padding: 20px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 100 !important;
+      }
+
+      .logo h1 {
+        font-family: 'Audiowide', sans-serif !important;
+        color: var(--black) !important;
+        font-size: 35px !important;
+        margin: 0 !important;
+      }
+
+      .logo a {
+        text-decoration: none !important;
+        color: var(--black) !important;
+      }
+
+      .intro {
+        background: linear-gradient(90deg, var(--steel)) !important;
+        padding: 20px !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+        text-align: center !important;
+        width: 100vw !important;
+        margin-bottom: 20px !important;
+      }
+
+      footer {
+        background: linear-gradient(90deg, var(--dark-steel), var(--steel), var(--dark-steel)) !important;
+        text-align: center !important;
+        padding: 20px !important;
+        color: var(--black) !important;
+        box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) !important;
+        width: 100% !important;
+      }
+
+      footer a {
+        color: var(--black) !important;
+      }
+
+      main {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        min-height: calc(100vh - 140px) !important;
+        padding: 0 20px !important;
+        flex-direction: column !important;
+      }
+
+      #game-container {
+        background-color: #252526 !important;
+        border: 2px solid #3c3c3c !important;
+        padding: 20px !important;
+        border-radius: 5px !important;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        font-family: 'Consolas', monospace !important;
+        margin: 20px 0 !important;
+      }
+
+      #board-container {
+        width: 357px !important; /* 7 * 50px + 7 * 1px gaps */
+        height: 306px !important; /* 6 * 50px + 6 * 1px gaps */
+        display: block !important;
+      }
+
+      #board {
+        display: grid !important;
+        grid-template-columns: repeat(7, 50px) !important;
+        gap: 1px !important;
+        background-color: #3c3c3c !important;
+        width: 100% !important;
+        height: 100% !important;
+        visibility: visible !important;
+      }
+
+      .cell {
+        width: 50px !important;
+        height: 50px !important;
+        background-color: #1e1e1e !important;
+        border: 1px solid #3c3c3c !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+      }
+
+      .column:hover .cell {
+        background-color: var(--dark-steel) !important;
+      }
+
+      .token {
+        width: 80% !important;
+        height: 80% !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        font-size: 20px !important;
+        font-weight: bold !important;
+        font-family: 'Consolas', monospace !important;
+      }
+
+      .token.player1 {
+        background-color: var(--emerald-green) !important;
+        color: var(--black) !important;
+      }
+
+      .token.player2 {
+        background-color: var(--steel) !important;
+        color: var(--white) !important;
+      }
+
+      .winning {
+        animation: blink 1s infinite !important;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0.5 !important;
+        }
+      }
+
+      #info-panel {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        margin: 10px 0 !important;
+      }
+
+      #status {
+        margin: 10px 0 !important;
+        font-size: 16px !important;
+        color: var(--white) !important;
+        text-align: center !important;
+      }
+
+      #controls {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        justify-content: center !important;
+        margin-top: 10px !important;
+      }
+
+      button {
+        padding: 10px 20px !important;
+        background-color: var(--steel) !important;
+        color: var(--white) !important;
+        border: none !important;
+        border-radius: 3px !important;
+        cursor: pointer !important;
+        font-family: 'Consolas', monospace !important;
+        touch-action: manipulation !important;
+      }
+
+      button:hover {
+        background-color: var(--dark-steel) !important;
+      }
+
+      @media (max-width: 600px) {
+        #board {
+          grid-template-columns: repeat(7, 40px) !important;
+        }
+        #board-container {
+          width: 287px !important; /* 7 * 40px + 7 * 1px gaps */
+          height: 246px !important; /* 6 * 40px + 6 * 1px gaps */
+        }
+        .cell {
+          width: 40px !important;
+          height: 40px !important;
+        }
+        .token {
+          font-size: 16px !important;
+        }
+      }
+
+      #game-description {
+        font-family: 'Consolas', monospace !important;
+        color: var(--white) !important;
+        font-size: 16px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="../index.html">
+          <h1>CODE CONNECT</h1>
+        </a>
+      </div>
+    </header>
+    <main>
+      <section class="intro">
+        <div id="game-description">
+          <p>In Code Connect, build your code by aligning four binary tokens ("1" or "0") in a row, column, or diagonal on a 7x6 terminal grid. Players take turns dropping a token into a column, where it stacks from the bottom. Click a column to input your token. Play in Two Player mode (same screen) or against the AI in Programmer vs AI mode. Win by connecting four tokens or achieve a draw if the grid fills. Use the undo button to revert your last move. Debug your strategy to outsmart your opponent!</p>
+        </div>
+      </section>
+      <div id="game-container">
+        <div id="board-container">
+          <div id="board"></div>
+        </div>
+        <div id="info-panel">
+          <div id="status">Programmer 1's turn (1)</div>
+        </div>
+        <div id="controls">
+          <button onclick="startTwoPlayerGame()">Two Player</button>
+          <button onclick="startComputerGame()">Programmer vs AI</button>
+          <button onclick="resetGame()">Reset Code</button>
+          <button onclick="undoMove()"><i class="fas fa-undo"></i> Undo</button>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>© 2025 CODEXEDOC. All rights reserved.<br>
+      <a-Me href="../terms/termsofuse.html">TERMS OF USE</a></p>
+    </footer>
+
+    <script>
+      const ROWS = 6;
+      const COLS = 7;
+      let board = [];
+      let currentPlayer = 1; // 1 for Programmer 1 ("1"), -1 for Programmer 2 ("0")
+      let gameMode = 'twoPlayer'; // 'twoPlayer' or 'computer'
+      let gameOver = false;
+      let moveHistory = []; // Stores moves for undo
+
+      function initializeBoard() {
+        console.log('Initializing terminal grid...');
+        board = Array(ROWS).fill().map(() => Array(COLS).fill(0));
+        currentPlayer = 1;
+        gameOver = false;
+        moveHistory = [];
+        updateStatus();
+        renderBoard();
+      }
+
+      function renderBoard() {
+        console.log('Rendering terminal grid...');
+        const boardElement = document.getElementById('board');
+        if (!boardElement) {
+          console.error('Board element not found!');
+          return;
+        }
+        boardElement.innerHTML = '';
+        for (let row = 0; row < ROWS; row++) {
+          for (let col = 0; col < COLS; col++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            if (board[row][col] !== 0) {
+              const token = document.createElement('div');
+              token.classList.add('token');
+              token.classList.add(board[row][col] === 1 ? 'player1' : 'player2');
+              token.textContent = board[row][col] === 1 ? '1' : '0';
+              cell.appendChild(token);
+            }
+            cell.dataset.col = col;
+            cell.addEventListener('click', () => handleColumnClick(col));
+            // Add column class for hover effect
+            cell.classList.add(`col-${col}`);
+            boardElement.appendChild(cell);
+          }
+        }
+        // Apply column hover effect
+        for (let col = 0; col < COLS; col++) {
+          const columnCells = document.querySelectorAll(`.col-${col}`);
+          columnCells.forEach(cell => {
+            cell.parentElement.addEventListener('mouseover', () => {
+              columnCells.forEach(c => c.classList.add('highlight'));
+            });
+            cell.parentElement.addEventListener('mouseout', () => {
+              columnCells.forEach(c => c.classList.remove('highlight'));
+            });
+          });
+        }
+        console.log('Grid rendered with', boardElement.childElementCount, 'cells');
+      }
+
+      function updateStatus() {
+        if (gameOver) {
+          if (checkDraw()) {
+            document.getElementById('status').textContent = 'Compilation Stalemate! Grid is full.';
+          } else {
+            document.getElementById('status').textContent = `Code Compiled! ${currentPlayer === 1 ? 'Programmer 1 (1)' : (gameMode === 'computer' ? 'AI (0)' : 'Programmer 2 (0)')} wins!`;
+          }
+          return;
+        }
+        document.getElementById('status').textContent = `${currentPlayer === 1 ? 'Programmer 1 (1)' : (gameMode === 'computer' ? 'AI (0)' : 'Programmer 2 (0)')}'s turn`;
+      }
+
+      function handleColumnClick(col) {
+        if (gameOver) return;
+        console.log(`Clicked column: ${col}, currentPlayer=${currentPlayer}`);
+        const row = getLowestEmptyRow(col);
+        if (row === -1) {
+          console.log('Column is full');
+          return;
+        }
+        // Save move to history before making it
+        moveHistory.push({ row, col, player: currentPlayer });
+        board[row][col] = currentPlayer;
+        renderBoard();
+        if (checkWin(row, col)) {
+          gameOver = true;
+          highlightWinningTokens();
+          updateStatus();
+          return;
+        }
+        if (checkDraw()) {
+          gameOver = true;
+          updateStatus();
+          return;
+        }
+        currentPlayer *= -1;
+        updateStatus();
+        if (gameMode === 'computer' && currentPlayer === -1 && !gameOver) {
+          setTimeout(computerMove, 500);
+        }
+      }
+
+      function getLowestEmptyRow(col) {
+        for (let row = ROWS - 1; row >= 0; row--) {
+          if (board[row][col] === 0) return row;
+        }
+        return -1;
+      }
+
+      function checkWin(row, col) {
+        const player = board[row][col];
+        // Check horizontal
+        let count = 1;
+        let winningTokens = [[row, col]];
+        for (let c = col - 1; c >= 0 && board[row][c] === player; c--) {
+          count++;
+          winningTokens.push([row, c]);
+        }
+        for (let c = col + 1; c < COLS && board[row][c] === player; c++) {
+          count++;
+          winningTokens.push([row, c]);
+        }
+        if (count >= 4) {
+          setWinningTokens(winningTokens);
+          return true;
+        }
+
+        // Check vertical
+        count = 1;
+        winningTokens = [[row, col]];
+        for (let r = row - 1; r >= 0 && board[r][col] === player; r--) {
+          count++;
+          winningTokens.push([r, col]);
+        }
+        for (let r = row + 1; r < ROWS && board[r][col] === player; r++) {
+          count++;
+          winningTokens.push([r, col]);
+        }
+        if (count >= 4) {
+          setWinningTokens(winningTokens);
+          return true;
+        }
+
+        // Check diagonal (top-left to bottom-right)
+        count = 1;
+        winningTokens = [[row, col]];
+        for (let i = 1; row - i >= 0 && col - i >= 0 && board[row - i][col - i] === player; i++) {
+          count++;
+          winningTokens.push([row - i, col - i]);
+        }
+        for (let i = 1; row + i < ROWS && col + i < COLS && board[row + i][col + i] === player; i++) {
+          count++;
+          winningTokens.push([row + i, col + i]);
+        }
+        if (count >= 4) {
+          setWinningTokens(winningTokens);
+          return true;
+        }
+
+        // Check diagonal (top-right to bottom-left)
+        count = 1;
+        winningTokens = [[row, col]];
+        for (let i = 1; row - i >= 0 && col + i < COLS && board[row - i][col + i] === player; i++) {
+          count++;
+          winningTokens.push([row - i, col + i]);
+        }
+        for (let i = 1; row + i < ROWS && col - i >= 0 && board[row + i][col - i] === player; i++) {
+          count++;
+          winningTokens.push([row + i, col - i]);
+        }
+        if (count >= 4) {
+          setWinningTokens(winningTokens);
+          return true;
+        }
+
+        return false;
+      }
+
+      function setWinningTokens(tokens) {
+        this.winningTokens = tokens;
+      }
+
+      function highlightWinningTokens() {
+        const boardElement = document.getElementById('board');
+        this.winningTokens.forEach(([row, col]) => {
+          const cellIndex = row * COLS + col;
+          const cell = boardElement.children[cellIndex];
+          const token = cell.querySelector('.token');
+          if (token) token.classList.add('winning');
+        });
+      }
+
+      function checkDraw() {
+        for (let col = 0; col < COLS; col++) {
+          if (board[0][col] === 0) return false;
+        }
+        return true;
+      }
+
+      function undoMove() {
+        if (gameOver || moveHistory.length === 0) return;
+        console.log('Undoing last move...');
+        const lastMove = moveHistory.pop();
+        board[lastMove.row][lastMove.col] = 0;
+        currentPlayer = lastMove.player;
+        renderBoard();
+        updateStatus();
+        // If in computer mode and it's AI's turn, undo its move as well
+        if (gameMode === 'computer' && moveHistory.length > 0 && currentPlayer === -1) {
+          const aiMove = moveHistory.pop();
+          board[aiMove.row][aiMove.col] = 0;
+          currentPlayer = aiMove.player;
+          renderBoard();
+          updateStatus();
+        }
+      }
+
+      function computerMove() {
+        if (gameOver) return;
+        const validCols = [];
+        for (let col = 0; col < COLS; col++) {
+          if (getLowestEmptyRow(col) !== -1) validCols.push(col);
+        }
+        if (validCols.length === 0) {
+          gameOver = true;
+          updateStatus();
+          return;
+        }
+        const col = validCols[Math.floor(Math.random() * validCols.length)];
+        const row = getLowestEmptyRow(col);
+        moveHistory.push({ row, col, player: currentPlayer });
+        board[row][col] = currentPlayer;
+        renderBoard();
+        if (checkWin(row, col)) {
+          gameOver = true;
+          highlightWinningTokens();
+          updateStatus();
+          return;
+        }
+        if (checkDraw()) {
+          gameOver = true;
+          updateStatus();
+          return;
+        }
+        currentPlayer *= -1;
+        updateStatus();
+      }
+
+      function startTwoPlayerGame() {
+        gameMode = 'twoPlayer';
+        resetGame();
+      }
+
+      function startComputerGame() {
+        gameMode = 'computer';
+        resetGame();
+      }
+
+      function resetGame() {
+        initializeBoard();
+      }
+
+      initializeBoard();
+    </script>
+  </body>
+</html>
