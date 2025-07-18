@@ -21,6 +21,13 @@
   <!--STYLESHEETS-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../../../css/styles.css">
+  <style>
+    .reminder {
+      color: var(--gray);
+      font-weight: 900;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <div class="outer-grid">
@@ -73,6 +80,7 @@
         <article>
           <h1>JavaScript: Your Ultimate Guide The Language Of The Web</h1>
           <p>Hey, you! Whether you’ve never touched code before or you’re itching to master every part of this amazing language, this course is your ticket to becoming a JavaScript developer. JavaScript is the heartbeat of the web, powering everything from clickable buttons to full-blown websites like Netflix. It’s huge, it’s versatile, and it’s a skill that can open doors to jobs, side projects, or just impressing your friends. This course is long, detailed, and packed with examples, but don’t worry—I’m breaking it down step-by-step, talking to you like a friend, and making sure you feel supported. If things feel overwhelming, that’s normal! Stick with me, and I’ll connect all the dots to help you build real, awesome projects. Let’s dive into the “upside down” of coding and unlock JavaScript’s full potential!</p>
+          <p class="reminder">Be sure to take advantage of the CodePens doing so will reinforce what you're learning and give you valuable hands-on experience.</p>
           <hr>
           <h2>Table of Contents</h2>
           <p>This course is a massive roadmap to JavaScript mastery, covering everything from the basics to advanced topics like Promises and Modules. Each section is loaded with explanations, analogies, and hands-on examples to make learning fun and clear. Jump around using the links below, but I recommend starting at the top to soak it all in. Ready? Let’s get into the code!</p>
@@ -175,10 +183,13 @@
   const person = { name: "Andrew", age: 20 }; // Object
   console.log(name, score, isCool, colors[0], person.name);
           </code></pre>
-          <p>Type that in the Console and see what prints! Notice how <code>colors[0]</code> grabs “amber" (arrays start at index 0), and <code>person.name</code> gets “Andrew” using dot notation. Why is this useful? It shows how different data types store and retrieve information differently, giving you flexibility to build complex apps. Try it in this CodePen:</p><!--//! STOPPED HERE-->
-          <p class="codepen">
-            <span><a href="https://codepen.io/codexedoc/pen/poJqVKr">Play with variables on CodePen</a></span>
+          <p>Type that in the Console and see what prints! Notice how <code>colors[0]</code> grabs “amber" (arrays start at index 0), and <code>person.name</code> gets “Andrew” using dot notation. Why is this useful? It shows how different data types store and retrieve information differently, giving you flexibility to build complex apps. Try it in this CodePen:</p>
+          <p class="codepen" data-height="300" data-default-tab="js,result" data-slug-hash="QwjjXoY" data-pen-title="Data Types" data-editable="true" data-user="codexedoc" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+            <span>See the Pen <a href="https://codepen.io/codexedoc/pen/QwjjXoY">
+            Data Types</a> by CODEXEDOC (<a href="https://codepen.io/codexedoc">@codexedoc</a>)
+            on <a href="https://codepen.io">CodePen</a>.</span>
           </p>
+          <script async src="https://public.codepenassets.com/embed/index.js"></script>
           <h3>Declaring and Assigning Variables</h3>
           <p>Creating a variable is like a two-step dance: *declare* it (tell the computer to reserve a box) and *assign* it (put something in the box). You can do both at once or separately. The left side of the equals sign (<code>=</code>) is the variable name, and the right side is the value. Why does this matter? It’s like setting up a storage system—declare the box, then fill it with whatever you need. The semicolon (<code>;</code>) at the end is like a period, telling JavaScript the line is done. Skipping it can cause weird errors, so it’s a good habit to include it.</p>
           <p>Here’s how it looks:</p>
@@ -213,21 +224,21 @@
           <pre><code class="language-javascript">
   const num1 = 10;
   const num2 = 5;
-  const name = "Glenn";
+  const name = "Royce";
   console.log(num1 + num2); // 15
-  console.log("Hello, " + name); // Hello, Glenn
+  console.log("Hello, " + name); // Hello, Royce
   console.log(num1 % 3); // 1 (remainder of 10 ÷ 3)
           </code></pre>
           <p>Notice how <code>+</code> adds numbers but joins strings? That’s JavaScript’s flexibility! The modulus (<code>%</code>) is great for checking if a number is even (e.g., <code>10 % 2 === 0</code>). Why does this matter? Arithmetic operators let you perform calculations that power everything from budgets to animations.</p>
           <h3>Assignment Operators: Storing Values</h3>
-          <p>The assignment operator <code>=</code> is how you store values in variables, like putting groceries in your fridge. It’s simple but essential—every variable needs it. There are fancier ones like <code>+=</code> (add and assign) or <code>*=</code> (multiply and assign), but <code>=</code> is the workhorse. Why stick with <code>=</code>? It’s clear and avoids confusion. The left side of <code>=</code> is your variable (the box), and the right side is the value (what goes in). This is how you save data to use later, like storing a user’s score or name.</p>
+          <p>The assignment operator <code>=</code> is how you store values in variables, like putting groceries in your fridge. It’s simple but essential—every variable needs it. There are fancier ones like <code>+=</code> (add and assign) or <code>*=</code> (multiply and assign). Using the fancier ones shortens the amount of code you write. The left side of <code>=</code> is your variable (the box), and the right side is the value (what goes in). This is how you save data to use later, like storing a user’s score or name.</p>
           <p>Here’s how it works:</p>
           <pre><code class="language-javascript">
   let score = 100;
-  score = score + 10; // Same as score += 10
+  score += 10; // Same as (score = score + 10)
   console.log(score); // 110
           </code></pre>
-          <p>Try that in the Console! You can reassign <code>let</code> variables, but <code>const</code> stays fixed. Why is this important? Assignment operators let you update data dynamically, like tracking a game’s progress or updating a user’s profile. Keep it simple with <code>=</code>, and you’ll avoid headaches.</p>
+          <p>Try that in the Console! You can reassign <code>let</code> variables, but <code>const</code> stays fixed. Why is this important? Assignment operators let you update data dynamically, like tracking a game’s progress or updating a user’s profile.</p>
           <h3>Comparison and Logical Operators</h3>
           <p>Comparison operators let your code make decisions by returning <code>true</code> or <code>false</code>. They include <code>===</code> (strict equality), <code>==</code> (loose equality), <code>!==</code> (not equal), <code>></code>, <code><</code>, <code>>=</code>, and <code><=</code>. Why use <code>===</code> over <code>==</code>? It checks both value and type, avoiding weird bugs (like <code>"10" == 10</code> being true). Logical operators (<code>&&</code> for “and,” <code>||</code> for “or,” <code>!</code> for “not”) combine conditions, like checking if a user is logged in *and* an admin. Why are these crucial? They let your code think, making it smart and responsive.</p>
           <p>Here’s an example combining both:</p>
@@ -240,16 +251,19 @@
   console.log(isLoggedIn && num > 5); // true (both true)
           </code></pre>
           <p>Try it in this CodePen to see operators in action:</p>
-          <p class="codepen">
-            <span><a href="https://codepen.io/codexedoc/pen/ExzYqKr">Play with operators on CodePen</a></span>
+          <p class="codepen" data-height="300" data-default-tab="js,result" data-slug-hash="zxvvgGq" data-pen-title="Operators" data-editable="true" data-user="codexedoc" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+            <span>See the Pen <a href="https://codepen.io/codexedoc/pen/zxvvgGq">
+            Operators</a> by CODEXEDOC (<a href="https://codepen.io/codexedoc">@codexedoc</a>)
+            on <a href="https://codepen.io">CodePen</a>.</span>
           </p>
+          <script async src="https://public.codepenassets.com/embed/index.js"></script>
           <p>Comparison and logical operators are like your code’s decision-making brain, letting you build logic for games, forms, or apps. Master these, and you’re on your way to dynamic coding!</p>
         </section>
 
         <section id="conditionals">
           <h2>Conditionals: Making Decisions</h2>
           <h3>Why Conditionals Are Your Code’s Brain</h3>
-          <p>Conditionals are like your code’s decision-making superpower, letting it choose what to do based on conditions. Imagine you’re picking a movie: if it’s raining, you might choose a cozy rom-com; otherwise, maybe an action flick. Conditionals work the same way, making your app dynamic and responsive. Why are they so important? They let your code react to user actions, data, or states, like showing a “Welcome” message if a user is logged in or a “Try again” if they fail a quiz. JavaScript’s main conditional is the <code>if</code> statement, but you can add <code>else</code> and <code>else if</code> for more paths. It’s like a choose-your-own-adventure book for your code!</p>
+          <p>Conditionals are like your code’s decision-making superpower, letting it choose what to do based on conditions. Imagine you’re picking a movie: if it’s raining, you might choose a cozy movie; otherwise, maybe an action one. Conditionals work the same way, making your app dynamic and responsive. Why are they so important? They let your code react to user actions, data, or states, like showing a “Welcome” message if a user is logged in or a “Try again” if they fail a quiz. JavaScript’s main conditional is the <code>if</code> statement, but you can add <code>else</code> and <code>else if</code> for more paths. It’s like a choose-your-own-adventure book for your code!</p>
           <p>Conditionals rely on expressions that evaluate to <code>true</code> or <code>false</code>, using operators like <code>===</code> or <code>></code>. They’re the heart of interactive apps, from forms to games. Let’s explore how they work, why they’re powerful, and how to use them to make your code think. By the end, you’ll be writing conditionals that make your apps smart and engaging, and you’ll feel like a coding detective solving problems with logic.</p>
           <h3>Basic If Statements</h3>
           <p>The <code>if</code> statement is the simplest conditional: it checks a condition and runs code if it’s true. If not, it skips to an <code>else</code> block (if you include one). Why start here? It’s like making a yes-or-no decision, perfect for simple logic like checking a score. The condition goes in parentheses, and the code to run goes in curly braces <code>{}</code>. It’s straightforward but powerful, letting you control your app’s flow based on data or user actions.</p>
@@ -294,9 +308,12 @@
   }
           </code></pre>
           <p>Try it in this CodePen to experiment with conditionals:</p>
-          <p class="codepen">
-            <span><a href="https://codepen.io/codexedoc/pen/mdGqWvL">Experiment with conditionals on CodePen</a></span>
+          <p class="codepen" data-height="300" data-default-tab="js,result" data-slug-hash="xbwwvgd" data-pen-title="Switch Statements" data-editable="true" data-user="codexedoc" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+            <span>See the Pen <a href="https://codepen.io/codexedoc/pen/xbwwvgd">
+            Switch Statements</a> by CODEXEDOC (<a href="https://codepen.io/codexedoc">@codexedoc</a>)
+            on <a href="https://codepen.io">CodePen</a>.</span>
           </p>
+          <script async src="https://public.codepenassets.com/embed/index.js"></script>
           <p><code>switch</code> is like a shortcut for repetitive checks—use it when it feels cleaner than <code>if</code>. Conditionals are your code’s brain, and mastering them lets you build apps that think and respond intelligently!</p>
         </section>
 
@@ -324,7 +341,7 @@
     count++;
   }
           </code></pre>
-          <p>This does the same as the <code>for</code> loop but gives you more control over the counter. Why does this matter? <code>while</code> loops shine in unpredictable scenarios, like game loops or data processing, where the end condition isn’t fixed.</p>
+          <p>Notice the <code>count++</code> this increments adding one to the count variable. Without that the while loop would become infinite because count would never reach 5. The above while loop does the same as the <code>for</code> loop but gives you more control over the counter. Why does this matter? <code>while</code> loops shine in unpredictable scenarios, like game loops or data processing, where the end condition isn’t fixed.</p>
           <h3>ForEach: Looping Over Arrays</h3>
           <p>The <code>forEach</code> loop is a modern, clean way to loop over arrays, like reading each item in a shopping list. Why use it? It’s simpler than <code>for</code> for arrays and reads like plain English, making your code easier to understand. You give <code>forEach</code> a function to run for each array element, and it handles the rest.</p>
           <p>Here’s a <code>forEach</code> example:</p>
@@ -335,9 +352,12 @@
   });
           </code></pre>
           <p>Try it in this CodePen to see loops in action:</p>
-          <p class="codepen">
-            <span><a href="https://codepen.io/codexedoc/pen/vYbLqKr">Experiment with loops on CodePen</a></span>
+          <p class="codepen" data-height="300" data-default-tab="js,result" data-slug-hash="qEOOepV" data-pen-title="Loops" data-editable="true" data-user="codexedoc" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+            <span>See the Pen <a href="https://codepen.io/codexedoc/pen/qEOOepV">
+            Loops</a> by CODEXEDOC (<a href="https://codepen.io/codexedoc">@codexedoc</a>)
+            on <a href="https://codepen.io">CodePen</a>.</span>
           </p>
+          <script async src="https://public.codepenassets.com/embed/index.js"></script>
           <p>Loops are your code’s workhorse, automating tasks and handling data efficiently. Whether you’re counting, waiting, or iterating, loops make your code powerful and scalable!</p>
         </section>
 
@@ -353,37 +373,52 @@
   function greet(name) {
     return "Hello, " + name + "!";
   }
-  console.log(greet("Glenn")); // Hello, Glenn!
+  console.log(greet("Dominic")); // Hello, Dominic!
           </code></pre>
-          <p>Try that in the Console! The function takes a <code>name</code> parameter, combines it with a greeting, and returns it. Why is this useful? You can reuse <code>greet</code> for any name, saving you from rewriting the same logic.</p>
+          <p>Try that in the Console! The function takes a <code>name</code> parameter, combines it with a greeting, and returns it. Why is this useful? You can reuse <code>greet</code> for any name, saving you from rewriting the same logic. Parameters are just the name of the arguments or what goes into the function. You can have multiple paremeters and arguments. You can choose to name parameters whatever you like. Instead of the console.log if you wanted to use that function in another statement in your code you can call it like this: <code>greet("Dominic")</code>.</p>
           <h3>Function Expressions and Arrow Functions</h3>
-          <p>Function expressions store a function in a variable, like assigning a tool to a specific job. Arrow functions (ES6) are a shorter, modern syntax, perfect for concise tasks. Why use them? Expressions are great for passing functions as arguments (like in event handlers), and arrow functions simplify code for quick operations.</p>
-          <p>Here’s both in action:</p>
+          <p>When you're learning to code, functions are like recipes — they tell the computer how to do something, step by step. There are different ways to write these recipes in JavaScript, and two popular ones are function expressions and arrow functions.</p>
+          <p>A function expression lets you store a function inside a variable, kind of like putting a tool in a labeled toolbox so you can use it later. This is helpful when you want to pass the function around — for example, give it to another part of the code that needs it, like a button click event or a loop.</p>
+          <p>An arrow function is a newer way to write functions that’s shorter and cleaner, especially when your function is simple. It uses the <code>=></code> symbol and often skips writing the word <code>return</code> if the output is just one line. This style is great for tasks that happen quickly and often, like looping through data or responding to something right away.</p>
+          <p>Here’s how both styles look and work in JavaScript:</p>
           <pre><code class="language-javascript">
+  // Function Expression
   const add = function(a, b) {
     return a + b;
   };
+
+  // Arrow Function
   const multiply = (a, b) => a * b;
-  console.log(add(2, 3)); // 5
-  console.log(multiply(2, 3)); // 6
+
+  console.log(add(2, 3));      // Output: 5
+  console.log(multiply(2, 3)); // Output: 6
           </code></pre>
-          <p>The arrow function <code>=></code> is sleek and skips <code>return</code> for one-line functions. Why does this matter? Arrow functions make your code cleaner, especially for array methods or callbacks, which we’ll cover later.</p>
+          <p>Notice how the arrow function is shorter? It removes the need for curly braces and the word <code>return</code> when the function does only one thing. That keeps your code easy to read and faster to write.</p>
+          <p>Why does this matter when you're starting out? Arrow functions help you write cleaner code without getting bogged down in extra symbols. They're especially useful when you're working with things like arrays, where you might want to do something to each item — like multiplying every number by 2 or filtering out certain results. You’ll see more of those examples as you keep learning!</p>
           <h3>Scope and Return Values</h3>
-          <p>Functions create their own scope, like a private workshop where variables stay local unless returned. The <code>return</code> statement sends a value back to the caller, like handing over a finished product. Why is scope important? It prevents variables from clashing, keeping your code organized. Why return values? They let you use function results elsewhere, like passing a calculation to another part of your app.</p>
-          <p>Here’s a scope example:</p>
+          <p>When you write functions in JavaScript, think of each one as its own little workspace, like a private room where tools (variables) are used only inside that space. This concept is called scope. Any variables created inside a function — like ingredients on a kitchen counter — are not visible or usable outside of it. They're kept private, which helps prevent confusion and accidental changes in your code.</p>
+          <p>Next is the <code>return</code> statement, which is like passing a finished dish out of the kitchen. It allows your function to give back a result to the place where it was called. This is essential because it lets you use the outcome of a function somewhere else in your code — for example, saving a result to a variable, displaying it to users, or using it in another calculation.</p>
+          <p>Why does all this matter when you're just starting out? Understanding scope helps you keep your code clean, avoiding situations where one part of the code accidentally changes something in another part. And knowing how to return values lets you actually do something useful with your functions instead of letting results stay trapped inside them.</p>
+          <p>Here's a practical example showing both scope and return in action:</p>
           <pre><code class="language-javascript">
   function calculateTotal(price, quantity) {
-    const tax = 0.08;
-    const subtotal = price * quantity;
-    return subtotal * (1 + tax);
+    const tax = 0.08;                   // Only accessible inside this function
+    const subtotal = price * quantity;  // Local variable for base cost
+    return subtotal * (1 + tax);        // Returns the final cost with tax
   }
-  console.log(calculateTotal(10, 2)); // 21.6
-  // console.log(tax); // Error - tax is local to the function
+
+  console.log(calculateTotal(10, 2)); // Output: 21.6
+
+  // console.log(tax); // Error! 'tax' is scoped inside the function and can't be accessed here
           </code></pre>
+          <p>See how the function uses <code>tax</code> and <code>subtotal</code> to do its work, but only gives back the final total using <code>return</code>? That keeps the internal details hidden and your outer code clean and focused. As you keep coding, this kind of structure will help you stay organized and make your programs easier to debug and expand.</p>
           <p>Try it in this CodePen to play with functions:</p>
-          <p class="codepen">
-            <span><a href="https://codepen.io/codexedoc/pen/qBzXqKr">Experiment with functions on CodePen</a></span>
+          <p class="codepen" data-height="300" data-default-tab="js,result" data-slug-hash="bNVVXXd" data-pen-title="Functions" data-editable="true" data-user="codexedoc" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+            <span>See the Pen <a href="https://codepen.io/codexedoc/pen/bNVVXXd">
+            Functions</a> by CODEXEDOC (<a href="https://codepen.io/codexedoc">@codexedoc</a>)
+            on <a href="https://codepen.io">CodePen</a>.</span>
           </p>
+          <script async src="https://public.codepenassets.com/embed/index.js"></script>
           <p>Functions are your coding sidekick, making your code reusable, organized, and powerful. Master them, and you’re ready to build modular, efficient apps!</p>
         </section>
 
@@ -393,45 +428,56 @@
           <p>The Document Object Model (DOM) is like a blueprint of your webpage, representing its structure as a tree of objects. Each element (like a button or paragraph) is a node in this tree, and JavaScript lets you interact with it. Why is the DOM so important? It’s how you make your webpage dynamic—changing text, adding elements, or responding to clicks. Without the DOM, your webpage would be static, like a poster instead of an interactive app. JavaScript’s power shines here, letting you manipulate the DOM to create engaging user experiences.</p>
           <p>Think of the DOM as a giant Lego set: each piece (element) can be moved, changed, or added. You use methods like <code>querySelector</code> to find pieces and properties like <code>innerText</code> to modify them. This section will teach you how to navigate and control the DOM, turning your webpage into a living, breathing app. Let’s explore the key methods and see them in action!</p>
           <h3>Finding Elements</h3>
-          <p>To change a webpage, you first need to find elements. Methods like <code>querySelector</code> and <code>querySelectorAll</code> let you grab elements by tag, class, or ID, like finding a specific Lego piece. Why is this useful? It lets you target exactly what you want to change, like updating a headline or styling a button. <code>querySelector</code> returns the first match, while <code>querySelectorAll</code> returns a list of all matches.</p>
-          <p>Here’s an example (needs HTML):</p>
-          <pre><code class="language-html">
-  <!-- HTML -->
-  /* Code Snippet Styles */
-&lt;p id="myText"&gt;Hello, world!&lt;/p&gt;
-  </code></pre>
-          <pre><code class="language-javascript">
-  // JavaScript
-  const text = document.querySelector("#myText");
-  text.innerText = "Hello, JavaScript!";
-          </code></pre>
-          <p>Try that in a CodePen with the HTML! It changes the paragraph’s text. Why does this matter? It’s how you update content dynamically, like showing a user’s name after login.</p>
-          <h3>Modifying Elements</h3>
-          <p>Once you’ve found an element, you can change its content, style, or attributes. Properties like <code>innerText</code>, <code>style</code>, and <code>classList</code> let you tweak text, colors, or classes. Why is this powerful? It lets you create dynamic effects, like highlighting a button or updating a score display. You can also add or remove elements with methods like <code>createElement</code> and <code>appendChild</code>.</p>
-          <p>Here’s a modification example:</p>
-          <pre><code class="language-html">
-  <!-- HTML -->
-  &lt;div id="myDiv"&gt;Click me!&lt;/div&gt;
-  </code></pre>
-          <pre><code class="language-javascript">
-  // JavaScript
-  const div = document.querySelector("#myDiv");
-  div.style.backgroundColor = "blue";
-  div.style.color = "white";
-          </code></pre>
-          <p>This changes a div’s style. Why is this cool? It’s how you create visual feedback, like highlighting a clicked element.</p>
-          <h3>Creating and Removing Elements</h3>
-          <p>You can dynamically add or remove elements, like building new Lego pieces or taking them apart. Methods like <code>createElement</code>, <code>appendChild</code>, and <code>remove</code> let you reshape the DOM. Why use these? They’re key for apps like to-do lists, where you add or delete tasks based on user actions.</p>
-          <p>Here’s an example:</p>
-          <pre><code class="language-javascript">
-  const newP = document.createElement("p");
-  newP.innerText = "New paragraph!";
-  document.body.appendChild(newP);
-          </code></pre>
-          <p>Try it in this CodePen to see DOM manipulation in action:</p>
-          <p class="codepen">
-            <span><a href="https://codepen.io/codexedoc/pen/zYbMqKr">Play with DOM manipulation on CodePen</a></span>
+          <p>When you’re starting out with web development, one of the first things you'll learn is how to interact with elements on a webpage using JavaScript. This is how you can change what users see and respond to their actions. But before you can change anything, you need to find the element in the page’s code—think of it like picking a specific Lego brick out of a bin to use in your creation.</p>
+          <p>In JavaScript, you use methods like <code>querySelector</code> and <code>querySelectorAll</code> to locate elements in your HTML. These tools let you search using familiar CSS-like syntax—by tag name (<code>"p"</code>), by class (<code>".title"</code>), or by ID (<code>"#logo"</code>).
+          <code>querySelector</code> finds and returns the first element that matches your search.<code>querySelectorAll</code> finds and returns all matching elements as a list you can loop through.
           </p>
+          <p>This is super handy because once you've grabbed the element, you can change its text, apply styles, or even move it. It's the starting point for making your web pages interactive and dynamic—for example, showing a personalized welcome message, or updating the score in a game.</p>
+          <p>Here’s a basic example. In the HTML, there's a paragraph with the ID <code>myText</code>. We’ll use JavaScript to change what it says:</p>
+          <pre><code class="language-html">
+&lt;p id="myText"&gt;Hello, world!&lt;/p&gt;
+          </code></pre>
+          <pre><code class="language-javascript">
+// This line finds the paragraph element by its ID
+const text = document.querySelector("#myText");
+
+// This line updates the visible text inside the paragraph
+text.innerText = "Hello, JavaScript!";
+          </code></pre>
+          <p>Once you run this, the paragraph will instantly say something different. That’s dynamic programming—changing things on the fly, after the page loads.</p>
+          <p>Why is this so powerful? Because it lets you respond to user actions. Imagine a page greeting users by name once they sign in. Or hiding buttons when they’re no longer needed. It's all possible when you learn how to find and work with elements!</p>
+          <h3>Modifying Elements</h3>
+          <p>Once you've found an element, you can start modifying it. This means changing how it looks, what it says, or how it behaves. JavaScript gives you access to properties like <code>innerText</code> to change text, <code>style</code> to adjust colors and fonts, and <code>classList</code> to apply CSS classes.</p>
+          <p>Here’s a simple example of changing a div’s background and text color:</p>
+          <pre><code class="language-html">
+&lt;div id="myDiv"&gt;Click me!&lt;/div&gt;
+          </code></pre>
+<pre><code class="language-javascript">
+const div = document.querySelector("#myDiv");
+
+// Change background color to blue
+div.style.backgroundColor = "blue";
+
+// Change text color to white
+div.style.color = "white";
+          </code></pre>
+          <p>This kind of change is useful for giving visual feedback—for example, making a button light up when clicked or showing a message when a task is complete.</p>
+          <h3>Creating and Removing Elements</h3>
+          <p>Beyond just updating elements, you can also create brand-new ones or remove old ones from the page. JavaScript gives you tools like <code>createElement</code>, <code>appendChild</code>, and <code>remove</code>. This lets you add new content on the fly—such as generating a new to-do list item—or cleaning up the page when something’s no longer needed.</p>
+          <p>Here's a quick example that adds a paragraph to the page:</p>
+          <pre><code class="language-javascript">
+const newP = document.createElement("p");       // Create a new paragraph element
+newP.innerText = "New paragraph!";              // Set its text
+document.body.appendChild(newP);                // Add it to the end of the body
+          </code></pre>
+          <p>That’s all it takes to update the page with new content! The more you play around with these techniques, the more your webpages will come to life.</p>
+          <p>Try it in this CodePen to see DOM manipulation in action:</p>
+          <p class="codepen" data-height="300" data-default-tab="js,result" data-slug-hash="MYaKgbv" data-pen-title="DOM Manipulation" data-editable="true" data-user="codexedoc" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+            <span>See the Pen <a href="https://codepen.io/codexedoc/pen/MYaKgbv">
+            DOM Manipulation</a> by CODEXEDOC (<a href="https://codepen.io/codexedoc">@codexedoc</a>)
+            on <a href="https://codepen.io">CodePen</a>.</span>
+          </p>
+          <script async src="https://public.codepenassets.com/embed/index.js"></script>
           <p>The DOM is your webpage’s control panel, and mastering it lets you create interactive, dynamic apps that respond to users in real-time!</p>
         </section>
 
@@ -441,59 +487,64 @@
           <p>Events are like your app’s senses, detecting user actions like clicks, key presses, or mouse movements. They’re how your webpage listens and responds, making it interactive. Why are events so crucial? They let your app react to users, like saving a form when a button is clicked or updating a game when a key is pressed. JavaScript’s event system is built into the DOM, using methods like <code>addEventListener</code> to attach functions to events. This section will teach you how to listen for events, handle them, and create responsive apps that feel alive.</p>
           <p>Think of events as a conversation: the user “speaks” by clicking or typing, and your code “responds” with an action. Common events include <code>click</code>, <code>input</code>, and <code>mouseover</code>. By mastering events, you’ll turn static pages into dynamic experiences, like a button that changes color or a form that validates instantly. Let’s explore how to set up and handle events with examples you can try.</p>
           <h3>Adding Event Listeners</h3>
-          <p>An event listener is like a doorbell: it waits for an action (like a click) and triggers a function. The <code>addEventListener</code> method attaches a function to an element for a specific event. Why use it? It’s flexible, letting you handle multiple events on the same element and remove listeners if needed. It’s the modern way to make your app interactive, replacing older methods like <code>onclick</code>.</p>
-          <p>Here’s a click event example:</p>
+          <p>In JavaScript, an event listener lets you “listen” for something to happen on a web page—like when a user clicks a button, types in a form, or moves their mouse. Think of it like setting a trap that activates a function when the user triggers a specific action. It's one of the most powerful tools for making your web app come alive and respond to users in real time.</p>
+          <p>The method <code>addEventListener</code> attaches a function to a specific element (like a button) and listens for a specific type of event (such as a <code>click</code>). This technique is better than older methods like <code>onclick</code> because it allows you to attach multiple event listeners to one element, remove listeners when you no longer need them, and keep your code clean and organized. Here’s a simple example that listens for a button click:</p>
           <pre><code class="language-html">
-  <!-- HTML -->
-  &lt;button id="myButton"&gt;Click me!&lt;/button&gt;
-  </code></pre>
-          <pre><code class="language-javascript">
-  // JavaScript
-  const button = document.querySelector("#myButton");
-  button.addEventListener("click", function() {
-    console.log("Button clicked!");
-  });
+&lt;button id="myButton"&gt;Click me!&lt;/button&gt;
           </code></pre>
-          <p>Try that in a CodePen with the HTML! Click the button, and check the Console. Why is this useful? It’s how you make buttons, forms, or games respond to users.</p>
+          <pre><code class="language-javascript">
+// Select the button by its ID
+const button = document.querySelector("#myButton");
+
+// Add a click event listener to run a function when clicked
+button.addEventListener("click", function() {
+  console.log("Button clicked! 🎉");
+});
+          </code></pre>
+          <p>Every time the button is clicked, the message appears in the browser’s console. This kind of interaction is key to building things like quizzes, games, and forms that react to what your users do.</p>
           <h3>Common Events and Handlers</h3>
-          <p>JavaScript supports tons of events: <code>click</code> for buttons, <code>input</code> for form fields, <code>mouseover</code> for hover effects, and more. Each event passes an event object to the handler, with details like the mouse position or typed key. Why does this matter? It lets you customize responses, like validating a form as a user types or moving a game character with arrow keys.</p>
-          <p>Here’s an input event example:</p>
+          <p>JavaScript can listen for lots of different events—not just clicks! These are a few common ones <code>click</code> when an element is clicked, <code>input</code> when a user types or changes input in a form field, <code>mouseover</code> when a mouse hovers over an element, and <code>keydown</code> when a user presses a key.</p>
+          <p>Each time an event fires, JavaScript passes an event object to your function. That object contains useful details like the element that triggered the event, the mouse position, or the key that was pressed.</p>
+          <p>Here’s an example that listens to input in real time:</p>
           <pre><code class="language-html">
-  <!-- HTML -->
-  &lt;input id="myInput" type="text" placeholder="Type something"&gt;
-  </code></pre>
-          <pre><code class="language-javascript">
-  // JavaScript
-  const input = document.querySelector("#myInput");
-  input.addEventListener("input", function(event) {
-    console.log("You typed:", event.target.value);
-  });
+&lt;input id="myInput" type="text" placeholder="Type something..."&gt;
           </code></pre>
-          <p>This logs what you type in real-time. Why is this cool? It’s how you build live search bars or instant form validation.</p>
+          <pre><code class="language-javascript">
+// Select the input field
+const input = document.querySelector("#myInput");
+
+// Listen for user input and log the current value
+input.addEventListener("input", function(event) {
+  console.log("You typed:", event.target.value);
+});
+          </code></pre>
+          <p>This is great for live features like search bars, form validation, or typing effects—it responds instantly as the user types.</p>
           <h3>Event Delegation</h3>
-          <p>Event delegation is a pro trick: instead of adding listeners to every element, you add one to a parent and catch events as they “bubble up.” Why use it? It’s efficient for dynamic lists (like to-do items) and saves memory. You check the event’s <code>target</code> to see which element triggered it.</p>
-          <p>Here’s an example:</p>
+          <p>When you have many similar elements—like a list of items—it’s inefficient to add an event listener to each one. Instead, you can use event delegation, where you attach a listener to the parent element and let the events “bubble up.” You then check which child element was clicked using <code>event.target</code>.</p>
+          <p>Here’s how it works:</p>
           <pre><code class="language-html">
-  <!-- HTML -->
-  &lt;ul id="myList"&gt;
-    &lt;li&gt;Item 1&lt;/li&gt;
-    &lt;li&gt;Item 2&lt;/li&gt;
-  &lt;/ul&gt;
-  </code></pre>
-          <pre><code class="language-javascript">
-  // JavaScript
-  const list = document.querySelector("#myList");
-  list.addEventListener("click", function(event) {
-    if (event.target.tagName === "LI") {
-      console.log("Clicked:", event.target.textContent);
-    }
-  });
+&lt;ul id="myList"&gt;
+  &lt;li&gt;Item 1&lt;/li&gt;
+  &lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ul&gt;
           </code></pre>
-          <p>Try it in this CodePen to see events in action:</p>
+          <pre><code class="language-javascript">
+// Attach a listener to the parent list
+const list = document.querySelector("#myList");
+
+list.addEventListener("click", function(event) {
+  // Check if the clicked element is a list item
+  if (event.target.tagName === "LI") {
+    console.log("Clicked:", event.target.textContent);
+  }
+});
+          </code></pre>
+          <p>Instead of listening to each list item, the parent <code>&lt;ul&gt;</code> listens for clicks and checks what was clicked. This is super helpful for dynamic content like to-do lists, where you might be adding or removing items on the fly.</p>
           <p class="codepen">
-            <span><a href="https://codepen.io/codexedoc/pen/KKzYqKr">Play with events on CodePen</a></span>
+            <span><a href="https://codepen.io/codexedoc/pen/KKzYqKr">Try this CodePen example: Event Listeners</a></span>
           </p>
-          <p>Events make your app interactive, turning clicks and keystrokes into actions. Master them, and your webpages will feel alive and responsive!</p>
+          <p>Why master events? Because they’re how you build interactive web apps—from games and forms to dashboards and animations. Once you understand how to listen and respond to user actions, you can start building experiences that feel alive and intuitive.</p>
+          <p>Want a challenge? I can help you build a simple interactive app where users click buttons to unlock new messages or trigger animations. Just say the word!</p>
         </section>
 
         <section id="arrays">
